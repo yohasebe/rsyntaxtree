@@ -1,0 +1,31 @@
+
+<h2 id='about'>About</h2>
+
+<p><a href='http://www.yohasebe.com/rsyntaxtree'>RSyntaxTree</a> is a graphical syntax tree generator written in the <a href='http://ruby-lang.org'>Ruby</a> programming language. It is basically a port of <a href='http://ironcreek.net/phpsyntaxtree/'>phpSyntaxTree</a> created by André Eisenbach.</p><p>While phpSyntaxTree does not accept multi-byte characters as those in Chinese, Japanese, and Korean, RSyntaxTree handles text of any language as long as encoded in UTF-8 and fonts have been installed. Additionally, RSyntaxTree can output 'symmetrized' tree diagrams, a functionality that is not implemented in phpSyntaxTree.</p><p>RSyntaxTree consists of an easy-to-use ruby library and web-based interface made with <a href='http://www.rubyonrails.org/'>Ruby on Rails</a>.</p>
+
+<p>Working web interface is available at <a href='http://yohasebe.com/rsyntaxtree/'>http://yohasebe.com/rsyntaxtree/</a></p>
+
+<p>For the latest updates and downloads please visit <a href='http://rubyforge.org/projects/rsyntaxtree/'>http://rubyforge.org/projects/rsyntaxtree/</a></p>
+
+<p>RSyntaxTree is distributed under <a href='http://www.gnu.org/copyleft/gpl.html'>the GNU Public License</a>.</p>
+
+<h2>Sample Images</h2>
+
+under construction
+
+<!--
+<a href='http://www.yohasebe.com/img/rsyntaxtree_en.jpg'>English JPG</a>, <a href='http://www.yohasebe.com/img/rsyntaxtree_ja.png'>Japanese PNG</a></p>
+-->
+
+
+<h2 id='usage'>Usage</h2>
+
+<p>Enter a sentence in a labeled bracket notation into the text area above and click the &#8220;Draw&#8221; button. A graphical syntax tree will appear immediately. <b>English</b>, <b>Japanese</b>, <b>Chinese</b>, and <b>Korean</b> have been tested so far.</p>
+
+<p>Every branch or leaf of a tree must belong to a node. To create a node, place a label right next to the opening bracket. Arbitrary number of branches can follow with a preceding space. When a node has one and only one leaf and the leaf contains more than one space characters (i.e. when it&#8217;s a phrase).</p>
+
+<p>You can put a subscript to any node by putting the _ character between the main label and the subscript. For example, <code>NP_TOP</code> will be rendered as NP<sub>TOP</sub>. Or you can select the &#8220;Auto subscript&#8221; option so that nodes of the same label will be automatically numbered. (e.g. NP<sub>1</sub>, NP<sub>2</sub>)</p>
+
+<p>You can select from multiple image formats (png, jpg, gif, and bmp). Also RSyntaxTree is capable of generating SVG files. This is very convenient for those who want to modify output images on third party vector graphic software (such as Adobe Illustrator and Microsoft Visio). Just click on the link that appears below the (non SVG) syntax tree image.</p>
+
+<p>Other options &#8220;Font&#8221;, &#8220;Fontsize&#8221;, and &#8220;Color&#8221; would be rather self-explanatory. You can change the appearance of the resulting image to suit your purpose.</p>
