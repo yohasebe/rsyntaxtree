@@ -6,7 +6,7 @@
     %meta{:name => "description", :content => ""}
     %meta{:name => "author", :content => ""}
 
-    %link{ :href => "/bootstrap/css/bootstrap.css", :type => "text/css", :rel => "stylesheet" }
+    %link{ :href => "bootstrap/css/bootstrap.css", :type => "text/css", :rel => "stylesheet" }
 
     :plain
       <style type="text/css">
@@ -16,8 +16,8 @@
         }
       </style>
 
-    %link{ :href => "/bootstrap/css/bootstrap-responsive.css", :type => "text/css", :rel => "stylesheet" }
-    %link{ :href => "/css/rsyntaxtree.css", :type => "text/css", :rel => "stylesheet" }
+    %link{ :href => "bootstrap/css/bootstrap-responsive.css", :type => "text/css", :rel => "stylesheet" }
+    %link{ :href => "css/rsyntaxtree.css", :type => "text/css", :rel => "stylesheet" }
 
     :plain
       <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -26,17 +26,17 @@
       <![endif]-->    
 
     / Le fav and touch icons 
-    %link{ rel: "apple-touch-icon", href: "/bootstrap/images/apple-touch-icon.png"}
-    %link{ rel: "shortcut icon", href: "/bootstrap/images/favicon.ico"}
-    %link{ rel: "apple-touch-icon", sizes: "72x72", href: "/bootstrap/images/apple-touch-icon-72x72.png"}
-    %link{ rel: "apple-touch-icon", sizes: "114x114", href: "/bootstrap/images/apple-touch-icon-114x114.png"}
+    %link{ rel: "apple-touch-icon", href: "bootstrap/images/apple-touch-icon.png"}
+    %link{ rel: "shortcut icon", href: "bootstrap/images/favicon.ico"}
+    %link{ rel: "apple-touch-icon", sizes: "72x72", href: "bootstrap/images/apple-touch-icon-72x72.png"}
+    %link{ rel: "apple-touch-icon", sizes: "114x114", href: "bootstrap/images/apple-touch-icon-114x114.png"}
 
   %body    
     %div= haml :navbar
     %div= yield
 
     / Placed at the end of the document so the pages load faster
-    %script{ :type => "text/javascript", :src =>"/bootstrap/js/jquery.js"}
-    %script{ :type => "text/javascript", :src =>"/bootstrap/js/bootstrap.js"}
-    %script{ :type => "text/javascript", :src =>"/js/rsyntaxtree.js"}
+    %script{ :type => "text/javascript", :src =>"bootstrap/js/jquery.js"}
+    %script{ :type => "text/javascript", :src =>"bootstrap/js/bootstrap.js"}
+    %script{ :type => "text/javascript", :src =>"js/rsyntaxtree.js"}
     
