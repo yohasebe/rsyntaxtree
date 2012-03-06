@@ -35,7 +35,7 @@ $(function(){
   }
 
   function postForm(data, format){
-    $('<form/>', {action: '/download_' + format, method: 'POST'})
+    $('<form/>', {action: 'download_' + format, method: 'POST'})
       .append($('<input/>', {type: 'hidden', name: 'data', value: data}))
       .append($('<input/>', {type: 'hidden', name: 'format', value: $("select[name=format]").val()}))
       .append($('<input/>', {type: 'hidden', name: 'leafstyle', value: $("select[name=leafstyle]").val()}))
