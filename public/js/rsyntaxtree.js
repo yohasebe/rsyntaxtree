@@ -19,7 +19,7 @@ $(function(){
   function draw_graph(data){
     $("#result").html("<img id='tree_image'>");
 	$.ajax({
-	    url: 'rsyntaxtree/draw_png',
+	    url: 'draw_png',
 	    type: 'POST',
 	    data: make_params(data),
 	    success: function (png) {
@@ -54,7 +54,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"rsyntaxtree/check",
+       url:"check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -72,7 +72,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"rsyntaxtree/check",
+       url:"check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -91,7 +91,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"rsyntaxtree/check",
+       url:"check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -107,7 +107,7 @@ $(function(){
   $("#check").click(function(){    
     $.ajax({
        type: "POST",
-       url:"rsyntaxtree/check",
+       url:"check",
        data:"data=" + escape_chrs($("#data").val()),
        success: function(msg){
          if(msg == "true"){
