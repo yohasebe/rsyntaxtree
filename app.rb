@@ -9,6 +9,8 @@ require './lib/rsyntaxtree'
 
 include Helpers
 
+set :public, File.dirname(__FILE__) + '/public'
+
 configure do
   enable :sessions
 end
