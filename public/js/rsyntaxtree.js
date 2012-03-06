@@ -19,7 +19,7 @@ $(function(){
   function draw_graph(data){
     $("#result").html("<img id='tree_image'>");
 	$.ajax({
-	    url: '/draw_png',
+	    url: 'rsyntaxtree/draw_png',
 	    type: 'POST',
 	    data: make_params(data),
 	    success: function (png) {
@@ -28,15 +28,6 @@ $(function(){
     });
   }
 
-  // function draw_graph(data){
-  //   $("#result").html("<img id='tree_image' src='/draw_png?" + make_params(data)  + "'>");    
-  // }
-  
-  function download_svg(data){
-    var params = make_params(data)
-    $.post('/svg', params);
-  }
-  
   function escape_chrs(data){
     data = data.replace(/\&/g, "-AMP-").replace(/\'/g, "-PRIME-").replace(/\;/g, "-SCOLON");
     data = $('<div/>').text(data).html();
@@ -63,7 +54,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"/check",
+       url:"rsyntaxtree/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -81,7 +72,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"/check",
+       url:"rsyntaxtree/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -100,7 +91,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"/check",
+       url:"rsyntaxtree/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -116,7 +107,7 @@ $(function(){
   $("#check").click(function(){    
     $.ajax({
        type: "POST",
-       url:"/check",
+       url:"rsyntaxtree/check",
        data:"data=" + escape_chrs($("#data").val()),
        success: function(msg){
          if(msg == "true"){
