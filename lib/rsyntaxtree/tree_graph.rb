@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 #==========================
 # tree_graph.rb
 #==========================
@@ -68,7 +71,7 @@ class TreeGraph
     @gc.font = @font
     @gc.pointsize(@font_size)
 
-    @col_bg   = "white"
+    @col_bg   = "none"
     @col_fg   = "black"
     @col_line = "black"
     
@@ -198,7 +201,7 @@ class TreeGraph
   end
 
   # Draw a triangle between child/parent elements
-  def triangle_to_parent(fromX, fromY, fromW, toW, textW)
+  def triangle_to_parent(fromX, fromY, fromW, toX, textW)
     if (fromY == 0)
       return
     end
@@ -209,8 +212,8 @@ class TreeGraph
     fromTop  = row2px(fromY).ceil
     fromLeft1 = (fromCenter + textW / 2).ceil
     fromLeft2 = (fromCenter - textW / 2).ceil
-    toBot    = (row2px(fromY - 1) + @e_height).ceil
-    toLeft   = (toX + textW / 2 + (B_SIDE * 2)).ceil
+    toBot    = (row2px(fromY - 1) + @e_height)
+    toLeft   = (toX + textW / 2 + B_SIDE * 2)
   
     @gc.fill("none")
     @gc.stroke @col_line

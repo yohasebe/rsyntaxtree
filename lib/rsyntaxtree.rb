@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 #==========================
 # rsyntaxtree.rb
 #==========================
@@ -25,7 +28,9 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 $LOAD_PATH << File.join( File.dirname(__FILE__), 'rsyntaxtree')
+$LOAD_PATH << File.join( File.dirname(__FILE__), '../helpers')
 
+require 'uri'
 require 'imgutils'
 require 'element'
 require 'elementlist'
@@ -33,7 +38,97 @@ require 'string_parser'
 require 'tree_graph'
 require 'svg_graph'
 require 'error_message'
+require 'helpers'
+require 'version'
 
-module RSyntaxTree
-  VERSION = "0.2.0"
+FONT_DIR = File.expand_path(File.dirname(__FILE__) + "/../fonts")
+
+class RSGenerator 
+  include Helpers
+  def initialize(params = {})
+    new_params = {}
+    params.each do |key, value|
+      case key
+      when "data"
+        data = URI.unescape(value)
+        data  = data.gsub('-AMP-', '&').gsub('-PRIME-', "'").gsub('-SCOLON-', ';')
+        new_params[key] = data
+      when "symmetrize", "color", "autosub"
+        new_params[key] = value == "on"? true : false
+      when "fontsize"
+        new_params[key] = value.to_i
+      when "fontstyle"
+        if value == "sans-serif"
+          new_params["font"] = FONT_DIR + "/DroidSans.ttf"
+        elsif value == "serif"
+          new_params["font"] = FONT_DIR + "/DroidSerif-Regular.ttf"
+        elsif value == "jp-gothic"
+          new_params["font"] = FONT_DIR + "/ipagp.ttf"
+        elsif value == "jp-mincho"
+          new_params["font"] = FONT_DIR + "/ipamp.ttf"
+        elsif value == "cjk"
+          new_params["font"] = FONT_DIR + "/wqy-zenhei.ttf"
+        end
+      else
+        new_params[key] = value
+      end
+    end
+    
+    
+    @params = {
+      "symmetrize" => true,
+      "color"      => true,
+      "autosub"    => false,
+      "fontsize"   => 18,
+      "format"     => "png",
+      "leafstyle"   => "triangle",
+      "font"        => FONT_DIR + "/ipagp.ttf",
+      "filename"   => "syntree",
+      "data"       => "",
+    }
+    
+    @params.merge! new_params
+   end
+
+  def self.check_data(text)
+     # StringParser.validate_text(text)     
+     sp = StringParser.new(text)
+     sp.valid?
+  end
+  
+  def draw_png
+    @params["format"] = "png"
+    draw_tree
+  end
+
+  def draw_pdf
+    @params["format"] = "pdf"
+    draw_tree
+  end
+  
+  def draw_svg
+    @params["format"] = "svg"
+    draw_svg
+  end
+  
+  def draw_tree
+    sp = StringParser.new(@params["data"])
+    sp.parse
+    sp.auto_subscript if @params["autosub"]
+    elist = sp.get_elementlist
+    graph = TreeGraph.new(elist, 
+      @params["symmetrize"], @params["color"], @params["leafstyle"], @params["font"], @params["fontsize"], @params["format"])
+    graph.to_blob(@params["format"])
+  end
+  
+  def draw_svg
+    sp = StringParser.new(@params["data"].gsub('&', '&amp;'))
+    sp.parse
+    sp.auto_subscript if @params["autosub"]
+    elist = sp.get_elementlist
+    graph = SVGGraph.new(elist, 
+      @params["symmetrize"], @params["color"], @params["leafstyle"], @params["font"], @params["fontsize"])
+    graph.svg_data
+  end
 end
+

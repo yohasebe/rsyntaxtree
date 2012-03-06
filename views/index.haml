@@ -1,0 +1,132 @@
+.container
+  .hero-unit{:style => "padding:30px;margin-bottom:15px;"}
+    #result
+      %h1
+        RSyntaxTree
+      %p
+        Yet another syntax tree generator made with Ruby and RMagick
+
+  .row
+    .span4
+      #alert{:style => "height:20px;"}
+    .span12
+      %textarea.span12{:id => "data", :cols => 100, :style => "font-size: 11pt; height: 4em;line-height: 140%;"}
+        [S [NP RSyntaxTree][VP [V generates][NP multilingual syntax trees]]]
+  .row
+    .span2
+      %h4 Leaf-style
+      %select{:name => "leafstyle", :style => "width:110px;"}
+        %option{:value => "triangle"}Triangle
+        %option{:value => "bar"}Bar
+        %option{:value => "nothing"}Nothing
+    .span2
+      %h4 Fontstyle
+      %select{:name => "fontstyle", :style => "width:110px;"}
+        %option{:value => "sans-serif"}San-Serif
+        %option{:value => "serif"}Serif
+        %option{:value => "jp-gothic"}JP-Gothic
+        %option{:value => "jp-mincho"}JP-Mincho
+        %option{:value => "cjk"}CJK
+    .span2
+      %h4 Fontsize 
+      %select{:name => "fontsize", :style => "width:60px;"}
+        %option{:value => "8"}8
+        %option{:value => "10"}10
+        %option{:value => "12"}12
+        %option{:value => "14"}14
+        %option{:value => "16", :selected => "selected"}16
+        %option{:value => "18"}18
+        %option{:value => "20"}20
+        %option{:value => "22"}22
+        %option{:value => "24"}24
+  .row   
+    .span2
+      %h4 Color
+      .btn-group{"data-toggle".to_sym => "buttons-radio", :name => "color"}
+        %button.btn.active{:name => "color", :value => "on", :checked => "checked"}On
+        %button.btn{:name => "color", :value => "off"}Off
+    .span2
+      %h4 Symmetrize
+      .btn-group{"data-toggle".to_sym => "buttons-radio"}
+        %button.btn.active{:name => "symmetrize", :value => "on", :checked => "checked"}On
+        %button.btn{:name => "symmetrize", :value => "off"}Off
+    .span2
+      %h4 Auto-Subscript
+      .btn-group{:name => "autosub", "data-toggle".to_sym => "buttons-radio"}
+        %button.btn{:name => "autosub", :value => "on"}On
+        %button.btn.active{:name => "autosub", :value => "off", :checked => "checked"}Off
+        
+    .pull-right{:style => "margin-top:20px;"}
+      %button.btn.btn-primary{ :id => "draw_png", :type => "submit"}Draw PNG
+      %button.btn.btn-primary{ :id => "download_pdf", :type => "submit"}PDF
+      %button.btn.btn-primary{ :id => "download_svg", :type => "submit"}SVG
+      %button.btn{ :id => "check"}Check
+      %button.btn{ :id => "clear"}Clear
+
+  %hr
+
+  .row{:style => "margin-top:20px;"}
+    .span6
+      %h2
+        About
+      %p
+        %a{:href => 'http://www.yohasebe.com/rsyntaxtree'}RSyntaxTree
+        is a graphical syntax tree generator written in the
+        %a{:href => 'http://ruby-lang.org'}Ruby
+        programming language. It is basically a port of 
+        %a{:href => 'http://ironcreek.net/phpsyntaxtree/'}phpSyntaxTree
+        created by André Eisenbach.
+      %p
+        While phpSyntaxTree does not accept <b>multi-byte characters</b> as those in Chinese, 
+        Japanese, and Korean, RSyntaxTree handles text of any language as long as encoded in UTF-8 
+        and fonts have been installed. Additionally, RSyntaxTree can output <b>symmetrized</b>
+        tree diagrams, a functionality that is not implemented in phpSyntaxTree.
+      %p
+        RSyntaxTree consists of an easy-to-use command-line app and a web-based interfaces made with 
+        %a{:href => 'http://www.sinatrarb.com/'}Sinatra
+        web framework.
+      %p
+        Working web interface is available at
+        %a{:href => 'http://yohasebe.com/rsyntaxtree/'}http://yohasebe.com/rsyntaxtree/ .
+      %p
+        For the latest updates and downloads please visit
+        %a{:href =>'http://github.com/yohasebe/rsyntaxtree'}http://github.com/yohasebe/rsyntaxtree .
+      %p
+        RSyntaxTree is distributed under
+        %a{:href => 'http://www.gnu.org/copyleft/gpl.html'}the GNU Public License.
+
+    .span6
+      %h2
+        Usage
+      %p
+        Enter a sentence in the labeled bracket notation into the text area above and click
+        the &#8220;Draw&#8221; button.
+        A graphical syntax tree will appear immediately. <b>English</b>, <b>Japanese</b>, <b>Chinese</b>, 
+        and <b>Korean</b> have been tested so far.
+
+      %p
+        Every branch or leaf of a tree must belong to a node. To create a node, place a label 
+        right next to the opening bracket. Arbitrary number of branches can follow with a 
+        preceding space. When a node has one and only one leaf and the leaf contains more than 
+        one space characters (i.e. when it&#8217;s a phrase).
+
+      %p
+        You can put a subscript to any node by putting the _ character between the main label and 
+        the subscript. For example, NP_TOP will be rendered as NP<sub>TOP</sub>. 
+        Or you can select the &#8220;Auto subscript&#8221; option so that nodes of the same 
+        label will be automatically numbered. (e.g. NP<sub>1</sub>, NP<sub>2</sub>)</p>
+
+      %p
+        RSyntaxTree is capable of generating PNG and SVG files. The latter is very convenient 
+        for those who want to modify output images on third party vector graphic software 
+        (such as Adobe Illustrator and Microsoft Visio). Just click on the link that appears 
+        below the (non SVG) syntax tree image.
+
+      %p
+        Options &#8220;Font&#8221;, &#8220;Fontsize&#8221;, and &#8220;Color&#8221; would be 
+        self-explanatory. You can change the appearance of the resulting image to suit your purpose.
+    
+  %hr
+
+  %div= haml :footer
+  

@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 #==========================
 # string_parser.rb
 #==========================
@@ -58,16 +61,16 @@ class StringParser
     @level = 0 # Level in the diagram
     @tncnt = Hash.new # Node type counts
   end
-
-  def validate
+  
+  # caution: quick and dirty solution      
+  def valid?
     if(@data.length < 1)
       return false
     end
-
-    if /\[\s*\[/ =~ @data
+    if /\A\s*\[.+ .+\]\s*\z/ !~ @data
       return false  
     end    
-    
+
     text = @data.strip
     text_r = text.split(//)
     open_br, close_br = [], []
@@ -81,14 +84,17 @@ class StringParser
         end
       end
     end
-      
-    if open_br.length == close_br.length
-      return true
-    else
-      return false
+
+    return false unless open_br.length == close_br.length
+    make_tree(0)
+    return false if @tncnt.empty?
+    @tncnt.each do |key, value|
+      return false if key == ""
     end
-  end
-    
+    return true
+  end 
+  
+        
   def parse
     make_tree(0);
   end

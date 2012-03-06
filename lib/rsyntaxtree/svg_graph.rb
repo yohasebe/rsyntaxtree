@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 #==========================
 # svg_graph.rb
 #==========================
@@ -32,14 +35,14 @@ include Magick
 
 class SVGGraph
 
-  def initialize(e_list, symmetrize = true, color = true, terminal = "triangle",
+  def initialize(e_list, symmetrize = true, color = true, leafstyle = "triangle",
                  font = "Helvetica", font_size = 10, simple = false)
 
     # Store parameters
     @e_list     = e_list
     @font       = font
     @font_size = font_size
-    @terminal  = terminal
+    @leafstyle  = leafstyle
     @symmetrize = symmetrize
     # Element dimensions
     @e_width   = E_WIDTH
@@ -56,7 +59,7 @@ class SVGGraph
 
     
     # Initialize the image and colors
-    @col_bg   = "white"
+    @col_bg   = "none"
     @col_fg   = "black"
     @col_line = "black"
     
@@ -118,7 +121,7 @@ EOD
   def draw_element(x, y, w, string, type)
  
     # Calculate element dimensions and position
-    if (type == ETYPE_LEAF) and @terminal == "nothing"
+    if (type == ETYPE_LEAF) and @leafstyle == "nothing"
       top = row2px(y - 1) + (@font_size * 1.5)
     else 
       top   = row2px(y)
@@ -342,8 +345,8 @@ EOD
             draw_element(x, i, cw, j.content, j.type)
             if(j.parent != 0 )
               words = j.content.split(" ")
-              unless @terminal == "nothing" && ETYPE_LEAF == j.type        
-                if (@terminal == "triangle" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 1)
+              unless @leafstyle == "nothing" && ETYPE_LEAF == j.type        
+                if (@leafstyle == "triangle" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 1)
                   txt_width = img_get_txt_width(j.content, @font, @font_size)
                   triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
                 else
@@ -381,8 +384,8 @@ EOD
               k = @e_list.get_id(child)
               words = k.content.split(" ")
               dw = img_get_txt_width(k.content, @font, @font_size)
-              unless @terminal == "nothing" && ETYPE_LEAF == k.type            
-                if (@terminal == "triangle" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 1)
+              unless @leafstyle == "nothing" && ETYPE_LEAF == k.type            
+                if (@leafstyle == "triangle" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 1)
                   txt_width = img_get_txt_width(k.content, @font, @font_size)
                   triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
                 else
@@ -418,8 +421,8 @@ EOD
               k = @e_list.get_id(children[0])
               words = k.content.split(" ")
               dw = img_get_txt_width(k.content, @font, @font_size)
-              unless @terminal == "nothing" && ETYPE_LEAF == k.type              
-                if (@terminal == "triangle" && ETYPE_LEAF == k.type && words.length > 1)
+              unless @leafstyle == "nothing" && ETYPE_LEAF == k.type              
+                if (@leafstyle == "triangle" && ETYPE_LEAF == k.type && words.length > 1)
                   txt_width = img_get_txt_width(k.content, @font, @font_size)
                   triangle_to_parent(k.indent, curlevel + 1, dw, 
                                      @e_list.get_element_width(k.parent), txt_width)

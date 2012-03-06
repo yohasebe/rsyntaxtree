@@ -1,0 +1,11 @@
+pkg/
+tmp/
+doc/
+.DS_Store
+Gemfile.lock
+
+*.bak
+*.~
+
+
+

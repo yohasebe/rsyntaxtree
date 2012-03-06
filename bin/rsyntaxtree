@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+$LOAD_PATH << File.join( File.dirname(__FILE__), '../lib')
+
+require 'rsyntaxtree'
+require 'trollop'
+
+opts = Trollop::options do
+  version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2012 Yoichiro Hasebe"
+  banner <<-EOS
+RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
+
+Usage:
+       rsyntaxtree [options] "[NP [N bracket] [NP notation]]]"
+where [options] are:
+EOS
+
+  opt :outdir, "Output directory (default: present working directory)",
+      :default => "./"
+  opt :format, "Output format: png, pdf, or svg",
+      :default => "png"
+  opt :leafstyle, "visual style of tree leaves: triangle, bar, or nothing", 
+      :default => "triangle"
+  opt :fontstyle, "Font style: sans-serif, serif, jp-gothic, jp-mincho, cjk",
+      :default => "cjk"
+  opt :font, "Path to a ttf font used to generate tree", :type => String
+  opt :fontsize, "Font size: 8-20",
+      :default => 16
+  opt :color, "Color text and bars: on or off",
+      :default => "on" 
+  opt :symmetrize, "Generate symmetrical, balanced tree: on or off",
+      :default => "on" 
+  opt :autosub, "Put subscript numbers to nodes: on or off",
+      :default => "off"       
+end
+
+Trollop::die :outdir, "must be an exsting directory path" unless FileTest::directory?(opts[:outdir])
+Trollop::die :format, "must be png or svg" unless /\A(png|pdf|svg)\z/ =~ opts[:format]
+Trollop::die :leafstyle, "must be triangle, bar, or nothing" unless /\A(triangle|bar|nothing)\z/ =~ opts[:leafstyle]
+Trollop::die :fontstyle, "must be sans-serif, serif, jp-gothic, jp-mincho, or cjk" unless /\A(sans\-serif|serif|jp\-gothic|jp\-mincho|cjk)\z/ =~ opts[:fontstyle]
+Trollop::die :font, "must be path to an existing ttf font" if opts[:font] && !File::exists?(opts[:font])
+Trollop::die :fontsize, "must be in the range 8-20" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 20
+Trollop::die :color, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:color]
+Trollop::die :symmetrize, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:symmetrize]
+Trollop::die :autosub, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:autosub]
+
+string_opts = {}
+opts.each do |key, value|
+  string_opts[key.to_s] = value unless key == :font && !value
+end
+
+data = ARGV[0]
+
+unless data && RSGenerator.check_data(data)
+  puts "bracket notation given is invalid"
+  exit
+end
+
+string_opts["data"] = data
+
+rsg = RSGenerator.new(string_opts)
+ext = string_opts["format"]
+outfile = File.new(File.expand_path(string_opts["outdir"]) + "/syntree." + ext, "wb")
+case ext
+when "png"
+  outfile.write rsg.draw_png
+when "pdf"
+  outfile.write rsg.draw_pdf
+when "svg"
+  outfile.write rsg.draw_svg
+end
+outfile.close
