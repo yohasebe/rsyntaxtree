@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = RSyntaxTree::VERSION
   s.authors     = ["Yoichiro Hasebe"]
   s.email       = ["yohasebe@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "http://github.com/yohasebe/rsyntaxtree"
   s.summary     = %q{RSyntaxTree is a graphical syntax tree generator written in Ruby}
   s.description = %q{Yet another syntax tree generator made with Ruby and RMagick}
 
