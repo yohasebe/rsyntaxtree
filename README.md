@@ -8,7 +8,7 @@ RSyntaxTree consists of an easy-to-use command-line app and a web-based interfac
 
 ### Web Interface
 
-Working web interface is available at http://yohasebe.com/rsyntaxtree .
+Working web interface of a previous version of RSyntaxTree is available at http://yohasebe.com/rsyntaxtree .  New version will be deployed soon.
 
 ### Installation
 
@@ -47,5 +47,5 @@ Yoichiro Hasebe yohasebe@gmail.com
 
 ### License
 
-RSyntaxTree is distributed under the [GNU Public License](http://www.gnu.org/copyleft/gpl.html).
+RSyntaxTree is distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
 
