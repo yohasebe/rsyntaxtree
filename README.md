@@ -39,16 +39,18 @@ For the command-line interface, type `$rsyntaxtree -h` after installation. Here'
 
 ### Tips
 
-Every branch or leaf of a tree must belong to a node. To create a node, place a label right next to the opening bracket. Arbitrary number of branches can follow with a preceding space. When a node has one and only one leaf and the leaf contains more than one space characters, the node will be treated as a phrase resulting in a triangle drawn between the node label and the leaf).
+Every branch or leaf of a tree must belong to a node. To create a node, place a label right next to the opening bracket. Arbitrary number of branches can follow with a preceding space. When a node has one and only one leaf and the leaf contains more than one space characters, the node is treated as a phrase and a triangle (not just a vertical bar) will be between the node label and the leaf).
 
 You can put a subscript to any node by putting the _ character between the main label and the subscript. For example, NP_TOP will be rendered as NP<sub>TOP</sub>. Or you can select the &#8220;Auto subscript&#8221; option so that nodes of the same label will be automatically numbered. (e.g. NP<sub>1</sub>, NP<sub>2</sub>)</p>
 
 ### Example
 
 Bracket notation (auto-subscript-on):
+
     [NP [NP [ART a] [N table]] [PP [P near] [NP [ART the] [N door]]]]
 
 Resulting PNG
+
 ![a table near the door](http://yohasebe.com/img/rsyntaxtree_example.png)
 
 ### Development
