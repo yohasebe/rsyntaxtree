@@ -16,15 +16,15 @@ Usage:
 where [options] are:
 EOS
 
-  opt :outdir, "Output directory (default: present working directory)",
+  opt :outdir, "Output directory",
       :default => "./"
   opt :format, "Output format: png, pdf, or svg",
       :default => "png"
   opt :leafstyle, "visual style of tree leaves: triangle, bar, or nothing", 
       :default => "triangle"
-  opt :fontstyle, "Font style: sans-serif, serif, jp-gothic, jp-mincho, cjk",
+  opt :fontstyle, "Font style (available when ttf font is specified): sans-serif, serif, jp-gothic, jp-mincho, cjk",
       :default => "cjk"
-  opt :font, "Path to a ttf font used to generate tree", :type => String
+  opt :font, "Path to a ttf font used to generate tree (optional)", :type => String
   opt :fontsize, "Font size: 8-20",
       :default => 16
   opt :color, "Color text and bars: on or off",
