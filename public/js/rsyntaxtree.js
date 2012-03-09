@@ -17,13 +17,14 @@ $(function(){
   }
   
   function draw_graph(data){
-    $("#result").html("<img id='tree_image'>");
 	$.ajax({
 	    url: 'draw_png',
 	    type: 'POST',
 	    data: make_params(data),
-	    success: function (png) {
-	      $('#tree_image').attr('src', 'data:image/png;base64, ' + png);
+	    success: function (raw_data) {
+	      var png_img = 'data:image/png;base64, ' + raw_data;
+        $("#result").html("<img id='tree_image'>");
+	      $('#tree_image').attr('src', png_img);
 	    }
     });
   }
