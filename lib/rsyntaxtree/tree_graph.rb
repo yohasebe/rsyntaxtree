@@ -201,7 +201,7 @@ class TreeGraph
   end
 
   # Draw a triangle between child/parent elements
-  def triangle_to_parent(fromX, fromY, fromW, toX, textW)
+  def triangle_to_parent(fromX, fromY, fromW, toX, textW, symmetrize = true)
     if (fromY == 0)
       return
     end
@@ -213,8 +213,12 @@ class TreeGraph
     fromLeft1 = (fromCenter + textW / 2).ceil
     fromLeft2 = (fromCenter - textW / 2).ceil
     toBot    = (row2px(fromY - 1) + @e_height)
-    toLeft   = (toX + textW / 2 + B_SIDE)
-  
+    if symmetrize
+      toLeft   = (toX + textW / 2 + B_SIDE)
+    else
+      toLeft   = (toX + textW / 2 + B_SIDE * 3)
+    end
+        
     @gc.fill("none")
     @gc.stroke @col_line
     @gc.stroke_width 1    
@@ -339,7 +343,7 @@ class TreeGraph
                   triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
                 elsif (@terminal == "auto" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 1)
                   txt_width = img_get_txt_width(j.content, @font, @font_size)
-                  triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
+                  triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width, @symmetrize)
                 else
                   line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
                 end

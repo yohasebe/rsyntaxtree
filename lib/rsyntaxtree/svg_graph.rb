@@ -210,7 +210,7 @@ EOD
   end
 
   # Draw a triangle between child/parent elements
-  def triangle_to_parent(fromX, fromY, fromW, toW, textW)
+  def triangle_to_parent(fromX, fromY, fromW, toW, textW, symmetrize = true)
     if (fromY == 0)
       return
     end
@@ -222,8 +222,13 @@ EOD
     fromLeft1 = (fromCenter + textW / 2 - B_SIDE).ceil
     fromLeft2 = (fromCenter - textW / 2 + B_SIDE).ceil
     toBot    = (row2px(fromY - 1) + @e_height)
-    toLeft   = (toX + textW / 2 + B_SIDE)
-    
+
+    if symmetrize
+      toLeft   = (toX + textW / 2 + B_SIDE)
+    else
+      toLeft   = (toX + textW / 2 + B_SIDE * 3)
+    end
+        
     polygon_data = @polygon_styles.sub(/X1/, fromLeft1.ceil.to_s)
     polygon_data = polygon_data.sub(/Y1/, fromTop.ceil.to_s)
     polygon_data = polygon_data.sub(/X2/, fromLeft2.ceil.to_s)
@@ -352,7 +357,7 @@ EOD
                   triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
                 elsif (@leafstyle == "auto" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 1)
                   txt_width = img_get_txt_width(j.content, @font, @font_size)
-                  triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
+                  triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width, @symmetrize)
                 else
                   line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
                 end
