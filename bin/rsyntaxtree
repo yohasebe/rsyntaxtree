@@ -12,7 +12,7 @@ opts = Trollop::options do
 RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
 Usage:
-       rsyntaxtree [options] "[NP [N bracket] [NP notation]]]"
+       rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
 where [options] are:
 EOS
 
