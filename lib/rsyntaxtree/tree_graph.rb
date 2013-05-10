@@ -42,7 +42,7 @@ B_TOPBOT =   5
 
 class TreeGraph
 
-  def initialize(e_list, symmetrize = true, color = true, terminal = "triangle",
+  def initialize(e_list, symmetrize = true, color = true, terminal = "auto",
                  font = "Helvetica", font_size = 10, simple = false)
 
     # Store parameters
@@ -213,7 +213,7 @@ class TreeGraph
     fromLeft1 = (fromCenter + textW / 2).ceil
     fromLeft2 = (fromCenter - textW / 2).ceil
     toBot    = (row2px(fromY - 1) + @e_height)
-    toLeft   = (toX + textW / 2 + B_SIDE * 2)
+    toLeft   = (toX + textW / 2 + B_SIDE)
   
     @gc.fill("none")
     @gc.stroke @col_line
@@ -334,7 +334,10 @@ class TreeGraph
             if(j.parent != 0 )
               words = j.content.split(" ")
               unless @terminal == "nothing" && ETYPE_LEAF == j.type
-                if (@terminal == "triangle" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 1)
+                if (@terminal == "triangle" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 0)
+                  txt_width = img_get_txt_width(j.content, @font, @font_size)
+                  triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
+                elsif (@terminal == "auto" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 1)
                   txt_width = img_get_txt_width(j.content, @font, @font_size)
                   triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
                 else
@@ -374,7 +377,10 @@ class TreeGraph
               words = k.content.split(" ")
               dw = img_get_txt_width(k.content, @font, @font_size)
               unless @terminal == "nothing" && ETYPE_LEAF == k.type
-                if (@terminal == "triangle" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 1)
+                if (@terminal == "triangle" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 0)
+                  txt_width = img_get_txt_width(k.content, @font, @font_size)
+                  triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
+                elsif (@terminal == "auto" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 1)
                   txt_width = img_get_txt_width(k.content, @font, @font_size)
                   triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
                 else
@@ -411,7 +417,11 @@ class TreeGraph
               words = k.content.split(" ")
               dw = img_get_txt_width(k.content, @font, @font_size)
               unless @terminal == "nothing" && ETYPE_LEAF == k.type
-                if (@terminal == "triangle" && ETYPE_LEAF == k.type && words.length > 1)
+                if (@terminal == "triangle" && ETYPE_LEAF == k.type && words.length > 0)
+                  txt_width = img_get_txt_width(k.content, @font, @font_size)
+                  triangle_to_parent(k.indent, curlevel + 1, dw, 
+                                     @e_list.get_element_width(k.parent), txt_width)
+                elsif (@terminal == "auto" && ETYPE_LEAF == k.type && words.length > 1)
                   txt_width = img_get_txt_width(k.content, @font, @font_size)
                   triangle_to_parent(k.indent, curlevel + 1, dw, 
                                      @e_list.get_element_width(k.parent), txt_width)

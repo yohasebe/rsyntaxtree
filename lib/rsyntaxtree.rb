@@ -81,7 +81,7 @@ class RSGenerator
       "autosub"    => false,
       "fontsize"   => 18,
       "format"     => "png",
-      "leafstyle"   => "triangle",
+      "leafstyle"   => "auto",
       "font"        => FONT_DIR + "/ipagp.ttf",
       "filename"   => "syntree",
       "data"       => "",

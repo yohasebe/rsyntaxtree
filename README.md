@@ -27,7 +27,7 @@ For the command-line interface, type `$rsyntaxtree -h` after installation. Here'
     where [options] are:
           --outdir, -o <s>:   Output directory (default: present working directory) (default: ./)
           --format, -f <s>:   Output format: png, pdf, or svg (default: png)
-       --leafstyle, -l <s>:   visual style of tree leaves: triangle, bar, or nothing (default: triangle)
+       --leafstyle, -l <s>:   visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
        --fontstyle, -n <s>:   Font style: sans-serif, serif, jp-gothic, jp-mincho, cjk (default: cjk)
             --font, -t <s>:   Path to a ttf font used to generate tree
         --fontsize, -s <i>:   Font size: 8-20 (default: 16)
