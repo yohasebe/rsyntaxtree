@@ -33,15 +33,22 @@ ETYPE_LEAF = 2
 
 class Element
 
-    attr_accessor :id, :parent, :type, :content, :level, :width, :indent
-    def initialize(id = 0, parent = 0, content = NULL, level = 0, type = ETYPE_LEAF)
+    attr_accessor :id, :parent, :type, :content, :level, :width, :indent, :triangle
+    def initialize(id = 0, parent = 0, content = "", level = 0, type = ETYPE_LEAF)
       @id = id                 # Unique element id
       @parent = parent         # Parent element id
       @type = type             # Element type
-      @content = content.strip # The actual element content
       @level = level           # Element level in the tree (0=top etc...)
       @width = 0               # Width of the element in pixels
       @indent = 0              # Drawing offset
+      # content = content.strip
+      if /\A.+\^\z/ =~ content.strip
+        @content = content.gsub("^"){""} # The actual element content
+        @triangle = true # draw triangle instead of stright bar when in auto mode
+      else
+        @content = content.gsub("^"){""} # The actual element content
+        @triangle = false # draw triangle instead of stright bar when in auto mode
+      end
     end
     
     # Debug helper function

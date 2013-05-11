@@ -33,6 +33,7 @@ include Magick
 
 # constant variables are already set in tree_graph.rb
 
+
 class SVGGraph
   
   def initialize(e_list, symmetrize = true, color = true, leafstyle = "auto",
@@ -52,7 +53,7 @@ class SVGGraph
     @e_height = @font_size + E_PADD * 2
     h = @e_list.get_level_height
     w = calc_level_width(0)
-    w_px = w + B_SIDE * 2
+    w_px = w
     h_px = h * @e_height + (h-1) * (V_SPACE + @font_size) + B_TOPBOT * 2
     @height    = h_px
     @width     = w_px
@@ -126,7 +127,7 @@ EOD
     else 
       top   = row2px(y)
     end
-    left   = x + B_SIDE
+    left   = x
     bottom = top  + @e_height
     right  = left + w
 
@@ -198,9 +199,9 @@ EOD
     end
             
     fromTop  = row2px(fromY)
-    fromLeft = (fromX + fromW / 2 + B_SIDE)
+    fromLeft = (fromX + fromW / 2)
     toBot    = (row2px(fromY - 1 ) + @e_height)
-    toLeft  = (toX + toW / 2 + B_SIDE)
+    toLeft  = (toX + toW / 2)
 
     line_data   = @line_styles.sub(/X1/, fromLeft.ceil.to_s.to_s)
     line_data   = line_data.sub(/Y1/, fromTop.ceil.to_s.to_s)
@@ -219,14 +220,14 @@ EOD
     fromCenter = (fromX + fromW / 2 )
     
     fromTop  = row2px(fromY).ceil
-    fromLeft1 = (fromCenter + textW / 2 - B_SIDE).ceil
-    fromLeft2 = (fromCenter - textW / 2 + B_SIDE).ceil
+    fromLeft1 = (fromCenter + textW / 2).ceil
+    fromLeft2 = (fromCenter - textW / 2).ceil
     toBot    = (row2px(fromY - 1) + @e_height)
 
     if symmetrize
-      toLeft   = (toX + textW / 2 + B_SIDE)
+      toLeft   = (toX + textW / 2 )
     else
-      toLeft   = (toX + textW / 2 + B_SIDE * 3)
+      toLeft   = (toX + textW / 2)
     end
         
     polygon_data = @polygon_styles.sub(/X1/, fromLeft1.ceil.to_s)
@@ -355,9 +356,13 @@ EOD
                 if (@leafstyle == "triangle" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 0)
                   txt_width = img_get_txt_width(j.content, @font, @font_size)
                   triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
-                elsif (@leafstyle == "auto" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 1)
-                  txt_width = img_get_txt_width(j.content, @font, @font_size)
-                  triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width, @symmetrize)
+                elsif (@leafstyle == "auto" && ETYPE_LEAF == j.type && x == parent_indent)
+                  if words.length > 1 || j.triangle
+                    txt_width = img_get_txt_width(j.content, @font, @font_size)
+                    triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width, @symmetrize)
+                  else
+                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
+                  end
                 else
                   line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
                 end
@@ -397,9 +402,13 @@ EOD
                 if (@leafstyle == "triangle" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 0)
                   txt_width = img_get_txt_width(k.content, @font, @font_size)
                   triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
-                elsif (@leafstyle == "auto" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 1)
-                  txt_width = img_get_txt_width(k.content, @font, @font_size)
-                  triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
+                elsif (@leafstyle == "auto" && ETYPE_LEAF == k.type && k.indent == j.indent)
+                  if words.length > 1 || k.triangle
+                    txt_width = img_get_txt_width(k.content, @font, @font_size)
+                    triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
+                  else
+                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
+                  end
                 else
                   line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                 end
@@ -438,10 +447,13 @@ EOD
                   txt_width = img_get_txt_width(k.content, @font, @font_size)
                   triangle_to_parent(k.indent, curlevel + 1, dw, 
                                      @e_list.get_element_width(k.parent), txt_width)
-                elsif (@leafstyle == "auto" && ETYPE_LEAF == k.type && words.length > 1)
-                  txt_width = img_get_txt_width(k.content, @font, @font_size)
-                  triangle_to_parent(k.indent, curlevel + 1, dw, 
-                                     @e_list.get_element_width(k.parent), txt_width)
+                elsif (@leafstyle == "auto" && ETYPE_LEAF == k.type)
+                  if words.length > 1 || k.triangle
+                    txt_width = img_get_txt_width(k.content, @font, @font_size)
+                    triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
+                  else
+                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
+                  end
                 else
                   line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                 end
