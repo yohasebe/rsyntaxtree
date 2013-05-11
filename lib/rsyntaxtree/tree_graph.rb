@@ -393,10 +393,10 @@ class TreeGraph
                     txt_width = img_get_txt_width(k.content, @font, @font_size)
                     triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
                   else
-                    line_to_parent(k.indent, curlevel + 1, dw, k.indent, tw)
+                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                   end
                 else
-                  line_to_parent(k.indent, curlevel + 1, dw, k.indent, tw)
+                  line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                 end
               end
             end
@@ -438,10 +438,10 @@ class TreeGraph
                     txt_width = img_get_txt_width(k.content, @font, @font_size)
                     triangle_to_parent(k.indent, curlevel + 1, dw, @e_list.get_element_width(k.parent), txt_width)
                   else
-                    line_to_parent(k.indent, curlevel + 1, dw, k.indent, tw)
+                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                   end
                 else
-                  line_to_parent(k.indent, curlevel + 1, dw, k.indent, tw)
+                  line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                 end
               end
             end
