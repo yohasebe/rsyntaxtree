@@ -35,7 +35,7 @@ include Magick
 
 
 class SVGGraph
-  
+    
   def initialize(e_list, symmetrize = true, color = true, leafstyle = "auto",
                  font = "Helvetica", font_size = 10, simple = false)
 
@@ -53,7 +53,7 @@ class SVGGraph
     @e_height = @font_size + E_PADD * 2
     h = @e_list.get_level_height
     w = calc_level_width(0)
-    w_px = w
+    w_px = w + B_SIDE
     h_px = h * @e_height + (h-1) * (V_SPACE + @font_size) + B_TOPBOT * 2
     @height    = h_px
     @width     = w_px
@@ -127,7 +127,7 @@ EOD
     else 
       top   = row2px(y)
     end
-    left   = x
+    left   = x + B_SIDE
     bottom = top  + @e_height
     right  = left + w
 
@@ -199,9 +199,9 @@ EOD
     end
             
     fromTop  = row2px(fromY)
-    fromLeft = (fromX + fromW / 2)
+    fromLeft = (fromX + fromW / 2 + B_SIDE)
     toBot    = (row2px(fromY - 1 ) + @e_height)
-    toLeft  = (toX + toW / 2)
+    toLeft  = (toX + toW / 2 + B_SIDE)
 
     line_data   = @line_styles.sub(/X1/, fromLeft.ceil.to_s.to_s)
     line_data   = line_data.sub(/Y1/, fromTop.ceil.to_s.to_s)
@@ -217,7 +217,7 @@ EOD
     end
           
     toX = fromX
-    fromCenter = (fromX + fromW / 2 )
+    fromCenter = (fromX + fromW / 2 + B_SIDE)
     
     fromTop  = row2px(fromY).ceil
     fromLeft1 = (fromCenter + textW / 2).ceil
@@ -225,9 +225,9 @@ EOD
     toBot    = (row2px(fromY - 1) + @e_height)
 
     if symmetrize
-      toLeft   = (toX + textW / 2 )
+      toLeft   = (toX + textW / 2 + B_SIDE)
     else
-      toLeft   = (toX + textW / 2)
+      toLeft   = (toX + textW / 2 + B_SIDE * 3)
     end
         
     polygon_data = @polygon_styles.sub(/X1/, fromLeft1.ceil.to_s)
@@ -361,7 +361,7 @@ EOD
                     txt_width = img_get_txt_width(j.content, @font, @font_size)
                     triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width, @symmetrize)
                   else
-                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
+                    line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
                   end
                 else
                   line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))

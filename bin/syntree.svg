@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="242.0" height="238" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<text style='fill: green; font-size: 16px;' x='5.0' y='226'> set</text>
+<text style='fill: green; font-size: 16px;' x='49.0' y='226'> bracket notation</text>
+<text style='fill: blue; font-size: 16px;' x='14.078125' y='160'>V</text>
+<line style='stroke:black; stroke-width:1;' x1='19' y1='203' x2='19' y2='167' />
+<text style='fill: blue; font-size: 16px;' x='100.515625' y='160'>NP</text>
+<polygon style='fill: white; stroke: black; stroke-width:1;' points='172 203 49 203 111 167' />
+<text style='fill: green; font-size: 16px;' x='188.0' y='160'> here</text>
+<text style='fill: blue; font-size: 16px;' x='55.328125' y='94'>VP</text>
+<line style='stroke:black; stroke-width:1;' x1='19' y1='137' x2='65' y2='101' />
+<line style='stroke:black; stroke-width:1;' x1='111' y1='137' x2='65' y2='101' />
+<text style='fill: blue; font-size: 16px;' x='192.078125' y='94'>ADV</text>
+<line style='stroke:black; stroke-width:1;' x1='207' y1='137' x2='207' y2='101' />
+<text style='fill: blue; font-size: 16px;' x='126.453125' y='28'>VP</text>
+<line style='stroke:black; stroke-width:1;' x1='65' y1='71' x2='136' y2='35' />
+<line style='stroke:black; stroke-width:1;' x1='207' y1='71' x2='136' y2='35' />
+</svg>
