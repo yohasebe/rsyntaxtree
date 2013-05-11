@@ -68,6 +68,10 @@ class RSGenerator
           new_params["font"] = FONT_DIR + "/ipamp.ttf"
         elsif value == "cjk"
           new_params["font"] = FONT_DIR + "/wqy-zenhei.ttf"
+        elsif value == "aru"
+          new_params["font"] = FONT_DIR + "/ArialUnicode.ttf"
+        elsif value == "tnr"
+          new_params["font"] = FONT_DIR + "/TimesNewRoman.ttf"
         end
       else
         new_params[key] = value
