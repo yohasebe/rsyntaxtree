@@ -53,7 +53,7 @@ Bracket notation (auto-subscript-on):
 
 Resulting PNG
 
-![RSyntaxTree generates multilingual syntax trees](http://yohasebe.com/img/rsyntaxtree_example2.png)
+![RSyntaxTree generates multilingual syntax trees](http://yohasebe.com/img/rsyntaxtree_example3.png)
 
 ### Development
 
