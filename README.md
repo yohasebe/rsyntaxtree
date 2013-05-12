@@ -39,7 +39,9 @@ For the command-line interface, type `$rsyntaxtree -h` after installation. Here'
 
 ### Tips
 
-Every branch or leaf of a tree must belong to a node. To create a node, place a label right next to the opening bracket. Arbitrary number of branches can follow with a preceding space. When a node has one and only one leaf and the leaf contains more than one space characters, the node is treated as a phrase and a triangle (not just a vertical bar) will be between the node label and the leaf).
+Every branch or leaf of a tree must belong to a node. To create a node, place a label right next to the opening bracket. Arbitrary number of branches can follow with a preceding space.
+
+There are several modes in which the shape of connectors between a terminal node and its leaf are drawn differently (auto, triangle, bar, and nothing). In auto mode, a triangle is used if the leaf contains one or more spaces inside (i.e. if it&#8217;s a phrase), but if it contains no spaces (i.e. if it is just a word), a straight bar will be drawn instead (unless the leaf contains a "^" symbol at the end which makes it a single-word phrase).
 
 You can put a subscript to any node by putting the _ character between the main label and the subscript. For example, NP_TOP will be rendered as NP<sub>TOP</sub>. Or you can select the &#8220;Auto subscript&#8221; option so that nodes of the same label will be automatically numbered. (e.g. NP<sub>1</sub>, NP<sub>2</sub>)</p>
 
@@ -47,11 +49,11 @@ You can put a subscript to any node by putting the _ character between the main 
 
 Bracket notation (auto-subscript-on):
 
-    [NP [NP [ART a] [N table]] [PP [P near] [NP [ART the] [N door]]]]
+    [S [NP RSyntaxTree^][VP [V generates][NP multilingual syntax trees]]]
 
 Resulting PNG
 
-![a table near the door](http://yohasebe.com/img/rsyntaxtree_example.png)
+![RSyntaxTree generates multilingual syntax trees](http://yohasebe.com/img/rsyntaxtree_example2.png)
 
 ### Development
 
