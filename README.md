@@ -41,7 +41,7 @@ For the command-line interface, type `$rsyntaxtree -h` after installation. Here'
 
 Every branch or leaf of a tree must belong to a node. To create a node, place a label right next to the opening bracket. Arbitrary number of branches can follow with a preceding space.
 
-There are several modes in which the shape of connectors between a terminal node and its leaf are drawn differently (auto, triangle, bar, and nothing). In auto mode, a triangle is used if the leaf contains one or more spaces inside (i.e. if it&#8217;s a phrase), but if it contains no spaces (i.e. if it is just a word), a straight bar will be drawn instead (unless the leaf contains a "^" symbol at the end which makes it a single-word phrase).
+There are several modes in which the connectors between terminal nodes and their leaves are drawn differently (auto, triangle, bar, and nothing). In auto mode, a triangle is used if the leaf contains one or more spaces inside (i.e. if it&#8217;s a phrase), but if it contains no spaces (i.e. if it is just a word), a straight bar will be drawn instead (unless the leaf contains a "^" symbol at the end which makes it a single-word phrase).
 
 You can put a subscript to any node by putting the _ character between the main label and the subscript. For example, NP_TOP will be rendered as NP<sub>TOP</sub>. Or you can select the &#8220;Auto subscript&#8221; option so that nodes of the same label will be automatically numbered. (e.g. NP<sub>1</sub>, NP<sub>2</sub>)</p>
 
