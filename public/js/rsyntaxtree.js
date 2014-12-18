@@ -18,7 +18,7 @@ $(function(){
   
   function draw_graph(data){
 	$.ajax({
-	    url: 'draw_png',
+	    url: '/draw_png',
 	    type: 'POST',
 	    data: make_params(data),
 	    success: function (raw_data) {
@@ -55,7 +55,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"check",
+       url:"/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -73,7 +73,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"check",
+       url:"/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -92,7 +92,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"check",
+       url:"/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -108,7 +108,7 @@ $(function(){
   $("#check").click(function(){    
     $.ajax({
        type: "POST",
-       url:"check",
+       url:"/check",
        data:"data=" + escape_chrs($("#data").val()),
        success: function(msg){
          if(msg == "true"){

@@ -6,6 +6,8 @@ Gemfile.lock
 
 *.bak
 *.~
-
+*.log
+log/
+logs/
 
 

@@ -29,7 +29,7 @@
 
 require 'imgutils'
 require 'elementlist'
-require 'rubygems'
+# require 'rubygems'
 require 'RMagick'
 include Magick
 

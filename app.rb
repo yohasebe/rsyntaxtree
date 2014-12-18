@@ -9,7 +9,7 @@ require './lib/rsyntaxtree'
 
 include Helpers
 
-set :public_folder, File.dirname(__FILE__) + '/public'
+# set :public_folder, File.dirname(__FILE__) + '/public'
 
 configure do
   enable :sessions
@@ -54,4 +54,3 @@ post '/download_pdf' do
   rs_generator = RSGenerator.new(params)
   rs_generator.draw_pdf
 end  
-

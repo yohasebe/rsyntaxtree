@@ -109,12 +109,7 @@ class RSGenerator
     @params["format"] = "pdf"
     draw_tree
   end
-  
-  def draw_svg
-    @params["format"] = "svg"
-    draw_svg
-  end
-  
+    
   def draw_tree
     sp = StringParser.new(@params["data"])
     sp.parse
@@ -126,6 +121,7 @@ class RSGenerator
   end
   
   def draw_svg
+    @params["format"] = "svg"
     sp = StringParser.new(@params["data"].gsub('&', '&amp;'))
     sp.parse
     sp.auto_subscript if @params["autosub"]
