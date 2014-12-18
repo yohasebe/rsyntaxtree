@@ -1,4 +1,7 @@
 $(function(){                 
+
+  var subdir = $('#top').data('subdir');
+
   function alert(msg, type){
     $("#alert").html("<div style='padding:2px; margin:0;' class='" + type + 
     "'>" + msg + "</p></div>");
@@ -18,7 +21,7 @@ $(function(){
   
   function draw_graph(data){
 	$.ajax({
-	    url: '/draw_png',
+	    url: subdir + '/draw_png',
 	    type: 'POST',
 	    data: make_params(data),
 	    success: function (raw_data) {
@@ -36,7 +39,7 @@ $(function(){
   }
 
   function postForm(data, format){
-    $('<form/>', {action: 'download_' + format, method: 'POST'})
+    $('<form/>', {action: subdir + '/download_' + format, method: 'POST'})
       .append($('<input/>', {type: 'hidden', name: 'data', value: data}))
       .append($('<input/>', {type: 'hidden', name: 'format', value: $("select[name=format]").val()}))
       .append($('<input/>', {type: 'hidden', name: 'leafstyle', value: $("select[name=leafstyle]").val()}))
@@ -55,7 +58,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"/check",
+       url: subdir + "/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -73,7 +76,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"/check",
+       url: subdir + "/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -92,7 +95,7 @@ $(function(){
     data = escape_chrs(data);
     $.ajax({
        type: "POST",
-       url:"/check",
+       url: subdir + "/check",
        data:"data=" + data,
        success: function(msg){
          if(msg != "true"){
@@ -108,7 +111,7 @@ $(function(){
   $("#check").click(function(){    
     $.ajax({
        type: "POST",
-       url:"/check",
+       url: subdir + "/check",
        data:"data=" + escape_chrs($("#data").val()),
        success: function(msg){
          if(msg == "true"){

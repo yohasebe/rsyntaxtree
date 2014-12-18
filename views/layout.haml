@@ -6,7 +6,7 @@
     %meta{:name => "description", :content => ""}
     %meta{:name => "author", :content => ""}
 
-    %link{ :href => "/bootstrap/css/bootstrap.css", :type => "text/css", :rel => "stylesheet" }
+    %link{ :href => $SUB_DIRECTORY + "/bootstrap/css/bootstrap.css", :type => "text/css", :rel => "stylesheet" }
 
     :plain
       <style type="text/css">
@@ -16,8 +16,8 @@
         }
       </style>
 
-    %link{ :href => "/bootstrap/css/bootstrap-responsive.css", :type => "text/css", :rel => "stylesheet" }
-    %link{ :href => "/css/rsyntaxtree.css", :type => "text/css", :rel => "stylesheet" }
+    %link{ :href => $SUB_DIRECTORY + "/bootstrap/css/bootstrap-responsive.css", :type => "text/css", :rel => "stylesheet" }
+    %link{ :href => $SUB_DIRECTORY + "/css/rsyntaxtree.css", :type => "text/css", :rel => "stylesheet" }
 
     :plain
       <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -32,10 +32,11 @@
     %link{ rel: "apple-touch-icon", sizes: "114x114", href: "/bootstrap/images/apple-touch-icon-114x114.png"}
 
   %body    
+    %div#top{:data => {:subdir => $SUB_DIRECTORY}}
     %div= haml :navbar
     %div= yield
 
     / Placed at the end of the document so the pages load faster
-    %script{ :type => "text/javascript", :src =>"/bootstrap/js/jquery.js"}
-    %script{ :type => "text/javascript", :src =>"/bootstrap/js/bootstrap.js"}
-    %script{ :type => "text/javascript", :src =>"/js/rsyntaxtree.js"}
+    %script{ :type => "text/javascript", :src => $SUB_DIRECTORY + "/bootstrap/js/jquery.js"}
+    %script{ :type => "text/javascript", :src => $SUB_DIRECTORY + "/bootstrap/js/bootstrap.js"}
+    %script{ :type => "text/javascript", :src => $SUB_DIRECTORY + "/js/rsyntaxtree.js"}
