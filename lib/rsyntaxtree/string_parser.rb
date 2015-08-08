@@ -74,14 +74,19 @@ class StringParser
     text = @data.strip
     text_r = text.split(//)
     open_br, close_br = [], []
+    escape = false
     text_r.each do |chr|
-      if chr == '['
+      if chr == "\\"
+        escape = true
+      elsif chr == '[' && !escape
         open_br.push(chr)
-      elsif chr == ']'
+      elsif chr == ']' && !escape
         close_br.push(chr)
         if open_br.length < close_br.length
           break
         end
+      elsif escape
+        escape = false
       end
     end
 
@@ -149,24 +154,38 @@ class StringParser
       return ""
     end
     
+    escape = false
     while(((@pos + i) < data.length) && !gottoken)
       ch = data[@pos + i];
       case ch
       when "["
-        if(i > 0)
-          gottoken = true
-        else
+        if escape
           token += ch
+          escape = false
+        else
+          if(i > 0)
+            gottoken = true
+          else
+            token += ch
+          end
         end
       when "]"
-        if(i == 0 )
+        if escape
           token += ch
+          escape = false
+        else
+          if(i == 0 )
+            token += ch
+          end
+          gottoken = true
         end
-        gottoken = true
+      when "\\"
+        escape = true
       when /[\n\r]/
         gottoken = false # same as do nothing  
       else
         token += ch
+        escape = false if escape
       end
       i += 1
     end
