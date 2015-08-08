@@ -19,15 +19,15 @@
         %option{:value => "auto"}Auto
         %option{:value => "triangle"}Triangle
         %option{:value => "bar"}Bar
-        %option{:value => "nothing"}Nothing
+        %option{:value => "nothing"}None
     .span2
       %h4 Font-style
       %select{:name => "fontstyle", :style => "width:110px;"}
+        %option{:value => "cjk"}CJK
         %option{:value => "sans-serif"}San-Serif
         %option{:value => "serif"}Serif
         %option{:value => "jp-gothic"}JP-Gothic
         %option{:value => "jp-mincho"}JP-Mincho
-        %option{:value => "cjk"}CJK
         %option{:value => "aru"}ARU
         %option{:value => "tnr"}TNR
     .span2
@@ -110,7 +110,7 @@
       %p
         Every branch or leaf of a tree must belong to a node. To create a node, place a label 
         right next to the opening bracket. Arbitrary number of branches can follow with a 
-        preceding space.
+        preceding space. To print opening or closing bracket itself, escape it with a backslash ('\[' and '\]')
 
       %p
         There are several modes in which the connectors between terminal nodes and their leaves are 
