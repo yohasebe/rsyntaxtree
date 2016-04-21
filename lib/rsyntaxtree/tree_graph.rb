@@ -30,7 +30,7 @@
 require 'imgutils'
 require 'elementlist'
 # require 'rubygems'
-require 'RMagick'
+require 'rmagick'
 include Magick
 
 E_WIDTH   = 60 # Element width

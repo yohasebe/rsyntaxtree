@@ -28,7 +28,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # require 'rubygems'
-require 'RMagick'
+require 'rmagick'
 include Magick
 
 def img_get_txt_metrics(text, font, font_size, multiline)
