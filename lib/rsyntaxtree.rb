@@ -44,17 +44,17 @@ require 'version'
 FONT_DIR = File.expand_path(File.dirname(__FILE__) + "/../fonts")
 
 ##################################################
-if !development?
-  # load and store Google Analytics code, if any, to a variable
-  ga_path = File.dirname(__FILE__) + "/../google_analytics_tracking_code"
-  if File.exists?(ga_path)
-    gfile = File.open(ga_path, "r:UTF-8:UTF-8")
-    $GOOGLE_CODE = gfile.read
-    gfile.close
-  else
-    $GOOGLE_CODE = ""
-  end
-end
+# if !development?
+#   # load and store Google Analytics code, if any, to a variable
+#   ga_path = File.dirname(__FILE__) + "/../google_analytics_tracking_code"
+#   if File.exists?(ga_path)
+#     gfile = File.open(ga_path, "r:UTF-8:UTF-8")
+#     $GOOGLE_CODE = gfile.read
+#     gfile.close
+#   else
+#     $GOOGLE_CODE = ""
+#   end
+# end
 ##################################################
 
 class RSGenerator 
