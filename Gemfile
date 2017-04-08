@@ -1,4 +1,9 @@
 source "http://rubygems.org"
 
-# Specify your gem's dependencies in rsyntaxtree.gemspec
-gemspec
+gem 'sinatra'
+gem 'haml'
+gem 'rmagick'
+gem 'trollop'
+group :development do
+  gem 'thin'
+end

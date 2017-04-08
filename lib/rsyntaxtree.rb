@@ -43,6 +43,20 @@ require 'version'
 
 FONT_DIR = File.expand_path(File.dirname(__FILE__) + "/../fonts")
 
+##################################################
+if !development?
+  # load and store Google Analytics code, if any, to a variable
+  ga_path = File.dirname(__FILE__) + "/../google_analytics_tracking_code"
+  if File.exists?(ga_path)
+    gfile = File.open(ga_path, "r:UTF-8:UTF-8")
+    $GOOGLE_CODE = gfile.read
+    gfile.close
+  else
+    $GOOGLE_CODE = ""
+  end
+end
+##################################################
+
 class RSGenerator 
   include Helpers
   def initialize(params = {})
@@ -51,7 +65,12 @@ class RSGenerator
       case key
       when "data"
         data = URI.unescape(value)
-        data  = data.gsub('-AMP-', '&').gsub('-PRIME-', "'").gsub('-SCOLON-', ';')
+        data  = data.gsub('-AMP-', '&')
+          .gsub('-PERCENT-', "%")
+          .gsub('-PRIME-', "'")
+          .gsub('-SCOLON-', ';')
+          .gsub('-OABRACKET-', '<')
+          .gsub('-CABRACKET-', '>')
         new_params[key] = data
       when "symmetrize", "color", "autosub"
         new_params[key] = value == "on"? true : false
@@ -124,7 +143,7 @@ class RSGenerator
   
   def draw_svg
     @params["format"] = "svg"
-    sp = StringParser.new(@params["data"].gsub('&', '&amp;'))
+    sp = StringParser.new(@params["data"].gsub('&', '&amp;').gsub('%', '&#37;'))
     sp.parse
     sp.auto_subscript if @params["autosub"]
     elist = sp.get_elementlist

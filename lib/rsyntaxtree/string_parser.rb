@@ -49,7 +49,7 @@ class StringParser
   attr_accessor :data, :elist, :pos, :id, :level, :tncnt
   def initialize(str)
     # Clean up the data a little to make processing easier
-    string = str.gsub(/\t/, "")
+    string = str.gsub(/\t/, "") rescue ""
     string.gsub!(/\s+/, " ")
     string.gsub!(/\] \[/, "][")
     string.gsub!(/ \[/, "[")

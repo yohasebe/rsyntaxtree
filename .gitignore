@@ -10,4 +10,5 @@ Gemfile.lock
 log/
 logs/
 
-
+bin/rsync_code
+bin/linktree.rb

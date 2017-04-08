@@ -33,7 +33,12 @@ $(function(){
   }
 
   function escape_chrs(data){
-    data = data.replace(/\&/g, "-AMP-").replace(/\'/g, "-PRIME-").replace(/\;/g, "-SCOLON");
+    data = data.replace(/\&/g, "-AMP-")
+      .replace(/\%/g, '-PERCENT-')
+      .replace(/\'/g, "-PRIME-")
+      .replace(/\;/g, "-SCOLON-")
+      .replace(/\</g, "-OABRACKET-")
+      .replace(/\>/g, "-CABRACKET-");
     data = $('<div/>').text(data).html();
     return data;
   }
