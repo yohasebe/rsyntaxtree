@@ -61,9 +61,10 @@ class RSGenerator
   include Helpers
   def initialize(params = {})
     new_params = {}
-    params.each do |key, value|
+    params.each do |keystr, value|
+      key = keystr.to_sym
       case key
-      when "data"
+      when :data
         data = URI.unescape(value)
         data  = data.gsub('-AMP-', '&')
           .gsub('-PERCENT-', "%")
@@ -72,27 +73,27 @@ class RSGenerator
           .gsub('-OABRACKET-', '<')
           .gsub('-CABRACKET-', '>')
         new_params[key] = data
-      when "symmetrize", "color", "autosub"
-        new_params[key] = value == "on"? true : false
-      when "fontsize"
+      when :symmetrize, :color, :autosub
+        new_params[key] = value && value != "off" ? true : false
+      when :fontsize
         new_params[key] = value.to_i
-      when "fontstyle"
+      when :fontstyle
         if value == "sans-serif"
-          new_params["font"] = FONT_DIR + "/DroidSans.ttf"
+          new_params[:font] = FONT_DIR + "/DroidSans.ttf"
         elsif value == "serif"
-          new_params["font"] = FONT_DIR + "/DroidSerif-Regular.ttf"
+          new_params[:font] = FONT_DIR + "/DroidSerif-Regular.ttf"
         elsif value == "jp-gothic"
-          new_params["font"] = FONT_DIR + "/ipagp.ttf"
+          new_params[:font] = FONT_DIR + "/ipagp.ttf"
         elsif value == "jp-mincho"
-          new_params["font"] = FONT_DIR + "/ipamp.ttf"
+          new_params[:font] = FONT_DIR + "/ipamp.ttf"
         elsif value == "cjk"
-          new_params["font"] = FONT_DIR + "/wqy-zenhei.ttf"
+          new_params[:font] = FONT_DIR + "/wqy-zenhei.ttf"
         elsif value == "aru"
-          new_params["font"] = FONT_DIR + "/ArialUnicode.ttf"
+          new_params[:font] = FONT_DIR + "/ArialUnicode.ttf"
         elsif value == "tnr"
-          new_params["font"] = FONT_DIR + "/TimesNewRoman.ttf"
+          new_params[:font] = FONT_DIR + "/TimesNewRoman.ttf"
         elsif value == "noto"
-          new_params["font"] = FONT_DIR + "/NotoSansCJK.ttc"
+          new_params[:font] = FONT_DIR + "/NotoSansCJK.ttc"
         end
       else
         new_params[key] = value
@@ -101,15 +102,15 @@ class RSGenerator
     
     
     @params = {
-      "symmetrize" => true,
-      "color"      => true,
-      "autosub"    => false,
-      "fontsize"   => 18,
-      "format"     => "png",
-      "leafstyle"   => "auto",
-      "font"        => FONT_DIR + "/ipagp.ttf",
-      "filename"   => "syntree",
-      "data"       => "",
+      :symmetrize => true,
+      :color      => true,
+      :autosub    => false,
+      :fontsize   => 18,
+      :format     => "png",
+      :leafstyle  => "auto",
+      :font       => FONT_DIR + "/ipagp.ttf",
+      :filename   => "syntree",
+      :data       => "",
     }
     
     @params.merge! new_params
@@ -122,33 +123,33 @@ class RSGenerator
   end
   
   def draw_png
-    @params["format"] = "png"
+    @params[:format] = "png"
     draw_tree
   end
 
   def draw_pdf
-    @params["format"] = "pdf"
+    @params[:format] = "pdf"
     draw_tree
   end
     
   def draw_tree
-    sp = StringParser.new(@params["data"])
+    sp = StringParser.new(@params[:data])
     sp.parse
-    sp.auto_subscript if @params["autosub"]
+    sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
     graph = TreeGraph.new(elist, 
-      @params["symmetrize"], @params["color"], @params["leafstyle"], @params["font"], @params["fontsize"], @params["format"])
-    graph.to_blob(@params["format"])
+      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:font], @params[:fontsize], @params[:format])
+    graph.to_blob(@params[:format])
   end
   
   def draw_svg
-    @params["format"] = "svg"
-    sp = StringParser.new(@params["data"].gsub('&', '&amp;').gsub('%', '&#37;'))
+    @params[:format] = "svg"
+    sp = StringParser.new(@params[:data].gsub('&', '&amp;').gsub('%', '&#37;'))
     sp.parse
-    sp.auto_subscript if @params["autosub"]
+    sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
     graph = SVGGraph.new(elist, 
-      @params["symmetrize"], @params["color"], @params["leafstyle"], @params["font"], @params["fontsize"])
+      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:font], @params[:fontsize])
     graph.svg_data
   end
 end

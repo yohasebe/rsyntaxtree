@@ -47,7 +47,7 @@ Trollop::die :autosub, "must be either on or off" unless /\A(on|off)\z/ =~ opts[
 
 string_opts = {}
 opts.each do |key, value|
-  string_opts[key.to_s] = value unless key == :font && !value
+  string_opts[key.to_sym] = value unless key == :font && !value
 end
 
 data = ARGV[0]
@@ -57,11 +57,11 @@ unless data && RSGenerator.check_data(data)
   exit
 end
 
-string_opts["data"] = data
+string_opts[:data] = data
 
 rsg = RSGenerator.new(string_opts)
-ext = string_opts["format"]
-outfile = File.new(File.expand_path(string_opts["outdir"]) + "/syntree." + ext, "wb")
+ext = string_opts[:format]
+outfile = File.new(File.expand_path(string_opts[:outdir]) + "/syntree." + ext, "wb")
 case ext
 when "png"
   outfile.write rsg.draw_png
