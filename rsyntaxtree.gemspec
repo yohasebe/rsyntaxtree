@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_runtime_dependency("rmagick", '>= 2.0.0')
-  s.add_runtime_dependency("trollop", '>= 2.0')
+  s.add_runtime_dependency("rmagick", '>= 2.16.0')
+  s.add_runtime_dependency("trollop", '>= 2.1.2')
 end
