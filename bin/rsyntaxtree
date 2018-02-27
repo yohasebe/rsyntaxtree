@@ -7,7 +7,7 @@ require 'rsyntaxtree'
 require 'trollop'
 
 opts = Trollop::options do
-  version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2012 Yoichiro Hasebe"
+  version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2018 Yoichiro Hasebe"
   banner <<-EOS
 RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
@@ -22,11 +22,13 @@ EOS
       :default => "png"
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", 
       :default => "auto"
-  opt :fontstyle, "Font style (available when ttf font is specified): sans-serif, serif, jp-gothic, jp-mincho, cjk",
-      :default => "cjk"
+  opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, mono, cjk",
+      :default => "sans"
   opt :font, "Path to a ttf font used to generate tree (optional)", :type => String
-  opt :fontsize, "Font size: 8-20",
+  opt :fontsize, "Size: 8-26",
       :default => 16
+  opt :margin, "Margin: 0-120",
+      :default => 0
   opt :color, "Color text and bars: on or off",
       :default => "on" 
   opt :symmetrize, "Generate symmetrical, balanced tree: on or off",
@@ -38,9 +40,10 @@ end
 Trollop::die :outdir, "must be an exsting directory path" unless FileTest::directory?(opts[:outdir])
 Trollop::die :format, "must be png or svg" unless /\A(png|pdf|svg)\z/ =~ opts[:format]
 Trollop::die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
-Trollop::die :fontstyle, "must be sans-serif, serif, jp-gothic, jp-mincho, or cjk" unless /\A(sans\-serif|serif|jp\-gothic|jp\-mincho|cjk)\z/ =~ opts[:fontstyle]
+Trollop::die :fontstyle, "must be sans, serif, mono, cjk" unless /\A(sans|serif|mono|cjk)\z/ =~ opts[:fontstyle]
 Trollop::die :font, "must be path to an existing ttf font" if opts[:font] && !File::exists?(opts[:font])
-Trollop::die :fontsize, "must be in the range 8-20" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 20
+Trollop::die :fontsize, "must be in the range 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
+Trollop::die :margin, "must be in the range 0-120" if opts[:margin] < 0 || opts[:margin] > 120
 Trollop::die :color, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:color]
 Trollop::die :symmetrize, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:symmetrize]
 Trollop::die :autosub, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:autosub]
@@ -53,7 +56,7 @@ end
 data = ARGV[0]
 
 unless data && RSGenerator.check_data(data)
-  puts "bracket notation given is invalid"
+  puts "Error: given bracket notation is invalid; try 'rsyntaxtree --help' "
   exit
 end
 

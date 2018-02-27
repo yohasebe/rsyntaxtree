@@ -10,7 +10,7 @@
 #
 # This file is part of RSyntaxTree, which is a ruby port of Andre Eisenbach's
 # excellent program phpSyntaxTree.
-# Copyright (c) 2007-2009 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2018 Yoichiro Hasebe <yohasebe@gmail.com>
 # Copyright (c) 2003-2004 Andre Eisenbach <andre@ironcreek.net>
 # 
 # This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 $LOAD_PATH << File.join( File.dirname(__FILE__), 'rsyntaxtree')
-$LOAD_PATH << File.join( File.dirname(__FILE__), '../helpers')
 
 require 'uri'
 require 'imgutils'
@@ -38,27 +37,12 @@ require 'string_parser'
 require 'tree_graph'
 require 'svg_graph'
 require 'error_message'
-require 'helpers'
 require 'version'
+require 'pp'
 
 FONT_DIR = File.expand_path(File.dirname(__FILE__) + "/../fonts")
 
-##################################################
-# if !development?
-#   # load and store Google Analytics code, if any, to a variable
-#   ga_path = File.dirname(__FILE__) + "/../google_analytics_tracking_code"
-#   if File.exists?(ga_path)
-#     gfile = File.open(ga_path, "r:UTF-8:UTF-8")
-#     $GOOGLE_CODE = gfile.read
-#     gfile.close
-#   else
-#     $GOOGLE_CODE = ""
-#   end
-# end
-##################################################
-
 class RSGenerator 
-  include Helpers
   def initialize(params = {})
     new_params = {}
     params.each do |keystr, value|
@@ -77,29 +61,26 @@ class RSGenerator
         new_params[key] = value && value != "off" ? true : false
       when :fontsize
         new_params[key] = value.to_i
+      when :margin
+        new_params[key] = value.to_i
       when :fontstyle
-        if value == "sans-serif"
+        if value == "noto-sans" || value == "sans"
+          new_params[:font] = FONT_DIR + "/NotoSansCJKjp-Regular.otf"
+        elsif value == "noto-serif" || value == "serif"
+          new_params[:font] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
+        elsif value == "noto-mono" || value == "mono"
+          new_params[:font] = FONT_DIR + "/NotoSansMonoCJKjp-Regular.otf"
+        elsif value == "western-sans"
           new_params[:font] = FONT_DIR + "/DroidSans.ttf"
-        elsif value == "serif"
+        elsif value == "western-serif"
           new_params[:font] = FONT_DIR + "/DroidSerif-Regular.ttf"
-        elsif value == "jp-gothic"
-          new_params[:font] = FONT_DIR + "/ipagp.ttf"
-        elsif value == "jp-mincho"
-          new_params[:font] = FONT_DIR + "/ipamp.ttf"
-        elsif value == "cjk"
+        elsif value == "cjk zenhei" || value == "cjk"
           new_params[:font] = FONT_DIR + "/wqy-zenhei.ttf"
-        elsif value == "aru"
-          new_params[:font] = FONT_DIR + "/ArialUnicode.ttf"
-        elsif value == "tnr"
-          new_params[:font] = FONT_DIR + "/TimesNewRoman.ttf"
-        elsif value == "noto"
-          new_params[:font] = FONT_DIR + "/NotoSansCJK.ttc"
         end
       else
         new_params[key] = value
       end
     end
-    
     
     @params = {
       :symmetrize => true,
@@ -108,16 +89,16 @@ class RSGenerator
       :fontsize   => 18,
       :format     => "png",
       :leafstyle  => "auto",
-      :font       => FONT_DIR + "/ipagp.ttf",
+      :font       => FONT_DIR + "/NotoSansCKjp-Regular.otf",
       :filename   => "syntree",
       :data       => "",
+      :margin     => 0
     }
     
     @params.merge! new_params
    end
 
   def self.check_data(text)
-     # StringParser.validate_text(text)     
      sp = StringParser.new(text)
      sp.valid?
   end
@@ -138,7 +119,7 @@ class RSGenerator
     sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
     graph = TreeGraph.new(elist, 
-      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:font], @params[:fontsize], @params[:format])
+      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:font], @params[:fontsize], @params[:format], @params[:margin])
     graph.to_blob(@params[:format])
   end
   

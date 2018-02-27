@@ -1,14 +1,12 @@
 # RSyntaxTree: yet another syntax tree generator in Ruby
 
-RSyntaxTree is a graphical syntax tree generator written in the Ruby programming language. It is basically a port of  [phpSyntaxTree](http://ironcreek.net/phpsyntaxtree/) created by André Eisenbach.
+**RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language inspired by [phpSyntaxTree](http://ironcreek.net/phpsyntaxtree/). 
 
-While phpSyntaxTree does not accept **multi-byte characters** as those in Chinese, Japanese, and Korean, RSyntaxTree handles text of any language as long as encoded in UTF-8 and fonts have been installed. Additionally, RSyntaxTree can output **symmetrized** tree diagrams, a functionality that is not implemented in phpSyntaxTree.
-
-RSyntaxTree consists of an easy-to-use command-line app and a web-based interface made with  [Sinatra](http://www.sinatrarb.com) web framework.
+- - -
 
 ### Web Interface
 
-Working web interface of a previous version of RSyntaxTree is available at http://yohasebe.com/rsyntaxtree .  New version will be deployed soon.
+Working web interface of is available at <https://yohasebe.com/rsyntaxtree>.
 
 ### Installation
 
@@ -16,26 +14,29 @@ Working web interface of a previous version of RSyntaxTree is available at http:
 
 ### Usage
 
-For the web interface, see Usage section in http://yohasebe.com/rsyntaxtree .
+For the web interface, see Usage section of <https://yohasebe.com/rsyntaxtree>.
 
 For the command-line interface, type `$rsyntaxtree -h` after installation. Here's what you get:
     
-    RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
-    
-    Usage:
-           rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
-    where [options] are:
-          --outdir, -o <s>:   Output directory (default: present working directory) (default: ./)
-          --format, -f <s>:   Output format: png, pdf, or svg (default: png)
-       --leafstyle, -l <s>:   visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
-       --fontstyle, -n <s>:   Font style: sans-serif, serif, jp-gothic, jp-mincho, cjk (default: cjk)
-            --font, -t <s>:   Path to a ttf font used to generate tree
-        --fontsize, -s <i>:   Font size: 8-20 (default: 16)
-           --color, -c <s>:   Color text and bars: on or off (default: on)
-      --symmetrize, -y <s>:   Generate symmetrical, balanced tree: on or off (default: on)
-         --autosub, -a <s>:   Put subscript numbers to nodes: on or off (default: off)
-             --version, -v:   Print version and exit
-                --help, -h:   Show this message
+```text
+RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
+
+Usage:
+       rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
+where [options] are:
+      -o, --outdir=<s>        Output directory (default: ./)
+      -f, --format=<s>        Output format: png, pdf, or svg (default: png)
+      -l, --leafstyle=<s>     visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
+      -n, --fontstyle=<s>     Font style (available when ttf font is specified): sans, serif, mono, cjk (default: sans)
+      -t, --font=<s>          Path to a ttf font used to generate tree (optional)
+      -s, --fontsize=<i>      Size: 8-26 (default: 16)
+      -m, --margin=<i>        Margin: 0-120 (default: 0)
+      -c, --color=<s>         Color text and bars: on or off (default: on)
+      -y, --symmetrize=<s>    Generate symmetrical, balanced tree: on or off (default: on)
+      -a, --autosub=<s>       Put subscript numbers to nodes: on or off (default: off)
+      -v, --version           Print version and exit
+      -h, --help              Show this message
+```
 
 ### Tips
 
@@ -49,11 +50,13 @@ You can put a subscript to any node by putting the _ character between the main 
 
 Bracket notation (auto-subscript-on):
 
-    [S [NP RSyntaxTree^][VP [V generates][NP multilingual syntax trees]]]
+```text
+[S [NP RSyntaxTree^][VP [V generates][NP multilingual syntax trees]]]
+```
 
 Resulting PNG
 
-![RSyntaxTree generates multilingual syntax trees](https://github.com/yohasebe/rsyntaxtree/blob/master/rsyntaxtree.png)
+![RSyntaxTree generates multilingual syntax trees](https://i.gyazo.com/8d8cbce1e8d8d45c0dda0741009641fd.png)
 
 ### Development
 
@@ -61,7 +64,7 @@ For the latest updates and downloads please visit http://github.com/yohasebe/rsy
 
 ### Author
 
-Yoichiro Hasebe yohasebe@gmail.com
+Yoichiro Hasebe <yohasebe@gmail.com>
 
 ### License
 

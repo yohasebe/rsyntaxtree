@@ -10,7 +10,7 @@
 # This file is part of RSyntaxTree, which is a ruby port of Andre Eisenbach's
 # excellent program phpSyntaxTree.
 #
-# Copyright (c) 2007-2009 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2018 Yoichiro Hasebe <yohasebe@gmail.com>
 # Copyright (c) 2003-2004 Andre Eisenbach <andre@ironcreek.net>
 # 
 # This program is free software; you can redistribute it and/or modify
@@ -33,25 +33,27 @@ require 'elementlist'
 require 'rmagick'
 include Magick
 
-E_WIDTH   = 60 # Element width
-E_PADD    = 7 # Element height padding
-V_SPACE   = 20
-H_SPACE   = 10
-B_SIDE   =   5
-B_TOPBOT =   5
+# Double to make image retina ready
+E_WIDTH   = 60 * 2 # Element width
+E_PADD    = 7  * 2 # Element height padding
+V_SPACE   = 20 * 2
+H_SPACE   = 10 * 2
+B_SIDE   =   5 * 2
+B_TOPBOT =   5 * 2
 
 class TreeGraph
 
   def initialize(e_list, symmetrize = true, color = true, terminal = "auto",
-                 font = "Helvetica", font_size = 10, simple = false)
+                 font = "Helvetica", font_size = 10, simple = false, margin = 0)
 
-    # Store parameters
+    # Store parameters (double font size and margin to make image retina ready)
     @e_list     = e_list
     @font       = font
-    @font_size = font_size
     @terminal = terminal
     @symmetrize = symmetrize
     @simple = simple
+    @font_size = font_size * 2
+    @margin = margin * 2
 
     # Element dimensions
     @e_width   = E_WIDTH
@@ -104,6 +106,7 @@ class TreeGraph
   # by Geoffrey Grosenbach
   def to_blob(fileformat='PNG')
     draw
+    @im.border!(@margin, @margin, "white")
     return @im.to_blob do
        self.format = fileformat
     end
