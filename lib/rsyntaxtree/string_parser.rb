@@ -67,9 +67,14 @@ class StringParser
     if(@data.length < 1)
       return false
     end
+
     if /\A\s*\[.+ .+\]\s*\z/ !~ @data
       return false  
-    end    
+    end
+
+    if /\[\_ / =~ @data
+      return false
+    end
 
     text = @data.strip
     text_r = text.split(//)
