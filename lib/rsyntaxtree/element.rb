@@ -27,10 +27,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-ETYPE_UNDEFINED = 0
-ETYPE_NODE = 1
-ETYPE_LEAF = 2
-
 class Element
 
     attr_accessor :id, :parent, :type, :content, :level, :width, :indent, :triangle

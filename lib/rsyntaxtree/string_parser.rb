@@ -72,7 +72,7 @@ class StringParser
       return false  
     end
 
-    if /\[\_ / =~ @data
+    if /\[\_/ =~ @data
       return false
     end
 

@@ -29,47 +29,36 @@
 
 require 'imgutils'
 require 'elementlist'
-# require 'rubygems'
 require 'rmagick'
 include Magick
 
-# Double to make image retina ready
-E_WIDTH   = 60 * 2 # Element width
-E_PADD    = 7  * 2 # Element height padding
-V_SPACE   = 20 * 2
-H_SPACE   = 10 * 2
-B_SIDE   =   5 * 2
-B_TOPBOT =   5 * 2
-
 class TreeGraph
 
-  def initialize(e_list, symmetrize = true, color = true, terminal = "auto",
+  def initialize(e_list, metrics, symmetrize = true, color = true, terminal = "auto",
                  font = "Helvetica", font_size = 10, simple = false, margin = 0)
 
     # Store parameters (double font size and margin to make image retina ready)
     @e_list     = e_list
+    @m          = metrics
     @font       = font
-    @terminal = terminal
+    @terminal   = terminal
     @symmetrize = symmetrize
-    @simple = simple
-    @font_size = font_size * 2
-    @margin = margin * 2
+    @simple     = simple
+    @font_size  = font_size
+    @margin     = margin
 
-    # Element dimensions
-    @e_width   = E_WIDTH
-    
     # Calculate image dimensions
-    @e_height = @font_size + E_PADD * 2
-    h = @e_list.get_level_height
-    w = calc_level_width(0)
-    w_px = w + B_SIDE * 2
-    h_px = h * @e_height + (h-1) * (V_SPACE + @font_size) + B_TOPBOT * 2
-    @height    = h_px
-    @width     = w_px
+    @e_height = @font_size + metrics[:e_padd] * 2
+    h         = @e_list.get_level_height
+    w         = calc_level_width(0)
+    w_px      = w + metrics[:b_side] * 2
+    h_px      = h * @e_height + (h-1) * (metrics[:v_space] + @font_size) + metrics[:b_topbot] * 2
+    @height   = h_px
+    @width    = w_px
 
     # Initialize the image and colors
-    @im = Image.new(w_px, h_px)
-    @gc = Draw.new
+    @im      = Image.new(w_px, h_px)
+    @gc      = Draw.new
     @gc.font = @font
     @gc.pointsize(@font_size)
 
@@ -123,7 +112,7 @@ class TreeGraph
     else 
       top   = row2px(y)
     end
-    left   = x + B_SIDE
+    left   = x + @m[:b_side]
     bottom = top  + @e_height
     right  = left + w
 
@@ -172,14 +161,14 @@ class TreeGraph
     # Draw main text
     @gc.pointsize(@font_size)
     main_x = txt_pos
-    main_y = top + @e_height - E_PADD
+    main_y = top + @e_height - @m[:e_padd]
     @gc.text(main_x.ceil, main_y.ceil, main)
         
     # Draw subscript text
     if (sub.length > 0 )
       @gc.pointsize(sub_size)
       sub_x = txt_pos + main_width + (sub_size/8)
-      sub_y = top + (@e_height - E_PADD + sub_size / 2)
+      sub_y = top + (@e_height - @m[:e_padd] + sub_size / 2)
       @gc.text(sub_x.ceil, sub_y.ceil, sub)
     end
      
@@ -193,9 +182,9 @@ class TreeGraph
     end
             
     fromTop  = row2px(fromY)
-    fromLeft = (fromX + fromW / 2 + B_SIDE)
+    fromLeft = (fromX + fromW / 2 + @m[:b_side])
     toBot    = (row2px(fromY - 1 ) + @e_height)
-    toLeft  = (toX + toW / 2 + B_SIDE)
+    toLeft  = (toX + toW / 2 + @m[:b_side])
 
     @gc.fill("none")
     @gc.stroke @col_line
@@ -210,16 +199,16 @@ class TreeGraph
     end
       
     toX = fromX
-    fromCenter = (fromX + fromW / 2 + B_SIDE)
+    fromCenter = (fromX + fromW / 2 + @m[:b_side])
     
     fromTop  = row2px(fromY).ceil
     fromLeft1 = (fromCenter + textW / 2).ceil
     fromLeft2 = (fromCenter - textW / 2).ceil
     toBot    = (row2px(fromY - 1) + @e_height)
     if symmetrize
-      toLeft   = (toX + textW / 2 + B_SIDE)
+      toLeft   = (toX + textW / 2 + @m[:b_side])
     else
-      toLeft   = (toX + textW / 2 + B_SIDE * 3)
+      toLeft   = (toX + textW / 2 + @m[:b_side] * 3)
     end
         
     @gc.fill("none")
@@ -455,7 +444,6 @@ class TreeGraph
   end
 
   def row2px(row)
-   B_TOPBOT + @e_height * row + (V_SPACE + @font_size) * row
+   @m[:b_topbot] + @e_height * row + (@m[:v_space] + @font_size) * row
   end
-  
 end

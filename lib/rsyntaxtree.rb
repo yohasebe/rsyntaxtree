@@ -42,6 +42,10 @@ require 'pp'
 
 FONT_DIR = File.expand_path(File.dirname(__FILE__) + "/../fonts")
 
+ETYPE_UNDEFINED = 0
+ETYPE_NODE = 1
+ETYPE_LEAF = 2
+
 class RSGenerator 
   def initialize(params = {})
     new_params = {}
@@ -63,6 +67,8 @@ class RSGenerator
         new_params[key] = value.to_i
       when :margin
         new_params[key] = value.to_i
+      when :vheight
+        new_params[key] = value.to_f
       when :fontstyle
         if value == "noto-sans" || value == "sans"
           new_params[:font] = FONT_DIR + "/NotoSansCJKjp-Regular.otf"
@@ -92,10 +98,22 @@ class RSGenerator
       :font       => FONT_DIR + "/NotoSansCKjp-Regular.otf",
       :filename   => "syntree",
       :data       => "",
-      :margin     => 0
+      :margin     => 0,
+      :vheight     =>  1.0
+    }
+    @metrics = {
+      :e_width  => 120,
+      :e_padd   => 14,
+      :v_space  => 20,
+      :h_space  => 20,
+      :b_side   => 10,
+      :b_topbot => 10
     }
     
     @params.merge! new_params
+    @params[:fontsize]  = @params[:fontsize] * 2
+    @params[:margin]    = @params[:margin] * 2
+    @metrics[:v_space] = @metrics[:v_space] * @params[:vheight]
    end
 
   def self.check_data(text)
@@ -105,6 +123,16 @@ class RSGenerator
   
   def draw_png
     @params[:format] = "png"
+    draw_tree
+  end
+
+  def draw_jpg
+    @params[:format] = "jpg"
+    draw_tree
+  end
+
+  def draw_gif
+    @params[:format] = "gif"
     draw_tree
   end
 
@@ -118,7 +146,7 @@ class RSGenerator
     sp.parse
     sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
-    graph = TreeGraph.new(elist, 
+    graph = TreeGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:font], @params[:fontsize], @params[:format], @params[:margin])
     graph.to_blob(@params[:format])
   end
@@ -129,7 +157,7 @@ class RSGenerator
     sp.parse
     sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
-    graph = SVGGraph.new(elist, 
+    graph = SVGGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:font], @params[:fontsize])
     graph.svg_data
   end

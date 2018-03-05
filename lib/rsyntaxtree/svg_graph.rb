@@ -33,30 +33,28 @@ include Magick
 
 # constant variables are already set in tree_graph.rb
 
-
 class SVGGraph
     
-  def initialize(e_list, symmetrize = true, color = true, leafstyle = "auto",
+  def initialize(e_list, metrics, symmetrize = true, color = true, leafstyle = "auto",
                  font = "Helvetica", font_size = 10, simple = false)
 
     # Store parameters
     @e_list     = e_list
+    @m          = metrics
     @font       = font
-    @font_size = font_size
+    @font_size  = font_size
     @leafstyle  = leafstyle
     @symmetrize = symmetrize
-    # Element dimensions
-    @e_width   = E_WIDTH
 
 
     # Calculate image dimensions
-    @e_height = @font_size + E_PADD * 2
-    h = @e_list.get_level_height
-    w = calc_level_width(0)
-    w_px = w + B_SIDE
-    h_px = h * @e_height + (h-1) * (V_SPACE + @font_size) + B_TOPBOT * 2
-    @height    = h_px
-    @width     = w_px
+    @e_height = @font_size + @m[:e_padd] * 2
+    h         = @e_list.get_level_height
+    w         = calc_level_width(0)
+    w_px      = w + @m[:b_side] 
+    h_px      = h * @e_height + (h-1) * (@m[:v_space] + @font_size) + @m[:b_topbot] * 2
+    @height   = h_px
+    @width    = w_px
 
     
     # Initialize the image and colors
@@ -127,7 +125,7 @@ EOD
     else 
       top   = row2px(y)
     end
-    left   = x + B_SIDE
+    left   = x + @m[:b_side]
     bottom = top  + @e_height
     right  = left + w
 
@@ -173,7 +171,7 @@ EOD
     main_data  = @text_styles.sub(/COLOR/, col)
     main_data  = main_data.sub(/FONT_SIZE/, @font_size.to_s)
     main_x = txt_pos
-    main_y = top + @e_height - E_PADD
+    main_y = top + @e_height - @m[:e_padd]
     main_data  = main_data.sub(/X_VALUE/, main_x.to_s)
     main_data  = main_data.sub(/Y_VALUE/, main_y.to_s)
     @tree_data += main_data.sub(/CONTENT/, main)
@@ -182,13 +180,12 @@ EOD
     sub_data  = @text_styles.sub(/COLOR/, col)
     sub_data  = sub_data.sub(/FONT_SIZE/, @font_size.to_s)
     sub_x = main_x + main_width + (sub_size/8)
-    sub_y = top + (@e_height - E_PADD + sub_size / 2).ceil
+    sub_y = top + (@e_height - @m[:e_padd] + sub_size / 2).ceil
     if (sub.length > 0 )
       sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
       sub_data   = sub_data.sub(/Y_VALUE/, sub_y.ceil.to_s)
       @tree_data += sub_data.sub(/CONTENT/, sub)
     end
-
   end
 
   # Draw a line between child/parent elements
@@ -199,9 +196,9 @@ EOD
     end
             
     fromTop  = row2px(fromY)
-    fromLeft = (fromX + fromW / 2 + B_SIDE)
+    fromLeft = (fromX + fromW / 2 + @m[:b_side])
     toBot    = (row2px(fromY - 1 ) + @e_height)
-    toLeft  = (toX + toW / 2 + B_SIDE)
+    toLeft  = (toX + toW / 2 + @m[:b_side])
 
     line_data   = @line_styles.sub(/X1/, fromLeft.ceil.to_s.to_s)
     line_data   = line_data.sub(/Y1/, fromTop.ceil.to_s.to_s)
@@ -217,7 +214,7 @@ EOD
     end
           
     toX = fromX
-    fromCenter = (fromX + fromW / 2 + B_SIDE)
+    fromCenter = (fromX + fromW / 2 + @m[:b_side])
     
     fromTop  = row2px(fromY).ceil
     fromLeft1 = (fromCenter + textW / 2).ceil
@@ -225,9 +222,9 @@ EOD
     toBot    = (row2px(fromY - 1) + @e_height)
 
     if symmetrize
-      toLeft   = (toX + textW / 2 + B_SIDE)
+      toLeft   = (toX + textW / 2 + @m[:b_side])
     else
-      toLeft   = (toX + textW / 2 + B_SIDE * 3)
+      toLeft   = (toX + textW / 2 + @m[:b_side] * 3)
     end
         
     polygon_data = @polygon_styles.sub(/X1/, fromLeft1.ceil.to_s)
@@ -465,11 +462,8 @@ EOD
     end
   end
 
-    
   # Calculate top position from row (level)
   def row2px(row)
-   B_TOPBOT + @e_height * row + (V_SPACE + @font_size) * row
+   @m[:b_topbot] + @e_height * row + (@m[:v_space] + @font_size) * row
   end
-  
 end
-  

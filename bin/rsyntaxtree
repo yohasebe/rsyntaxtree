@@ -18,7 +18,7 @@ EOS
 
   opt :outdir, "Output directory",
       :default => "./"
-  opt :format, "Output format: png, pdf, or svg",
+  opt :format, "Output format: png, gif, jpg, pdf, or svg",
       :default => "png"
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", 
       :default => "auto"
@@ -29,6 +29,8 @@ EOS
       :default => 16
   opt :margin, "Margin: 0-120",
       :default => 0
+  opt :vheight, "Connector Height: 0.5-2.0",
+    :default => 0.5
   opt :color, "Color text and bars: on or off",
       :default => "on" 
   opt :symmetrize, "Generate symmetrical, balanced tree: on or off",
@@ -38,15 +40,16 @@ EOS
 end
 
 Trollop::die :outdir, "must be an exsting directory path" unless FileTest::directory?(opts[:outdir])
-Trollop::die :format, "must be png or svg" unless /\A(png|pdf|svg)\z/ =~ opts[:format]
+Trollop::die :format, "must be png, jpg, gif, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
 Trollop::die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
 Trollop::die :fontstyle, "must be sans, serif, mono, cjk" unless /\A(sans|serif|mono|cjk)\z/ =~ opts[:fontstyle]
 Trollop::die :font, "must be path to an existing ttf font" if opts[:font] && !File::exists?(opts[:font])
-Trollop::die :fontsize, "must be in the range 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
-Trollop::die :margin, "must be in the range 0-120" if opts[:margin] < 0 || opts[:margin] > 120
+Trollop::die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
 Trollop::die :color, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:color]
 Trollop::die :symmetrize, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:symmetrize]
 Trollop::die :autosub, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:autosub]
+Trollop::die :margin, "must be in the range of 0-120" if opts[:margin] < 0 || opts[:margin] > 120
+Trollop::die :vheight, "must be in the range of 0.5-2.0" if opts[:vheight] < 0.5 || opts[:vheight] > 2.0
 
 string_opts = {}
 opts.each do |key, value|
@@ -68,6 +71,10 @@ outfile = File.new(File.expand_path(string_opts[:outdir]) + "/syntree." + ext, "
 case ext
 when "png"
   outfile.write rsg.draw_png
+when "jpg"
+  outfile.write rsg.draw_jpg
+when "gif"
+  outfile.write rsg.draw_gif
 when "pdf"
   outfile.write rsg.draw_pdf
 when "svg"
