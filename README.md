@@ -50,7 +50,7 @@ You can put a subscript to any node by putting the _ character between the main 
 Bracket notation (auto-subscript-on):
 
 ```text
-[S [NP RSyntaxTree^][VP [V generates][NP multilingual syntax trees]]]
+[S [NP RSyntaxTree^][VP [V generates][NP [Adj multilingual] [NP syntax trees]]]]
 ```
 
 Resulting PNG
