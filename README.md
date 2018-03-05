@@ -2,8 +2,6 @@
 
 **RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language inspired by [phpSyntaxTree](http://ironcreek.net/phpsyntaxtree/). 
 
-- - -
-
 ### Web Interface
 
 Working web interface of is available at <https://yohasebe.com/rsyntaxtree>.
@@ -30,11 +28,12 @@ where [options] are:
       -n, --fontstyle=<s>     Font style (available when ttf font is specified): sans, serif, mono, cjk (default: sans)
       -t, --font=<s>          Path to a ttf font used to generate tree (optional)
       -s, --fontsize=<i>      Size: 8-26 (default: 16)
-      -m, --margin=<i>        Margin: 0-120 (default: 0)
       -c, --color=<s>         Color text and bars: on or off (default: on)
       -y, --symmetrize=<s>    Generate symmetrical, balanced tree: on or off (default: on)
       -a, --autosub=<s>       Put subscript numbers to nodes: on or off (default: off)
-      -v, --version           Print version and exit
+      -m, --margin=<i>        Margin: 0-120 (default: 0)
+      -v, --vheight=<f>       Connector Height: 0.5-2.0 (default: 0.5)
+      -e, --version           Print version and exit
       -h, --help              Show this message
 ```
 
@@ -56,7 +55,7 @@ Bracket notation (auto-subscript-on):
 
 Resulting PNG
 
-![RSyntaxTree generates multilingual syntax trees](https://i.gyazo.com/8d8cbce1e8d8d45c0dda0741009641fd.png)
+![RSyntaxTree generates multilingual syntax trees](https://i.gyazo.com/6bb68b0bdb35d7a10c4a11d5788d484f.png)
 
 ### Development
 
