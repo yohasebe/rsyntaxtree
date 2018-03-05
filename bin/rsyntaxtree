@@ -30,7 +30,7 @@ EOS
   opt :margin, "Margin: 0-120",
       :default => 0
   opt :vheight, "Connector Height: 0.5-2.0",
-    :default => 0.5
+    :default => 1.0
   opt :color, "Color text and bars: on or off",
       :default => "on" 
   opt :symmetrize, "Generate symmetrical, balanced tree: on or off",
