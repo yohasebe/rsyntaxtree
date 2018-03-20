@@ -45,6 +45,7 @@ FONT_DIR = File.expand_path(File.dirname(__FILE__) + "/../fonts")
 ETYPE_UNDEFINED = 0
 ETYPE_NODE = 1
 ETYPE_LEAF = 2
+SUBSCRIPT_CONST = 0.7
 
 class RSGenerator 
   def initialize(params = {})
@@ -61,6 +62,7 @@ class RSGenerator
           .gsub('-OABRACKET-', '<')
           .gsub('-CABRACKET-', '>')
         new_params[key] = data
+        new_params[:multibyte] = data.contains_cjk?
       when :symmetrize, :color, :autosub
         new_params[key] = value && value != "off" ? true : false
       when :fontsize
@@ -71,34 +73,25 @@ class RSGenerator
         new_params[key] = value.to_f
       when :fontstyle
         if value == "noto-sans" || value == "sans"
-          new_params[:font] = FONT_DIR + "/NotoSansCJKjp-Regular.otf"
+          new_params[:font] = FONT_DIR + "/NotoSans-Regular.otf"
           new_params[:font_it] = FONT_DIR + "/NotoSans-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
+          new_params[:font_cjk] = FONT_DIR + "/NotoSansCJKjp-Regular.otf"
           new_params[:fontstyle] = "sans"
         elsif value == "noto-serif" || value == "serif"
-          new_params[:font] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
+          new_params[:font] = FONT_DIR + "/NotoSerif-Regular.otf"
           new_params[:font_it] = FONT_DIR + "/NotoSerif-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSerif-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
-          new_params[:fontstyle] = "serif"
-        elsif value == "western-sans"
-          new_params[:font] = FONT_DIR + "/NotoSans-Regular.ttf"
-          new_params[:font_it] = FONT_DIR + "/NotoSans-Italic.ttf"
-          new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
-          new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
-          new_params[:fontstyle] = "sans"
-        elsif value == "western-serif"
-          new_params[:font] = FONT_DIR + "/NotoSerif-Regular.ttf"
-          new_params[:font_it] = FONT_DIR + "/NotoSerif-Italic.ttf"
-          new_params[:font_bd] = FONT_DIR + "/NotoSerif-Bold.ttf"
-          new_params[:font_bdit] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
+          new_params[:font_cjk] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
           new_params[:fontstyle] = "serif"
         elsif value == "cjk zenhei" || value == "cjk"
           new_params[:font] = FONT_DIR + "/wqy-zenhei.ttf"
           new_params[:font_it] = FONT_DIR + "/NotoSans-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
+          new_params[:font_cjk] = FONT_DIR + "/wqy-zenhei.ttf"
           new_params[:fontstyle] = "sans"
         end
       else
@@ -170,8 +163,8 @@ class RSGenerator
     elist = sp.get_elementlist
     graph = TreeGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], 
-      @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], @params[:fontsize], 
-      @params[:format], @params[:margin]
+      @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], @params[:font_cjk], @params[:fontsize], 
+      @params[:format], @params[:margin], @params[:multibyte]
     )
     graph.to_blob(@params[:format])
   end
@@ -184,7 +177,7 @@ class RSGenerator
     elist = sp.get_elementlist
     graph = SVGGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], 
-      @params[:font], @params[:fontstyle], @params[:fontsize]
+      @params[:font], @params[:fontstyle], @params[:fontsize], @params[:multibyte]
     )
     graph.svg_data
   end

@@ -68,7 +68,7 @@ class StringParser
       return false
     end
 
-    if /\A\s*\[.+ .+\]\s*\z/ !~ @data
+    if /\[\s*\]/m =~ @data
       return false  
     end
 
@@ -96,11 +96,11 @@ class StringParser
     end
 
     return false unless open_br.length == close_br.length
-    make_tree(0)
-    return false if @tncnt.empty?
-    @tncnt.each do |key, value|
-      return false if key == ""
-    end
+    # make_tree(0)
+    # return false if @tncnt.empty?
+    # @tncnt.each do |key, value|
+    #   return false if key == ""
+    # end
     return true
   end 
   

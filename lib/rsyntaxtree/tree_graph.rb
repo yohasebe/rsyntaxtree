@@ -28,7 +28,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 require 'imgutils'
-require 'pp'
 require 'elementlist'
 require 'rmagick'
 include Magick
@@ -36,17 +35,19 @@ include Magick
 class TreeGraph
 
   def initialize(e_list, metrics, symmetrize, color, terminal, 
-                 fontstyle, font, font_it, font_bd, font_itbd, font_size, 
-                 simple, margin)
+                 fontstyle, font, font_it, font_bd, font_itbd, font_cjk, font_size, 
+                 simple, margin, multibyte)
 
     # Store parameters (double font size and margin to make image retina ready)
     @e_list     = e_list
     @m          = metrics
     @fontstyle  = fontstyle
-    @font       = font
+    @multibyte  = multibyte
+    @font       = multibyte ? font_cjk : font
     @font_it    = font_it
     @font_bd    = font_bd
     @font_itbd  = font_itbd
+    @font_cjk   = font_cjk
     @terminal   = terminal
     @symmetrize = symmetrize
     @simple     = simple
@@ -81,6 +82,9 @@ class TreeGraph
       @col_leaf  = "black"
       @col_trace = "black"
     end
+
+    @sub_size = (@font_size * SUBSCRIPT_CONST)
+    @sub_space_width = img_get_txt_width("l", @font, @sub_size)
   end
   
   def destroy
@@ -108,7 +112,19 @@ class TreeGraph
   end  
   
   :private
- 
+
+  def get_text_only(text)
+    if /\A([\+\-\=\*]+).+/ =~ text
+      prefix = $1
+      prefix_l = Regexp.escape(prefix)
+      prefix_r = Regexp.escape(prefix.reverse)
+      if /\A#{prefix_l}(.+)#{prefix_r}\z/ =~ text
+        return $1
+      end
+    end
+    return text
+  end
+
   # Add the element into the tree (draw it)
   def draw_element(x, y, w, string, type)
     string = string.sub(/\^\z/){""} 
@@ -124,33 +140,61 @@ class TreeGraph
 
     # Split the string into the main part and the 
     # subscript part of the element (if any)
-    main = string.strip
-    sub  = ""
-
-    sub_size = (@font_size * 0.7 )
     parts = string.split("_", 2)
-  
     if(parts.length > 1 )
-      main = parts[0]
-      sub  = parts[1].gsub(/_/, " ")
+      main = parts[0].strip
+      sub  = parts[1].gsub(/_/, " ").strip
+    else
+      main = parts[0].strip
+      sub  = ""
     end
         
+    if /\A\+(.+)\+\z/ =~ main
+      main = $1
+      @gc.decorate(OverlineDecoration)
+    elsif /\A\-(.+)\-\z/ =~ main
+      main = $1
+      @gc.decorate(UnderlineDecoration)
+    elsif /\A\=(.+)\=\z/ =~ main
+      main = $1
+      @gc.decorate(LineThroughDecoration)
+    else
+      @gc.decorate(NoDecoration)
+    end
+
+    font_used = @font
+
+    if /\A\*\*\*(.+)\*\*\*\z/ =~ main
+      main = $1
+      if !@multibyte || !main.contains_cjk?
+        @gc.font(@font_itbd)
+        font_used = @font_itbd
+      end
+    elsif /\A\*\*(.+)\*\*\z/ =~ main
+      main = $1
+      if !@multibyte || !main.contains_cjk?
+        @gc.font(@font_bd)
+        font_used = @font_bd
+      end
+    elsif /\A\*(.+)\*\z/ =~ main
+      main = $1
+      if !@multibyte || !main.contains_cjk?
+        @gc.font(@font_it)
+        font_used = @font_it
+      end
+    else
+      @gc.font(@font)
+      font_used = @font
+    end
+
     # Calculate text size for the main and the 
     # subscript part of the element
     # symbols for underline/overline removed temporarily
-    if /\A([\+\-\=\*]+).+/ =~ main
-      prefix = $1
-      prefix_l = Regexp.escape(prefix)
-      prefix_r = Regexp.escape(prefix.reverse)
-      if /\A#{prefix_l}(.+)#{prefix_r}\z/ =~ main
-        main_no_symbols = $1
-        main_width = img_get_txt_width(main_no_symbols, @font, @font_size)
-      end
-    end
-    main_width ||= img_get_txt_width(main, @font, @font_size)
+
+    main_width = img_get_txt_width(main, font_used, @font_size)
 
     if sub != ""
-      sub_width  = img_get_txt_width(sub.to_s,  @font, sub_size)
+      sub_width  = img_get_txt_width(sub.to_s,  @font, @sub_size)
     else
       sub_width = 0
     end
@@ -179,39 +223,18 @@ class TreeGraph
     main_x = txt_pos
     main_y = top + @e_height - @m[:e_padd]
 
-    if /\A\+(.+)\+\z/ =~ main
-      main = $1
-      @gc.decorate(OverlineDecoration)
-    elsif /\A\-(.+)\-\z/ =~ main
-      main = $1
-      @gc.decorate(UnderlineDecoration)
-    elsif /\A\=(.+)\=\z/ =~ main
-      main = $1
-      @gc.decorate(LineThroughDecoration)
-    else
-      @gc.decorate(NoDecoration)
-    end
-
-    if /\A\*\*\*(.+)\*\*\*\z/ =~ main
-      main = $1
-      @gc.font(@font_itbd)
-    elsif /\A\*\*(.+)\*\*\z/ =~ main
-      main = $1
-      @gc.font(@font_bd)
-    elsif /\A\*(.+)\*\z/ =~ main
-      main = $1
-      @gc.font(@font_it)
-    else
-      @gc.font(@font)
-    end
-
     @gc.text(main_x.ceil, main_y.ceil, main)
-        
+    
+    # Change font and style back to regular
+    @gc.font(@font)
+    @gc.decorate(NoDecoration)
+
     # Draw subscript text
     if (sub.length > 0 )
-      @gc.pointsize(sub_size)
-      sub_x = txt_pos + main_width + (sub_size/8)
-      sub_y = top + (@e_height - @m[:e_padd] + sub_size / 2)
+      @gc.pointsize(@sub_size)
+      # sub_x = txt_pos + main_width + (@sub_size/8)
+      sub_x = txt_pos + main_width + @sub_space_width
+      sub_y = top + (@e_height - @m[:e_padd] + @sub_size / 2)
       @gc.text(sub_x.ceil, sub_y.ceil, sub)
     end
   end

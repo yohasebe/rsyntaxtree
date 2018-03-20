@@ -31,6 +31,12 @@
 require 'rmagick'
 include Magick
 
+class String
+  def contains_cjk?
+    !!(self =~ /\p{Han}|\p{Katakana}|\p{Hiragana}|\p{Hangul}/)
+  end
+end
+
 def img_get_txt_metrics(text, font, font_size, multiline)
 
   background = Image.new(500, 250)
@@ -52,19 +58,59 @@ def img_get_txt_metrics(text, font, font_size, multiline)
   return metrics
 end
 
-def img_get_txt_width(text, font = "Verdana", font_size = 10, multibyte = false)
-
-  metrics = img_get_txt_metrics(text, font, font_size, multibyte)
-  x = metrics.width
-  return x
-  
+def get_txt_only(text)
+  text = text.strip
+  if /\A([\+\-\=\*]+).+/ =~ text
+    prefix = $1
+    prefix_l = Regexp.escape(prefix)
+    prefix_r = Regexp.escape(prefix.reverse)
+    if /\A#{prefix_l}(.+)#{prefix_r}\z/ =~ text
+      return $1
+    end
+  end
+  return text
 end
 
-def img_get_txt_height(text, font = "Verdana", font_size = 10, multibyte = false)
+def img_get_txt_width(text, font, font_size, multiline = false)
+  parts = text.split("_", 2)
+  main_before = parts[0].strip
+  sub = parts[1]
+  main = get_txt_only(main_before)
+  main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
+  width = main_metrics.width
+  if sub
+    sub_metrics = img_get_txt_metrics(sub.strip, font, font_size * SUBSCRIPT_CONST, multiline)
+    width += sub_metrics.width
+  end
+  return width
+end
 
-  metrics = img_get_txt_metrics(text, font, font_size, multibyte)
+def img_get_txt_width2(text, font, font_size, multiline = false)
+  parts = text.split("_", 2)
+  main_before = parts[0].strip
+  sub = parts[1]
+  main = get_txt_only(main_before)
+  if(main.contains_cjk?)
+    main = 'n' * main.strip.size * 2
+  else
+    main
+  end
+  main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
+  width = main_metrics.width
+  if sub
+    if(sub.contains_cjk?)
+      sub = 'n' * sub.strip.size * 2
+    else
+      sub
+    end
+    sub_metrics = img_get_txt_metrics(sub, font, font_size * SUBSCRIPT_CONST, multiline)
+    width += sub_metrics.width
+  end
+  return width
+end
+
+def img_get_txt_height(text, font, font_size, multiline = false)
+  metrics = img_get_txt_metrics(text, font, font_size, multiline)
   y = metrics.height
   return y
-  
 end
- 
