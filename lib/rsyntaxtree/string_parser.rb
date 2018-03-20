@@ -104,7 +104,6 @@ class StringParser
     return true
   end 
   
-        
   def parse
     make_tree(0);
   end

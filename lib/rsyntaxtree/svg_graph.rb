@@ -35,13 +35,14 @@ include Magick
 
 class SVGGraph
     
-  def initialize(e_list, metrics, symmetrize = true, color = true, leafstyle = "auto",
-                 font = "Helvetica", font_size = 10, simple = false)
+  def initialize(e_list, metrics, symmetrize, color, leafstyle,
+                 font, fontstyle, font_size)
 
     # Store parameters
     @e_list     = e_list
     @m          = metrics
     @font       = font
+    @fontstyle  = fontstyle == "sans" ? "sans-serif" : fontstyle
     @font_size  = font_size
     @leafstyle  = leafstyle
     @symmetrize = symmetrize
@@ -73,10 +74,8 @@ class SVGGraph
     end
 
     @line_styles  = "<line style='stroke:black; stroke-width:1;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
-    @polygon_styles  = "<polygon style='fill: white; stroke: black; stroke-width:1;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-
-    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZEpx;' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
-
+    @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:1;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
+    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZEpx; ST; WA;' x='X_VALUE' y='Y_VALUE' TD font-family='#{@fontstyle}'>CONTENT</text>\n"
     @tree_data  = String.new
   end
 
@@ -131,7 +130,7 @@ EOD
 
     # Split the string into the main part and the 
     # subscript part of the element (if any)
-    main = string
+    main = string.strip
     sub  = ""
 
     sub_size = (@font_size * 0.7 )
@@ -144,7 +143,18 @@ EOD
         
     # Calculate text size for the main and the 
     # subscript part of the element
-    main_width = img_get_txt_width(main, @font, @font_size)
+    # symbols for underline/overline removed temporarily
+
+    if /\A([\+\-\=\*]+).+/ =~ main
+      prefix = $1
+      prefix_l = Regexp.escape(prefix)
+      prefix_r = Regexp.escape(prefix.reverse)
+      if /\A#{prefix_l}(.+)#{prefix_r}\z/ =~ main
+        main_no_symbols = $1
+        main_width = img_get_txt_width(main_no_symbols, @font, @font_size)
+      end
+    end
+    main_width ||= img_get_txt_width(main, @font, @font_size)
 
     if sub != ""
       sub_width  = img_get_txt_width(sub.to_s,  @font, sub_size)
@@ -174,15 +184,48 @@ EOD
     main_y = top + @e_height - @m[:e_padd]
     main_data  = main_data.sub(/X_VALUE/, main_x.to_s)
     main_data  = main_data.sub(/Y_VALUE/, main_y.to_s)
-    @tree_data += main_data.sub(/CONTENT/, main)
 
+    if /\A\+(.+)\+\z/ =~ main
+      main = $1
+      decoration= "overline"
+    elsif /\A\-(.+)\-\z/ =~ main
+      main = $1
+      decoration= "underline"
+    elsif /\A\=(.+)\=\z/ =~ main
+      main = $1
+      decoration= "line-through"
+    else
+      decoration= ""
+    end
+
+    if /\A\*\*\*(.+)\*\*\*\z/ =~ main
+      main = $1
+      style = "font-style: italic"
+      weight = "font-weight: bold"
+    elsif /\A\*\*(.+)\*\*\z/ =~ main
+      main = $1
+      style = ""
+      weight = "font-weight: bold"
+    elsif /\A\*(.+)\*\z/ =~ main
+      main = $1
+      style = "font-style: italic"
+      weight = ""
+    else
+      style = ""
+      weight = ""
+    end
+
+    @tree_data += main_data.sub(/TD/, "text-decoration='#{decoration}'")
+                           .sub(/ST/, style)
+                           .sub(/WA/, weight)
+                           .sub(/CONTENT/, main)
     # Draw subscript text
     sub_data  = @text_styles.sub(/COLOR/, col)
     sub_data  = sub_data.sub(/FONT_SIZE/, @font_size.to_s)
     sub_x = main_x + main_width + (sub_size/8)
     sub_y = top + (@e_height - @m[:e_padd] + sub_size / 2).ceil
     if (sub.length > 0 )
-      sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
+      # sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
       sub_data   = sub_data.sub(/Y_VALUE/, sub_y.ceil.to_s)
       @tree_data += sub_data.sub(/CONTENT/, sub)
     end
@@ -234,8 +277,6 @@ EOD
     polygon_data = polygon_data.sub(/X3/, toLeft.ceil.to_s)
     @tree_data  += polygon_data.sub(/Y3/, toBot.ceil.to_s)
   end
-
-
 
   # If a node element text is wider than the sum of it's
   #   child elements, then the child elements need to
