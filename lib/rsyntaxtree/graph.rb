@@ -169,7 +169,7 @@ class Graph
               unless @leafstyle == "nothing" && ETYPE_LEAF == j.type
                 if (@leafstyle == "triangle" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 0)
                   txt_width = img_get_txt_width(j.content, @font, @font_size)
-                  triangle_to_parent(x, i, cw, txt_width)
+                  triangle_to_parent(x, i, cw, txt_width, @symmetrize)
                 elsif (@leafstyle == "auto" && ETYPE_LEAF == j.type && x == parent_indent)
                    if words.length > 1 || j.triangle
                      txt_width = img_get_txt_width(j.content, @font, @font_size)

@@ -89,32 +89,32 @@ EOD
 
     if /\A\+(.+)\+\z/ =~ main
       main = $1
-      decoration= "overline"
+      main_decoration= "overline"
     elsif /\A\-(.+)\-\z/ =~ main
       main = $1
-      decoration= "underline"
+      main_decoration= "underline"
     elsif /\A\=(.+)\=\z/ =~ main
       main = $1
-      decoration= "line-through"
+      main_decoration= "line-through"
     else
-      decoration= ""
+      main_decoration= ""
     end
 
     if /\A\*\*\*(.+)\*\*\*\z/ =~ main
       main = $1
-      style = "font-style: italic"
-      weight = "font-weight: bold"
+      main_style = "font-style: italic"
+      main_weight = "font-weight: bold"
     elsif /\A\*\*(.+)\*\*\z/ =~ main
       main = $1
-      style = ""
-      weight = "font-weight: bold"
+      main_style = ""
+      main_weight = "font-weight: bold"
     elsif /\A\*(.+)\*\z/ =~ main
       main = $1
-      style = "font-style: italic"
-      weight = ""
+      main_style = "font-style: italic"
+      main_weight = ""
     else
-      style = ""
-      weight = ""
+      main_style = ""
+      main_weight = ""
     end
 
     # Calculate text size for the main and the 
@@ -124,6 +124,35 @@ EOD
     main_width = img_get_txt_width(main, @font, @font_size)
 
     if sub != ""
+      if /\A\+(.+)\+\z/ =~ sub
+        sub = $1
+        sub_decoration= "overline"
+      elsif /\A\-(.+)\-\z/ =~ sub
+        sub = $1
+        sub_decoration= "underline"
+      elsif /\A\=(.+)\=\z/ =~ sub
+        sub = $1
+        sub_decoration= "line-through"
+      else
+        sub_decoration= ""
+      end
+
+      if /\A\*\*\*(.+)\*\*\*\z/ =~ sub
+        sub = $1
+        sub_style = "font-style: italic"
+        sub_weight = "font-weight: bold"
+      elsif /\A\*\*(.+)\*\*\z/ =~ sub
+        sub = $1
+        sub_style = ""
+        sub_weight = "font-weight: bold"
+      elsif /\A\*(.+)\*\z/ =~ sub
+        sub = $1
+        sub_style = "font-style: italic"
+        sub_weight = ""
+      else
+        sub_style = ""
+        sub_weight = ""
+      end
       sub_width  = img_get_txt_width(sub.to_s,  @font, @sub_size)
     else
       sub_width = 0
@@ -152,10 +181,11 @@ EOD
     main_data  = main_data.sub(/X_VALUE/, main_x.to_s)
     main_data  = main_data.sub(/Y_VALUE/, main_y.to_s)
 
-    @tree_data += main_data.sub(/TD/, "text-decoration='#{decoration}'")
-                           .sub(/ST/, style)
-                           .sub(/WA/, weight)
-                           .sub(/CONTENT/, main)
+    @tree_data += main_data.sub(/TD/, "text-decoration='#{main_decoration}'")
+      .sub(/ST/, main_style)
+      .sub(/WA/, main_weight)
+      .sub(/CONTENT/, main)
+
     # Draw subscript text
     sub_data  = @text_styles.sub(/COLOR/, col)
     sub_data  = sub_data.sub(/FONT_SIZE/, @sub_size.to_s)
@@ -164,10 +194,10 @@ EOD
     if (sub.length > 0 )
       sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
       sub_data   = sub_data.sub(/Y_VALUE/, sub_y.ceil.to_s)
-      @tree_data += sub_data.sub(/TD/, "")
-                    .sub(/ST/, "")
-                    .sub(/WA/, "")
-                    .sub(/CONTENT/, sub)
+      @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
+        .sub(/ST/, sub_style)
+        .sub(/WA/, sub_weight)
+        .sub(/CONTENT/, sub)
     end
   end
 

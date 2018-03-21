@@ -36,9 +36,10 @@ class TreeGraph < Graph
     super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
 
     # Initialize the image and colors
-    @im      = Image.new(@width, @height)
-    @gc      = Draw.new
-    @gc.font = @font
+    @im           = Image.new(@width, @height)
+    @im.interlace = PlaneInterlace
+    @gc           = Draw.new
+    @gc.font      = @font
     @gc.pointsize(@font_size)
   end
 
@@ -94,50 +95,79 @@ class TreeGraph < Graph
 
     if /\A\+(.+)\+\z/ =~ main
       main = $1
-      @gc.decorate(OverlineDecoration)
+      main_decoration = OverlineDecoration
     elsif /\A\-(.+)\-\z/ =~ main
       main = $1
-      @gc.decorate(UnderlineDecoration)
+      main_decoration = UnderlineDecoration
     elsif /\A\=(.+)\=\z/ =~ main
       main = $1
-      @gc.decorate(LineThroughDecoration)
+      main_decoration = LineThroughDecoration
     else
-      @gc.decorate(NoDecoration)
+      main_decoration = NoDecoration
     end
-
-    font_used = @font
 
     if /\A\*\*\*(.+)\*\*\*\z/ =~ main
       main = $1
       if !@multibyte || !main.contains_cjk?
-        @gc.font(@font_itbd)
-        font_used = @font_itbd
+        main_font = @font_itbd
       end
     elsif /\A\*\*(.+)\*\*\z/ =~ main
       main = $1
       if !@multibyte || !main.contains_cjk?
-        @gc.font(@font_bd)
-        font_used = @font_bd
+        main_font = @font_bd
       end
     elsif /\A\*(.+)\*\z/ =~ main
       main = $1
       if !@multibyte || !main.contains_cjk?
-        @gc.font(@font_it)
-        font_used = @font_it
+        main_font = @font_it
       end
     else
-      @gc.font(@font)
-      font_used = @font
+      main_font = @font
     end
 
     # Calculate text size for the main and the 
     # subscript part of the element
     # symbols for underline/overline removed temporarily
 
-    main_width = img_get_txt_width(main, font_used, @font_size)
+    main_width = img_get_txt_width(main, main_font, @font_size)
+
+    if /\A\+(.+)\+\z/ =~ sub
+      sub = $1
+      sub_decoration = OverlineDecoration
+    elsif /\A\-(.+)\-\z/ =~ sub
+      sub = $1
+      @gc.decorate(UnderlineDecoration)
+      sub_decoration = UnderlineDecoration
+    elsif /\A\=(.+)\=\z/ =~ sub
+      sub = $1
+      sub_decoration = LineThroughDecoration
+    else
+      sub_decoration = NoDecoration
+    end
+
+    sub_font = @font
+
+    if /\A\*\*\*(.+)\*\*\*\z/ =~ sub
+      sub = $1
+      if !@multibyte || !sub.contains_cjk?
+        sub_font = @font_itbd
+      end
+    elsif /\A\*\*(.+)\*\*\z/ =~ sub
+      sub = $1
+      if !@multibyte || !sub.contains_cjk?
+        sub_font = @font_bd
+      end
+    elsif /\A\*(.+)\*\z/ =~ sub
+      sub = $1
+      if !@multibyte || !sub.contains_cjk?
+        sub_font = @font_it
+      end
+    else
+      sub_font = @font
+    end
 
     if sub != ""
-      sub_width  = img_get_txt_width(sub.to_s,  @font, @sub_size)
+      sub_width  = img_get_txt_width(sub.to_s, sub_font, @sub_size)
     else
       sub_width = 0
     end
@@ -167,17 +197,17 @@ class TreeGraph < Graph
     main_y = top + @e_height - @m[:e_padd]
 
     @gc.interline_spacing = -(@main_height / 3)
+    @gc.font(main_font)
+    @gc.decorate(main_decoration)
     @gc.text(main_x.ceil, main_y.ceil, main)
-
-    # Change font and style back to regular
-    @gc.font(@font)
-    @gc.decorate(NoDecoration)
 
     # Draw subscript text
     if (sub.length > 0 )
       @gc.pointsize(@sub_size)
       sub_x = txt_pos + main_width + @sub_space_width
       sub_y = top + (@e_height - @m[:e_padd] + @sub_size / 2)
+      @gc.font(sub_font)
+      @gc.decorate(sub_decoration)
       @gc.text(sub_x.ceil, sub_y.ceil, sub)
     end
   end
