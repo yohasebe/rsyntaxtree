@@ -12,25 +12,11 @@
 # excellent program phpSyntaxTree.
 # Copyright (c) 2007-2018 Yoichiro Hasebe <yohasebe@gmail.com>
 # Copyright (c) 2003-2004 Andre Eisenbach <andre@ironcreek.net>
-# 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 $LOAD_PATH << File.join( File.dirname(__FILE__), 'rsyntaxtree')
 
 require 'uri'
-require 'imgutils'
+require 'utils'
 require 'element'
 require 'elementlist'
 require 'string_parser'
@@ -38,7 +24,6 @@ require 'tree_graph'
 require 'svg_graph'
 require 'error_message'
 require 'version'
-require 'pp'
 
 FONT_DIR = File.expand_path(File.dirname(__FILE__) + "/../fonts")
 
@@ -73,14 +58,14 @@ class RSGenerator
         new_params[key] = value.to_f
       when :fontstyle
         if value == "noto-sans" || value == "sans"
-          new_params[:font] = FONT_DIR + "/NotoSans-Regular.otf"
+          new_params[:font] = FONT_DIR + "/NotoSans-Regular.ttf"
           new_params[:font_it] = FONT_DIR + "/NotoSans-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSansCJKjp-Regular.otf"
           new_params[:fontstyle] = "sans"
         elsif value == "noto-serif" || value == "serif"
-          new_params[:font] = FONT_DIR + "/NotoSerif-Regular.otf"
+          new_params[:font] = FONT_DIR + "/NotoSerif-Regular.ttf"
           new_params[:font_it] = FONT_DIR + "/NotoSerif-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSerif-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
@@ -98,7 +83,7 @@ class RSGenerator
         new_params[key] = value
       end
     end
-    
+
     @params = {
       :symmetrize => true,
       :color      => true,
@@ -124,7 +109,7 @@ class RSGenerator
       :b_side   => 10,
       :b_topbot => 10
     }
-    
+
     @params.merge! new_params
     @params[:fontsize]  = @params[:fontsize] * 2
     @params[:margin]    = @params[:margin] * 2
@@ -135,7 +120,7 @@ class RSGenerator
      sp = StringParser.new(text)
      sp.valid?
   end
-  
+
   def draw_png
     @params[:format] = "png"
     draw_tree
@@ -155,20 +140,7 @@ class RSGenerator
     @params[:format] = "pdf"
     draw_tree
   end
-    
-  def draw_tree
-    sp = StringParser.new(@params[:data])
-    sp.parse
-    sp.auto_subscript if @params[:autosub]
-    elist = sp.get_elementlist
-    graph = TreeGraph.new(elist, @metrics,
-      @params[:symmetrize], @params[:color], @params[:leafstyle], 
-      @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], @params[:font_cjk], @params[:fontsize], 
-      @params[:format], @params[:margin], @params[:multibyte]
-    )
-    graph.to_blob(@params[:format])
-  end
-  
+
   def draw_svg
     @params[:format] = "svg"
     sp = StringParser.new(@params[:data].gsub('&', '&amp;').gsub('%', '&#37;'))
@@ -176,10 +148,23 @@ class RSGenerator
     sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
     graph = SVGGraph.new(elist, @metrics,
-      @params[:symmetrize], @params[:color], @params[:leafstyle], 
-      @params[:font], @params[:fontstyle], @params[:fontsize], @params[:multibyte]
+      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte], 
+      @params[:fontstyle], @params[:fontsize],
     )
     graph.svg_data
+  end
+
+  def draw_tree
+    sp = StringParser.new(@params[:data])
+    sp.parse
+    sp.auto_subscript if @params[:autosub]
+    elist = sp.get_elementlist
+    graph = TreeGraph.new(elist, @metrics,
+      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
+      @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], 
+      @params[:font_cjk], @params[:fontsize], @params[:margin], 
+    )
+    graph.to_blob(@params[:format])
   end
 end
 

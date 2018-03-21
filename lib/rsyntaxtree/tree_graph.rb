@@ -12,81 +12,36 @@
 #
 # Copyright (c) 2007-2018 Yoichiro Hasebe <yohasebe@gmail.com>
 # Copyright (c) 2003-2004 Andre Eisenbach <andre@ironcreek.net>
-# 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-require 'imgutils'
-require 'elementlist'
+require 'graph'
 require 'rmagick'
 include Magick
 
-class TreeGraph
+class TreeGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, terminal, 
-                 fontstyle, font, font_it, font_bd, font_itbd, font_cjk, font_size, 
-                 simple, margin, multibyte)
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte,
+                 fontstyle, font, font_it, font_bd, font_itbd, font_cjk, font_size,
+                 margin)
 
-    # Store parameters (double font size and margin to make image retina ready)
-    @e_list     = e_list
-    @m          = metrics
+    # Store class-specific parameters
     @fontstyle  = fontstyle
-    @multibyte  = multibyte
     @font       = multibyte ? font_cjk : font
+    @font_size  = font_size
     @font_it    = font_it
     @font_bd    = font_bd
     @font_itbd  = font_itbd
     @font_cjk   = font_cjk
-    @terminal   = terminal
-    @symmetrize = symmetrize
-    @simple     = simple
-    @font_size  = font_size
     @margin     = margin
 
-    # Calculate image dimensions
-    @e_height = @font_size + metrics[:e_padd] * 2
-    h         = @e_list.get_level_height
-    w         = calc_level_width(0)
-    w_px      = w + metrics[:b_side] * 2
-    h_px      = h * @e_height + (h-1) * (metrics[:v_space] + @font_size) + metrics[:b_topbot] * 2
-    @height   = h_px
-    @width    = w_px
+    super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
 
     # Initialize the image and colors
-    @im      = Image.new(w_px, h_px)
+    @im      = Image.new(@width, @height)
     @gc      = Draw.new
     @gc.font = @font
     @gc.pointsize(@font_size)
-
-    @col_bg   = "none"
-    @col_fg   = "black"
-    @col_line = "black"
-    
-    if color
-      @col_node  = "blue"
-      @col_leaf  = "green"
-      @col_trace = "red"
-    else
-      @col_node  = "black"
-      @col_leaf  = "black"
-      @col_trace = "black"
-    end
-
-    @sub_size = (@font_size * SUBSCRIPT_CONST)
-    @sub_space_width = img_get_txt_width("l", @font, @sub_size)
   end
-  
+
   def destroy
     @im.destroy!
   end
@@ -110,26 +65,14 @@ class TreeGraph
        self.format = fileformat
     end
   end  
-  
-  :private
 
-  def get_text_only(text)
-    if /\A([\+\-\=\*]+).+/ =~ text
-      prefix = $1
-      prefix_l = Regexp.escape(prefix)
-      prefix_r = Regexp.escape(prefix.reverse)
-      if /\A#{prefix_l}(.+)#{prefix_r}\z/ =~ text
-        return $1
-      end
-    end
-    return text
-  end
+  :private
 
   # Add the element into the tree (draw it)
   def draw_element(x, y, w, string, type)
     string = string.sub(/\^\z/){""} 
     # Calculate element dimensions and position
-    if (type == ETYPE_LEAF) and @terminal == "nothing"
+    if (type == ETYPE_LEAF) and @leafstyle == "nothing"
       top = row2px(y - 1) + (@font_size * 1.5)
     else 
       top   = row2px(y)
@@ -148,7 +91,7 @@ class TreeGraph
       main = parts[0].strip
       sub  = ""
     end
-        
+
     if /\A\+(.+)\+\z/ =~ main
       main = $1
       @gc.decorate(OverlineDecoration)
@@ -203,14 +146,14 @@ class TreeGraph
     txt_width = main_width + sub_width
 
     txt_pos   = left + (right - left) / 2 - txt_width / 2
-  
+
     # Select apropriate color
     if(type == ETYPE_LEAF)
       col = @col_leaf
     else
       col = @col_node      
     end
-    
+
     if(main[0].chr == "<" && main[-1].chr == ">")
       col = @col_trace
     end
@@ -223,8 +166,9 @@ class TreeGraph
     main_x = txt_pos
     main_y = top + @e_height - @m[:e_padd]
 
+    @gc.interline_spacing = -(@main_height / 3)
     @gc.text(main_x.ceil, main_y.ceil, main)
-    
+
     # Change font and style back to regular
     @gc.font(@font)
     @gc.decorate(NoDecoration)
@@ -232,7 +176,6 @@ class TreeGraph
     # Draw subscript text
     if (sub.length > 0 )
       @gc.pointsize(@sub_size)
-      # sub_x = txt_pos + main_width + (@sub_size/8)
       sub_x = txt_pos + main_width + @sub_space_width
       sub_y = top + (@e_height - @m[:e_padd] + @sub_size / 2)
       @gc.text(sub_x.ceil, sub_y.ceil, sub)
@@ -245,7 +188,7 @@ class TreeGraph
     if (fromY == 0 )
       return
     end
-            
+
     fromTop  = row2px(fromY)
     fromLeft = (fromX + fromW / 2 + @m[:b_side])
     toBot    = (row2px(fromY - 1 ) + @e_height)
@@ -258,14 +201,14 @@ class TreeGraph
   end
 
   # Draw a triangle between child/parent elements
-  def triangle_to_parent(fromX, fromY, fromW, toX, textW, symmetrize = true)
+  def triangle_to_parent(fromX, fromY, fromW, textW, symmetrize = true)
     if (fromY == 0)
       return
     end
-      
+
     toX = fromX
     fromCenter = (fromX + fromW / 2 + @m[:b_side])
-    
+
     fromTop  = row2px(fromY).ceil
     fromLeft1 = (fromCenter + textW / 2).ceil
     fromLeft2 = (fromCenter - textW / 2).ceil
@@ -275,7 +218,7 @@ class TreeGraph
     else
       toLeft   = (toX + textW / 2 + @m[:b_side] * 3)
     end
-        
+
     @gc.fill("none")
     @gc.stroke @col_line
     @gc.stroke_width 1    
@@ -304,210 +247,17 @@ class TreeGraph
     end
   end
 
-  # Calculate the width of the element. If the element is
-  #   a node, the calculation will be performed recursively
-  #   for all child elements.
-  def calc_element_width(e)
-    w = 0
-        
-    children = @e_list.get_children(e.id)
-
-    if(children.length == 0)
-      w = img_get_txt_width(e.content, @font, @font_size) + @font_size
-    else
-      children.each do |child|
-        child_e = @e_list.get_id(child)
-        w += calc_element_width(child_e)
-      end
-
-      tw = img_get_txt_width(e.content, @font, @font_size) + @font_size
-      if(tw > w)
-        fix_child_size(e.id, w, tw)
-        w = tw
-      end
+  def img_get_txt_width(text, font, font_size, multiline = false)
+    parts = text.split("_", 2)
+    main_before = parts[0].strip
+    sub = parts[1]
+    main = get_txt_only(main_before)
+    main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
+    width = main_metrics.width
+    if sub
+      sub_metrics = img_get_txt_metrics(sub.strip, font, font_size * SUBSCRIPT_CONST, multiline)
+      width += sub_metrics.width
     end
-
-    @e_list.set_element_width(e.id, w)
-    return w
-  end
-
-  # Calculate the width of all elements in a certain level
-  def calc_level_width(l)
-    w = 0
-    e = @e_list.get_first
-    while e
-      if(e.level == l)
-        w += calc_element_width(e)
-      end
-        e = @e_list.get_next
-    end
-    return w
-  end
-
-  def calc_children_width(id)
-    left = 0
-    right = 0
-    c_list = @e_list.get_children(id)
-    return nil if c_list.empty?
-    
-    c_list.each do |c|
-      left =  c.indent if indent == 0 or left > c.indent
-    end
-    c_list.each do |c|
-      right = c.indent + e.width if c.indent + c.width > right
-    end
-    return [left, right]
-  end
-
-  def get_children_indent(id)
-    calc_children_width(id)[0]
-  end
-  
-  def get_children_width(id)
-    calc_children_width(id)[1] - get_children_indent(id)
-  end
-
-  # Parse the elements in the list top to bottom and
-  #   draw the elements into the image.
-  #   As we it iterate through the levels, the element
-  #   indentation is calculated.
-  def parse_list
-
-    # Calc element list recursively....
-    e_arr = @e_list.get_elements
-     
-    h = @e_list.get_level_height
-    h.times do |i|
-      x = 0
-      e_arr.each do |j|
-
-        if (j.level == i)
-          cw = @e_list.get_element_width(j.id)
-          parent_indent = @e_list.get_indent(j.parent)
-          if (x <  parent_indent)
-            x = parent_indent
-          end
-          @e_list.set_indent(j.id, x)
-
-          if !@symmetrize
-            draw_element(x, i, cw, j.content, j.type)
-            if(j.parent != 0 )
-              words = j.content.split(" ")
-              unless @terminal == "nothing" && ETYPE_LEAF == j.type
-                if (@terminal == "triangle" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 0)
-                  txt_width = img_get_txt_width(j.content, @font, @font_size)
-                  triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width)
-                elsif (@terminal == "auto" && ETYPE_LEAF == j.type && x == parent_indent)
-                   if words.length > 1 || j.triangle
-                     txt_width = img_get_txt_width(j.content, @font, @font_size)
-                     triangle_to_parent(x, i, cw, @e_list.get_element_width(j.parent), txt_width, @symmetrize)
-                   else
-                     line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
-                   end
-                else
-                  line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
-                end
-              end
-            end
-          end          
-
-          x += cw
-        end
-      end
-    end
-    return true if !@symmetrize
-    h.times do |i|
-      curlevel = h - i - 1
-      indent = 0
-      e_arr.each_with_index do |j, idx|
-        if (j.level == curlevel)
-          # Draw a line to the parent element
-          children = @e_list.get_children(j.id)
-
-          tw = img_get_txt_width(j.content, @font, @font_size)
-          if children.length > 1
-            left, right = -1, -1
-            children.each do |child|          
-              k = @e_list.get_id(child)
-              kw = img_get_txt_width(k.content, @font, @font_size)              
-              left = k.indent + kw / 2 if k.indent + kw / 2 < left or left == -1
-              right = k.indent + kw / 2 if k.indent + kw / 2 > right
-            end
-            draw_element(left, curlevel, right - left, j.content, j.type)
-            @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)
-
-            children.each do |child|
-              k = @e_list.get_id(child)
-              words = k.content.split(" ")
-              dw = img_get_txt_width(k.content, @font, @font_size)
-              unless @terminal == "nothing" && ETYPE_LEAF == k.type
-                if (@terminal == "triangle" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 0)
-                  txt_width = img_get_txt_width(k.content, @font, @font_size)
-                  triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
-                elsif (@terminal == "auto" && ETYPE_LEAF == k.type && k.indent == j.indent)
-                  if words.length > 1 || k.triangle
-                    txt_width = img_get_txt_width(k.content, @font, @font_size)
-                    triangle_to_parent(k.indent, curlevel + 1, dw, tw, txt_width)
-                  else
-                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
-                  end
-                else
-                  line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
-                end
-              end
-            end
-            
-          else
-            unless children.empty?
-              k = @e_list.get_id(children[0])
-              kw = img_get_txt_width(k.content, @font, @font_size)              
-              left = k.indent
-              right = k.indent + kw
-              draw_element(left, curlevel, right - left, j.content, j.type)
-              @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)
-            else
-             parent = @e_list.get_id(j.parent)
-             pw = img_get_txt_width(parent.content, @font, @font_size)
-             pleft = parent.indent
-             pright = pleft + pw
-             left = j.indent
-             right = left + tw
-             if pw > tw
-               left = pleft
-               right = pright
-             end
-             draw_element(left, curlevel, right - left, j.content, j.type) 
-             @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)             
-            end
-
-            unless children.empty?
-              k = @e_list.get_id(children[0])
-              words = k.content.split(" ")
-              dw = img_get_txt_width(k.content, @font, @font_size)
-              unless @terminal == "nothing" && ETYPE_LEAF == k.type
-                if (@terminal == "triangle" && ETYPE_LEAF == k.type && words.length > 0)
-                  txt_width = img_get_txt_width(k.content, @font, @font_size)
-                  triangle_to_parent(k.indent, curlevel + 1, dw, 
-                                     @e_list.get_element_width(k.parent), txt_width)
-                elsif (@terminal == "auto" && ETYPE_LEAF == k.type)
-                  if words.length > 1 || k.triangle
-                    txt_width = img_get_txt_width(k.content, @font, @font_size)
-                    triangle_to_parent(k.indent, curlevel + 1, dw, @e_list.get_element_width(k.parent), txt_width)
-                  else
-                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
-                  end
-                else
-                  line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
-                end
-              end
-            end
-          end
-        end
-      end
-    end
-  end
-
-  def row2px(row)
-   @m[:b_topbot] + @e_height * row + (@m[:v_space] + @font_size) * row
+    return width
   end
 end

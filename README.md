@@ -15,7 +15,7 @@ Working web interface of is available at <https://yohasebe.com/rsyntaxtree>.
 For the web interface, see Usage section of <https://yohasebe.com/rsyntaxtree>.
 
 For the command-line interface, type `$rsyntaxtree -h` after installation. Here's what you get:
-    
+
 ```text
 RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 

@@ -13,20 +13,6 @@
 #
 # Copyright (c) 2007-2018 Yoichiro Hasebe <yohasebe@gmail.com>
 # Copyright (c) 2003-2004 Andre Eisenbach <andre@ironcreek.net>
-# 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 require 'elementlist'
 require 'element'
@@ -53,7 +39,7 @@ class StringParser
     string.gsub!(/\s+/, " ")
     string.gsub!(/\] \[/, "][")
     string.gsub!(/ \[/, "[")
-  
+
     @data = string # Store it for later...
     @elist = ElementList.new # Initialize internal element list 
     @pos = 0 # Position in the sentence
@@ -61,7 +47,7 @@ class StringParser
     @level = 0 # Level in the diagram
     @tncnt = Hash.new # Node type counts
   end
-  
+
   # caution: quick and dirty solution      
   def valid?
     if(@data.length < 1)
@@ -103,7 +89,7 @@ class StringParser
     # end
     return true
   end 
-  
+
   def parse
     make_tree(0);
   end
@@ -111,7 +97,7 @@ class StringParser
   def get_elementlist
     @elist;
   end
-  
+
   def auto_subscript
     elements = @elist.get_elements
     tmpcnt   = Hash.new
@@ -119,18 +105,18 @@ class StringParser
       if(element.type == ETYPE_NODE)
         count = 1
         content = element.content
-        
+
         if @tncnt[content]
           count = @tncnt[content]
         end
-        
+
         if(count > 1)
           if tmpcnt[content]
             tmpcnt[content] += 1
           else
             tmpcnt[content] = 1
           end
-          
+
           element.content += ("_" + tmpcnt[content].to_s)
         end
 
@@ -147,7 +133,7 @@ class StringParser
       @tncnt[name] = 1
     end
   end
-  
+
   def get_next_token
     data = @data.split(//)
     gottoken = false
@@ -157,7 +143,7 @@ class StringParser
     if((@pos + 1) >= data.length)
       return ""
     end
-    
+
     escape = false
     while(((@pos + i) < data.length) && !gottoken)
       ch = data[@pos + i];
@@ -201,11 +187,11 @@ class StringParser
     end
     return token
   end
-  
+
   def make_tree(parent)
     token = get_next_token.strip
     parts = Array.new
-    
+
     while(token != "" && token != "]" )
       token_r = token.split(//)
       case token_r[0]
@@ -224,7 +210,7 @@ class StringParser
           @elist.add(element)
           newparent = element.id
           count_node(parts[0])
-          
+
           element = Element.new(@id, @id - 1, parts[1], @level + 1 )
           @id += 1          
           @elist.add(element)
@@ -247,7 +233,7 @@ class StringParser
           count_node(token)
         end
       end
-       
+
       token = get_next_token
     end
     @level -= 1
