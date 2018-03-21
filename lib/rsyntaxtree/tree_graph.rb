@@ -63,7 +63,8 @@ class TreeGraph < Graph
     draw
     @im.border!(@margin, @margin, "white")
     return @im.to_blob do
-       self.format = fileformat
+      self.format = fileformat
+      self.interlace = PlaneInterlace
     end
   end  
 
