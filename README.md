@@ -45,6 +45,8 @@ There are several modes in which the connectors between terminal nodes and their
 
 You can put a subscript to any node by putting the _ character between the main label and the subscript. For example, NP_TOP will be rendered as NP<sub>TOP</sub>. Or you can select the &#8220;Auto subscript&#8221; option so that nodes of the same label will be automatically numbered. (e.g. NP<sub>1</sub>, NP<sub>2</sub>)</p>
 
+See https://yohasebe.com/rsyntaxtree for more detailed info about the syntax.
+
 ### Example
 
 Bracket notation (auto-subscript-on):

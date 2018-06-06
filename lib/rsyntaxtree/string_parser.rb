@@ -193,6 +193,7 @@ class StringParser
     parts = Array.new
 
     while(token != "" && token != "]" )
+
       token_r = token.split(//)
       case token_r[0]
       when "["
@@ -203,8 +204,16 @@ class StringParser
 
         if spaceat
           parts[0] = token_r[0, spaceat].join
+
+          # 2018/06/07
+          parts[0] = parts[0].gsub("<>", " ")
+
           tl =token_r.length
           parts[1] = token_r[spaceat, tl - spaceat].join
+
+          # 2018/06/07
+          parts[1] = parts[1].gsub("<>", " ")
+
           element = Element.new(@id, parent, parts[0], @level)
           @id += 1
           @elist.add(element)
@@ -215,11 +224,14 @@ class StringParser
           @id += 1          
           @elist.add(element)
         else
-          element = Element.new(@id, parent, token_r.join, @level)
+          # 2018/06/07
+          parts = token_r = token_r.join.gsub("<>", " ")
+
+          element = Element.new(@id, parent, parts, @level)
           @id += 1          
           newparent = element.id
           @elist.add(element)
-          count_node(token_r.join)
+          count_node(parts)
         end 
 
         @level += 1

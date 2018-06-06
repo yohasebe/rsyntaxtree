@@ -109,17 +109,17 @@ class TreeGraph < Graph
 
     if /\A\*\*\*(.+)\*\*\*\z/ =~ main
       main = $1
-      if !@multibyte || !main.contains_cjk?
+      if !@multibyte
         main_font = @font_itbd
       end
     elsif /\A\*\*(.+)\*\*\z/ =~ main
       main = $1
-      if !@multibyte || !main.contains_cjk?
+      if !@multibyte
         main_font = @font_bd
       end
     elsif /\A\*(.+)\*\z/ =~ main
       main = $1
-      if !@multibyte || !main.contains_cjk?
+      if !@multibyte
         main_font = @font_it
       end
     else
@@ -150,17 +150,17 @@ class TreeGraph < Graph
 
     if /\A\*\*\*(.+)\*\*\*\z/ =~ sub
       sub = $1
-      if !@multibyte || !sub.contains_cjk?
+      if !@multibyte
         sub_font = @font_itbd
       end
     elsif /\A\*\*(.+)\*\*\z/ =~ sub
       sub = $1
-      if !@multibyte || !sub.contains_cjk?
+      if !@multibyte
         sub_font = @font_bd
       end
     elsif /\A\*(.+)\*\z/ =~ sub
       sub = $1
-      if !@multibyte || !sub.contains_cjk?
+      if !@multibyte
         sub_font = @font_it
       end
     else
