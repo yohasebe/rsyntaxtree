@@ -4,9 +4,9 @@
 $LOAD_PATH << File.join( File.dirname(__FILE__), '../lib')
 
 require 'rsyntaxtree'
-require 'trollop'
+require 'optimist'
 
-opts = Trollop::options do
+opts = Optimist::options do
   version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2018 Yoichiro Hasebe"
   banner <<-EOS
 RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
@@ -39,17 +39,17 @@ EOS
       :default => "off"       
 end
 
-Trollop::die :outdir, "must be an exsting directory path" unless FileTest::directory?(opts[:outdir])
-Trollop::die :format, "must be png, jpg, gif, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
-Trollop::die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
-Trollop::die :fontstyle, "must be sans, serif, cjk" unless /\A(sans|serif|cjk)\z/ =~ opts[:fontstyle]
-Trollop::die :font, "must be path to an existing ttf font" if opts[:font] && !File::exists?(opts[:font])
-Trollop::die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
-Trollop::die :color, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:color]
-Trollop::die :symmetrize, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:symmetrize]
-Trollop::die :autosub, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:autosub]
-Trollop::die :margin, "must be in the range of 0-120" if opts[:margin] < 0 || opts[:margin] > 120
-Trollop::die :vheight, "must be in the range of 0.5-2.0" if opts[:vheight] < 0.5 || opts[:vheight] > 2.0
+Optimist::die :outdir, "must be an exsting directory path" unless FileTest::directory?(opts[:outdir])
+Optimist::die :format, "must be png, jpg, gif, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
+Optimist::die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
+Optimist::die :fontstyle, "must be sans, serif, cjk" unless /\A(sans|serif|cjk)\z/ =~ opts[:fontstyle]
+Optimist::die :font, "must be path to an existing ttf font" if opts[:font] && !File::exists?(opts[:font])
+Optimist::die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
+Optimist::die :color, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:color]
+Optimist::die :symmetrize, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:symmetrize]
+Optimist::die :autosub, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:autosub]
+Optimist::die :margin, "must be in the range of 0-120" if opts[:margin] < 0 || opts[:margin] > 120
+Optimist::die :vheight, "must be in the range of 0.5-2.0" if opts[:vheight] < 0.5 || opts[:vheight] > 2.0
 
 string_opts = {}
 opts.each do |key, value|
