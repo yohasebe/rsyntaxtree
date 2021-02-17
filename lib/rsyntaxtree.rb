@@ -39,7 +39,7 @@ class RSGenerator
       key = keystr.to_sym
       case key
       when :data
-        data = URI.decode_www_from(value)
+        data = URI.decode_www_form(value)
         data  = data.gsub('-AMP-', '&')
           .gsub('-PERCENT-', "%")
           .gsub('-PRIME-', "'")
