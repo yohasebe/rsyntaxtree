@@ -7,7 +7,7 @@ require 'rsyntaxtree'
 require 'optimist'
 
 opts = Optimist::options do
-  version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2018 Yoichiro Hasebe"
+  version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2021 Yoichiro Hasebe"
   banner <<-EOS
 RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
