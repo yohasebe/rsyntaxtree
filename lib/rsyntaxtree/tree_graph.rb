@@ -66,24 +66,24 @@ class TreeGraph < Graph
       self.format = fileformat
       self.interlace = PlaneInterlace
     end
-  end  
+  end
 
   :private
 
   # Add the element into the tree (draw it)
   def draw_element(x, y, w, string, type)
-    string = string.sub(/\^\z/){""} 
+    string = string.sub(/\^\z/){""}
     # Calculate element dimensions and position
     if (type == ETYPE_LEAF) and @leafstyle == "nothing"
       top = row2px(y - 1) + (@font_size * 1.5)
-    else 
+    else
       top   = row2px(y)
     end
     left   = x + @m[:b_side]
     bottom = top  + @e_height
     right  = left + w
 
-    # Split the string into the main part and the 
+    # Split the string into the main part and the
     # subscript part of the element (if any)
     parts = string.split("_", 2)
     if(parts.length > 1 )
@@ -126,7 +126,7 @@ class TreeGraph < Graph
       main_font = @font
     end
 
-    # Calculate text size for the main and the 
+    # Calculate text size for the main and the
     # subscript part of the element
     # symbols for underline/overline removed temporarily
 
@@ -182,7 +182,7 @@ class TreeGraph < Graph
     if(type == ETYPE_LEAF)
       col = @col_leaf
     else
-      col = @col_node      
+      col = @col_node
     end
 
     if(main[0].chr == "<" && main[-1].chr == ">")
@@ -252,7 +252,7 @@ class TreeGraph < Graph
 
     @gc.fill("none")
     @gc.stroke @col_line
-    @gc.stroke_width 1    
+    @gc.stroke_width 1
     @gc.line(fromLeft1, fromTop, toLeft, toBot)
     @gc.line(fromLeft2, fromTop, toLeft, toBot)
     @gc.line(fromLeft1, fromTop, fromLeft2, fromTop)
@@ -267,9 +267,9 @@ class TreeGraph < Graph
     children = @e_list.get_children(id)
     @e_list.set_element_width(id, target)
 
-    if(children.length > 0 ) 
+    if(children.length > 0 )
       delta = target - current
-      target_delta = delta / children.length 
+      target_delta = delta / children.length
 
       children.each do |child|
         child_width = @e_list.get_element_width(child)

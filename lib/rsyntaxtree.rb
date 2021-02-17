@@ -10,12 +10,12 @@
 #
 # This file is part of RSyntaxTree, which is a ruby port of Andre Eisenbach's
 # excellent program phpSyntaxTree.
-# Copyright (c) 2007-2021 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2018 Yoichiro Hasebe <yohasebe@gmail.com>
 # Copyright (c) 2003-2004 Andre Eisenbach <andre@ironcreek.net>
 
 $LOAD_PATH << File.join( File.dirname(__FILE__), 'rsyntaxtree')
 
-require 'uri'
+require 'cgi'
 require 'utils'
 require 'element'
 require 'elementlist'
@@ -39,7 +39,7 @@ class RSGenerator
       key = keystr.to_sym
       case key
       when :data
-        data = URI.decode_www_form(value)
+        data = CGI.unescape(value)
         data  = data.gsub('-AMP-', '&')
           .gsub('-PERCENT-', "%")
           .gsub('-PRIME-', "'")
