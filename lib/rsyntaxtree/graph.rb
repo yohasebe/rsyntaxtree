@@ -58,7 +58,8 @@ class Graph
 
   def img_get_txt_metrics(text, font, font_size, multiline)
 
-    background = Image.new(500, 250)
+    # background = Image.new(500, 250)
+    background = Image.new(1, 1)
 
     gc = Draw.new
     gc.annotate(background, 0, 0, 0, 0, text) do |gc|
@@ -286,7 +287,7 @@ class Graph
 
   def get_txt_only(text)
     text = text.strip
-    if /\A([\+\-\=\*]+).+/ =~ text
+    if /\A([\+\-\=\*\~]+).+/ =~ text
       prefix = $1
       prefix_l = Regexp.escape(prefix)
       prefix_r = Regexp.escape(prefix.reverse)

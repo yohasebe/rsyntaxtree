@@ -17,18 +17,18 @@
 require 'elementlist'
 require 'element'
 
-def escape_high_ascii(string)
-  html = ""
-  string.length.times do |i|
-    ch = string[i]
-    if(ch < 127)
-      html += ch.chr
-    else
-      html += sprintf("&#%d;", ch)
-    end
-  end  
-  html
-end
+# def escape_high_ascii(string)
+#   html = ""
+#   string.length.times do |i|
+#     ch = string[i]
+#     if(ch < 127)
+#       html += ch.chr
+#     else
+#       html += sprintf("&#%d;", ch)
+#     end
+#   end  
+#   html
+# end
 
 class StringParser
 

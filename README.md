@@ -25,7 +25,7 @@ where [options] are:
       -o, --outdir=<s>        Output directory (default: ./)
       -f, --format=<s>        Output format: png, pdf, or svg (default: png)
       -l, --leafstyle=<s>     visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
-      -n, --fontstyle=<s>     Font style: sans, serif, cjk (default: sans)
+      -n, --fontstyle=<s>     Font style: sans, serif, cjk, math (default: sans)
       -t, --font=<s>          Path to a ttf font used to generate tree (optional)
       -s, --fontsize=<i>      Size: 8-26 (default: 16)
       -c, --color=<s>         Color text and bars: on or off (default: on)

@@ -8,9 +8,9 @@
 # Facade of rsyntaxtree library.  When loaded by a driver script, it does all
 # the necessary 'require' to use the library.
 #
-# This file is part of RSyntaxTree, which is a ruby port of Andre Eisenbach's
+# This file is part of RSyntaxTree, which is originally a ruby port of Andre Eisenbach's
 # excellent program phpSyntaxTree.
-# Copyright (c) 2007-2018 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2021 Yoichiro Hasebe <yohasebe@gmail.com>
 # Copyright (c) 2003-2004 Andre Eisenbach <andre@ironcreek.net>
 
 $LOAD_PATH << File.join( File.dirname(__FILE__), 'rsyntaxtree')
@@ -31,8 +31,9 @@ ETYPE_UNDEFINED = 0
 ETYPE_NODE = 1
 ETYPE_LEAF = 2
 SUBSCRIPT_CONST = 0.7
+FONT_SCALING = 2
 
-class RSGenerator 
+class RSGenerator
   def initialize(params = {})
     new_params = {}
     params.each do |keystr, value|
@@ -51,9 +52,9 @@ class RSGenerator
       when :symmetrize, :color, :autosub
         new_params[key] = value && value != "off" ? true : false
       when :fontsize
-        new_params[key] = value.to_i
+        new_params[key] = value.to_i * FONT_SCALING
       when :margin
-        new_params[key] = value.to_i
+        new_params[key] = value.to_i * FONT_SCALING * 4
       when :vheight
         new_params[key] = value.to_f
       when :fontstyle
@@ -62,6 +63,7 @@ class RSGenerator
           new_params[:font_it] = FONT_DIR + "/NotoSans-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
+          new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSansCJKjp-Regular.otf"
           new_params[:fontstyle] = "sans"
         elsif value == "noto-serif" || value == "serif"
@@ -69,6 +71,7 @@ class RSGenerator
           new_params[:font_it] = FONT_DIR + "/NotoSerif-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSerif-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
+          new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
           new_params[:fontstyle] = "serif"
         elsif value == "cjk zenhei" || value == "cjk"
@@ -76,14 +79,24 @@ class RSGenerator
           new_params[:font_it] = FONT_DIR + "/NotoSans-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
+          new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/wqy-zenhei.ttf"
           new_params[:fontstyle] = "sans"
+        elsif value == "modern-math" || value == "math"
+          new_params[:font] = FONT_DIR + "/latinmodern-math.otf"
+          new_params[:font_it] = FONT_DIR + "/lmroman10-italic.otf"
+          new_params[:font_bd] = FONT_DIR + "/lmroman10-bold.otf"
+          new_params[:font_bdit] = FONT_DIR + "/lmroman10-bolditalic.otf"
+          new_params[:font_math] = FONT_DIR + "/latinmodern-math.otf"
+          new_params[:font_cjk] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
+          new_params[:fontstyle] = "math"
         end
       else
         new_params[key] = value
       end
     end
 
+    # defaults to the following
     @params = {
       :symmetrize => true,
       :color      => true,
@@ -100,6 +113,7 @@ class RSGenerator
       :font_it    => "/NotoSans-Italic.ttf",
       :font_bd    => "/NotoSans-Bold.ttf",
       :font_bdit  => "/NotoSans-BoldItalic.ttf",
+      :font_math  => "/NotoSansMath-Regular.ttf"
     }
     @metrics = {
       :e_width  => 120,
@@ -111,8 +125,8 @@ class RSGenerator
     }
 
     @params.merge! new_params
-    @params[:fontsize]  = @params[:fontsize] * 2
-    @params[:margin]    = @params[:margin] * 2
+    @params[:fontsize]  = @params[:fontsize] * FONT_SCALING
+    @params[:margin]    = @params[:margin] * FONT_SCALING
     @metrics[:v_space] = @metrics[:v_space] * @params[:vheight]
    end
 
@@ -148,8 +162,8 @@ class RSGenerator
     sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
     graph = SVGGraph.new(elist, @metrics,
-      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte], 
-      @params[:fontstyle], @params[:fontsize],
+      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
+      @params[:fontstyle], @params[:font], @params[:fontsize],
     )
     graph.svg_data
   end
@@ -161,8 +175,8 @@ class RSGenerator
     elist = sp.get_elementlist
     graph = TreeGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
-      @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], 
-      @params[:font_cjk], @params[:fontsize], @params[:margin], 
+      @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], @params[:font_math],
+      @params[:font_cjk], @params[:fontsize], @params[:margin],
     )
     graph.to_blob(@params[:format])
   end

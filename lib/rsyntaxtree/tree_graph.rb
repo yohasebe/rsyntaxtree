@@ -20,7 +20,7 @@ include Magick
 class TreeGraph < Graph
 
   def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte,
-                 fontstyle, font, font_it, font_bd, font_itbd, font_cjk, font_size,
+                 fontstyle, font, font_it, font_bd, font_itbd, font_math, font_cjk, font_size,
                  margin)
 
     # Store class-specific parameters
@@ -30,6 +30,7 @@ class TreeGraph < Graph
     @font_it    = font_it
     @font_bd    = font_bd
     @font_itbd  = font_itbd
+    @font_math  = font_math
     @font_cjk   = font_cjk
     @margin     = margin
 
@@ -61,11 +62,16 @@ class TreeGraph < Graph
   # by Geoffrey Grosenbach
   def to_blob(fileformat='PNG')
     draw
+    # @im.x_resolution = @width * 100
+    # @im.y_resolution = @height * 100
     @im.border!(@margin, @margin, "white")
-    return @im.to_blob do
-      self.format = fileformat
-      self.interlace = PlaneInterlace
-    end
+    # return @im.to_blob do
+    #   self.format = fileformat
+    #   self.interlace = PlaneInterlace
+    # end
+    @im.format = fileformat
+    # @im.interlace = PlaneInterlace
+    return @im.to_blob
   end
 
   :private
@@ -94,18 +100,20 @@ class TreeGraph < Graph
       sub  = ""
     end
 
-    if /\A\+(.+)\+\z/ =~ main
+    if /\A\=(.+)\=\z/ =~ main
       main = $1
       main_decoration = OverlineDecoration
     elsif /\A\-(.+)\-\z/ =~ main
       main = $1
       main_decoration = UnderlineDecoration
-    elsif /\A\=(.+)\=\z/ =~ main
-      main = $1
-      main_decoration = LineThroughDecoration
+    # elsif /\A=(.+)=\z/ =~ main
+    #   main = $1
+    #   main_decoration = LineThroughDecoration
     else
       main_decoration = NoDecoration
     end
+
+    main_font = @font
 
     if /\A\*\*\*(.+)\*\*\*\z/ =~ main
       main = $1
@@ -122,32 +130,30 @@ class TreeGraph < Graph
       if !@multibyte
         main_font = @font_it
       end
-    else
-      main_font = @font
+    end
+
+    if /\A\~(.+)\~\z/ =~ main
+      main = $1
+      main_font = @font_math
     end
 
     # Calculate text size for the main and the
     # subscript part of the element
-    # symbols for underline/overline removed temporarily
 
     main_width = img_get_txt_width(main, main_font, @font_size)
 
-    if /\A\+(.+)\+\z/ =~ sub
+    if /\A\=(.+)\=\z/ =~ sub
       sub = $1
       sub_decoration = OverlineDecoration
     elsif /\A\-(.+)\-\z/ =~ sub
       sub = $1
       @gc.decorate(UnderlineDecoration)
       sub_decoration = UnderlineDecoration
-    elsif /\A\=(.+)\=\z/ =~ sub
-      sub = $1
-      sub_decoration = LineThroughDecoration
     else
       sub_decoration = NoDecoration
     end
 
     sub_font = @font
-
     if /\A\*\*\*(.+)\*\*\*\z/ =~ sub
       sub = $1
       if !@multibyte
@@ -163,8 +169,11 @@ class TreeGraph < Graph
       if !@multibyte
         sub_font = @font_it
       end
-    else
-      sub_font = @font
+    end
+
+    if /\A~(.+)~\z/ =~ sub
+      sub = $1
+      sub_font = @font_math
     end
 
     if sub != ""
@@ -227,7 +236,7 @@ class TreeGraph < Graph
 
     @gc.fill("none")
     @gc.stroke @col_line
-    @gc.stroke_width 1
+    @gc.stroke_width 1 * FONT_SCALING
     @gc.line(fromLeft.ceil, fromTop.ceil, toLeft.ceil, toBot.ceil)
   end
 
@@ -252,7 +261,7 @@ class TreeGraph < Graph
 
     @gc.fill("none")
     @gc.stroke @col_line
-    @gc.stroke_width 1
+    @gc.stroke_width 1 * 2
     @gc.line(fromLeft1, fromTop, toLeft, toBot)
     @gc.line(fromLeft2, fromTop, toLeft, toBot)
     @gc.line(fromLeft1, fromTop, fromLeft2, fromTop)
