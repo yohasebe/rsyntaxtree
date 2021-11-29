@@ -287,7 +287,7 @@ class Graph
 
   def get_txt_only(text)
     text = text.strip
-    if /\A([\+\-\=\*\~]+).+/ =~ text
+    if /\A([\+\-\=\*\#]+).+/ =~ text
       prefix = $1
       prefix_l = Regexp.escape(prefix)
       prefix_r = Regexp.escape(prefix.reverse)

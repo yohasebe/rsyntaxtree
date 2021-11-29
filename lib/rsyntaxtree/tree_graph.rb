@@ -123,7 +123,7 @@ class TreeGraph < Graph
       end
     end
 
-    if /\A\~(.+)\~\z/ =~ main
+    if /\A#(.+)#\z/ =~ main
       main = $1
       main_font = @font_math
     end
@@ -162,7 +162,7 @@ class TreeGraph < Graph
       end
     end
 
-    if /\A~(.+)~\z/ =~ sub
+    if /\A#(.+)#\z/ =~ sub
       sub = $1
       sub_font = @font_math
     end

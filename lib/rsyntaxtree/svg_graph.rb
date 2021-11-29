@@ -21,15 +21,20 @@ class SVGGraph < Graph
   def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_size)
 
     # Store class-specific parameters
-    @fontstyle  = fontstyle
     @font       = multibyte ? font_cjk : font
     @font_size  = font_size
+    case fontstyle
+    when /(?:sans|cjk)/
+      @fontstyle  = "sans-serif"
+    when /(?:serif|math)/
+      @fontstyle  = "serif"
+    end
 
     super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
 
-    @line_styles  = "<line style='stroke:black; stroke-width:1;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
-    @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:1;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZEpx; ST; WA;' x='X_VALUE' y='Y_VALUE' TD font-family='#{@font}'>CONTENT</text>\n"
+    @line_styles  = "<line style='stroke:black; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
+    @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
+    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZEpx; ST; WA;' x='X_VALUE' y='Y_VALUE' TD font-family='#{@fontstyle}'>CONTENT</text>\n"
     @tree_data  = String.new
   end
 
@@ -94,9 +99,6 @@ EOD
     elsif /\A\-(.+)\-\z/ =~ main
       main = $1
       main_decoration= "underline"
-    # elsif /\A\=(.+)\=\z/ =~ main
-    #   main = $1
-    #   main_decoration= "line-through"
     else
       main_decoration= ""
     end
@@ -116,6 +118,10 @@ EOD
     else
       main_style = ""
       main_weight = ""
+    end
+
+    if /\A#(.+)#\z/ =~ main
+      main = $1
     end
 
     # Calculate text size for the main and the 
@@ -154,6 +160,10 @@ EOD
       sub_width  = img_get_txt_width(sub.to_s,  @font, @sub_size)
     else
       sub_width = 0
+    end
+
+    if /\A#(.+)#\z/ =~ sub
+      sub = $1
     end
 
     # Center text in the element
