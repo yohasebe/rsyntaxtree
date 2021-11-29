@@ -131,9 +131,6 @@ EOD
       elsif /\A\-(.+)\-\z/ =~ sub
         sub = $1
         sub_decoration= "underline"
-      # elsif /\A\=(.+)\=\z/ =~ sub
-      #   sub = $1
-      #   sub_decoration= "line-through"
       else
         sub_decoration= ""
       end

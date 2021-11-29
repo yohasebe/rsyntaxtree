@@ -62,15 +62,9 @@ class TreeGraph < Graph
   # by Geoffrey Grosenbach
   def to_blob(fileformat='PNG')
     draw
-    # @im.x_resolution = @width * 100
-    # @im.y_resolution = @height * 100
     @im.border!(@margin, @margin, "white")
-    # return @im.to_blob do
-    #   self.format = fileformat
-    #   self.interlace = PlaneInterlace
-    # end
     @im.format = fileformat
-    # @im.interlace = PlaneInterlace
+    @im.interlace = PlaneInterlace
     return @im.to_blob
   end
 
@@ -106,9 +100,6 @@ class TreeGraph < Graph
     elsif /\A\-(.+)\-\z/ =~ main
       main = $1
       main_decoration = UnderlineDecoration
-    # elsif /\A=(.+)=\z/ =~ main
-    #   main = $1
-    #   main_decoration = LineThroughDecoration
     else
       main_decoration = NoDecoration
     end

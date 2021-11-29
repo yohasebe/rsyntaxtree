@@ -63,7 +63,7 @@ class Graph
 
     gc = Draw.new
     gc.annotate(background, 0, 0, 0, 0, text) do |gc|
-      gc.font = font
+      gc.font = font 
       gc.pointsize = font_size
       gc.gravity = CenterGravity
       gc.stroke = 'none'

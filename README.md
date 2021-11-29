@@ -4,7 +4,7 @@
 
 ### Web Interface
 
-Working web interface of is available at <https://yohasebe.com/rsyntaxtree>.
+See updates and a working web interface available at <https://yohasebe.com/rsyntaxtree>.
 
 ### Installation
 
