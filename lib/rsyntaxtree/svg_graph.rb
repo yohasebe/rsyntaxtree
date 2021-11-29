@@ -18,10 +18,11 @@ require 'graph'
 
 class SVGGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font_size)
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_size)
 
     # Store class-specific parameters
-    @font  = fontstyle == "sans" ? "sans-serif" : fontstyle
+    @fontstyle  = fontstyle
+    @font       = multibyte ? font_cjk : font
     @font_size  = font_size
 
     super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
@@ -87,15 +88,12 @@ EOD
       sub  = ""
     end
 
-    if /\A\+(.+)\+\z/ =~ main
+    if /\A\=(.+)\=\z/ =~ main
       main = $1
       main_decoration= "overline"
     elsif /\A\-(.+)\-\z/ =~ main
       main = $1
       main_decoration= "underline"
-    elsif /\A\=(.+)\=\z/ =~ main
-      main = $1
-      main_decoration= "line-through"
     else
       main_decoration= ""
     end
@@ -124,15 +122,12 @@ EOD
     main_width = img_get_txt_width(main, @font, @font_size)
 
     if sub != ""
-      if /\A\+(.+)\+\z/ =~ sub
+      if /\A\=(.+)\=\z/ =~ sub
         sub = $1
         sub_decoration= "overline"
       elsif /\A\-(.+)\-\z/ =~ sub
         sub = $1
         sub_decoration= "underline"
-      elsif /\A\=(.+)\=\z/ =~ sub
-        sub = $1
-        sub_decoration= "line-through"
       else
         sub_decoration= ""
       end

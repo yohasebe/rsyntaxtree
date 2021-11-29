@@ -62,6 +62,7 @@ class RSGenerator
           new_params[:font_it] = FONT_DIR + "/NotoSans-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
+          new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSansCJKjp-Regular.otf"
           new_params[:fontstyle] = "sans"
         elsif value == "noto-serif" || value == "serif"
@@ -69,6 +70,7 @@ class RSGenerator
           new_params[:font_it] = FONT_DIR + "/NotoSerif-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSerif-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
+          new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
           new_params[:fontstyle] = "serif"
         elsif value == "cjk zenhei" || value == "cjk"
@@ -76,14 +78,24 @@ class RSGenerator
           new_params[:font_it] = FONT_DIR + "/NotoSans-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
+          new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/wqy-zenhei.ttf"
           new_params[:fontstyle] = "sans"
+        elsif value == "modern-math" || value == "math"
+          new_params[:font] = FONT_DIR + "/latinmodern-math.otf" 
+          new_params[:font_it] = FONT_DIR + "/lmroman10-italic.otf" 
+          new_params[:font_bd] = FONT_DIR + "/lmroman10-bold.otf" 
+          new_params[:font_bdit] = FONT_DIR + "/lmroman10-bolditalic.otf" 
+          new_params[:font_math] = FONT_DIR + "/latinmodern-math.otf" 
+          new_params[:font_cjk] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
+          new_params[:fontstyle] = "math"
         end
       else
         new_params[key] = value
       end
     end
 
+    # defaults to the following
     @params = {
       :symmetrize => true,
       :color      => true,
@@ -100,6 +112,7 @@ class RSGenerator
       :font_it    => "/NotoSans-Italic.ttf",
       :font_bd    => "/NotoSans-Bold.ttf",
       :font_bdit  => "/NotoSans-BoldItalic.ttf",
+      :font_math  => "/NotoSansMath-Regular.ttf" 
     }
     @metrics = {
       :e_width  => 120,
@@ -149,7 +162,7 @@ class RSGenerator
     elist = sp.get_elementlist
     graph = SVGGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte], 
-      @params[:fontstyle], @params[:fontsize],
+      @params[:fontstyle], @params[:font], @params[:fontsize],
     )
     graph.svg_data
   end
@@ -161,7 +174,7 @@ class RSGenerator
     elist = sp.get_elementlist
     graph = TreeGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
-      @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], 
+      @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], @params[:font_math],
       @params[:font_cjk], @params[:fontsize], @params[:margin], 
     )
     graph.to_blob(@params[:format])
