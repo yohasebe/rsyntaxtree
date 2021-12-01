@@ -1,4 +1,4 @@
-# RSyntaxTree: yet another syntax tree generator in Ruby
+# 🌲 RSyntaxTree: yet another syntax tree generator in Ruby
 
 **RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language inspired by [phpSyntaxTree](http://ironcreek.net/phpsyntaxtree/). 
 
