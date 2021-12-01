@@ -1,4 +1,4 @@
 module RSyntaxTree
-  VERSION = "0.8.2a"
+  VERSION = "0.8.3"
 end
 
