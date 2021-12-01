@@ -150,6 +150,7 @@ class Graph
     e_arr = @e_list.get_elements
 
     h = @e_list.get_level_height
+
     h.times do |i|
       x = 0
       e_arr.each do |j|
@@ -189,6 +190,7 @@ class Graph
       end
     end
     return true if !@symmetrize
+
     h.times do |i|
       curlevel = h - i - 1
       indent = 0
@@ -242,7 +244,7 @@ class Graph
               k = @e_list.get_id(children[0])
               words = k.content.split(" ")
               dw = img_get_txt_width(k.content, @font, @font_size)
-              unless @leafstyle == "nothing" && ETYPE_LEAF == k.type
+              unless (@leafstyle == "nothing" && ETYPE_LEAF == k.type)
                 if (@leafstyle == "triangle" && ETYPE_LEAF == k.type && words.length > 0)
                   txt_width = img_get_txt_width(k.content, @font, @font_size)
                   triangle_to_parent(k.indent, curlevel + 1, dw, txt_width)
@@ -263,13 +265,13 @@ class Graph
               pw = img_get_txt_width(parent.content, @font, @font_size)
               pleft = parent.indent
               pright = pleft + pw
-              if curlevel == (h - 1)
+              if curlevel == (h - 1) && e_arr.size == idx + 1
                 e_arr.select{|l|l.level == curlevel}.each do |l|
                   lw = img_get_txt_width(l.content, @font, @font_size)
                   left = l.indent
                   right = left + lw
-                  draw_element(left, curlevel, right - left, l.content, l.type) 
                   @e_list.set_indent(l.id, left + (right - left) / 2 -  tw / 2)             
+                  draw_element(left, curlevel, right - left, l.content, l.type) 
                 end
                 break
               else
