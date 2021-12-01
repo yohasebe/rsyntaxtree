@@ -99,6 +99,9 @@ EOD
     elsif /\A\-(.+)\-\z/ =~ main
       main = $1
       main_decoration= "underline"
+    elsif /\A\~(.+)\~\z/ =~ main
+      main = $1
+      main_decoration= "line-through"
     else
       main_decoration= ""
     end
@@ -137,6 +140,9 @@ EOD
       elsif /\A\-(.+)\-\z/ =~ sub
         sub = $1
         sub_decoration= "underline"
+      elsif /\A\~(.+)\~\z/ =~ sub
+        sub = $1
+        sub_decoration= "line-through"
       else
         sub_decoration= ""
       end
