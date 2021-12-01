@@ -163,7 +163,7 @@ class RSGenerator
     elist = sp.get_elementlist
     graph = SVGGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
-      @params[:fontstyle], @params[:font], @params[:fontsize],
+      @params[:fontstyle], @params[:font], @params[:font_cjk], @params[:fontsize],
     )
     graph.svg_data
   end

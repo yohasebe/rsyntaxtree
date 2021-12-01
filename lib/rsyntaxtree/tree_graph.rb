@@ -100,6 +100,9 @@ class TreeGraph < Graph
     elsif /\A\-(.+)\-\z/ =~ main
       main = $1
       main_decoration = UnderlineDecoration
+    elsif /\A\~(.+)\~\z/ =~ main
+      main = $1
+      main_decoration = LineThroughDecoration
     else
       main_decoration = NoDecoration
     end
@@ -138,8 +141,10 @@ class TreeGraph < Graph
       sub_decoration = OverlineDecoration
     elsif /\A\-(.+)\-\z/ =~ sub
       sub = $1
-      @gc.decorate(UnderlineDecoration)
       sub_decoration = UnderlineDecoration
+    elsif /\A\~(.+)\~z/ =~ sub
+      sub = $1
+      sub_decoration = LineThroughDecoration
     else
       sub_decoration = NoDecoration
     end

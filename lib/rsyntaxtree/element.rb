@@ -31,6 +31,7 @@ class Element
         @content = content.gsub("^"){""} # The actual element content
         @triangle = false # draw triangle instead of stright bar when in auto mode
       end
+      # workaround to save "[A [B [C] [D] ] [E [F] [G [H] [J] ] ] ]"
     end
 
     # Debug helper function

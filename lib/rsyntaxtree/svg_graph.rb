@@ -18,7 +18,7 @@ require 'graph'
 
 class SVGGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_size)
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_cjk, font_size)
 
     # Store class-specific parameters
     @font       = multibyte ? font_cjk : font

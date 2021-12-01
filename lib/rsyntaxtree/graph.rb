@@ -74,7 +74,6 @@ class Graph
     else
       metrics = gc.get_type_metrics(background, text)
     end
-
     return metrics
   end
 
@@ -239,22 +238,7 @@ class Graph
               right = k.indent + kw
               draw_element(left, curlevel, right - left, j.content, j.type)
               @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)
-            else
-             parent = @e_list.get_id(j.parent)
-             pw = img_get_txt_width(parent.content, @font, @font_size)
-             pleft = parent.indent
-             pright = pleft + pw
-             left = j.indent
-             right = left + tw
-             if pw > tw
-               left = pleft
-               right = pright
-             end
-             draw_element(left, curlevel, right - left, j.content, j.type) 
-             @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)             
-            end
 
-            unless children.empty?
               k = @e_list.get_id(children[0])
               words = k.content.split(" ")
               dw = img_get_txt_width(k.content, @font, @font_size)
@@ -273,7 +257,33 @@ class Graph
                   line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                 end
               end
+
+            else
+              parent = @e_list.get_id(j.parent)
+              pw = img_get_txt_width(parent.content, @font, @font_size)
+              pleft = parent.indent
+              pright = pleft + pw
+              if curlevel == (h - 1)
+                e_arr.select{|l|l.level == curlevel}.each do |l|
+                  lw = img_get_txt_width(l.content, @font, @font_size)
+                  left = l.indent
+                  right = left + lw
+                  draw_element(left, curlevel, right - left, l.content, l.type) 
+                  @e_list.set_indent(l.id, left + (right - left) / 2 -  tw / 2)             
+                end
+                break
+              else
+                left = j.indent
+                right = left + tw
+                if pw > tw
+                  left = pleft
+                  right = pright
+                end
+                draw_element(left, curlevel, right - left, j.content, j.type) 
+                @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)             
+              end
             end
+
           end
         end
       end
@@ -287,7 +297,7 @@ class Graph
 
   def get_txt_only(text)
     text = text.strip
-    if /\A([\+\-\=\*\#]+).+/ =~ text
+    if /\A([\+\-\=\*\#\~]+).+/ =~ text
       prefix = $1
       prefix_l = Regexp.escape(prefix)
       prefix_r = Regexp.escape(prefix.reverse)
