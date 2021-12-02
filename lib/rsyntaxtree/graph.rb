@@ -50,7 +50,7 @@ class Graph
       @col_leaf  = "black"
       @col_trace = "black"
     end
-    
+
     @main_height = img_get_txt_height("l", font, font_size)
     @sub_size = (font_size * SUBSCRIPT_CONST)
     @sub_space_width = img_get_txt_width("l", font, @sub_size)
@@ -63,7 +63,7 @@ class Graph
 
     gc = Draw.new
     gc.annotate(background, 0, 0, 0, 0, text) do |gc|
-      gc.font = font 
+      gc.font = font
       gc.pointsize = font_size
       gc.gravity = CenterGravity
       gc.stroke = 'none'
@@ -191,24 +191,24 @@ class Graph
     end
     return true if !@symmetrize
 
-    check = []
+    @check = []
     h.times do |i|
       curlevel = h - i - 1
-      indent = 0
       e_arr.each_with_index do |j, idx|
         if (j.level == curlevel)
           # Draw a line to the parent element
           children = @e_list.get_children(j.id)
 
           tw = img_get_txt_width(j.content, @font, @font_size)
-          if children.length > 1
+          if children.length > 0
             left, right = -1, -1
-            children.each do |child|          
+            children.each do |child|
               k = @e_list.get_id(child)
-              kw = img_get_txt_width(k.content, @font, @font_size)              
+              kw = img_get_txt_width(k.content, @font, @font_size)
               left = k.indent + kw / 2 if k.indent + kw / 2 < left or left == -1
               right = k.indent + kw / 2 if k.indent + kw / 2 > right
             end
+
             draw_element(left, curlevel, right - left, j.content, j.type)
             @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)
 
@@ -216,11 +216,11 @@ class Graph
               k = @e_list.get_id(child)
               words = k.content.split(" ")
               dw = img_get_txt_width(k.content, @font, @font_size)
+
+              children2 = @e_list.get_children(k.id)
+
               unless @leafstyle == "nothing" && ETYPE_LEAF == k.type
-                if (@leafstyle == "triangle" && ETYPE_LEAF == k.type && k.indent == j.indent && words.length > 0)
-                  txt_width = img_get_txt_width(k.content, @font, @font_size)
-                  triangle_to_parent(k.indent, curlevel + 1, dw, txt_width)
-                elsif (@leafstyle == "auto" && ETYPE_LEAF == k.type && k.indent == j.indent)
+                if (@leafstyle == "auto" && ETYPE_LEAF == k.type)
                   if words.length > 1 || k.triangle
                     txt_width = img_get_txt_width(k.content, @font, @font_size)
                     triangle_to_parent(k.indent, curlevel + 1, dw, txt_width)
@@ -230,74 +230,38 @@ class Graph
                 else
                   line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                 end
-              end
-            end
-
-          else
-            unless children.empty?
-              k = @e_list.get_id(children[0])
-              kw = img_get_txt_width(k.content, @font, @font_size)              
-              left = k.indent
-              right = k.indent + kw
-              draw_element(left, curlevel, right - left, j.content, j.type)
-              @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)
-
-              k = @e_list.get_id(children[0])
-              words = k.content.split(" ")
-              dw = img_get_txt_width(k.content, @font, @font_size)
-              unless (@leafstyle == "nothing" && ETYPE_LEAF == k.type)
-                if (@leafstyle == "triangle" && ETYPE_LEAF == k.type && words.length > 0)
-                  txt_width = img_get_txt_width(k.content, @font, @font_size)
-                  triangle_to_parent(k.indent, curlevel + 1, dw, txt_width)
-                elsif (@leafstyle == "auto" && ETYPE_LEAF == k.type)
-                  if words.length > 1 || k.triangle
-                    txt_width = img_get_txt_width(k.content, @font, @font_size)
-                    triangle_to_parent(k.indent, curlevel + 1, dw, txt_width)
-                  else
-                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
-                  end
-                else
-                  line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
-                end
-              end
-
-            else
-              parent = @e_list.get_id(j.parent)
-              pw = img_get_txt_width(parent.content, @font, @font_size)
-              pleft = parent.indent
-              pright = pleft + pw
-              
-              if curlevel == (h - 1)
-                last_elements = e_arr.select{|l|l.level == curlevel}
-                last_elements.each.with_index do |l, idx|
-                  if !check.include? l
-                    pp l
-                    lw = img_get_txt_width(l.content, @font, @font_size)
-                    left = l.indent
-                    right = left + lw
-                    if pw > tw
-                      left = pleft
-                      right = pright
-                    end
-                    draw_element(left, curlevel, right - left, l.content, l.type) 
-                    check << l
-                    # break
-                  end
-                end
-              else
-
-                left = j.indent
-                right = left + tw
-                if pw > tw
-                  left = pleft
-                  right = pright
-                end
-                draw_element(left, curlevel, right - left, j.content, j.type) 
               end
             end
 
           end
+          elements = e_arr.select do |l|
+            l.level == curlevel && @e_list.get_children(l.id).empty?
+          end
+          process_terminal(elements, j, curlevel, tw)
         end
+      end
+    end
+  end
+
+
+  def process_terminal(elements, j, curlevel, tw)
+    # parent = @e_list.get_id(j.parent)
+    # return unless parent
+    # pw = img_get_txt_width(parent.content, @font, @font_size)
+    # pleft = parent.indent
+    # pright = pleft + pw
+
+    elements.each.with_index do |l, idx|
+      lw = img_get_txt_width(l.content, @font, @font_size)
+      left = l.indent
+      right = left + lw
+      # if pw > tw
+      #   left = pleft
+      #   right = pright
+      # end
+      unless @check.include? l.id
+        draw_element(left, curlevel, right - left, l.content, l.type)
+        @check << l.id
       end
     end
   end
