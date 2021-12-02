@@ -191,6 +191,7 @@ class Graph
     end
     return true if !@symmetrize
 
+    check = []
     h.times do |i|
       curlevel = h - i - 1
       indent = 0
@@ -265,16 +266,26 @@ class Graph
               pw = img_get_txt_width(parent.content, @font, @font_size)
               pleft = parent.indent
               pright = pleft + pw
-              if curlevel == (h - 1) && e_arr.size == idx + 1
-                e_arr.select{|l|l.level == curlevel}.each do |l|
-                  lw = img_get_txt_width(l.content, @font, @font_size)
-                  left = l.indent
-                  right = left + lw
-                  @e_list.set_indent(l.id, left + (right - left) / 2 -  tw / 2)             
-                  draw_element(left, curlevel, right - left, l.content, l.type) 
+              
+              if curlevel == (h - 1)
+                last_elements = e_arr.select{|l|l.level == curlevel}
+                last_elements.each.with_index do |l, idx|
+                  if !check.include? l
+                    pp l
+                    lw = img_get_txt_width(l.content, @font, @font_size)
+                    left = l.indent
+                    right = left + lw
+                    if pw > tw
+                      left = pleft
+                      right = pright
+                    end
+                    draw_element(left, curlevel, right - left, l.content, l.type) 
+                    check << l
+                    # break
+                  end
                 end
-                break
               else
+
                 left = j.indent
                 right = left + tw
                 if pw > tw
@@ -282,7 +293,6 @@ class Graph
                   right = pright
                 end
                 draw_element(left, curlevel, right - left, j.content, j.type) 
-                @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)             
               end
             end
 
