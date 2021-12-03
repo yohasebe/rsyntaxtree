@@ -287,19 +287,19 @@ EOD
     main_before = parts[0].strip
     sub = parts[1]
     main = get_txt_only(main_before)
-    if(main.contains_cjk?)
-      main = 'n' * main.strip.size * 2
-    else
-      main
-    end
+    # if(main.contains_cjk?)
+    #   main = 'n' * main.strip.size * 2
+    # else
+      # main
+    # end
     main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
     width = main_metrics.width
     if sub
-      if(sub.contains_cjk?)
-        sub = 'n' * sub.strip.size * 2
-      else
-        sub
-      end
+      # if(sub.contains_cjk?)
+      #   sub = 'n' * sub.strip.size * 2
+      # else
+      #   sub
+      # end
       sub_metrics = img_get_txt_metrics(sub, font, font_size * SUBSCRIPT_CONST, multiline)
       width += sub_metrics.width
     end

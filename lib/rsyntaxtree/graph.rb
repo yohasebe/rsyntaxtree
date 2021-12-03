@@ -58,7 +58,6 @@ class Graph
 
   def img_get_txt_metrics(text, font, font_size, multiline)
 
-    # background = Image.new(500, 250)
     background = Image.new(1, 1)
 
     gc = Draw.new
@@ -182,7 +181,6 @@ class Graph
               end
             end
           end
-
           x += cw
         end
       end
@@ -282,7 +280,6 @@ class Graph
       line_to_parent(v[:indent1] + offset, v[:curlevel], v[:width1], v[:indent2] + offset, v[:width2])
     end
   end
-
 
   # Calculate top position from row (level)
   def row2px(row)
