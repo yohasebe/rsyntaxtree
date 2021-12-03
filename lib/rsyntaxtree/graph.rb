@@ -213,8 +213,6 @@ class Graph
             end
 
             elements_to_draw[j.id] = {:left => left, :curlevel => curlevel, :width => right - left, :content => j.content, :type => j.type}
-            # draw_element(left, curlevel, right - left, j.content, j.type)
-
             @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)
 
             children.each do |child|
@@ -228,14 +226,11 @@ class Graph
                 if (@leafstyle == "auto" && ETYPE_LEAF == k.type)
                   if words.length > 1 || k.triangle
                     txt_width = img_get_txt_width(k.content, @font, @font_size)
-                    # triangle_to_parent(k.indent, curlevel + 1, dw, txt_width)
                     triangles_to_draw << {:indent => k.indent, :curlevel => curlevel + 1, :width1 => dw, :width2 => txt_width}
                   else
-                    # line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                     lines_to_draw << {:indent1 => k.indent, :curlevel => curlevel + 1, :width1 => dw, :indent2 => j.indent, :width2 => tw}
                   end
                 else
-                  # line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
                   lines_to_draw << {:indent1 => k.indent, :curlevel => curlevel + 1, :width1 => dw, :indent2 => j.indent, :width2 => tw}
                 end
               end
@@ -252,7 +247,6 @@ class Graph
             right = left + lw
             unless elements_to_draw.include? l.id
               elements_to_draw[l.id] = {:left => left, :curlevel => curlevel, :width => right - left, :content => l.content, :type => l.type}
-              # draw_element(left, curlevel, right - left, l.content, l.type)
             end
           end
         end

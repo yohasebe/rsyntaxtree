@@ -62,6 +62,7 @@ class TreeGraph < Graph
   # by Geoffrey Grosenbach
   def to_blob(fileformat='PNG')
     draw
+    @im.trim!
     @im.border!(@margin, @margin, "white")
     @im.format = fileformat
     @im.interlace = PlaneInterlace
