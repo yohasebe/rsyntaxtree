@@ -37,8 +37,6 @@ class TreeGraph < Graph
     super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
 
     # Initialize the image and colors
-    @im           = Image.new(@width, @height)
-    @im.interlace = PlaneInterlace
     @gc           = Draw.new
     @gc.font      = @font
     @gc.pointsize(@font_size)
@@ -50,6 +48,8 @@ class TreeGraph < Graph
 
   def draw
     parse_list
+    @im = Image.new(@width, @height)
+    @im.interlace = PlaneInterlace
     @gc.draw(@im)
   end
 

@@ -32,8 +32,8 @@ class Graph
     # Calculate image dimensions
     @e_height = font_size + @m[:e_padd] * 2
     h         = @e_list.get_level_height
-    w         = calc_level_width(0)
-    @width    = w + @m[:b_side] * 2
+    w      = calc_level_width(0)
+    @width = w
     @height   = h * @e_height + (h-1) * (@m[:v_space] + font_size) + @m[:b_topbot] * 2
 
     # Initialize the image and colors
@@ -110,9 +110,10 @@ class Graph
     e = @e_list.get_first
     while e
       if(e.level == level)
-        w += calc_element_width(e)
+        x = calc_element_width(e)
+        w += x
       end
-        e = @e_list.get_next
+      e = @e_list.get_next
     end
     return w
   end
@@ -168,16 +169,13 @@ class Graph
             if(j.parent != 0 )
               words = j.content.split(" ")
               unless @leafstyle == "nothing" && ETYPE_LEAF == j.type
-                if (@leafstyle == "triangle" && ETYPE_LEAF == j.type && x == parent_indent && words.length > 0)
-                  txt_width = img_get_txt_width(j.content, @font, @font_size)
-                  triangle_to_parent(x, i, cw, txt_width, @symmetrize)
-                elsif (@leafstyle == "auto" && ETYPE_LEAF == j.type && x == parent_indent)
-                   if words.length > 1 || j.triangle
-                     txt_width = img_get_txt_width(j.content, @font, @font_size)
-                     triangle_to_parent(x, i, cw, txt_width, @symmetrize)
-                   else
-                     line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
-                   end
+                if (@leafstyle == "auto" && ETYPE_LEAF == j.type && x == parent_indent)
+                  if words.length > 1 || j.triangle
+                    txt_width = img_get_txt_width(j.content, @font, @font_size)
+                    triangle_to_parent(x, i, cw, txt_width, @symmetrize)
+                  else
+                    line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
+                  end
                 else
                   line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
                 end
@@ -190,8 +188,13 @@ class Graph
       end
     end
     return true if !@symmetrize
+    
+    elements_to_draw = {}
+    triangles_to_draw = []
+    lines_to_draw = []
 
-    @check = []
+    lmost = {:level => nil, :value => nil, :type => nil}
+    rmost = nil 
     h.times do |i|
       curlevel = h - i - 1
       e_arr.each_with_index do |j, idx|
@@ -209,7 +212,9 @@ class Graph
               right = k.indent + kw / 2 if k.indent + kw / 2 > right
             end
 
-            draw_element(left, curlevel, right - left, j.content, j.type)
+            elements_to_draw[j.id] = {:left => left, :curlevel => curlevel, :width => right - left, :content => j.content, :type => j.type}
+            # draw_element(left, curlevel, right - left, j.content, j.type)
+
             @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)
 
             children.each do |child|
@@ -223,12 +228,15 @@ class Graph
                 if (@leafstyle == "auto" && ETYPE_LEAF == k.type)
                   if words.length > 1 || k.triangle
                     txt_width = img_get_txt_width(k.content, @font, @font_size)
-                    triangle_to_parent(k.indent, curlevel + 1, dw, txt_width)
+                    # triangle_to_parent(k.indent, curlevel + 1, dw, txt_width)
+                    triangles_to_draw << {:indent => k.indent, :curlevel => curlevel + 1, :width1 => dw, :width2 => txt_width}
                   else
-                    line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
+                    # line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
+                    lines_to_draw << {:indent1 => k.indent, :curlevel => curlevel + 1, :width1 => dw, :indent2 => j.indent, :width2 => tw}
                   end
                 else
-                  line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
+                  # line_to_parent(k.indent, curlevel + 1, dw, j.indent, tw)
+                  lines_to_draw << {:indent1 => k.indent, :curlevel => curlevel + 1, :width1 => dw, :indent2 => j.indent, :width2 => tw}
                 end
               end
             end
@@ -237,34 +245,50 @@ class Graph
           elements = e_arr.select do |l|
             l.level == curlevel && @e_list.get_children(l.id).empty?
           end
-          process_terminal(elements, j, curlevel, tw)
+
+          elements.each.with_index do |l, idx|
+            lw = img_get_txt_width(l.content, @font, @font_size)
+            left = l.indent
+            right = left + lw
+            unless elements_to_draw.include? l.id
+              elements_to_draw[l.id] = {:left => left, :curlevel => curlevel, :width => right - left, :content => l.content, :type => l.type}
+              # draw_element(left, curlevel, right - left, l.content, l.type)
+            end
+          end
         end
       end
-    end
-  end
 
-
-  def process_terminal(elements, j, curlevel, tw)
-    # parent = @e_list.get_id(j.parent)
-    # return unless parent
-    # pw = img_get_txt_width(parent.content, @font, @font_size)
-    # pleft = parent.indent
-    # pright = pleft + pw
-
-    elements.each.with_index do |l, idx|
-      lw = img_get_txt_width(l.content, @font, @font_size)
-      left = l.indent
-      right = left + lw
-      # if pw > tw
-      #   left = pleft
-      #   right = pright
-      # end
-      unless @check.include? l.id
-        draw_element(left, curlevel, right - left, l.content, l.type)
-        @check << l.id
+      e_arr.each do |e|
+        lpos = e.indent - img_get_txt_width(e.content, @font, @font_size) / 2
+        next if lpos > 0
+        if !lmost[:value] || lmost[:value] > lpos
+          lmost[:level] = e.level
+          lmost[:value] = lpos
+          lmost[:type] = e
+        end
+        rpos = e.indent + e.width
+        rmost =  rpos if !rmost || rmost < rpos
       end
     end
+
+    offset = 0
+    if lmost[:level] != h - 1
+      offset = lmost[:value] / -2
+      new_width = rmost
+      @width = new_width + offset
+    end
+
+    elements_to_draw.each do |k, v|
+      draw_element(v[:left] + offset, v[:curlevel], v[:width], v[:content], v[:type])
+    end
+    triangles_to_draw.each do |v|
+      triangle_to_parent(v[:indent] + offset, v[:curlevel], v[:width1], v[:width2])
+    end
+    lines_to_draw.each do |v|
+      line_to_parent(v[:indent1] + offset, v[:curlevel], v[:width1], v[:indent2] + offset, v[:width2])
+    end
   end
+
 
   # Calculate top position from row (level)
   def row2px(row)

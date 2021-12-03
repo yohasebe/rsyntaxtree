@@ -25,10 +25,10 @@ class Element
       @indent = 0              # Drawing offset
       # content = content.strip
       if /\A.+\^\z/ =~ content.strip
-        @content = content.gsub("^"){""} # The actual element content
+        @content = content.gsub("^"){""}.strip # The actual element content
         @triangle = true # draw triangle instead of stright bar when in auto mode
       else
-        @content = content.gsub("^"){""} # The actual element content
+        @content = content.gsub("^"){""}.strip # The actual element content
         @triangle = false # draw triangle instead of stright bar when in auto mode
       end
       # workaround to save "[A [B [C] [D] ] [E [F] [G [H] [J] ] ] ]"
