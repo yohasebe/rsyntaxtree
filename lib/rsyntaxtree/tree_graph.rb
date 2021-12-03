@@ -73,6 +73,7 @@ class TreeGraph < Graph
 
   # Add the element into the tree (draw it)
   def draw_element(x, y, w, string, type)
+    numlines = string.count("\n")
     string = string.sub(/\^\z/){""}
     # Calculate element dimensions and position
     if (type == ETYPE_LEAF) and @leafstyle == "nothing"
@@ -81,7 +82,7 @@ class TreeGraph < Graph
       top   = row2px(y)
     end
     left   = x + @m[:b_side]
-    bottom = top  + @e_height
+    bottom = top  + @e_height * numlines
     right  = left + w
 
     # Split the string into the main part and the
@@ -284,7 +285,7 @@ class TreeGraph < Graph
     end
   end
 
-  def img_get_txt_width(text, font, font_size, multiline = false)
+  def img_get_txt_width(text, font, font_size, multiline = true)
     parts = text.split("_", 2)
     main_before = parts[0].strip
     sub = parts[1]

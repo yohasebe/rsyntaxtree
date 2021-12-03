@@ -23,9 +23,9 @@ class Element
       @level = level           # Element level in the tree (0=top etc...)
       @width = 0               # Width of the element in pixels
       @indent = 0              # Drawing offset
-      # content = content.strip
-      if /\A.+\^\z/ =~ content.strip
-        @content = content.gsub("^"){""}.strip # The actual element content
+      content = content.strip
+      if /\A.+\^\z/ =~ content
+        @content = content.gsub("^"){""} # The actual element content
         @triangle = true # draw triangle instead of stright bar when in auto mode
       else
         @content = content.gsub("^"){""}.strip # The actual element content

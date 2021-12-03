@@ -18,7 +18,7 @@ require 'graph'
 
 class SVGGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_cjk, font_size)
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_cjk, font_size, margin)
 
     # Store class-specific parameters
     @font       = multibyte ? font_cjk : font
@@ -29,6 +29,7 @@ class SVGGraph < Graph
     when /(?:serif|math)/
       @fontstyle  = "serif"
     end
+    @margin     = margin.to_i
 
     super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
 
@@ -38,13 +39,20 @@ class SVGGraph < Graph
     @tree_data  = String.new
   end
 
+  def get_left_most(tree_data)
+    xs = @tree_data.scan(/x1?=['"]([^'"]+)['"]/).map{|m| m.first.to_i}
+    xs.min
+  end
+
   def svg_data
     parse_list
+    lm = get_left_most(@tree_data)
+    pp lm
     header =<<EOD
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="#{@width}" height="#{@height}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg width="#{@width - lm + @margin * 2}" height="#{@height + @margin * 2}" viewBox="#{-@margin + lm}, -#{@margin}, #{@width - lm + @margin * 2}, #{@height + @margin * 2}" fill="white" version="1.1" xmlns="http://www.w3.org/2000/svg">
 EOD
 
     footer = "</svg>"
@@ -287,19 +295,9 @@ EOD
     main_before = parts[0].strip
     sub = parts[1]
     main = get_txt_only(main_before)
-    # if(main.contains_cjk?)
-    #   main = 'n' * main.strip.size * 2
-    # else
-      # main
-    # end
     main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
     width = main_metrics.width
     if sub
-      # if(sub.contains_cjk?)
-      #   sub = 'n' * sub.strip.size * 2
-      # else
-      #   sub
-      # end
       sub_metrics = img_get_txt_metrics(sub, font, font_size * SUBSCRIPT_CONST, multiline)
       width += sub_metrics.width
     end
