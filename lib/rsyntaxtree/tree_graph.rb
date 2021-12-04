@@ -21,18 +21,19 @@ class TreeGraph < Graph
 
   def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte,
                  fontstyle, font, font_it, font_bd, font_itbd, font_math, font_cjk, font_size,
-                 margin)
+                 margin, transparent)
 
     # Store class-specific parameters
-    @fontstyle  = fontstyle
-    @font       = multibyte ? font_cjk : font
-    @font_size  = font_size
-    @font_it    = font_it
-    @font_bd    = font_bd
-    @font_itbd  = font_itbd
-    @font_math  = font_math
-    @font_cjk   = font_cjk
-    @margin     = margin
+    @fontstyle   = fontstyle
+    @font        = multibyte ? font_cjk : font
+    @font_size   = font_size
+    @font_it     = font_it
+    @font_bd     = font_bd
+    @font_itbd   = font_itbd
+    @font_math   = font_math
+    @font_cjk    = font_cjk
+    @margin      = margin
+    @transparent = transparent
 
     super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
 
@@ -49,6 +50,9 @@ class TreeGraph < Graph
   def draw
     parse_list
     @im = Image.new(@width, @height)
+    if @transparent
+      @im.matte_reset!
+    end
     @im.interlace = PlaneInterlace
     @gc.draw(@im)
   end
@@ -63,7 +67,11 @@ class TreeGraph < Graph
   def to_blob(fileformat='PNG')
     draw
     @im.trim!
-    @im.border!(@margin, @margin, "white")
+    if @transparent
+      @im.border!(@margin, @margin, "transparent")
+    else
+      @im.border!(@margin, @margin, "white")
+    end
     @im.format = fileformat
     @im.interlace = PlaneInterlace
     return @im.to_blob

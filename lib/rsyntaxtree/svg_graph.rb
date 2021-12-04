@@ -18,11 +18,13 @@ require 'graph'
 
 class SVGGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_cjk, font_size, margin)
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_cjk, font_size, margin, transparent)
 
     # Store class-specific parameters
     @font       = multibyte ? font_cjk : font
     @font_size  = font_size
+    @transparent = transparent
+
     case fontstyle
     when /(?:sans|cjk)/
       @fontstyle  = "sans-serif"
@@ -47,16 +49,27 @@ class SVGGraph < Graph
   def svg_data
     parse_list
     lm = get_left_most(@tree_data)
-    pp lm
+    width = @width - lm + @margin * 2
+    height = @height + @margin * 2
+
     header =<<EOD
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="#{@width - lm + @margin * 2}" height="#{@height + @margin * 2}" viewBox="#{-@margin + lm}, -#{@margin}, #{@width - lm + @margin * 2}, #{@height + @margin * 2}" fill="white" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg width="#{width}" height="#{height}" viewBox="#{-@margin + lm}, -#{@margin}, #{@width - lm + @margin * 2}, #{@height + @margin * 2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+EOD
+
+    rect =<<EOD
+<rect x="#{-@margin + lm}" y="-#{@margin}" width="#{@width - lm + @margin * 2}" height="#{@height + @margin * 2}" stroke="none" fill="white" />"
 EOD
 
     footer = "</svg>"
-    header + @tree_data + footer
+
+    if @transparent
+      header + @tree_data + footer
+    else
+      header + rect + @tree_data + footer
+    end
   end
 
   # Create a temporary file and returns only its filename

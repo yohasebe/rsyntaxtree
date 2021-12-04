@@ -49,7 +49,7 @@ class RSGenerator
           .gsub('-CABRACKET-', '>')
         new_params[key] = data
         new_params[:multibyte] = data.contains_cjk?
-      when :symmetrize, :color, :autosub
+      when :symmetrize, :color, :autosub, :transparent
         new_params[key] = value && value != "off" ? true : false
       when :fontsize
         new_params[key] = value.to_i * FONT_SCALING
@@ -98,22 +98,23 @@ class RSGenerator
 
     # defaults to the following
     @params = {
-      :symmetrize => true,
-      :color      => true,
-      :autosub    => false,
-      :fontsize   => 18,
-      :format     => "png",
-      :leafstyle  => "auto",
-      :filename   => "syntree",
-      :data       => "",
-      :margin     => 0,
-      :vheight    =>  1.0,
-      :fontstyle  => "sans",
-      :font       => "/NotoSansCJKjp-Regular.otf",
-      :font_it    => "/NotoSans-Italic.ttf",
-      :font_bd    => "/NotoSans-Bold.ttf",
-      :font_bdit  => "/NotoSans-BoldItalic.ttf",
-      :font_math  => "/NotoSansMath-Regular.ttf"
+      :symmetrize  => true,
+      :color       => true,
+      :autosub     => false,
+      :transparent => false,
+      :fontsize    => 18,
+      :format      => "png",
+      :leafstyle   => "auto",
+      :filename    => "syntree",
+      :data        => "",
+      :margin      => 0,
+      :vheight     =>  1.0,
+      :fontstyle   => "sans",
+      :font        => "/NotoSansCJKjp-Regular.otf",
+      :font_it     => "/NotoSans-Italic.ttf",
+      :font_bd     => "/NotoSans-Bold.ttf",
+      :font_bdit   => "/NotoSans-BoldItalic.ttf",
+      :font_math   => "/NotoSansMath-Regular.ttf"
     }
     @metrics = {
       :e_width  => 120,
@@ -163,7 +164,7 @@ class RSGenerator
     elist = sp.get_elementlist
     graph = SVGGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
-      @params[:fontstyle], @params[:font], @params[:font_cjk], @params[:fontsize], @params[:margin]
+      @params[:fontstyle], @params[:font], @params[:font_cjk], @params[:fontsize], @params[:margin], @params[:transparent]
     )
     graph.svg_data
   end
@@ -176,7 +177,7 @@ class RSGenerator
     graph = TreeGraph.new(elist, @metrics,
       @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
       @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], @params[:font_math],
-      @params[:font_cjk], @params[:fontsize], @params[:margin],
+      @params[:font_cjk], @params[:fontsize], @params[:margin], @params[:transparent]
     )
     graph.to_blob(@params[:format])
   end
