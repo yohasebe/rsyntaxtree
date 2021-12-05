@@ -40,7 +40,8 @@ class RSGenerator
       key = keystr.to_sym
       case key
       when :data
-        data = CGI.unescape(value)
+        data = value
+        # data = CGI.unescape(value)
         data  = data.gsub('-AMP-', '&')
           .gsub('-PERCENT-', "%")
           .gsub('-PRIME-', "'")

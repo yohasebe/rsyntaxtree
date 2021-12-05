@@ -23,7 +23,7 @@ class ErrorMessage
     @filename = filename
     @format = format
 
-    metrics = img_get_txt_metrics(text, font, font_size, true)
+    metrics = img_get_txt_metrics(text, font, font_size, NoDecoration, true)
 
     @im = Image.new(metrics.width, metrics.height)
     @gc = Draw.new

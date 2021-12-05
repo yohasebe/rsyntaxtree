@@ -81,18 +81,19 @@ class Graph
   # for all child elements.
   def calc_element_width(e)
     w = 0
+    content = e.content.gsub("<>", " ")
 
     children = @e_list.get_children(e.id)
 
     if(children.length == 0)
-      w = img_get_txt_width(e.content, @font, @font_size) + @font_size
+      w = img_get_txt_width(content, @font, @font_size) + @font_size
     else
       children.each do |child|
         child_e = @e_list.get_id(child)
         w += calc_element_width(child_e)
       end
 
-      tw = img_get_txt_width(e.content, @font, @font_size) + @font_size
+      tw = img_get_txt_width(content, @font, @font_size) + @font_size
       if(tw > w)
         fix_child_size(e.id, w, tw)
         w = tw
@@ -186,13 +187,13 @@ class Graph
       end
     end
     return true if !@symmetrize
-    
+
     elements_to_draw = {}
     triangles_to_draw = []
     lines_to_draw = []
 
     lmost = {:level => nil, :value => nil, :type => nil}
-    rmost = nil 
+    rmost = nil
     h.times do |i|
       curlevel = h - i - 1
       e_arr.each_with_index do |j, idx|
@@ -299,7 +300,7 @@ class Graph
     return text
   end
 
-  def img_get_txt_height(text, font, font_size, multiline = false)
+  def img_get_txt_height(text, font, font_size, multiline = true)
     metrics = img_get_txt_metrics(text, font, font_size, multiline)
     y = metrics.height
     return y

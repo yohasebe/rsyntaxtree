@@ -81,7 +81,6 @@ class TreeGraph < Graph
 
   # Add the element into the tree (draw it)
   def draw_element(x, y, w, string, type)
-    numlines = string.count("\n")
     string = string.sub(/\^\z/){""}
     # Calculate element dimensions and position
     if (type == ETYPE_LEAF) and @leafstyle == "nothing"
@@ -90,7 +89,6 @@ class TreeGraph < Graph
       top   = row2px(y)
     end
     left   = x + @m[:b_side]
-    bottom = top  + @e_height * numlines
     right  = left + w
 
     # Split the string into the main part and the
@@ -144,7 +142,14 @@ class TreeGraph < Graph
     # Calculate text size for the main and the
     # subscript part of the element
 
-    main_width = img_get_txt_width(main, main_font, @font_size)
+
+    main_width = 0
+    main_height = 0
+    main.split(/\\n/).each do |l|
+      l_width = img_get_txt_width(l, main_font, @font_size) 
+      main_width = l_width if main_width < l_width
+      main_height += img_get_txt_height(l, @font, @font_size)
+    end
 
     if /\A\=(.+)\=\z/ =~ sub
       sub = $1
@@ -183,15 +188,16 @@ class TreeGraph < Graph
     end
 
     if sub != ""
+      # add a separation of the width of "M"
       sub_width  = img_get_txt_width(sub.to_s, sub_font, @sub_size)
+      sub_height = img_get_txt_height(sub.to_s, sub_font, @sub_size)
     else
       sub_width = 0
+      sub_height = 0
     end
 
     # Center text in the element
-    txt_width = main_width + sub_width
-
-    txt_pos   = left + (right - left) / 2 - txt_width / 2
+    txt_pos   = left + (right - left) / 2 
 
     # Select apropriate color
     if(type == ETYPE_LEAF)
@@ -209,22 +215,28 @@ class TreeGraph < Graph
 
     # Draw main text
     @gc.pointsize(@font_size)
-    main_x = txt_pos
+    main_x = txt_pos - sub_width / 2
     main_y = top + @e_height - @m[:e_padd]
 
     @gc.interline_spacing = -(@main_height / 3)
     @gc.font(main_font)
     @gc.decorate(main_decoration)
-    @gc.text(main_x.ceil, main_y.ceil, main)
+    numlines = main.count("\\n")
+    if numlines > 1
+      @height = @height + @main_height * numlines
+    end
+    @gc.text_align(CenterAlign)
+    @gc.text(main_x.ceil, main_y.ceil, main.gsub("\\n", "\n"))
 
     # Draw subscript text
-    if (sub.length > 0 )
+    if (sub != "" )
       @gc.pointsize(@sub_size)
-      sub_x = txt_pos + main_width + @sub_space_width
-      sub_y = top + (@e_height - @m[:e_padd] + @sub_size / 2)
+      sub_x = main_x + main_width / 2 + sub_width / 2
+      sub_y = top + main_height + sub_height / 2
       @gc.font(sub_font)
       @gc.decorate(sub_decoration)
-      @gc.text(sub_x.ceil, sub_y.ceil, sub)
+      @gc.text_align(CenterAlign)
+      @gc.text(sub_x.ceil, sub_y.ceil, " " + sub.gsub("\\n", "\n"))
     end
   end
 

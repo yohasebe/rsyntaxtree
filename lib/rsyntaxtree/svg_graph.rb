@@ -37,7 +37,7 @@ class SVGGraph < Graph
 
     @line_styles  = "<line style='stroke:black; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
     @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZEpx; ST; WA;' x='X_VALUE' y='Y_VALUE' TD font-family='#{@fontstyle}'>CONTENT</text>\n"
+    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZE ST WA' x='X_VALUE' y='Y_VALUE' TD font-family='#{@fontstyle}'>CONTENT</text>\n"
     @tree_data  = String.new
   end
 
@@ -54,7 +54,7 @@ class SVGGraph < Graph
 
     header =<<EOD
 <?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="#{width}" height="#{height}" viewBox="#{-@margin + lm}, -#{@margin}, #{@width - lm + @margin * 2}, #{@height + @margin * 2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
 EOD
@@ -89,21 +89,21 @@ EOD
   end
 
   :private
- 
+
   # Add the element into the tree (draw it)
   def draw_element(x, y, w, string, type)
-    string = string.sub(/\^\z/){""} 
+    string = string.sub(/\^\z/){""}
     # Calculate element dimensions and position
     if (type == ETYPE_LEAF) and @leafstyle == "nothing"
       top = row2px(y - 1) + (@font_size * 1.5)
-    else 
+    else
       top   = row2px(y)
     end
     left   = x + @m[:b_side]
     bottom = top  + @e_height
     right  = left + w
 
-    # Split the string into the main part and the 
+    # Split the string into the main part and the
     # subscript part of the element (if any)
     parts = string.split("_", 2)
     if(parts.length > 1 )
@@ -148,11 +148,17 @@ EOD
       main = $1
     end
 
-    # Calculate text size for the main and the 
+    # Calculate text size for the main and the
     # subscript part of the element
     # symbols for underline/overline removed temporarily
 
-    main_width = img_get_txt_width(main, @font, @font_size)
+    main_width = 0
+    main_height = 0
+    main.split(/\\n/).each do |l|
+      l_width = img_get_txt_width(l, @font, @font_size)
+      main_width = l_width if main_width < l_width
+      main_height += img_get_txt_height(l, @font, @font_size)
+    end
 
     if sub != ""
       if /\A\=(.+)\=\z/ =~ sub
@@ -184,6 +190,7 @@ EOD
         sub_style = ""
         sub_weight = ""
       end
+      # add a separation of the size of "M"
       sub_width  = img_get_txt_width(sub.to_s,  @font, @sub_size)
     else
       sub_width = 0
@@ -194,14 +201,13 @@ EOD
     end
 
     # Center text in the element
-    txt_width = main_width + sub_width
-    txt_pos   = left + (right - left) / 2 - txt_width / 2
+    txt_pos   = left + (right - left) / 2
 
     # Select apropriate color
     if(type == ETYPE_LEAF)
       col = @col_leaf
     else
-      col = @col_node      
+      col = @col_node
     end
 
     if(main[0].chr == "<" && main[-1].chr == ">")
@@ -210,29 +216,49 @@ EOD
 
     # Draw main text
     main_data  = @text_styles.sub(/COLOR/, col)
-    main_data  = main_data.sub(/FONT_SIZE/, @font_size.to_s)
-    main_x = txt_pos
-    main_y = top + @e_height - @m[:e_padd] * 1.5
+    main_data  = main_data.sub(/FONT_SIZE/, @font_size.to_s + "px;")
+    main_x = txt_pos - (main_width + sub_width) / 2
+    main_y = top + @e_height - @m[:e_padd] * 1
     main_data  = main_data.sub(/X_VALUE/, main_x.to_s)
     main_data  = main_data.sub(/Y_VALUE/, main_y.to_s)
+    if /\\n/ =~ main
+      lines = main.split(/\\n/)
+      new_main = ""
+      dy = 0
+      lines.each_with_index do |l, idx|
+        if idx == 0
+          dy = 0
+        else
+          dy = 1
+          main_y += img_get_txt_height(l, @font, @font_size) * 0.75
+        end
+        this_width = img_get_txt_width(l,  @font, @font_size)
 
+        this_x = txt_pos - this_width / 2
+        new_main << "<tspan x='#{this_x}' dy='#{dy}em'>#{l}</tspan>"
+        @height = main_y if main_y > @height
+      end
+      main = new_main
+    end
     @tree_data += main_data.sub(/TD/, "text-decoration='#{main_decoration}'")
-      .sub(/ST/, main_style)
-      .sub(/WA/, main_weight)
+      .sub(/ST/, main_style + ";")
+      .sub(/WA/, main_weight + ";")
       .sub(/CONTENT/, main)
 
     # Draw subscript text
-    sub_data  = @text_styles.sub(/COLOR/, col)
-    sub_data  = sub_data.sub(/FONT_SIZE/, @sub_size.to_s)
-    sub_x = main_x + main_width
-    sub_y = top + (@e_height - @m[:e_padd] + @sub_size / 10)
-    if (sub.length > 0 )
-      sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
-      sub_data   = sub_data.sub(/Y_VALUE/, sub_y.ceil.to_s)
-      @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
-        .sub(/ST/, sub_style)
-        .sub(/WA/, sub_weight)
-        .sub(/CONTENT/, sub)
+    if sub != ""
+      sub_data  = @text_styles.sub(/COLOR/, col)
+      sub_data  = sub_data.sub(/FONT_SIZE/, @sub_size.to_s)
+      sub_x  = main_x + main_width
+      sub_y = main_y
+      if (sub.length > 0 )
+        sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
+        sub_data   = sub_data.sub(/Y_VALUE/, sub_y.ceil.to_s)
+        @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
+          .sub(/ST/, sub_style)
+          .sub(/WA/, sub_weight)
+          .sub(/CONTENT/,  sub)
+      end
     end
   end
 
@@ -292,9 +318,9 @@ EOD
     children = @e_list.get_children(id)
     @e_list.set_element_width(id, target)
 
-    if(children.length > 0 ) 
+    if(children.length > 0 )
       delta = target - current
-      target_delta = delta / children.length 
+      target_delta = delta / children.length
 
       children.each do |child|
         child_width = @e_list.get_element_width(child)
@@ -303,7 +329,7 @@ EOD
     end
   end
 
-  def img_get_txt_width(text, font, font_size, multiline = false)
+  def img_get_txt_width(text, font, font_size, multiline = true)
     parts = text.split("_", 2)
     main_before = parts[0].strip
     sub = parts[1]
@@ -316,4 +342,10 @@ EOD
     end
     return width
   end
+
+  def img_get_txt_height(text, font, font_size)
+    main_metrics = img_get_txt_metrics(text, font, font_size, false)
+    main_metrics.height
+  end
+
 end

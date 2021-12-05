@@ -171,8 +171,15 @@ class StringParser
         end
       when "\\"
         escape = true
-      when /[\n\r]/
-        gottoken = false # same as do nothing  
+      when "n", " ", "+", "-", "=", "~", "#", "*"
+        if escape
+          token += "\\#{ch}"
+          escape = false
+        else
+          token += ch
+        end
+      # when /[\n\r]/
+      #   gottoken = false # same as do nothing
       else
         token += ch
         escape = false if escape
