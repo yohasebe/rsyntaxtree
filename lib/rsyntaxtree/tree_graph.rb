@@ -190,7 +190,7 @@ class TreeGraph < Graph
     if sub != ""
       # add a separation of the width of "M"
       sub_width  = img_get_txt_width(sub.to_s, sub_font, @sub_size)
-      sub_height = img_get_txt_height(sub.to_s, sub_font, @sub_size)
+      sub_height  = img_get_txt_height(sub.to_s, sub_font, @sub_size)
     else
       sub_width = 0
       sub_height = 0
@@ -231,8 +231,9 @@ class TreeGraph < Graph
     # Draw subscript text
     if (sub != "" )
       @gc.pointsize(@sub_size)
-      sub_x = main_x + main_width / 2 + sub_width / 2
+      sub_x = main_x + (main_width / 2) + (sub_width / 2)
       sub_y = top + main_height + sub_height / 2
+      @height += sub_height / 2
       @gc.font(sub_font)
       @gc.decorate(sub_decoration)
       @gc.text_align(CenterAlign)
