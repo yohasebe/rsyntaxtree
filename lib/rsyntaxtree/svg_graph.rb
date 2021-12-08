@@ -27,17 +27,23 @@ class SVGGraph < Graph
 
     case fontstyle
     when /(?:sans|cjk)/
-      @fontstyle  = "sans-serif"
-    when /(?:serif|math)/
-      @fontstyle  = "serif"
+      @fontstyle = "\"'Noto Sans JP', 'Noto Sans', sans-serif\""
+      @fontcss = "http://fonts.googleapis.com/earlyaccess/notosansjp.css"
+    when /(?:serif)/
+      @fontstyle = "\"'Noto Serif JP', 'Noto Serif', serif\""
+      @fontcss = "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
+    when /(?:math)/
+      @fontstyle = "\"Latin Modern Roman', sans-serif\""
+      @fontcss = "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
     end
+
     @margin     = margin.to_i
 
-    super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
+    super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @fontstyle, @font_size)
 
     @line_styles  = "<line style='stroke:black; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
     @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZE ST WA' x='X_VALUE' y='Y_VALUE' TD font-family='#{@fontstyle}'>CONTENT</text>\n"
+    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZE ST WA' x='X_VALUE' y='Y_VALUE' TD font-family=#{@fontstyle}>CONTENT</text>\n"
     @tree_data  = String.new
   end
 
@@ -57,7 +63,13 @@ class SVGGraph < Graph
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="#{width}" height="#{height}" viewBox="#{-@margin + lm}, -#{@margin}, #{@width - lm + @margin * 2}, #{@height + @margin * 2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<style>
+@import url(#{@fontcss});
+</style>
+</defs>
 EOD
+
 
     rect =<<EOD
 <rect x="#{-@margin + lm}" y="-#{@margin}" width="#{@width - lm + @margin * 2}" height="#{@height + @margin * 2}" stroke="none" fill="white" />"
@@ -160,6 +172,7 @@ EOD
       main_height += img_get_txt_height(l, @font, @font_size)
     end
 
+
     if sub != ""
       if /\A\=(.+)\=\z/ =~ sub
         sub = $1
@@ -190,10 +203,13 @@ EOD
         sub_style = ""
         sub_weight = ""
       end
-      # add a separation of the size of "M"
+      sub_height = img_get_txt_height(sub, @font, @font_size)
       sub_width  = img_get_txt_width(sub.to_s,  @font, @sub_size)
+      sub_en_width = img_get_txt_width("N",  @font, @sub_size) / 2
+      # sub_en_width = 0
     else
       sub_width = 0
+      sub_height = 0
     end
 
     if /\A#(.+)#\z/ =~ sub
@@ -246,19 +262,18 @@ EOD
       .sub(/CONTENT/, main)
 
     # Draw subscript text
-    if sub != ""
+    if sub && sub != ""
       sub_data  = @text_styles.sub(/COLOR/, col)
       sub_data  = sub_data.sub(/FONT_SIZE/, @sub_size.to_s)
-      sub_x  = main_x + main_width
-      sub_y = main_y
-      if (sub.length > 0 )
-        sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
-        sub_data   = sub_data.sub(/Y_VALUE/, sub_y.ceil.to_s)
-        @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
-          .sub(/ST/, sub_style)
-          .sub(/WA/, sub_weight)
-          .sub(/CONTENT/,  sub)
-      end
+      sub_x  = main_x + main_width + sub_en_width
+      sub_y = main_y + sub_height / 4
+      sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
+      sub_data   = sub_data.sub(/Y_VALUE/, sub_y.ceil.to_s)
+      @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
+        .sub(/ST/, sub_style)
+        .sub(/WA/, sub_weight)
+        .sub(/CONTENT/,   sub)
+      @height += sub_height / 4
     end
   end
 

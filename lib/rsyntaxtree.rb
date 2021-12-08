@@ -65,7 +65,7 @@ class RSGenerator
           new_params[:font_bd] = FONT_DIR + "/NotoSans-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
           new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
-          new_params[:font_cjk] = FONT_DIR + "/NotoSansCJKjp-Regular.otf"
+          new_params[:font_cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
           new_params[:fontstyle] = "sans"
         elsif value == "noto-serif" || value == "serif"
           new_params[:font] = FONT_DIR + "/NotoSerif-Regular.ttf"
@@ -73,7 +73,7 @@ class RSGenerator
           new_params[:font_bd] = FONT_DIR + "/NotoSerif-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
           new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
-          new_params[:font_cjk] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
+          new_params[:font_cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
           new_params[:fontstyle] = "serif"
         elsif value == "cjk zenhei" || value == "cjk"
           new_params[:font] = FONT_DIR + "/wqy-zenhei.ttf"
@@ -89,7 +89,7 @@ class RSGenerator
           new_params[:font_bd] = FONT_DIR + "/lmroman10-bold.otf"
           new_params[:font_bdit] = FONT_DIR + "/lmroman10-bolditalic.otf"
           new_params[:font_math] = FONT_DIR + "/latinmodern-math.otf"
-          new_params[:font_cjk] = FONT_DIR + "/NotoSerifCJKjp-Regular.otf"
+          new_params[:font_cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
           new_params[:fontstyle] = "math"
         end
       else
@@ -111,7 +111,7 @@ class RSGenerator
       :margin      => 0,
       :vheight     =>  1.0,
       :fontstyle   => "sans",
-      :font        => "/NotoSansCJKjp-Regular.otf",
+      :font        => "/NotoSansJP-Regular.otf",
       :font_it     => "/NotoSans-Italic.ttf",
       :font_bd     => "/NotoSans-Bold.ttf",
       :font_bdit   => "/NotoSans-BoldItalic.ttf",

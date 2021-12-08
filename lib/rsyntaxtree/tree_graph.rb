@@ -232,8 +232,8 @@ class TreeGraph < Graph
     if (sub != "" )
       @gc.pointsize(@sub_size)
       sub_x = main_x + (main_width / 2) + (sub_width / 2)
-      sub_y = top + main_height + sub_height / 2
-      @height += sub_height / 2
+      sub_y = top + main_height + sub_height / 4
+      @height += sub_height / 4
       @gc.font(sub_font)
       @gc.decorate(sub_decoration)
       @gc.text_align(CenterAlign)

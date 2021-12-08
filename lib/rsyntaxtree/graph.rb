@@ -302,6 +302,7 @@ class Graph
 
   def img_get_txt_height(text, font, font_size, multiline = true)
     metrics = img_get_txt_metrics(text, font, font_size, multiline)
+    # y = (metrics.bounds.y2 - metrics.bounds.y1).round
     y = metrics.height
     return y
   end
