@@ -43,7 +43,7 @@ class SVGGraph < Graph
 
     @line_styles  = "<line style='stroke:black; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
     @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-    @text_styles  = "<text style='fill: COLOR; font-size: FONT_SIZE ST WA' x='X_VALUE' y='Y_VALUE' TD font-family=#{@fontstyle}>CONTENT</text>\n"
+    @text_styles  = "<text letter-spacing='0' word-spacing='0' kerning='0' style='fill: COLOR; font-size: FONT_SIZE ST WA' x='X_VALUE' y='Y_VALUE' TD font-family=#{@fontstyle}>CONTENT</text>\n"
     @tree_data  = String.new
   end
 
@@ -205,8 +205,6 @@ EOD
       end
       sub_height = img_get_txt_height(sub, @font, @font_size)
       sub_width  = img_get_txt_width(sub.to_s,  @font, @sub_size)
-      sub_en_width = img_get_txt_width("N",  @font, @sub_size) / 2
-      # sub_en_width = 0
     else
       sub_width = 0
       sub_height = 0
@@ -234,7 +232,7 @@ EOD
     main_data  = @text_styles.sub(/COLOR/, col)
     main_data  = main_data.sub(/FONT_SIZE/, @font_size.to_s + "px;")
     main_x = txt_pos - (main_width + sub_width) / 2
-    main_y = top + @e_height - @m[:e_padd] * 1
+    main_y = top + @e_height - @m[:e_padd]
     main_data  = main_data.sub(/X_VALUE/, main_x.to_s)
     main_data  = main_data.sub(/Y_VALUE/, main_y.to_s)
     if /\\n/ =~ main
@@ -246,12 +244,11 @@ EOD
           dy = 0
         else
           dy = 1
-          main_y += img_get_txt_height(l, @font, @font_size) * 0.75
+          main_y += img_get_txt_height(l, @font, @font_size)
         end
         this_width = img_get_txt_width(l,  @font, @font_size)
-
-        this_x = txt_pos - this_width / 2
-        new_main << "<tspan x='#{this_x}' dy='#{dy}em'>#{l}</tspan>"
+        this_x = txt_pos - (this_width + sub_width) / 2
+        new_main << "<tspan x='#{this_x}' y='#{main_y}'>#{l}</tspan>"
         @height = main_y if main_y > @height
       end
       main = new_main
@@ -265,10 +262,10 @@ EOD
     if sub && sub != ""
       sub_data  = @text_styles.sub(/COLOR/, col)
       sub_data  = sub_data.sub(/FONT_SIZE/, @sub_size.to_s)
-      sub_x  = main_x + main_width + sub_en_width
+      sub_x  = right - sub_width
       sub_y = main_y + sub_height / 4
-      sub_data   = sub_data.sub(/X_VALUE/, sub_x.ceil.to_s)
-      sub_data   = sub_data.sub(/Y_VALUE/, sub_y.ceil.to_s)
+      sub_data   = sub_data.sub(/X_VALUE/, sub_x.to_s)
+      sub_data   = sub_data.sub(/Y_VALUE/, sub_y.to_s)
       @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
         .sub(/ST/, sub_style)
         .sub(/WA/, sub_weight)
@@ -289,10 +286,10 @@ EOD
     toBot    = (row2px(fromY - 1 ) + @e_height)
     toLeft  = (toX + toW / 2 + @m[:b_side])
 
-    line_data   = @line_styles.sub(/X1/, fromLeft.ceil.to_s)
-    line_data   = line_data.sub(/Y1/, fromTop.ceil.to_s)
-    line_data   = line_data.sub(/X2/, toLeft.ceil.to_s)
-    @tree_data += line_data.sub(/Y2/, toBot.ceil.to_s)
+    line_data   = @line_styles.sub(/X1/, fromLeft.to_s)
+    line_data   = line_data.sub(/Y1/, fromTop.to_s)
+    line_data   = line_data.sub(/X2/, toLeft.to_s)
+    @tree_data += line_data.sub(/Y2/, toBot.to_s)
 
   end
 
@@ -305,9 +302,9 @@ EOD
     toX = fromX
     fromCenter = (fromX + fromW / 2 + @m[:b_side])
 
-    fromTop  = row2px(fromY).ceil
-    fromLeft1 = (fromCenter + textW / 2).ceil
-    fromLeft2 = (fromCenter - textW / 2).ceil
+    fromTop  = row2px(fromY)
+    fromLeft1 = (fromCenter + textW / 2)
+    fromLeft2 = (fromCenter - textW / 2)
     toBot    = (row2px(fromY - 1) + @e_height)
 
     if symmetrize
@@ -316,12 +313,12 @@ EOD
       toLeft   = (toX + textW / 2 + @m[:b_side] * 3)
     end
 
-    polygon_data = @polygon_styles.sub(/X1/, fromLeft1.ceil.to_s)
-    polygon_data = polygon_data.sub(/Y1/, fromTop.ceil.to_s)
-    polygon_data = polygon_data.sub(/X2/, fromLeft2.ceil.to_s)
-    polygon_data = polygon_data.sub(/Y2/, fromTop.ceil.to_s)
-    polygon_data = polygon_data.sub(/X3/, toLeft.ceil.to_s)
-    @tree_data  += polygon_data.sub(/Y3/, toBot.ceil.to_s)
+    polygon_data = @polygon_styles.sub(/X1/, fromLeft1.to_s)
+    polygon_data = polygon_data.sub(/Y1/, fromTop.to_s)
+    polygon_data = polygon_data.sub(/X2/, fromLeft2.to_s)
+    polygon_data = polygon_data.sub(/Y2/, fromTop.to_s)
+    polygon_data = polygon_data.sub(/X3/, toLeft.to_s)
+    @tree_data  += polygon_data.sub(/Y3/, toBot.to_s)
   end
 
   # If a node element text is wider than the sum of it's
@@ -352,7 +349,7 @@ EOD
     main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
     width = main_metrics.width
     if sub
-      sub_metrics = img_get_txt_metrics(sub, font, font_size * SUBSCRIPT_CONST, multiline)
+      sub_metrics = img_get_txt_metrics(sub.strip, font, font_size * SUBSCRIPT_CONST, multiline)
       width += sub_metrics.width
     end
     return width

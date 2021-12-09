@@ -53,7 +53,8 @@ class TreeGraph < Graph
     if @transparent
       @im.matte_reset!
     end
-    @im.interlace = PlaneInterlace
+    # @im.interlace = PlaneInterlace
+    @im.interlace = LineInterlace
     @gc.draw(@im)
   end
 
@@ -146,7 +147,7 @@ class TreeGraph < Graph
     main_width = 0
     main_height = 0
     main.split(/\\n/).each do |l|
-      l_width = img_get_txt_width(l, main_font, @font_size) 
+      l_width = img_get_txt_width(l, main_font, @font_size)
       main_width = l_width if main_width < l_width
       main_height += img_get_txt_height(l, @font, @font_size)
     end
@@ -197,7 +198,7 @@ class TreeGraph < Graph
     end
 
     # Center text in the element
-    txt_pos   = left + (right - left) / 2 
+    txt_pos   = left + (right - left) / 2
 
     # Select apropriate color
     if(type == ETYPE_LEAF)
@@ -215,10 +216,14 @@ class TreeGraph < Graph
 
     # Draw main text
     @gc.pointsize(@font_size)
+    @gc.kerning = 0
+    @gc.interline_spacing = 0
+    @gc.interword_spacing = 0
+
     main_x = txt_pos - sub_width / 2
     main_y = top + @e_height - @m[:e_padd]
 
-    @gc.interline_spacing = -(@main_height / 3)
+    # @gc.interline_spacing = -(@main_height / 3)
     @gc.font(main_font)
     @gc.decorate(main_decoration)
     numlines = main.count("\\n")
@@ -272,6 +277,7 @@ class TreeGraph < Graph
     fromLeft1 = (fromCenter + textW / 2).ceil
     fromLeft2 = (fromCenter - textW / 2).ceil
     toBot    = (row2px(fromY - 1) + @e_height)
+
     if symmetrize
       toLeft   = (toX + textW / 2 + @m[:b_side])
     else

@@ -66,6 +66,9 @@ class Graph
       gc.pointsize = font_size
       gc.gravity = CenterGravity
       gc.stroke = 'none'
+      gc.kerning = 0
+      gc.interline_spacing = 0
+      gc.interword_spacing = 0
     end
 
     if multiline

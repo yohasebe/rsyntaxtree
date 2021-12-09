@@ -118,12 +118,18 @@ class RSGenerator
       :font_math   => "/NotoSansMath-Regular.ttf"
     }
     @metrics = {
-      :e_width  => 120,
-      :e_padd   => 14,
-      :v_space  => 20,
-      :h_space  => 20,
-      :b_side   => 10,
-      :b_topbot => 10
+      :e_width  => 0,
+      :e_padd   => 20,
+      :v_space  => 0,
+      :h_space  => 0,
+      :b_side   => 0,
+      :b_topbot => 0
+      # :e_width  => 120,
+      # :e_padd   => 14,
+      # :v_space  => 20,
+      # :h_space  => 20,
+      # :b_side   => 10,
+      # :b_topbot => 10
     }
 
     @params.merge! new_params
