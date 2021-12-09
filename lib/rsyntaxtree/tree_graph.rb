@@ -189,7 +189,6 @@ class TreeGraph < Graph
     end
 
     if sub != ""
-      # add a separation of the width of "M"
       sub_width  = img_get_txt_width(sub.to_s, sub_font, @sub_size)
       sub_height  = img_get_txt_height(sub.to_s, sub_font, @sub_size)
     else

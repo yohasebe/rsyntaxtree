@@ -262,8 +262,8 @@ EOD
     if sub && sub != ""
       sub_data  = @text_styles.sub(/COLOR/, col)
       sub_data  = sub_data.sub(/FONT_SIZE/, @sub_size.to_s)
-      sub_x  = right - sub_width
-      sub_y = main_y + sub_height / 4
+      sub_x  = txt_pos + (main_width / 2) - (sub_width / 2)
+      sub_y = main_y + sub_height / 6
       sub_data   = sub_data.sub(/X_VALUE/, sub_x.to_s)
       sub_data   = sub_data.sub(/Y_VALUE/, sub_y.to_s)
       @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
