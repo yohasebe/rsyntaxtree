@@ -57,23 +57,26 @@ class SVGGraph < Graph
     lm = get_left_most(@tree_data)
     width = @width - lm + @margin * 2
     height = @height + @margin * 2
+    x1 = -@margin + lm
+    y1 = -@margin
+    x2 = @width - lm * 1.5 + @margin * 2
+    y2 = @height + @margin * 2
 
-    header =<<EOD
+     header =<<EOD
 <?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
- "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="#{width}" height="#{height}" viewBox="#{-@margin + lm}, -#{@margin}, #{@width - lm + @margin * 2}, #{@height + @margin * 2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<style>
-@import url(#{@fontcss});
-</style>
-</defs>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="#{width}" height="#{height}" viewBox="#{x1}, #{y1}, #{x2}, #{y2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <style>
+        @import url(#{@fontcss});
+      </style>
+    </defs>
 EOD
-
 
     rect =<<EOD
-<rect x="#{-@margin + lm}" y="-#{@margin}" width="#{@width - lm + @margin * 2}" height="#{@height + @margin * 2}" stroke="none" fill="white" />"
+<rect x="#{x1}" y="#{y1}" width="#{x2}" height="#{y2}" stroke="none" fill="white" />"
 EOD
+
 
     footer = "</svg>"
 
@@ -117,12 +120,14 @@ EOD
 
     # Split the string into the main part and the
     # subscript part of the element (if any)
-    parts = string.split("_", 2)
-    if(parts.length > 1 )
+    parts = string.split(/(__?)/)
+    if(parts.length === 3 )
       main = parts[0].strip
-      sub  = parts[1].gsub(/_/, " ").strip
+      sub_mode = parts[1]
+      sub  = parts[2].strip
     else
       main = parts[0].strip
+      sub_mode = ""
       sub  = ""
     end
 
@@ -263,14 +268,18 @@ EOD
       sub_data  = @text_styles.sub(/COLOR/, col)
       sub_data  = sub_data.sub(/FONT_SIZE/, @sub_size.to_s)
       sub_x  = txt_pos + (main_width / 2) - (sub_width / 2)
-      sub_y = main_y + sub_height / 6
+      if sub_mode == "__"
+        sub_y = main_y - sub_height / 3
+      else
+        sub_y = main_y + sub_height / 4
+      end
       sub_data   = sub_data.sub(/X_VALUE/, sub_x.to_s)
       sub_data   = sub_data.sub(/Y_VALUE/, sub_y.to_s)
       @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
         .sub(/ST/, sub_style)
         .sub(/WA/, sub_weight)
         .sub(/CONTENT/,   sub)
-      @height += sub_height / 4
+      @height += sub_height / 4 if sub_mode == "_"
     end
   end
 
@@ -342,14 +351,14 @@ EOD
   end
 
   def img_get_txt_width(text, font, font_size, multiline = true)
-    parts = text.split("_", 2)
+    parts = text.split(/__?/, 2)
     main_before = parts[0].strip
     sub = parts[1]
     main = get_txt_only(main_before)
     main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
     width = main_metrics.width
     if sub
-      sub_metrics = img_get_txt_metrics(sub.strip, font, font_size * SUBSCRIPT_CONST, multiline)
+      sub_metrics = img_get_txt_metrics(sub, font, font_size * SUBSCRIPT_CONST, multiline)
       width += sub_metrics.width
     end
     return width

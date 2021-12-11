@@ -72,7 +72,7 @@ class RSGenerator
           new_params[:font_it] = FONT_DIR + "/NotoSerif-Italic.ttf"
           new_params[:font_bd] = FONT_DIR + "/NotoSerif-Bold.ttf"
           new_params[:font_bdit] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
-          new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
+          new_params[:font_math] = FONT_DIR + "/latinmodern-math.otf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
           new_params[:fontstyle] = "serif"
         elsif value == "cjk zenhei" || value == "cjk"

@@ -94,12 +94,16 @@ class TreeGraph < Graph
 
     # Split the string into the main part and the
     # subscript part of the element (if any)
-    parts = string.split("_", 2)
-    if(parts.length > 1 )
+
+
+    parts = string.split(/(__?)/)
+    if(parts.length === 3 )
       main = parts[0].strip
-      sub  = parts[1].gsub(/_/, " ").strip
+      sub_mode = parts[1]
+      sub  = parts[2].strip
     else
       main = parts[0].strip
+      sub_mode = ""
       sub  = ""
     end
 
@@ -236,8 +240,14 @@ class TreeGraph < Graph
     if (sub != "" )
       @gc.pointsize(@sub_size)
       sub_x = main_x + (main_width / 2) + (sub_width / 2)
-      sub_y = top + main_height + sub_height / 4
-      @height += sub_height / 4
+
+      if sub_mode == "__"
+        sub_y = top + main_height - sub_height / 2
+      else
+        sub_y = top + main_height + sub_height / 4
+      end
+
+      @height += sub_height / 4 if sub_mode == "_"
       @gc.font(sub_font)
       @gc.decorate(sub_decoration)
       @gc.text_align(CenterAlign)
@@ -285,7 +295,7 @@ class TreeGraph < Graph
 
     @gc.fill("none")
     @gc.stroke @col_line
-    @gc.stroke_width 1 * 2
+    @gc.stroke_width 1 * FONT_SCALING
     @gc.line(fromLeft1, fromTop, toLeft, toBot)
     @gc.line(fromLeft2, fromTop, toLeft, toBot)
     @gc.line(fromLeft1, fromTop, fromLeft2, fromTop)
@@ -312,7 +322,7 @@ class TreeGraph < Graph
   end
 
   def img_get_txt_width(text, font, font_size, multiline = true)
-    parts = text.split("_", 2)
+    parts = text.split(/__?/, 2)
     main_before = parts[0].strip
     sub = parts[1]
     main = get_txt_only(main_before)
