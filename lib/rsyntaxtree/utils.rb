@@ -17,4 +17,8 @@ class String
   def contains_cjk?
     !!(self =~ /\p{Han}|\p{Katakana}|\p{Hiragana}|\p{Hangul}/)
   end
+
+  def contains_emoji?
+    !!(self.gsub(/\d/, "") =~ /\p{Emoji}/)
+  end
 end

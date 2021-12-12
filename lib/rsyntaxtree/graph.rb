@@ -18,14 +18,15 @@ include Magick
 
 class Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, font, font_size)
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, font, font_size)
 
     # Set class-specific parameters beforehand in subclass
 
     # Store parameters
     @e_list     = e_list
     @m          = metrics
-    @multibyte  = multibyte
+    @having_cjk  = having_cjk
+    @having_emoji = having_emoji
     @leafstyle  = leafstyle
     @symmetrize = symmetrize
 
@@ -56,7 +57,7 @@ class Graph
     @sub_space_width = img_get_txt_width("l", font, @sub_size)
   end
 
-  def img_get_txt_metrics(text, font, font_size, multiline)
+  def img_get_txt_metrics(text, font, font_size, multiline = true)
 
     background = Image.new(1, 1)
 
@@ -155,6 +156,7 @@ class Graph
 
     h = @e_list.get_level_height
 
+    extra = 0
     h.times do |i|
       x = 0
       e_arr.each do |j|

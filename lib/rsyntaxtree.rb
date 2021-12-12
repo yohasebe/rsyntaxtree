@@ -49,13 +49,24 @@ class RSGenerator
           .gsub('-OABRACKET-', '<')
           .gsub('-CABRACKET-', '>')
         new_params[key] = data
-        new_params[:multibyte] = data.contains_cjk?
+
+        if data.contains_cjk?
+          new_params[:having_cjk] = true
+        else
+          new_params[:having_cjk] = false
+        end
+        if data.contains_emoji?
+          new_params[:having_emoji] = true
+        else
+          new_params[:having_emoji] = false
+        end
+
       when :symmetrize, :color, :autosub, :transparent
         new_params[key] = value && value != "off" ? true : false
       when :fontsize
         new_params[key] = value.to_i * FONT_SCALING
       when :margin
-        new_params[key] = value.to_i * FONT_SCALING * 4
+        new_params[key] = value.to_i * FONT_SCALING * 5
       when :vheight
         new_params[key] = value.to_f
       when :fontstyle
@@ -66,6 +77,7 @@ class RSGenerator
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
           new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
+          new_params[:font_emoji] = FONT_DIR + "/OpenSansEmoji.otf"
           new_params[:fontstyle] = "sans"
         elsif value == "noto-serif" || value == "serif"
           new_params[:font] = FONT_DIR + "/NotoSerif-Regular.ttf"
@@ -74,6 +86,7 @@ class RSGenerator
           new_params[:font_bdit] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
           new_params[:font_math] = FONT_DIR + "/latinmodern-math.otf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
+          new_params[:font_emoji] = FONT_DIR + "/OpenSansEmoji.otf"
           new_params[:fontstyle] = "serif"
         elsif value == "cjk zenhei" || value == "cjk"
           new_params[:font] = FONT_DIR + "/wqy-zenhei.ttf"
@@ -82,6 +95,7 @@ class RSGenerator
           new_params[:font_bdit] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
           new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/wqy-zenhei.ttf"
+          new_params[:font_emoji] = FONT_DIR + "/OpenSansEmoji.otf"
           new_params[:fontstyle] = "sans"
         elsif value == "modern-math" || value == "math"
           new_params[:font] = FONT_DIR + "/latinmodern-math.otf"
@@ -90,6 +104,7 @@ class RSGenerator
           new_params[:font_bdit] = FONT_DIR + "/lmroman10-bolditalic.otf"
           new_params[:font_math] = FONT_DIR + "/latinmodern-math.otf"
           new_params[:font_cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
+          new_params[:font_emoji] = FONT_DIR + "/OpenSansEmoji.otf"
           new_params[:fontstyle] = "math"
         end
       else
@@ -119,7 +134,7 @@ class RSGenerator
     }
     @metrics = {
       :e_width  => 0,
-      :e_padd   => 14,
+      :e_padd   => 20,
       :v_space  => 20,
       :h_space  => 0,
       :b_side   => 0,
@@ -170,8 +185,8 @@ class RSGenerator
     sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
     graph = SVGGraph.new(elist, @metrics,
-      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
-      @params[:fontstyle], @params[:font], @params[:font_cjk], @params[:fontsize], @params[:margin], @params[:transparent]
+      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:having_cjk], @params[:having_emoji],
+      @params[:fontstyle], @params[:font], @params[:font_cjk], @params[:font_emoji], @params[:fontsize], @params[:margin], @params[:transparent]
     )
     graph.svg_data
   end
@@ -182,9 +197,9 @@ class RSGenerator
     sp.auto_subscript if @params[:autosub]
     elist = sp.get_elementlist
     graph = TreeGraph.new(elist, @metrics,
-      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:multibyte],
+      @params[:symmetrize], @params[:color], @params[:leafstyle], @params[:having_cjk], @params[:having_emoji],
       @params[:fontstyle], @params[:font], @params[:font_it], @params[:font_bd], @params[:font_bdit], @params[:font_math],
-      @params[:font_cjk], @params[:fontsize], @params[:margin], @params[:transparent]
+      @params[:font_cjk], @params[:font_emoji], @params[:fontsize], @params[:margin], @params[:transparent]
     )
     graph.to_blob(@params[:format])
   end

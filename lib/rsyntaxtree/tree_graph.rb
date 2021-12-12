@@ -19,23 +19,33 @@ include Magick
 
 class TreeGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte,
-                 fontstyle, font, font_it, font_bd, font_itbd, font_math, font_cjk, font_size,
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, 
+                 fontstyle, font, font_it, font_bd, font_itbd, font_math, font_cjk, font_emoji, font_size,
                  margin, transparent)
 
     # Store class-specific parameters
     @fontstyle   = fontstyle
-    @font        = multibyte ? font_cjk : font
-    @font_size   = font_size
-    @font_it     = font_it
-    @font_bd     = font_bd
-    @font_itbd   = font_itbd
-    @font_math   = font_math
-    @font_cjk    = font_cjk
-    @margin      = margin
-    @transparent = transparent
+    if having_cjk
+      @font = font_cjk
+    elsif having_emoji
+      @font = font_emoji
+    else
+      @font = font
+    end
 
-    super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @font, @font_size)
+    @having_cjk   = having_cjk
+    @having_emoji = having_emoji
+    @font_size    = font_size
+    @font_it      = font_it
+    @font_bd      = font_bd
+    @font_itbd    = font_itbd
+    @font_math    = font_math
+    @font_cjk     = font_cjk
+    @font_emoji   = font_emoji
+    @margin       = margin
+    @transparent  = transparent
+
+    super(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, @font, @font_size)
 
     # Initialize the image and colors
     @gc           = Draw.new
@@ -53,8 +63,7 @@ class TreeGraph < Graph
     if @transparent
       @im.matte_reset!
     end
-    # @im.interlace = PlaneInterlace
-    @im.interlace = LineInterlace
+    @im.interlace = PlaneInterlace
     @gc.draw(@im)
   end
 
@@ -95,7 +104,6 @@ class TreeGraph < Graph
     # Split the string into the main part and the
     # subscript part of the element (if any)
 
-
     parts = string.split(/(__?)/)
     if(parts.length === 3 )
       main = parts[0].strip
@@ -124,17 +132,17 @@ class TreeGraph < Graph
 
     if /\A\*\*\*(.+)\*\*\*\z/ =~ main
       main = $1
-      if !@multibyte
+      if !@having_cjk && !@having_emoji
         main_font = @font_itbd
       end
     elsif /\A\*\*(.+)\*\*\z/ =~ main
       main = $1
-      if !@multibyte
+      if !@having_cjk && !@having_emoji
         main_font = @font_bd
       end
     elsif /\A\*(.+)\*\z/ =~ main
       main = $1
-      if !@multibyte
+      if !@having_cjk && !@having_emoji
         main_font = @font_it
       end
     end
@@ -172,17 +180,17 @@ class TreeGraph < Graph
     sub_font = @font
     if /\A\*\*\*(.+)\*\*\*\z/ =~ sub
       sub = $1
-      if !@multibyte
+      if !@having_cjk && !@having_emoji
         sub_font = @font_itbd
       end
     elsif /\A\*\*(.+)\*\*\z/ =~ sub
       sub = $1
-      if !@multibyte
+      if !@having_cjk && !@having_emoji
         sub_font = @font_bd
       end
     elsif /\A\*(.+)\*\z/ =~ sub
       sub = $1
-      if !@multibyte
+      if !@having_cjk && !@having_emoji
         sub_font = @font_it
       end
     end
@@ -287,11 +295,7 @@ class TreeGraph < Graph
     fromLeft2 = (fromCenter - textW / 2).ceil
     toBot    = (row2px(fromY - 1) + @e_height)
 
-    if symmetrize
-      toLeft   = (toX + textW / 2 + @m[:b_side])
-    else
-      toLeft   = (toX + textW / 2 + @m[:b_side] * 3)
-    end
+    toLeft   = fromLeft1 + (fromLeft2 - fromLeft1) / 2
 
     @gc.fill("none")
     @gc.stroke @col_line

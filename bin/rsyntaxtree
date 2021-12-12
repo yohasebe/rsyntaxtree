@@ -27,8 +27,8 @@ EOS
   opt :font, "Path to a ttf font used to generate tree (optional)", :type => String
   opt :fontsize, "Size: 8-26",
       :default => 16
-  opt :margin, "Margin: 0-5",
-      :default => 0
+  opt :margin, "Margin: 0-10",
+      :default => 2
   opt :vheight, "Connector Height: 0.5-5.0",
     :default => 1.0
   opt :color, "Color text and bars: on or off",
@@ -50,7 +50,7 @@ Optimist::die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >
 Optimist::die :color, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:color]
 Optimist::die :symmetrize, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:symmetrize]
 Optimist::die :autosub, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:autosub]
-Optimist::die :margin, "must be in the range of 0-5" if opts[:margin] < 0 || opts[:margin] > 5 
+Optimist::die :margin, "must be in the range of 0-10" if opts[:margin] < 0 || opts[:margin] > 10 
 Optimist::die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0
 Optimist::die :transparent, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:transparent]
 

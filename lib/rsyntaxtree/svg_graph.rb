@@ -18,32 +18,48 @@ require 'graph'
 
 class SVGGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, multibyte, fontstyle, font, font_cjk, font_size, margin, transparent)
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, fontstyle, font, font_cjk, font_emoji, font_size, margin, transparent)
 
-    # Store class-specific parameters
-    @font       = multibyte ? font_cjk : font
     @font_size  = font_size
     @transparent = transparent
+    @fontcss = []
 
     case fontstyle
     when /(?:sans|cjk)/
-      @fontstyle = "\"'Noto Sans JP', 'Noto Sans', sans-serif\""
-      @fontcss = "http://fonts.googleapis.com/earlyaccess/notosansjp.css"
+      @font = font
+      @fontstyle = "'Noto Sans JP', 'Noto Sans', sans-serif"
+      @fontcss << "http://fonts.googleapis.com/earlyaccess/notosansjp.css"
     when /(?:serif)/
-      @fontstyle = "\"'Noto Serif JP', 'Noto Serif', serif\""
-      @fontcss = "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
+      @font = font
+      @fontstyle = "'Noto Serif JP', 'Noto Serif', serif"
+      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
     when /(?:math)/
-      @fontstyle = "\"Latin Modern Roman', sans-serif\""
-      @fontcss = "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
+      if having_cjk
+        @font = font_cjk
+      else
+        @font = font
+      end
+      @fontstyle = "'Latin Modern Roman', sans-serif"
+      @fontcss << "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
+    end
+
+    if having_emoji
+      @font = font_emoji
+      if color
+        @fontstyle = @fontstyle + ", 'OpenMojiColor'"
+      else
+        @fontstyle = @fontstyle + ", 'OpenMojiBlack'"
+      end
+      @fontcss << "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/font/openmoji.css"
     end
 
     @margin     = margin.to_i
 
-    super(e_list, metrics, symmetrize, color, leafstyle, multibyte, @fontstyle, @font_size)
+    super(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, @fontstyle, @font_size)
 
     @line_styles  = "<line style='stroke:black; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
     @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-    @text_styles  = "<text letter-spacing='0' word-spacing='0' kerning='0' style='fill: COLOR; font-size: FONT_SIZE ST WA' x='X_VALUE' y='Y_VALUE' TD font-family=#{@fontstyle}>CONTENT</text>\n"
+    @text_styles  = "<text letter-spacing='0' word-spacing='0' kerning='0' style='fill: COLOR; font-size: FONT_SIZE ST WA' x='X_VALUE' y='Y_VALUE' TD font-family=\"#{@fontstyle}\">CONTENT</text>\n"
     @tree_data  = String.new
   end
 
@@ -61,6 +77,9 @@ class SVGGraph < Graph
     y1 = -@margin
     x2 = @width - lm * 1.5 + @margin * 2
     y2 = @height + @margin * 2
+    @fontcss_txt = @fontcss.map do |fc|
+      "@import url(#{fc});"
+    end.join("\n")
 
      header =<<EOD
 <?xml version="1.0" standalone="no"?>
@@ -68,7 +87,7 @@ class SVGGraph < Graph
   <svg width="#{width}" height="#{height}" viewBox="#{x1}, #{y1}, #{x2}, #{y2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <style>
-        @import url(#{@fontcss});
+      #{@fontcss_txt}
       </style>
     </defs>
 EOD
@@ -76,7 +95,6 @@ EOD
     rect =<<EOD
 <rect x="#{x1}" y="#{y1}" width="#{x2}" height="#{y2}" stroke="none" fill="white" />"
 EOD
-
 
     footer = "</svg>"
 
@@ -243,12 +261,8 @@ EOD
     if /\\n/ =~ main
       lines = main.split(/\\n/)
       new_main = ""
-      dy = 0
       lines.each_with_index do |l, idx|
-        if idx == 0
-          dy = 0
-        else
-          dy = 1
+        if idx != 0
           main_y += img_get_txt_height(l, @font, @font_size)
         end
         this_width = img_get_txt_width(l,  @font, @font_size)
