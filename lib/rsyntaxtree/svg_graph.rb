@@ -15,6 +15,7 @@
 
 require "tempfile"
 require 'graph'
+require 'utils'
 
 class SVGGraph < Graph
 
@@ -23,6 +24,8 @@ class SVGGraph < Graph
     @font_size  = font_size
     @transparent = transparent
     @fontcss = []
+    @having_emoji = having_emoji
+    @font_emoji = font_emoji
 
     case fontstyle
     when /(?:sans|cjk)/
@@ -43,8 +46,7 @@ class SVGGraph < Graph
       @fontcss << "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
     end
 
-    if having_emoji
-      @font = font_emoji
+    if @having_emoji
       if color
         @fontstyle = @fontstyle + ", 'OpenMojiColor'"
       else
@@ -190,13 +192,21 @@ EOD
     main_width = 0
     main_height = 0
     main.split(/\\n/).each do |l|
-      l_width = img_get_txt_width(l, @font, @font_size)
+      font = @font
+      if @having_emoji && l.all_emoji?
+        font = @font_emoji
+      end
+      l_width = img_get_txt_width(l, font, @font_size)
       main_width = l_width if main_width < l_width
-      main_height += img_get_txt_height(l, @font, @font_size)
+      main_height += img_get_txt_height(l, font, @font_size)
     end
 
 
     if sub != ""
+      font = @font
+      if @having_emoji && sub.all_emoji?
+        font = @font_emoji
+      end
       if /\A\=(.+)\=\z/ =~ sub
         sub = $1
         sub_decoration= "overline"
@@ -226,8 +236,8 @@ EOD
         sub_style = ""
         sub_weight = ""
       end
-      sub_height = img_get_txt_height(sub, @font, @font_size)
-      sub_width  = img_get_txt_width(sub.to_s,  @font, @sub_size)
+      sub_height = img_get_txt_height(sub, font, @font_size)
+      sub_width  = img_get_txt_width(sub.to_s,  font, @sub_size)
     else
       sub_width = 0
       sub_height = 0
@@ -262,10 +272,14 @@ EOD
       lines = main.split(/\\n/)
       new_main = ""
       lines.each_with_index do |l, idx|
-        if idx != 0
-          main_y += img_get_txt_height(l, @font, @font_size)
+        font = @font
+        if @having_emoji && l.all_emoji?
+          font = @font_emoji
         end
-        this_width = img_get_txt_width(l,  @font, @font_size)
+        if idx != 0
+          main_y += img_get_txt_height(l, font, @font_size)
+        end
+        this_width = img_get_txt_width(l,  font, @font_size)
         this_x = txt_pos - (this_width + sub_width) / 2
         new_main << "<tspan x='#{this_x}' y='#{main_y}'>#{l}</tspan>"
         @height = main_y if main_y > @height
@@ -317,7 +331,7 @@ EOD
   end
 
   # Draw a triangle between child/parent elements
-  def triangle_to_parent(fromX, fromY, fromW, textW, symmetrize = true)
+  def triangle_to_parent(fromX, fromY, fromW, textW)
     if (fromY == 0)
       return
     end
@@ -330,11 +344,7 @@ EOD
     fromLeft2 = (fromCenter - textW / 2)
     toBot    = (row2px(fromY - 1) + @e_height)
 
-    if symmetrize
-      toLeft   = (toX + textW / 2 + @m[:b_side])
-    else
-      toLeft   = (toX + textW / 2 + @m[:b_side] * 3)
-    end
+    toLeft   = fromLeft1 + (fromLeft2 - fromLeft1) / 2
 
     polygon_data = @polygon_styles.sub(/X1/, fromLeft1.to_s)
     polygon_data = polygon_data.sub(/Y1/, fromTop.to_s)

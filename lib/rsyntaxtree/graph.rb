@@ -177,7 +177,7 @@ class Graph
                 if (@leafstyle == "auto" && ETYPE_LEAF == j.type && x == parent_indent)
                   if words.length > 1 || j.triangle
                     txt_width = img_get_txt_width(j.content, @font, @font_size)
-                    triangle_to_parent(x, i, cw, txt_width, @symmetrize)
+                    triangle_to_parent(x, i, cw, txt_width)
                   else
                     line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
                   end

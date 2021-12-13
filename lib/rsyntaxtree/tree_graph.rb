@@ -19,29 +19,26 @@ include Magick
 
 class TreeGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, 
+  def initialize(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji,
                  fontstyle, font, font_it, font_bd, font_itbd, font_math, font_cjk, font_emoji, font_size,
                  margin, transparent)
 
     # Store class-specific parameters
+    @font = font
     @fontstyle   = fontstyle
-    if having_cjk
+    if fontstyle == "math" && having_cjk
       @font = font_cjk
-    elsif having_emoji
-      @font = font_emoji
-    else
-      @font = font
     end
 
     @having_cjk   = having_cjk
     @having_emoji = having_emoji
+    @font_emoji   = font_emoji
     @font_size    = font_size
     @font_it      = font_it
     @font_bd      = font_bd
     @font_itbd    = font_itbd
     @font_math    = font_math
     @font_cjk     = font_cjk
-    @font_emoji   = font_emoji
     @margin       = margin
     @transparent  = transparent
 
@@ -159,6 +156,9 @@ class TreeGraph < Graph
     main_width = 0
     main_height = 0
     main.split(/\\n/).each do |l|
+      if @having_emoji && l.all_emoji?
+        main_font = @font_emoji
+      end
       l_width = img_get_txt_width(l, main_font, @font_size)
       main_width = l_width if main_width < l_width
       main_height += img_get_txt_height(l, @font, @font_size)
@@ -201,6 +201,9 @@ class TreeGraph < Graph
     end
 
     if sub != ""
+      if @having_emoji && sub.all_emoji?
+        sub_font = @font_emoji
+      end
       sub_width  = img_get_txt_width(sub.to_s, sub_font, @sub_size)
       sub_height  = img_get_txt_height(sub.to_s, sub_font, @sub_size)
     else
@@ -235,14 +238,18 @@ class TreeGraph < Graph
     main_y = top + @e_height - @m[:e_padd]
 
     # @gc.interline_spacing = -(@main_height / 3)
-    @gc.font(main_font)
     @gc.decorate(main_decoration)
     numlines = main.count("\\n")
     if numlines > 1
       @height = @height + @main_height * numlines
     end
     @gc.text_align(CenterAlign)
-    @gc.text(main_x.ceil, main_y.ceil, main.gsub("\\n", "\n"))
+    main_txt = main.gsub("\\n", "\n")
+    if @having_emoji && main_txt.all_emoji?
+      main_font = @font_emoji
+    end
+    @gc.font(main_font)
+    @gc.text(main_x.ceil, main_y.ceil, main_txt)
 
     # Draw subscript text
     if (sub != "" )
@@ -256,10 +263,14 @@ class TreeGraph < Graph
       end
 
       @height += sub_height / 4 if sub_mode == "_"
-      @gc.font(sub_font)
       @gc.decorate(sub_decoration)
       @gc.text_align(CenterAlign)
-      @gc.text(sub_x.ceil, sub_y.ceil, " " + sub.gsub("\\n", "\n"))
+      sub_txt = sub.gsub("\\n", "\n")
+      if @having_emoji && sub_txt.all_emoji?
+        sub_font = @font_emoji
+      end
+      @gc.font(sub_font)
+      @gc.text(sub_x.ceil, sub_y.ceil, " " + sub_txt)
     end
   end
 
@@ -282,7 +293,7 @@ class TreeGraph < Graph
   end
 
   # Draw a triangle between child/parent elements
-  def triangle_to_parent(fromX, fromY, fromW, textW, symmetrize = true)
+  def triangle_to_parent(fromX, fromY, fromW, textW)
     if (fromY == 0)
       return
     end

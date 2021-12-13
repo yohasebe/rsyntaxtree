@@ -21,4 +21,8 @@ class String
   def contains_emoji?
     !!(self.gsub(/\d/, "") =~ /\p{Emoji}/)
   end
+
+  def all_emoji?
+    !!(self.gsub(/\d/, "") =~ /\A[\p{Emoji}\s]+\z/)
+  end
 end
