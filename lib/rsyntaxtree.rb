@@ -96,7 +96,7 @@ class RSGenerator
           new_params[:font_math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
           new_params[:font_cjk] = FONT_DIR + "/wqy-zenhei.ttf"
           new_params[:font_emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
-          new_params[:fontstyle] = "sans"
+          new_params[:fontstyle] = "cjk"
         elsif value == "modern-math" || value == "math"
           new_params[:font] = FONT_DIR + "/latinmodern-math.otf"
           new_params[:font_it] = FONT_DIR + "/lmroman10-italic.otf"

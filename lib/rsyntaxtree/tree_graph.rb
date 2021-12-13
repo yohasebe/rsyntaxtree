@@ -24,7 +24,11 @@ class TreeGraph < Graph
                  margin, transparent)
 
     # Store class-specific parameters
-    @font = font
+    if having_cjk
+      @font = font_cjk
+    else
+      @font = font
+    end
     @fontstyle   = fontstyle
     if fontstyle == "math" && having_cjk
       @font = font_cjk

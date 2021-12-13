@@ -26,22 +26,19 @@ class SVGGraph < Graph
     @fontcss = []
     @having_emoji = having_emoji
     @font_emoji = font_emoji
-
+    if having_cjk
+      @font = font_cjk
+    else
+      @font = font
+    end
     case fontstyle
     when /(?:sans|cjk)/
-      @font = font
       @fontstyle = "'Noto Sans JP', 'Noto Sans', sans-serif"
       @fontcss << "http://fonts.googleapis.com/earlyaccess/notosansjp.css"
     when /(?:serif)/
-      @font = font
       @fontstyle = "'Noto Serif JP', 'Noto Serif', serif"
       @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
     when /(?:math)/
-      if having_cjk
-        @font = font_cjk
-      else
-        @font = font
-      end
       @fontstyle = "'Latin Modern Roman', sans-serif"
       @fontcss << "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
     end
