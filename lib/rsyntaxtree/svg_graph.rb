@@ -26,23 +26,31 @@ class SVGGraph < Graph
     @fontcss = []
     @having_emoji = having_emoji
     @font_emoji = font_emoji
-    if having_cjk
+    @having_cjk = having_cjk
+
+    if @having_cjk
       @font = font_cjk
     else
       @font = font
     end
+
     case fontstyle
     when /(?:sans|cjk)/
-      @fontstyle = "'Noto Sans JP', 'Noto Sans', sans-serif"
+      @fontstyle = "'Noto Sans', 'Noto Sans JP', sans-serif"
+      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Sans"
       @fontcss << "http://fonts.googleapis.com/earlyaccess/notosansjp.css"
-    when /(?:serif)/
-      @fontstyle = "'Noto Serif JP', 'Noto Serif', serif"
-      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
-    when /(?:math)/
-      @fontstyle = "'Latin Modern Roman', sans-serif"
       @fontcss << "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
+    when /(?:serif)/
+      @fontstyle = "'Noto Serif', 'Noto Serif JP', serif"
+      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif"
+      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
+      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Sans+Math"
+    when /(?:math)/
+      @fontstyle = "'Latin Modern Roman', 'Noto Serif JP', serif"
+      @fontcss << "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
+      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
     end
-
+    
     if @having_emoji
       if color
         @fontstyle = @fontstyle + ", 'OpenMojiColor'"
