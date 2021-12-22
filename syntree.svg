@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="1886.0" height="1538.9142857142856" viewBox="-20, -20, 1906.0, 1558.9142857142856" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<rect x="-20" y="-20" width="1906.0" height="1558.9142857142856" stroke="none" fill="white" />"
+<line style='stroke:black; stroke-width:2;' x1='250.0' y1='209.94285714285715' x2='638.25' y2='113.14285714285714' />
+<line style='stroke:black; stroke-width:2;' x1='1026.5' y1='209.94285714285715' x2='638.25' y2='113.14285714285714' />
+<line style='stroke:black; stroke-width:2;' x1='250.0' y1='419.8857142857143' x2='250.0' y2='323.0857142857143' />
+<line style='stroke:black; stroke-width:2;' x1='704.0' y1='419.8857142857143' x2='1026.5' y2='323.0857142857143' />
+<line style='stroke:black; stroke-width:2;' x1='1349.0' y1='419.8857142857143' x2='1026.5' y2='323.0857142857143' />
+<line style='stroke:black; stroke-width:2;' x1='704.0' y1='629.8285714285714' x2='704.0' y2='533.0285714285715' />
+<line style='stroke:black; stroke-width:2;' x1='1114.5' y1='629.8285714285714' x2='1349.0' y2='533.0285714285715' />
+<line style='stroke:black; stroke-width:2;' x1='1583.5' y1='629.8285714285714' x2='1349.0' y2='533.0285714285715' />
+<line style='stroke:black; stroke-width:2;' x1='1114.5' y1='839.7714285714285' x2='1114.5' y2='742.9714285714285' />
+<line style='stroke:black; stroke-width:2;' x1='1583.5' y1='839.7714285714285' x2='1583.5' y2='742.9714285714285' />
+<text alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='620.75' y='79'><tspan x='620.75' y='79'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">S</tspan></text>
+<text alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='206.0' y='288.9428571428572'><tspan x='206.0' y='288.9428571428572'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">NP</tspan></text>
+<text alignment-baseline='text-top' style='fill: green; font-size: 64px;' x='31.5' y='498.88571428571436'><tspan x='31.5' y='498.88571428571436'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">RSyntaxTree</tspan><tspan x='418.5' y='511.28571428571433'  style="font-size: 0.7em; " font-family="'Noto Serif', 'Noto Serif JP', serif">23</tspan></text>
+<text alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='985.5' y='288.9428571428572'><tspan x='985.5' y='288.9428571428572'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">VP</tspan></text>
+<text alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='682.3984375' y='498.88571428571436'><tspan x='682.3984375' y='498.88571428571436'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">V</tspan></text>
+<text alignment-baseline='text-top' style='fill: green; font-size: 64px;' x='531.5' y='708.8285714285714'><tspan x='531.5' y='708.8285714285714'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">generates</tspan><tspan x='826.5' y='696.4285714285714'  style="font-size: 0.7em; " font-family="'Noto Serif', 'Noto Serif JP', serif">56</tspan></text>
+<text alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='1304.5' y='498.88571428571436'><tspan x='1304.5' y='498.88571428571436'  style="font-style: italic; " font-family="'Noto Serif', 'Noto Serif JP', serif">NP</tspan></text>
+<text alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='1058.5' y='708.8285714285714'><tspan x='1058.5' y='708.8285714285714'  style="font-weight: bold; " font-family="'Noto Serif', 'Noto Serif JP', serif">Adj</tspan></text>
+<text alignment-baseline='text-top' style='fill: green; font-size: 64px;' x='939.5' y='918.7714285714285'><tspan x='939.5' y='918.7714285714285'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">multi</tspan><tspan x='1103.5' y='906.3714285714285'  style="font-size: 0.7em; font-style: italic; " font-family="'Noto Serif', 'Noto Serif JP', serif">lin</tspan><tspan x='1158.5' y='918.7714285714285'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">gual</tspan></text>
+<text alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='1537.125' y='708.8285714285714'><tspan x='1537.125' y='708.8285714285714'  style="font-weight: bold; font-style: italic; " font-family="'Noto Serif', 'Noto Serif JP', serif">NP</tspan></text>
+<text alignment-baseline='text-top' style='fill: green; font-size: 64px;' x='1352.5' y='918.7714285714285'><tspan x='1482.5' y='962.7714285714285'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">syntax</tspan><tspan y='1050.7714285714285'></tspan><tspan x='1468.5' y='1138.7714285714285'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">trees</tspan><tspan x='1618.5' y='1151.1714285714286'  style="font-size: 0.7em; " font-family="'Noto Serif', 'Noto Serif JP', serif">YES</tspan><tspan x='1352.5' y='1270.7714285714285'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">XXXXXXXX</tspan><tspan x='1688.5' y='1270.7714285714285'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">XX</tspan><tspan x='1772.5' y='1270.7714285714285'  style="" font-family="'Noto Serif', 'Noto Serif JP', serif">X</tspan></text>
+<rect style='fill: none; stroke: green; stroke-width:2;' x='418.5' y='471.4857142857143' width='50.0' height='47.0' />
+
+<rect style='fill: none; stroke: green; stroke-width:2;' x='826.5' y='656.6285714285715' width='50.0' height='47.0' />
+
+<line style="stroke:green; stroke-width:2; " x1="1352.5" y1="874.7714285714285" x2="1814.5" y2="874.7714285714285"></line>
+<line style="stroke:green; stroke-width:2; " x1="1352.5" y1="1182.7714285714285" x2="1814.5" y2="1182.7714285714285"></line>
+<rect style='fill: none; stroke: green; stroke-width:2;' x='1688.5' y='1212.7714285714285' width='84.0' height='73.0' />
+</svg>

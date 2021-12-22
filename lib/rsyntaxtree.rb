@@ -135,7 +135,10 @@ class RSGenerator
   end
 
   def draw_png
-    @params[:format] = "png"
+    svg = draw_svg
+    image, data = Magick::Image.from_blob(svg) do |im|
+      im.format = 'svg'
+    end
     image.to_blob {
       self.format = 'PNG'
     }

@@ -192,6 +192,8 @@ class Graph
         else
           line_to_parent(parent, child)
         end
+      elsif(@leafstyle == "bar" && ETYPE_LEAF == child.type)
+        line_to_parent(parent, child)
       elsif(@leafstyle == "nothing")
         if ETYPE_LEAF == child.type
           child.vertical_indent = parent.vertical_indent + parent.content_height / 1.1
