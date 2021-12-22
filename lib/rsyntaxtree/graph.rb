@@ -224,19 +224,6 @@ class Graph
     (children_right_end << target_right_end).max
   end
 
-  def get_txt_only(text)
-    text = text.strip
-    if /\A([\+\-\=\*\#\~]+).+/ =~ text
-      prefix = $1
-      prefix_l = Regexp.escape(prefix)
-      prefix_r = Regexp.escape(prefix.reverse)
-      if /\A#{prefix_l}(.+)#{prefix_r}\z/ =~ text
-        return $1
-      end
-    end
-    return text
-  end
-
   def node_centering
     node_groups = @element_list.get_elements.group_by {|e| e.parent}
     node_groups.sort_by{|k, v| -k}.each do |k, v|

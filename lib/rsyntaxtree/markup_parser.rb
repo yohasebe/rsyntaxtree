@@ -4,7 +4,9 @@ class MarkupParser < Parslet::Parser
   rule(:blankline) { str('\\n\\n').as(:blankline)}
   rule(:cr) { str('\\n')}
 
-  rule(:text) { ((match('[*_=\|\n-]') | str('\\n')).absent? >> any).repeat(1).as(:text) }
+  rule(:escaped) { str('\\') >> (match('[*_=\|\-]')).as(:chr) }
+  rule(:non_escaped) { ((match('[*_=\|\n\-]') | str('\\n')).absent? >> any).as(:chr) }
+  rule(:text) { (escaped | non_escaped).repeat(1).as(:text) }
 
   rule(:bolditalic) { str('***') >> (text | superscript | subscript | box).as(:bolditalic) >> str('***')}
   rule(:bold) { str('**') >> (text | superscript | subscript | box).as(:bold) >> str('**')}
@@ -16,7 +18,7 @@ class MarkupParser < Parslet::Parser
 
   rule(:markup) { (text | bolditalic | bold | italic | superscript | subscript | box) }
   rule(:border) { str('-').repeat(4).as(:border) }
-  rule(:line) { ( blankline | border | (markup.repeat(1)).as(:line) | cr ) }
+  rule(:line) { ( blankline | border | (markup.repeat(1)).as(:line) >> cr | markup.repeat(1).as(:line) | cr ) }
   rule(:lines) { line.repeat(1) }
   root :lines
 end
@@ -25,7 +27,8 @@ module Markup
   @parser = MarkupParser.new
 
   @evaluator = Parslet::Transform.new do
-    rule(:text => simple(:text)) { {:text => text.to_s, :decoration => []} }
+    rule(:chr => simple(:chr)) { chr.to_s }
+    rule(:text => sequence(:text)) { {:text => text.join(""), :decoration => []} }
     rule(:bolditalic => subtree(:text)) {
       text[:decoration] << :bolditalic; text
     }
@@ -57,11 +60,10 @@ module Markup
 
   def parse(txt)
     parsed = @parser.parse(txt)
-    results = @evaluator.apply(parsed)
-    results
+    pp results = @evaluator.apply(parsed)
   end
   
   module_function :parse
 end
 
-parsed = Markup.parse('**_X_**\\n----\\n\\n__|Y|__')
+# parsed = Markup.parse('\_あり\-がとう**_X_**\\n----\\n\\n__|Y|__')
