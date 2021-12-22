@@ -19,9 +19,10 @@ include Magick
 
 class TreeGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji,
-                 fontstyle, font, font_it, font_bd, font_itbd, font_math, font_cjk, font_emoji, font_size,
-                 margin, transparent)
+  def initialize(e_list, symmetrize, color, leafstyle, having_cjk, having_emoji, fontstyle, font, font_it, font_bd, font_itbd, font_math, font_cjk, font_emoji, font_size, margin, transparent, vspace)
+
+    @width = 0
+    @height = 0
 
     # Store class-specific parameters
     if having_cjk
@@ -46,7 +47,7 @@ class TreeGraph < Graph
     @margin       = margin
     @transparent  = transparent
 
-    super(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, @font, @font_size)
+    super(e_list, symmetrize, color, leafstyle, having_cjk, having_emoji, @font, @font_size, vspace)
 
     # Initialize the image and colors
     @gc           = Draw.new
@@ -59,7 +60,9 @@ class TreeGraph < Graph
   end
 
   def draw
-    parse_list
+    metrics = parse_list
+    @width = metrics[:width]
+    @height = metrics[:height]
     @im = Image.new(@width, @height)
     if @transparent
       @im.matte_reset!
@@ -77,7 +80,7 @@ class TreeGraph < Graph
   # by Geoffrey Grosenbach
   def to_blob(fileformat='PNG')
     draw
-    @im.trim!
+    # @im.trim!
     if @transparent
       @im.border!(@margin, @margin, "transparent")
     else
@@ -91,19 +94,11 @@ class TreeGraph < Graph
   :private
 
   # Add the element into the tree (draw it)
-  def draw_element(x, y, w, string, type)
-    string = string.sub(/\^\z/){""}
-    # Calculate element dimensions and position
-    if (type == ETYPE_LEAF) and @leafstyle == "nothing"
-      top = row2px(y - 1) + (@font_size * 1.5)
-    else
-      top   = row2px(y)
-    end
-    left   = x + @m[:b_side]
-    right  = left + w
-
-    # Split the string into the main part and the
-    # subscript part of the element (if any)
+  def draw_element(element)
+    string = element.content.sub(/\^\z/){""}
+    top = element.vertical_indent 
+    left   = element.horizontal_indent
+    right  = left + element.content_width 
 
     parts = string.split(/(__?)/)
     if(parts.length === 3 )
@@ -155,7 +150,6 @@ class TreeGraph < Graph
 
     # Calculate text size for the main and the
     # subscript part of the element
-
 
     main_width = 0
     main_height = 0
@@ -219,7 +213,7 @@ class TreeGraph < Graph
     txt_pos   = left + (right - left) / 2
 
     # Select apropriate color
-    if(type == ETYPE_LEAF)
+    if(element.type == ETYPE_LEAF)
       col = @col_leaf
     else
       col = @col_node
@@ -239,14 +233,10 @@ class TreeGraph < Graph
     @gc.interword_spacing = 0
 
     main_x = txt_pos - sub_width / 2
-    main_y = top + @e_height - @m[:e_padd]
+    main_y = top + @e_height - @connector_to_text
 
-    # @gc.interline_spacing = -(@main_height / 3)
     @gc.decorate(main_decoration)
     numlines = main.count("\\n")
-    if numlines > 1
-      @height = @height + @main_height * numlines
-    end
     @gc.text_align(CenterAlign)
     main_txt = main.gsub("\\n", "\n")
     if @having_emoji && main_txt.all_emoji?
@@ -266,7 +256,6 @@ class TreeGraph < Graph
         sub_y = top + main_height + sub_height / 4
       end
 
-      @height += sub_height / 4 if sub_mode == "_"
       @gc.decorate(sub_decoration)
       @gc.text_align(CenterAlign)
       sub_txt = sub.gsub("\\n", "\n")
@@ -279,78 +268,41 @@ class TreeGraph < Graph
   end
 
   # Draw a line between child/parent elements
-  def line_to_parent(fromX, fromY, fromW, toX, toW)
+  def line_to_parent(parent, child)
 
-    if (fromY == 0 )
+    if (child.horizontal_indent == 0 )
       return
     end
 
-    fromTop  = row2px(fromY)
-    fromLeft = (fromX + fromW / 2 + @m[:b_side])
-    toBot    = (row2px(fromY - 1 ) + @e_height)
-    toLeft  = (toX + toW / 2 + @m[:b_side])
+    x1 = child.horizontal_indent + child.content_width / 2
+    y1 = child.vertical_indent
+    x2 = parent.horizontal_indent + parent.content_width / 2
+    y2 = parent.vertical_indent + parent.content_height
 
     @gc.fill("none")
     @gc.stroke @col_line
     @gc.stroke_width 1 * FONT_SCALING
-    @gc.line(fromLeft.ceil, fromTop.ceil, toLeft.ceil, toBot.ceil)
+    @gc.line(x1, y1, x2, y2)
   end
 
   # Draw a triangle between child/parent elements
-  def triangle_to_parent(fromX, fromY, fromW, textW)
-    if (fromY == 0)
+  def triangle_to_parent(parent, child)
+    if (child.horizontal_indent == 0)
       return
     end
 
-    toX = fromX
-    fromCenter = (fromX + fromW / 2 + @m[:b_side])
-
-    fromTop  = row2px(fromY).ceil
-    fromLeft1 = (fromCenter + textW / 2).ceil
-    fromLeft2 = (fromCenter - textW / 2).ceil
-    toBot    = (row2px(fromY - 1) + @e_height)
-
-    toLeft   = fromLeft1 + (fromLeft2 - fromLeft1) / 2
+    x1 = child.horizontal_indent
+    y1 = child.vertical_indent
+    x2 = child.horizontal_indent + child.content_width
+    y2 = child.vertical_indent
+    x3 = parent.horizontal_indent + parent.content_width / 2
+    y3 = parent.vertical_indent + parent.content_height
 
     @gc.fill("none")
     @gc.stroke @col_line
     @gc.stroke_width 1 * FONT_SCALING
-    @gc.line(fromLeft1, fromTop, toLeft, toBot)
-    @gc.line(fromLeft2, fromTop, toLeft, toBot)
-    @gc.line(fromLeft1, fromTop, fromLeft2, fromTop)
-  end
-
-  # If a node element text is wider than the sum of it's
-  #   child elements, then the child elements need to
-  #   be resized to even out the space. This function
-  #   recurses down the a child tree and sizes the
-  #   children appropriately.
-  def fix_child_size(id, current, target)
-    children = @e_list.get_children(id)
-    @e_list.set_element_width(id, target)
-
-    if(children.length > 0 )
-      delta = target - current
-      target_delta = delta / children.length
-
-      children.each do |child|
-        child_width = @e_list.get_element_width(child)
-        fix_child_size(child, child_width, child_width + target_delta)
-      end
-    end
-  end
-
-  def img_get_txt_width(text, font, font_size, multiline = true)
-    parts = text.split(/__?/, 2)
-    main_before = parts[0].strip
-    sub = parts[1]
-    main = get_txt_only(main_before)
-    main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
-    width = main_metrics.width
-    if sub
-      sub_metrics = img_get_txt_metrics(sub.strip, font, font_size * SUBSCRIPT_CONST, multiline)
-      width += sub_metrics.width
-    end
-    return width
+    @gc.line(x1, y1, x3, y3)
+    @gc.line(x2, y2, x3, y3)
+    @gc.line(x1, y1, x2, y2)
   end
 end

@@ -19,84 +19,50 @@ require 'utils'
 
 class SVGGraph < Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, fontstyle, font, font_cjk, font_emoji, font_size, margin, transparent)
+  def initialize(e_list, symmetrize, color, leafstyle, fontstyle, fontset, fontsize, margin, transparent, vspace)
 
-    @font_size  = font_size
+    @height = 0
+    @width  = 0
+
+    @extra_lines = []
+
+    @fontset  = fontset
+    @fontsize  = fontsize
     @transparent = transparent
-    @fontcss = []
-    @having_emoji = having_emoji
-    @font_emoji = font_emoji
-    @having_cjk = having_cjk
+    @fontstyle = fontstyle
 
-    if @having_cjk
-      @font = font_cjk
-    else
-      @font = font
-    end
+    # if color
+    #   openmoji = "OpenMojiColor"
+    # else
+    #   openmoji = "OpenMojiBlack"
+    # end
+    # @fontstyle = "'#{openmoji}', " + @fontstyle
 
-    case fontstyle
-    when /(?:sans|cjk)/
-      @fontstyle = "'Noto Sans', 'Noto Sans JP', sans-serif"
-      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Sans"
-      @fontcss << "http://fonts.googleapis.com/earlyaccess/notosansjp.css"
-      @fontcss << "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
-    when /(?:serif)/
-      @fontstyle = "'Noto Serif', 'Noto Serif JP', serif"
-      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif"
-      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
-      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Sans+Math"
-    when /(?:math)/
-      @fontstyle = "'Latin Modern Roman', 'Noto Serif JP', serif"
-      @fontcss << "https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-roman.css"
-      @fontcss << "https://fonts.googleapis.com/css?family=Noto+Serif+JP"
-    end
-    
-    if @having_emoji
-      if color
-        @fontstyle = @fontstyle + ", 'OpenMojiColor'"
-      else
-        @fontstyle = @fontstyle + ", 'OpenMojiBlack'"
-      end
-      @fontcss << "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/font/openmoji.css"
-    end
+    @margin = margin.to_i
 
-    @margin     = margin.to_i
-
-    super(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, @fontstyle, @font_size)
+    super(e_list, symmetrize, color, leafstyle, @fontset, @fontsize, vspace)
 
     @line_styles  = "<line style='stroke:black; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
     @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-    @text_styles  = "<text letter-spacing='0' word-spacing='0' kerning='0' style='fill: COLOR; font-size: FONT_SIZE ST WA' x='X_VALUE' y='Y_VALUE' TD font-family=\"#{@fontstyle}\">CONTENT</text>\n"
+    @text_styles  = "<text alignment-baseline='text-top' style='fill: COLOR; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
     @tree_data  = String.new
   end
 
-  def get_left_most(tree_data)
-    xs = @tree_data.scan(/x1?=['"]([^'"]+)['"]/).map{|m| m.first.to_i}
-    xs.min
-  end
-
   def svg_data
-    parse_list
-    lm = get_left_most(@tree_data)
-    width = @width - lm + @margin * 2
-    height = @height + @margin * 2
-    x1 = -@margin + lm
-    y1 = -@margin
-    x2 = @width - lm * 1.5 + @margin * 2
-    y2 = @height + @margin * 2
-    @fontcss_txt = @fontcss.map do |fc|
-      "@import url(#{fc});"
-    end.join("\n")
+    metrics = parse_list
+    @height = metrics[:height] + @margin * 2
+    @width = metrics[:width] + @margin * 2
+
+    x1 = 0 - @margin
+    y1 = 0 - @margin
+    x2 = @width + @margin
+    y2 = @height + @margin
+    extra_lines = @extra_lines.join("\n")
 
      header =<<EOD
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="#{width}" height="#{height}" viewBox="#{x1}, #{y1}, #{x2}, #{y2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <style>
-      #{@fontcss_txt}
-      </style>
-    </defs>
+  <svg width="#{@width}" height="#{@height}" viewBox="#{x1}, #{y1}, #{x2}, #{y2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
 EOD
 
     rect =<<EOD
@@ -106,9 +72,9 @@ EOD
     footer = "</svg>"
 
     if @transparent
-      header + @tree_data + footer
+      header + @tree_data + extra_lines + footer
     else
-      header + rect + @tree_data + footer
+      header + rect + @tree_data + extra_lines + footer
     end
   end
 
@@ -131,271 +97,167 @@ EOD
   :private
 
   # Add the element into the tree (draw it)
-  def draw_element(x, y, w, string, type)
-    string = string.sub(/\^\z/){""}
-    # Calculate element dimensions and position
-    if (type == ETYPE_LEAF) and @leafstyle == "nothing"
-      top = row2px(y - 1) + (@font_size * 1.5)
-    else
-      top   = row2px(y)
-    end
-    left   = x + @m[:b_side]
+  def draw_element(element)
+    top  = element.vertical_indent
+    left   = element.horizontal_indent
     bottom = top  + @e_height
-    right  = left + w
-
-    # Split the string into the main part and the
-    # subscript part of the element (if any)
-    parts = string.split(/(__?)/)
-    if(parts.length === 3 )
-      main = parts[0].strip
-      sub_mode = parts[1]
-      sub  = parts[2].strip
-    else
-      main = parts[0].strip
-      sub_mode = ""
-      sub  = ""
-    end
-
-    if /\A\=(.+)\=\z/ =~ main
-      main = $1
-      main_decoration= "overline"
-    elsif /\A\-(.+)\-\z/ =~ main
-      main = $1
-      main_decoration= "underline"
-    elsif /\A\~(.+)\~\z/ =~ main
-      main = $1
-      main_decoration= "line-through"
-    else
-      main_decoration= ""
-    end
-
-    if /\A\*\*\*(.+)\*\*\*\z/ =~ main
-      main = $1
-      main_style = "font-style: italic"
-      main_weight = "font-weight: bold"
-    elsif /\A\*\*(.+)\*\*\z/ =~ main
-      main = $1
-      main_style = ""
-      main_weight = "font-weight: bold"
-    elsif /\A\*(.+)\*\z/ =~ main
-      main = $1
-      main_style = "font-style: italic"
-      main_weight = ""
-    else
-      main_style = ""
-      main_weight = ""
-    end
-
-    if /\A#(.+)#\z/ =~ main
-      main = $1
-    end
-
-    # Calculate text size for the main and the
-    # subscript part of the element
-    # symbols for underline/overline removed temporarily
-
-    main_width = 0
-    main_height = 0
-    main.split(/\\n/).each do |l|
-      font = @font
-      if @having_emoji && l.all_emoji?
-        font = @font_emoji
-      end
-      l_width = img_get_txt_width(l, font, @font_size)
-      main_width = l_width if main_width < l_width
-      main_height += img_get_txt_height(l, font, @font_size)
-    end
-
-
-    if sub != ""
-      font = @font
-      if @having_emoji && sub.all_emoji?
-        font = @font_emoji
-      end
-      if /\A\=(.+)\=\z/ =~ sub
-        sub = $1
-        sub_decoration= "overline"
-      elsif /\A\-(.+)\-\z/ =~ sub
-        sub = $1
-        sub_decoration= "underline"
-      elsif /\A\~(.+)\~\z/ =~ sub
-        sub = $1
-        sub_decoration= "line-through"
-      else
-        sub_decoration= ""
-      end
-
-      if /\A\*\*\*(.+)\*\*\*\z/ =~ sub
-        sub = $1
-        sub_style = "font-style: italic"
-        sub_weight = "font-weight: bold"
-      elsif /\A\*\*(.+)\*\*\z/ =~ sub
-        sub = $1
-        sub_style = ""
-        sub_weight = "font-weight: bold"
-      elsif /\A\*(.+)\*\z/ =~ sub
-        sub = $1
-        sub_style = "font-style: italic"
-        sub_weight = ""
-      else
-        sub_style = ""
-        sub_weight = ""
-      end
-      sub_height = img_get_txt_height(sub, font, @font_size)
-      sub_width  = img_get_txt_width(sub.to_s,  font, @sub_size)
-    else
-      sub_width = 0
-      sub_height = 0
-    end
-
-    if /\A#(.+)#\z/ =~ sub
-      sub = $1
-    end
+    right  = left + element.content_width
 
     # Center text in the element
-    txt_pos   = left + (right - left) / 2
+    txt_pos = left + (right - left) / 2
 
     # Select apropriate color
-    if(type == ETYPE_LEAF)
+    if(element.type == ETYPE_LEAF)
       col = @col_leaf
     else
       col = @col_node
     end
 
-    if(main[0].chr == "<" && main[-1].chr == ">")
-      col = @col_trace
-    end
-
-    # Draw main text
-    main_data  = @text_styles.sub(/COLOR/, col)
-    main_data  = main_data.sub(/FONT_SIZE/, @font_size.to_s + "px;")
-    main_x = txt_pos - (main_width + sub_width) / 2
-    main_y = top + @e_height - @m[:e_padd]
-    main_data  = main_data.sub(/X_VALUE/, main_x.to_s)
-    main_data  = main_data.sub(/Y_VALUE/, main_y.to_s)
-    if /\\n/ =~ main
-      lines = main.split(/\\n/)
-      new_main = ""
-      lines.each_with_index do |l, idx|
-        font = @font
-        if @having_emoji && l.all_emoji?
-          font = @font_emoji
+    # Draw text
+    text_data = @text_styles.sub(/COLOR/, col)
+    text_data = text_data.sub(/fontsize/, @fontsize.to_s + "px;")
+    text_x = txt_pos - element.content_width / 2
+    text_y = top + @e_height - @connector_to_text
+    text_data  = text_data.sub(/X_VALUE/, text_x.to_s)
+    text_data  = text_data.sub(/Y_VALUE/, text_y.to_s)
+    new_text = ""
+      this_x = 0
+      this_y = 0
+    bc = {:x => text_x - @horizontal_spacing / 2 , :y => top, :width => element.content_width + @horizontal_spacing, :height => nil}
+    element.content.each_with_index do |l, idx|
+      case l[:type]
+      when :border
+        x1 = text_x
+        if idx == 0
+          text_y -= l[:height]
+        elsif
+          text_y += l[:height]
         end
-        if idx != 0
-          main_y += img_get_txt_height(l, font, @font_size)
-        end
-        this_width = img_get_txt_width(l,  font, @font_size)
-        this_x = txt_pos - (this_width + sub_width) / 2
-        new_main << "<tspan x='#{this_x}' y='#{main_y}'>#{l}</tspan>"
-        @height = main_y if main_y > @height
-      end
-      main = new_main
-    end
-    @tree_data += main_data.sub(/TD/, "text-decoration='#{main_decoration}'")
-      .sub(/ST/, main_style + ";")
-      .sub(/WA/, main_weight + ";")
-      .sub(/CONTENT/, main)
-
-    # Draw subscript text
-    if sub && sub != ""
-      sub_data  = @text_styles.sub(/COLOR/, col)
-      sub_data  = sub_data.sub(/FONT_SIZE/, @sub_size.to_s)
-      sub_x  = txt_pos + (main_width / 2) - (sub_width / 2)
-      if sub_mode == "__"
-        sub_y = main_y - sub_height / 3
+        y1 = text_y
+        x2 = text_x + element.content_width
+        y2 = y1
+        this_width = x2 - x1
+        @extra_lines << "<line style=\"stroke:#{col}; stroke-width:2; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
+      when :blankline
+        text_y += l[:height] if idx != 0
+        new_text << "<tspan y='#{text_y}'></tspan>"
       else
-        sub_y = main_y + sub_height / 4
+        this_x = txt_pos - l[:elements].map{|e| e[:width]}.sum / 2
+        text_y += l[:elements].map{|e| e[:height]}.max if idx != 0
+        l[:elements].each do |e|
+          style = "style=\""
+
+          baseline = ""
+          if e[:decoration].include?(:superscript)
+            this_y = text_y - e[:height] * 0.2
+            style += "font-size: #{SUBSCRIPT_CONST}em; "
+          elsif e[:decoration].include?(:subscript)
+            this_y = text_y + e[:height] * 0.2
+            style += "font-size: #{SUBSCRIPT_CONST}em; "
+          else
+            this_y = text_y
+          end
+
+          if e[:decoration].include?(:bold) || e[:decoration].include?(:bolditalic)
+            style += "font-weight: bold; "
+          end
+          if e[:decoration].include?(:italic) || e[:decoration].include?(:bolditalic)
+            style += "font-style: italic; "
+          end
+
+          style += "\""
+
+          case @fontstyle
+          when /(?:sans|cjk)/
+            if e[:cjk]
+              fontstyle = "'Noto Sans JP', 'Noto Sans', sans-serif"
+            else
+              fontstyle = "'Noto Sans', 'Noto Sans JP', sans-serif"
+            end
+          when /(?:serif)/
+            if e[:cjk]
+              fontstyle = "'Noto Serif JP', 'Noto Serif', serif"
+            else
+              fontstyle = "'Noto Serif', 'Noto Serif JP', serif"
+            end
+          end
+
+          new_text << "<tspan x='#{this_x}' y='#{this_y}' #{baseline} #{style} font-family=\"#{fontstyle}\">#{e[:text]}</tspan>"
+
+          if e[:decoration].include?(:box)
+            box_width = e[:width]
+            box_height = e[:height] - @connector_to_text
+            if e[:decoration].include?(:superscript)
+              box_y = this_y - @connector_to_text - e[:height] * 0.4
+            elsif e[:decoration].include?(:subscript)
+              box_y = this_y - @connector_to_text - e[:height] * 0.4
+            else
+              box_y = this_y - box_height + @connector_to_text
+            end
+            box_x = this_x
+            rect = "<rect style='fill: none; stroke: #{col}; stroke-width:#{FONT_SCALING};' x='#{box_x}' y='#{box_y}' width='#{box_width}' height='#{box_height}' />\n"
+            @extra_lines << rect
+          end
+
+          this_x += e[:width]
+        end
       end
-      sub_data   = sub_data.sub(/X_VALUE/, sub_x.to_s)
-      sub_data   = sub_data.sub(/Y_VALUE/, sub_y.to_s)
-      @tree_data += sub_data.sub(/TD/, "text-decoration='#{sub_decoration}'")
-        .sub(/ST/, sub_style)
-        .sub(/WA/, sub_weight)
-        .sub(/CONTENT/,   sub)
-      @height += sub_height / 4 if sub_mode == "_"
+      @height = text_y if text_y != @height
     end
+    bc[:height] = @height - bc[:y] + @connector_to_text * 2
+    if element.brackets
+      @extra_lines << generate_line(bc[:x], bc[:y], bc[:x] + @horizontal_spacing / 2, bc[:y], col)
+      @extra_lines << generate_line(bc[:x], bc[:y], bc[:x], bc[:y] + bc[:height], col)
+      @extra_lines << generate_line(bc[:x], bc[:y] + bc[:height], bc[:x] + @horizontal_spacing / 2, bc[:y] + bc[:height], col)
+      @extra_lines << generate_line(bc[:x] + bc[:width], bc[:y], bc[:x] + bc[:width] - @horizontal_spacing / 2, bc[:y], col)
+      @extra_lines << generate_line(bc[:x] + bc[:width], bc[:y], bc[:x] + bc[:width], bc[:y] + bc[:height], col)
+      @extra_lines << generate_line(bc[:x] + bc[:width], bc[:y] + bc[:height], bc[:x] + bc[:width] - @horizontal_spacing / 2, bc[:y] + bc[:height], col)
+    end
+
+    text = new_text
+    @tree_data += text_data.sub(/CONTENT/, text)
+  end
+
+  def generate_line(x1, y1, x2, y2, col)
+      "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{FONT_SCALING}' />"
   end
 
   # Draw a line between child/parent elements
-  def line_to_parent(fromX, fromY, fromW, toX, toW)
-
-    if (fromY == 0 )
+  def line_to_parent(parent, child)
+    if (child.horizontal_indent == 0 )
       return
     end
 
-    fromTop  = row2px(fromY)
-    fromLeft = (fromX + fromW / 2 + @m[:b_side])
-    toBot    = (row2px(fromY - 1 ) + @e_height)
-    toLeft  = (toX + toW / 2 + @m[:b_side])
+    x1 = child.horizontal_indent + child.content_width / 2
+    y1 = child.vertical_indent
 
-    line_data   = @line_styles.sub(/X1/, fromLeft.to_s)
-    line_data   = line_data.sub(/Y1/, fromTop.to_s)
-    line_data   = line_data.sub(/X2/, toLeft.to_s)
-    @tree_data += line_data.sub(/Y2/, toBot.to_s)
+    x2 = parent.horizontal_indent + parent.content_width / 2
+    y2 = parent.vertical_indent + parent.content_height
 
+    line_data   = @line_styles.sub(/X1/, x1.to_s)
+    line_data   = line_data.sub(/Y1/, y1.to_s)
+    line_data   = line_data.sub(/X2/, x2.to_s)
+    @tree_data += line_data.sub(/Y2/, y2.to_s)
   end
 
   # Draw a triangle between child/parent elements
-  def triangle_to_parent(fromX, fromY, fromW, textW)
-    if (fromY == 0)
+  def triangle_to_parent(parent, child)
+    if (child.horizontal_indent == 0)
       return
     end
 
-    toX = fromX
-    fromCenter = (fromX + fromW / 2 + @m[:b_side])
+    x1 = child.horizontal_indent
+    y1 = child.vertical_indent
+    x2 = child.horizontal_indent + child.content_width
+    y2 = child.vertical_indent
+    x3 = parent.horizontal_indent + parent.content_width / 2
+    y3 = parent.vertical_indent + parent.content_height
 
-    fromTop  = row2px(fromY)
-    fromLeft1 = (fromCenter + textW / 2)
-    fromLeft2 = (fromCenter - textW / 2)
-    toBot    = (row2px(fromY - 1) + @e_height)
-
-    toLeft   = fromLeft1 + (fromLeft2 - fromLeft1) / 2
-
-    polygon_data = @polygon_styles.sub(/X1/, fromLeft1.to_s)
-    polygon_data = polygon_data.sub(/Y1/, fromTop.to_s)
-    polygon_data = polygon_data.sub(/X2/, fromLeft2.to_s)
-    polygon_data = polygon_data.sub(/Y2/, fromTop.to_s)
-    polygon_data = polygon_data.sub(/X3/, toLeft.to_s)
-    @tree_data  += polygon_data.sub(/Y3/, toBot.to_s)
+    polygon_data = @polygon_styles.sub(/X1/, x1.to_s)
+    polygon_data = polygon_data.sub(/Y1/, y1.to_s)
+    polygon_data = polygon_data.sub(/X2/, x2.to_s)
+    polygon_data = polygon_data.sub(/Y2/, y2.to_s)
+    polygon_data = polygon_data.sub(/X3/, x3.to_s)
+    @tree_data  += polygon_data.sub(/Y3/, y3.to_s)
   end
-
-  # If a node element text is wider than the sum of it's
-  #   child elements, then the child elements need to
-  #   be resized to even out the space. This function
-  #   recurses down the a child tree and sizes the
-  #   children appropriately.
-  def fix_child_size(id, current, target)
-    children = @e_list.get_children(id)
-    @e_list.set_element_width(id, target)
-
-    if(children.length > 0 )
-      delta = target - current
-      target_delta = delta / children.length
-
-      children.each do |child|
-        child_width = @e_list.get_element_width(child)
-        fix_child_size(child, child_width, child_width + target_delta)
-      end
-    end
-  end
-
-  def img_get_txt_width(text, font, font_size, multiline = true)
-    parts = text.split(/__?/, 2)
-    main_before = parts[0].strip
-    sub = parts[1]
-    main = get_txt_only(main_before)
-    main_metrics = img_get_txt_metrics(main, font, font_size, multiline)
-    width = main_metrics.width
-    if sub
-      sub_metrics = img_get_txt_metrics(sub, font, font_size * SUBSCRIPT_CONST, multiline)
-      width += sub_metrics.width
-    end
-    return width
-  end
-
-  def img_get_txt_height(text, font, font_size)
-    main_metrics = img_get_txt_metrics(text, font, font_size, false)
-    main_metrics.height
-  end
-
 end

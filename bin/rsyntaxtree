@@ -22,19 +22,19 @@ EOS
       :default => "png"
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing",
       :default => "auto"
-  opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk, math",
+  opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk",
       :default => "sans"
   opt :font, "Path to a ttf font used to generate tree (optional)", :type => String
   opt :fontsize, "Size: 8-26",
       :default => 16
   opt :margin, "Margin: 0-10",
-      :default => 2
+      :default => 1
   opt :vheight, "Connector Height: 0.5-5.0",
     :default => 1.0
   opt :color, "Color text and bars: on or off",
       :default => "on"
   opt :symmetrize, "Generate symmetrical, balanced tree: on or off",
-      :default => "on"
+      :default => "off"
   opt :autosub, "Put subscript numbers to nodes: on or off",
       :default => "off"
   opt :transparent, "Make background transparent: on or off",
@@ -44,7 +44,7 @@ end
 Optimist::die :outdir, "must be an exsting directory path" unless FileTest::directory?(opts[:outdir])
 Optimist::die :format, "must be png, jpg, gif, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
 Optimist::die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
-Optimist::die :fontstyle, "must be sans, serif, cjk, math" unless /\A(sans|serif|cjk|math)\z/ =~ opts[:fontstyle]
+Optimist::die :fontstyle, "must be sans, serif, cjk" unless /\A(sans|serif|cjk)\z/ =~ opts[:fontstyle]
 Optimist::die :font, "must be path to an existing ttf font" if opts[:font] && !File::exists?(opts[:font])
 Optimist::die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
 Optimist::die :color, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:color]
@@ -70,17 +70,12 @@ string_opts[:data] = data
 
 rsg = RSGenerator.new(string_opts)
 ext = string_opts[:format]
-outfile = File.new(File.expand_path(string_opts[:outdir]) + "/syntree." + ext, "wb")
+filepath = File.expand_path(string_opts[:outdir]) + "/syntree." + ext
 case ext
-when "png"
-  outfile.write rsg.draw_png
-when "jpg"
-  outfile.write rsg.draw_jpg
-when "gif"
-  outfile.write rsg.draw_gif
-when "pdf"
-  outfile.write rsg.draw_pdf
+when "png", "jpg", "gif", "pdf"
+  rsg.draw_tree.write(filepath)
 when "svg"
+  outfile = File.new(filepath, "wb")
   outfile.write rsg.draw_svg
+  outfile.close
 end
-outfile.close

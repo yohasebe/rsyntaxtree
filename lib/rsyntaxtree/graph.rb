@@ -18,24 +18,14 @@ include Magick
 
 class Graph
 
-  def initialize(e_list, metrics, symmetrize, color, leafstyle, having_cjk, having_emoji, font, font_size)
-
-    # Set class-specific parameters beforehand in subclass
+  def initialize(e_list, symmetrize, color, leafstyle, fontset, fontsize, vspace)
 
     # Store parameters
-    @e_list     = e_list
-    @m          = metrics
-    @having_cjk  = having_cjk
-    @having_emoji = having_emoji
+    @element_list  = e_list
     @leafstyle  = leafstyle
     @symmetrize = symmetrize
-
-    # Calculate image dimensions
-    @e_height = font_size + @m[:e_padd] * 2
-    h         = @e_list.get_level_height
-    w      = calc_level_width(0)
-    @width = w
-    @height   = h * @e_height + (h-1) * (@m[:v_space] + font_size) + @m[:b_topbot] * 2
+    @fontset = fontset
+    @fontsize = fontsize
 
     # Initialize the image and colors
     @col_bg   = "none"
@@ -52,244 +42,184 @@ class Graph
       @col_trace = "black"
     end
 
-    @main_height = img_get_txt_height("l", font, font_size)
-    @sub_size = (font_size * SUBSCRIPT_CONST)
-    @sub_space_width = img_get_txt_width("l", font, @sub_size)
+    @connector_to_text = 15
+    @e_height = fontsize + @connector_to_text * 2
+    standard = img_get_txt_metrics("X", @fontset[:normal], @fontsize, :normal, :normal)
+    @vertical_spacing = standard.height * 1.1 * vspace
+    @horizontal_spacing = standard.width * 0.75
   end
 
-  def img_get_txt_metrics(text, font, font_size, multiline = true)
-
+  def img_get_txt_metrics(text, font, fontsize, font_style, font_weight)
     background = Image.new(1, 1)
-
     gc = Draw.new
     gc.annotate(background, 0, 0, 0, 0, text) do |gc|
       gc.font = font
-      gc.pointsize = font_size
+      gc.pointsize = fontsize
+      gc.font_style = font_style == :italic ? ItalicStyle : NormalStyle
+      gc.font_weight = font_weight == :bold ? BoldWeight : NormalWeight
       gc.gravity = CenterGravity
       gc.stroke = 'none'
       gc.kerning = 0
       gc.interline_spacing = 0
       gc.interword_spacing = 0
     end
-
-    if multiline
-      metrics = gc.get_multiline_type_metrics(background, text)
-    else
-      metrics = gc.get_type_metrics(background, text)
-    end
-    return metrics
+    gc.get_multiline_type_metrics(background, text)
   end
 
-  # Calculate the width of the element. If the element is
-  # a node, the calculation will be performed recursively
-  # for all child elements.
-  def calc_element_width(e)
-    w = 0
-    content = e.content.gsub("<>", " ")
+  def calculate_level
+    @element_list.get_elements.select{|e| e.type == 2}.each do |e|
+      e.level = @element_list.get_id(e.parent).level + 1
+    end
+  end
 
-    children = @e_list.get_children(e.id)
+  def calculate_width(id = 1)
+    target = @element_list.get_id(id)
+    if target.children.empty?
+      target.width = target.content_width + @horizontal_spacing * 2
+    else
+      if target.width != 0
+        return target.width
+      else
+        accum_array = []
+        target.children.each do |c|
+          accum_array << calculate_width(c)
+        end
+        if @symmetrize
+          accum_width = accum_array.max * target.children.size
+        else
+          accum_width = accum_array.sum
+        end
 
-    if(children.length == 0)
-      w = img_get_txt_width(content, @font, @font_size) + @font_size
+        target.width = [accum_width, target.content_width].max
+      end
+      return target.width
+    end
+  end
+
+  def calculate_height(id = 1)
+    target = @element_list.get_id(id)
+    if id == 1
+      target.vertical_indent = 0
+    else
+      parent = @element_list.get_id(target.parent)
+      vertical_indent = parent.vertical_indent + parent.content_height + @vertical_spacing
+      target.vertical_indent = vertical_indent
+    end
+
+    if target.children.empty?
+      target.height = target.content_height
+      vertical_end = target.vertical_indent + target.content_height
+    else
+      accum_array = []
+      target.children.each do |c|
+        accum_array << calculate_height(c)
+      end
+      target.height = accum_array.max - target.vertical_indent
+      vertical_end = accum_array.max
+    end
+    return vertical_end
+  end
+
+  def make_balance(id = 1)
+    target = @element_list.get_id(id)
+    if target.children.empty?
+      parent = @element_list.get_id(target.parent)
+      accum_array = []
+      parent.children.each do |c|
+        accum_array << @element_list.get_id(c).width
+      end
+      max = accum_array.max
+      parent.children.each do |c|
+        @element_list.get_id(c).width = max
+      end
+      return max
+    else
+      accum_array = []
+      target.children.each do |c|
+        accum_array << make_balance(c)
+      end
+      accum_width = accum_array.max
+      max = [accum_width, target.content_width].max
+      target.children.each do |c|
+        @element_list.get_id(c).width = max
+      end
+      return target.width
+    end
+  end
+
+  def calculate_indent
+    node_groups = @element_list.get_elements.group_by {|e| e.parent}
+    node_groups.each do |k, v|
+      next if k == 0
+      parent = @element_list.get_id(k)
+      if @symmetrize
+        num_leaves = v.size
+        partition_width = parent.width / num_leaves
+        left_offset = parent.horizontal_indent + parent.content_width / 2.0 - parent.width / 2.0
+        v.each do |e|
+          indent = left_offset + (partition_width - e.content_width) / 2.0
+          e.horizontal_indent = indent
+          left_offset += partition_width
+        end
+      else
+        left_offset = parent.horizontal_indent + parent.content_width / 2.0 - parent.width / 2.0
+        v.each do |e|
+          indent = left_offset + (e.width - e.content_width) / 2.0
+          e.horizontal_indent = indent
+          left_offset += e.width
+        end
+      end
+    end
+  end
+
+  def draw_elements
+    @element_list.get_elements.each do |element|
+      draw_element(element)
+    end
+  end
+
+  def draw_connector(id = 1)
+    parent = @element_list.get_id(id)
+    children = parent.children.map{|c| @element_list.get_id(c)}
+
+    if children.empty?
+      ;
+    elsif children.size == 1
+      child = children[0]
+      if (@leafstyle == "auto" && ETYPE_LEAF == child.type)
+        if child.contains_phrase || child.triangle
+          triangle_to_parent(parent, child)
+        else
+          line_to_parent(parent, child)
+        end
+      elsif(@leafstyle == "nothing")
+        if ETYPE_LEAF == child.type
+          child.vertical_indent = parent.vertical_indent + parent.content_height / 1.1
+        end
+      end
     else
       children.each do |child|
-        child_e = @e_list.get_id(child)
-        w += calc_element_width(child_e)
-      end
-
-      tw = img_get_txt_width(content, @font, @font_size) + @font_size
-      if(tw > w)
-        fix_child_size(e.id, w, tw)
-        w = tw
+        line_to_parent(parent, child)
       end
     end
 
-    @e_list.set_element_width(e.id, w)
-    return w
-  end
-
-  # Calculate the width of all elements in a certain level
-  def calc_level_width(level)
-    w = 0
-    e = @e_list.get_first
-    while e
-      if(e.level == level)
-        x = calc_element_width(e)
-        w += x
-      end
-      e = @e_list.get_next
-    end
-    return w
-  end
-
-  def calc_children_width(id)
-    left = 0
-    right = 0
-    c_list = @e_list.get_children(id)
-    return nil if c_list.empty?
-
-    c_list.each do |c|
-      left =  c.indent if indent == 0 or left > c.indent
-    end
-    c_list.each do |c|
-      right = c.indent + e.width if c.indent + c.width > right
-    end
-    return [left, right]
-  end
-
-  def get_children_indent(id)
-    calc_children_width(id)[0]
-  end
-
-  def get_children_width(id)
-    calc_children_width(id)[1] - get_children_indent(id)
-  end
-
-  # Parse the elements in the list top to bottom and
-  #   draw the elements into the image.
-  #   As we it iterate through the levels, the element
-  #   indentation is calculated.
-  def parse_list
-
-    # Calc element list recursively....
-    e_arr = @e_list.get_elements
-
-    h = @e_list.get_level_height
-
-    extra = 0
-    h.times do |i|
-      x = 0
-      e_arr.each do |j|
-
-        if (j.level == i)
-          cw = @e_list.get_element_width(j.id)
-          parent_indent = @e_list.get_indent(j.parent)
-          if (x <  parent_indent)
-            x = parent_indent
-          end
-          @e_list.set_indent(j.id, x)
-
-          if !@symmetrize
-            draw_element(x, i, cw, j.content, j.type)
-            if(j.parent != 0 )
-              words = j.content.split(" ")
-              unless @leafstyle == "nothing" && ETYPE_LEAF == j.type
-                if (@leafstyle == "auto" && ETYPE_LEAF == j.type && x == parent_indent)
-                  if words.length > 1 || j.triangle
-                    txt_width = img_get_txt_width(j.content, @font, @font_size)
-                    triangle_to_parent(x, i, cw, txt_width)
-                  else
-                    line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
-                  end
-                else
-                  line_to_parent(x, i, cw, @e_list.get_indent(j.parent), @e_list.get_element_width(j.parent))
-                end
-              end
-            end
-          end
-          x += cw
-        end
-      end
-    end
-    return true if !@symmetrize
-
-    elements_to_draw = {}
-    triangles_to_draw = []
-    lines_to_draw = []
-
-    lmost = {:level => nil, :value => nil, :type => nil}
-    rmost = nil
-    h.times do |i|
-      curlevel = h - i - 1
-      e_arr.each_with_index do |j, idx|
-        if (j.level == curlevel)
-          # Draw a line to the parent element
-          children = @e_list.get_children(j.id)
-
-          tw = img_get_txt_width(j.content, @font, @font_size)
-          if children.length > 0
-            left, right = -1, -1
-            children.each do |child|
-              k = @e_list.get_id(child)
-              kw = img_get_txt_width(k.content, @font, @font_size)
-              left = k.indent + kw / 2 if k.indent + kw / 2 < left or left == -1
-              right = k.indent + kw / 2 if k.indent + kw / 2 > right
-            end
-
-            elements_to_draw[j.id] = {:left => left, :curlevel => curlevel, :width => right - left, :content => j.content, :type => j.type}
-            @e_list.set_indent(j.id, left + (right - left) / 2 -  tw / 2)
-
-            children.each do |child|
-              k = @e_list.get_id(child)
-              words = k.content.split(" ")
-              dw = img_get_txt_width(k.content, @font, @font_size)
-
-              children2 = @e_list.get_children(k.id)
-
-              unless @leafstyle == "nothing" && ETYPE_LEAF == k.type
-                if (@leafstyle == "auto" && ETYPE_LEAF == k.type)
-                  if words.length > 1 || k.triangle
-                    txt_width = img_get_txt_width(k.content, @font, @font_size)
-                    triangles_to_draw << {:indent => k.indent, :curlevel => curlevel + 1, :width1 => dw, :width2 => txt_width}
-                  else
-                    lines_to_draw << {:indent1 => k.indent, :curlevel => curlevel + 1, :width1 => dw, :indent2 => j.indent, :width2 => tw}
-                  end
-                else
-                  lines_to_draw << {:indent1 => k.indent, :curlevel => curlevel + 1, :width1 => dw, :indent2 => j.indent, :width2 => tw}
-                end
-              end
-            end
-
-          end
-          elements = e_arr.select do |l|
-            l.level == curlevel && @e_list.get_children(l.id).empty?
-          end
-
-          elements.each.with_index do |l, idx|
-            lw = img_get_txt_width(l.content, @font, @font_size)
-            left = l.indent
-            right = left + lw
-            unless elements_to_draw.include? l.id
-              elements_to_draw[l.id] = {:left => left, :curlevel => curlevel, :width => right - left, :content => l.content, :type => l.type}
-            end
-          end
-        end
-      end
-
-      e_arr.each do |e|
-        lpos = e.indent - img_get_txt_width(e.content, @font, @font_size) / 2
-        next if lpos > 0
-        if !lmost[:value] || lmost[:value] > lpos
-          lmost[:level] = e.level
-          lmost[:value] = lpos
-          lmost[:type] = e
-        end
-        rpos = e.indent + e.width
-        rmost =  rpos if !rmost || rmost < rpos
-      end
-    end
-
-    offset = 0
-    if lmost[:level] != h - 1
-      offset = lmost[:value] / -2
-      new_width = rmost
-      @width = new_width + offset
-    end
-
-    elements_to_draw.each do |k, v|
-      draw_element(v[:left] + offset, v[:curlevel], v[:width], v[:content], v[:type])
-    end
-    triangles_to_draw.each do |v|
-      triangle_to_parent(v[:indent] + offset, v[:curlevel], v[:width1], v[:width2])
-    end
-    lines_to_draw.each do |v|
-      line_to_parent(v[:indent1] + offset, v[:curlevel], v[:width1], v[:indent2] + offset, v[:width2])
+    parent.children.each do |c|
+      draw_connector(c)
     end
   end
 
-  # Calculate top position from row (level)
-  def row2px(row)
-   @m[:b_topbot] + @e_height * row + (@m[:v_space] + @font_size) * row
+  def get_leftmost(id = 1)
+    target = @element_list.get_id(id)
+    target_indent = target.horizontal_indent
+    children_indent = target.children.map{|c| get_leftmost(c)}
+    (children_indent << target_indent).min
+  end
+
+  def get_rightmost(id = 1)
+    target = @element_list.get_id(id)
+    target_right_end = target.horizontal_indent + target.content_width
+    children_right_end = target.children.map{|c| get_rightmost(c)}
+    (children_right_end << target_right_end).max
   end
 
   def get_txt_only(text)
@@ -305,10 +235,43 @@ class Graph
     return text
   end
 
-  def img_get_txt_height(text, font, font_size, multiline = true)
-    metrics = img_get_txt_metrics(text, font, font_size, multiline)
-    # y = (metrics.bounds.y2 - metrics.bounds.y1).round
-    y = metrics.height
-    return y
+  def node_centering
+    node_groups = @element_list.get_elements.group_by {|e| e.parent}
+    node_groups.sort_by{|k, v| -k}.each do |k, v|
+      next if k == 0
+      parent = @element_list.get_id(k)
+      child_positions =v.map {|child| child.horizontal_indent + child.content_width / 2 }
+      parent.horizontal_indent = child_positions.min + (child_positions.max - child_positions.min - parent.content_width) / 2
+    end
+  end
+
+  def parse_list
+    calculate_level
+    calculate_width
+    make_balance if @symmetrize
+    calculate_indent
+    node_centering
+
+    top = @element_list.get_id(1)
+    diff = top.horizontal_indent
+    @element_list.get_elements.each do |e|
+      e.horizontal_indent -= diff
+    end
+
+    offset_l = (top.horizontal_indent - get_leftmost) + @horizontal_spacing
+    offset_r = top.width / 2 - offset_l - @horizontal_spacing
+
+    @element_list.get_elements.each do |e|
+      e.horizontal_indent += offset_l
+    end
+
+    calculate_height
+    draw_connector
+    draw_elements
+
+    width = get_rightmost - get_leftmost + @horizontal_spacing * 2
+
+    height = @element_list.get_id(1).height
+    return {height: height, width: width}
   end
 end

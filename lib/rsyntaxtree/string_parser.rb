@@ -17,23 +17,10 @@
 require 'elementlist'
 require 'element'
 
-# def escape_high_ascii(string)
-#   html = ""
-#   string.length.times do |i|
-#     ch = string[i]
-#     if(ch < 127)
-#       html += ch.chr
-#     else
-#       html += sprintf("&#%d;", ch)
-#     end
-#   end  
-#   html
-# end
-
 class StringParser
 
   attr_accessor :data, :elist, :pos, :id, :level, :tncnt
-  def initialize(str)
+  def initialize(str, fontset, fontsize)
     # Clean up the data a little to make processing easier
     string = str.gsub(/\t/, "") rescue ""
     string.gsub!(/\s+/, " ")
@@ -46,6 +33,8 @@ class StringParser
     @id = 1 # ID for the next element
     @level = 0 # Level in the diagram
     @tncnt = Hash.new # Node type counts
+    @fontset = fontset
+    @fontsize = fontsize
   end
 
   # caution: quick and dirty solution      
@@ -67,9 +56,10 @@ class StringParser
     open_br, close_br = [], []
     escape = false
     text_r.each do |chr|
-      if chr == "\\"
-        escape = true
-      elsif chr == '[' && !escape
+      # if chr == "\\"
+      #   escape = true
+      # elsif chr == '[' && !escape
+      if chr == '[' && !escape
         open_br.push(chr)
       elsif chr == ']' && !escape
         close_br.push(chr)
@@ -82,16 +72,12 @@ class StringParser
     end
 
     return false unless open_br.length == close_br.length
-    # make_tree(0)
-    # return false if @tncnt.empty?
-    # @tncnt.each do |key, value|
-    #   return false if key == ""
-    # end
     return true
   end 
 
   def parse
     make_tree(0);
+    @elist.set_hierarchy
   end
 
   def get_elementlist
@@ -169,8 +155,8 @@ class StringParser
           end
           gottoken = true
         end
-      when "\\"
-        escape = true
+      # when "\\"
+      #   escape = true
       when "n", " ", "+", "-", "=", "~", "#", "*"
         if escape
           token += "\\#{ch}"
@@ -178,8 +164,6 @@ class StringParser
         else
           token += ch
         end
-      # when /[\n\r]/
-      #   gottoken = false # same as do nothing
       else
         token += ch
         escape = false if escape
@@ -216,18 +200,18 @@ class StringParser
           parts[1] = token_r[spaceat, tl - spaceat].join
           parts[1] = parts[1].gsub("<>", " ")
 
-          element = Element.new(@id, parent, parts[0], @level)
+          element = Element.new(@id, parent, parts[0], @level, @fontset, @fontsize)
           @id += 1
           @elist.add(element)
           newparent = element.id
           count_node(parts[0])
 
-          element = Element.new(@id, @id - 1, parts[1], @level + 1 )
+          element = Element.new(@id, @id - 1, parts[1], @level + 1, @fontset, @fontsize)
           @id += 1          
           @elist.add(element)
         else
           joined = token_r.join.gsub("<>", " ")
-          element = Element.new(@id, parent, joined, @level)
+          element = Element.new(@id, parent, joined, @level, @fontset,  @fontsize)
           @id += 1          
           newparent = element.id
           @elist.add(element)
@@ -239,7 +223,7 @@ class StringParser
 
       else
         if token.strip != ""
-          element = Element.new(@id, parent, token, @level)
+          element = Element.new(@id, parent, token, @level, @fontset, @fontsize)
           @id += 1          
           @elist.add(element)
           count_node(token)
