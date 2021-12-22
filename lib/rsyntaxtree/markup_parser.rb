@@ -60,9 +60,9 @@ module Markup
 
   def parse(txt)
     parsed = @parser.parse(txt)
-    pp results = @evaluator.apply(parsed)
+    results = @evaluator.apply(parsed)
   end
-  
+
   module_function :parse
 end
 

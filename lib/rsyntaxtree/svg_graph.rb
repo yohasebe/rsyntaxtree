@@ -150,10 +150,10 @@ EOD
           baseline = ""
           if e[:decoration].include?(:superscript)
             this_y = text_y - e[:height] * 0.2
-            style += "font-size: #{SUBSCRIPT_CONST}em; "
+            style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
           elsif e[:decoration].include?(:subscript)
             this_y = text_y + e[:height] * 0.2
-            style += "font-size: #{SUBSCRIPT_CONST}em; "
+            style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
           else
             this_y = text_y
           end
@@ -186,14 +186,14 @@ EOD
 
           if e[:decoration].include?(:box)
             box_width = e[:width]
-            box_height = e[:height] - @connector_to_text
-            if e[:decoration].include?(:superscript)
-              box_y = this_y - @connector_to_text - e[:height] * 0.4
-            elsif e[:decoration].include?(:subscript)
-              box_y = this_y - @connector_to_text - e[:height] * 0.4
-            else
-              box_y = this_y - box_height + @connector_to_text
-            end
+            box_height = e[:height] 
+            # if e[:decoration].include?(:superscript)
+            #   box_y = this_y - e[:height] * 0.8
+            # elsif e[:decoration].include?(:subscript)
+            #   box_y = this_y - e[:height] * 0.8
+            # else
+            box_y = this_y - e[:height] * 0.8
+            # end
             box_x = this_x
             rect = "<rect style='fill: none; stroke: #{col}; stroke-width:#{FONT_SCALING};' x='#{box_x}' y='#{box_y}' width='#{box_width}' height='#{box_height}' />\n"
             @extra_lines << rect

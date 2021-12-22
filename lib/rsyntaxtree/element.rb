@@ -85,8 +85,7 @@ class Element
             @contains_phrase = true if text.include?(" ")
             @triangle = true if /^\z/ =~ text
             decoration = e[:decoration]
-            fontsize = decoration.include?(:subscript) ||
-                       decoration.include?(:superscript) ? @fontsize * SUBSCRIPT_CONST : @fontsize
+            fontsize = decoration.include?(:subscript) || decoration.include?(:superscript) ? @fontsize * SUBSCRIPT_CONST : @fontsize
             style    = decoration.include?(:italic) ||
                        decoration.include?(:bolditalic) ? :italic : :normal
             weight   = decoration.include?(:bold) ||
