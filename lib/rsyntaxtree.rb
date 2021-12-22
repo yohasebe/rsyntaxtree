@@ -134,15 +134,12 @@ class RSGenerator
     true
   end
 
-  # def draw_png
-  #   @params[:format] = "png"
-  #   image.to_blob {
-  #     self.format = 'PNG'
-  #   }
-
-
-    # image.to_blob
-  # end
+  def draw_png
+    @params[:format] = "png"
+    image.to_blob {
+      self.format = 'PNG'
+    }
+  end
 
   def draw_svg
     sp = StringParser.new(@params[:data].gsub('&', '&amp;').gsub('%', '&#37;'), @params[:fontset], @params[:fontsize])

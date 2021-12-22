@@ -16,7 +16,7 @@ class MarkupParser < Parslet::Parser
 
   rule(:markup) { (text | bolditalic | bold | italic | superscript | subscript | box) }
   rule(:border) { str('-').repeat(4).as(:border) }
-  rule(:line) { ( blankline | border | (markup.repeat(1)).as(:line) >> cr | markup.repeat(1).as(:line) | cr ) }
+  rule(:line) { ( blankline | border | (markup.repeat(1)).as(:line) | cr ) }
   rule(:lines) { line.repeat(1) }
   root :lines
 end
