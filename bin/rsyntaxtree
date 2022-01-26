@@ -34,7 +34,7 @@ EOS
     :default => 2.0
   opt :color, "Color text and bars: on or off",
       :default => "on"
-  opt :symmetrize, "Generate symmetrical, balanced tree: on or off",
+  opt :symmetrize, "Generate radically symmetrical, balanced tree: on or off",
       :default => "off"
   opt :transparent, "Make background transparent: on or off",
       :default => "off"
