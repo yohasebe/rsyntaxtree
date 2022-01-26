@@ -30,7 +30,6 @@ where [options] are:
       -s, --fontsize=<i>      Size: 8-26 (default: 16)
       -c, --color=<s>         Color text and bars: on or off (default: on)
       -y, --symmetrize=<s>    Generate symmetrical, balanced tree: on or off (default: on)
-      -a, --autosub=<s>       Put subscript numbers to nodes: on or off (default: off)
       -m, --margin=<i>        Margin: 0-120 (default: 0)
       -v, --vheight=<f>       Connector Height: 0.5-2.0 (default: 1.0)
       -e, --version           Print version and exit

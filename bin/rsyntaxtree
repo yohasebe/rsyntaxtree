@@ -5,6 +5,7 @@ $LOAD_PATH << File.join( File.dirname(__FILE__), '../lib')
 
 require 'rsyntaxtree'
 require 'optimist'
+require 'utils'
 
 opts = Optimist::options do
   version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2021 Yoichiro Hasebe"
@@ -30,12 +31,10 @@ EOS
   opt :margin, "Margin: 0-10",
       :default => 1
   opt :vheight, "Connector Height: 0.5-5.0",
-    :default => 1.0
+    :default => 2.0
   opt :color, "Color text and bars: on or off",
       :default => "on"
   opt :symmetrize, "Generate symmetrical, balanced tree: on or off",
-      :default => "off"
-  opt :autosub, "Put subscript numbers to nodes: on or off",
       :default => "off"
   opt :transparent, "Make background transparent: on or off",
       :default => "off"
@@ -47,12 +46,11 @@ Optimist::die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(a
 Optimist::die :fontstyle, "must be sans, serif, cjk" unless /\A(sans|serif|cjk)\z/ =~ opts[:fontstyle]
 Optimist::die :font, "must be path to an existing ttf font" if opts[:font] && !File::exists?(opts[:font])
 Optimist::die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
-Optimist::die :color, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:color]
-Optimist::die :symmetrize, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:symmetrize]
-Optimist::die :autosub, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:autosub]
-Optimist::die :margin, "must be in the range of 0-10" if opts[:margin] < 0 || opts[:margin] > 10 
+Optimist::die :color, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:color]
+Optimist::die :symmetrize, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:symmetrize]
+Optimist::die :margin, "must be in the range of 0-10" if opts[:margin] < 0 || opts[:margin] > 10
 Optimist::die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0
-Optimist::die :transparent, "must be either on or off" unless /\A(on|off)\z/ =~ opts[:transparent]
+Optimist::die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]
 
 string_opts = {}
 opts.each do |key, value|
@@ -61,21 +59,35 @@ end
 
 data = ARGV[0]
 
-unless data && RSGenerator.check_data(data)
-  puts "Error: given bracket notation is invalid; try 'rsyntaxtree --help' "
+begin
+  RSyntaxTree::RSGenerator.check_data(data)
+rescue RSTError => e
+  puts e
   exit
 end
 
-string_opts[:data] = data
-
-rsg = RSGenerator.new(string_opts)
-ext = string_opts[:format]
-filepath = File.expand_path(string_opts[:outdir]) + "/syntree." + ext
-case ext
-when "png", "jpg", "gif", "pdf"
-  rsg.draw_tree.write(filepath)
-when "svg"
-  outfile = File.new(filepath, "wb")
-  outfile.write rsg.draw_svg
-  outfile.close
+begin
+  string_opts[:data] = data
+  rsg = RSyntaxTree::RSGenerator.new(string_opts)
+  ext = string_opts[:format]
+  filepath = File.expand_path(string_opts[:outdir]) + "/syntree." + ext
+  case ext
+  when "jpg", "gif", "pdf"
+    rsg.draw_tree.write(filepath)
+  when "png"
+    outfile = File.new(filepath, "wb")
+    # outfile.write rsg.draw_png
+    outfile.write rsg.draw_tree
+    outfile.close
+  when "svg"
+    outfile = File.new(filepath, "wb")
+    outfile.write rsg.draw_svg
+    outfile.close
+  end
+rescue RSTError => e
+  puts e
+  exit
+rescue => e
+  puts "Error: something unexpected occurred"
+  exit
 end

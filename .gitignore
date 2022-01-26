@@ -12,3 +12,5 @@ logs/
 
 bin/rsync_code
 bin/linktree.rb
+tags
+.tags
