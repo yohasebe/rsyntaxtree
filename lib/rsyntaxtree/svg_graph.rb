@@ -388,7 +388,8 @@ EOD
       path_pool_other = {}
       path_pool_source = {}
       path_flags = []
-      elist = @element_list.get_elements.reverse
+      # elist = @element_list.get_elements.reverse
+      elist = @element_list.get_elements
 
       elist.each do |element|
         x1 = element.horizontal_indent + element.content_width / 2

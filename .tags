@@ -8,22 +8,21 @@
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	/60650fac/
+!_TAG_PROGRAM_VERSION	5.9.0	/58c0e68a/
 Author	README.md	/^### Author$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	class:RSyntaxTree
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
 Development	README.md	/^### Development$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
-ETYPE_LEAF	lib/rsyntaxtree.rb	/^  ETYPE_LEAF = 2$/;"	C	module:RSyntaxTree
-ETYPE_NODE	lib/rsyntaxtree.rb	/^  ETYPE_NODE = 1$/;"	C	module:RSyntaxTree
+ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
+ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	class:RSyntaxTree
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	class:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
 Example	README.md	/^### Example$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
-FONT_DIR	lib/rsyntaxtree.rb	/^  FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C	module:RSyntaxTree
-FONT_SCALING	lib/rsyntaxtree.rb	/^  FONT_SCALING = 2$/;"	C	module:RSyntaxTree
+FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C
+FONT_SCALING	lib/rsyntaxtree.rb	/^FONT_SCALING = 2$/;"	C
 FontMetrics	lib/rsyntaxtree/utils.rb	/^module FontMetrics$/;"	m
-HEIGHT_CONNECTOR_TO_TEXT	lib/rsyntaxtree.rb	/^  HEIGHT_CONNECTOR_TO_TEXT = 15$/;"	C	module:RSyntaxTree
 Installation	README.md	/^### Installation$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
 License	README.md	/^### License$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
@@ -31,11 +30,7 @@ MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Pa
 MarkupParserTest	test/markup_parser_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
 RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	class:RSyntaxTree
 RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	module:RSyntaxTree
-RSTError	lib/rsyntaxtree.rb	/^  class RSTError < StandardError$/;"	c	class:RSyntaxTree
 RSTError	lib/rsyntaxtree.rb	/^class RSTError < StandardError$/;"	c
-RSTError	lib/rsyntaxtree/string_parser.rb	/^  class RSTError < StandardError$/;"	c	class:RSyntaxTree
-RSTError	lib/rsyntaxtree/string_parser.rb	/^class RSTError < StandardError$/;"	c
-RSTError	lib/rsyntaxtree/utils.rb	/^class RSTError < StandardError$/;"	c
 RSyntaxTree	lib/rsyntaxtree.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/base_graph.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/element.rb	/^module RSyntaxTree$/;"	m
@@ -43,7 +38,7 @@ RSyntaxTree	lib/rsyntaxtree/elementlist.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/string_parser.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/svg_graph.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/version.rb	/^module RSyntaxTree$/;"	m
-SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^  SUBSCRIPT_CONST = 0.6$/;"	C	module:RSyntaxTree
+SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	class:RSyntaxTree
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
@@ -51,10 +46,10 @@ StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	class
 StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	module:RSyntaxTree
 Tips	README.md	/^### Tips$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
 Usage	README.md	/^### Usage$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
-VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.0.1"$/;"	C	module:RSyntaxTree
+VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.0.2"$/;"	C	module:RSyntaxTree
+WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
 Web Interface	README.md	/^### Web Interface$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
 add	lib/rsyntaxtree/elementlist.rb	/^    def add(element)$/;"	f	class:RSyntaxTree.ElementList
-add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree
 add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree.Element
 all_emoji?	lib/rsyntaxtree/utils.rb	/^  def all_emoji?$/;"	f	class:String
 calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
@@ -71,10 +66,7 @@ draw_a_path	lib/rsyntaxtree/svg_graph.rb	/^    def draw_a_path(s_x, s_y, t_x, t_
 draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree.SVGGraph
 draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:RSyntaxTree.BaseGraph
-draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph
-draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph.draw_element
-draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph.set_tspan
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree.RSGenerator
 draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	class:RSyntaxTree.RSGenerator
 draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	class:RSyntaxTree.RSGenerator
@@ -82,17 +74,11 @@ elements	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator
 elements=	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator $/;"	A	class:RSyntaxTree.ElementList
 elist	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 elist=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false)$/;"	f	class:RSyntaxTree
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false)$/;"	f	class:RSyntaxTree.SVGGraph
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false)$/;"	f	class:RSyntaxTree.SVGGraph.draw_element
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false)$/;"	f	class:RSyntaxTree.SVGGraph.set_tspan
 generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f	class:RSyntaxTree.SVGGraph
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 2)$/;"	f	class:RSyntaxTree.SVGGraph
 get_child_count	lib/rsyntaxtree/elementlist.rb	/^    def get_child_count(id)$/;"	f	class:RSyntaxTree.ElementList
 get_children	lib/rsyntaxtree/elementlist.rb	/^    def get_children(id)$/;"	f	class:RSyntaxTree.ElementList
 get_element_width	lib/rsyntaxtree/elementlist.rb	/^    def get_element_width(id)$/;"	f	class:RSyntaxTree.ElementList
 get_elementlist	lib/rsyntaxtree/string_parser.rb	/^    def get_elementlist$/;"	f	class:RSyntaxTree.StringParser
-get_elementlist	lib/rsyntaxtree/string_parser.rb	/^    def get_elementlist$/;"	f	class:RSyntaxTree.StringParser.initialize
 get_elements	lib/rsyntaxtree/elementlist.rb	/^    def get_elements$/;"	f	class:RSyntaxTree.ElementList
 get_first	lib/rsyntaxtree/elementlist.rb	/^    def get_first$/;"	f	class:RSyntaxTree.ElementList
 get_id	lib/rsyntaxtree/elementlist.rb	/^    def get_id(id)$/;"	f	class:RSyntaxTree.ElementList
@@ -103,7 +89,6 @@ get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, f
 get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	module:FontMetrics
 get_next	lib/rsyntaxtree/elementlist.rb	/^    def get_next$/;"	f	class:RSyntaxTree.ElementList
 get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f	class:RSyntaxTree.StringParser
-get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f	class:RSyntaxTree.StringParser.initialize
 get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 height	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 height=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
@@ -111,34 +96,24 @@ id	lib/rsyntaxtree/element.rb	/^    attr_accessor :id,$/;"	A	class:RSyntaxTree.E
 id	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 id=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id,$/;"	A	class:RSyntaxTree.Element
 id=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
-initialize	lib/rsyntaxtree.rb	/^    def initialize(msg="Error: something unexpected occurred")$/;"	f	class:RSyntaxTree.RSTError
 initialize	lib/rsyntaxtree.rb	/^    def initialize(params = {})$/;"	f	class:RSyntaxTree.RSGenerator
 initialize	lib/rsyntaxtree.rb	/^  def initialize(msg="Error: something unexpected occurred")$/;"	f	class:RSTError
 initialize	lib/rsyntaxtree/base_graph.rb	/^    def initialize(element_list, params)$/;"	f	class:RSyntaxTree.BaseGraph
 initialize	lib/rsyntaxtree/element.rb	/^    def initialize(id, parent, content, level, fontset, fontsize)$/;"	f	class:RSyntaxTree.Element
 initialize	lib/rsyntaxtree/elementlist.rb	/^    def initialize$/;"	f	class:RSyntaxTree.ElementList
-initialize	lib/rsyntaxtree/string_parser.rb	/^    def initialize(msg="Error: something unexpected occurred")$/;"	f	class:RSyntaxTree.RSTError
 initialize	lib/rsyntaxtree/string_parser.rb	/^    def initialize(str, fontset, fontsize)$/;"	f	class:RSyntaxTree.StringParser
-initialize	lib/rsyntaxtree/string_parser.rb	/^  def initialize(msg="Error: something unexpected occurred")$/;"	f	class:RSTError
-initialize	lib/rsyntaxtree/string_parser.rb	/^  def initialize(msg="Error: something unexpected occurred")$/;"	f	class:RSyntaxTree.RSTError
 initialize	lib/rsyntaxtree/svg_graph.rb	/^    def initialize(element_list, params)$/;"	f	class:RSyntaxTree.SVGGraph
-initialize	lib/rsyntaxtree/utils.rb	/^  def initialize(msg="Error: something unexpected occurred")$/;"	f	class:RSTError
 iterator	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator $/;"	A	class:RSyntaxTree.ElementList
 iterator=	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator $/;"	A	class:RSyntaxTree.ElementList
 level	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 level=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
-line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree
 line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph.draw_element
-line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph.set_tspan
 make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser
-make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser.initialize
 node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree.BaseGraph
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	class:Markup
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
-parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser.initialize
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree.BaseGraph
 pos	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 pos=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
@@ -146,16 +121,13 @@ rsyntaxtree	rsyntaxtree.gemspec	/^  s.name        = "rsyntaxtree"$/;"	g
 set_element_width	lib/rsyntaxtree/elementlist.rb	/^    def set_element_width(id, width)$/;"	f	class:RSyntaxTree.ElementList
 set_hierarchy	lib/rsyntaxtree/elementlist.rb	/^    def set_hierarchy$/;"	f	class:RSyntaxTree.ElementList
 set_indent	lib/rsyntaxtree/elementlist.rb	/^    def set_indent(id, indent)$/;"	f	class:RSyntaxTree.ElementList
-set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan$/;"	f	class:RSyntaxTree.SVGGraph
 set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(this_x, this_y, style, decoration, fontstyle, text)$/;"	f	class:RSyntaxTree.SVGGraph
-set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(x, y, style, decoration, fontstyle, text)$/;"	f	class:RSyntaxTree.SVGGraph
 setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree.Element
 setup	test/markup_parser_test.rb	/^  def setup$/;"	f	class:MarkupParserTest
 split_by_emoji	lib/rsyntaxtree/utils.rb	/^  def split_by_emoji$/;"	f	class:String
 svg_data	lib/rsyntaxtree/svg_graph.rb	/^    def svg_data$/;"	f	class:RSyntaxTree.SVGGraph
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f	class:MarkupParserTest
-test_rule_blankline	test/markup_parser_test.rb	/^  def test_rule_blankline$/;"	f	class:MarkupParserTest
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f	class:MarkupParserTest
 test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f
@@ -191,12 +163,8 @@ test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f	class:Mar
 test_rule_triangle	test/markup_parser_test.rb	/^  def test_rule_triangle$/;"	f	class:MarkupParserTest
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f	class:MarkupParserTest
-triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree
 triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph.draw_element
-triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph.set_tspan
 valid	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	F	class:RSyntaxTree.StringParser
-valid	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	F	class:RSyntaxTree.StringParser.initialize
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 width	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 width=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph

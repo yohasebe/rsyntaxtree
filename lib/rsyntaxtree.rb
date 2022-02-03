@@ -149,7 +149,7 @@ module RSyntaxTree
     end
 
     def draw_svg
-      sp = StringParser.new(@params[:data].gsub('&', '&amp;').gsub('%', '&#37;'), @params[:fontset], @params[:fontsize])
+      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize])
       sp.parse
       graph = SVGGraph.new(sp.get_elementlist, @params)
       graph.svg_data
