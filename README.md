@@ -61,7 +61,7 @@ See [the documentation](https://yohasebe.com/rsyntaxtree/#documentation) for mor
 
 **Output (PNG or SVG)**
 
-<img src='https://github.com/yohasebe/rsyntaxtree/blob/main/img/sample.png?raw=true' width='600' />
+<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/sample.png?raw=true' width='600' />
 
 See [RSyntaxTree Examples](https://yohasebe.notion.site/yohasebe/RSyntaxTree-Examples-006baf3ac6e84e7193b538a5bf02ad07) for more examples
 
