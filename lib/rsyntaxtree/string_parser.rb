@@ -197,11 +197,9 @@ module RSyntaxTree
 
           if spaceat
             parts[0] = token_r[0, spaceat].join
-            # parts[0] = parts[0].gsub("\\>", "﹥").gsub("\\<", "﹤")
 
             tl =token_r.length
             parts[1] = token_r[spaceat, tl - spaceat].join
-            # parts[1] = parts[1].gsub("\\>", "﹥").gsub("\\<", "﹤")
 
             element = Element.new(@id, parent, parts[0], @level, @fontset, @fontsize)
             @id += 1
@@ -212,7 +210,6 @@ module RSyntaxTree
             @id += 1
             @elist.add(element)
           else
-            # joined = token_r.join.gsub("\\>", "﹥").gsub("\\<", "﹤")
             joined = token_r.join
             element = Element.new(@id, parent, joined, @level, @fontset,  @fontsize)
             @id += 1
