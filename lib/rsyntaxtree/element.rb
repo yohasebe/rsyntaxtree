@@ -132,6 +132,7 @@ module RSyntaxTree
               text.gsub!("\\\\", 'i')
               text.gsub!("\\", "")
               text.gsub!(" ", "x")
+              text.gsub!("%", "X")
               metrics = FontMetrics.get_metrics(text, font, fontsize, style, weight)
               width = metrics.width
             end
