@@ -26,7 +26,10 @@ module RSyntaxTree
       @color = params[:color]
       @fontstyle = params[:fontstyle]
       @margin = params[:margin].to_i
+      @polyline = params[:polyline]
       @line_styles  = "<line style='stroke:black; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
+      @polyline_styles  = "<polyline style='stroke:black; stroke-width:#{FONT_SCALING}; fill:none;' 
+                            points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
       @polygon_styles  = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
       @text_styles  = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
       @tree_data  = String.new
@@ -475,15 +478,38 @@ EOD
         return
       end
 
-      x1 = child.horizontal_indent + child.content_width / 2
-      y1 = child.vertical_indent + $height_connector_to_text / 2
-      x2 = parent.horizontal_indent + parent.content_width / 2
-      y2 = parent.vertical_indent + parent.content_height + $height_connector_to_text
+      if @polyline
+        chi_x = child.horizontal_indent + child.content_width / 2
+        chi_y = child.vertical_indent + $height_connector_to_text / 2
 
-      line_data   = @line_styles.sub(/X1/, x1.to_s)
-      line_data   = line_data.sub(/Y1/, y1.to_s)
-      line_data   = line_data.sub(/X2/, x2.to_s)
-      @tree_data += line_data.sub(/Y2/, y2.to_s)
+        par_x = parent.horizontal_indent + parent.content_width / 2
+        par_y = parent.vertical_indent + parent.content_height + $height_connector_to_text
+
+        mid_x1 = chi_x
+        mid_y1 = par_y  + (chi_y - par_y) / 2
+
+        mid_x2 = par_x
+        mid_y2 = mid_y1
+
+        @tree_data += @polyline_styles.sub(/CHIX/, chi_x.to_s)
+          .sub(/CHIY/, chi_y.to_s) 
+          .sub(/MIDX1/, mid_x1.to_s) 
+          .sub(/MIDY1/, mid_y1.to_s) 
+          .sub(/MIDX2/, mid_x2.to_s) 
+          .sub(/MIDY2/, mid_y2.to_s) 
+          .sub(/PARX/, par_x.to_s) 
+          .sub(/PARY/, par_y.to_s) 
+      else
+        x1 = child.horizontal_indent + child.content_width / 2
+        y1 = child.vertical_indent + $height_connector_to_text / 2
+        x2 = parent.horizontal_indent + parent.content_width / 2
+        y2 = parent.vertical_indent + parent.content_height + $height_connector_to_text
+
+        line_data   = @line_styles.sub(/X1/, x1.to_s)
+        line_data   = line_data.sub(/Y1/, y1.to_s)
+        line_data   = line_data.sub(/X2/, x2.to_s)
+        @tree_data += line_data.sub(/Y2/, y2.to_s)
+      end
     end
 
     # Draw a triangle between child/parent elements

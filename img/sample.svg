@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="1211.119140625" height="941.0" viewBox="-40, -40, 1251.119140625, 981.0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7.823437500000001" viewBox="0 0 7.823437500000001 7.823437500000001" refX="3.9117187500000004" refY="0">
+      <polyline fill="none" stroke="purple" stroke-width="1" points="0,7.823437500000001,3.9117187500000004,0,7.823437500000001,7.823437500000001" />
+    </marker>
+  </defs>
+<rect x="-40" y="-40" width="1251.119140625" height="981.0" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 40px;' x='418.73779296875' y='70.0'><tspan x='418.73779296875' y='70.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">S</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 40px;' x='136.2080078125' y='254.0'><tspan x='136.2080078125' y='254.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">NP</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: green; font-size: 40px;' x='19.55859375' y='438.0'><tspan x='33.81640625' y='438.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">R</tspan><tspan x='90.857421875' y='438.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SyntaxTree</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 40px;' x='670.267578125' y='254.0'><tspan x='670.267578125' y='254.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">VP</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 40px;' x='465.091796875' y='438.0'><tspan x='465.091796875' y='438.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">V</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: green; font-size: 40px;' x='386.091796875' y='622.0'><tspan x='386.091796875' y='622.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">generates</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 40px;' x='885.443359375' y='438.0'><tspan x='885.443359375' y='438.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">NP</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 40px;' x='745.326171875' y='622.0'><tspan x='745.326171875' y='622.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Adj</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: green; font-size: 40px;' x='649.326171875' y='806.0'><tspan x='649.326171875' y='806.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">+multilingual</tspan><tspan x='649.326171875' y='861.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">+beautiful</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 40px;' x='1020.560546875' y='622.0'><tspan x='1020.560546875' y='622.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">NP</tspan></text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: green; font-size: 40px;' x='984.560546875' y='806.0'><tspan x='984.560546875' y='806.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">syntax</tspan><tspan x='1001.560546875' y='861.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">trees</tspan></text>
+<line style='stroke:black; stroke-width:2;' x1='163.7080078125' y1='184.0' x2='429.73779296875' y2='93.0' />
+<line style='stroke:black; stroke-width:2;' x1='695.767578125' y1='184.0' x2='429.73779296875' y2='93.0' />
+<polygon style='fill: none; stroke: black; stroke-width:2;' points='19.55859375 368.0 307.857421875 368.0 163.7080078125 277.0' />
+<line style='stroke:black; stroke-width:2;' x1='478.591796875' y1='368.0' x2='695.767578125' y2='277.0' />
+<line style='stroke:black; stroke-width:2;' x1='912.943359375' y1='368.0' x2='695.767578125' y2='277.0' />
+<line style='stroke:black; stroke-width:2;' x1='478.591796875' y1='552.0' x2='478.591796875' y2='461.0' />
+<line style='stroke:black; stroke-width:2;' x1='777.826171875' y1='552.0' x2='912.943359375' y2='461.0' />
+<line style='stroke:black; stroke-width:2;' x1='1048.060546875' y1='552.0' x2='912.943359375' y2='461.0' />
+<line style='stroke:black; stroke-width:2;' x1='777.826171875' y1='736.0' x2='777.826171875' y2='645.0' />
+<line style='stroke:black; stroke-width:2;' x1='1048.060546875' y1='736.0' x2='1048.060546875' y2='645.0' />
+<rect style='fill: none; stroke: green; stroke-width:2;' x='19.55859375' y='396.0' width='55.0' height='53.0' />
+
+<line x1='639.546875' y1='743.0' x2='649.326171875' y2='743.0' style='fill: none; stroke: green; stroke-width:2'  />
+<line x1='639.546875' y1='743.0' x2='639.546875' y2='891.0' style='fill: none; stroke: green; stroke-width:2'  />
+<line x1='639.546875' y1='891.0' x2='649.326171875' y2='891.0' style='fill: none; stroke: green; stroke-width:2'  />
+<line x1='916.10546875' y1='743.0' x2='906.326171875' y2='743.0' style='fill: none; stroke: green; stroke-width:2'  />
+<line x1='916.10546875' y1='743.0' x2='916.10546875' y2='891.0' style='fill: none; stroke: green; stroke-width:2'  />
+<line x1='916.10546875' y1='891.0' x2='906.326171875' y2='891.0' style='fill: none; stroke: green; stroke-width:2'  /></svg>

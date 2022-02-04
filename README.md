@@ -1,4 +1,4 @@
-# 🌲 RSyntaxTree: yet another syntax tree generator in Ruby
+# 🌲 RSyntaxTree
 
 **RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language inspired by [phpSyntaxTree](http://ironcreek.net/phpsyntaxtree/). 
 
@@ -17,50 +17,57 @@ For the web interface, see Usage section of <https://yohasebe.com/rsyntaxtree>.
 For the command-line interface, type `$rsyntaxtree -h` after installation. Here's what you get:
 
 ```text
-RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
+SyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
 Usage:
        rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
 where [options] are:
-      -o, --outdir=<s>        Output directory (default: ./)
-      -f, --format=<s>        Output format: png, pdf, or svg (default: png)
-      -l, --leafstyle=<s>     visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
-      -n, --fontstyle=<s>     Font style: sans, serif, cjk, math (default: sans)
-      -t, --font=<s>          Path to a ttf font used to generate tree (optional)
-      -s, --fontsize=<i>      Size: 8-26 (default: 16)
-      -c, --color=<s>         Color text and bars: on or off (default: on)
-      -y, --symmetrize=<s>    Generate symmetrical, balanced tree: on or off (default: on)
-      -m, --margin=<i>        Margin: 0-120 (default: 0)
-      -v, --vheight=<f>       Connector Height: 0.5-2.0 (default: 1.0)
-      -e, --version           Print version and exit
-      -h, --help              Show this message
+  -o, --outdir=<s>         Output directory (default: ./)
+  -f, --format=<s>         Output format: png, gif, jpg, pdf, or svg (default: png)
+  -l, --leafstyle=<s>      visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
+  -n, --fontstyle=<s>      Font style (available when ttf font is specified): sans, serif, cjk (default: sans)
+  -t, --font=<s>           Path to a ttf font used to generate tree (optional)
+  -s, --fontsize=<i>       Size: 8-26 (default: 16)
+  -m, --margin=<i>         Margin: 0-10 (default: 1)
+  -v, --vheight=<f>        Connector Height: 0.5-5.0 (default: 2.0)
+  -c, --color=<s>          Color text and bars: on or off (default: on)
+  -y, --symmetrize=<s>     Generate radically symmetrical, balanced tree: on or off (default: off)
+  -r, --transparent=<s>    Make background transparent: on or off (default: off)
+  -p, --polyline=<s>       draw polyline connectors: on or off (default: off)
+  -e, --version            Print version and exit
+  -h, --help               Show this message```
 ```
 
-### Tips
-
-Every branch or leaf of a tree must belong to a node. To create a node, place a label right next to the opening bracket. Arbitrary number of branches can follow with a preceding space.
-
-There are several modes in which the connectors between terminal nodes and their leaves are drawn differently (auto, triangle, bar, and nothing). In auto mode, a triangle is used if the leaf contains one or more spaces inside (i.e. if it&#8217;s a phrase), but if it contains no spaces (i.e. if it is just a word), a straight bar will be drawn instead (unless the leaf contains a "^" symbol at the end which makes it a single-word phrase).
-
-You can put a subscript to any node by putting the _ character between the main label and the subscript. For example, NP_TOP will be rendered as NP<sub>TOP</sub>. Or you can select the &#8220;Auto subscript&#8221; option so that nodes of the same label will be automatically numbered. (e.g. NP<sub>1</sub>, NP<sub>2</sub>)</p>
-
-See https://yohasebe.com/rsyntaxtree for more detailed info about the syntax.
+See [the documentation](https://yohasebe.com/rsyntaxtree/#documentation) for more detailed info about the syntax.
 
 ### Example
 
-Bracket notation (auto-subscript-on):
+**Input text**
 
 ```text
-[S [NP RSyntaxTree^][VP [V generates][NP [Adj multilingual] [NP syntax trees]]]]
+[S
+  [NP |R|<>SyntaxTree]
+  [VP
+    [V generates]
+    [NP
+      [Adj #\+multilingual\
+            \+beautiful]
+      [NP syntax\
+          trees]
+    ]
+  ]
+]
 ```
 
-Resulting PNG
+**Output (PNG or SVG)**
 
-![RSyntaxTree generates multilingual syntax trees](https://i.gyazo.com/6bb68b0bdb35d7a10c4a11d5788d484f.png)
+<img src='https://github.com/yohasebe/rsyntaxtree/blob/main/img/sample.png?raw=true' width='600' />
+
+See [RSyntaxTree Examples](https://yohasebe.notion.site/yohasebe/RSyntaxTree-Examples-006baf3ac6e84e7193b538a5bf02ad07) for more examples
 
 ### Development
 
-For the latest updates and downloads please visit http://github.com/yohasebe/rsyntaxtree
+For the latest updates and downloads please visit <http://github.com/yohasebe/rsyntaxtree>
 
 ### Author
 

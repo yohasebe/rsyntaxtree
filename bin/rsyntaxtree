@@ -38,6 +38,8 @@ EOS
       :default => "off"
   opt :transparent, "Make background transparent: on or off",
       :default => "off"
+  opt :polyline, "draw polyline connectors: on or off",
+      :default => "off"
 end
 
 Optimist::die :outdir, "must be an exsting directory path" unless FileTest::directory?(opts[:outdir])
@@ -51,6 +53,7 @@ Optimist::die :symmetrize, "must be either on or off" unless /\A(on|off|true|fal
 Optimist::die :margin, "must be in the range of 0-10" if opts[:margin] < 0 || opts[:margin] > 10
 Optimist::die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0
 Optimist::die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]
+Optimist::die :polyline, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:polyline]
 
 string_opts = {}
 opts.each do |key, value|
@@ -88,6 +91,7 @@ rescue RSTError => e
   puts e
   exit
 rescue => e
+  p e
   puts "Error: something unexpected occurred"
   exit
 end

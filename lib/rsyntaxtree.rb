@@ -55,7 +55,7 @@ module RSyntaxTree
             .gsub('-CABRACKET-', '>')
           new_params[key] = data
 
-        when :symmetrize, :color, :transparent
+        when :symmetrize, :color, :transparent, :polyline
           new_params[key] = value && (value != "off" && value != "false") ? true : false
         when :fontsize
           new_params[key] = value.to_i * FONT_SCALING
@@ -109,6 +109,7 @@ module RSyntaxTree
         :data        => "",
         :margin      => 0,
         :vheight     =>  1.0,
+        :polyline    => false,
       }
 
       @params.merge! new_params

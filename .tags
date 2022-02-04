@@ -108,13 +108,18 @@ iterator=	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterato
 level	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 level=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
+line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^  def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree
+line_to_parent2	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent2(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser
+monoline_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def monoline_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree.BaseGraph
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	class:Markup
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree.BaseGraph
+polyline_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def polyline_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
+polyline_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def polyline_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph.line_to_parent
 pos	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 pos=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 rsyntaxtree	rsyntaxtree.gemspec	/^  s.name        = "rsyntaxtree"$/;"	g
@@ -164,6 +169,9 @@ test_rule_triangle	test/markup_parser_test.rb	/^  def test_rule_triangle$/;"	f	c
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f	class:MarkupParserTest
 triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
+triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph.line_to_parent
+triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^  def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree
+triangle_to_parent2	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent2(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 valid	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	F	class:RSyntaxTree.StringParser
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 width	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
