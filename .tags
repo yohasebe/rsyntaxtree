@@ -155,10 +155,12 @@ ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
 Example	README.md	/^### Example$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Examples	docs/_site/index.html	/^    <h1>Examples<\/h1>$/;"	h
 Examples	docs/index.html	/^    <h1>Examples<\/h1>$/;"	h
 FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C
 FONT_SCALING	lib/rsyntaxtree.rb	/^FONT_SCALING = 2$/;"	C
 FontMetrics	lib/rsyntaxtree/utils.rb	/^module FontMetrics$/;"	m
+Generative Grammar	docs/_site/index.html	/^    <h2>Generative Grammar<\/h2>$/;"	i
 Generative Grammar	docs/index.html	/^    <h2>Generative Grammar<\/h2>$/;"	i
 Installation	README.md	/^### Installation$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 License	README.md	/^### License$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
@@ -175,6 +177,9 @@ RSyntaxTree	lib/rsyntaxtree/elementlist.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/string_parser.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/svg_graph.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/version.rb	/^module RSyntaxTree$/;"	m
+RSyntaxTree Examples	docs/_site/index.html	/^      <h1 class="project-name">RSyntaxTree Examples<\/h1>$/;"	h
+RSyntaxTree Examples	docs/_site/index.html	/^    <title>RSyntaxTree Examples<\/title>$/;"	j
+RSyntaxTree Examples | RSyntaxTree	docs/_site/index.html	/^<title>RSyntaxTree Examples | RSyntaxTree<\/title>$/;"	j
 RSyntaxTree | Syntax tree generator made with Ruby and RMagic	docs/_site/404.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby and RMagic<\/title>$/;"	j
 SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
@@ -343,17 +348,6 @@ svg_data	lib/rsyntaxtree/svg_graph.rb	/^    def svg_data$/;"	f	class:RSyntaxTree
 table	docs/_site/assets/css/style.css	/^table { border-collapse: collapse; border-spacing: 0; }$/;"	s
 td	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 template	docs/_site/assets/css/style.css	/^[hidden], template { display: none; }$/;"	s
-test	docs/_site/index.html	/^      <h1 class="project-name">test<\/h1>$/;"	h
-test	docs/_site/index.html	/^      <h1 id="test">test<\/h1>$/;"	I
-test	docs/_site/index.html	/^      <h1 id="test">test<\/h1>$/;"	h
-test	docs/_site/index.html	/^<h2 id="test-1">test<\/h2>$/;"	i
-test	docs/_site/index.html	/^<h3 id="test-2">test<\/h3>$/;"	j
-test	docs/_site/index.markdown	/^# test$/;"	c
-test	docs/_site/index.markdown	/^## test$/;"	s	chapter:test
-test	docs/_site/index.markdown	/^### test$/;"	S	section:test""test
-test | RSyntaxTree	docs/_site/index.html	/^<title>test | RSyntaxTree<\/title>$/;"	j
-test-1	docs/_site/index.html	/^<h2 id="test-1">test<\/h2>$/;"	I
-test-2	docs/_site/index.html	/^<h3 id="test-2">test<\/h3>$/;"	I
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f	class:MarkupParserTest
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f	class:MarkupParserTest
 test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f	class:MarkupParserTest
