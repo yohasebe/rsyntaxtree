@@ -22,7 +22,7 @@ is_project_page: true
 
       {%- for category in categories -%}
       <hr />
-      <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b> <a href="#examples">🔝</a></h2>
+      <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b></h2>
       {%- for example in all_examples -%}
       {% if example.category contains category.name %}
       <br />
@@ -54,7 +54,7 @@ is_project_page: true
           </a>
         </div>
       </div>
-      <br />
+      <div><a href="#examples">🔝</a></div>
       {% endif %}
       {%- endfor -%}
       {%- endfor -%}
