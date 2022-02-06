@@ -10,19 +10,24 @@
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	/d00442e4/
 Author	README.md	/^### Author$/;"	S	chapter:🌲 RSyntaxTree
+Author	docs/index.md	/^### Author$/;"	S	chapter:🌲 RSyntaxTree
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
 Development	README.md	/^### Development$/;"	S	chapter:🌲 RSyntaxTree
+Development	docs/index.md	/^### Development$/;"	S	chapter:🌲 RSyntaxTree
 ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
 ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
 Example	README.md	/^### Example$/;"	S	chapter:🌲 RSyntaxTree
-Examples	docs/examples.md	/^### Examples$/;"	S
+Example	docs/index.md	/^### Example$/;"	S	chapter:🌲 RSyntaxTree
+Examples	docs/examples.md	/^## Examples$/;"	s	chapter:🌲 RSyntaxTree
 FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C
 FONT_SCALING	lib/rsyntaxtree.rb	/^FONT_SCALING = 2$/;"	C
 FontMetrics	lib/rsyntaxtree/utils.rb	/^module FontMetrics$/;"	m
 Installation	README.md	/^### Installation$/;"	S	chapter:🌲 RSyntaxTree
+Installation	docs/index.md	/^### Installation$/;"	S	chapter:🌲 RSyntaxTree
 License	README.md	/^### License$/;"	S	chapter:🌲 RSyntaxTree
+License	docs/index.md	/^### License$/;"	S	chapter:🌲 RSyntaxTree
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
 MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Parser$/;"	c
 MarkupParserTest	test/markup_parser_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
@@ -40,9 +45,11 @@ SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	modul
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
 StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	module:RSyntaxTree
 Usage	README.md	/^### Usage$/;"	S	chapter:🌲 RSyntaxTree
+Usage	docs/index.md	/^### Usage$/;"	S	chapter:🌲 RSyntaxTree
 VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.0.6"$/;"	C	module:RSyntaxTree
 WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
 Web Interface	README.md	/^### Web Interface$/;"	S	chapter:🌲 RSyntaxTree
+Web Interface	docs/index.md	/^### Web Interface$/;"	S	chapter:🌲 RSyntaxTree
 add	lib/rsyntaxtree/elementlist.rb	/^    def add(element)$/;"	f	class:RSyntaxTree.ElementList
 add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree.Element
 all_emoji?	lib/rsyntaxtree/utils.rb	/^  def all_emoji?$/;"	f	class:String
@@ -146,3 +153,5 @@ valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:
 width	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 width=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 🌲 RSyntaxTree	README.md	/^# 🌲 RSyntaxTree$/;"	c
+🌲 RSyntaxTree	docs/examples.md	/^# 🌲 RSyntaxTree$/;"	c
+🌲 RSyntaxTree	docs/index.md	/^# 🌲 RSyntaxTree$/;"	c
