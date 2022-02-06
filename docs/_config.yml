@@ -31,7 +31,7 @@ github_username:  yohasebe
 remote_theme: pages-themes/cayman@v0.2.0
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one:
-- jekyll-feed
+# - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -41,16 +41,21 @@ plugins:
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-# exclude:
+exclude:
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
+- Gemfile
+- Gemfile.lock
 #   - node_modules/
 #   - vendor/bundle/
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
 
-github: [metadata]
+github:
+  - repository_url: https://github.com/yohasebe/rsyntaxtree
+
+
+collections:
+  - examples

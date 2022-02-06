@@ -1,0 +1,14 @@
+--- 
+--- 
+@import "{{ site.theme }}"; 
+
+div.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+}
+
+@media only screen and (max-width: 768px) {
+  div.grid {
+    display: block;
+  }
+}
