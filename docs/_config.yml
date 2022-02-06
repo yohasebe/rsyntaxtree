@@ -21,8 +21,8 @@
 title: RSyntaxTree
 email: yohasebe@gmail.com
 description: Syntax tree generator made with Ruby and RMagic
-baseurl: "/rsyntaxtree" # the subpath of your site, e.g. /blog
-url: "https://yohasebe.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: yohasebe
 github_username:  yohasebe
 
