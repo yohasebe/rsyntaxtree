@@ -22,9 +22,11 @@ Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
 Example	README.md	/^### Example$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Example	docs/index.md	/^### Example$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Examples	docs/examples.html	/^<h1>Examples<\/h1>$/;"	h
 FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C
 FONT_SCALING	lib/rsyntaxtree.rb	/^FONT_SCALING = 2$/;"	C
 FontMetrics	lib/rsyntaxtree/utils.rb	/^module FontMetrics$/;"	m
+Generative Grammar	docs/examples.html	/^<h2>Generative Grammar<\/h2>$/;"	i
 Installation	README.md	/^### Installation$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Installation	docs/index.md	/^### Installation$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 License	README.md	/^### License$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
