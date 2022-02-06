@@ -1,4 +1,4 @@
-# 🌲 RSyntaxTree
+# <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 
 **RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language inspired by [phpSyntaxTree](http://ironcreek.net/phpsyntaxtree/). 
 

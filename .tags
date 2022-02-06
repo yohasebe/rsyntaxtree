@@ -9,25 +9,27 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	/d00442e4/
+<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree	README.md	/^# <img src='https:\/\/github.com\/yohasebe\/rsyntaxtree\/blob\/master\/img\/rsyntaxtree.png?raw=/;"	c
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree	docs/index.md	/^# <img src='https:\/\/github.com\/yohasebe\/rsyntaxtree\/blob\/master\/img\/rsyntaxtree.png?raw=/;"	c
-Author	README.md	/^### Author$/;"	S	chapter:🌲 RSyntaxTree
+Author	README.md	/^### Author$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Author	docs/index.md	/^### Author$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
-Development	README.md	/^### Development$/;"	S	chapter:🌲 RSyntaxTree
+Development	README.md	/^### Development$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Development	docs/index.md	/^### Development$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
 ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
-Example	README.md	/^### Example$/;"	S	chapter:🌲 RSyntaxTree
+Example	README.md	/^### Example$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Example	docs/index.md	/^### Example$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
-Examples	docs/examples.md	/^## Examples$/;"	s	chapter:🌲 RSyntaxTree
+Examples	docs/examples.md	/^# Examples$/;"	c
 FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C
 FONT_SCALING	lib/rsyntaxtree.rb	/^FONT_SCALING = 2$/;"	C
 FontMetrics	lib/rsyntaxtree/utils.rb	/^module FontMetrics$/;"	m
-Installation	README.md	/^### Installation$/;"	S	chapter:🌲 RSyntaxTree
+Generative Grammar	docs/examples.md	/^## Generative Grammar$/;"	s	chapter:Examples
+Installation	README.md	/^### Installation$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Installation	docs/index.md	/^### Installation$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
-License	README.md	/^### License$/;"	S	chapter:🌲 RSyntaxTree
+License	README.md	/^### License$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 License	docs/index.md	/^### License$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
 MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Parser$/;"	c
@@ -45,11 +47,11 @@ SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
 StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	module:RSyntaxTree
-Usage	README.md	/^### Usage$/;"	S	chapter:🌲 RSyntaxTree
+Usage	README.md	/^### Usage$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Usage	docs/index.md	/^### Usage$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.0.6"$/;"	C	module:RSyntaxTree
 WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
-Web Interface	README.md	/^### Web Interface$/;"	S	chapter:🌲 RSyntaxTree
+Web Interface	README.md	/^### Web Interface$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 Web Interface	docs/index.md	/^### Web Interface$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 add	lib/rsyntaxtree/elementlist.rb	/^    def add(element)$/;"	f	class:RSyntaxTree.ElementList
 add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree.Element
@@ -153,5 +155,3 @@ triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(par
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 width	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 width=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
-🌲 RSyntaxTree	README.md	/^# 🌲 RSyntaxTree$/;"	c
-🌲 RSyntaxTree	docs/examples.md	/^# 🌲 RSyntaxTree$/;"	c
