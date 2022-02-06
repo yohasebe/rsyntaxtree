@@ -63,7 +63,7 @@ See [the documentation](https://yohasebe.com/rsyntaxtree/#documentation) for mor
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/sample.png?raw=true' width='600' />
 
-See [RSyntaxTree Examples](https://yohasebe.notion.site/yohasebe/RSyntaxTree-Examples-006baf3ac6e84e7193b538a5bf02ad07) for more examples
+See [RSyntaxTree Examples](https://yohasebe.github.io/rsyntaxtree/examples) for more examples
 
 ### Development
 
