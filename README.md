@@ -17,7 +17,7 @@ For the web interface, see Usage section of <https://yohasebe.com/rsyntaxtree>.
 For the command-line interface, type `$rsyntaxtree -h` after installation. Here's what you get:
 
 ```text
-SyntaxTree, (linguistic) syntax tree generator written in Ruby.
+RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
 Usage:
        rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"

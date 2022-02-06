@@ -8,27 +8,24 @@
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	/58c0e68a/
-Author	README.md	/^### Author$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
-BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	class:RSyntaxTree
+!_TAG_PROGRAM_VERSION	5.9.0	/d00442e4/
+Author	README.md	/^### Author$/;"	S	chapter:🌲 RSyntaxTree
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
-Development	README.md	/^### Development$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
+Development	README.md	/^### Development$/;"	S	chapter:🌲 RSyntaxTree
 ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
 ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
-Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	class:RSyntaxTree
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
-ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	class:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
-Example	README.md	/^### Example$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
+Example	README.md	/^### Example$/;"	S	chapter:🌲 RSyntaxTree
+Examples	docs/examples.md	/^### Examples$/;"	S
 FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C
 FONT_SCALING	lib/rsyntaxtree.rb	/^FONT_SCALING = 2$/;"	C
 FontMetrics	lib/rsyntaxtree/utils.rb	/^module FontMetrics$/;"	m
-Installation	README.md	/^### Installation$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
-License	README.md	/^### License$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
+Installation	README.md	/^### Installation$/;"	S	chapter:🌲 RSyntaxTree
+License	README.md	/^### License$/;"	S	chapter:🌲 RSyntaxTree
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
 MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Parser$/;"	c
 MarkupParserTest	test/markup_parser_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
-RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	class:RSyntaxTree
 RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	module:RSyntaxTree
 RSTError	lib/rsyntaxtree.rb	/^class RSTError < StandardError$/;"	c
 RSyntaxTree	lib/rsyntaxtree.rb	/^module RSyntaxTree$/;"	m
@@ -39,24 +36,22 @@ RSyntaxTree	lib/rsyntaxtree/string_parser.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/svg_graph.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/version.rb	/^module RSyntaxTree$/;"	m
 SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
-SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	class:RSyntaxTree
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
-StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	class:RSyntaxTree
 StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	module:RSyntaxTree
-Tips	README.md	/^### Tips$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
-Usage	README.md	/^### Usage$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
-VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.0.2"$/;"	C	module:RSyntaxTree
+Usage	README.md	/^### Usage$/;"	S	chapter:🌲 RSyntaxTree
+VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.0.6"$/;"	C	module:RSyntaxTree
 WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
-Web Interface	README.md	/^### Web Interface$/;"	S	chapter:🌲 RSyntaxTree: yet another syntax tree generator in Ruby
+Web Interface	README.md	/^### Web Interface$/;"	S	chapter:🌲 RSyntaxTree
 add	lib/rsyntaxtree/elementlist.rb	/^    def add(element)$/;"	f	class:RSyntaxTree.ElementList
 add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree.Element
 all_emoji?	lib/rsyntaxtree/utils.rb	/^  def all_emoji?$/;"	f	class:String
+arrow	img/sample.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7/;"	d
+arrow	img/sample.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7/;"	i
 calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	F	class:RSyntaxTree.RSGenerator
 check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	S	class:RSyntaxTree.RSGenerator
 contains_cjk?	lib/rsyntaxtree/utils.rb	/^  def contains_cjk?$/;"	f	class:String
 contains_emoji?	lib/rsyntaxtree/utils.rb	/^  def contains_emoji?$/;"	f	class:String
@@ -85,7 +80,6 @@ get_id	lib/rsyntaxtree/elementlist.rb	/^    def get_id(id)$/;"	f	class:RSyntaxTr
 get_indent	lib/rsyntaxtree/elementlist.rb	/^    def get_indent(id)$/;"	f	class:RSyntaxTree.ElementList
 get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 get_level_height	lib/rsyntaxtree/elementlist.rb	/^    def get_level_height$/;"	f	class:RSyntaxTree.ElementList
-get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	class:FontMetrics
 get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	module:FontMetrics
 get_next	lib/rsyntaxtree/elementlist.rb	/^    def get_next$/;"	f	class:RSyntaxTree.ElementList
 get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f	class:RSyntaxTree.StringParser
@@ -108,18 +102,13 @@ iterator=	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterato
 level	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 level=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^  def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree
-line_to_parent2	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent2(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser
-monoline_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def monoline_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree.BaseGraph
-parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	class:Markup
+ns8fb8be310101	img/sample.svg	/^  <svg width="1211.119140625" height="941.0" viewBox="-40, -40, 1251.119140625, 981.0" version="/;"	n	uri:http://www.w3.org/2000/svg
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree.BaseGraph
-polyline_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def polyline_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-polyline_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def polyline_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph.line_to_parent
 pos	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 pos=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 rsyntaxtree	rsyntaxtree.gemspec	/^  s.name        = "rsyntaxtree"$/;"	g
@@ -131,49 +120,29 @@ setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree.Element
 setup	test/markup_parser_test.rb	/^  def setup$/;"	f	class:MarkupParserTest
 split_by_emoji	lib/rsyntaxtree/utils.rb	/^  def split_by_emoji$/;"	f	class:String
 svg_data	lib/rsyntaxtree/svg_graph.rb	/^    def svg_data$/;"	f	class:RSyntaxTree.SVGGraph
-test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f	class:MarkupParserTest
-test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f	class:MarkupParserTest
-test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f
 test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f	class:MarkupParserTest
-test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f
 test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f	class:MarkupParserTest
-test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f
 test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f	class:MarkupParserTest
 test_rule_brackets	test/markup_parser_test.rb	/^  def test_rule_brackets$/;"	f	class:MarkupParserTest
 test_rule_cr	test/markup_parser_test.rb	/^  def test_rule_cr$/;"	f	class:MarkupParserTest
 test_rule_escaped	test/markup_parser_test.rb	/^  def test_rule_escaped$/;"	f	class:MarkupParserTest
-test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f
 test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f	class:MarkupParserTest
-test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f
 test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f	class:MarkupParserTest
-test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f
 test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f	class:MarkupParserTest
-test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f
 test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f	class:MarkupParserTest
-test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f
 test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f	class:MarkupParserTest
-test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f
 test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f	class:MarkupParserTest
-test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f
 test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f	class:MarkupParserTest
 test_rule_path	test/markup_parser_test.rb	/^  def test_rule_path$/;"	f	class:MarkupParserTest
-test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f
 test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f	class:MarkupParserTest
-test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f
 test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f	class:MarkupParserTest
-test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f
 test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f	class:MarkupParserTest
 test_rule_triangle	test/markup_parser_test.rb	/^  def test_rule_triangle$/;"	f	class:MarkupParserTest
-test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f	class:MarkupParserTest
 triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph.line_to_parent
-triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^  def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree
-triangle_to_parent2	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent2(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-valid	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	F	class:RSyntaxTree.StringParser
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 width	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 width=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
-🌲 RSyntaxTree: yet another syntax tree generator in Ruby	README.md	/^# 🌲 RSyntaxTree: yet another syntax tree generator in Ruby$/;"	c
+🌲 RSyntaxTree	README.md	/^# 🌲 RSyntaxTree$/;"	c
