@@ -20,10 +20,9 @@
 
 title: RSyntaxTree
 email: yohasebe@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-Syntax tree generator made with Ruby and RMagic
-baseurl: "/docs"
-url: "https://yohasebe.github.io/rsyntaxtree"
+description: Syntax tree generator made with Ruby and RMagic
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: yohasebe
 github_username:  yohasebe
 

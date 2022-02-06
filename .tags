@@ -9,8 +9,128 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	/d00442e4/
+.contact-list	docs/_site/assets/main.css	/^.contact-list, .social-media-list { list-style: none; margin-left: 0; }$/;"	c
+.footer-col	docs/_site/assets/main.css	/^.footer-col { float: left; margin-bottom: 15px; padding-left: 15px; }$/;"	c
+.footer-col	docs/_site/assets/main.css	/^@media screen and (max-width: 600px) { .footer-col { float: none; width: -webkit-calc(100% - (30/;"	c
+.footer-col-1	docs/_site/assets/main.css	/^.footer-col-1 { width: -webkit-calc(35% - (30px \/ 2)); width: calc(35% - (30px \/ 2)); }$/;"	c
+.footer-col-1	docs/_site/assets/main.css	/^@media screen and (max-width: 800px) { .footer-col-1, .footer-col-2 { width: -webkit-calc(50% - /;"	c
+.footer-col-2	docs/_site/assets/main.css	/^.footer-col-2 { width: -webkit-calc(20% - (30px \/ 2)); width: calc(20% - (30px \/ 2)); }$/;"	c
+.footer-col-2	docs/_site/assets/main.css	/^@media screen and (max-width: 800px) { .footer-col-1, .footer-col-2 { width: -webkit-calc(50% - /;"	c
+.footer-col-3	docs/_site/assets/main.css	/^  .footer-col-3 { width: -webkit-calc(100% - (30px \/ 2)); width: calc(100% - (30px \/ 2)); } }$/;"	c
+.footer-col-3	docs/_site/assets/main.css	/^.footer-col-3 { width: -webkit-calc(45% - (30px \/ 2)); width: calc(45% - (30px \/ 2)); }$/;"	c
+.footer-col-wrapper	docs/_site/assets/main.css	/^.footer-col-wrapper { font-size: 15px; color: #828282; margin-left: -15px; }$/;"	c
+.footer-col-wrapper:after	docs/_site/assets/main.css	/^.wrapper:after, .footer-col-wrapper:after { content: ""; display: table; clear: both; }$/;"	c
+.footer-heading	docs/_site/assets/main.css	/^.footer-heading { font-size: 18px; margin-bottom: 15px; }$/;"	c
+.highlight	docs/_site/assets/main.css	/^.highlight { background: #fff; }$/;"	c
+.highlight	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	c
+.highlight .bp	docs/_site/assets/main.css	/^.highlight .bp { color: #999; }$/;"	c
+.highlight .c	docs/_site/assets/main.css	/^.highlight .c { color: #998; font-style: italic; }$/;"	c
+.highlight .c1	docs/_site/assets/main.css	/^.highlight .c1 { color: #998; font-style: italic; }$/;"	c
+.highlight .cm	docs/_site/assets/main.css	/^.highlight .cm { color: #998; font-style: italic; }$/;"	c
+.highlight .cp	docs/_site/assets/main.css	/^.highlight .cp { color: #999; font-weight: bold; }$/;"	c
+.highlight .cs	docs/_site/assets/main.css	/^.highlight .cs { color: #999; font-weight: bold; font-style: italic; }$/;"	c
+.highlight .err	docs/_site/assets/main.css	/^.highlight .err { color: #a61717; background-color: #e3d2d2; }$/;"	c
+.highlight .gd	docs/_site/assets/main.css	/^.highlight .gd { color: #000; background-color: #fdd; }$/;"	c
+.highlight .gd .x	docs/_site/assets/main.css	/^.highlight .gd .x { color: #000; background-color: #faa; }$/;"	c
+.highlight .ge	docs/_site/assets/main.css	/^.highlight .ge { font-style: italic; }$/;"	c
+.highlight .gh	docs/_site/assets/main.css	/^.highlight .gh { color: #999; }$/;"	c
+.highlight .gi	docs/_site/assets/main.css	/^.highlight .gi { color: #000; background-color: #dfd; }$/;"	c
+.highlight .gi .x	docs/_site/assets/main.css	/^.highlight .gi .x { color: #000; background-color: #afa; }$/;"	c
+.highlight .go	docs/_site/assets/main.css	/^.highlight .go { color: #888; }$/;"	c
+.highlight .gp	docs/_site/assets/main.css	/^.highlight .gp { color: #555; }$/;"	c
+.highlight .gr	docs/_site/assets/main.css	/^.highlight .gr { color: #a00; }$/;"	c
+.highlight .gs	docs/_site/assets/main.css	/^.highlight .gs { font-weight: bold; }$/;"	c
+.highlight .gt	docs/_site/assets/main.css	/^.highlight .gt { color: #a00; }$/;"	c
+.highlight .gu	docs/_site/assets/main.css	/^.highlight .gu { color: #aaa; }$/;"	c
+.highlight .il	docs/_site/assets/main.css	/^.highlight .il { color: #099; }$/;"	c
+.highlight .k	docs/_site/assets/main.css	/^.highlight .k { font-weight: bold; }$/;"	c
+.highlight .kc	docs/_site/assets/main.css	/^.highlight .kc { font-weight: bold; }$/;"	c
+.highlight .kd	docs/_site/assets/main.css	/^.highlight .kd { font-weight: bold; }$/;"	c
+.highlight .kp	docs/_site/assets/main.css	/^.highlight .kp { font-weight: bold; }$/;"	c
+.highlight .kr	docs/_site/assets/main.css	/^.highlight .kr { font-weight: bold; }$/;"	c
+.highlight .kt	docs/_site/assets/main.css	/^.highlight .kt { color: #458; font-weight: bold; }$/;"	c
+.highlight .m	docs/_site/assets/main.css	/^.highlight .m { color: #099; }$/;"	c
+.highlight .mf	docs/_site/assets/main.css	/^.highlight .mf { color: #099; }$/;"	c
+.highlight .mh	docs/_site/assets/main.css	/^.highlight .mh { color: #099; }$/;"	c
+.highlight .mi	docs/_site/assets/main.css	/^.highlight .mi { color: #099; }$/;"	c
+.highlight .mo	docs/_site/assets/main.css	/^.highlight .mo { color: #099; }$/;"	c
+.highlight .na	docs/_site/assets/main.css	/^.highlight .na { color: #008080; }$/;"	c
+.highlight .nb	docs/_site/assets/main.css	/^.highlight .nb { color: #0086B3; }$/;"	c
+.highlight .nc	docs/_site/assets/main.css	/^.highlight .nc { color: #458; font-weight: bold; }$/;"	c
+.highlight .ne	docs/_site/assets/main.css	/^.highlight .ne { color: #900; font-weight: bold; }$/;"	c
+.highlight .nf	docs/_site/assets/main.css	/^.highlight .nf { color: #900; font-weight: bold; }$/;"	c
+.highlight .ni	docs/_site/assets/main.css	/^.highlight .ni { color: #800080; }$/;"	c
+.highlight .nn	docs/_site/assets/main.css	/^.highlight .nn { color: #555; }$/;"	c
+.highlight .no	docs/_site/assets/main.css	/^.highlight .no { color: #008080; }$/;"	c
+.highlight .nt	docs/_site/assets/main.css	/^.highlight .nt { color: #000080; }$/;"	c
+.highlight .nv	docs/_site/assets/main.css	/^.highlight .nv { color: #008080; }$/;"	c
+.highlight .o	docs/_site/assets/main.css	/^.highlight .o { font-weight: bold; }$/;"	c
+.highlight .ow	docs/_site/assets/main.css	/^.highlight .ow { font-weight: bold; }$/;"	c
+.highlight .s	docs/_site/assets/main.css	/^.highlight .s { color: #d14; }$/;"	c
+.highlight .s1	docs/_site/assets/main.css	/^.highlight .s1 { color: #d14; }$/;"	c
+.highlight .s2	docs/_site/assets/main.css	/^.highlight .s2 { color: #d14; }$/;"	c
+.highlight .sb	docs/_site/assets/main.css	/^.highlight .sb { color: #d14; }$/;"	c
+.highlight .sc	docs/_site/assets/main.css	/^.highlight .sc { color: #d14; }$/;"	c
+.highlight .sd	docs/_site/assets/main.css	/^.highlight .sd { color: #d14; }$/;"	c
+.highlight .se	docs/_site/assets/main.css	/^.highlight .se { color: #d14; }$/;"	c
+.highlight .sh	docs/_site/assets/main.css	/^.highlight .sh { color: #d14; }$/;"	c
+.highlight .si	docs/_site/assets/main.css	/^.highlight .si { color: #d14; }$/;"	c
+.highlight .sr	docs/_site/assets/main.css	/^.highlight .sr { color: #009926; }$/;"	c
+.highlight .ss	docs/_site/assets/main.css	/^.highlight .ss { color: #990073; }$/;"	c
+.highlight .sx	docs/_site/assets/main.css	/^.highlight .sx { color: #d14; }$/;"	c
+.highlight .vc	docs/_site/assets/main.css	/^.highlight .vc { color: #008080; }$/;"	c
+.highlight .vg	docs/_site/assets/main.css	/^.highlight .vg { color: #008080; }$/;"	c
+.highlight .vi	docs/_site/assets/main.css	/^.highlight .vi { color: #008080; }$/;"	c
+.highlight .w	docs/_site/assets/main.css	/^.highlight .w { color: #bbb; }$/;"	c
+.highlighter-rouge .highlight	docs/_site/assets/main.css	/^.highlighter-rouge .highlight { background: #eef; }$/;"	c
+.page-content	docs/_site/assets/main.css	/^.page-content { padding: 30px 0; flex: 1; }$/;"	c
+.page-heading	docs/_site/assets/main.css	/^.page-heading { font-size: 32px; }$/;"	c
+.post-content	docs/_site/assets/main.css	/^.post-content { margin-bottom: 30px; }$/;"	c
+.post-content h2	docs/_site/assets/main.css	/^.post-content h2 { font-size: 32px; }$/;"	s
+.post-content h2	docs/_site/assets/main.css	/^@media screen and (max-width: 800px) { .post-content h2 { font-size: 28px; } }$/;"	s
+.post-content h3	docs/_site/assets/main.css	/^.post-content h3 { font-size: 26px; }$/;"	s
+.post-content h3	docs/_site/assets/main.css	/^@media screen and (max-width: 800px) { .post-content h3 { font-size: 22px; } }$/;"	s
+.post-content h4	docs/_site/assets/main.css	/^.post-content h4 { font-size: 20px; }$/;"	s
+.post-content h4	docs/_site/assets/main.css	/^@media screen and (max-width: 800px) { .post-content h4 { font-size: 18px; } }$/;"	s
+.post-header	docs/_site/assets/main.css	/^.post-header { margin-bottom: 30px; }$/;"	c
+.post-link	docs/_site/assets/main.css	/^.post-link { display: block; font-size: 24px; }$/;"	c
+.post-list	docs/_site/assets/main.css	/^.post-list { margin-left: 0; list-style: none; }$/;"	c
+.post-list > li	docs/_site/assets/main.css	/^.post-list > li { margin-bottom: 30px; }$/;"	s
+.post-list-heading	docs/_site/assets/main.css	/^.post-list-heading { font-size: 28px; }$/;"	c
+.post-meta	docs/_site/assets/main.css	/^.post-meta { font-size: 14px; color: #828282; }$/;"	c
+.post-title	docs/_site/assets/main.css	/^.post-title { font-size: 42px; letter-spacing: -1px; line-height: 1; }$/;"	c
+.post-title	docs/_site/assets/main.css	/^@media screen and (max-width: 800px) { .post-title { font-size: 36px; } }$/;"	c
+.site-footer	docs/_site/assets/main.css	/^.site-footer { border-top: 1px solid #e8e8e8; padding: 30px 0; }$/;"	c
+.site-header	docs/_site/assets/main.css	/^.site-header { border-top: 5px solid #424242; border-bottom: 1px solid #e8e8e8; min-height: 55.9/;"	c
+.site-nav	docs/_site/assets/main.css	/^.site-nav { float: right; line-height: 54px; }$/;"	c
+.site-nav	docs/_site/assets/main.css	/^@media screen and (max-width: 600px) { .site-nav { position: absolute; top: 9px; right: 15px; ba/;"	c
+.site-nav .menu-icon	docs/_site/assets/main.css	/^  .site-nav .menu-icon { display: block; float: right; width: 36px; height: 26px; line-height: 0/;"	c
+.site-nav .menu-icon	docs/_site/assets/main.css	/^.site-nav .menu-icon { display: none; }$/;"	c
+.site-nav .menu-icon > svg	docs/_site/assets/main.css	/^  .site-nav .menu-icon > svg { fill: #424242; }$/;"	s
+.site-nav .nav-trigger	docs/_site/assets/main.css	/^.site-nav .nav-trigger { display: none; }$/;"	c
+.site-nav .page-link	docs/_site/assets/main.css	/^  .site-nav .page-link { display: block; padding: 5px 10px; margin-left: 20px; }$/;"	c
+.site-nav .page-link	docs/_site/assets/main.css	/^.site-nav .page-link { color: #111; line-height: 1.5; }$/;"	c
+.site-nav .page-link:not(:last-child)	docs/_site/assets/main.css	/^  .site-nav .page-link:not(:last-child) { margin-right: 0; } }$/;"	c
+.site-nav .page-link:not(:last-child)	docs/_site/assets/main.css	/^.site-nav .page-link:not(:last-child) { margin-right: 20px; }$/;"	c
+.site-nav input ~ .trigger	docs/_site/assets/main.css	/^  .site-nav input ~ .trigger { clear: both; display: none; }$/;"	c
+.site-nav input:checked ~ .trigger	docs/_site/assets/main.css	/^  .site-nav input:checked ~ .trigger { display: block; padding-bottom: 5px; }$/;"	c
+.site-nav label[for="nav-trigger"]	docs/_site/assets/main.css	/^  .site-nav label[for="nav-trigger"] { display: block; float: right; width: 36px; height: 36px; /;"	s
+.site-title	docs/_site/assets/main.css	/^.site-title { font-size: 26px; font-weight: 300; line-height: 54px; letter-spacing: -1px; margin/;"	c
+.site-title	docs/_site/assets/main.css	/^.site-title, .site-title:visited { color: #424242; }$/;"	c
+.site-title:visited	docs/_site/assets/main.css	/^.site-title, .site-title:visited { color: #424242; }$/;"	c
+.social-media-list	docs/_site/assets/main.css	/^.contact-list, .social-media-list { list-style: none; margin-left: 0; }$/;"	c
+.social-media-list a:hover	docs/_site/assets/main.css	/^.social-media-list a:hover { text-decoration: none; }$/;"	s
+.social-media-list a:hover .username	docs/_site/assets/main.css	/^.social-media-list a:hover .username { text-decoration: underline; }$/;"	c
+.social-media-list li + li	docs/_site/assets/main.css	/^.social-media-list li + li { padding-top: 5px; }$/;"	s
+.svg-icon	docs/_site/assets/main.css	/^.svg-icon { width: 16px; height: 16px; display: inline-block; fill: #828282; padding-right: 5px;/;"	c
+.wrapper	docs/_site/assets/main.css	/^.wrapper { max-width: -webkit-calc(800px - (30px * 2)); max-width: calc(800px - (30px * 2)); mar/;"	c
+.wrapper	docs/_site/assets/main.css	/^@media screen and (max-width: 800px) { .wrapper { max-width: -webkit-calc(800px - (30px)); max-w/;"	c
+.wrapper:after	docs/_site/assets/main.css	/^.wrapper:after, .footer-col-wrapper:after { content: ""; display: table; clear: both; }$/;"	c
 404	docs/404.html	/^  <h1>404<\/h1>$/;"	h
+404	docs/_site/404.html	/^  <h1>404<\/h1>$/;"	h
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree	README.md	/^# <img src='https:\/\/github.com\/yohasebe\/rsyntaxtree\/blob\/master\/img\/rsyntaxtree.png?raw=/;"	c
+About	docs/_site/about/index.html	/^    <h1 class="post-title">About<\/h1>$/;"	h
+About | RSyntaxTree	docs/_site/about/index.html	/^<title>About | RSyntaxTree<\/title>$/;"	j
 Author	README.md	/^### Author$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
 Development	README.md	/^### Development$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
@@ -27,8 +147,13 @@ License	README.md	/^### License$/;"	S	chapter:<img src='https://github.com/yohas
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
 MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Parser$/;"	c
 MarkupParserTest	test/markup_parser_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
+Posts	docs/_site/index.html	/^<h2 class="post-list-heading">Posts<\/h2>$/;"	i
 RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	module:RSyntaxTree
 RSTError	lib/rsyntaxtree.rb	/^class RSTError < StandardError$/;"	c
+RSyntaxTree	docs/_site/404.html	/^    <h2 class="footer-heading">RSyntaxTree<\/h2>$/;"	i
+RSyntaxTree	docs/_site/about/index.html	/^    <h2 class="footer-heading">RSyntaxTree<\/h2>$/;"	i
+RSyntaxTree	docs/_site/index.html	/^    <h2 class="footer-heading">RSyntaxTree<\/h2>$/;"	i
+RSyntaxTree	docs/_site/jekyll/update/2022/02/06/welcome-to-jekyll.html	/^    <h2 class="footer-heading">RSyntaxTree<\/h2>$/;"	i
 RSyntaxTree	lib/rsyntaxtree.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/base_graph.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/element.rb	/^module RSyntaxTree$/;"	m
@@ -36,6 +161,8 @@ RSyntaxTree	lib/rsyntaxtree/elementlist.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/string_parser.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/svg_graph.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/version.rb	/^module RSyntaxTree$/;"	m
+RSyntaxTree | Syntax tree generator made with Ruby and RMagic	docs/_site/404.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby and RMagic<\/title>$/;"	j
+RSyntaxTree | Syntax tree generator made with Ruby and RMagic	docs/_site/index.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby and RMagic<\/title>$/;"	j
 SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
@@ -44,20 +171,37 @@ Usage	README.md	/^### Usage$/;"	S	chapter:<img src='https://github.com/yohasebe/
 VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.0.6"$/;"	C	module:RSyntaxTree
 WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
 Web Interface	README.md	/^### Web Interface$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Welcome to Jekyll!	docs/_site/index.html	/^        <\/h3><\/li><\/ul>$/;"	j
+Welcome to Jekyll!	docs/_site/jekyll/update/2022/02/06/welcome-to-jekyll.html	/^    <h1 class="post-title p-name" itemprop="name headline">Welcome to Jekyll!<\/h1>$/;"	h
+Welcome to Jekyll! | RSyntaxTree	docs/_site/jekyll/update/2022/02/06/welcome-to-jekyll.html	/^<title>Welcome to Jekyll! | RSyntaxTree<\/title>$/;"	j
+a	docs/_site/assets/main.css	/^a { color: #2a7ae2; text-decoration: none; }$/;"	s
+a:hover	docs/_site/assets/main.css	/^a:hover { color: #111; text-decoration: underline; }$/;"	s
+a:visited	docs/_site/assets/main.css	/^a:visited { color: #1756a9; }$/;"	s
 add	lib/rsyntaxtree/elementlist.rb	/^    def add(element)$/;"	f	class:RSyntaxTree.ElementList
 add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree.Element
 all_emoji?	lib/rsyntaxtree/utils.rb	/^  def all_emoji?$/;"	f	class:String
 arrow	img/sample.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7/;"	d
 arrow	img/sample.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7/;"	i
+blockquote	docs/_site/assets/main.css	/^blockquote { color: #828282; border-left: 4px solid #e8e8e8; padding-left: 15px; font-size: 18px/;"	s
+blockquote	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+blockquote	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+blockquote > :last-child	docs/_site/assets/main.css	/^blockquote > :last-child { margin-bottom: 0; }$/;"	s
+body	docs/_site/assets/main.css	/^body { font: 400 16px\/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Ari/;"	s
+body	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
 calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	S	class:RSyntaxTree.RSGenerator
+code	docs/_site/assets/main.css	/^code { padding: 1px 5px; }$/;"	s
+code	docs/_site/assets/main.css	/^pre, code { font-size: 15px; border: 1px solid #e8e8e8; border-radius: 3px; background-color: #e/;"	s
 contains_cjk?	lib/rsyntaxtree/utils.rb	/^  def contains_cjk?$/;"	f	class:String
 contains_emoji?	lib/rsyntaxtree/utils.rb	/^  def contains_emoji?$/;"	f	class:String
 data	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 data=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
+dd	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+dl	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+dl	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
 draw_a_path	lib/rsyntaxtree/svg_graph.rb	/^    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)$/;"	f	class:RSyntaxTree.SVGGraph
 draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree.SVGGraph
@@ -66,10 +210,17 @@ draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntax
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree.RSGenerator
 draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	class:RSyntaxTree.RSGenerator
 draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	class:RSyntaxTree.RSGenerator
+dribbble	docs/_site/assets/minima-social-icons.svg	/^<symbol id="dribbble" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-mit/;"	i
 elements	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator $/;"	A	class:RSyntaxTree.ElementList
 elements=	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator $/;"	A	class:RSyntaxTree.ElementList
 elist	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 elist=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
+facebook	docs/_site/assets/minima-social-icons.svg	/^<symbol id="facebook" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-mit/;"	i
+figcaption	docs/_site/assets/main.css	/^figcaption { font-size: 14px; }$/;"	s
+figure	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+figure	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+figure > img	docs/_site/assets/main.css	/^figure > img { display: block; }$/;"	s
+flickr	docs/_site/assets/minima-social-icons.svg	/^<symbol id="flickr" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miter/;"	i
 generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f	class:RSyntaxTree.SVGGraph
 get_child_count	lib/rsyntaxtree/elementlist.rb	/^    def get_child_count(id)$/;"	f	class:RSyntaxTree.ElementList
 get_children	lib/rsyntaxtree/elementlist.rb	/^    def get_children(id)$/;"	f	class:RSyntaxTree.ElementList
@@ -85,12 +236,34 @@ get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, f
 get_next	lib/rsyntaxtree/elementlist.rb	/^    def get_next$/;"	f	class:RSyntaxTree.ElementList
 get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f	class:RSyntaxTree.StringParser
 get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
+github	docs/_site/assets/minima-social-icons.svg	/^<symbol id="github" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miter/;"	i
+googleplus	docs/_site/assets/minima-social-icons.svg	/^<symbol id="googleplus" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-m/;"	i
+h1	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+h1	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6 { font-weight: 400; }$/;"	s
+h1	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+h2	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+h2	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6 { font-weight: 400; }$/;"	s
+h2	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+h3	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+h3	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6 { font-weight: 400; }$/;"	s
+h3	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+h4	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+h4	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6 { font-weight: 400; }$/;"	s
+h4	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+h5	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+h5	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6 { font-weight: 400; }$/;"	s
+h5	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+h6	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+h6	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6 { font-weight: 400; }$/;"	s
+h6	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
 height	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 height=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
+hr	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
 id	lib/rsyntaxtree/element.rb	/^    attr_accessor :id,$/;"	A	class:RSyntaxTree.Element
 id	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 id=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id,$/;"	A	class:RSyntaxTree.Element
 id=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
+img	docs/_site/assets/main.css	/^img { max-width: 100%; vertical-align: middle; }$/;"	s
 initialize	lib/rsyntaxtree.rb	/^    def initialize(params = {})$/;"	f	class:RSyntaxTree.RSGenerator
 initialize	lib/rsyntaxtree.rb	/^  def initialize(msg="Error: something unexpected occurred")$/;"	f	class:RSTError
 initialize	lib/rsyntaxtree/base_graph.rb	/^    def initialize(element_list, params)$/;"	f	class:RSyntaxTree.BaseGraph
@@ -98,20 +271,45 @@ initialize	lib/rsyntaxtree/element.rb	/^    def initialize(id, parent, content, 
 initialize	lib/rsyntaxtree/elementlist.rb	/^    def initialize$/;"	f	class:RSyntaxTree.ElementList
 initialize	lib/rsyntaxtree/string_parser.rb	/^    def initialize(str, fontset, fontsize)$/;"	f	class:RSyntaxTree.StringParser
 initialize	lib/rsyntaxtree/svg_graph.rb	/^    def initialize(element_list, params)$/;"	f	class:RSyntaxTree.SVGGraph
+instagram	docs/_site/assets/minima-social-icons.svg	/^<symbol id="instagram" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-mi/;"	i
 iterator	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator $/;"	A	class:RSyntaxTree.ElementList
 iterator=	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator $/;"	A	class:RSyntaxTree.ElementList
 level	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 level=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
+li > ol	docs/_site/assets/main.css	/^li > ul, li > ol { margin-bottom: 0; }$/;"	s
+li > ul	docs/_site/assets/main.css	/^li > ul, li > ol { margin-bottom: 0; }$/;"	s
 line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
+linkedin	docs/_site/assets/minima-social-icons.svg	/^<symbol id="linkedin" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-mit/;"	i
+main	docs/_site/assets/main.css	/^main { display: block; \/* Default value of `display` of `main` element is 'inline' in IE 11. *\//;"	s
 make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser
+mastodon	docs/_site/assets/minima-social-icons.svg	/^<symbol id="mastodon" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-mit/;"	i
+nav-trigger	docs/_site/404.html	/^        <input type="checkbox" id="nav-trigger" class="nav-trigger" \/>$/;"	I
+nav-trigger	docs/_site/about/index.html	/^        <input type="checkbox" id="nav-trigger" class="nav-trigger" \/>$/;"	I
+nav-trigger	docs/_site/index.html	/^        <input type="checkbox" id="nav-trigger" class="nav-trigger" \/>$/;"	I
+nav-trigger	docs/_site/jekyll/update/2022/02/06/welcome-to-jekyll.html	/^        <input type="checkbox" id="nav-trigger" class="nav-trigger" \/>$/;"	I
 node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree.BaseGraph
+ns59d2ecb30101	docs/_site/feed.xml	/^<?xml version="1.0" encoding="utf-8"?><feed xmlns="http:\/\/www.w3.org\/2005\/Atom" ><generator /;"	n	uri:http://www.w3.org/2005/Atom
 ns8fb8be310101	img/sample.svg	/^  <svg width="1211.119140625" height="941.0" viewBox="-40, -40, 1251.119140625, 981.0" version="/;"	n	uri:http://www.w3.org/2000/svg
+ns9e0a8dac0101	docs/_site/assets/minima-social-icons.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink">$/;"	n	uri:http://www.w3.org/2000/svg
+ns9e0a8dac0201	docs/_site/assets/minima-social-icons.svg	/^<symbol id="stackoverflow" class="svg-icon" xmlns="http:\/\/www.w3.org\/2000\/svg" fill-rule="ev/;"	n	uri:http://www.w3.org/2000/svg
+ol	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+ol	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+ol	docs/_site/assets/main.css	/^ul, ol { margin-left: 30px; }$/;"	s
+p	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+p	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree.BaseGraph
+pinterest	docs/_site/assets/minima-social-icons.svg	/^<symbol id="pinterest" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-mi/;"	i
 pos	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 pos=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
+pre	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+pre	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+pre	docs/_site/assets/main.css	/^pre { padding: 8px 12px; overflow-x: auto; }$/;"	s
+pre	docs/_site/assets/main.css	/^pre, code { font-size: 15px; border: 1px solid #e8e8e8; border-radius: 3px; background-color: #e/;"	s
+pre > code	docs/_site/assets/main.css	/^pre > code { border: 0; padding-right: 0; padding-left: 0; }$/;"	s
+rss	docs/_site/assets/minima-social-icons.svg	/^<symbol id="rss" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlim/;"	i
 rsyntaxtree	rsyntaxtree.gemspec	/^  s.name        = "rsyntaxtree"$/;"	g
 set_element_width	lib/rsyntaxtree/elementlist.rb	/^    def set_element_width(id, width)$/;"	f	class:RSyntaxTree.ElementList
 set_hierarchy	lib/rsyntaxtree/elementlist.rb	/^    def set_hierarchy$/;"	f	class:RSyntaxTree.ElementList
@@ -120,7 +318,14 @@ set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(this_x, this_y, style
 setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree.Element
 setup	test/markup_parser_test.rb	/^  def setup$/;"	f	class:MarkupParserTest
 split_by_emoji	lib/rsyntaxtree/utils.rb	/^  def split_by_emoji$/;"	f	class:String
+stackoverflow	docs/_site/assets/minima-social-icons.svg	/^<symbol id="stackoverflow" class="svg-icon" xmlns="http:\/\/www.w3.org\/2000\/svg" fill-rule="ev/;"	i
 svg_data	lib/rsyntaxtree/svg_graph.rb	/^    def svg_data$/;"	f	class:RSyntaxTree.SVGGraph
+table	docs/_site/assets/main.css	/^table { margin-bottom: 30px; width: 100%; text-align: left; color: #3f3f3f; border-collapse: col/;"	s
+table td	docs/_site/assets/main.css	/^table td { border: 1px solid #e8e8e8; }$/;"	s
+table td	docs/_site/assets/main.css	/^table th, table td { padding: 10px 15px; }$/;"	s
+table th	docs/_site/assets/main.css	/^table th { background-color: #f0f0f0; border: 1px solid #dedede; border-bottom-color: #c9c9c9; }$/;"	s
+table th	docs/_site/assets/main.css	/^table th, table td { padding: 10px 15px; }$/;"	s
+table tr:nth-child(even)	docs/_site/assets/main.css	/^table tr:nth-child(even) { background-color: #f7f7f7; }$/;"	s
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f	class:MarkupParserTest
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f	class:MarkupParserTest
 test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f	class:MarkupParserTest
@@ -143,6 +348,12 @@ test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f	class:Mar
 test_rule_triangle	test/markup_parser_test.rb	/^  def test_rule_triangle$/;"	f	class:MarkupParserTest
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f	class:MarkupParserTest
 triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
+twitter	docs/_site/assets/minima-social-icons.svg	/^<symbol id="twitter" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-mite/;"	i
+ul	docs/_site/assets/main.css	/^body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; paddin/;"	s
+ul	docs/_site/assets/main.css	/^h1, h2, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight { margin-bottom: 15px/;"	s
+ul	docs/_site/assets/main.css	/^ul, ol { margin-left: 30px; }$/;"	s
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 width	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 width=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
+xlink	docs/_site/assets/minima-social-icons.svg	/^<svg xmlns="http:\/\/www.w3.org\/2000\/svg" xmlns:xlink="http:\/\/www.w3.org\/1999\/xlink">$/;"	n	uri:http://www.w3.org/1999/xlink
+youtube	docs/_site/assets/minima-social-icons.svg	/^<symbol id="youtube" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-mite/;"	i
