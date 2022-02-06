@@ -1,12 +1,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/css/lightbox.css" />
 
-# Examples
+<h1>Examples</h1>
 
-## Generative Grammar
+<h2>Generative Grammar<h2>
 
 <div style="-webkit-column-count: 2;-moz-column-count: 2; column-count: 2;">
 <div style='display: inline-block;'>
-```plain-text
+
+<pre> <code class='plain-text'>
 [A
   [B
     [D]
@@ -17,17 +18,17 @@
     [G]
   ]
 ]
-```
+</code> </pre>
 </div>
 
 <div style='display: inline-block; max-width: 300px;'>
   <a href='./img/001.png' data-lightbox='001'></a>
 </div>
-
 </div>
+
 <div style="-webkit-column-count: 2;-moz-column-count: 2; column-count: 2;">
 <div style='display: inline-block;'>
-```plain-text
+<pre> <code class='plain-text'>
 [CP
   [John]
   [TP
@@ -47,13 +48,12 @@
     ]
   ]
 ]
-```
+</code> </pre>
 </div>
 
 <div style='display: inline-block; max-width: 300px;'>
   <a href='./img/002.png' data-lightbox='002'></a>
 </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
