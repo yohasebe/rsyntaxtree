@@ -148,17 +148,16 @@
 .site-footer-owner	docs/_site/assets/css/style.css	/^.site-footer-owner { display: block; font-weight: bold; }$/;"	c
 404	docs/404.html	/^  <h1>404<\/h1>$/;"	h
 404	docs/_site/404.html	/^  <h1>404<\/h1>$/;"	h
-<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree	README.md	/^# <img src='https:\/\/github.com\/yohasebe\/rsyntaxtree\/blob\/master\/img\/rsyntaxtree.png?raw=/;"	c
-Author	README.md	/^### Author$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Author	README.md	/^### Author$/;"	S
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
 Cognitive Grammar (Experimental)	docs/_site/examples.html	/^      <h2 id="category-cognitive-grammar-experimental"><b>Cognitive Grammar (Experimental)<\/b></;"	i
 Combinatory Categorial Grammar (Experimental)	docs/_site/examples.html	/^      <h2 id="category-combinatory-categorial-grammar-experimental"><b>Combinatory Categorial Gr/;"	i
-Development	README.md	/^### Development$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Development	README.md	/^### Development$/;"	S
 ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
 ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
-Example	README.md	/^### Example$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Examples	README.md	/^### Examples$/;"	S
 Examples	docs/_site/examples.html	/^      <h1 id="examples"><b>Examples<\/b><\/h1>$/;"	h
 Examples	docs/examples.html	/^      <h1 id="examples"><b>Examples<\/b><\/h1>$/;"	h
 FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C
@@ -167,8 +166,8 @@ FontMetrics	lib/rsyntaxtree/utils.rb	/^module FontMetrics$/;"	m
 General	docs/_site/examples.html	/^      <h2 id="category-general"><b>General<\/b><\/h2>$/;"	i
 Genrative Grammar	docs/_site/examples.html	/^      <h2 id="category-genrative-grammar"><b>Genrative Grammar<\/b><\/h2>$/;"	i
 Head-Driven Phrase Structure Grammar (Experimental)	docs/_site/examples.html	/^      <h2 id="category-head-driven-phrase-structure-grammar-experimental"><b>Head-Driven Phrase /;"	i
-Installation	README.md	/^### Installation$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
-License	README.md	/^### License$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Installation	README.md	/^### Installation$/;"	S
+License	README.md	/^### License$/;"	S
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
 MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Parser$/;"	c
 MarkupParserTest	test/markup_parser_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
@@ -193,10 +192,10 @@ StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	modul
 Syntax tree generator made with Ruby and RMagic	docs/_site/404.html	/^      <h2 class="project-tagline">Syntax tree generator made with Ruby and RMagic<\/h2>$/;"	i
 Syntax tree generator made with Ruby and RMagic	docs/_site/examples.html	/^      <h2 class="project-tagline">Syntax tree generator made with Ruby and RMagic<\/h2>$/;"	i
 Tic-Tac-Toe	docs/_site/examples.html	/^      <h2 id="category-tic-tac-toe"><b>Tic-Tac-Toe<\/b><\/h2>$/;"	i
-Usage	README.md	/^### Usage$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Usage	README.md	/^### Usage$/;"	S
 VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.0.6"$/;"	C	module:RSyntaxTree
 WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
-Web Interface	README.md	/^### Web Interface$/;"	S	chapter:<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+Web Interface	README.md	/^### Web Interface$/;"	S
 a	docs/_site/assets/css/style.css	/^a { background-color: transparent; }$/;"	s
 a	docs/_site/assets/css/style.css	/^a { color: #1e6bb8; text-decoration: none; }$/;"	s
 a:active	docs/_site/assets/css/style.css	/^a:active, a:hover { outline: 0; }$/;"	s

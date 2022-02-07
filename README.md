@@ -1,4 +1,4 @@
-# <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='height: 2em; vertical-align: text-bottom;'/> RSyntaxTree
+<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='width: 256px;' />
 
 **RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language inspired by [phpSyntaxTree](http://ironcreek.net/phpsyntaxtree/). 
 
@@ -40,7 +40,9 @@ where [options] are:
 
 See [the documentation](https://yohasebe.com/rsyntaxtree/#documentation) for more detailed info about the syntax.
 
-### Example
+### Examples
+
+See [RSyntaxTree Examples](https://yohasebe.github.io/rsyntaxtree/examples).
 
 **Input text**
 
@@ -62,8 +64,6 @@ See [the documentation](https://yohasebe.com/rsyntaxtree/#documentation) for mor
 **Output (PNG or SVG)**
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/sample.png?raw=true' width='600' />
-
-See [RSyntaxTree Examples](https://yohasebe.github.io/rsyntaxtree/examples) for more examples
 
 ### Development
 
