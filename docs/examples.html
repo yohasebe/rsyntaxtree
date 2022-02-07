@@ -1,79 +1,66 @@
 ---
 title: RSyntaxTree
 layout: default
-is_project_page: true
 ---
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/css/lightbox.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" >
-  </head>
-    <body>
-      <h1 id="examples"><b>Examples</b></h1>
-      {% assign all_examples = site.examples %}
-      {% assign categories =  all_examples | map: 'category' | join: ','  | split: ','  | group_by: category %}
-      <ul>
-      {%- for category in categories -%}
-      <li><a href="#category-{{ category.name | slugify }}">{{ category.name }}</a> [{{category.size}}]</li>
-      {%- endfor -%}
-      </ul>
 
-      {%- for category in categories -%}
-      <hr />
-      <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b></h2>
-      {%- for example in all_examples -%}
-      {% if example.category contains category.name %}
-      <br />
-      <div style='text-align:left;'>
-        <button onclick="copyToClipBoard('text-{{ example.name }}')" style='margin: 20px 0; font-size: 0.85em;'>
-          Copy to Clipboard
-        </button>
-      </div>
-      <div class='grid'>
-        <div style='margin-top: 0; margin-bottom: auto;'>
-          <div id="text-{{example.name}}" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>
-            {{ example.content | markdownify }}
-          </div>
-          <table style='line-height: 110%; font-size: 0.85em; margin-bottom: 20px;'>
-            <thead></thead>
-            <tbody>
-              <tr><td>Category</td><td>{{ example.category}}</td></tr>
-              <tr><td>Connector</td><td>{{ example.connector }}</td></tr>
-              <tr><td>Polyline</td><td>{{ example.polyline }}</td></tr>
-              <tr><td>Colorization</td><td>{{ example.colorization }}</td></tr>
-              <tr><td>Radical Symmetirization</td><td>{{ example.symmetrization }}</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div style='margin-top: 0; margin-bottom: auto;'>
-          <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}'>
-            <img src='assets/img/{{ example.name}}.png'/>
-          </a>
-        </div>
-      </div>
-      <div><a href="#examples">🔝</a></div>
-      {% endif %}
-      {%- endfor -%}
-      {%- endfor -%}
+<h1 id="examples">Examples</h1>
+{% assign all_examples = site.examples %}
+{% assign categories =  all_examples | map: 'category' | join: ','  | split: ','  | group_by: category %}
+<ul>
+  {%- for category in categories -%}
+  <li><a href="#category-{{ category.name | slugify }}">{{ category.name }}</a> [{{category.size}}]</li>
+  {%- endfor -%}
+</ul>
 
-      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
-      <script>
-        function copyToClipBoard(id){
-                  var copyText =  document.getElementById(id).innerText;
-                  document.addEventListener('copy', function(e) {
-                            e.clipboardData.setData('text/plain', copyText);
-                            e.preventDefault();
-                          }, true);
-                  document.execCommand('copy');  
-                  alert('copied'); 
-                }
-      </script>
-    </body>
-</html>
+{%- for category in categories -%}
+<hr />
+<h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b></h2>
+{%- for example in all_examples -%}
+{% if example.category contains category.name %}
+<br />
+<div style='text-align:left;'>
+  <button onclick="copyToClipBoard('text-{{ example.name }}')" style='margin: 20px 0; font-size: 0.85em;'>
+    Copy to Clipboard
+  </button>
+</div>
+<div class='grid'>
+  <div style='margin-top: 0; margin-bottom: auto;'>
+    <div id="text-{{example.name}}" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>
+      {{ example.content | markdownify }}
+    </div>
+    <table style='line-height: 110%; font-size: 0.85em; margin-bottom: 20px;'>
+      <thead></thead>
+      <tbody>
+        <tr><td>Category</td><td>{{ example.category}}</td></tr>
+        <tr><td>Connector</td><td>{{ example.connector }}</td></tr>
+        <tr><td>Polyline</td><td>{{ example.polyline }}</td></tr>
+        <tr><td>Colorization</td><td>{{ example.colorization }}</td></tr>
+        <tr><td>Radical Symmetirization</td><td>{{ example.symmetrization }}</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style='margin-top: 0; margin-bottom: auto;'>
+    <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}'>
+      <img src='assets/img/{{ example.name}}.png'/>
+    </a>
+  </div>
+</div>
+<div><a href="#examples">🔝</a></div>
+{% endif %}
+{%- endfor -%}
+{%- endfor -%}
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
+
+<script>
+  function copyToClipBoard(id){
+      var copyText =  document.getElementById(id).innerText;
+      document.addEventListener('copy', function(e) {
+          e.clipboardData.setData('text/plain', copyText);
+          e.preventDefault();
+        }, true);
+      document.execCommand('copy');  
+      alert('copied'); 
+    }
+</script>

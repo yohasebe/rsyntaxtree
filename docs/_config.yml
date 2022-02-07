@@ -42,20 +42,34 @@ plugins:
 # their entries' file path in the `include:` list.
 #
 exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
 - Gemfile
 - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+#  - .sass-cache/
+#  - .jekyll-cache/
+#  - gemfiles/
 
 github:
   - repository_url: https://github.com/yohasebe/rsyntaxtree
 
-
 collections:
   - examples
+
+social-media:
+  email:
+    id: 'yohasebe@gmail.com'
+    href: 'mailto:'
+    title: 'Email'
+    fa-icon: 'fa-envelope'
+    category: 'fa'
+  twitter:
+    id: 'yohasebe'
+    href: 'https://www.twitter.com/'
+    title: 'Twitter'
+    fa-icon: 'fa-twitter'
+    category: 'fab'
+  github:
+    id: 'yohasebe'
+    href: 'https://github.com/'
+    title: 'GitHub'
+    fa-icon: 'fa-github'
+    category: 'fab'
