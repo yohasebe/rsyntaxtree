@@ -4,6 +4,13 @@ layout: default
 ---
 
 # Documentation
+{:.no_toc}
+
+### Table of Contents
+{:.no_toc}
+
+1. toc
+{:toc}
 
 ### Basic Usage
 
