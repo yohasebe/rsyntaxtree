@@ -1,14 +1,20 @@
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='width: 256px;' />
 
-**RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language inspired by [phpSyntaxTree](http://ironcreek.net/phpsyntaxtree/). 
+**RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language. 
+
+---
 
 ### Web Interface
 
 See updates and a working web interface available at <https://yohasebe.com/rsyntaxtree>.
 
+---
+
 ### Installation
 
 `# gem install rsyntaxtree`
+
+---
 
 ### Usage
 
@@ -40,6 +46,8 @@ where [options] are:
 
 See [the documentation](https://yohasebe.com/rsyntaxtree/#documentation) for more detailed info about the syntax.
 
+---
+
 ### Examples
 
 See [RSyntaxTree Examples](https://yohasebe.github.io/rsyntaxtree/examples).
@@ -65,13 +73,19 @@ See [RSyntaxTree Examples](https://yohasebe.github.io/rsyntaxtree/examples).
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/sample.png?raw=true' width='600' />
 
+---
+
 ### Development
 
 For the latest updates and downloads please visit <http://github.com/yohasebe/rsyntaxtree>
 
+---
+
 ### Author
 
 Yoichiro Hasebe <yohasebe@gmail.com>
+
+---
 
 ### License
 
