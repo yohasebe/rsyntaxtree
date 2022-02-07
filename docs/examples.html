@@ -16,7 +16,7 @@ is_project_page: true
       {% assign categories =  all_examples | map: 'category' | join: ','  | split: ','  | group_by: category %}
       <ul>
       {%- for category in categories -%}
-      <li><a href="#category-{{ category.name | slugify }}">{{ category.name }}</a> ({{category.size}})</li>
+      <li><a href="#category-{{ category.name | slugify }}">{{ category.name }}</a> [{{category.size}}]</li>
       {%- endfor -%}
       </ul>
 
@@ -33,11 +33,10 @@ is_project_page: true
       </div>
       <div class='grid'>
         <div style='margin-top: 0; margin-bottom: auto;'>
-          <div id="text-{{example.name}}" style='max-height: 600px; overflow-y: auto;'>
+          <div id="text-{{example.name}}" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>
             {{ example.content | markdownify }}
           </div>
-          <br />
-          <table style='line-height: 110%; font-size: 0.85em;'>
+          <table style='line-height: 110%; font-size: 0.85em; margin-bottom: 20px;'>
             <thead></thead>
             <tbody>
               <tr><td>Category</td><td>{{ example.category}}</td></tr>
