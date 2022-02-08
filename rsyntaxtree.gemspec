@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["yohasebe@gmail.com"]
   s.homepage    = "http://github.com/yohasebe/rsyntaxtree"
   s.summary     = %q{RSyntaxTree is a graphical syntax tree generator written in Ruby}
-  s.description = %q{Yet another syntax tree generator made with Ruby and RMagick}
+  s.description = %q{Syntax tree generator made with Ruby}
   s.licenses    = ["MIT"]
   s.files         = `git ls-files`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
