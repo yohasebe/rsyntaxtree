@@ -6,6 +6,8 @@
 
 ### Web Interface
 
+<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree-web-screenshot.png?raw=true' width='700px'/>
+
 See updates and a working web interface available at <https://yohasebe.com/rsyntaxtree>.
 
 ---
