@@ -10,6 +10,8 @@
 
 See updates and a working web interface available at <https://yohasebe.com/rsyntaxtree>.
 
+> You can run RSyntaxTree's web interface on your local machine using Docker Desktop. See [RSyntaxTree on the Web](https://github/yohasebe/rsyntaxtree_web)
+
 ---
 
 ### Installation
