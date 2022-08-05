@@ -10,7 +10,40 @@
 
 See updates and a working web interface available at <https://yohasebe.com/rsyntaxtree>.
 
-> You can run RSyntaxTree's web interface on your local machine using Docker Desktop. See [RSyntaxTree Web UI](https://github.com/yohasebe/rsyntaxtree_web)
+You can run RSyntaxTree's web interface on your local machine using Docker Desktop. See [RSyntaxTree Web UI](https://github.com/yohasebe/rsyntaxtree_web)
+
+---
+
+### Examples
+
+See [RSyntaxTree Examples](https://yohasebe.github.io/rsyntaxtree/examples) page for syntax tree samples for
+
+- Generative Grammar
+- Combinatory Categorial Grammar (Experimental)
+- Head-Driven Phrase Structure Grammar (Experimental)
+- Cognitive Grammar (Experimental)
+
+
+**Input text**
+
+```text
+[S
+  [NP |R|<>SyntaxTree]
+  [VP
+    [V generates]
+    [NP
+      [Adj #\+multilingual\
+            \+beautiful]
+      [NP syntax\
+          trees]
+    ]
+  ]
+]
+```
+
+**Output (PNG or SVG)**
+
+<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/sample.png?raw=true' width='600' />
 
 ---
 
@@ -49,33 +82,6 @@ where [options] are:
 ```
 
 See [the documentation](https://yohasebe.com/rsyntaxtree/#documentation) for more detailed info about the syntax.
-
----
-
-### Examples
-
-See [RSyntaxTree Examples](https://yohasebe.github.io/rsyntaxtree/examples).
-
-**Input text**
-
-```text
-[S
-  [NP |R|<>SyntaxTree]
-  [VP
-    [V generates]
-    [NP
-      [Adj #\+multilingual\
-            \+beautiful]
-      [NP syntax\
-          trees]
-    ]
-  ]
-]
-```
-
-**Output (PNG or SVG)**
-
-<img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/sample.png?raw=true' width='600' />
 
 ---
 
