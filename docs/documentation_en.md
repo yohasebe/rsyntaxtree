@@ -14,7 +14,7 @@ layout: default
 
 ### Basic Usage
 
-Type your text in the editor area above in labeled bracket notation and click the Draw PNG or Draw SVG button. See an example input in the editor.
+Type your text in the editor area using labeled bracket notation and click the Draw PNG or Draw SVG button. 
 
 Every branch or leaf of the syntax tree must belong to a node. To create a node, place the label text right next to the start bracket. Any number of branches may follow, separated by a whitespace. (Node labels containing whitespaces can be created using the `<>` symbol. For example, `Modal<>Aux` will be rendered as `Modal Aux`).
 
@@ -24,7 +24,7 @@ The newline character `\n` can be used within the text of both node lables and l
 
 RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vector graphics software such as Adobe Illustrator, Microsoft Visio, [BOXY SVG](https://boxy-svg.com/), etc. It is very useful if you want to modify the output image.
 
-The `radical symmetrize` option affects the way branch nodes are drawn. The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
+The `Radical symmetrization` option affects the way branch nodes are drawn. The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
 
 ### Fonts Used to Generate PNG
