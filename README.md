@@ -8,8 +8,8 @@
 
 Documentation is currently available in the following languages:
 
-- English
-- 日本語
+- [English](https://yohasebe.github.io/rsyntaxtree/documentation)
+- [日本語](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
 
 ---
 
