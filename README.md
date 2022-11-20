@@ -4,6 +4,15 @@
 
 ---
 
+### Documentation
+
+Documentation is currently available in the following languages:
+
+- English
+- 日本語
+
+---
+
 ### Web Interface
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree-web-screenshot.png?raw=true' width='700px'/>
@@ -81,7 +90,7 @@ where [options] are:
   -h, --help               Show this message```
 ```
 
-See [the documentation](https://yohasebe.com/rsyntaxtree/#documentation) for more detailed info about the syntax.
+See the [documentation](https://yohasebe.github.io/rsyntaxtree/documentation) for more detailed info about the syntax.
 
 ---
 

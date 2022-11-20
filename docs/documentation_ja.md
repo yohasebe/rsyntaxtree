@@ -6,9 +6,8 @@ layout: default
 # ドキュメンテーション
 {:.no_toc}
 
-| [English](https://yohasebe.github.io/rsyntaxtree/documentation)
-| [日本語](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
-|
+[English](https://yohasebe.github.io/rsyntaxtree/documentation) | 
+[日本語](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
 
 ### 目次
 {:.no_toc}
