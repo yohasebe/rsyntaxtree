@@ -29,7 +29,6 @@ RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vecto
 
 The `Radical symmetrization` option affects the way branch nodes are drawn. The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
-
 ### Fonts Used to Generate PNG
 
 Currently, you can choose between the font styles `Noto Sans`, `Noto Serif`, and `WQY Zen Hei`.
@@ -118,6 +117,8 @@ In `auto` mode, the triangle connector shape is applied when the terminal node c
 If a `#` character is placed at the beginning of the leaf text (right after `^` if there is one), the leaf text is enclosed in a paire of square brackets (e.g. `[NP #text]` or `[NP ^#text]`). If `##` is placed at the beginning of the leaf text, a rectangle is drawn instead of brackets.
 
 ### Escape Special Characters
+
+The backslash character `\` must be used to print certain characters used in the markup. If you do not have the `\` key on your keyboard, you can also use the yen/yuan character `¥` to escape.
 
 {% include escape_char_table.html %}
 

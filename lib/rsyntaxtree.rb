@@ -53,6 +53,8 @@ module RSyntaxTree
             .gsub('-SCOLON-', ';')
             .gsub('-OABRACKET-', '<')
             .gsub('-CABRACKET-', '>')
+            .gsub('¥¥', '\¥')
+            .gsub(/(?<!\\)¥/, "\\")
           new_params[key] = data
 
         when :symmetrize, :color, :transparent, :polyline

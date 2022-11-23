@@ -79,7 +79,6 @@ begin
     rsg.draw_tree.write(filepath)
   when "png"
     outfile = File.new(filepath, "wb")
-    # outfile.write rsg.draw_png
     outfile.write rsg.draw_tree
     outfile.close
   when "svg"

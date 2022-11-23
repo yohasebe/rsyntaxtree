@@ -115,7 +115,7 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 |`str1\ ---\ str2`              |str1<br />——<br />str2|
 |`str1\n---\nstr2`              |str1<br />——<br />str2|
 
-Here，`---` represents `-` repeated three times or more consecutively.
+ここで `---` は `-` の3つ以上の連続を意味します.
 
 ### コネクター
 
@@ -126,6 +126,8 @@ Here，`---` represents `-` repeated three times or more consecutively.
 リーフとなるテキストの最初に（`^` が存在する場合はその直後に） `#` を付けると，そのテキスト全体を角括弧（［ ］）で囲みます（例：`[NP #text]` or `[NP ^#text]`）． テキストの最初に `##` を付けると，テキスト全体を矩形（ボックス）で囲みます．
 
 ### 一部の文字を表示するためのエスケープ
+
+文字装飾などのマークアップに使用される一部の文字をテキストとして表示するためには `\` によってエスケープする必要があります。使用している環境で `\` が使えない場合は `¥` で代用することができます。
 
 {% include escape_char_table.html %}
 
