@@ -8,7 +8,7 @@
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	/55e668a3/
+!_TAG_PROGRAM_VERSION	5.9.0	/08fd0c4d/
 #skip-to-content	docs/_site/assets/css/style.css	/^#skip-to-content { height: 1px; width: 1px; position: absolute; overflow: hidden; top: -10px; }$/;"	i
 #skip-to-content:focus	docs/_site/assets/css/style.css	/^#skip-to-content:focus { position: fixed; top: 10px; left: 10px; height: auto; width: auto; back/;"	i
 *	docs/_site/assets/css/style.css	/^* { box-sizing: border-box; }$/;"	s
@@ -147,7 +147,6 @@
 404	docs/404.html	/^  <h1>404<\/h1>$/;"	h
 404	docs/_site/404.html	/^  <h1>404<\/h1>$/;"	h
 Author	README.md	/^### Author$/;"	S
-BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	class:RSyntaxTree
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
 Basic Usage	docs/_site/documentation.html	/^<h3 id="basic-usage">Basic Usage<\/h3>$/;"	j
 Basic Usage	docs/documentation.md	/^### Basic Usage$/;"	S	chapter:Documentation
@@ -156,21 +155,20 @@ Cognitive Grammar (Experimental)	docs/_site/examples.html	/^<h2 id="category-cog
 Combinatory Categorial Grammar (Experimental)	docs/_site/examples.html	/^<h2 id="category-combinatory-categorial-grammar-experimental"><b>Combinatory Categorial Grammar /;"	i
 Computer Science	docs/_site/examples.html	/^<h2 id="category-computer-science"><b>Computer Science<\/b><\/h2>$/;"	i
 Development	README.md	/^### Development$/;"	S
+Documentation	README.md	/^### Documentation$/;"	S
 Documentation	docs/_site/documentation.html	/^      <h1 class="no_toc" id="documentation">Documentation<\/h1>$/;"	h
 Documentation	docs/documentation.md	/^# Documentation$/;"	c
 Draw Paths between Nodes (experimental)	docs/_site/documentation.html	/^<h3 id="draw-paths-between-nodes-experimental">Draw Paths between Nodes (experimental)<\/h3>$/;"	j
 Draw Paths between Nodes (experimental)	docs/documentation.md	/^### Draw Paths between Nodes (experimental)$/;"	S	chapter:Documentation
 ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
 ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
-Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	class:RSyntaxTree
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
-ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	class:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
 Escape Special Characters	docs/_site/documentation.html	/^<h3 id="escape-special-characters">Escape Special Characters<\/h3>$/;"	j
 Escape Special Characters	docs/documentation.md	/^### Escape Special Characters$/;"	S	chapter:Documentation
+Example Gallery	docs/examples.html	/^<h1 id="examples">Example Gallery<\/h1>$/;"	h
 Examples	README.md	/^### Examples$/;"	S
 Examples	docs/_site/examples.html	/^      <h1 id="examples">Examples<\/h1>$/;"	h
-Examples	docs/examples.html	/^<h1 id="examples">Examples<\/h1>$/;"	h
 FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.dirname(__FILE__) + "\/..\/fonts")$/;"	C
 FONT_SCALING	lib/rsyntaxtree.rb	/^FONT_SCALING = 2$/;"	C
 Font Styles	docs/documentation.md	/^#### Font Styles$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
@@ -191,12 +189,14 @@ Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
 MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Parser$/;"	c
 MarkupParserTest	test/markup_parser_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
 Newline	docs/documentation.md	/^#### Newline$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
+PNG形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="png形式を用いる場合">PNG形式を用いる場合<\/h3>$/;"	j
+PNG形式を用いる場合	docs/documentation_ja.md	/^### PNG形式を用いる場合$/;"	S	chapter:ドキュメンテーション
 Phonology	docs/_site/examples.html	/^<h2 id="category-phonology"><b>Phonology<\/b><\/h2>$/;"	i
-RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	class:RSyntaxTree
 RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	module:RSyntaxTree
 RSTError	lib/rsyntaxtree.rb	/^class RSTError < StandardError$/;"	c
 RSyntaxTree	docs/_site/404.html	/^      <\/h1>$/;"	h
 RSyntaxTree	docs/_site/documentation.html	/^      <\/h1>$/;"	h
+RSyntaxTree	docs/_site/documentation_ja.html	/^      <\/h1>$/;"	h
 RSyntaxTree	docs/_site/examples.html	/^      <\/h1>$/;"	h
 RSyntaxTree	lib/rsyntaxtree.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/base_graph.rb	/^module RSyntaxTree$/;"	m
@@ -207,16 +207,18 @@ RSyntaxTree	lib/rsyntaxtree/svg_graph.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/version.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/404.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/documentation.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
+RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/documentation_ja.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/examples.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
 SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
-SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	class:RSyntaxTree
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
+SVG形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="svg形式を用いる場合">SVG形式を用いる場合<\/h3>$/;"	j
+SVG形式を用いる場合	docs/documentation_ja.md	/^### SVG形式を用いる場合$/;"	S	chapter:ドキュメンテーション
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
-StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	class:RSyntaxTree
 StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	module:RSyntaxTree
 Subscript and Superscript	docs/documentation.md	/^#### Subscript and Superscript$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
 Syntax tree generator made with Ruby	docs/_site/404.html	/^      <h2 class="project-tagline">Syntax tree generator made with Ruby<\/h2>$/;"	i
 Syntax tree generator made with Ruby	docs/_site/documentation.html	/^      <h2 class="project-tagline">Syntax tree generator made with Ruby<\/h2>$/;"	i
+Syntax tree generator made with Ruby	docs/_site/documentation_ja.html	/^      <h2 class="project-tagline">Syntax tree generator made with Ruby<\/h2>$/;"	i
 Syntax tree generator made with Ruby	docs/_site/examples.html	/^      <h2 class="project-tagline">Syntax tree generator made with Ruby<\/h2>$/;"	i
 Table of Contents	docs/_site/documentation.html	/^<h3 class="no_toc" id="table-of-contents">Table of Contents<\/h3>$/;"	j
 Table of Contents	docs/documentation.md	/^### Table of Contents$/;"	S	chapter:Documentation
@@ -270,7 +272,6 @@ category-head-driven-phrase-structure-grammar-experimental	docs/_site/examples.h
 category-phonology	docs/_site/examples.html	/^<h2 id="category-phonology"><b>Phonology<\/b><\/h2>$/;"	I
 category-tic-tac-toe	docs/_site/examples.html	/^<h2 id="category-tic-tac-toe"><b>Tic-Tac-Toe<\/b><\/h2>$/;"	I
 category-{{category.name | slugify }}	docs/examples.html	/^<h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}<\/b><\/h2>$/;"	I
-check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	F	class:RSyntaxTree.RSGenerator
 check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	S	class:RSyntaxTree.RSGenerator
 code	docs/_site/assets/css/style.css	/^code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em; }$/;"	s
 contains_cjk?	lib/rsyntaxtree/utils.rb	/^  def contains_cjk?$/;"	f	class:String
@@ -278,12 +279,8 @@ contains_emoji?	lib/rsyntaxtree/utils.rb	/^  def contains_emoji?$/;"	f	class:Str
 content	docs/_layouts/default.html	/^    <main id="content" class="main-content" role="main">$/;"	I
 content	docs/_site/404.html	/^    <main id="content" class="main-content" role="main">$/;"	I
 content	docs/_site/documentation.html	/^    <main id="content" class="main-content" role="main">$/;"	I
+content	docs/_site/documentation_ja.html	/^    <main id="content" class="main-content" role="main">$/;"	I
 content	docs/_site/examples.html	/^    <main id="content" class="main-content" role="main">$/;"	I
-copyToClipBoard	docs/_site/documentation.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/_site/documentation_en.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/_site/documentation_ja.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/_site/examples.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/examples.html	/^  function copyToClipBoard(id){$/;"	f
 data	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 data=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 default	Rakefile	/^task default: "test"$/;"	t
@@ -307,7 +304,7 @@ elist	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, 
 elist=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 escape-special-characters	docs/_site/documentation.html	/^<h3 id="escape-special-characters">Escape Special Characters<\/h3>$/;"	I
 examples	docs/_site/examples.html	/^      <h1 id="examples">Examples<\/h1>$/;"	I
-examples	docs/examples.html	/^<h1 id="examples">Examples<\/h1>$/;"	I
+examples	docs/examples.html	/^<h1 id="examples">Example Gallery<\/h1>$/;"	I
 fieldset	docs/_site/assets/css/style.css	/^fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }$/;"	s
 figcaption	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 figure	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
@@ -327,7 +324,6 @@ get_id	lib/rsyntaxtree/elementlist.rb	/^    def get_id(id)$/;"	f	class:RSyntaxTr
 get_indent	lib/rsyntaxtree/elementlist.rb	/^    def get_indent(id)$/;"	f	class:RSyntaxTree.ElementList
 get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 get_level_height	lib/rsyntaxtree/elementlist.rb	/^    def get_level_height$/;"	f	class:RSyntaxTree.ElementList
-get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	class:FontMetrics
 get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	module:FontMetrics
 get_next	lib/rsyntaxtree/elementlist.rb	/^    def get_next$/;"	f	class:RSyntaxTree.ElementList
 get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f	class:RSyntaxTree.StringParser
@@ -383,6 +379,7 @@ make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	
 make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser
 mark	docs/_site/assets/css/style.css	/^mark { background: #ff0; color: #000; }$/;"	s
 markdown-toc	docs/_site/documentation.html	/^<ol id="markdown-toc">$/;"	I
+markdown-toc	docs/_site/documentation_ja.html	/^<ol id="markdown-toc">$/;"	I
 markdown-toc-basic-usage	docs/_site/documentation.html	/^  <li><a href="#basic-usage" id="markdown-toc-basic-usage">Basic Usage<\/a><\/li>$/;"	I
 markdown-toc-box-and-circle	docs/_site/documentation.html	/^      <li><a href="#box-and-circle" id="markdown-toc-box-and-circle">Box and Circle<\/a><\/li>$/;"	I
 markdown-toc-draw-paths-between-nodes-experimental	docs/_site/documentation.html	/^  <li><a href="#draw-paths-between-nodes-experimental" id="markdown-toc-draw-paths-between-nodes/;"	I
@@ -393,10 +390,27 @@ markdown-toc-fonts-used-to-generate-png	docs/_site/documentation.html	/^  <li><a
 markdown-toc-horizontal-line	docs/_site/documentation.html	/^      <li><a href="#horizontal-line" id="markdown-toc-horizontal-line">Horizontal Line<\/a><\/li/;"	I
 markdown-toc-install-fonts-for-svg	docs/_site/documentation.html	/^  <li><a href="#install-fonts-for-svg" id="markdown-toc-install-fonts-for-svg">Install Fonts for/;"	I
 markdown-toc-newline	docs/_site/documentation.html	/^      <li><a href="#newline" id="markdown-toc-newline">Newline<\/a><\/li>$/;"	I
+markdown-toc-png形式を用いる場合	docs/_site/documentation_ja.html	/^  <li><a href="#png形式を用いる場合" id="markdown-toc-png形式を用いる場合">PNG形/;"	I
 markdown-toc-subscript-and-superscript	docs/_site/documentation.html	/^      <li><a href="#subscript-and-superscript" id="markdown-toc-subscript-and-superscript">Subsc/;"	I
+markdown-toc-svg形式を用いる場合	docs/_site/documentation_ja.html	/^  <li><a href="#svg形式を用いる場合" id="markdown-toc-svg形式を用いる場合">SVG形/;"	I
 markdown-toc-text-decoration	docs/_site/documentation.html	/^      <li><a href="#text-decoration" id="markdown-toc-text-decoration">Text Decoration<\/a><\/li/;"	I
 markdown-toc-triangle-square-brackets-rectangle	docs/_site/documentation.html	/^  <li><a href="#triangle-square-brackets-rectangle" id="markdown-toc-triangle-square-brackets-re/;"	I
 markdown-toc-whitespace-inside-label	docs/_site/documentation.html	/^      <li><a href="#whitespace-inside-label" id="markdown-toc-whitespace-inside-label">Whitespac/;"	I
+markdown-toc-コネクター	docs/_site/documentation_ja.html	/^  <li><a href="#コネクター" id="markdown-toc-コネクター">コネクター<\/a><\/li>$/;"	I
+markdown-toc-スペースと改行	docs/_site/documentation_ja.html	/^  <li><a href="#スペースと改行" id="markdown-toc-スペースと改行">スペースと改/;"	I
+markdown-toc-テキストの描画	docs/_site/documentation_ja.html	/^  <li><a href="#テキストの描画" id="markdown-toc-テキストの描画">テキストの描/;"	I
+markdown-toc-テキスト以外の要素の描画	docs/_site/documentation_ja.html	/^  <li><a href="#テキスト以外の要素の描画" id="markdown-toc-テキスト以外の要素/;"	I
+markdown-toc-テキスト装飾	docs/_site/documentation_ja.html	/^      <li><a href="#テキスト装飾" id="markdown-toc-テキスト装飾">テキスト装飾</;"	I
+markdown-toc-ノードからノードへのパスの描画試験的機能	docs/_site/documentation_ja.html	/^  <li><a href="#ノードからノードへのパスの描画試験的機能" id="markdown-toc-ノ/;"	I
+markdown-toc-フォントスタイル	docs/_site/documentation_ja.html	/^      <li><a href="#フォントスタイル" id="markdown-toc-フォントスタイル">フォン/;"	I
+markdown-toc-ボックスとサークル	docs/_site/documentation_ja.html	/^      <li><a href="#ボックスとサークル" id="markdown-toc-ボックスとサークル">ボ/;"	I
+markdown-toc-ラベル内のスペース	docs/_site/documentation_ja.html	/^      <li><a href="#ラベル内のスペース" id="markdown-toc-ラベル内のスペース">ラ/;"	I
+markdown-toc-リーフを囲む括弧と矩形の描画	docs/_site/documentation_ja.html	/^  <li><a href="#リーフを囲む括弧と矩形の描画" id="markdown-toc-リーフを囲む括/;"	I
+markdown-toc-一部の文字を表示するためのエスケープ	docs/_site/documentation_ja.html	/^  <li><a href="#一部の文字を表示するためのエスケープ" id="markdown-toc-一部の/;"	I
+markdown-toc-上付き文字と下付き文字	docs/_site/documentation_ja.html	/^      <li><a href="#上付き文字と下付き文字" id="markdown-toc-上付き文字と下付/;"	I
+markdown-toc-基本的な使い方	docs/_site/documentation_ja.html	/^  <li><a href="#基本的な使い方" id="markdown-toc-基本的な使い方">基本的な使い/;"	I
+markdown-toc-改行	docs/_site/documentation_ja.html	/^      <li><a href="#改行" id="markdown-toc-改行">改行<\/a><\/li>$/;"	I
+markdown-toc-水平線	docs/_site/documentation_ja.html	/^      <li><a href="#水平線" id="markdown-toc-水平線">水平線<\/a><\/li>$/;"	I
 menu	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 nav	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 newline	docs/_site/documentation.html	/^<h4 id="newline">Newline<\/h4>$/;"	I
@@ -405,10 +419,10 @@ ns59d2ecb30101	docs/_site/feed.xml	/^<?xml version="1.0" encoding="utf-8"?><feed
 ns8fb8be310101	img/sample.svg	/^  <svg width="1211.119140625" height="941.0" viewBox="-40, -40, 1251.119140625, 981.0" version="/;"	n	uri:http://www.w3.org/2000/svg
 optgroup	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textarea { color: inherit; \/* 1 *\/ font: inherit; \/* 2 *\/ m/;"	s
 optgroup	docs/_site/assets/css/style.css	/^optgroup { font-weight: bold; }$/;"	s
-parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	class:Markup
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree.BaseGraph
+png形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="png形式を用いる場合">PNG形式を用いる場合<\/h3>$/;"	I
 pos	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 pos=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 pre	docs/_site/assets/css/style.css	/^code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em; }$/;"	s
@@ -428,11 +442,13 @@ setup	test/markup_parser_test.rb	/^  def setup$/;"	f	class:MarkupParserTest
 skip-to-content	docs/_layouts/default.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
 skip-to-content	docs/_site/404.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
 skip-to-content	docs/_site/documentation.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
+skip-to-content	docs/_site/documentation_ja.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
 skip-to-content	docs/_site/examples.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
 small	docs/_site/assets/css/style.css	/^small { font-size: 80%; }$/;"	s
 social-media	docs/_includes/social_media_links.html	/^<div id="social-media" style='color: black;'>$/;"	I
 social-media	docs/_site/404.html	/^<div id="social-media" style='color: black;'>$/;"	I
 social-media	docs/_site/documentation.html	/^<div id="social-media" style='color: black;'>$/;"	I
+social-media	docs/_site/documentation_ja.html	/^<div id="social-media" style='color: black;'>$/;"	I
 social-media	docs/_site/examples.html	/^<div id="social-media" style='color: black;'>$/;"	I
 split_by_emoji	lib/rsyntaxtree/utils.rb	/^  def split_by_emoji$/;"	f	class:String
 strong	docs/_site/assets/css/style.css	/^b, strong { font-weight: bold; }$/;"	s
@@ -444,46 +460,31 @@ sup	docs/_site/assets/css/style.css	/^sub, sup { font-size: 75%; line-height: 0;
 sup	docs/_site/assets/css/style.css	/^sup { top: -0.5em; }$/;"	s
 svg:not(:root)	docs/_site/assets/css/style.css	/^svg:not(:root) { overflow: hidden; }$/;"	s
 svg_data	lib/rsyntaxtree/svg_graph.rb	/^    def svg_data$/;"	f	class:RSyntaxTree.SVGGraph
+svg形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="svg形式を用いる場合">SVG形式を用いる場合<\/h3>$/;"	I
 table	docs/_site/assets/css/style.css	/^table { border-collapse: collapse; border-spacing: 0; }$/;"	s
 table-of-contents	docs/_site/documentation.html	/^<h3 class="no_toc" id="table-of-contents">Table of Contents<\/h3>$/;"	I
 td	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 template	docs/_site/assets/css/style.css	/^[hidden], template { display: none; }$/;"	s
-test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f	class:MarkupParserTest
-test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f	class:MarkupParserTest
-test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f
 test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f	class:MarkupParserTest
-test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f
 test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f	class:MarkupParserTest
-test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f
 test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f	class:MarkupParserTest
 test_rule_brackets	test/markup_parser_test.rb	/^  def test_rule_brackets$/;"	f	class:MarkupParserTest
 test_rule_cr	test/markup_parser_test.rb	/^  def test_rule_cr$/;"	f	class:MarkupParserTest
 test_rule_escaped	test/markup_parser_test.rb	/^  def test_rule_escaped$/;"	f	class:MarkupParserTest
-test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f
 test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f	class:MarkupParserTest
-test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f
 test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f	class:MarkupParserTest
-test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f
 test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f	class:MarkupParserTest
-test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f
 test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f	class:MarkupParserTest
-test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f
 test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f	class:MarkupParserTest
-test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f
 test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f	class:MarkupParserTest
-test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f
 test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f	class:MarkupParserTest
 test_rule_path	test/markup_parser_test.rb	/^  def test_rule_path$/;"	f	class:MarkupParserTest
-test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f
 test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f	class:MarkupParserTest
-test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f
 test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f	class:MarkupParserTest
-test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f
 test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f	class:MarkupParserTest
 test_rule_triangle	test/markup_parser_test.rb	/^  def test_rule_triangle$/;"	f	class:MarkupParserTest
-test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f	class:MarkupParserTest
 text-001	docs/_site/examples.html	/^    <div id="text-001" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>$/;"	I
 text-002	docs/_site/examples.html	/^    <div id="text-002" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>$/;"	I
@@ -511,7 +512,6 @@ textarea	docs/_site/assets/css/style.css	/^textarea { overflow: auto; }$/;"	s
 th	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 triangle-square-brackets-rectangle	docs/_site/documentation.html	/^<h3 id="triangle-square-brackets-rectangle">Triangle, Square Brackets, Rectangle<\/h3>$/;"	I
 triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-valid	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	F	class:RSyntaxTree.StringParser
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 video	docs/_site/assets/css/style.css	/^audio, canvas, progress, video { display: inline-block; \/* 1 *\/ vertical-align: baseline; \/* /;"	s
 whitespace-inside-label	docs/_site/documentation.html	/^<h4 id="whitespace-inside-label">Whitespace inside Label<\/h4>$/;"	I
@@ -520,3 +520,47 @@ width=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	cl
 {{ category.name }}	docs/examples.html	/^<h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}<\/b><\/h2>$/;"	i
 {{ page.description | default: site.description | default: site.github.project_tagline }}	docs/_layouts/default.html	/^      <h2 class="project-tagline">{{ page.description | default: site.description | default: sit/;"	i
 {{ page.title | default: site.title | default: site.github.repository_name }}	docs/_layouts/default.html	/^      <\/h1>$/;"	h
+コネクター	docs/_site/documentation_ja.html	/^<h3 id="コネクター">コネクター<\/h3>$/;"	I
+コネクター	docs/_site/documentation_ja.html	/^<h3 id="コネクター">コネクター<\/h3>$/;"	j
+コネクター	docs/documentation_ja.md	/^### コネクター$/;"	S	chapter:ドキュメンテーション
+スペースと改行	docs/_site/documentation_ja.html	/^<h3 id="スペースと改行">スペースと改行<\/h3>$/;"	I
+スペースと改行	docs/_site/documentation_ja.html	/^<h3 id="スペースと改行">スペースと改行<\/h3>$/;"	j
+スペースと改行	docs/documentation_ja.md	/^### スペースと改行$/;"	S	chapter:ドキュメンテーション
+テキストの描画	docs/_site/documentation_ja.html	/^<h3 id="テキストの描画">テキストの描画<\/h3>$/;"	I
+テキストの描画	docs/_site/documentation_ja.html	/^<h3 id="テキストの描画">テキストの描画<\/h3>$/;"	j
+テキストの描画	docs/documentation_ja.md	/^### テキストの描画$/;"	S	chapter:ドキュメンテーション
+テキスト以外の要素の描画	docs/_site/documentation_ja.html	/^<h3 id="テキスト以外の要素の描画">テキスト以外の要素の描画<\/h3>$/;"	I
+テキスト以外の要素の描画	docs/_site/documentation_ja.html	/^<h3 id="テキスト以外の要素の描画">テキスト以外の要素の描画<\/h3>$/;"	j
+テキスト以外の要素の描画	docs/documentation_ja.md	/^### テキスト以外の要素の描画$/;"	S	chapter:ドキュメンテーション
+テキスト装飾	docs/_site/documentation_ja.html	/^<h4 id="テキスト装飾">テキスト装飾<\/h4>$/;"	I
+テキスト装飾	docs/documentation_ja.md	/^#### テキスト装飾$/;"	t	subsection:ドキュメンテーション""テキストの描画
+ドキュメンテーション	docs/_site/documentation_ja.html	/^      <h1 class="no_toc" id="ドキュメンテーション">ドキュメンテーション<\/h1/;"	I
+ドキュメンテーション	docs/_site/documentation_ja.html	/^      <h1 class="no_toc" id="ドキュメンテーション">ドキュメンテーション<\/h1/;"	h
+ドキュメンテーション	docs/documentation_ja.md	/^# ドキュメンテーション$/;"	c
+ノードからノードへのパスの描画試験的機能	docs/_site/documentation_ja.html	/^<h3 id="ノードからノードへのパスの描画試験的機能">ノードからノードへ/;"	I
+ノードからノードへのパスの描画（試験的機能）	docs/_site/documentation_ja.html	/^<h3 id="ノードからノードへのパスの描画試験的機能">ノードからノードへ/;"	j
+ノードからノードへのパスの描画（試験的機能）	docs/documentation_ja.md	/^### ノードからノードへのパスの描画（試験的機能）$/;"	S	chapter:ドキュメンテーション
+フォントスタイル	docs/_site/documentation_ja.html	/^<h4 id="フォントスタイル">フォント・スタイル<\/h4>$/;"	I
+フォント・スタイル	docs/documentation_ja.md	/^#### フォント・スタイル$/;"	t	subsection:ドキュメンテーション""テキストの描画
+ボックスとサークル	docs/_site/documentation_ja.html	/^<h4 id="ボックスとサークル">ボックスとサークル<\/h4>$/;"	I
+ボックスとサークル	docs/documentation_ja.md	/^#### ボックスとサークル$/;"	t	subsection:ドキュメンテーション""テキスト以外の要素の描画
+ラベル内のスペース	docs/_site/documentation_ja.html	/^<h4 id="ラベル内のスペース">ラベル内のスペース<\/h4>$/;"	I
+ラベル内のスペース	docs/documentation_ja.md	/^#### ラベル内のスペース$/;"	t	subsection:ドキュメンテーション""スペースと改行
+リーフを囲む括弧と矩形の描画	docs/_site/documentation_ja.html	/^<h3 id="リーフを囲む括弧と矩形の描画">リーフを囲む括弧と矩形の描画<\//;"	I
+リーフを囲む括弧と矩形の描画	docs/_site/documentation_ja.html	/^<h3 id="リーフを囲む括弧と矩形の描画">リーフを囲む括弧と矩形の描画<\//;"	j
+リーフを囲む括弧と矩形の描画	docs/documentation_ja.md	/^### リーフを囲む括弧と矩形の描画$/;"	S	chapter:ドキュメンテーション
+一部の文字を表示するためのエスケープ	docs/_site/documentation_ja.html	/^<h3 id="一部の文字を表示するためのエスケープ">一部の文字を表示するた/;"	I
+一部の文字を表示するためのエスケープ	docs/_site/documentation_ja.html	/^<h3 id="一部の文字を表示するためのエスケープ">一部の文字を表示するた/;"	j
+一部の文字を表示するためのエスケープ	docs/documentation_ja.md	/^### 一部の文字を表示するためのエスケープ$/;"	S	chapter:ドキュメンテーション
+上付き文字と下付き文字	docs/_site/documentation_ja.html	/^<h4 id="上付き文字と下付き文字">上付き文字と下付き文字<\/h4>$/;"	I
+上付き文字と下付き文字	docs/documentation_ja.md	/^#### 上付き文字と下付き文字$/;"	t	subsection:ドキュメンテーション""テキストの描画
+基本的な使い方	docs/_site/documentation_ja.html	/^<h3 id="基本的な使い方">基本的な使い方<\/h3>$/;"	I
+基本的な使い方	docs/_site/documentation_ja.html	/^<h3 id="基本的な使い方">基本的な使い方<\/h3>$/;"	j
+基本的な使い方	docs/documentation_ja.md	/^### 基本的な使い方$/;"	S	chapter:ドキュメンテーション
+改行	docs/_site/documentation_ja.html	/^<h4 id="改行">改行<\/h4>$/;"	I
+改行	docs/documentation_ja.md	/^#### 改行$/;"	t	subsection:ドキュメンテーション""スペースと改行
+水平線	docs/_site/documentation_ja.html	/^<h4 id="水平線">水平線<\/h4>$/;"	I
+水平線	docs/documentation_ja.md	/^#### 水平線$/;"	t	subsection:ドキュメンテーション""テキスト以外の要素の描画
+目次	docs/_site/documentation_ja.html	/^<h3 class="no_toc" id="目次">目次<\/h3>$/;"	I
+目次	docs/_site/documentation_ja.html	/^<h3 class="no_toc" id="目次">目次<\/h3>$/;"	j
+目次	docs/documentation_ja.md	/^### 目次$/;"	S	chapter:ドキュメンテーション

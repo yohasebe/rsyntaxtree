@@ -44,7 +44,7 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 - [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans): ラテン文字と基本的なUnicode文字（サンセリフ）の表示
 - [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP): 日本語のひらがな／カタカナ／漢字（サンセリフ）の表示
 - [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif): ラテン文字と基本的なUnicode文字（セリフ） の表示
-- [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP) 日本語のひらがな／カタカナ／漢字（セリフ）の表示
+- [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP):日本語のひらがな／カタカナ／漢字（セリフ）の表示
 - [WQY Zen Hei](https://packages.ubuntu.com/bionic/fonts/fonts-wqy-zenhei): 中国語／日本語／コリア語（CJK）の文字の表示
 - [OpenMoji](https://openmoji.org/): 様々な絵文字の表示
 
