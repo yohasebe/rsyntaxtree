@@ -168,7 +168,7 @@ module Markup
   def parse(txt)
     begin
       parsed = @parser.parse(txt)
-    rescue Parslet::ParseFailed => e
+    rescue Parslet::ParseFailed
       # puts e.parse_failure_cause.ascii_tree
       return {:status => :error, :text => txt}
     end
