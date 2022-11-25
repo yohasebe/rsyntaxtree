@@ -187,6 +187,8 @@ module RSyntaxTree
         elsif(@leafstyle == "nothing")
           if child.triangle
             triangle_to_parent(parent, child)
+          elsif ETYPE_LEAF != child.type
+            line_to_parent(parent, child)
           elsif ETYPE_LEAF == child.type
             child.vertical_indent = parent.vertical_indent + parent.content_height + $height_connector / 2
           end
