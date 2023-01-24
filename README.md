@@ -72,7 +72,8 @@ For the command-line interface, type `$rsyntaxtree -h` after installation. Here'
 RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
 Usage:
-       rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
+       1) rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
+       2) rsyntaxtree [options] "/path/to/text/file"
 where [options] are:
   -o, --outdir=<s>         Output directory (default: ./)
   -f, --format=<s>         Output format: png, gif, jpg, pdf, or svg (default: png)
@@ -87,7 +88,7 @@ where [options] are:
   -r, --transparent=<s>    Make background transparent: on or off (default: off)
   -p, --polyline=<s>       draw polyline connectors: on or off (default: off)
   -e, --version            Print version and exit
-  -h, --help               Show this message```
+  -h, --help               Show this message
 ```
 
 See the [documentation](https://yohasebe.github.io/rsyntaxtree/documentation) for more detailed info about the syntax.

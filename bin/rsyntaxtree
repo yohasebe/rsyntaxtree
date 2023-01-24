@@ -11,7 +11,8 @@ opts = Optimist.options do
     RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
     Usage:
-           rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
+           1) rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
+           2) rsyntaxtree [options] "/path/to/text/file"
     where [options] are:
   BANNER
 
