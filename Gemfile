@@ -1,6 +1,11 @@
-source "http://rubygems.org"
+# frozen_string_literal: true
 
-gem 'rmagick'
-gem 'optimist'
-gem 'parslet'
-gem 'rsvg2'
+# source "https://rubygems.org"
+
+# Specify your gem's dependencies in ruby-spacy.gemspec
+gemspec
+
+gem "optimist"
+gem "parslet"
+gem "rmagick"
+gem "rsvg2"

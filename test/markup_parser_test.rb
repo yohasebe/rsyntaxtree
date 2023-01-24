@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/rsyntaxtree/markup_parser.rb"
+require_relative "../lib/rsyntaxtree/markup_parser"
 
 class MarkupParserTest < Minitest::Test
   def setup
@@ -203,5 +205,4 @@ class MarkupParserTest < Minitest::Test
     Markup.parse text2
     # {:status=>:error, :text=>"!^#----\\n\\nX_Y_Z+1+>2"}
   end
-
 end

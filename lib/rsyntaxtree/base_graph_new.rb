@@ -7,12 +7,11 @@
 # Image utility functions to inspect text font metrics
 # Copyright (c) 2007-2023 Yoichiro Hasebe <yohasebe@gmail.com>
 
-require_relative 'utils'
+require_relative "utils"
 
 module RSyntaxTree
   class BaseGraph
     def initialize(element_list, params, global)
-      @global = global
       @element_list = element_list
       @symmetrize = params[:symmetrize]
 
@@ -33,6 +32,7 @@ module RSyntaxTree
       @leafstyle = params[:leafstyle]
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
+      @global = global
     end
 
     def calculate_level
@@ -52,7 +52,6 @@ module RSyntaxTree
           target.width = w + @global[:h_gap_between_nodes] * 4 if w > target.content_width
           parent = @element_list.get_id(parent.parent)
         end
-        target.width
       else
         return target.width if target.width != 0
 
@@ -68,6 +67,7 @@ module RSyntaxTree
 
         target.width = [accum_width, target.content_width].max
       end
+      target.width
     end
 
     def calculate_height(id = 1)
@@ -77,10 +77,7 @@ module RSyntaxTree
       else
         parent = @element_list.get_id(target.parent)
 
-        vertical_indent = if !target.triangle &&
-                             @leafstyle == "nothing" &&
-                             ETYPE_LEAF == target.type &&
-                             parent.children.size == 1
+        vertical_indent = if !target.triangle && @leafstyle == "nothing" && ETYPE_LEAF == target.type && parent.children.size == 1
                             parent.vertical_indent + parent.content_height
                           else
                             parent.vertical_indent + parent.content_height + @global[:height_connector]
@@ -91,15 +88,16 @@ module RSyntaxTree
 
       if target.children.empty?
         target.height = target.content_height
-        target.vertical_indent + target.content_height
+        vertical_end = target.vertical_indent + target.content_height
       else
         accum_array = []
         target.children.each do |c|
           accum_array << calculate_height(c)
         end
         target.height = accum_array.max - target.vertical_indent
-        accum_array.max
+        vertical_end = accum_array.max
       end
+      vertical_end
     end
 
     def make_balance(id = 1)
@@ -239,7 +237,6 @@ module RSyntaxTree
       end
 
       offset_l = (top.horizontal_indent - get_leftmost) + @global[:h_gap_between_nodes]
-      # offset_r = top.width / 2 - offset_l - @global[:h_gap_between_nodes:
 
       @element_list.get_elements.each do |e|
         e.horizontal_indent += offset_l
@@ -248,8 +245,8 @@ module RSyntaxTree
       calculate_height
       draw_elements
       draw_connector
-      draw_paths
 
+      # width = get_rightmost - get_leftmost + @global[:h_gap_between_nodes] * 2
       width = get_rightmost - get_leftmost + @global[:h_gap_between_nodes]
       height = @element_list.get_id(1).height
       height = @height if @height > height

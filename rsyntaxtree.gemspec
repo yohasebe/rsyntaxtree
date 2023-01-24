@@ -1,7 +1,6 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+# frozen_string_literal: true
 
-require "rsyntaxtree/version"
+require_relative "lib/rsyntaxtree/version"
 
 Gem::Specification.new do |s|
   s.name        = "rsyntaxtree"
@@ -9,16 +8,17 @@ Gem::Specification.new do |s|
   s.authors     = ["Yoichiro Hasebe"]
   s.email       = ["yohasebe@gmail.com"]
   s.homepage    = "http://github.com/yohasebe/rsyntaxtree"
-  s.summary     = %q{RSyntaxTree is a graphical syntax tree generator written in Ruby}
-  s.description = %q{Syntax tree generator made with Ruby}
+  s.summary     = "RSyntaxTree is a graphical syntax tree generator written in Ruby"
+  s.description = "Syntax tree generator made with Ruby"
   s.licenses    = ["MIT"]
+  s.required_ruby_version = Gem::Requirement.new(">= 2.6")
   s.files         = `git ls-files`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_runtime_dependency 'rmagick', '~> 4.2', '>= 4.2.3'
-  s.add_runtime_dependency 'optimist', '~> 3.0', '>= 3.0.1'
-  s.add_runtime_dependency 'parslet'
-  s.add_runtime_dependency 'rsvg2'
+  s.add_runtime_dependency "optimist", "~> 3.0", ">= 3.0.1"
+  s.add_runtime_dependency "parslet"
+  s.add_runtime_dependency "rmagick", "~> 4.2", ">= 4.2.3"
+  s.add_runtime_dependency "rsvg2"
 end

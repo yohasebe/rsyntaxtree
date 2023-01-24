@@ -1,29 +1,21 @@
-#!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# frozen_string_literal: true
 
 #==========================
 # element.rb
 #==========================
 #
 # Aa class that represents a basic tree element, either node or leaf.
-# Copyright (c) 2007-2021 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2023 Yoichiro Hasebe <yohasebe@gmail.com>
 
-require "markup_parser"
-require 'utils'
+require_relative "markup_parser"
+require_relative "utils"
 
 module RSyntaxTree
   class Element
+    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path
 
-    attr_accessor :id,
-      :parent, :type, :level,
-      :width, :height,
-      :content, :content_width, :content_height,
-      :horizontal_indent, :vertical_indent,
-      :triangle, :enclosure, :children, :parent,
-      :font, :fontsize, :contains_phrase,
-      :path
-
-    def initialize(id, parent, content, level, fontset, fontsize)
+    def initialize(id, parent, content, level, fontset, fontsize, global)
+      @global = global
       @type = ETYPE_LEAF
       @id = id                 # Unique element id
       @parent = parent         # Parent element id
@@ -36,11 +28,11 @@ module RSyntaxTree
       @vertical_indent = 0     # Drawing offset
       content = content.strip
 
-      if /.+?\^?((?:\+\>?\d+)+)\^?\z/m =~ content
-        @path = $1.sub(/\A\+/, "").split("+")
-      else
-        @path = []
-      end
+      @path = if /.+?\^?((?:\+>?\d+)+)\^?\z/m =~ content
+                $1.sub(/\A\+/, "").split("+")
+              else
+                []
+              end
 
       @fontset = fontset
       @fontsize = fontsize
@@ -66,11 +58,11 @@ module RSyntaxTree
     def setup
       total_width = 0
       total_height = 0
-      @content.each_with_index do |content, idx|
+      @content.each do |content|
         content_width = 0
         case content[:type]
         when :border, :bborder
-          height = $single_line_height / 2
+          height = @global[:single_line_height] / 2
           content[:height] = height
           total_height += height
         when :text
@@ -80,11 +72,10 @@ module RSyntaxTree
             text = e[:text]
             e[:text] = text.gsub(" ", WHITESPACE_BLOCK).gsub(">", '&#62;').gsub("<", '&#60;')
 
-
             @contains_phrase = true if text.include?(" ")
             decoration = e[:decoration]
-            fontsize = decoration.include?(:small) || decoration.include?(:small) ? @fontsize * SUBSCRIPT_CONST : @fontsize
-            fontsize = decoration.include?(:subscript) || decoration.include?(:superscript)  ? fontsize * SUBSCRIPT_CONST : fontsize
+            fontsize = decoration.include?(:small) ? @fontsize * SUBSCRIPT_CONST : @fontsize
+            fontsize = decoration.include?(:subscript) || decoration.include?(:superscript) ? fontsize * SUBSCRIPT_CONST : fontsize
             style    = decoration.include?(:italic) || decoration.include?(:bolditalic) ? :italic : :normal
             weight   = decoration.include?(:bold) || decoration.include?(:bolditalic) ? :bold : :normal
 
@@ -95,38 +86,36 @@ module RSyntaxTree
             #   font = @fontset[:cjk]
             #   e[:cjk] = true
             # elsif decoration.include? :bolditalic
-            if decoration.include? :bolditalic
-              font = @fontset[:bolditalic]
-            elsif decoration.include? :bold
-              font = @fontset[:bold]
-            elsif decoration.include? :italic
-              font = @fontset[:italic]
-            else
-              font = @fontset[:normal]
-            end
+            font = if decoration.include? :bolditalic
+                     @fontset[:bolditalic]
+                   elsif decoration.include? :bold
+                     @fontset[:bold]
+                   elsif decoration.include? :italic
+                     @fontset[:italic]
+                   else
+                     @fontset[:normal]
+                   end
 
             standard_metrics = FontMetrics.get_metrics('X', @fontset[:normal], fontsize, :normal, :normal)
             height = standard_metrics.height
-            if /\A[\<\>]+\z/ =~ text
+            if /\A[<>]+\z/ =~ text
               width = standard_metrics.width * text.size / 2
             elsif text.contains_emoji?
               segments = text.split_by_emoji
               width = 0
               segments.each do |seg|
-                if /\s/ =~ seg[:char]
-                  ch = 't'
-                else
-                  ch = seg[:char]
-                end
-                if seg[:type] == :emoji
-                  this_font = @fontset[:emoji]
-                  metrics = FontMetrics.get_metrics(ch, this_font, fontsize, style, weight)
-                  width += metrics.width
-                else
-                  this_font = font
-                  metrics = FontMetrics.get_metrics(ch, this_font, fontsize, style, weight)
-                  width += metrics.width
-                end
+                ch = if /\s/ =~ seg[:char]
+                       't'
+                     else
+                       seg[:char]
+                     end
+                this_font = if seg[:type] == :emoji
+                              @fontset[:emoji]
+                            else
+                              font
+                            end
+                metrics = FontMetrics.get_metrics(ch, this_font, fontsize, style, weight)
+                width += metrics.width
               end
             else
               text.gsub!("\\\\", 'i')
@@ -138,32 +127,31 @@ module RSyntaxTree
             end
 
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
-              if e[:text].size == 1
-                e[:content_width] = width
-                width += (height - width)
-              else
-                e[:content_width] = width
-                width += $width_half_X
-              end
+              e[:content_width] = width
+              width += if e[:text].size == 1
+                         height - width
+                       else
+                         @global[:width_half_x]
+                       end
             end
 
             if e[:decoration].include?(:whitespace)
-              width = $width_half_X / 2 * e[:text].size / 4
+              width = @global[:width_half_x] / 2 * e[:text].size / 4
               e[:text] = ""
             end
 
             e[:height] = height
-            elements_height << height + $box_vertical_margin / 2
+            elements_height << height + @global[:box_vertical_margin] / 2
 
             e[:width] = width
             row_width += width
           end
 
-          if @enclosure != :none
-            total_height += (elements_height.max + $height_connector_to_text)
-          else
-            total_height += elements_height.max
-          end
+          total_height += if @enclosure != :none
+                            elements_height.max + @global[:height_connector_to_text]
+                          else
+                            elements_height.max
+                          end
           content_width += row_width
         end
         total_width = content_width if total_width < content_width

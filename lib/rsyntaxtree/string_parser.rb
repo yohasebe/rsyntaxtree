@@ -1,5 +1,4 @@
-#!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# frozen_string_literal: true
 
 #==========================
 # string_parser.rb
@@ -7,17 +6,18 @@
 #
 # Parses a phrase into leafs and nodes and store the result in an element list
 # (see element_list.rb)
-# Copyright (c) 2007-2021 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2023 Yoichiro Hasebe <yohasebe@gmail.com>
 
-require 'elementlist'
-require 'element'
-require 'utils'
+require_relative 'elementlist'
+require_relative 'element'
+require_relative 'utils'
 
 module RSyntaxTree
   class StringParser
-
     attr_accessor :data, :elist, :pos, :id, :level
-    def initialize(str, fontset, fontsize)
+
+    def initialize(str, fontset, fontsize, global)
+      @global = global
       # Clean up the data a little to make processing easier
       # repeated newlines => a newline
       string = str.gsub(/[\n\r]+/m, "\n")
@@ -32,18 +32,16 @@ module RSyntaxTree
       string.gsub!(/\]\s+/, "]")
       string.gsub!(/<(\d*)>/) do
         num_padding = $1.to_i
-        if num_padding > 0
-          result = WHITESPACE_BLOCK * num_padding
-        else
-          result = WHITESPACE_BLOCK
-        end
+        result = if num_padding.positive?
+                   WHITESPACE_BLOCK * num_padding
+                 else
+                   WHITESPACE_BLOCK
+                 end
         result
       end
 
       @data = string # Store it for later...
-      if @data.contains_cjk?
-        fontset[:normal] = fontset[:cjk]
-      end
+      fontset[:normal] = fontset[:cjk] if @data.contains_cjk?
       @elist = ElementList.new # Initialize internal element list
       @pos = 0 # Position in the sentence
       @id = 1 # ID for the next element
@@ -53,9 +51,7 @@ module RSyntaxTree
     end
 
     def self.valid?(data)
-      if(data.length < 1)
-        raise RSTError, "Error: input text is empty"
-      end
+      raise RSTError, "Error: input text is empty" if data.empty?
 
       if /\[\s*\]/m =~ data
         raise RSTError, "Error: inside the brackets is empty"
@@ -63,15 +59,16 @@ module RSyntaxTree
 
       text = data.strip
       text_r = text.split(//)
-      open_br, close_br = [], []
+      open_br = []
+      close_br = []
       escape = false
       text_r.each do |chr|
         if chr == "\\"
-          if escape
-            escape = false
-          else
-            escape = true
-          end
+          escape = if escape
+                     false
+                   else
+                     true
+                   end
           next
         end
 
@@ -82,9 +79,7 @@ module RSyntaxTree
           open_br.push(chr)
         elsif chr == ']'
           close_br.push(chr)
-          if open_br.length < close_br.length
-            break
-          end
+          break if open_br.length < close_br.length
         end
         escape = false
       end
@@ -92,7 +87,7 @@ module RSyntaxTree
       if open_br.empty? && close_br.empty?
         raise RSTError, "Error: input text does not contain paired brackets"
       elsif open_br.length == close_br.length
-        return true
+        true
       else
         raise RSTError, "Error: open and close brackets do not match"
       end
@@ -113,33 +108,27 @@ module RSyntaxTree
       token = ""
       i = 0
 
-      if((@pos + 1) >= data.length)
-        return ""
-      end
+      return "" if (@pos + 1) >= data.length
 
       escape = false
-      while(((@pos + i) < data.length) && !gottoken)
+      while ((@pos + i) < data.length) && !gottoken
         ch = data[@pos + i];
         case ch
         when "["
           if escape
             token += ch
             escape = false
+          elsif i.positive?
+            gottoken = true
           else
-            if(i > 0)
-              gottoken = true
-            else
-              token += ch
-            end
+            token += ch
           end
         when "]"
           if escape
             token += ch
             escape = false
           else
-            if(i == 0 )
-              token += ch
-            end
+            token += ch if i.zero?
             gottoken = true
           end
         when "\\"
@@ -156,7 +145,7 @@ module RSyntaxTree
           else
             token += ch
           end
-        when /[n{}<>^+*_=~\|\-]/
+        when /[n{}<>^+*_=~|-]/
           if escape
             token += '\\' + ch
             escape = false
@@ -174,64 +163,59 @@ module RSyntaxTree
         i += 1
       end
 
-      if(i > 1)
-        @pos += (i - 1)
-      else
-        @pos += 1
-      end
-      return token
+      @pos += if i > 1
+                i - 1
+              else
+                1
+              end
+      token
     end
 
     def make_tree(parent)
       token = get_next_token.strip
-      parts = Array.new
+      parts = []
 
-      while(token != "" && token != "]" )
+      while token != "" && token != "]"
         token_r = token.split(//)
         case token_r[0]
         when "["
           tl = token_r.length
           token_r = token_r[1, tl - 1]
           spaceat = token_r.index(" ")
-          newparent  = -1
+          newparent = -1
 
           if spaceat
             parts[0] = token_r[0, spaceat].join
 
-            tl =token_r.length
+            tl = token_r.length
             parts[1] = token_r[spaceat, tl - spaceat].join
 
-            element = Element.new(@id, parent, parts[0], @level, @fontset, @fontsize)
+            element = Element.new(@id, parent, parts[0], @level, @fontset, @fontsize, @global)
             @id += 1
             @elist.add(element)
             newparent = element.id
 
-            element = Element.new(@id, @id - 1, parts[1], @level + 1, @fontset, @fontsize)
+            element = Element.new(@id, @id - 1, parts[1], @level + 1, @fontset, @fontsize, @global)
             @id += 1
-            @elist.add(element)
           else
             joined = token_r.join
-            element = Element.new(@id, parent, joined, @level, @fontset,  @fontsize)
+            element = Element.new(@id, parent, joined, @level, @fontset, @fontsize, @global)
             @id += 1
             newparent = element.id
-            @elist.add(element)
           end
-
+          @elist.add(element)
           @level += 1
           make_tree(newparent)
-
         else
           if token.strip != ""
-            element = Element.new(@id, parent, token, @level, @fontset, @fontsize)
+            element = Element.new(@id, parent, token, @level, @fontset, @fontsize, @global)
             @id += 1
             @elist.add(element)
           end
         end
-
         token = get_next_token
       end
       @level -= 1
     end
   end
 end
-

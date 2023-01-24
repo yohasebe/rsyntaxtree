@@ -1,66 +1,57 @@
 #!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# frozen_string_literal: true
 
-$LOAD_PATH << File.join( File.dirname(__FILE__), '../lib')
-
-require 'rsyntaxtree'
+require_relative '../lib/rsyntaxtree'
+require_relative '../lib/rsyntaxtree/utils'
 require 'optimist'
-require 'utils'
 
-opts = Optimist::options do
-  version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2021 Yoichiro Hasebe"
-  banner <<-EOS
-RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
+opts = Optimist.options do
+  version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2023 Yoichiro Hasebe"
+  banner <<~BANNER
+    RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
-Usage:
-       rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
-where [options] are:
-EOS
+    Usage:
+           rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
+    where [options] are:
+  BANNER
 
-  opt :outdir, "Output directory",
-      :default => "./"
-  opt :format, "Output format: png, gif, jpg, pdf, or svg",
-      :default => "png"
-  opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing",
-      :default => "auto"
-  opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk",
-      :default => "sans"
-  opt :font, "Path to a ttf font used to generate tree (optional)", :type => String
-  opt :fontsize, "Size: 8-26",
-      :default => 16
-  opt :margin, "Margin: 0-10",
-      :default => 1
-  opt :vheight, "Connector Height: 0.5-5.0",
-    :default => 2.0
-  opt :color, "Color text and bars: on or off",
-      :default => "on"
-  opt :symmetrize, "Generate radically symmetrical, balanced tree: on or off",
-      :default => "off"
-  opt :transparent, "Make background transparent: on or off",
-      :default => "off"
-  opt :polyline, "draw polyline connectors: on or off",
-      :default => "off"
+  opt :outdir, "Output directory", default: "./"
+  opt :format, "Output format: png, gif, jpg, pdf, or svg", default: "png"
+  opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto"
+  opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk", default: "sans"
+  opt :font, "Path to a ttf font used to generate tree (optional)", type: String
+  opt :fontsize, "Size: 8-26", default: 16
+  opt :margin, "Margin: 0-10", default: 1
+  opt :vheight, "Connector Height: 0.5-5.0", default: 2.0
+  opt :color, "Color text and bars: on or off", default: "on"
+  opt :symmetrize, "Generate radically symmetrical, balanced tree: on or off", default: "off"
+  opt :transparent, "Make background transparent: on or off", default: "off"
+  opt :polyline, "draw polyline connectors: on or off", default: "off"
 end
 
-Optimist::die :outdir, "must be an exsting directory path" unless FileTest::directory?(opts[:outdir])
-Optimist::die :format, "must be png, jpg, gif, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
-Optimist::die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
-Optimist::die :fontstyle, "must be sans, serif, cjk" unless /\A(sans|serif|cjk)\z/ =~ opts[:fontstyle]
-Optimist::die :font, "must be path to an existing ttf font" if opts[:font] && !File::exists?(opts[:font])
-Optimist::die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
-Optimist::die :color, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:color]
-Optimist::die :symmetrize, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:symmetrize]
-Optimist::die :margin, "must be in the range of 0-10" if opts[:margin] < 0 || opts[:margin] > 10
-Optimist::die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0
-Optimist::die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]
-Optimist::die :polyline, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:polyline]
+Optimist.die :outdir, "must be an exsting directory path" unless FileTest.directory?(opts[:outdir])
+Optimist.die :format, "must be png, jpg, gif, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
+Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
+Optimist.die :fontstyle, "must be sans, serif, cjk" unless /\A(sans|serif|cjk)\z/ =~ opts[:fontstyle]
+Optimist.die :font, "must be path to an existing ttf font" if opts[:font] && !File.exist?(opts[:font])
+Optimist.die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
+Optimist.die :color, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:color]
+Optimist.die :symmetrize, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:symmetrize]
+Optimist.die :margin, "must be in the range of 0-10" if opts[:margin].negative? || opts[:margin] > 10
+Optimist.die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0
+Optimist.die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]
+Optimist.die :polyline, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:polyline]
 
 string_opts = {}
 opts.each do |key, value|
   string_opts[key.to_sym] = value unless key == :font && !value
 end
 
-data = ARGV[0]
+data = if File.exist?(File.expand_path(ARGV[0]))
+         File.read ARGV[0]
+       else
+         ARGV[0]
+       end
 
 begin
   RSyntaxTree::RSGenerator.check_data(data)
@@ -89,7 +80,7 @@ begin
 rescue RSTError => e
   puts e
   exit
-rescue => e
+rescue StandardError => e
   p e
   puts "Error: something unexpected occurred"
   exit

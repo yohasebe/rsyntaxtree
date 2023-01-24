@@ -1,63 +1,56 @@
-#!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# frozen_string_literal: true
 
 #==========================
 # elementlist.rb
 #==========================
 #
 # Contains a list of unordered tree elements with a defined parent
-# Copyright (c) 2007-2021 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2023 Yoichiro Hasebe <yohasebe@gmail.com>
 
-require 'element'
+require_relative "element"
 
 module RSyntaxTree
   class ElementList
+    attr_accessor :elements, :iterator
 
-    attr_accessor :elements, :iterator 
     def initialize
-      @elements = Array.new # The element array
+      @elements = []
       @iterator = -1 # Iterator index (used for get_first / get_next)
     end
 
     def set_hierarchy
       @elements.each do |e|
-        get_id(e.parent).add_child(e.id) unless e.parent == 0
+        get_id(e.parent).add_child(e.id) unless e.parent.zero?
       end
     end
 
     def add(element)
       @elements << element
-      if(element.parent != 0)
-        parent = get_id(element.parent)
-        parent.type = ETYPE_NODE
-      end
+      return if element.parent.zero?
+
+      parent = get_id(element.parent)
+      parent.type = ETYPE_NODE
     end
 
     def get_first
-      if(@elements.length == 0)
-        return nil
-      else
-        @iterator = 0
-        return @elements[@iterator]
-      end
+      return nil if @elements.length.empty?
+
+      @iterator = 0
+      @elements[@iterator]
     end
 
     def get_next
       @iterator += 1
-      if @elements[@iterator]
-        return @elements[@iterator]
-      else
-        return nil
-      end
+      return @elements[@iterator] if @elements[@iterator]
+
+      nil
     end
 
     def get_id(id)
       @elements.each do |element|
-        if(element.id == id)
-          return element 
-        end
-      end  
-      return nil;
+        return element if element.id == id
+      end
+      nil
     end
 
     def get_elements
@@ -69,56 +62,44 @@ module RSyntaxTree
     end
 
     def get_children(id)
-      children = Array.new
+      children = []
       @elements.each do |element|
-        if(element.parent == id)
-          children << element.id
-        end
+        children << element.id if element.parent == id
       end
       children
     end
 
     def get_element_width(id)
       element = get_id(id)
-      if element
-        return element.width
-      else
-        return -1;
-      end
+      return element.width if element
+
+      -1;
     end
 
     def set_element_width(id, width)
       element = get_id(id)
-      if element
-        element.width = width
-      end
+      element.width = width if element
     end
 
     def get_indent(id)
       element = get_id(id)
-      if element
-        return element.indent
-      else
-        return -1
-      end  
+      return element.indent if element
+
+      -1
     end
 
     def set_indent(id, indent)
       element = get_id(id)
-      if element
-        element.indent = indent
-      end
+      element.indent = indent if element
     end
 
     def get_level_height
       maxlevel = 0
       @elements.each do |element|
         level = element.level
-        if(level > maxlevel)
-          maxlevel = level
-        end
+        maxlevel = level if level > maxlevel
       end
-      return maxlevel + 1;
+      maxlevel + 1
     end
   end
 end

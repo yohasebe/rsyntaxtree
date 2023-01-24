@@ -1,5 +1,4 @@
-#!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# frozen_string_literal: true
 
 #==========================
 # rsyntaxtree.rb
@@ -7,11 +6,9 @@
 #
 # Facade of rsyntaxtree library.  When loaded by a driver script, it does all
 # the necessary 'require' to use the library.
-# Copyright (c) 2007-2021 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2023 Yoichiro Hasebe <yohasebe@gmail.com>
 
-$LOAD_PATH << File.join( File.dirname(__FILE__), 'rsyntaxtree')
-
-FONT_DIR = File.expand_path(File.dirname(__FILE__) + "/../fonts")
+FONT_DIR = File.expand_path(File.join(__dir__, "/../fonts"))
 ETYPE_NODE = 1
 ETYPE_LEAF = 2
 SUBSCRIPT_CONST = 0.7
@@ -19,26 +16,25 @@ FONT_SCALING = 2
 WHITESPACE_BLOCK = "￭"
 
 class RSTError < StandardError
-  def initialize(msg="Error: something unexpected occurred")
+  def initialize(msg = "Error: something unexpected occurred")
     msg.gsub!(WHITESPACE_BLOCK, "<>")
     super msg
   end
 end
 
+require_relative 'rsyntaxtree/utils'
+require_relative 'rsyntaxtree/element'
+require_relative 'rsyntaxtree/elementlist'
+require_relative 'rsyntaxtree/svg_graph'
+require_relative 'rsyntaxtree/version'
+require_relative 'rsyntaxtree/string_parser'
+
 require 'cgi'
 require 'rsvg2'
-require 'utils'
-require 'element'
-require 'elementlist'
-require 'string_parser'
-require 'svg_graph'
-require 'version'
 require 'rmagick'
 
 module RSyntaxTree
-
   class RSGenerator
-
     def initialize(params = {})
       new_params = {}
       fontset = {}
@@ -47,14 +43,14 @@ module RSyntaxTree
         case key
         when :data
           data = value
-          data  = data.gsub('-AMP-', '&')
-            .gsub('-PERCENT-', "%")
-            .gsub('-PRIME-', "'")
-            .gsub('-SCOLON-', ';')
-            .gsub('-OABRACKET-', '<')
-            .gsub('-CABRACKET-', '>')
-            .gsub('¥¥', '\¥')
-            .gsub(/(?<!\\)¥/, "\\")
+          data = data.gsub('-AMP-', '&')
+                     .gsub('-PERCENT-', "%")
+                     .gsub('-PRIME-', "'")
+                     .gsub('-SCOLON-', ';')
+                     .gsub('-OABRACKET-', '<')
+                     .gsub('-CABRACKET-', '>')
+                     .gsub('¥¥', '\¥')
+                     .gsub(/(?<!\\)¥/, "\\")
           new_params[key] = data
 
         when :symmetrize, :color, :transparent, :polyline
@@ -66,7 +62,8 @@ module RSyntaxTree
         when :vheight
           new_params[key] = value.to_f
         when :fontstyle
-          if value == "noto-sans" || value == "sans"
+          case value
+          when "noto-sans", "sans"
             fontset[:normal] = FONT_DIR + "/NotoSans-Regular.ttf"
             fontset[:italic] = FONT_DIR + "/NotoSans-Italic.ttf"
             fontset[:bold] = FONT_DIR + "/NotoSans-Bold.ttf"
@@ -75,7 +72,7 @@ module RSyntaxTree
             fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
             fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
             new_params[:fontstyle] = "sans"
-          elsif value == "noto-serif" || value == "serif"
+          when "noto-serif", value == "serif"
             fontset[:normal] = FONT_DIR + "/NotoSerif-Regular.ttf"
             fontset[:italic] = FONT_DIR + "/NotoSerif-Italic.ttf"
             fontset[:bold] = FONT_DIR + "/NotoSerif-Bold.ttf"
@@ -84,7 +81,7 @@ module RSyntaxTree
             fontset[:cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
             fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
             new_params[:fontstyle] = "serif"
-          elsif value == "cjk zenhei" || value == "cjk"
+          when "cjk zenhei", "cjk"
             fontset[:normal] = FONT_DIR + "/wqy-zenhei.ttf"
             fontset[:italic] = FONT_DIR + "/NotoSans-Italic.ttf"
             fontset[:bold] = FONT_DIR + "/NotoSans-Bold.ttf"
@@ -101,17 +98,17 @@ module RSyntaxTree
 
       # defaults to the following
       @params = {
-        :symmetrize  => true,
-        :color       => true,
-        :transparent => false,
-        :fontsize    => 16,
-        :format      => "png",
-        :leafstyle   => "auto",
-        :filename    => "syntree",
-        :data        => "",
-        :margin      => 0,
-        :vheight     =>  1.0,
-        :polyline    => false,
+        symmetrize: true,
+        color: true,
+        transparent: false,
+        fontsize: 16,
+        format: "png",
+        leafstyle: "auto",
+        filename: "syntree",
+        data: "",
+        margin: 0,
+        vheight: 1.0,
+        polyline: false
       }
 
       @params.merge! new_params
@@ -119,19 +116,20 @@ module RSyntaxTree
       @params[:margin]    = @params[:margin] * FONT_SCALING
       @params[:fontset] = fontset
 
-      $single_X_metrics = FontMetrics.get_metrics("X", fontset[:normal], @params[:fontsize], :normal, :normal)
-      $height_connector_to_text = $single_X_metrics.height / 2.0
-      $single_line_height = $single_X_metrics.height * 2.0
-      $width_half_X = $single_X_metrics.width / 2.0
-      $height_connector = $single_X_metrics.height * 1.0 * @params[:vheight]
-      $h_gap_between_nodes = $single_X_metrics.width * 0.8
-      $box_vertical_margin = $single_X_metrics.height * 0.8
+      single_x_metrics = FontMetrics.get_metrics("X", fontset[:normal], @params[:fontsize], :normal, :normal)
+      @global = {}
+      @global[:single_x_metrics] = single_x_metrics
+      @global[:height_connector_to_text] = single_x_metrics.height / 2.0
+      @global[:single_line_height] = single_x_metrics.height * 2.0
+      @global[:width_half_x] = single_x_metrics.width / 2.0
+      @global[:height_connector] = single_x_metrics.height * 1.0 * @params[:vheight]
+      @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8
+      @global[:box_vertical_margin] = single_x_metrics.height * 0.8
     end
 
     def self.check_data(text)
-      if text.to_s == ""
-        raise RSTError, "Error: input text is empty"
-      end
+      raise RSTError, "Error: input text is empty" if text.to_s == ""
+
       StringParser.valid?(text)
     end
 
@@ -145,22 +143,22 @@ module RSyntaxTree
       b = StringIO.new
       surface.write_to_png(b)
       if binary
-        return b
+        b
       else
-        return b.string
+        b.string
       end
     end
 
     def draw_svg
-      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize])
+      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
       sp.parse
-      graph = SVGGraph.new(sp.get_elementlist, @params)
+      graph = SVGGraph.new(sp.get_elementlist, @params, @global)
       graph.svg_data
     end
 
     def draw_tree
       svg = draw_svg
-      image, data = Magick::Image.from_blob(svg) do |im|
+      image, _data = Magick::Image.from_blob(svg) do |im|
         im.format = 'svg'
       end
       if @params[:format] == "png"
@@ -174,4 +172,3 @@ module RSyntaxTree
     end
   end
 end
-
