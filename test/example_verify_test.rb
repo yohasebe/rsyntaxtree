@@ -71,26 +71,5 @@ class ExampleParserTest < Minitest::Test
     define_method "test_#{name}" do
       assert_equal svg_code, opts[:svg]
     end
-
-    ##########################################
-    # To create SVG for the tests, comment-out
-    # above block and run the code below
-    ##########################################
-    # File.open(File.join(svg_dir, "#{name}.svg"), "w") do |f|
-    #   puts "Creating svg file: #{name}.svg"
-    #   svg = rsg.draw_svg
-    #   f.write(svg)
-    # end
-
-    ##########################################
-    # To create SVG for the documentation,
-    # comment-out above and run the code below
-    ##########################################
-    # png_dir = File.expand_path(File.join(__dir__, "..", "docs", "assets", "img"))
-    # File.open(File.join(png_dir, "#{name}.png"), "w") do |f|
-    #   puts "Creating png file: #{name}.png"
-    #   png = rsg.draw_png
-    #   f.write(png)
-    # end
   end
 end
