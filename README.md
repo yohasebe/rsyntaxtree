@@ -2,18 +2,14 @@
 
 **RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language. 
 
----
-
-### Documentation
+## Documentation
 
 Documentation is currently available in the following languages:
 
 - [English](https://yohasebe.github.io/rsyntaxtree/documentation)
 - [日本語](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
 
----
-
-### Web Interface
+## Web Interface
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree-web-screenshot.png?raw=true' width='700px'/>
 
@@ -21,9 +17,7 @@ See updates and a working web interface available at <https://yohasebe.com/rsynt
 
 You can run RSyntaxTree's web interface on your local machine using Docker Desktop. See [RSyntaxTree Web UI](https://github.com/yohasebe/rsyntaxtree_web)
 
----
-
-### Examples
+## Examples
 
 See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) page for syntax tree samples for
 
@@ -54,15 +48,11 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/sample.png?raw=true' width='600' />
 
----
-
-### Installation
+## Installation
 
 `# gem install rsyntaxtree`
 
----
-
-### Usage
+## Usage
 
 For the web interface, see Usage section of <https://yohasebe.com/rsyntaxtree>.
 
@@ -93,21 +83,28 @@ where [options] are:
 
 See the [documentation](https://yohasebe.github.io/rsyntaxtree/documentation) for more detailed info about the syntax.
 
----
+## References
 
-### Development
+Please use the following BibTeX entry when referring to RSyntaxTree.
+
+```
+@misc{rsyntaxtree_2023,
+  author = {Yoichiro Hasebe},
+  title = {RSyntaxTree: A graphical syntax tree image generator}
+  url = {https://yohasebe.com/rsyntaxtree},
+  year = {2023}
+}
+```
+
+## Development
 
 For the latest updates and downloads please visit <http://github.com/yohasebe/rsyntaxtree>
 
----
-
-### Author
+## Author
 
 Yoichiro Hasebe <yohasebe@gmail.com>
 
----
-
-### License
+## License
 
 RSyntaxTree is distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
 
