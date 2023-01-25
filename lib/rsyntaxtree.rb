@@ -72,7 +72,7 @@ module RSyntaxTree
             fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
             fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
             new_params[:fontstyle] = "sans"
-          when "noto-serif", value == "serif"
+          when "noto-serif", "serif"
             fontset[:normal] = FONT_DIR + "/NotoSerif-Regular.ttf"
             fontset[:italic] = FONT_DIR + "/NotoSerif-Italic.ttf"
             fontset[:bold] = FONT_DIR + "/NotoSerif-Bold.ttf"
@@ -115,7 +115,6 @@ module RSyntaxTree
       @params[:fontsize]  = @params[:fontsize] * FONT_SCALING
       @params[:margin]    = @params[:margin] * FONT_SCALING
       @params[:fontset] = fontset
-
       single_x_metrics = FontMetrics.get_metrics("X", fontset[:normal], @params[:fontsize], :normal, :normal)
       @global = {}
       @global[:single_x_metrics] = single_x_metrics

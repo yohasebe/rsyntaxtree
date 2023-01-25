@@ -21,4 +21,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "parslet"
   s.add_runtime_dependency "rmagick", "~> 4.2", ">= 4.2.3"
   s.add_runtime_dependency "rsvg2"
+
+  s.add_development_dependency "yaml"
 end

@@ -78,7 +78,7 @@ module RSyntaxTree
         parent = @element_list.get_id(target.parent)
 
         vertical_indent = if !target.triangle &&
-                             @leafstyle == "nothing" &&
+                             (@leafstyle == "nothing" || @leafstyle == "none") &&
                              ETYPE_LEAF == target.type &&
                              parent.children.size == 1
                             parent.vertical_indent + parent.content_height
@@ -180,7 +180,7 @@ module RSyntaxTree
           else
             line_to_parent(parent, child)
           end
-        when "nothing"
+        when "nothing", "none"
           if child.triangle
             triangle_to_parent(parent, child)
           elsif ETYPE_LEAF != child.type
