@@ -18,6 +18,7 @@ layout: default
 {%- for example in all_examples -%}
 {% if example.category contains category.name %}
 <br />
+<h3 {{ category.caption }}</h3>
 <div style='text-align:left;'>
   <button onclick="copyToClipBoard('text-{{ example.name }}')" style='margin: 20px 0; font-size: 0.85em;'>
     Copy to Clipboard
@@ -37,7 +38,9 @@ layout: default
         <tr><td>Colorization</td><td>{{ example.colorization }}</td></tr>
         <tr><td>Radical Symmetirization</td><td>{{ example.symmetrization }}</td></tr>
         <tr><td>Font</td><td>{{ example.font }}</td></tr>
-        <tr><td>Reference</td><td>{{ example.reference }}</td></tr>
+        {% if example.reference != "" %}
+          <tr><td>Reference</td><td>{{ example.reference }}</td></tr>
+        {% endif %}
       </tbody>
     </table>
   </div>
