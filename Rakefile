@@ -42,6 +42,7 @@ task :generate do
       case key
       when "name"
         name = value
+        opts[:name] = name
       when "colorization"
         opts[:color] = value
       when "polyline"
@@ -63,7 +64,6 @@ task :generate do
                            end
       end
     end
-
     opts[:data] = rst
     rsg = RSyntaxTree::RSGenerator.new(opts)
 
