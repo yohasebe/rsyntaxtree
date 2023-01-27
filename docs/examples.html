@@ -17,7 +17,6 @@ layout: default
 <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b></h2>
 {%- for example in all_examples -%}
 {% if example.category contains category.name %}
-<br />
 <h3>{{ example.caption }}</h3>
 <div style='text-align:left;'>
   <button onclick="copyToClipBoard('text-{{ example.name }}')" style='margin: 20px 0; font-size: 0.85em;'>
