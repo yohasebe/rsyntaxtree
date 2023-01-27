@@ -37,7 +37,7 @@ layout: default
         <tr><td>Colorization</td><td>{{ example.colorization }}</td></tr>
         <tr><td>Radical Symmetirization</td><td>{{ example.symmetrization }}</td></tr>
         <tr><td>Font</td><td>{{ example.font }}</td></tr>
-        {% if example.reference != "" %}
+        {% if example.reference.to_s != "" %}
           <tr><td>Reference</td><td>{{ example.reference }}</td></tr>
         {% endif %}
       </tbody>
