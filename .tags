@@ -225,6 +225,7 @@
 404	docs/404.html	/^  <h1>404<\/h1>$/;"	h
 404	docs/_site/404.html	/^  <h1>404<\/h1>$/;"	h
 Author	README.md	/^## Author$/;"	s
+BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	class:RSyntaxTree
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
 Basic Usage	docs/_site/documentation.html	/^<h3 id="basic-usage">Basic Usage<\/h3>$/;"	j
 Basic Usage	docs/documentation.md	/^### Basic Usage$/;"	S	chapter:Documentation
@@ -241,7 +242,9 @@ Draw Paths between Nodes (experimental)	docs/documentation.md	/^### Draw Paths b
 ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
 ETYPE_LEAF	lib/rsyntaxtree/base_graph.rb	/^                             ETYPE_LEAF == target.type &&$/;"	C	method:RSyntaxTree.BaseGraph.calculate_height
 ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
+Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	class:RSyntaxTree
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
+ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	class:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
 Escape Special Characters	docs/_site/documentation.html	/^<h3 id="escape-special-characters">Escape Special Characters<\/h3>$/;"	j
 Escape Special Characters	docs/documentation.md	/^### Escape Special Characters$/;"	S	chapter:Documentation
@@ -272,6 +275,7 @@ Newline	docs/documentation.md	/^#### Newline$/;"	t	subsection:Documentation""Fon
 PNG形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="png形式を用いる場合">PNG形式を用いる場合<\/h3>$/;"	j
 PNG形式を用いる場合	docs/documentation_ja.md	/^### PNG形式を用いる場合$/;"	S	chapter:ドキュメンテーション
 Phonology	docs/_site/examples.html	/^<h2 id="category-phonology"><b>Phonology<\/b><\/h2>$/;"	i
+RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	class:RSyntaxTree
 RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	module:RSyntaxTree
 RSTError	lib/rsyntaxtree.rb	/^class RSTError < StandardError$/;"	c
 RSyntaxTree	docs/_site/404.html	/^      <\/h1>$/;"	h
@@ -291,10 +295,12 @@ RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/documentation_ja.h
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/examples.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
 References	README.md	/^## References$/;"	s
 SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
+SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	class:RSyntaxTree
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
 SVG形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="svg形式を用いる場合">SVG形式を用いる場合<\/h3>$/;"	j
 SVG形式を用いる場合	docs/documentation_ja.md	/^### SVG形式を用いる場合$/;"	S	chapter:ドキュメンテーション
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
+StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	class:RSyntaxTree
 StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	module:RSyntaxTree
 Subscript and Superscript	docs/documentation.md	/^#### Subscript and Superscript$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
 Syntax tree generator made with Ruby	docs/_site/404.html	/^      <h2 class="project-tagline">Syntax tree generator made with Ruby<\/h2>$/;"	i
@@ -320,6 +326,7 @@ a:hover	docs/_site/assets/css/style.css	/^a:active, a:hover { outline: 0; }$/;"	
 a:hover	docs/_site/assets/css/style.css	/^a:hover { text-decoration: underline; }$/;"	s
 abbr[title]	docs/_site/assets/css/style.css	/^abbr[title] { border-bottom: 1px dotted; }$/;"	s
 add	lib/rsyntaxtree/elementlist.rb	/^    def add(element)$/;"	f	class:RSyntaxTree.ElementList
+add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f
 add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree.Element
 all_emoji?	lib/rsyntaxtree/utils.rb	/^  def all_emoji?$/;"	f	class:String
 arrow	docs/assets/svg/001.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
@@ -387,7 +394,9 @@ button	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textar
 button	docs/_site/assets/css/style.css	/^button, select { text-transform: none; }$/;"	s
 button::-moz-focus-inner	docs/_site/assets/css/style.css	/^button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }$/;"	s
 button[disabled]	docs/_site/assets/css/style.css	/^button[disabled], html input[disabled] { cursor: default; }$/;"	s
+calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree
 calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
+calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f
 calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
@@ -401,6 +410,7 @@ category-head-driven-phrase-structure-grammar-experimental	docs/_site/examples.h
 category-phonology	docs/_site/examples.html	/^<h2 id="category-phonology"><b>Phonology<\/b><\/h2>$/;"	I
 category-tic-tac-toe	docs/_site/examples.html	/^<h2 id="category-tic-tac-toe"><b>Tic-Tac-Toe<\/b><\/h2>$/;"	I
 category-{{category.name | slugify }}	docs/examples.html	/^<h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}<\/b><\/h2>$/;"	I
+check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	F	class:RSyntaxTree.RSGenerator
 check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	S	class:RSyntaxTree.RSGenerator
 children	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 children=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
@@ -420,6 +430,10 @@ content_height	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :typ
 content_height=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 content_width	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 content_width=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
+copyToClipBoard	docs/_site/documentation.html	/^  function copyToClipBoard(id){$/;"	f
+copyToClipBoard	docs/_site/documentation_ja.html	/^  function copyToClipBoard(id){$/;"	f
+copyToClipBoard	docs/_site/examples.html	/^  function copyToClipBoard(id){$/;"	f
+copyToClipBoard	docs/examples.html	/^  function copyToClipBoard(id){$/;"	f
 data	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 data=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 details	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
@@ -429,9 +443,13 @@ div.grid	docs/_site/assets/css/style.css	/^div.grid { display: grid; grid-templa
 documentation	docs/_site/documentation.html	/^      <h1 class="no_toc" id="documentation">Documentation<\/h1>$/;"	I
 draw-paths-between-nodes-experimental	docs/_site/documentation.html	/^<h3 id="draw-paths-between-nodes-experimental">Draw Paths between Nodes (experimental)<\/h3>$/;"	I
 draw_a_path	lib/rsyntaxtree/svg_graph.rb	/^    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)$/;"	f	class:RSyntaxTree.SVGGraph
+draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f
 draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
+draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree
 draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree.SVGGraph
+draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f
 draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:RSyntaxTree.BaseGraph
+draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree.RSGenerator
 draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	class:RSyntaxTree.RSGenerator
@@ -458,20 +476,26 @@ fontsize	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :le
 fontsize=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 footer	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 generate	Rakefile	/^task :generate do$/;"	t
+generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f
 generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f	class:RSyntaxTree.SVGGraph
 get_child_count	lib/rsyntaxtree/elementlist.rb	/^    def get_child_count(id)$/;"	f	class:RSyntaxTree.ElementList
 get_children	lib/rsyntaxtree/elementlist.rb	/^    def get_children(id)$/;"	f	class:RSyntaxTree.ElementList
 get_element_width	lib/rsyntaxtree/elementlist.rb	/^    def get_element_width(id)$/;"	f	class:RSyntaxTree.ElementList
+get_elementlist	lib/rsyntaxtree/string_parser.rb	/^    def get_elementlist$/;"	f
 get_elementlist	lib/rsyntaxtree/string_parser.rb	/^    def get_elementlist$/;"	f	class:RSyntaxTree.StringParser
 get_elements	lib/rsyntaxtree/elementlist.rb	/^    def get_elements$/;"	f	class:RSyntaxTree.ElementList
 get_first	lib/rsyntaxtree/elementlist.rb	/^    def get_first$/;"	f	class:RSyntaxTree.ElementList
 get_id	lib/rsyntaxtree/elementlist.rb	/^    def get_id(id)$/;"	f	class:RSyntaxTree.ElementList
 get_indent	lib/rsyntaxtree/elementlist.rb	/^    def get_indent(id)$/;"	f	class:RSyntaxTree.ElementList
+get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f
 get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 get_level_height	lib/rsyntaxtree/elementlist.rb	/^    def get_level_height$/;"	f	class:RSyntaxTree.ElementList
+get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	class:FontMetrics
 get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	module:FontMetrics
 get_next	lib/rsyntaxtree/elementlist.rb	/^    def get_next$/;"	f	class:RSyntaxTree.ElementList
+get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f
 get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f	class:RSyntaxTree.StringParser
+get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f
 get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 grid	docs/assets/css/style.scss	/^  div.grid {$/;"	c
 grid	docs/assets/css/style.scss	/^div.grid {$/;"	c
@@ -668,9 +692,12 @@ level	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level
 level	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 level=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 level=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
+line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f
 line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 main	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
+make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f
 make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
+make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f
 make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser
 mark	docs/_site/assets/css/style.css	/^mark { background: #ff0; color: #000; }$/;"	s
 markdown-toc	docs/_site/documentation.html	/^<ol id="markdown-toc">$/;"	I
@@ -709,6 +736,7 @@ markdown-toc-水平線	docs/_site/documentation_ja.html	/^      <li><a href="#�
 menu	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 nav	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 newline	docs/_site/documentation.html	/^<h4 id="newline">Newline<\/h4>$/;"	I
+node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f
 node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree.BaseGraph
 ns1d99b24d0101	docs/assets/svg/001.svg	/^  <svg width="647.8000000000001" height="770.4" viewBox="-20, -20, 667.8000000000001, 790.4" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns1dabcace0101	docs/assets/svg/002.svg	/^  <svg width="1601.0" height="1668.0000000000002" viewBox="-20, -20, 1621.0, 1688.0000000000002"/;"	n	uri:http://www.w3.org/2000/svg
@@ -740,8 +768,11 @@ optgroup	docs/_site/assets/css/style.css	/^button, input, optgroup, select, text
 optgroup	docs/_site/assets/css/style.css	/^optgroup { font-weight: bold; }$/;"	s
 parent	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 parent=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
+parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	class:Markup
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
+parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
+parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree.BaseGraph
 path	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 path=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
@@ -759,7 +790,9 @@ select	docs/_site/assets/css/style.css	/^button, select { text-transform: none; 
 set_element_width	lib/rsyntaxtree/elementlist.rb	/^    def set_element_width(id, width)$/;"	f	class:RSyntaxTree.ElementList
 set_hierarchy	lib/rsyntaxtree/elementlist.rb	/^    def set_hierarchy$/;"	f	class:RSyntaxTree.ElementList
 set_indent	lib/rsyntaxtree/elementlist.rb	/^    def set_indent(id, indent)$/;"	f	class:RSyntaxTree.ElementList
+set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(this_x, this_y, style, decoration, fontstyle, text)$/;"	f
 set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(this_x, this_y, style, decoration, fontstyle, text)$/;"	f	class:RSyntaxTree.SVGGraph
+setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree
 setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree.Element
 setup	test/markup_parser_test.rb	/^  def setup$/;"	f	class:MarkupParserTest
 skip-to-content	docs/_layouts/default.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
@@ -788,26 +821,42 @@ table	docs/_site/assets/css/style.css	/^table { border-collapse: collapse; borde
 table-of-contents	docs/_site/documentation.html	/^<h3 class="no_toc" id="table-of-contents">Table of Contents<\/h3>$/;"	I
 td	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 template	docs/_site/assets/css/style.css	/^[hidden], template { display: none; }$/;"	s
+test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f	class:MarkupParserTest
+test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f	class:MarkupParserTest
+test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f
 test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f	class:MarkupParserTest
+test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f
 test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f	class:MarkupParserTest
+test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f
 test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f	class:MarkupParserTest
 test_rule_brackets	test/markup_parser_test.rb	/^  def test_rule_brackets$/;"	f	class:MarkupParserTest
 test_rule_cr	test/markup_parser_test.rb	/^  def test_rule_cr$/;"	f	class:MarkupParserTest
 test_rule_escaped	test/markup_parser_test.rb	/^  def test_rule_escaped$/;"	f	class:MarkupParserTest
+test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f
 test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f	class:MarkupParserTest
+test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f
 test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f	class:MarkupParserTest
+test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f
 test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f	class:MarkupParserTest
+test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f
 test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f	class:MarkupParserTest
+test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f
 test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f	class:MarkupParserTest
+test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f
 test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f	class:MarkupParserTest
+test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f
 test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f	class:MarkupParserTest
 test_rule_path	test/markup_parser_test.rb	/^  def test_rule_path$/;"	f	class:MarkupParserTest
+test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f
 test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f	class:MarkupParserTest
+test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f
 test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f	class:MarkupParserTest
+test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f
 test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f	class:MarkupParserTest
 test_rule_triangle	test/markup_parser_test.rb	/^  def test_rule_triangle$/;"	f	class:MarkupParserTest
+test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f	class:MarkupParserTest
 text-001	docs/_site/examples.html	/^    <div id="text-001" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>$/;"	I
 text-002	docs/_site/examples.html	/^    <div id="text-002" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>$/;"	I
@@ -837,9 +886,11 @@ th	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 triangle	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 triangle-square-brackets-rectangle	docs/_site/documentation.html	/^<h3 id="triangle-square-brackets-rectangle">Triangle, Square Brackets, Rectangle<\/h3>$/;"	I
 triangle=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
+triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f
 triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 type	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 type=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
+valid	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	F	class:RSyntaxTree
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 vertical_indent	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 vertical_indent=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
