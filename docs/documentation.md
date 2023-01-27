@@ -114,7 +114,7 @@ Here, `---` represents `-` repeated three times or more consecutively.
 
 In `auto` mode, the triangle connector shape is applied when the terminal node contains words separated by whitespace. In `bar` and `none` modes, triangles are drawn for the nodes with `^` at the beginning of the leaf text, lie `[NP ^syntax-trees]`.
 
-If a `#` character is placed at the beginning of the leaf text (right after `^` if there is one), the leaf text is enclosed in a paire of square brackets (e.g. `[NP #text]` or `[NP ^#text]`). If `##` is placed at the beginning of the leaf text, a rectangle is drawn instead of brackets.
+If a `#` character is placed at the beginning of a label or leaf text (right after `^` if there is one), the text is enclosed in a pair of square brackets (e.g. `[#NP text]`, `[NP #text]`, `[NP ^#text]`). If `##` is placed at the beginning of the leaf text, a rectangle is drawn instead of brackets.
 
 ### Escape Special Characters
 
