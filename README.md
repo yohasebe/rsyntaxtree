@@ -6,9 +6,10 @@
 
 Documentation is currently available in the following languages:
 
-- [English](https://yohasebe.github.io/rsyntaxtree/documentation)
-- [日本語](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
+- [Documentation in English](https://yohasebe.github.io/rsyntaxtree/documentation)
+- [日本語ドキュメント](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
 
+- [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples)
 ## Web Interface
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree-web-screenshot.png?raw=true' width='700px'/>

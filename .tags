@@ -77,7 +77,7 @@
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	6.0.0	/c39ff7a7/
+!_TAG_PROGRAM_VERSION	6.0.0	/1901123c/
 !_TAG_ROLE_DESCRIPTION!GemSpec!gem	develDep	/specifying development dependency/
 !_TAG_ROLE_DESCRIPTION!GemSpec!gem	runtimeDep	/specifying runtime dependency/
 !_TAG_ROLE_DESCRIPTION!HTML!class	attribute	/assigned as attributes/
@@ -224,35 +224,31 @@
 .site-footer-owner	docs/_site/assets/css/style.css	/^.site-footer-owner { display: block; font-weight: bold; }$/;"	c
 404	docs/404.html	/^  <h1>404<\/h1>$/;"	h
 404	docs/_site/404.html	/^  <h1>404<\/h1>$/;"	h
-Author	README.md	/^### Author$/;"	S
-BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	class:RSyntaxTree
+Author	README.md	/^## Author$/;"	s
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
-BaseGraph	lib/rsyntaxtree/base_graph_new.rb	/^  class BaseGraph$/;"	c	class:RSyntaxTree
 Basic Usage	docs/_site/documentation.html	/^<h3 id="basic-usage">Basic Usage<\/h3>$/;"	j
 Basic Usage	docs/documentation.md	/^### Basic Usage$/;"	S	chapter:Documentation
 Box and Circle	docs/documentation.md	/^#### Box and Circle$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
 Cognitive Grammar (Experimental)	docs/_site/examples.html	/^<h2 id="category-cognitive-grammar-experimental"><b>Cognitive Grammar (Experimental)<\/b><\/h2>$/;"	i
 Combinatory Categorial Grammar (Experimental)	docs/_site/examples.html	/^<h2 id="category-combinatory-categorial-grammar-experimental"><b>Combinatory Categorial Grammar /;"	i
 Computer Science	docs/_site/examples.html	/^<h2 id="category-computer-science"><b>Computer Science<\/b><\/h2>$/;"	i
-Development	README.md	/^### Development$/;"	S
-Documentation	README.md	/^### Documentation$/;"	S
+Development	README.md	/^## Development$/;"	s
+Documentation	README.md	/^## Documentation$/;"	s
 Documentation	docs/_site/documentation.html	/^      <h1 class="no_toc" id="documentation">Documentation<\/h1>$/;"	h
 Documentation	docs/documentation.md	/^# Documentation$/;"	c
 Draw Paths between Nodes (experimental)	docs/_site/documentation.html	/^<h3 id="draw-paths-between-nodes-experimental">Draw Paths between Nodes (experimental)<\/h3>$/;"	j
 Draw Paths between Nodes (experimental)	docs/documentation.md	/^### Draw Paths between Nodes (experimental)$/;"	S	chapter:Documentation
 ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
+ETYPE_LEAF	lib/rsyntaxtree/base_graph.rb	/^                             ETYPE_LEAF == target.type &&$/;"	C	method:RSyntaxTree.BaseGraph.calculate_height
 ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
-Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	class:RSyntaxTree
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
-ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	class:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
 Escape Special Characters	docs/_site/documentation.html	/^<h3 id="escape-special-characters">Escape Special Characters<\/h3>$/;"	j
 Escape Special Characters	docs/documentation.md	/^### Escape Special Characters$/;"	S	chapter:Documentation
 Example Gallery	docs/_site/examples.html	/^      <h1 id="examples">Example Gallery<\/h1>$/;"	h
 Example Gallery	docs/examples.html	/^<h1 id="examples">Example Gallery<\/h1>$/;"	h
-ExampleParserTest	test/example_verify_test.rb	/^  class ExampleParserTest < Minitest::Test$/;"	c
 ExampleParserTest	test/example_verify_test.rb	/^class ExampleParserTest < Minitest::Test$/;"	c
-Examples	README.md	/^### Examples$/;"	S
+Examples	README.md	/^## Examples$/;"	s
 FONT_DIR	lib/rsyntaxtree.rb	/^FONT_DIR = File.expand_path(File.join(__dir__, "\/..\/fonts"))$/;"	C
 FONT_SCALING	lib/rsyntaxtree.rb	/^FONT_SCALING = 2$/;"	C
 Font Styles	docs/documentation.md	/^#### Font Styles$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
@@ -267,17 +263,15 @@ Head-Driven Phrase Structure Grammar (Experimental)	docs/_site/examples.html	/^<
 Horizontal Line	docs/documentation.md	/^#### Horizontal Line$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
 Install Fonts for SVG	docs/_site/documentation.html	/^<h3 id="install-fonts-for-svg">Install Fonts for SVG<\/h3>$/;"	j
 Install Fonts for SVG	docs/documentation.md	/^### Install Fonts for SVG$/;"	S	chapter:Documentation
-Installation	README.md	/^### Installation$/;"	S
-License	README.md	/^### License$/;"	S
+Installation	README.md	/^## Installation$/;"	s
+License	README.md	/^## License$/;"	s
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
 MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Parser$/;"	c
-MarkupParserTest	test/example_verify_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
 MarkupParserTest	test/markup_parser_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
 Newline	docs/documentation.md	/^#### Newline$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
 PNG形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="png形式を用いる場合">PNG形式を用いる場合<\/h3>$/;"	j
 PNG形式を用いる場合	docs/documentation_ja.md	/^### PNG形式を用いる場合$/;"	S	chapter:ドキュメンテーション
 Phonology	docs/_site/examples.html	/^<h2 id="category-phonology"><b>Phonology<\/b><\/h2>$/;"	i
-RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	class:RSyntaxTree
 RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	module:RSyntaxTree
 RSTError	lib/rsyntaxtree.rb	/^class RSTError < StandardError$/;"	c
 RSyntaxTree	docs/_site/404.html	/^      <\/h1>$/;"	h
@@ -286,25 +280,21 @@ RSyntaxTree	docs/_site/documentation_ja.html	/^      <\/h1>$/;"	h
 RSyntaxTree	docs/_site/examples.html	/^      <\/h1>$/;"	h
 RSyntaxTree	lib/rsyntaxtree.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/base_graph.rb	/^module RSyntaxTree$/;"	m
-RSyntaxTree	lib/rsyntaxtree/base_graph_new.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/element.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/elementlist.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/string_parser.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/svg_graph.rb	/^module RSyntaxTree$/;"	m
-RSyntaxTree	lib/rsyntaxtree/svg_graph_.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree	lib/rsyntaxtree/version.rb	/^module RSyntaxTree$/;"	m
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/404.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/documentation.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/documentation_ja.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/examples.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
+References	README.md	/^## References$/;"	s
 SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
-SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	class:RSyntaxTree
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
-SVGGraph	lib/rsyntaxtree/svg_graph_.rb	/^  class SVGGraph < BaseGraph$/;"	c	class:RSyntaxTree
 SVG形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="svg形式を用いる場合">SVG形式を用いる場合<\/h3>$/;"	j
 SVG形式を用いる場合	docs/documentation_ja.md	/^### SVG形式を用いる場合$/;"	S	chapter:ドキュメンテーション
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
-StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	class:RSyntaxTree
 StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	module:RSyntaxTree
 Subscript and Superscript	docs/documentation.md	/^#### Subscript and Superscript$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
 Syntax tree generator made with Ruby	docs/_site/404.html	/^      <h2 class="project-tagline">Syntax tree generator made with Ruby<\/h2>$/;"	i
@@ -317,10 +307,10 @@ Text Decoration	docs/documentation.md	/^#### Text Decoration$/;"	t	subsection:Do
 Tic-Tac-Toe	docs/_site/examples.html	/^<h2 id="category-tic-tac-toe"><b>Tic-Tac-Toe<\/b><\/h2>$/;"	i
 Triangle, Square Brackets, Rectangle	docs/_site/documentation.html	/^<h3 id="triangle-square-brackets-rectangle">Triangle, Square Brackets, Rectangle<\/h3>$/;"	j
 Triangle, Square Brackets, Rectangle	docs/documentation.md	/^### Triangle, Square Brackets, Rectangle$/;"	S	chapter:Documentation
-Usage	README.md	/^### Usage$/;"	S
-VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.1.0"$/;"	C	module:RSyntaxTree
+Usage	README.md	/^## Usage$/;"	s
+VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.1.1"$/;"	C	module:RSyntaxTree
 WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
-Web Interface	README.md	/^### Web Interface$/;"	S
+Web Interface	README.md	/^## Web Interface$/;"	s
 Whitespace inside Label	docs/documentation.md	/^#### Whitespace inside Label$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
 a	docs/_site/assets/css/style.css	/^a { background-color: transparent; }$/;"	s
 a	docs/_site/assets/css/style.css	/^a { color: #1e6bb8; text-decoration: none; }$/;"	s
@@ -330,9 +320,56 @@ a:hover	docs/_site/assets/css/style.css	/^a:active, a:hover { outline: 0; }$/;"	
 a:hover	docs/_site/assets/css/style.css	/^a:hover { text-decoration: underline; }$/;"	s
 abbr[title]	docs/_site/assets/css/style.css	/^abbr[title] { border-bottom: 1px dotted; }$/;"	s
 add	lib/rsyntaxtree/elementlist.rb	/^    def add(element)$/;"	f	class:RSyntaxTree.ElementList
-add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f
 add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree.Element
 all_emoji?	lib/rsyntaxtree/utils.rb	/^  def all_emoji?$/;"	f	class:String
+arrow	docs/assets/svg/001.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/001.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/002.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/002.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/003.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/003.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/004.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/004.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/005.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/005.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/006.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/006.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/007.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/007.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/008.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/008.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/009.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/009.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/010.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/010.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/011.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/011.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/012.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/012.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/013.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/013.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/014.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/014.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/015.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/015.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/016.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/016.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/017.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/017.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/018.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/018.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/019.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="12.160000000000002" markerHeight="/;"	d
+arrow	docs/assets/svg/019.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="12.160000000000002" markerHeight="/;"	i
+arrow	docs/assets/svg/020.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/020.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/021.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/021.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/022.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/022.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/023.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="12.160000000000002" markerHeight="/;"	d
+arrow	docs/assets/svg/023.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="12.160000000000002" markerHeight="/;"	i
+arrow	docs/assets/svg/024.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
+arrow	docs/assets/svg/024.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
 arrow	img/sample.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7/;"	d
 arrow	img/sample.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7/;"	i
 article	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
@@ -350,17 +387,10 @@ button	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textar
 button	docs/_site/assets/css/style.css	/^button, select { text-transform: none; }$/;"	s
 button::-moz-focus-inner	docs/_site/assets/css/style.css	/^button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }$/;"	s
 button[disabled]	docs/_site/assets/css/style.css	/^button[disabled], html input[disabled] { cursor: default; }$/;"	s
-calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree
 calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-calculate_height	lib/rsyntaxtree/base_graph_new.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree
-calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f
-calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f	class:RSyntaxTree
 calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f	class:RSyntaxTree.BaseGraph
-calculate_indent	lib/rsyntaxtree/base_graph_new.rb	/^    def calculate_indent$/;"	f
 calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree.BaseGraph
-calculate_level	lib/rsyntaxtree/base_graph_new.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-calculate_width	lib/rsyntaxtree/base_graph_new.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 canvas	docs/_site/assets/css/style.css	/^audio, canvas, progress, video { display: inline-block; \/* 1 *\/ vertical-align: baseline; \/* /;"	s
 category-cognitive-grammar-experimental	docs/_site/examples.html	/^<h2 id="category-cognitive-grammar-experimental"><b>Cognitive Grammar (Experimental)<\/b><\/h2>$/;"	I
 category-combinatory-categorial-grammar-experimental	docs/_site/examples.html	/^<h2 id="category-combinatory-categorial-grammar-experimental"><b>Combinatory Categorial Grammar /;"	I
@@ -371,7 +401,6 @@ category-head-driven-phrase-structure-grammar-experimental	docs/_site/examples.h
 category-phonology	docs/_site/examples.html	/^<h2 id="category-phonology"><b>Phonology<\/b><\/h2>$/;"	I
 category-tic-tac-toe	docs/_site/examples.html	/^<h2 id="category-tic-tac-toe"><b>Tic-Tac-Toe<\/b><\/h2>$/;"	I
 category-{{category.name | slugify }}	docs/examples.html	/^<h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}<\/b><\/h2>$/;"	I
-check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	F	class:RSyntaxTree.RSGenerator
 check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	S	class:RSyntaxTree.RSGenerator
 children	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 children=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
@@ -391,13 +420,8 @@ content_height	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :typ
 content_height=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 content_width	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 content_width=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
-copyToClipBoard	docs/_site/documentation.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/_site/documentation_ja.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/_site/examples.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/examples.html	/^  function copyToClipBoard(id){$/;"	f
 data	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 data=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
-default	Rakefile	/^task default: "test"$/;"	t
 details	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 dfn	docs/_site/assets/css/style.css	/^dfn { font-style: italic; }$/;"	s
 div.grid	docs/_site/assets/css/style.css	/^@media only screen and (max-width: 768px) { div.grid { display: block; } }$/;"	c
@@ -405,21 +429,10 @@ div.grid	docs/_site/assets/css/style.css	/^div.grid { display: grid; grid-templa
 documentation	docs/_site/documentation.html	/^      <h1 class="no_toc" id="documentation">Documentation<\/h1>$/;"	I
 draw-paths-between-nodes-experimental	docs/_site/documentation.html	/^<h3 id="draw-paths-between-nodes-experimental">Draw Paths between Nodes (experimental)<\/h3>$/;"	I
 draw_a_path	lib/rsyntaxtree/svg_graph.rb	/^    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)$/;"	f	class:RSyntaxTree.SVGGraph
-draw_a_path	lib/rsyntaxtree/svg_graph_.rb	/^    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)$/;"	f	class:RSyntaxTree.SVGGraph
-draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f
-draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f	class:RSyntaxTree
 draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-draw_connector	lib/rsyntaxtree/base_graph_new.rb	/^    def draw_connector(id = 1)$/;"	f
-draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree
 draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree.SVGGraph
-draw_element	lib/rsyntaxtree/svg_graph_.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree
-draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f
-draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:RSyntaxTree
 draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:RSyntaxTree.BaseGraph
-draw_elements	lib/rsyntaxtree/base_graph_new.rb	/^    def draw_elements$/;"	f
-draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph
-draw_paths	lib/rsyntaxtree/svg_graph_.rb	/^    def draw_paths$/;"	f
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree.RSGenerator
 draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	class:RSyntaxTree.RSGenerator
 draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	class:RSyntaxTree.RSGenerator
@@ -444,36 +457,170 @@ fonts-used-to-generate-png	docs/_site/documentation.html	/^<h3 id="fonts-used-to
 fontsize	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 fontsize=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 footer	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f
+generate	Rakefile	/^task :generate do$/;"	t
 generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f	class:RSyntaxTree.SVGGraph
-generate_line	lib/rsyntaxtree/svg_graph_.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f
 get_child_count	lib/rsyntaxtree/elementlist.rb	/^    def get_child_count(id)$/;"	f	class:RSyntaxTree.ElementList
 get_children	lib/rsyntaxtree/elementlist.rb	/^    def get_children(id)$/;"	f	class:RSyntaxTree.ElementList
 get_element_width	lib/rsyntaxtree/elementlist.rb	/^    def get_element_width(id)$/;"	f	class:RSyntaxTree.ElementList
-get_elementlist	lib/rsyntaxtree/string_parser.rb	/^    def get_elementlist$/;"	f
 get_elementlist	lib/rsyntaxtree/string_parser.rb	/^    def get_elementlist$/;"	f	class:RSyntaxTree.StringParser
 get_elements	lib/rsyntaxtree/elementlist.rb	/^    def get_elements$/;"	f	class:RSyntaxTree.ElementList
 get_first	lib/rsyntaxtree/elementlist.rb	/^    def get_first$/;"	f	class:RSyntaxTree.ElementList
 get_id	lib/rsyntaxtree/elementlist.rb	/^    def get_id(id)$/;"	f	class:RSyntaxTree.ElementList
 get_indent	lib/rsyntaxtree/elementlist.rb	/^    def get_indent(id)$/;"	f	class:RSyntaxTree.ElementList
-get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f
-get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f	class:RSyntaxTree
 get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-get_leftmost	lib/rsyntaxtree/base_graph_new.rb	/^    def get_leftmost(id = 1)$/;"	f
 get_level_height	lib/rsyntaxtree/elementlist.rb	/^    def get_level_height$/;"	f	class:RSyntaxTree.ElementList
-get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	class:FontMetrics
 get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	module:FontMetrics
 get_next	lib/rsyntaxtree/elementlist.rb	/^    def get_next$/;"	f	class:RSyntaxTree.ElementList
-get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f
 get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f	class:RSyntaxTree.StringParser
-get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f
-get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f	class:RSyntaxTree
 get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-get_rightmost	lib/rsyntaxtree/base_graph_new.rb	/^    def get_rightmost(id = 1)$/;"	f
 grid	docs/assets/css/style.scss	/^  div.grid {$/;"	c
 grid	docs/assets/css/style.scss	/^div.grid {$/;"	c
 h1	docs/_site/assets/css/style.css	/^h1 { font-size: 2em; margin: 0.67em 0; }$/;"	s
 h3	docs/_site/assets/css/style.css	/^h3 { border-bottom: 1px solid lightgray; margin-top: 1em; margin-bottom: 1em; padding-bottom: 0./;"	s
+hatchBlack	docs/assets/svg/001.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/001.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/002.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/002.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/003.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/003.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/004.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/004.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/005.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/005.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/006.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/006.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/007.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/007.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/008.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/008.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/009.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/009.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/010.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/010.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/011.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/011.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/012.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/012.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/013.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/013.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/014.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/014.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/015.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/015.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/016.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/016.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/017.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/017.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/018.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/018.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/019.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/019.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/020.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/020.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/021.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/021.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/022.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/022.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/023.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/023.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/024.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/024.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchForLeaf	docs/assets/svg/001.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/001.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/002.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/002.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/003.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/003.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/004.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/004.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/005.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/005.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/006.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/006.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/007.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/007.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/008.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/008.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/009.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/009.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/010.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/010.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/011.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/011.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/012.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/012.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/013.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/013.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/014.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/014.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/015.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/015.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/016.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/016.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/017.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/017.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/018.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/018.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/019.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/019.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/020.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/020.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/021.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/021.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/022.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/022.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/023.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/023.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/024.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/024.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/001.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/001.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/002.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/002.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/003.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/003.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/004.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/004.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/005.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/005.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/006.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/006.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/007.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/007.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/008.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/008.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/009.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/009.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/010.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/010.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/011.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/011.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/012.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/012.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/013.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/013.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/014.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/014.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/015.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/015.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/016.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/016.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/017.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/017.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/018.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/018.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/019.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/019.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/020.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/020.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/021.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/021.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/022.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/022.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/023.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/023.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/024.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/024.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
 header	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 height	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 height	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
@@ -495,18 +642,11 @@ id=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :i
 img	docs/_site/assets/css/style.css	/^img { border: 0; }$/;"	s
 initialize	lib/rsyntaxtree.rb	/^    def initialize(params = {})$/;"	f	class:RSyntaxTree.RSGenerator
 initialize	lib/rsyntaxtree.rb	/^  def initialize(msg = "Error: something unexpected occurred")$/;"	f	class:RSTError
-initialize	lib/rsyntaxtree/base_graph.rb	/^    def initialize(element_list, params)$/;"	f	class:RSyntaxTree.BaseGraph
 initialize	lib/rsyntaxtree/base_graph.rb	/^    def initialize(element_list, params, global)$/;"	f	class:RSyntaxTree.BaseGraph
-initialize	lib/rsyntaxtree/base_graph_new.rb	/^    def initialize(element_list, params)$/;"	f	class:RSyntaxTree.BaseGraph
-initialize	lib/rsyntaxtree/base_graph_new.rb	/^    def initialize(element_list, params, global)$/;"	f	class:RSyntaxTree.BaseGraph
-initialize	lib/rsyntaxtree/element.rb	/^    def initialize(id, parent, content, level, fontset, fontsize)$/;"	f	class:RSyntaxTree.Element
 initialize	lib/rsyntaxtree/element.rb	/^    def initialize(id, parent, content, level, fontset, fontsize, global)$/;"	f	class:RSyntaxTree.Element
 initialize	lib/rsyntaxtree/elementlist.rb	/^    def initialize$/;"	f	class:RSyntaxTree.ElementList
-initialize	lib/rsyntaxtree/string_parser.rb	/^    def initialize(str, fontset, fontsize)$/;"	f	class:RSyntaxTree.StringParser
 initialize	lib/rsyntaxtree/string_parser.rb	/^    def initialize(str, fontset, fontsize, global)$/;"	f	class:RSyntaxTree.StringParser
-initialize	lib/rsyntaxtree/svg_graph.rb	/^    def initialize(element_list, params)$/;"	f	class:RSyntaxTree.SVGGraph
 initialize	lib/rsyntaxtree/svg_graph.rb	/^    def initialize(element_list, params, global)$/;"	f	class:RSyntaxTree.SVGGraph
-initialize	lib/rsyntaxtree/svg_graph_.rb	/^    def initialize(element_list, params)$/;"	f	class:RSyntaxTree.SVGGraph
 input	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textarea { color: inherit; \/* 1 *\/ font: inherit; \/* 2 *\/ m/;"	s
 input	docs/_site/assets/css/style.css	/^input { line-height: normal; }$/;"	s
 input::-moz-focus-inner	docs/_site/assets/css/style.css	/^button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }$/;"	s
@@ -528,15 +668,9 @@ level	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level
 level	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 level=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 level=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
-line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f
 line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-line_to_parent	lib/rsyntaxtree/svg_graph_.rb	/^    def line_to_parent(parent, child)$/;"	f
 main	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
-make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f
-make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	class:RSyntaxTree
 make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-make_balance	lib/rsyntaxtree/base_graph_new.rb	/^    def make_balance(id = 1)$/;"	f
-make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f
 make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser
 mark	docs/_site/assets/css/style.css	/^mark { background: #ff0; color: #000; }$/;"	s
 markdown-toc	docs/_site/documentation.html	/^<ol id="markdown-toc">$/;"	I
@@ -575,24 +709,40 @@ markdown-toc-水平線	docs/_site/documentation_ja.html	/^      <li><a href="#�
 menu	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 nav	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 newline	docs/_site/documentation.html	/^<h4 id="newline">Newline<\/h4>$/;"	I
-node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f
-node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree
 node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree.BaseGraph
-node_centering	lib/rsyntaxtree/base_graph_new.rb	/^    def node_centering$/;"	f
+ns1d99b24d0101	docs/assets/svg/001.svg	/^  <svg width="647.8000000000001" height="770.4" viewBox="-20, -20, 667.8000000000001, 790.4" ver/;"	n	uri:http://www.w3.org/2000/svg
+ns1dabcace0101	docs/assets/svg/002.svg	/^  <svg width="1601.0" height="1668.0000000000002" viewBox="-20, -20, 1621.0, 1688.0000000000002"/;"	n	uri:http://www.w3.org/2000/svg
+ns1dbde34f0101	docs/assets/svg/003.svg	/^  <svg width="1344.1999999999998" height="1668.0000000000002" viewBox="-20, -20, 1364.1999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns1dcffbd00101	docs/assets/svg/004.svg	/^  <svg width="1614.1999999999998" height="1668.0000000000002" viewBox="-20, -20, 1634.1999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns1de214510101	docs/assets/svg/005.svg	/^  <svg width="918.8" height="1084.6" viewBox="-20, -20, 938.8, 1104.6" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
+ns1df42cd20101	docs/assets/svg/006.svg	/^  <svg width="1159.1999999999998" height="1388.8" viewBox="-20, -20, 1179.1999999999998, 1408.8"/;"	n	uri:http://www.w3.org/2000/svg
+ns1e0645530101	docs/assets/svg/007.svg	/^  <svg width="1617.7999999999997" height="1513.1999999999998" viewBox="-20, -20, 1637.7999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns1e185dd40101	docs/assets/svg/008.svg	/^  <svg width="1705.6" height="1997.2" viewBox="-20, -20, 1725.6, 2017.2" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns1e2a76550101	docs/assets/svg/009.svg	/^  <svg width="1292.6" height="1388.8" viewBox="-20, -20, 1312.6, 1408.8" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns1fdcc26d0101	docs/assets/svg/010.svg	/^  <svg width="2481.3999999999996" height="2696.6000000000004" viewBox="-20, -20, 2501.3999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns1feedaee0101	docs/assets/svg/011.svg	/^  <svg width="1175.7999999999997" height="1219.1999999999998" viewBox="-20, -20, 1195.7999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns2000f36f0101	docs/assets/svg/012.svg	/^  <svg width="1173.7999999999997" height="2064.0" viewBox="-20, -20, 1193.7999999999997, 2084.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns20130bf00101	docs/assets/svg/013.svg	/^  <svg width="2539.7999999999997" height="3987.0" viewBox="-20, -20, 2559.7999999999997, 4007.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns202524710101	docs/assets/svg/014.svg	/^  <svg width="1796.7999999999997" height="2205.7999999999997" viewBox="-20, -20, 1816.7999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns20373cf20101	docs/assets/svg/015.svg	/^  <svg width="1850.8333333333335" height="964.3000000000001" viewBox="-20, -20, 1870.83333333333/;"	n	uri:http://www.w3.org/2000/svg
+ns204955730101	docs/assets/svg/016.svg	/^  <svg width="2050.0" height="1841.1999999999998" viewBox="-20, -20, 2070.0, 1861.1999999999998"/;"	n	uri:http://www.w3.org/2000/svg
+ns205b6df40101	docs/assets/svg/017.svg	/^  <svg width="1353.4" height="1069.6" viewBox="-20, -20, 1373.4, 1089.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns206d86750101	docs/assets/svg/018.svg	/^  <svg width="2166.6" height="1668.0000000000002" viewBox="-20, -20, 2186.6, 1688.0000000000002"/;"	n	uri:http://www.w3.org/2000/svg
+ns207f9ef60101	docs/assets/svg/019.svg	/^  <svg width="3728.6000000000004" height="3295.999999999999" viewBox="-20, -20, 3748.60000000000/;"	n	uri:http://www.w3.org/2000/svg
+ns2231eb0e0101	docs/assets/svg/020.svg	/^  <svg width="1840.0" height="1232.9" viewBox="-20, -20, 1860.0, 1252.9" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns2244038f0101	docs/assets/svg/021.svg	/^  <svg width="3657.9999999999995" height="1606.4" viewBox="-20, -20, 3677.9999999999995, 1626.4"/;"	n	uri:http://www.w3.org/2000/svg
+ns22561c100101	docs/assets/svg/022.svg	/^  <svg width="3054.6" height="2605.6" viewBox="-20, -20, 3074.6, 2625.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns226834910101	docs/assets/svg/023.svg	/^  <svg width="1438.6000000000004" height="1069.6" viewBox="-20, -20, 1458.6000000000004, 1089.6"/;"	n	uri:http://www.w3.org/2000/svg
+ns227a4d120101	docs/assets/svg/024.svg	/^  <svg width="1554.7999999999997" height="1192.8000000000002" viewBox="-20, -20, 1574.7999999999/;"	n	uri:http://www.w3.org/2000/svg
 ns59d2ecb30101	docs/_site/feed.xml	/^<?xml version="1.0" encoding="utf-8"?><feed xmlns="http:\/\/www.w3.org\/2005\/Atom" ><generator /;"	n	uri:http://www.w3.org/2005/Atom
 ns8fb8be310101	img/sample.svg	/^  <svg width="1211.119140625" height="941.0" viewBox="-40, -40, 1251.119140625, 981.0" version="/;"	n	uri:http://www.w3.org/2000/svg
 optgroup	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textarea { color: inherit; \/* 1 *\/ font: inherit; \/* 2 *\/ m/;"	s
 optgroup	docs/_site/assets/css/style.css	/^optgroup { font-weight: bold; }$/;"	s
 parent	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 parent=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
-parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	class:Markup
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
-parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
-parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f
-parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree.BaseGraph
-parse_list	lib/rsyntaxtree/base_graph_new.rb	/^    def parse_list$/;"	f
 path	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 path=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 png形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="png形式を用いる場合">PNG形式を用いる場合<\/h3>$/;"	I
@@ -609,13 +759,8 @@ select	docs/_site/assets/css/style.css	/^button, select { text-transform: none; 
 set_element_width	lib/rsyntaxtree/elementlist.rb	/^    def set_element_width(id, width)$/;"	f	class:RSyntaxTree.ElementList
 set_hierarchy	lib/rsyntaxtree/elementlist.rb	/^    def set_hierarchy$/;"	f	class:RSyntaxTree.ElementList
 set_indent	lib/rsyntaxtree/elementlist.rb	/^    def set_indent(id, indent)$/;"	f	class:RSyntaxTree.ElementList
-set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(this_x, this_y, style, decoration, fontstyle, text)$/;"	f
 set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(this_x, this_y, style, decoration, fontstyle, text)$/;"	f	class:RSyntaxTree.SVGGraph
-set_tspan	lib/rsyntaxtree/svg_graph_.rb	/^    def set_tspan(this_x, this_y, style, decoration, fontstyle, text)$/;"	f
-setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree
 setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree.Element
-setup	test/example_verify_test.rb	/^  def setup$/;"	f	class:ExampleParserTest
-setup	test/example_verify_test.rb	/^  def setup$/;"	f	class:MarkupParserTest
 setup	test/markup_parser_test.rb	/^  def setup$/;"	f	class:MarkupParserTest
 skip-to-content	docs/_layouts/default.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
 skip-to-content	docs/_site/404.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
@@ -638,71 +783,32 @@ sup	docs/_site/assets/css/style.css	/^sub, sup { font-size: 75%; line-height: 0;
 sup	docs/_site/assets/css/style.css	/^sup { top: -0.5em; }$/;"	s
 svg:not(:root)	docs/_site/assets/css/style.css	/^svg:not(:root) { overflow: hidden; }$/;"	s
 svg_data	lib/rsyntaxtree/svg_graph.rb	/^    def svg_data$/;"	f	class:RSyntaxTree.SVGGraph
-svg_data	lib/rsyntaxtree/svg_graph_.rb	/^    def svg_data$/;"	f	class:RSyntaxTree.SVGGraph
 svg形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="svg形式を用いる場合">SVG形式を用いる場合<\/h3>$/;"	I
 table	docs/_site/assets/css/style.css	/^table { border-collapse: collapse; border-spacing: 0; }$/;"	s
 table-of-contents	docs/_site/documentation.html	/^<h3 class="no_toc" id="table-of-contents">Table of Contents<\/h3>$/;"	I
 td	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 template	docs/_site/assets/css/style.css	/^[hidden], template { display: none; }$/;"	s
-test_evaluator	test/example_verify_test.rb	/^  def test_evaluator$/;"	f
-test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f	class:MarkupParserTest
-test_rule_bold	test/example_verify_test.rb	/^  def test_rule_bold$/;"	f
-test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f	class:MarkupParserTest
-test_rule_bolditalic	test/example_verify_test.rb	/^  def test_rule_bolditalic$/;"	f
-test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f
 test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f	class:MarkupParserTest
-test_rule_border	test/example_verify_test.rb	/^  def test_rule_border$/;"	f
-test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f
 test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f	class:MarkupParserTest
-test_rule_box	test/example_verify_test.rb	/^  def test_rule_box$/;"	f
-test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f
 test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f	class:MarkupParserTest
-test_rule_brackets	test/example_verify_test.rb	/^  def test_rule_brackets$/;"	f	class:MarkupParserTest
 test_rule_brackets	test/markup_parser_test.rb	/^  def test_rule_brackets$/;"	f	class:MarkupParserTest
-test_rule_cr	test/example_verify_test.rb	/^  def test_rule_cr$/;"	f	class:MarkupParserTest
 test_rule_cr	test/markup_parser_test.rb	/^  def test_rule_cr$/;"	f	class:MarkupParserTest
-test_rule_escaped	test/example_verify_test.rb	/^  def test_rule_escaped$/;"	f	class:MarkupParserTest
 test_rule_escaped	test/markup_parser_test.rb	/^  def test_rule_escaped$/;"	f	class:MarkupParserTest
-test_rule_italic	test/example_verify_test.rb	/^  def test_rule_italic$/;"	f
-test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f
 test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f	class:MarkupParserTest
-test_rule_line	test/example_verify_test.rb	/^  def test_rule_line$/;"	f
-test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f
 test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f	class:MarkupParserTest
-test_rule_lines	test/example_verify_test.rb	/^  def test_rule_lines$/;"	f
-test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f
 test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f	class:MarkupParserTest
-test_rule_linethrough	test/example_verify_test.rb	/^  def test_rule_linethrough$/;"	f
-test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f
 test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f	class:MarkupParserTest
-test_rule_markup	test/example_verify_test.rb	/^  def test_rule_markup$/;"	f
-test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f
 test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f	class:MarkupParserTest
-test_rule_non_escaped	test/example_verify_test.rb	/^  def test_rule_non_escaped$/;"	f
-test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f
 test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f	class:MarkupParserTest
-test_rule_overline	test/example_verify_test.rb	/^  def test_rule_overline$/;"	f
-test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f
 test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f	class:MarkupParserTest
-test_rule_path	test/example_verify_test.rb	/^  def test_rule_path$/;"	f	class:MarkupParserTest
 test_rule_path	test/markup_parser_test.rb	/^  def test_rule_path$/;"	f	class:MarkupParserTest
-test_rule_subscript	test/example_verify_test.rb	/^  def test_rule_subscript$/;"	f
-test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f
 test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f	class:MarkupParserTest
-test_rule_superscript	test/example_verify_test.rb	/^  def test_rule_superscript$/;"	f
-test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f
 test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f	class:MarkupParserTest
-test_rule_text	test/example_verify_test.rb	/^  def test_rule_text$/;"	f
-test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f
 test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f	class:MarkupParserTest
-test_rule_triangle	test/example_verify_test.rb	/^  def test_rule_triangle$/;"	f	class:MarkupParserTest
 test_rule_triangle	test/markup_parser_test.rb	/^  def test_rule_triangle$/;"	f	class:MarkupParserTest
-test_rule_underline	test/example_verify_test.rb	/^  def test_rule_underline$/;"	f
-test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f	class:MarkupParserTest
-test_setup	test/example_verify_test.rb	/^  def test_setup$/;"	f	class:MarkupParserTest
 text-001	docs/_site/examples.html	/^    <div id="text-001" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>$/;"	I
 text-002	docs/_site/examples.html	/^    <div id="text-002" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>$/;"	I
 text-003	docs/_site/examples.html	/^    <div id="text-003" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>$/;"	I
@@ -731,12 +837,9 @@ th	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 triangle	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 triangle-square-brackets-rectangle	docs/_site/documentation.html	/^<h3 id="triangle-square-brackets-rectangle">Triangle, Square Brackets, Rectangle<\/h3>$/;"	I
 triangle=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
-triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f
 triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
-triangle_to_parent	lib/rsyntaxtree/svg_graph_.rb	/^    def triangle_to_parent(parent, child)$/;"	f
 type	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 type=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
-valid	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	F	class:RSyntaxTree
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 vertical_indent	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 vertical_indent=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
@@ -747,6 +850,7 @@ width	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	cla
 width=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 width=	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
 {{ category.name }}	docs/examples.html	/^<h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}<\/b><\/h2>$/;"	i
+{{ example.caption }}	docs/examples.html	/^<h3>{{ example.caption }}<\/h3>$/;"	j
 {{ page.description | default: site.description | default: site.github.project_tagline }}	docs/_layouts/default.html	/^      <h2 class="project-tagline">{{ page.description | default: site.description | default: sit/;"	i
 {{ page.title | default: site.title | default: site.github.repository_name }}	docs/_layouts/default.html	/^      <\/h1>$/;"	h
 コネクター	docs/_site/documentation_ja.html	/^<h3 id="コネクター">コネクター<\/h3>$/;"	I
