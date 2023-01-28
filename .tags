@@ -269,7 +269,9 @@ Install Fonts for SVG	docs/documentation.md	/^### Install Fonts for SVG$/;"	S	ch
 Installation	README.md	/^## Installation$/;"	s
 License	README.md	/^## License$/;"	s
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
+Markup	lib/rsyntaxtree/markup_parser_new.rb	/^module Markup$/;"	m
 MarkupParser	lib/rsyntaxtree/markup_parser.rb	/^class MarkupParser < Parslet::Parser$/;"	c
+MarkupParser	lib/rsyntaxtree/markup_parser_new.rb	/^class MarkupParser < Parslet::Parser$/;"	c
 MarkupParserTest	test/markup_parser_test.rb	/^class MarkupParserTest < Minitest::Test$/;"	c
 Newline	docs/documentation.md	/^#### Newline$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
 PNG形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="png形式を用いる場合">PNG形式を用いる場合<\/h3>$/;"	j
@@ -770,6 +772,7 @@ parent	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :leve
 parent=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	class:Markup
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
+parse	lib/rsyntaxtree/markup_parser_new.rb	/^  def parse(txt)$/;"	f	class:Markup
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f

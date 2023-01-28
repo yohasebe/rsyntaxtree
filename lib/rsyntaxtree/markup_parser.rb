@@ -184,7 +184,7 @@ module Markup
                                 :none
                               end
       end
-      results[:triangle] = h[:triangle].to_s == '^'
+      results[:triangle] = h[:triangle].to_s == '^' if h[:triangle]
       results[:paths] = h[:paths] if h[:paths]
       results[:contents] << h if h[:type] == :text || h[:type] == :border || h[:type] == :bborder
     end

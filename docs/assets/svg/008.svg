@@ -55,9 +55,9 @@
 <line style='stroke:black; stroke-width:2;' x1='1403.1999999999998' y1='934.5999999999999' x2='1068.0' y2='795.4' />
 <line style='stroke:black; stroke-width:2;' x1='455.99999999999994' y1='1238.8' x2='732.8' y2='1099.6' />
 <line style='stroke:black; stroke-width:2;' x1='1009.5999999999999' y1='1238.8' x2='732.8' y2='1099.6' />
-<line style='stroke:black; stroke-width:2;' x1='455.99999999999994' y1='1543.0' x2='455.99999999999994' y2='1403.8' />
+<polygon style='fill: none; stroke: black; stroke-width:2;' points='359.99999999999994 1543.0 552.0 1543.0 455.99999999999994 1403.8' />
 <line style='stroke:black; stroke-width:2;' x1='846.3999999999999' y1='1543.0' x2='1009.5999999999999' y2='1403.8' />
 <line style='stroke:black; stroke-width:2;' x1='1172.8' y1='1543.0' x2='1009.5999999999999' y2='1403.8' />
-<line style='stroke:black; stroke-width:2;' x1='846.3999999999999' y1='1847.2' x2='846.3999999999999' y2='1708.0' />
+<polygon style='fill: none; stroke: black; stroke-width:2;' points='686.3999999999999 1847.2 1006.3999999999999 1847.2 846.3999999999999 1708.0' />
 <line style='stroke:black; stroke-width:2;' x1='1403.1999999999998' y1='1238.8' x2='1403.1999999999998' y2='1099.6' />
 </svg>
