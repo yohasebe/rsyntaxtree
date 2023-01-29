@@ -218,11 +218,17 @@ module RSyntaxTree
             case @fontstyle
             when /(?:cjk)/
               fontstyle = "'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
-            when /(?:sans|mono)/
+            when /(?:mono)/
               fontstyle = if e[:cjk]
-                            "'Noto Sans JP', 'Noto Sans Mono SemiConcensed', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
+                            "'Noto Sans JP', 'Noto Sans Mono SemiCondensed', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
                           else
-                            "'Noto Sans Mono SemiConcensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
+                            "'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
+                          end
+            when /(?:sans)/
+              fontstyle = if e[:cjk]
+                            "'Noto Sans JP', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
+                          else
+                            "'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
                           end
             when /(?:serif)/
               fontstyle = if e[:cjk]
