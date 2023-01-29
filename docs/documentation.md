@@ -31,12 +31,12 @@ The `Radical symmetrization` option affects the way branch nodes are drawn. The 
 
 ### Fonts Used to Generate PNG
 
-Currently, you can choose between the font styles `Noto Sans`, `Noto Serif`, and `WQY Zen Hei`.
+Currently, you can choose among the font styles `Noto Sans`, `Noto Serif`, `Noto Sans Mono` and `WQY Zen Hei`.
 
 - `Noto Sans` can display basic Unicode characters (including Japanese hiragana/katakana/kanji).
 - `Noto Serif` can display basic Unicode characters (including Japanese hiragana/katakana/kanji).
 - `WQY Zen Hei` can display a wide range of Chinese/Japanese/Korean (CJK) characters.
-
+- `Noto Sans Mono` can display basic Unicode characters in a mono-spaced typeface.
 
 ### Install Fonts for SVG
 
@@ -47,6 +47,7 @@ SVG images are dependent on the fonts installed locally on your computer. In ord
 - [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif): for latin and other basic Unicode characters in serif
 - [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP): for Japanese characters in serif
 - [WQY Zen Hei](https://packages.ubuntu.com/bionic/fonts/fonts-wqy-zenhei): for CJK characters
+- [Noto Sans Mono](https://fonts.google.com/noto/specimen/Noto+Sans+Mono): for latin and other basic Unicode characters in sans serif mono (semi-condensed)
 - [OpenMoji](https://openmoji.org/): for emoji characters.
 
 

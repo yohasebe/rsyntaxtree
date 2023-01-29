@@ -50,6 +50,8 @@ class ExampleParserTest < Minitest::Test
                              "serif"
                            when /wqy/i
                              "cjk"
+                           when /mono/i
+                             "mono"
                            else
                              "sans"
                            end

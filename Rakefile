@@ -59,6 +59,8 @@ task :generate do
                              "serif"
                            when /wqy/i
                              "cjk"
+                           when /mono/i
+                             "mono"
                            else
                              "sans"
                            end
