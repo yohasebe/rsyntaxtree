@@ -44,14 +44,14 @@ class ExampleParserTest < Minitest::Test
         opts[:leafstyle] = value
       when "font"
         opts[:fontstyle] = case value
+                           when /mono/i
+                             "mono"
                            when /sans/i
                              "sans"
                            when /serif/i
                              "serif"
                            when /wqy/i
                              "cjk"
-                           when /mono/i
-                             "mono"
                            else
                              "sans"
                            end

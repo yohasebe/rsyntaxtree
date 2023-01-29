@@ -63,6 +63,15 @@ module RSyntaxTree
           new_params[key] = value.to_f
         when :fontstyle
           case value
+          when "noto-sans-mono", "mono"
+            fontset[:normal] = FONT_DIR + "/NotoSansMono_SemiCondensed-Regular.ttf"
+            fontset[:italic] = FONT_DIR + "/NotoSansMono_SemiCondensed-Regular.ttf"
+            fontset[:bold] = FONT_DIR + "/NotoSansMono_SemiCondensed-Bold.ttf"
+            fontset[:bolditalic] = FONT_DIR + "/NotoSansMono_SemiCondensed-Bold.ttf"
+            fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
+            fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
+            fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
+            new_params[:fontstyle] = "mono"
           when "noto-sans", "sans"
             fontset[:normal] = FONT_DIR + "/NotoSans-Regular.ttf"
             fontset[:italic] = FONT_DIR + "/NotoSans-Italic.ttf"
@@ -90,15 +99,6 @@ module RSyntaxTree
             fontset[:cjk] = FONT_DIR + "/wqy-zenhei.ttf"
             fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
             new_params[:fontstyle] = "cjk"
-          when "noto-mono", "mono"
-            fontset[:normal] = FONT_DIR + "/NotoSansMono_SemiCondensed-Regular.ttf"
-            fontset[:italic] = FONT_DIR + "/NotoSansMono_SemiCondensed-Regular.ttf"
-            fontset[:bold] = FONT_DIR + "/NotoSansMono_SemiCondensed-Bold.ttf"
-            fontset[:bolditalic] = FONT_DIR + "/NotoSansMono_SemiCondensed-Bold.ttf"
-            fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
-            fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
-            new_params[:fontstyle] = "mono"
           end
         else
           new_params[key] = value
