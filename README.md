@@ -20,13 +20,17 @@ You can run RSyntaxTree's web interface on your local machine using Docker Deskt
 
 ## Examples
 
-See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) page for syntax tree samples for
+See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) page for examples for
 
 - Generative Grammar
-- Combinatory Categorial Grammar (Experimental)
-- Head-Driven Phrase Structure Grammar (Experimental)
-- Cognitive Grammar (Experimental)
+- Combinatory Categorial Grammar
+- Head-Driven Phrase Structure Grammar
+- Cognitive Grammar
+- Construction Grammar
+- Pragmatics
+- Phonology
 
+**NOTE**: Some tree structures in the example gallery are experimental in the sense that they are not drawn according to conventions of the field.
 
 **Input text**
 
