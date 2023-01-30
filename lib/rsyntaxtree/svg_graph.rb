@@ -49,8 +49,9 @@ module RSyntaxTree
       y2 = @height + @margin
       extra_lines = @extra_lines.join("\n")
 
+      as  = @global[:h_gap_between_nodes] / 4 * 0.8
       as2 = @global[:h_gap_between_nodes] / 2 * 0.8
-      as = as2 / 2
+      as3 = @global[:h_gap_between_nodes] / 2 * 0.5
 
       header = <<~HDR
         <?xml version="1.0" standalone="no"?>
@@ -59,6 +60,9 @@ module RSyntaxTree
           <defs>
             <marker id="arrow" markerUnits="strokeWidth" markerWidth="#{as2}" markerHeight="#{as2}" viewBox="0 0 #{as2} #{as2}" refX="#{as}" refY="0">
               <polyline fill="none" stroke="#{@col_path}" stroke-width="1" points="0,#{as2},#{as},0,#{as2},#{as2}" />
+            </marker>
+            <marker id="arrowSolid" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as3}" markerHeight="#{as3}" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" stroke="#{@col_line}"/>
             </marker>
             <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
               <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
@@ -85,9 +89,13 @@ module RSyntaxTree
       end
     end
 
+    def draw_direct_line(s_x, s_y, t_x, t_y, s_arrow = false, t_arrow = false)
+      @extra_lines << generate_connector(s_x, s_y, t_x, t_y, @col_line, false, s_arrow, t_arrow)
+    end
+
     def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)
       x_spacing = @global[:h_gap_between_nodes] * 1.25
-      y_spacing = @global[:height_connector] * 0.65
+      y_spacing = @global[:height_connector] * 0.75
 
       ymax = [s_y, t_y].max
       new_y = if ymax < @height
@@ -112,14 +120,15 @@ module RSyntaxTree
         @visited_x[t_x] = 1
       end
 
-      s_y += @global[:h_gap_between_nodes] / 2
-      t_y += @global[:h_gap_between_nodes] / 2
-      new_y += @global[:h_gap_between_nodes] / 2
+      # s_y += @global[:h_gap_between_nodes] / 2
+      # t_y += @global[:h_gap_between_nodes] / 2
+      # new_y += @global[:h_gap_between_nodes] / 2
 
       dashed = true if target_arrow == :none
 
       case target_arrow
       when :single
+        @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
         @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
         @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
         @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed, true)
@@ -362,37 +371,64 @@ module RSyntaxTree
     end
 
     def draw_paths
+      paths = []
       path_pool_target = {}
       path_pool_other = {}
       path_pool_source = {}
       path_flags = []
+
+      line_pool = {}
+      line_flags = []
+
       # elist = @element_list.get_elements.reverse
       elist = @element_list.get_elements
 
-      elist.each do |element|
+      elist.each_with_index do |element, i|
+        x0 = element.horizontal_indent - @global[:h_gap_between_nodes]
         x1 = element.horizontal_indent + element.content_width / 2
+        x2 = element.horizontal_indent + element.content_width + @global[:h_gap_between_nodes]
+        y0 = if /nothing|none/ =~ @leafstyle && element.type == ETYPE_LEAF && element.enclosure != :none
+               element.vertical_indent - @global[:height_connector_to_text]
+             else
+               element.vertical_indent + @global[:height_connector_to_text] / 2
+             end
         y1 = element.vertical_indent + element.content_height
-        y1 += @global[:height_connector_to_text] if element.enclosure != :none
+        if i == elist.size - 1 && /nothing|none/ =~ @leafstyle
+          y1 -= @global[:height_connector_to_text] / 2
+        else
+          y1 += @global[:height_connector_to_text]
+        end
         et = element.path
         et.each do |tr|
-          if /\A>(\d+)\z/ =~ tr
+          if /\A-(>)?(\d+)\z/ =~ tr
+            arrow = $1
+            tr = $2
+            if line_pool[tr]
+              line_pool[tr] << { x: { left: x0, center: x1, right: x2 }, y: { top: y0, center: y0 + (y1 - y0) / 2, bottom: y1 }, arrow: arrow }
+            else
+              line_pool[tr] = [{ x: { left: x0, center: x1, right: x2 }, y: { top: y0, center: y0 + (y1 - y0) / 2, bottom: y1 }, arrow: arrow }]
+            end
+            line_flags << tr
+          elsif /\A>(\d+)\z/ =~ tr
             tr = $1
             if path_pool_target[tr]
               path_pool_target[tr] << [x1, y1]
             else
               path_pool_target[tr] = [[x1, y1]]
             end
+            path_flags << tr
           elsif path_pool_source[tr]
             if path_pool_other[tr]
               path_pool_other[tr] << [x1, y1]
             else
               path_pool_other[tr] = [[x1, y1]]
             end
+            path_flags << tr
           else
             path_pool_source[tr] = [x1, y1]
+            path_flags << tr
           end
-          path_flags << tr
-          raise RSTError, "Error: input text contains a path having more than two ends:\n > #{tr}" if path_flags.tally.any? { |_k, v| v > 2 }
+          raise RSTError, "Error: input text contains a path having more than two ends:\n > #{tr}" if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
         end
       end
 
@@ -400,7 +436,6 @@ module RSyntaxTree
         raise RSTError, "Error: input text contains a path having only one end:\n > #{k}" if v == 1
       end
 
-      paths = []
       path_pool_source.each do |k, v|
         path_flags.delete(k)
         if (targets = path_pool_target[k])
@@ -423,12 +458,43 @@ module RSyntaxTree
       end
 
       paths.each do |t|
-        draw_a_path(t[:x1], t[:y1] + @global[:height_connector_to_text] / 2,
-                    t[:x2], t[:y2] + @global[:height_connector_to_text] / 2,
-                    t[:arrow])
+        # draw_a_path(t[:x1], t[:y1] - @global[:height_connector_to_text], t[:x2], t[:y2] - @global[:height_connector_to_text], t[:arrow])
+        draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow])
       end
 
-      paths.size
+      line_pool.each do |_k, v|
+        a = v[0]
+        b = v[1]
+
+        if (a[:y][:bottom] > b[:y][:top] && a[:y][:top] < b[:y][:bottom]) || (b[:y][:bottom] > a[:y][:top] && b[:y][:top] < a[:y][:bottom])
+          y_top = [a[:y][:top], b[:y][:top]].max
+          y_bottom = [a[:y][:bottom], b[:y][:bottom]].min
+          y_center = y_top + (y_top - y_bottom).abs / 2
+          if a[:x][:center] < b[:x][:center]
+            draw_direct_line(a[:x][:right], y_center, b[:x][:left], y_center, a[:arrow], b[:arrow])
+          else
+            draw_direct_line(b[:x][:right], y_center, a[:x][:left], y_center, b[:arrow], a[:arrow])
+          end
+          next
+        end
+
+        if a[:y][:bottom] < b[:y][:bottom]
+          draw_direct_line(a[:x][:center], a[:y][:bottom], b[:x][:center], b[:y][:top], a[:arrow], b[:arrow])
+        else
+          draw_direct_line(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], a[:arrow], b[:arrow])
+        end
+      end
+      paths.size + line_pool.keys.size
+    end
+
+    def generate_connector(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, stroke_width = 1)
+      string = +""
+      string << "marker-start='url(#arrowSolid)' " if s_arrow
+      string << "marker-end='url(#arrowSolid)' " if t_arrow
+      dasharray = dashed ? "stroke-dasharray='8 8'" : ""
+      swidth = FONT_SCALING * stroke_width
+
+      "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}' #{dasharray} #{string}/>"
     end
 
     def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)

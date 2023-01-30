@@ -1,0 +1,126 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="3654.3999999999996" height="2803.2" viewBox="-20, -20, 3674.3999999999996, 2823.2" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="11.520000000000001" viewBox="0 0 11.520000000000001 11.520000000000001" refX="5.760000000000001" refY="0">
+      <polyline fill="none" stroke="black" stroke-width="1" points="0,11.520000000000001,5.760000000000001,0,11.520000000000001,11.520000000000001" />
+    </marker>
+    <marker id="arrowSolid" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7.2" markerHeight="7.2" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" stroke="black"/>
+    </marker>
+    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    </pattern>
+    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    </pattern>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    </pattern>
+  </defs>
+<rect x="-20" y="-20" width="3674.3999999999996" height="2823.2" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='825.3000000000002' y='132.0'><tspan x='825.3000000000002' y='132.0' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">Human,<tspan style='fill:none;'>￭</tspan>Bonobo,<tspan style='fill:none;'>￭</tspan>Lion,<tspan style='fill:none;'>￭</tspan>Eagle,<tspan style='fill:none;'>￭</tspan>Sparrow,<tspan style='fill:none;'>￭</tspan>Ostrich</tspan>
+<tspan x='1599.3000000000002' y='308.0' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='28.799999999999955' y='730.4'><tspan x='298.79999999999995' y='730.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">Human</tspan>
+<tspan x='28.799999999999955' y='906.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">talking,<tspan style='fill:none;'>￭</tspan>ape,<tspan style='fill:none;'>￭</tspan>mammal</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='190.79999999999995' y='1328.8'><tspan x='280.79999999999995' y='1328.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">Bonobo</tspan>
+<tspan x='190.79999999999995' y='1504.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">ape,<tspan style='fill:none;'>￭</tspan>mammal</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='864.0' y='730.4'><tspan x='1062.0' y='730.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">Lion</tspan>
+<tspan x='864.0' y='906.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">mammal,<tspan style='fill:none;'>￭</tspan>preying</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1116.0' y='1328.8'><tspan x='1116.0' y='1328.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='1116.0' y='1416.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='1116.0' y='1504.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1026.0' y='1874.4'><tspan x='1116.0' y='1874.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='1026.0' y='2050.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">mammal</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='2467.8' y='730.4'><tspan x='2755.8' y='730.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">Eagle</tspan>
+<tspan x='2467.8' y='906.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">preying,<tspan style='fill:none;'>￭</tspan>flying,<tspan style='fill:none;'>￭</tspan>bird</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='2167.2' y='1328.8'><tspan x='2275.2' y='1328.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='2167.2' y='1504.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">preying</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='2275.2' y='1927.1999999999998'><tspan x='2275.2' y='1927.1999999999998' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='2275.2' y='2015.1999999999998' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='2275.2' y='2103.2' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1519.1999999999998' y='2472.7999999999997'><tspan x='2275.2' y='2472.7999999999997' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='1519.1999999999998' y='2648.7999999999997' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">talking,<tspan style='fill:none;'>￭</tspan>ape,<tspan style='fill:none;'>￭</tspan>mammal,<tspan style='fill:none;'>￭</tspan>preying,<tspan style='fill:none;'>￭</tspan>flying,<tspan style='fill:none;'>￭</tspan>bird</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='3182.3999999999996' y='1328.8'><tspan x='3272.3999999999996' y='1328.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">Sparrow</tspan>
+<tspan x='3182.3999999999996' y='1504.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">flying,<tspan style='fill:none;'>￭</tspan>bird</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='3272.3999999999996' y='1927.1999999999998'><tspan x='3272.3999999999996' y='1927.1999999999998' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">Ostrich</tspan>
+<tspan x='3308.3999999999996' y='2103.2' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">bird<tspan style='fill:none;'>￭</tspan></tspan>
+</text>
+<line style='stroke:black; stroke-width:2;' x1='388.79999999999995' y1='620.4' x2='1617.3' y2='363.0' />
+<line style='stroke:black; stroke-width:2;' x1='1134.0' y1='620.4' x2='1617.3' y2='363.0' />
+<line style='stroke:black; stroke-width:2;' x1='2845.8' y1='620.4' x2='1617.3' y2='363.0' />
+<line style='stroke:black; stroke-width:2;' x1='388.79999999999995' y1='1218.8' x2='388.79999999999995' y2='961.4' />
+<line style='stroke:black; stroke-width:2;' x1='1134.0' y1='1218.8' x2='1134.0' y2='961.4' />
+<line style='stroke:black; stroke-width:2;' x1='1134.0' y1='1764.4' x2='1134.0' y2='1559.8' />
+<line style='stroke:black; stroke-width:2;' x1='2293.2' y1='1218.8' x2='2845.8' y2='961.4' />
+<line style='stroke:black; stroke-width:2;' x1='3398.3999999999996' y1='1218.8' x2='2845.8' y2='961.4' />
+<line style='stroke:black; stroke-width:2;' x1='2293.2' y1='1817.1999999999998' x2='2293.2' y2='1559.8' />
+<line style='stroke:black; stroke-width:2;' x1='2293.2' y1='2362.7999999999997' x2='2293.2' y2='2158.2' />
+<line style='stroke:black; stroke-width:2;' x1='3398.3999999999996' y1='1817.1999999999998' x2='3398.3999999999996' y2='1559.8' />
+<line style="stroke:black; stroke-width:2; " x1="825.3000000000002" y1="198.0" x2="2409.3" y2="198.0"></line>
+<line x1='810.9000000000002' y1='33.0' x2='2423.7000000000003' y2='33.0' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='810.9000000000002' y1='33.0' x2='810.9000000000002' y2='352.0' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2423.7000000000003' y1='33.0' x2='2423.7000000000003' y2='352.0' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='810.9000000000002' y1='352.0' x2='2423.7000000000003' y2='352.0' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="28.799999999999955" y1="796.4" x2="748.8" y2="796.4"></line>
+<line x1='14.399999999999954' y1='631.4' x2='763.1999999999999' y2='631.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='14.399999999999954' y1='631.4' x2='14.399999999999954' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='763.1999999999999' y1='631.4' x2='763.1999999999999' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='14.399999999999954' y1='950.4' x2='763.1999999999999' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="190.79999999999995" y1="1394.8" x2="586.8" y2="1394.8"></line>
+<line x1='176.39999999999995' y1='1229.8' x2='601.1999999999999' y2='1229.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='176.39999999999995' y1='1229.8' x2='176.39999999999995' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='601.1999999999999' y1='1229.8' x2='601.1999999999999' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='176.39999999999995' y1='1548.8' x2='601.1999999999999' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="864.0" y1="796.4" x2="1404.0" y2="796.4"></line>
+<line x1='849.6' y1='631.4' x2='1418.4' y2='631.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='849.6' y1='631.4' x2='849.6' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1418.4' y1='631.4' x2='1418.4' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='849.6' y1='950.4' x2='1418.4' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="1026.0" y1="1940.4" x2="1242.0" y2="1940.4"></line>
+<line x1='1011.6' y1='1775.4' x2='1256.4' y2='1775.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1011.6' y1='1775.4' x2='1011.6' y2='2094.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1256.4' y1='1775.4' x2='1256.4' y2='2094.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1011.6' y1='2094.4' x2='1256.4' y2='2094.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="2467.8" y1="796.4" x2="3223.8" y2="796.4"></line>
+<line x1='2453.4' y1='631.4' x2='3238.2' y2='631.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2453.4' y1='631.4' x2='2453.4' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='3238.2' y1='631.4' x2='3238.2' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2453.4' y1='950.4' x2='3238.2' y2='950.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="2167.2" y1="1394.8" x2="2419.2" y2="1394.8"></line>
+<line x1='2152.7999999999997' y1='1229.8' x2='2433.6' y2='1229.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2152.7999999999997' y1='1229.8' x2='2152.7999999999997' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2433.6' y1='1229.8' x2='2433.6' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2152.7999999999997' y1='1548.8' x2='2433.6' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="1519.1999999999998" y1="2538.7999999999997" x2="3067.2" y2="2538.7999999999997"></line>
+<line x1='1504.7999999999997' y1='2373.7999999999997' x2='3081.5999999999995' y2='2373.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1504.7999999999997' y1='2373.7999999999997' x2='1504.7999999999997' y2='2692.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='3081.5999999999995' y1='2373.7999999999997' x2='3081.5999999999995' y2='2692.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1504.7999999999997' y1='2692.7999999999997' x2='3081.5999999999995' y2='2692.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="3182.3999999999996" y1="1394.8" x2="3614.3999999999996" y2="1394.8"></line>
+<line x1='3167.9999999999995' y1='1229.8' x2='3628.7999999999997' y2='1229.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='3167.9999999999995' y1='1229.8' x2='3167.9999999999995' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='3628.7999999999997' y1='1229.8' x2='3628.7999999999997' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='3167.9999999999995' y1='1548.8' x2='3628.7999999999997' y2='1548.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line style="stroke:black; stroke-width:2; " x1="3272.3999999999996" y1="1993.1999999999998" x2="3524.3999999999996" y2="1993.1999999999998"></line>
+<line x1='3257.9999999999995' y1='1828.1999999999998' x2='3538.7999999999997' y2='1828.1999999999998' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='3257.9999999999995' y1='1828.1999999999998' x2='3257.9999999999995' y2='2147.2' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='3538.7999999999997' y1='1828.1999999999998' x2='3538.7999999999997' y2='2147.2' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='3257.9999999999995' y1='2147.2' x2='3538.7999999999997' y2='2147.2' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='388.79999999999995' y1='1559.8' x2='1134.0' y2='1764.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1134.0' y1='961.4' x2='1134.0' y2='1764.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1134.0' y1='961.4' x2='2293.2' y2='1218.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1134.0' y1='2105.4' x2='2293.2' y2='2362.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2293.2' y1='1559.8' x2='2293.2' y2='2362.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2293.2' y1='2362.7999999999997' x2='3398.3999999999996' y2='2158.2' style='fill: none; stroke: black; stroke-width:2'  /></svg>

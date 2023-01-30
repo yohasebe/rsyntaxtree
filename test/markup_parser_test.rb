@@ -29,6 +29,8 @@ class MarkupParserTest < Minitest::Test
     # {:path=>"+12"@0}
     @parser.path.parse('+>34')
     # {:path=>"+>34"@0}d
+    @parser.path.parse('+-87')
+    # {:path=>"+-87"@0}d
   end
 
   def test_rule_escaped

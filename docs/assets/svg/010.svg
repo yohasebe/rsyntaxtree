@@ -1,9 +1,12 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="2481.3999999999996" height="2696.6000000000004" viewBox="-20, -20, 2501.3999999999996, 2716.6000000000004" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="2481.3999999999996" height="2719.4" viewBox="-20, -20, 2501.3999999999996, 2739.4" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="13.440000000000001" viewBox="0 0 13.440000000000001 13.440000000000001" refX="6.720000000000001" refY="0">
       <polyline fill="none" stroke="purple" stroke-width="1" points="0,13.440000000000001,6.720000000000001,0,13.440000000000001,13.440000000000001" />
+    </marker>
+    <marker id="arrowSolid" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8.4" markerHeight="8.4" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" stroke="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
@@ -15,7 +18,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="green" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-20" y="-20" width="2501.3999999999996" height="2716.6000000000004" stroke="none" fill="white" />"
+<rect x="-20" y="-20" width="2501.3999999999996" height="2739.4" stroke="none" fill="white" />"
 <text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='276.96171875000005' y='132.0'><tspan x='276.96171875000005' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">CP</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: blue; font-size: 64px;' x='33.60000000000002' y='436.2'><tspan x='33.60000000000002' y='436.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">C</tspan>
@@ -77,9 +80,11 @@
 <line style='stroke:black; stroke-width:2;' x1='2125.45' y1='1847.2' x2='1861.2749999999999' y2='1708.0' />
 <line style='stroke:black; stroke-width:2;' x1='1960.0' y1='2151.4' x2='2125.45' y2='2012.2' />
 <line style='stroke:black; stroke-width:2;' x1='2290.8999999999996' y1='2151.4' x2='2125.45' y2='2012.2' />
-<line x1='842.8' y1='1629.6' x2='842.8' y2='2520.8' style='fill: none; stroke: purple; stroke-width:2'  />
-<line x1='842.8' y1='2520.8' x2='292.0000000000001' y2='2520.8' style='fill: none; stroke: purple; stroke-width:2'  />
-<line x1='292.0000000000001' y1='2520.8' x2='292.0000000000001' y2='1021.1999999999999' style='fill: none; stroke: purple; stroke-width:2'  marker-end='url(#arrow)' />
-<line x1='1960.0' y1='2542.2000000000003' x2='1960.0' y2='2656.6000000000004' style='fill: none; stroke: purple; stroke-width:2'  />
-<line x1='1960.0' y1='2656.6000000000004' x2='1164.7' y2='2656.6000000000004' style='fill: none; stroke: purple; stroke-width:2'  />
-<line x1='1164.7' y1='2656.6000000000004' x2='1164.7' y2='1933.8' style='fill: none; stroke: purple; stroke-width:2'  marker-end='url(#arrow)' /></svg>
+<line x1='842.8' y1='1634.8' x2='842.8' y2='2521.6' style='fill: none; stroke: purple; stroke-width:2'  />
+<line x1='842.8' y1='1634.8' x2='842.8' y2='2521.6' style='fill: none; stroke: purple; stroke-width:2'  />
+<line x1='842.8' y1='2521.6' x2='292.0000000000001' y2='2521.6' style='fill: none; stroke: purple; stroke-width:2'  />
+<line x1='292.0000000000001' y1='2521.6' x2='292.0000000000001' y2='1026.4' style='fill: none; stroke: purple; stroke-width:2'  marker-end='url(#arrow)' />
+<line x1='1960.0' y1='2547.4' x2='1960.0' y2='2679.4' style='fill: none; stroke: purple; stroke-width:2'  />
+<line x1='1960.0' y1='2547.4' x2='1960.0' y2='2679.4' style='fill: none; stroke: purple; stroke-width:2'  />
+<line x1='1960.0' y1='2679.4' x2='1164.7' y2='2679.4' style='fill: none; stroke: purple; stroke-width:2'  />
+<line x1='1164.7' y1='2679.4' x2='1164.7' y2='1939.0' style='fill: none; stroke: purple; stroke-width:2'  marker-end='url(#arrow)' /></svg>

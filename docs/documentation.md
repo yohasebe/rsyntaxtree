@@ -129,12 +129,25 @@ The backslash character `\` must be used to print certain characters used in the
 
 You can draw any number of paths of three different types:
 
-- Non-directional (rendered `- - -`)
-- Directional (rendered `----->`)
-- Bidirectional (rendered `<----->`)
+- Non-directional (rendered as dashed line `- - -`)
+- Directional (rendered as solid line `----->`)
+- Bidirectional (rendered as solid line `<----->`)
 
-Each path is distinguished by a path ID number. The path ID is specified by putting a plus sign and a number (e.g. `+7`) at the end of the node text. If a greater-than sign is placed between the plus sign and the number (e.g. `+>7`), an arrowhead will appear at the end of the path.
-A node can have any number of path IDs. The same path ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
+Each path is distinguished by a unique ID number. The ID is specified by putting a plus sign and a number (e.g. `+7`) at the end of the node text. If a greater-than sign is placed between the plus sign and the number (e.g. `+>7`), an arrowhead will appear at the end of the path.
+
+A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
+
+### Draw Extra Connectors between Nodes (experimental)
+
+You can also add extra connector between nodes in the same fasion as you draw paths between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s).
+
+- Non-directional (rendered as solid line `-----`)
+- Directional (rendered as solid line `----->`)
+- Bidirectional (rendered as solid line `<----->`)
+
+Each additional connectors is distinguished by an ID number. The ID is specified by putting a a number after a sequence of a plus and a minus symbols (e.g. `+-8`) at the end of the node text. If a greater-than sign is placed between the minus sign and the number (e.g. `+->8`), an arrowhead will appear at the end of the connector.
+
+A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the additional connector is rendered. The same ID number cannot appear in more than two places.
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>

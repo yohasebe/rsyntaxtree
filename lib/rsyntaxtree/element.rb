@@ -20,7 +20,6 @@ module RSyntaxTree
       @id = id                 # Unique element id
       @parent = parent         # Parent element id
       @children = []           # Child element ids
-      @type = type             # Element type
       @level = level           # Element level in the tree (0=top etc...)
       @width = 0               # Width of the part of the tree including itself and it governs
       @content_width = 0       # Width of the content
@@ -28,7 +27,7 @@ module RSyntaxTree
       @vertical_indent = 0     # Drawing offset
       content = content.strip
 
-      @path = if /.+?\^?((?:\+>?\d+)+)\^?\z/m =~ content
+      @path = if /.+?\^?((?:\+-?>?\d+)+)\^?\z/m =~ content
                 $1.sub(/\A\+/, "").split("+")
               else
                 []
