@@ -20,10 +20,12 @@ module RSyntaxTree
         @col_node  = "blue"
         @col_leaf  = "green"
         @col_path = "purple"
+        @col_extra = "red"
       else
         @col_node  = "black"
         @col_leaf  = "black"
         @col_path = "black"
+        @col_extra = "black"
       end
 
       @col_bg   = "none"
@@ -79,13 +81,11 @@ module RSyntaxTree
 
         vertical_indent = if !target.triangle &&
                              (@leafstyle == "nothing" || @leafstyle == "none") &&
-                             ETYPE_LEAF == target.type &&
-                             parent.children.size == 1
+                             ETYPE_LEAF == target.type && parent.children.size == 1
                             parent.vertical_indent + parent.content_height
                           else
                             parent.vertical_indent + parent.content_height + @global[:height_connector]
                           end
-
         target.vertical_indent = vertical_indent
       end
 
@@ -185,8 +185,6 @@ module RSyntaxTree
             triangle_to_parent(parent, child)
           elsif ETYPE_LEAF != child.type
             line_to_parent(parent, child)
-          elsif ETYPE_LEAF == child.type
-            child.vertical_indent = parent.vertical_indent + parent.content_height + @global[:height_connector] / 2
           end
         end
       else
@@ -239,7 +237,6 @@ module RSyntaxTree
       end
 
       offset_l = (top.horizontal_indent - get_leftmost) + @global[:h_gap_between_nodes]
-      # offset_r = top.width / 2 - offset_l - @global[:h_gap_between_nodes:
 
       @element_list.get_elements.each do |e|
         e.horizontal_indent += offset_l

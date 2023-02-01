@@ -51,7 +51,7 @@ module RSyntaxTree
 
       as  = @global[:h_gap_between_nodes] / 4 * 0.8
       as2 = @global[:h_gap_between_nodes] / 2 * 0.8
-      as3 = @global[:h_gap_between_nodes] / 2 * 0.5
+      as4 = @global[:h_gap_between_nodes]
 
       header = <<~HDR
         <?xml version="1.0" standalone="no"?>
@@ -61,8 +61,14 @@ module RSyntaxTree
             <marker id="arrow" markerUnits="strokeWidth" markerWidth="#{as2}" markerHeight="#{as2}" viewBox="0 0 #{as2} #{as2}" refX="#{as}" refY="0">
               <polyline fill="none" stroke="#{@col_path}" stroke-width="1" points="0,#{as2},#{as},0,#{as2},#{as2}" />
             </marker>
-            <marker id="arrowSolid" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as3}" markerHeight="#{as3}" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" stroke="#{@col_line}"/>
+            <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#{@col_extra}"/>
+            </marker>
+            <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#{@col_extra}"/>
+            </marker>
+            <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="#{as4}" markerHeight="#{as4}" orient="auto">
+              <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#{@col_extra}"/>
             </marker>
             <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
               <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
@@ -90,7 +96,7 @@ module RSyntaxTree
     end
 
     def draw_direct_line(s_x, s_y, t_x, t_y, s_arrow = false, t_arrow = false)
-      @extra_lines << generate_connector(s_x, s_y, t_x, t_y, @col_line, false, s_arrow, t_arrow)
+      @extra_lines << generate_connector(s_x, s_y, t_x, t_y, @col_extra, false, s_arrow, t_arrow)
     end
 
     def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)
@@ -119,10 +125,6 @@ module RSyntaxTree
         new_t_x = t_x
         @visited_x[t_x] = 1
       end
-
-      # s_y += @global[:h_gap_between_nodes] / 2
-      # t_y += @global[:h_gap_between_nodes] / 2
-      # new_y += @global[:h_gap_between_nodes] / 2
 
       dashed = true if target_arrow == :none
 
@@ -380,24 +382,14 @@ module RSyntaxTree
       line_pool = {}
       line_flags = []
 
-      # elist = @element_list.get_elements.reverse
       elist = @element_list.get_elements
 
-      elist.each_with_index do |element, i|
+      elist.each do |element|
         x0 = element.horizontal_indent - @global[:h_gap_between_nodes]
         x1 = element.horizontal_indent + element.content_width / 2
         x2 = element.horizontal_indent + element.content_width + @global[:h_gap_between_nodes]
-        y0 = if /nothing|none/ =~ @leafstyle && element.type == ETYPE_LEAF && element.enclosure != :none
-               element.vertical_indent - @global[:height_connector_to_text]
-             else
-               element.vertical_indent + @global[:height_connector_to_text] / 2
-             end
-        y1 = element.vertical_indent + element.content_height
-        if i == elist.size - 1 && /nothing|none/ =~ @leafstyle
-          y1 -= @global[:height_connector_to_text] / 2
-        else
-          y1 += @global[:height_connector_to_text]
-        end
+        y0 = element.vertical_indent + @global[:height_connector_to_text] / 2
+        y1 = element.vertical_indent + element.content_height + @global[:h_gap_between_nodes] * 1.5
         et = element.path
         et.each do |tr|
           if /\A-(>)?(\d+)\z/ =~ tr
@@ -458,7 +450,6 @@ module RSyntaxTree
       end
 
       paths.each do |t|
-        # draw_a_path(t[:x1], t[:y1] - @global[:height_connector_to_text], t[:x2], t[:y2] - @global[:height_connector_to_text], t[:arrow])
         draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow])
       end
 
@@ -466,35 +457,47 @@ module RSyntaxTree
         a = v[0]
         b = v[1]
 
-        if (a[:y][:bottom] > b[:y][:top] && a[:y][:top] < b[:y][:bottom]) || (b[:y][:bottom] > a[:y][:top] && b[:y][:top] < a[:y][:bottom])
-          y_top = [a[:y][:top], b[:y][:top]].max
-          y_bottom = [a[:y][:bottom], b[:y][:bottom]].min
-          y_center = y_top + (y_top - y_bottom).abs / 2
-          if a[:x][:center] < b[:x][:center]
-            draw_direct_line(a[:x][:right], y_center, b[:x][:left], y_center, a[:arrow], b[:arrow])
-          else
-            draw_direct_line(b[:x][:right], y_center, a[:x][:left], y_center, b[:arrow], a[:arrow])
-          end
-          next
-        end
-
-        if a[:y][:bottom] < b[:y][:bottom]
-          draw_direct_line(a[:x][:center], a[:y][:bottom], b[:x][:center], b[:y][:top], a[:arrow], b[:arrow])
-        else
+        if a[:y][:top] > b[:y][:bottom]
           draw_direct_line(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], a[:arrow], b[:arrow])
+        elsif b[:y][:top] > a[:y][:bottom]
+          draw_direct_line(a[:x][:center], a[:y][:bottom], b[:x][:center], b[:y][:top], a[:arrow], b[:arrow])
+        elsif a[:x][:center] < b[:x][:center]
+          draw_direct_line(a[:x][:right], a[:y][:center], b[:x][:left], b[:y][:center], a[:arrow], b[:arrow])
+        else
+          draw_direct_line(b[:x][:right], b[:y][:center], a[:x][:left], a[:y][:center], b[:arrow], a[:arrow])
         end
       end
       paths.size + line_pool.keys.size
     end
 
     def generate_connector(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, stroke_width = 1)
-      string = +""
-      string << "marker-start='url(#arrowSolid)' " if s_arrow
-      string << "marker-end='url(#arrowSolid)' " if t_arrow
+      string = if s_arrow && t_arrow
+                 "marker-mid='url(#arrowBothways)' "
+               elsif s_arrow
+                 "marker-mid='url(#arrowForward)' "
+               elsif t_arrow
+                 "marker-mid='url(#arrowBackward)' "
+               else
+                 ""
+               end
       dasharray = dashed ? "stroke-dasharray='8 8'" : ""
       swidth = FONT_SCALING * stroke_width
 
-      "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}' #{dasharray} #{string}/>"
+      if s_arrow || t_arrow
+        x_mid = if x2 > x1
+                  x1 + (x2 - x1) / 2
+                else
+                  x1 - (x1 - x2) / 2
+                end
+        y_mid = if y2 > y1
+                  y1 + (y2 - y1) / 2
+                else
+                  y1 - (y1 - y2) / 2
+                end
+        "<path d='M#{x1},#{y1} L#{x_mid},#{y_mid} L#{x2}, #{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}' #{dasharray} #{string}/>"
+      else
+        "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}' #{dasharray} #{string}/>"
+      end
     end
 
     def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)

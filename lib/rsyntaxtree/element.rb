@@ -77,14 +77,6 @@ module RSyntaxTree
             fontsize = decoration.include?(:subscript) || decoration.include?(:superscript) ? fontsize * SUBSCRIPT_CONST : fontsize
             style    = decoration.include?(:italic) || decoration.include?(:bolditalic) ? :italic : :normal
             weight   = decoration.include?(:bold) || decoration.include?(:bolditalic) ? :bold : :normal
-
-            # e[:cjk] = false
-            # if e[:decoration].include?(:math)
-            #   font = @fontset[:math]
-            # elsif text.contains_cjk?
-            #   font = @fontset[:cjk]
-            #   e[:cjk] = true
-            # elsif decoration.include? :bolditalic
             font = if decoration.include? :bolditalic
                      @fontset[:bolditalic]
                    elsif decoration.include? :bold

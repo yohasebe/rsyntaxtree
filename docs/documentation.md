@@ -142,8 +142,8 @@ A node can have any number of IDs. The same ID must appear in the text of the *t
 You can also add extra connector between nodes in the same fasion as you draw paths between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s).
 
 - Non-directional (rendered as solid line `-----`)
-- Directional (rendered as solid line `----->`)
-- Bidirectional (rendered as solid line `<----->`)
+- Directional (rendered as solid line `--▶--`)
+- Bidirectional (rendered as solid line `-◀-▶-`)
 
 Each additional connectors is distinguished by an ID number. The ID is specified by putting a a number after a sequence of a plus and a minus symbols (e.g. `+-8`) at the end of the node text. If a greater-than sign is placed between the minus sign and the number (e.g. `+->8`), an arrowhead will appear at the end of the connector.
 

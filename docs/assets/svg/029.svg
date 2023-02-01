@@ -5,8 +5,14 @@
     <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="11.520000000000001" viewBox="0 0 11.520000000000001 11.520000000000001" refX="5.760000000000001" refY="0">
       <polyline fill="none" stroke="black" stroke-width="1" points="0,11.520000000000001,5.760000000000001,0,11.520000000000001,11.520000000000001" />
     </marker>
-    <marker id="arrowSolid" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7.2" markerHeight="7.2" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" stroke="black"/>
+    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000001" markerHeight="11.520000000000001" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+    </marker>
+    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000001" markerHeight="11.520000000000001" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+    </marker>
+    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="28.8" markerHeight="28.8" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
@@ -118,9 +124,9 @@
 <line x1='3257.9999999999995' y1='1828.1999999999998' x2='3257.9999999999995' y2='2147.2' style='fill: none; stroke: black; stroke-width:2'  />
 <line x1='3538.7999999999997' y1='1828.1999999999998' x2='3538.7999999999997' y2='2147.2' style='fill: none; stroke: black; stroke-width:2'  />
 <line x1='3257.9999999999995' y1='2147.2' x2='3538.7999999999997' y2='2147.2' style='fill: none; stroke: black; stroke-width:2'  />
-<line x1='388.79999999999995' y1='1559.8' x2='1134.0' y2='1764.4' style='fill: none; stroke: black; stroke-width:2'  />
-<line x1='1134.0' y1='961.4' x2='1134.0' y2='1764.4' style='fill: none; stroke: black; stroke-width:2'  />
-<line x1='1134.0' y1='961.4' x2='2293.2' y2='1218.8' style='fill: none; stroke: black; stroke-width:2'  />
-<line x1='1134.0' y1='2105.4' x2='2293.2' y2='2362.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
-<line x1='2293.2' y1='1559.8' x2='2293.2' y2='2362.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
-<line x1='2293.2' y1='2362.7999999999997' x2='3398.3999999999996' y2='2158.2' style='fill: none; stroke: black; stroke-width:2'  /></svg>
+<line x1='388.79999999999995' y1='1559.0' x2='1134.0' y2='1764.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1134.0' y1='960.6' x2='1134.0' y2='1764.4' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1134.0' y1='960.6' x2='2293.2' y2='1218.8' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='1134.0' y1='2104.6' x2='2293.2' y2='2362.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2293.2' y1='1559.0' x2='2293.2' y2='2362.7999999999997' style='fill: none; stroke: black; stroke-width:2'  />
+<line x1='2293.2' y1='2362.7999999999997' x2='3398.3999999999996' y2='2157.3999999999996' style='fill: none; stroke: black; stroke-width:2'  /></svg>

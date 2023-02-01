@@ -5,8 +5,14 @@
     <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="11.200000000000001" viewBox="0 0 11.200000000000001 11.200000000000001" refX="5.6000000000000005" refY="0">
       <polyline fill="none" stroke="purple" stroke-width="1" points="0,11.200000000000001,5.6000000000000005,0,11.200000000000001,11.200000000000001" />
     </marker>
-    <marker id="arrowSolid" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7.0" markerHeight="7.0" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" stroke="black"/>
+    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000001" markerHeight="11.200000000000001" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="red"/>
+    </marker>
+    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000001" markerHeight="11.200000000000001" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="red"/>
+    </marker>
+    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="28.0" markerHeight="28.0" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="red"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
