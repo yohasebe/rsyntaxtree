@@ -591,13 +591,18 @@ button	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textar
 button	docs/_site/assets/css/style.css	/^button, select { text-transform: none; }$/;"	s
 button::-moz-focus-inner	docs/_site/assets/css/style.css	/^button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }$/;"	s
 button[disabled]	docs/_site/assets/css/style.css	/^button[disabled], html input[disabled] { cursor: default; }$/;"	s
+calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f
 calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree
 calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f
 calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f	class:RSyntaxTree
 calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f	class:RSyntaxTree.BaseGraph
+calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree
 calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree.BaseGraph
+calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree.BaseGraph.initialize
+calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree
 calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
+calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph.initialize
 canvas	docs/_site/assets/css/style.css	/^audio, canvas, progress, video { display: inline-block; \/* 1 *\/ vertical-align: baseline; \/* /;"	s
 category-cognitive-grammar	docs/_site/examples.html	/^    <h2 id="category-cognitive-grammar"><b>Cognitive Grammar<\/b><\/h2><h3>Cognitive Grammar sam/;"	I
 category-combinatory-categorial-grammar	docs/_site/examples.html	/^    <h2 id="category-combinatory-categorial-grammar"><b>Combinatory Categorial Grammar<\/b><\/h2/;"	I
@@ -612,6 +617,7 @@ category-miscellaneous	docs/_site/examples.html	/^    <h2 id="category-miscellan
 category-phonology	docs/_site/examples.html	/^    <h2 id="category-phonology"><b>Phonology<\/b><\/h2><h3>Phonology sample<\/h3>$/;"	I
 category-pragmatics	docs/_site/examples.html	/^    <h2 id="category-pragmatics"><b>Pragmatics<\/b><\/h2><h3>Types of meaning<\/h3>$/;"	I
 category-{{category.name | slugify }}	docs/examples.html	/^    <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}<\/b><\/h2>$/;"	I
+check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	F	class:RSyntaxTree
 check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	F	class:RSyntaxTree.RSGenerator
 check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	S	class:RSyntaxTree.RSGenerator
 children	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
@@ -645,11 +651,14 @@ div.grid	docs/_site/assets/css/style.css	/^div.grid { display: grid; grid-templa
 documentation	docs/_site/documentation.html	/^      <h1 class="no_toc" id="documentation">Documentation<\/h1>$/;"	I
 draw-extra-connectors-between-nodes-experimental	docs/_site/documentation.html	/^<h3 id="draw-extra-connectors-between-nodes-experimental">Draw Extra Connectors between Nodes (e/;"	I
 draw-paths-between-nodes-experimental	docs/_site/documentation.html	/^<h3 id="draw-paths-between-nodes-experimental">Draw Paths between Nodes (experimental)<\/h3>$/;"	I
+draw_a_path	lib/rsyntaxtree/svg_graph.rb	/^    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)$/;"	f	class:RSyntaxTree
 draw_a_path	lib/rsyntaxtree/svg_graph.rb	/^    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)$/;"	f	class:RSyntaxTree.SVGGraph
 draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f
 draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f	class:RSyntaxTree
 draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
+draw_direct_line	lib/rsyntaxtree/svg_graph.rb	/^    def draw_direct_line(s_x, s_y, t_x, t_y, s_arrow = false, t_arrow = false)$/;"	f	class:RSyntaxTree
 draw_direct_line	lib/rsyntaxtree/svg_graph.rb	/^    def draw_direct_line(s_x, s_y, t_x, t_y, s_arrow = false, t_arrow = false)$/;"	f	class:RSyntaxTree.SVGGraph
+draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f
 draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree
 draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree.SVGGraph
 draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f
@@ -657,8 +666,11 @@ draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:
 draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:RSyntaxTree.BaseGraph
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph
+draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree.RSGenerator
+draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	class:RSyntaxTree
 draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	class:RSyntaxTree.RSGenerator
+draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	class:RSyntaxTree
 draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	class:RSyntaxTree.RSGenerator
 elements	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator$/;"	A	class:RSyntaxTree.ElementList
 elements=	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator$/;"	A	class:RSyntaxTree.ElementList

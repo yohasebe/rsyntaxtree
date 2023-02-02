@@ -30,10 +30,11 @@ task :generate do
       fontsize: 16,
       margin: 1,
       vheight: 2.0,
-      color: "on",
+      color: "modern",
       symmetrize: "on",
       transparent: "off",
-      polyline: "off"
+      polyline: "off",
+      hide_default_connectors: "off"
     }
     name = nil
     config.each do |key, value|
@@ -43,10 +44,19 @@ task :generate do
       when "name"
         name = value
         opts[:name] = name
-      when "colorization"
-        opts[:color] = value
+      when "color"
+        opts[:color] = case value
+                       when "modern", "on", "true"
+                         "modern"
+                       when "traditional"
+                         "traditional"
+                       else
+                         "off"
+                       end
       when "polyline"
         opts[:polyline] = value
+      when "hide_default_connectors"
+        opts[:hide_default_connectors] = value
       when "symmetrization"
         opts[:symmetrize] = value
       when "connector"

@@ -16,6 +16,7 @@ module RSyntaxTree
     attr_accessor :width, :height
 
     def initialize(element_list, params, global)
+      super(element_list, params, global)
       @height = 0
       @width  = 0
       @extra_lines = []
@@ -26,8 +27,8 @@ module RSyntaxTree
       @fontstyle = params[:fontstyle]
       @margin = params[:margin].to_i
       @polyline = params[:polyline]
-      @line_styles = "<line style='stroke:black; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
-      @polyline_styles = "<polyline style='stroke:black; stroke-width:#{FONT_SCALING}; fill:none;'
+      @line_styles = "<line style='stroke:#{@col_line}; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
+      @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{FONT_SCALING}; fill:none;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
       @polygon_styles = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
       @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
@@ -35,12 +36,15 @@ module RSyntaxTree
       @visited_x = {}
       @visited_y = {}
       @global = global
-      super(element_list, params, global)
     end
 
     def svg_data
       metrics = parse_list
-      @height = metrics[:height] + @margin * 2
+      @height = if @element_list.elements.size == 1
+                  metrics[:height]
+                else
+                  metrics[:height] + @margin * 2
+                end
       @width = metrics[:width] + @margin * 2
 
       x1 = 0 - @margin
@@ -51,7 +55,7 @@ module RSyntaxTree
 
       as  = @global[:h_gap_between_nodes] / 4 * 0.8
       as2 = @global[:h_gap_between_nodes] / 2 * 0.8
-      as4 = @global[:h_gap_between_nodes]
+      as4 = @global[:h_gap_between_nodes] * 1.2
 
       header = <<~HDR
         <?xml version="1.0" standalone="no"?>
@@ -389,7 +393,7 @@ module RSyntaxTree
         x1 = element.horizontal_indent + element.content_width / 2
         x2 = element.horizontal_indent + element.content_width + @global[:h_gap_between_nodes]
         y0 = element.vertical_indent + @global[:height_connector_to_text] / 2
-        y1 = element.vertical_indent + element.content_height + @global[:h_gap_between_nodes] * 1.5
+        y1 = element.vertical_indent + element.content_height + @global[:height_connector_to_text]
         et = element.path
         et.each do |tr|
           if /\A-(>)?(\d+)\z/ =~ tr
@@ -459,8 +463,8 @@ module RSyntaxTree
 
         if a[:y][:top] > b[:y][:bottom]
           draw_direct_line(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], a[:arrow], b[:arrow])
-        elsif b[:y][:top] > a[:y][:bottom]
-          draw_direct_line(a[:x][:center], a[:y][:bottom], b[:x][:center], b[:y][:top], a[:arrow], b[:arrow])
+        elsif a[:y][:bottom] < b[:y][:top]
+          draw_direct_line(b[:x][:center], b[:y][:top], a[:x][:center], a[:y][:bottom], b[:arrow], a[:arrow])
         elsif a[:x][:center] < b[:x][:center]
           draw_direct_line(a[:x][:right], a[:y][:center], b[:x][:left], b[:y][:center], a[:arrow], b[:arrow])
         else

@@ -16,7 +16,19 @@ module RSyntaxTree
       @element_list = element_list
       @symmetrize = params[:symmetrize]
 
-      if params[:color]
+      case params[:color]
+      # Okabe-Ito Color
+      when "modern"
+        @col_node  = "#0072B2" # blue
+        @col_leaf  = "#009E73" # bluishgreen
+        @col_path  = "#CC79A7" # reddishpurple
+        @col_extra = "#D55E00" # vermillion
+        # "#000000" black
+        # "#E69F00" orange
+        # "#56B4E9" skyblue
+        # "#F0E442" yellow
+        # "#999999" grey
+      when "traditional"
         @col_node  = "blue"
         @col_leaf  = "green"
         @col_path = "purple"
@@ -30,7 +42,12 @@ module RSyntaxTree
 
       @col_bg   = "none"
       @col_fg   = "black"
-      @col_line = "black"
+
+      @col_line = if params[:hide_default_connectors]
+                    "none"
+                  else
+                    "black"
+                  end
 
       @leafstyle = params[:leafstyle]
       @fontset = params[:fontset]
@@ -224,11 +241,13 @@ module RSyntaxTree
     end
 
     def parse_list
-      calculate_level
-      calculate_width
-      make_balance if @symmetrize
-      calculate_indent
-      node_centering
+      if @element_list.elements.size > 1
+        calculate_level
+        calculate_width
+        make_balance if @symmetrize
+        calculate_indent
+        node_centering
+      end
 
       top = @element_list.get_id(1)
       diff = top.horizontal_indent
@@ -250,7 +269,6 @@ module RSyntaxTree
       width = get_rightmost - get_leftmost + @global[:h_gap_between_nodes]
       height = @element_list.get_id(1).height
       height = @height if @height > height
-
       { height: height, width: width }
     end
   end

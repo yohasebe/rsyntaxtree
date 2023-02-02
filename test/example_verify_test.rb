@@ -25,7 +25,8 @@ class ExampleParserTest < Minitest::Test
       color: "on",
       symmetrize: "on",
       transparent: "off",
-      polyline: "off"
+      polyline: "off",
+      hide_default_connectors: "off"
     }
     name = nil
     config.each do |key, value|
@@ -34,10 +35,19 @@ class ExampleParserTest < Minitest::Test
       case key
       when "name"
         name = value
-      when "colorization"
-        opts[:color] = value
+      when "color"
+        opts[:color] = case value
+                       when "modern", "on", "true"
+                         "modern"
+                       when "traditional"
+                         "traditional"
+                       else
+                         "off"
+                       end
       when "polyline"
         opts[:polyline] = value
+      when "hide_default_connectors"
+        opts[:hide_default_connectors] = value
       when "symmetrization"
         opts[:symmetrize] = value
       when "connector"

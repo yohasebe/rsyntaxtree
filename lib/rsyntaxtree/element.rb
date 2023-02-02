@@ -138,10 +138,13 @@ module RSyntaxTree
             row_width += width
           end
 
-          total_height += if @enclosure != :none
-                            elements_height.max + @global[:height_connector_to_text]
-                          else
+          total_height += if @parent.zero? && @children.empty?
+                            # tree without parent node
                             elements_height.max
+                          # elsif @enclosure != :none && @children.empty?
+                          #   elements_height.max
+                          else
+                            elements_height.max + @global[:height_connector_to_text]
                           end
           content_width += row_width
         end

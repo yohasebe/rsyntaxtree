@@ -53,8 +53,17 @@ module RSyntaxTree
                      .gsub(/(?<!\\)¥/, "\\")
           new_params[key] = data
 
-        when :symmetrize, :color, :transparent, :polyline
+        when :symmetrize, :transparent, :polyline, :hide_default_connectors
           new_params[key] = value && (value != "off" && value != "false") ? true : false
+        when :color
+          new_params[key] = case value
+                            when "modern", "on", "true"
+                              "modern"
+                            when "traditional"
+                              "traditional"
+                            else
+                              "off"
+                            end
         when :fontsize
           new_params[key] = value.to_i * FONT_SCALING
         when :margin
@@ -108,7 +117,7 @@ module RSyntaxTree
       # defaults to the following
       @params = {
         symmetrize: true,
-        color: true,
+        color: "modern",
         transparent: false,
         fontsize: 16,
         format: "png",
@@ -117,7 +126,8 @@ module RSyntaxTree
         data: "",
         margin: 0,
         vheight: 1.0,
-        polyline: false
+        polyline: false,
+        hide_default_connectors: false
       }
 
       @params.merge! new_params
