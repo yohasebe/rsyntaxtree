@@ -13,7 +13,7 @@ class MarkupParser < Parslet::Parser
   rule(:brackets) { str('#') }
   rule(:triangle) { str('^') }
 
-  rule(:path) { (str('+') >> str('-').maybe >> str('>').maybe >> match('\d').repeat(1)).as(:path) }
+  rule(:path) { (str('+') >> str('-').maybe >> (str('>') | str('<')).maybe >> match('\d').repeat(1)).as(:path) }
   rule(:escaped) { str('\\') >> match('[#<>{}\\^+*_=~\|\n\-]').as(:chr) }
   rule(:non_escaped) { ((match('[#<>{}\\^+*_=~\|\-]') | str('\\n')).absent? >> any).as(:chr) }
   rule(:text) { (escaped | non_escaped).repeat(1).as(:text) }

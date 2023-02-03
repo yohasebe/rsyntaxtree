@@ -27,7 +27,7 @@ module RSyntaxTree
       @vertical_indent = 0     # Drawing offset
       content = content.strip
 
-      @path = if /.+?\^?((?:\+-?>?\d+)+)\^?\z/m =~ content
+      @path = if /.+?\^?((?:\+-?>?<?\d+)+)\^?\z/m =~ content
                 $1.sub(/\A\+/, "").split("+")
               else
                 []
@@ -57,6 +57,7 @@ module RSyntaxTree
     def setup
       total_width = 0
       total_height = 0
+      one_bvm_given = false
       @content.each do |content|
         content_width = 0
         case content[:type]
@@ -88,6 +89,7 @@ module RSyntaxTree
                    end
 
             standard_metrics = FontMetrics.get_metrics('X', @fontset[:normal], fontsize, :normal, :normal)
+
             height = standard_metrics.height
             if /\A[<>]+\z/ =~ text
               width = standard_metrics.width * text.size / 2
@@ -132,17 +134,20 @@ module RSyntaxTree
             end
 
             e[:height] = height
-            elements_height << height + @global[:box_vertical_margin] / 2
+
+            if one_bvm_given
+              elements_height << height
+            else
+              one_bvm_given = true
+              elements_height << height + @global[:box_vertical_margin] / 2
+            end
 
             e[:width] = width
             row_width += width
           end
 
-          total_height += if @parent.zero? && @children.empty?
-                            # tree without parent node
-                            elements_height.max
-                          # elsif @enclosure != :none && @children.empty?
-                          #   elements_height.max
+          total_height += if @parent.zero? && @children.empty? && @enclosure == :none
+                            elements_height.max + @global[:height_connector_to_text] * 2
                           else
                             elements_height.max + @global[:height_connector_to_text]
                           end

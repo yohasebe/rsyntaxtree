@@ -65,11 +65,11 @@ module RSyntaxTree
             <marker id="arrow" markerUnits="strokeWidth" markerWidth="#{as2}" markerHeight="#{as2}" viewBox="0 0 #{as2} #{as2}" refX="#{as}" refY="0">
               <polyline fill="none" stroke="#{@col_path}" stroke-width="1" points="0,#{as2},#{as},0,#{as2},#{as2}" />
             </marker>
-            <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#{@col_extra}"/>
-            </marker>
             <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
               <path d="M 0 0 L 10 5 L 0 10 z" fill="#{@col_extra}"/>
+            </marker>
+            <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
+              <path d="M 10 0 L 0 5 L 10 10 z" fill="#{@col_extra}"/>
             </marker>
             <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="#{as4}" markerHeight="#{as4}" orient="auto">
               <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#{@col_extra}"/>
@@ -396,7 +396,7 @@ module RSyntaxTree
         y1 = element.vertical_indent + element.content_height + @global[:height_connector_to_text]
         et = element.path
         et.each do |tr|
-          if /\A-(>)?(\d+)\z/ =~ tr
+          if /\A-(>|<)?(\d+)\z/ =~ tr
             arrow = $1
             tr = $2
             if line_pool[tr]
@@ -405,7 +405,7 @@ module RSyntaxTree
               line_pool[tr] = [{ x: { left: x0, center: x1, right: x2 }, y: { top: y0, center: y0 + (y1 - y0) / 2, bottom: y1 }, arrow: arrow }]
             end
             line_flags << tr
-          elsif /\A>(\d+)\z/ =~ tr
+          elsif /\A(?:>|<)(\d+)\z/ =~ tr
             tr = $1
             if path_pool_target[tr]
               path_pool_target[tr] << [x1, y1]
