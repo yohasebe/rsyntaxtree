@@ -60,6 +60,8 @@ task :generate do
         opts[:polyline] = value
       when "hide_default_connectors"
         opts[:hide_default_connectors] = value
+      when "connector_height"
+        opts[:vheight] = value
       when "symmetrization"
         opts[:symmetrize] = value
       when "connector"
