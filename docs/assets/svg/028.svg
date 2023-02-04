@@ -2,17 +2,17 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <svg width="818.4" height="1280.8" viewBox="-20, -20, 838.4, 1300.8" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="13.440000000000001" viewBox="0 0 13.440000000000001 13.440000000000001" refX="6.720000000000001" refY="0">
-      <polyline fill="none" stroke="#CC79A7" stroke-width="1" points="0,13.440000000000001,6.720000000000001,0,13.440000000000001,13.440000000000001" />
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D55E00"/>
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
-      <path d="M 10 0 L 0 5 L 10 10 z" fill="#D55E00"/>
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" markerHeight="40.32" orient="auto">
-      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#D55E00"/>
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
@@ -41,11 +41,11 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; font-size: 64px;' x='659.4' y='1205.6'><tspan x='659.4' y='1205.6' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">cats</tspan>
 </text>
-<line style='stroke:black; stroke-width:2;' x1='179.1' y1='409.2' x2='392.275' y2='187.0' />
-<line style='stroke:black; stroke-width:2;' x1='605.4499999999999' y1='409.2' x2='392.275' y2='187.0' />
-<polygon style='fill: none; stroke: black; stroke-width:2;' points='33.60000000000002 752.4 324.6 752.4 179.1 574.2' />
-<line style='stroke:black; stroke-width:2;' x1='492.0' y1='752.4' x2='605.4499999999999' y2='574.2' />
-<line style='stroke:black; stroke-width:2;' x1='718.9' y1='752.4' x2='605.4499999999999' y2='574.2' />
-<line style='stroke:black; stroke-width:2;' x1='492.0' y1='1095.6' x2='492.0' y2='917.4' />
-<polygon style='fill: none; stroke: black; stroke-width:2;' points='659.4 1095.6 778.4 1095.6 718.9 917.4' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='179.1' y1='409.2' x2='392.275' y2='187.0' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='605.4499999999999' y1='409.2' x2='392.275' y2='187.0' />
+<polygon style='fill: none; stroke: black; stroke-width:3; stroke-linejoin:round;' points='33.60000000000002 752.4 324.6 752.4 179.1 574.2' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='492.0' y1='752.4' x2='605.4499999999999' y2='574.2' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='718.9' y1='752.4' x2='605.4499999999999' y2='574.2' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='492.0' y1='1095.6' x2='492.0' y2='917.4' />
+<polygon style='fill: none; stroke: black; stroke-width:3; stroke-linejoin:round;' points='659.4 1095.6 778.4 1095.6 718.9 917.4' />
 </svg>

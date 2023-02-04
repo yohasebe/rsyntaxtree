@@ -2,17 +2,17 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <svg width="1353.4" height="1280.8" viewBox="-20, -20, 1373.4, 1300.8" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="13.440000000000001" viewBox="0 0 13.440000000000001 13.440000000000001" refX="6.720000000000001" refY="0">
-      <polyline fill="none" stroke="#CC79A7" stroke-width="1" points="0,13.440000000000001,6.720000000000001,0,13.440000000000001,13.440000000000001" />
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D55E00"/>
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
-      <path d="M 10 0 L 0 5 L 10 10 z" fill="#D55E00"/>
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" markerHeight="40.32" orient="auto">
-      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#D55E00"/>
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
@@ -55,32 +55,32 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; font-size: 64px;' x='1266.4' y='1205.6'><tspan x='1266.4' y='1205.6' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">O</tspan>
 </text>
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='308.57500000000005 409.2 308.57500000000005 298.1 660.5625000000001 298.1 660.5625000000001 187.0' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1012.5500000000002 409.2 1012.5500000000002 298.1 660.5625000000001 298.1 660.5625000000001 187.0' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='144.80000000000007 752.4 144.80000000000007 663.3 308.57500000000005 663.3 308.57500000000005 574.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='472.35 752.4 472.35 663.3 308.57500000000005 663.3 308.57500000000005 574.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='59.10000000000002 1095.6 59.10000000000002 1006.5 144.80000000000007 1006.5 144.80000000000007 917.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='230.5 1095.6 230.5 1006.5 144.80000000000007 1006.5 144.80000000000007 917.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='387.90000000000003 1095.6 387.90000000000003 1006.5 472.35 1006.5 472.35 917.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='556.8000000000001 1095.6 556.8000000000001 1006.5 472.35 1006.5 472.35 917.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='826.4000000000001 752.4 826.4000000000001 663.3 1012.5500000000002 663.3 1012.5500000000002 574.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1198.7000000000003 752.4 1198.7000000000003 663.3 1012.5500000000002 663.3 1012.5500000000002 574.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='734.2 1095.6 734.2 1006.5 826.4000000000001 1006.5 826.4000000000001 917.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='918.6000000000001 1095.6 918.6000000000001 1006.5 826.4000000000001 1006.5 826.4000000000001 917.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1107.5 1095.6 1107.5 1006.5 1198.7000000000003 1006.5 1198.7000000000003 917.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1289.9 1095.6 1289.9 1006.5 1198.7000000000003 1006.5 1198.7000000000003 917.4' />
 </svg>

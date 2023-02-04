@@ -2,17 +2,17 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <svg width="1840.0" height="1462.0" viewBox="-20, -20, 1860.0, 1482.0" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="11.200000000000001" viewBox="0 0 11.200000000000001 11.200000000000001" refX="5.6000000000000005" refY="0">
-      <polyline fill="none" stroke="#CC79A7" stroke-width="1" points="0,11.200000000000001,5.6000000000000005,0,11.200000000000001,11.200000000000001" />
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="28.0" markerHeight="28.0" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000001" markerHeight="11.200000000000001" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#D55E00"/>
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="28.0" markerHeight="28.0" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000001" markerHeight="11.200000000000001" orient="auto">
-      <path d="M 10 0 L 0 5 L 10 10 z" fill="#D55E00"/>
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="28.0" markerHeight="28.0" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
-      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#D55E00"/>
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="84.0" markerHeight="28.0" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
@@ -79,30 +79,32 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; font-size: 64px;' x='1770.0' y='1390.4'><tspan x='1770.0' y='1390.4' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">z</tspan>
 </text>
-<line style='stroke:black; stroke-width:2;' x1='271.75' y1='367.35' x2='773.1875' y2='167.875' />
-<line style='stroke:black; stroke-width:2;' x1='1274.625' y1='367.35' x2='773.1875' y2='167.875' />
-<line style='stroke:black; stroke-width:2;' x1='73.0' y1='675.45' x2='271.75' y2='515.475' />
-<line style='stroke:black; stroke-width:2;' x1='470.5' y1='675.45' x2='271.75' y2='515.475' />
-<line style='stroke:black; stroke-width:2;' x1='73.0' y1='983.5500000000001' x2='73.0' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='73.0' y1='1291.65' x2='73.0' y2='1131.6750000000002' />
-<line style='stroke:black; stroke-width:2;' x1='347.5' y1='983.5500000000001' x2='470.5' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='593.5' y1='983.5500000000001' x2='470.5' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='347.5' y1='1291.65' x2='347.5' y2='1131.6750000000002' />
-<line style='stroke:black; stroke-width:2;' x1='593.5' y1='1291.65' x2='593.5' y2='1131.6750000000002' />
-<line style='stroke:black; stroke-width:2;' x1='872.0' y1='675.45' x2='1274.625' y2='515.475' />
-<line style='stroke:black; stroke-width:2;' x1='1145.5' y1='675.45' x2='1274.625' y2='515.475' />
-<line style='stroke:black; stroke-width:2;' x1='1330.0' y1='675.45' x2='1274.625' y2='515.475' />
-<line style='stroke:black; stroke-width:2;' x1='1677.25' y1='675.45' x2='1274.625' y2='515.475' />
-<line style='stroke:black; stroke-width:2;' x1='773.0' y1='983.5500000000001' x2='872.0' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='971.0' y1='983.5500000000001' x2='872.0' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='773.0' y1='1291.65' x2='773.0' y2='1131.6750000000002' />
-<line style='stroke:black; stroke-width:2;' x1='971.0' y1='1291.65' x2='971.0' y2='1131.6750000000002' />
-<line style='stroke:black; stroke-width:2;' x1='1145.5' y1='983.5500000000001' x2='1145.5' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='1145.5' y1='1291.65' x2='1145.5' y2='1131.6750000000002' />
-<line style='stroke:black; stroke-width:2;' x1='1330.0' y1='983.5500000000001' x2='1330.0' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='1330.0' y1='1291.65' x2='1330.0' y2='1131.6750000000002' />
-<line style='stroke:black; stroke-width:2;' x1='1571.0' y1='983.5500000000001' x2='1677.25' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='1783.5' y1='983.5500000000001' x2='1677.25' y2='823.575' />
-<line style='stroke:black; stroke-width:2;' x1='1571.0' y1='1291.65' x2='1571.0' y2='1131.6750000000002' />
-<line style='stroke:black; stroke-width:2;' x1='1783.5' y1='1291.65' x2='1783.5' y2='1131.6750000000002' />
-</svg>
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='271.75' y1='367.35' x2='773.1875' y2='167.875' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1274.625' y1='367.35' x2='773.1875' y2='167.875' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='73.0' y1='675.45' x2='271.75' y2='515.475' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='470.5' y1='675.45' x2='271.75' y2='515.475' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='73.0' y1='983.5500000000001' x2='73.0' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='73.0' y1='1291.65' x2='73.0' y2='1131.6750000000002' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='347.5' y1='983.5500000000001' x2='470.5' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='593.5' y1='983.5500000000001' x2='470.5' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='347.5' y1='1291.65' x2='347.5' y2='1131.6750000000002' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='593.5' y1='1291.65' x2='593.5' y2='1131.6750000000002' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='872.0' y1='675.45' x2='1274.625' y2='515.475' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1145.5' y1='675.45' x2='1274.625' y2='515.475' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1330.0' y1='675.45' x2='1274.625' y2='515.475' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1677.25' y1='675.45' x2='1274.625' y2='515.475' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='773.0' y1='983.5500000000001' x2='872.0' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='971.0' y1='983.5500000000001' x2='872.0' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='773.0' y1='1291.65' x2='773.0' y2='1131.6750000000002' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='971.0' y1='1291.65' x2='971.0' y2='1131.6750000000002' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1145.5' y1='983.5500000000001' x2='1145.5' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1145.5' y1='1291.65' x2='1145.5' y2='1131.6750000000002' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1330.0' y1='983.5500000000001' x2='1330.0' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1330.0' y1='1291.65' x2='1330.0' y2='1131.6750000000002' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1571.0' y1='983.5500000000001' x2='1677.25' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1783.5' y1='983.5500000000001' x2='1677.25' y2='823.575' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1571.0' y1='1291.65' x2='1571.0' y2='1131.6750000000002' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1783.5' y1='1291.65' x2='1783.5' y2='1131.6750000000002' />
+<line x1='73.0' y1='1291.65' x2='73.0' y2='823.575' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  />
+<line x1='1145.5' y1='1291.65' x2='1145.5' y2='823.575' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  />
+<line x1='1330.0' y1='1291.65' x2='1330.0' y2='823.575' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  /></svg>

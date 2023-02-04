@@ -20,6 +20,7 @@ class ExampleParserTest < Minitest::Test
       leafstyle: "auto",
       fontstyle: "sans",
       fontsize: 16,
+      linewidth: 1,
       margin: 1,
       vheight: 2.0,
       color: "on",

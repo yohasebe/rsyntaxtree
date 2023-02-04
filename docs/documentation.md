@@ -115,7 +115,11 @@ Here, `---` represents `-` repeated three times or more consecutively.
 
 In `auto` mode, the triangle connector shape is applied when the terminal node contains words separated by whitespace. In `bar` and `none` modes, triangles are drawn for the nodes with `^` at the beginning of the leaf text, lie `[NP ^syntax-trees]`.
 
-If a `#` character is placed at the beginning of a label or leaf text (right after `^` if there is one), the text is enclosed in a pair of square brackets (e.g. `[#NP text]`, `[NP #text]`, `[NP ^#text]`). If `##` is placed at the beginning of the leaf text, a rectangle is drawn instead of brackets.
+If a `#` character is placed at the beginning of a label or leaf text (right after `^` if there is one), the text is enclosed in a pair of square brackets (e.g. `[#NP text]`, `[NP #text]`, `[NP ^#text]`).
+
+If `##` is placed at the beginning of the leaf text, a rectangle is drawn instead of brackets.
+
+If `###` is placed at the beginning of the leaf text, a rectangle with thicker lines is drawn.
 
 ### Escape Special Characters
 
@@ -130,8 +134,8 @@ The backslash character `\` must be used to print certain characters used in the
 You can draw any number of paths of three different types:
 
 - Non-directional (rendered as dashed line `- - -`)
-- Directional (rendered as solid line `----->`)
-- Bidirectional (rendered as solid line `<----->`)
+- Directional (rendered as solid line `----▶`)
+- Bidirectional (rendered as solid line `◀----▶`)
 
 Each path is distinguished by a unique ID number. The ID is specified by putting a plus sign and a number (e.g. `+7`) at the end of the node text. If a greater-than or less-than sign is placed between the plus sign and the number (e.g. `+>7` or `+<7`), an arrowhead will appear at the end of the path. Note that it makes no difference whether `+>` or `+<` is used. The arrow is always directed to the element with one of these ID symbols.
 

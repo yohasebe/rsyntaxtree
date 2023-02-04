@@ -2,16 +2,16 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <svg width="1902.4" height="1201.6" viewBox="-20, -20, 1922.4, 1221.6" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="13.440000000000001" viewBox="0 0 13.440000000000001 13.440000000000001" refX="6.720000000000001" refY="0">
-      <polyline fill="none" stroke="black" stroke-width="1" points="0,13.440000000000001,6.720000000000001,0,13.440000000000001,13.440000000000001" />
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
     </marker>
-    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
     </marker>
-    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
     </marker>
-    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" markerHeight="40.32" orient="auto">
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -39,12 +39,12 @@
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1275.4' y='994.4000000000001'><tspan x='1275.4' y='994.4000000000001' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">[to<tspan style='fill:none;'>￭</tspan>following<tspan style='fill:none;'>￭</tspan>text]</tspan>
 <tspan x='1414.4' y='1082.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">cataphora</tspan>
 </text>
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='219.60000000000002 409.2 219.60000000000002 298.1 712.15 298.1 712.15 187.0' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1204.7 409.2 1204.7 298.1 712.15 298.1 712.15 187.0' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='840.5 884.4 840.5 773.3 1204.7 773.3 1204.7 662.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1568.9 884.4 1568.9 773.3 1204.7 773.3 1204.7 662.2' />
 </svg>

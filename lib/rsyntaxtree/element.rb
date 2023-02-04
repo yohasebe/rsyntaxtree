@@ -148,6 +148,8 @@ module RSyntaxTree
 
           total_height += if @parent.zero? && @children.empty? && @enclosure == :none
                             elements_height.max + @global[:height_connector_to_text] * 2
+                          elsif @parent.zero? && @children.empty?
+                            elements_height.max + @global[:height_connector_to_text] / 2
                           else
                             elements_height.max + @global[:height_connector_to_text]
                           end

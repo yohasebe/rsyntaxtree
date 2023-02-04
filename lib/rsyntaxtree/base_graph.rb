@@ -19,12 +19,12 @@ module RSyntaxTree
       case params[:color]
       # Okabe-Ito Color
       when "modern"
-        @col_node  = "#0072B2" # blue
-        @col_leaf  = "#009E73" # bluishgreen
-        @col_path  = "#CC79A7" # reddishpurple
-        @col_extra = "#D55E00" # vermillion
+        @col_node = "#0072B2" # blue
+        @col_leaf = "#009E73" # bluishgreen
+        @col_path = "#CC79A7" # reddishpurple
+        @col_extra = "#CC79A7" # orange
+        @col_emph = "#D55E00" # vermillion
         # "#000000" black
-        # "#E69F00" orange
         # "#56B4E9" skyblue
         # "#F0E442" yellow
         # "#999999" grey
@@ -32,7 +32,8 @@ module RSyntaxTree
         @col_node  = "blue"
         @col_leaf  = "green"
         @col_path = "purple"
-        @col_extra = "red"
+        @col_extra = "purple"
+        @col_emph = "red"
       else
         @col_node  = "black"
         @col_leaf  = "black"

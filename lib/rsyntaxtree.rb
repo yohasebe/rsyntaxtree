@@ -13,6 +13,8 @@ ETYPE_NODE = 1
 ETYPE_LEAF = 2
 SUBSCRIPT_CONST = 0.7
 FONT_SCALING = 2
+LINE_SCALING = 2
+BLINE_SCALING = 5
 WHITESPACE_BLOCK = "￭"
 
 class RSTError < StandardError
@@ -66,6 +68,8 @@ module RSyntaxTree
                             end
         when :fontsize
           new_params[key] = value.to_i * FONT_SCALING
+        when :linewidth
+          new_params[key] = value.to_i
         when :margin
           new_params[key] = value.to_i * FONT_SCALING * 5
         when :vheight
@@ -120,6 +124,7 @@ module RSyntaxTree
         color: "modern",
         transparent: false,
         fontsize: 16,
+        linewidth: 2,
         format: "png",
         leafstyle: "auto",
         filename: "syntree",

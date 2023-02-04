@@ -2,16 +2,16 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <svg width="5044.799999999999" height="1984.8000000000002" viewBox="-20, -20, 5064.799999999999, 2004.8000000000002" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="13.440000000000001" viewBox="0 0 13.440000000000001 13.440000000000001" refX="6.720000000000001" refY="0">
-      <polyline fill="none" stroke="black" stroke-width="1" points="0,13.440000000000001,6.720000000000001,0,13.440000000000001,13.440000000000001" />
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
     </marker>
-    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
     </marker>
-    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
     </marker>
-    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" markerHeight="40.32" orient="auto">
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -70,32 +70,32 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='4718.799999999999' y='1645.6000000000001'><tspan x='4718.799999999999' y='1645.6000000000001' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">REFUSAL</tspan>
 </text>
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='891.625 585.2 891.625 430.1 2379.375 430.1 2379.375 275.0' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='3867.125 585.2 3867.125 430.1 2379.375 430.1 2379.375 275.0' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='215.5999999999999 1060.4 215.5999999999999 949.3000000000001 891.625 949.3000000000001 891.625 838.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1567.65 1060.4 1567.65 949.3000000000001 891.625 949.3000000000001 891.625 838.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='854.0 1535.6000000000001 854.0 1424.5 1567.65 1424.5 1567.65 1313.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1584.3999999999999 1535.6000000000001 1584.3999999999999 1424.5 1567.65 1424.5 1567.65 1313.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='2281.3 1535.6000000000001 2281.3 1424.5 1567.65 1424.5 1567.65 1313.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='3085.6499999999996 1060.4 3085.6499999999996 949.3000000000001 3867.125 949.3000000000001 3867.125 838.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='3948.0 1060.4 3948.0 949.3000000000001 3867.125 949.3000000000001 3867.125 838.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='4648.599999999999 1060.4 4648.599999999999 949.3000000000001 3867.125 949.3000000000001 3867.125 838.2' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='2825.7 1403.6000000000001 2825.7 1314.5 3085.6499999999996 1314.5 3085.6499999999996 1225.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='3345.6 1403.6000000000001 3345.6 1314.5 3085.6499999999996 1314.5 3085.6499999999996 1225.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='4435.4 1535.6000000000001 4435.4 1424.5 4648.599999999999 1424.5 4648.599999999999 1313.4' />
-<polyline style='stroke:black; stroke-width:2; fill:none;'
+<polyline style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='4861.799999999999 1535.6000000000001 4861.799999999999 1424.5 4648.599999999999 1424.5 4648.599999999999 1313.4' />
 </svg>

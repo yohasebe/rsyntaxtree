@@ -22,15 +22,16 @@ module RSyntaxTree
       @extra_lines = []
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
+      @linewidth = params[:linewidth]
       @transparent = params[:transparent]
       @color = params[:color]
       @fontstyle = params[:fontstyle]
       @margin = params[:margin].to_i
       @polyline = params[:polyline]
-      @line_styles = "<line style='stroke:#{@col_line}; stroke-width:#{FONT_SCALING};' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
-      @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{FONT_SCALING}; fill:none;'
+      @line_styles = "<line style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
+      @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
-      @polygon_styles = "<polygon style='fill: none; stroke: black; stroke-width:#{FONT_SCALING};' points='X1 Y1 X2 Y2 X3 Y3' />\n"
+      @polygon_styles = "<polygon style='fill: none; stroke: black; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
       @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
       @tree_data = String.new
       @visited_x = {}
@@ -53,25 +54,28 @@ module RSyntaxTree
       y2 = @height + @margin
       extra_lines = @extra_lines.join("\n")
 
-      as  = @global[:h_gap_between_nodes] / 4 * 0.8
-      as2 = @global[:h_gap_between_nodes] / 2 * 0.8
-      as4 = @global[:h_gap_between_nodes] * 1.2
+      # as  = @global[:h_gap_between_nodes] / 4 * 0.8
+      # as2 = @global[:h_gap_between_nodes] / 2 * 0.8
+      # as4 = @global[:h_gap_between_nodes] * 1.2
+
+      as2 = @global[:h_gap_between_nodes] * 1.0
+      as4 = as2 * 3
 
       header = <<~HDR
         <?xml version="1.0" standalone="no"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
           <svg width="#{@width}" height="#{@height}" viewBox="#{x1}, #{y1}, #{x2}, #{y2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <marker id="arrow" markerUnits="strokeWidth" markerWidth="#{as2}" markerHeight="#{as2}" viewBox="0 0 #{as2} #{as2}" refX="#{as}" refY="0">
-              <polyline fill="none" stroke="#{@col_path}" stroke-width="1" points="0,#{as2},#{as},0,#{as2},#{as2}" />
+            <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10" fill="#{@col_extra}"/>
             </marker>
-            <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
+            <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
               <path d="M 0 0 L 10 5 L 0 10 z" fill="#{@col_extra}"/>
             </marker>
-            <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
+            <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
               <path d="M 10 0 L 0 5 L 10 10 z" fill="#{@col_extra}"/>
             </marker>
-            <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="#{as4}" markerHeight="#{as4}" orient="auto">
+            <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="#{as4}" markerHeight="#{as2}" orient="auto">
               <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#{@col_extra}"/>
             </marker>
             <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -97,10 +101,6 @@ module RSyntaxTree
       else
         header + rect + @tree_data + extra_lines + footer
       end
-    end
-
-    def draw_direct_line(s_x, s_y, t_x, t_y, s_arrow = false, t_arrow = false)
-      @extra_lines << generate_connector(s_x, s_y, t_x, t_y, @col_extra, false, s_arrow, t_arrow)
     end
 
     def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)
@@ -147,7 +147,6 @@ module RSyntaxTree
         @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
         @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed)
       end
-
       @height = new_y if new_y > @height
     end
 
@@ -187,9 +186,9 @@ module RSyntaxTree
           y2 = y1
           case l[:type]
           when :border
-            stroke_width = FONT_SCALING
+            stroke_width = @linewidth + LINE_SCALING
           when :bborder
-            stroke_width = FONT_SCALING * 2
+            stroke_width = @linewidth + BLINE_SCALING
           end
           @extra_lines << "<line style=\"stroke:#{col}; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
         else
@@ -226,7 +225,7 @@ module RSyntaxTree
               this_y = text_y
             end
 
-            style += "font-weight: bold; " if e[:decoration].include?(:bold) || e[:decoration].include?(:bolditalic)
+            style += "font-weight: bold; fill: #{@col_emph}; " if e[:decoration].include?(:bold) || e[:decoration].include?(:bolditalic)
             style += "font-style: italic; " if e[:decoration].include?(:italic) || e[:decoration].include?(:bolditalic)
             style += "\""
 
@@ -281,9 +280,9 @@ module RSyntaxTree
               enc = nil
 
               stroke_width = if e[:decoration].include?(:bstroke)
-                               FONT_SCALING * 2.5
+                               @linewidth + BLINE_SCALING
                              else
-                               FONT_SCALING
+                               @linewidth + LINE_SCALING
                              end
 
               if e[:decoration].include?(:box)
@@ -306,12 +305,12 @@ module RSyntaxTree
                 @extra_lines << bar
 
                 if e[:decoration].include?(:arrow_to_l)
-                  l_arrowhead = "<polyline stroke-linejoin='bevel' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x1 + ar_hwidth},#{y1 + ar_hwidth / 2} #{x1},#{y1} #{x1 + ar_hwidth},#{y1 - ar_hwidth / 2}' />\n"
+                  l_arrowhead = "<polyline stroke-linejoin='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x1 + ar_hwidth},#{y1 + ar_hwidth / 2} #{x1},#{y1} #{x1 + ar_hwidth},#{y1 - ar_hwidth / 2}' />\n"
                   @extra_lines << l_arrowhead
                 end
 
                 if e[:decoration].include?(:arrow_to_r)
-                  r_arrowhead = "<polyline stroke-linejoin='bevel' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x2 - ar_hwidth},#{y2 - ar_hwidth / 2} #{x2},#{y2} #{x2 - ar_hwidth},#{y2 + ar_hwidth / 2}' />\n"
+                  r_arrowhead = "<polyline stroke-linejoin='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x2 - ar_hwidth},#{y2 - ar_hwidth / 2} #{x2},#{y2} #{x2 - ar_hwidth},#{y2 + ar_hwidth / 2}' />\n"
                   @extra_lines << r_arrowhead
                 end
               end
@@ -346,26 +345,30 @@ module RSyntaxTree
       bc[:height] = text_y - bc[:y] + @global[:height_connector_to_text]
       case element.enclosure
       when :brackets
-        @extra_lines << generate_line(bc[:x], bc[:y], bc[:x] + @global[:h_gap_between_nodes] / 2, bc[:y], col)
-        @extra_lines << generate_line(bc[:x], bc[:y], bc[:x], bc[:y] + bc[:height], col)
-        @extra_lines << generate_line(bc[:x], bc[:y] + bc[:height], bc[:x] + @global[:h_gap_between_nodes] / 2, bc[:y] + bc[:height], col)
-        @extra_lines << generate_line(bc[:x] + bc[:width], bc[:y], bc[:x] + bc[:width] - @global[:h_gap_between_nodes] / 2, bc[:y], col)
-        @extra_lines << generate_line(bc[:x] + bc[:width], bc[:y], bc[:x] + bc[:width], bc[:y] + bc[:height], col)
-        @extra_lines << generate_line(bc[:x] + bc[:width], bc[:y] + bc[:height], bc[:x] + bc[:width] - @global[:h_gap_between_nodes] / 2, bc[:y] + bc[:height], col)
+        draw_bracket(bc[:x], bc[:y], bc[:width], bc[:height], col)
       when :rectangle
-        @extra_lines << generate_line(bc[:x], bc[:y], bc[:x] + bc[:width], bc[:y], col)
-        @extra_lines << generate_line(bc[:x], bc[:y], bc[:x], bc[:y] + bc[:height], col)
-        @extra_lines << generate_line(bc[:x] + bc[:width], bc[:y], bc[:x] + bc[:width], bc[:y] + bc[:height], col)
-        @extra_lines << generate_line(bc[:x], bc[:y] + bc[:height], bc[:x] + bc[:width], bc[:y] + bc[:height], col)
+        draw_rectangle(bc[:x], bc[:y], bc[:width], bc[:height], col)
       when :brectangle
-        @extra_lines << generate_line(bc[:x], bc[:y], bc[:x] + bc[:width], bc[:y], col, false, false, 2)
-        @extra_lines << generate_line(bc[:x], bc[:y], bc[:x], bc[:y] + bc[:height], col, false, false, 2)
-        @extra_lines << generate_line(bc[:x] + bc[:width], bc[:y], bc[:x] + bc[:width], bc[:y] + bc[:height], col, false, false, 2)
-        @extra_lines << generate_line(bc[:x], bc[:y] + bc[:height], bc[:x] + bc[:width], bc[:y] + bc[:height], col, false, false, 2)
+        draw_rectangle(bc[:x], bc[:y], bc[:width], bc[:height], col, true)
       end
 
       element.content_height = bc[:height]
       @tree_data += text_data.sub(/CONTENT/, new_text)
+    end
+
+    def draw_rectangle(x1, y1, width, height, col, bline = false)
+      swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
+      @extra_lines << "<polygon style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round;'
+                            points='#{x1},#{y1} #{x1 + width},#{y1} #{x1 + width},#{y1 + height} #{x1},#{y1 + height}' />\n"
+    end
+
+    def draw_bracket(x1, y1, width, height, col, bline = false)
+      swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
+      slwidth = @global[:h_gap_between_nodes] / 2
+      @extra_lines << "<polyline style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round;'
+                            points='#{x1 + slwidth},#{y1} #{x1},#{y1} #{x1},#{y1 + height} #{x1 + slwidth},#{y1 + height}' />\n"
+      @extra_lines << "<polyline style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round;'
+                            points='#{x1 + width - slwidth},#{y1} #{x1 + width},#{y1} #{x1 + width},#{y1 + height} #{x1 + width - slwidth},#{y1 + height}' />\n"
     end
 
     def set_tspan(this_x, this_y, style, decoration, fontstyle, text)
@@ -462,19 +465,19 @@ module RSyntaxTree
         b = v[1]
 
         if a[:y][:top] > b[:y][:bottom]
-          draw_direct_line(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], a[:arrow], b[:arrow])
+          generate_connectors(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], @col_extra, false, a[:arrow], b[:arrow])
         elsif a[:y][:bottom] < b[:y][:top]
-          draw_direct_line(b[:x][:center], b[:y][:top], a[:x][:center], a[:y][:bottom], b[:arrow], a[:arrow])
+          generate_connectors(b[:x][:center], b[:y][:top], a[:x][:center], a[:y][:bottom], @col_extra, false, b[:arrow], a[:arrow])
         elsif a[:x][:center] < b[:x][:center]
-          draw_direct_line(a[:x][:right], a[:y][:center], b[:x][:left], b[:y][:center], a[:arrow], b[:arrow])
+          generate_connectors(a[:x][:right], a[:y][:center], b[:x][:left], b[:y][:center], @col_extra, false, a[:arrow], b[:arrow])
         else
-          draw_direct_line(b[:x][:right], b[:y][:center], a[:x][:left], a[:y][:center], b[:arrow], a[:arrow])
+          generate_connectors(b[:x][:right], b[:y][:center], a[:x][:left], a[:y][:center], @col_extra, false, b[:arrow], a[:arrow])
         end
       end
       paths.size + line_pool.keys.size
     end
 
-    def generate_connector(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, stroke_width = 1)
+    def generate_connectors(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, bline = false)
       string = if s_arrow && t_arrow
                  "marker-mid='url(#arrowBothways)' "
                elsif s_arrow
@@ -485,7 +488,7 @@ module RSyntaxTree
                  ""
                end
       dasharray = dashed ? "stroke-dasharray='8 8'" : ""
-      swidth = FONT_SCALING * stroke_width
+      swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
 
       if s_arrow || t_arrow
         x_mid = if x2 > x1
@@ -498,22 +501,22 @@ module RSyntaxTree
                 else
                   y1 - (y1 - y2) / 2
                 end
-        "<path d='M#{x1},#{y1} L#{x_mid},#{y_mid} L#{x2}, #{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}' #{dasharray} #{string}/>"
+        @extra_lines << "<path d='M#{x1},#{y1} L#{x_mid},#{y_mid} L#{x2}, #{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray} #{string}/>"
       else
-        "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}' #{dasharray} #{string}/>"
+        @extra_lines << "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray} #{string}/>"
       end
     end
 
-    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)
+    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, bline = false)
       string = if arrow
                  "marker-end='url(#arrow)' "
                else
                  ""
                end
       dasharray = dashed ? "stroke-dasharray='8 8'" : ""
-      swidth = FONT_SCALING * stroke_width
+      swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
 
-      "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}' #{dasharray} #{string}/>"
+      "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray} #{string}/>"
     end
 
     # Draw a line between child/parent elements

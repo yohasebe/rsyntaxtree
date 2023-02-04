@@ -28,6 +28,7 @@ task :generate do
       leafstyle: "auto",
       fontstyle: "sans",
       fontsize: 16,
+      linewidth: 1,
       margin: 1,
       vheight: 2.0,
       color: "modern",
@@ -53,6 +54,8 @@ task :generate do
                        else
                          "off"
                        end
+      when "linewidth", "line_width"
+        opts[:linewidth] = value
       when "polyline"
         opts[:polyline] = value
       when "hide_default_connectors"

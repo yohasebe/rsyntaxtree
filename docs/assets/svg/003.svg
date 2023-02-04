@@ -2,16 +2,16 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
   <svg width="1344.1999999999998" height="1967.2" viewBox="-20, -20, 1364.1999999999998, 1987.2" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="13.440000000000001" viewBox="0 0 13.440000000000001 13.440000000000001" refX="6.720000000000001" refY="0">
-      <polyline fill="none" stroke="black" stroke-width="1" points="0,13.440000000000001,6.720000000000001,0,13.440000000000001,13.440000000000001" />
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
     </marker>
-    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
     </marker>
-    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000001" markerHeight="13.440000000000001" orient="auto">
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
     </marker>
-    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" markerHeight="40.32" orient="auto">
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -49,15 +49,15 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1122.1999999999998' y='1548.8'><tspan x='1122.1999999999998' y='1548.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">to-Bill</tspan>
 </text>
-<line style='stroke:black; stroke-width:2;' x1='104.60000000000002' y1='409.2' x2='343.50625' y2='187.0' />
-<line style='stroke:black; stroke-width:2;' x1='582.4124999999999' y1='409.2' x2='343.50625' y2='187.0' />
-<line style='stroke:black; stroke-width:2;' x1='331.99999999999994' y1='752.4' x2='582.4124999999999' y2='574.2' />
-<line style='stroke:black; stroke-width:2;' x1='832.8249999999999' y1='752.4' x2='582.4124999999999' y2='574.2' />
-<line style='stroke:black; stroke-width:2;' x1='331.99999999999994' y1='1095.6' x2='331.99999999999994' y2='917.4' />
-<line style='stroke:black; stroke-width:2;' x1='600.4' y1='1095.6' x2='832.8249999999999' y2='917.4' />
-<line style='stroke:black; stroke-width:2;' x1='1065.25' y1='1095.6' x2='832.8249999999999' y2='917.4' />
-<polygon style='fill: none; stroke: black; stroke-width:2;' points='488.4 1438.8 712.4 1438.8 600.4 1260.6' />
-<line style='stroke:black; stroke-width:2;' x1='917.3' y1='1438.8' x2='1065.25' y2='1260.6' />
-<line style='stroke:black; stroke-width:2;' x1='1213.1999999999998' y1='1438.8' x2='1065.25' y2='1260.6' />
-<line style='stroke:black; stroke-width:2;' x1='917.3' y1='1782.0' x2='917.3' y2='1603.8' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='104.60000000000002' y1='409.2' x2='343.50625' y2='187.0' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='582.4124999999999' y1='409.2' x2='343.50625' y2='187.0' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='331.99999999999994' y1='752.4' x2='582.4124999999999' y2='574.2' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='832.8249999999999' y1='752.4' x2='582.4124999999999' y2='574.2' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='331.99999999999994' y1='1095.6' x2='331.99999999999994' y2='917.4' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='600.4' y1='1095.6' x2='832.8249999999999' y2='917.4' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1065.25' y1='1095.6' x2='832.8249999999999' y2='917.4' />
+<polygon style='fill: none; stroke: black; stroke-width:3; stroke-linejoin:round;' points='488.4 1438.8 712.4 1438.8 600.4 1260.6' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='917.3' y1='1438.8' x2='1065.25' y2='1260.6' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='1213.1999999999998' y1='1438.8' x2='1065.25' y2='1260.6' />
+<line style='stroke:black; stroke-width:3; stroke-linecap:round;' x1='917.3' y1='1782.0' x2='917.3' y2='1603.8' />
 </svg>
