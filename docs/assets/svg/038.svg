@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="2135.2000000000007" height="1558.0" viewBox="-20, -20, 2155.2000000000007, 1578.0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="2135.2000000000007" height="1723.0" viewBox="-20, -20, 2155.2000000000007, 1743.0" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="28.8" markerHeight="28.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
@@ -24,59 +24,59 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-20" y="-20" width="2155.2000000000007" height="1578.0" stroke="none" fill="white" />"
+<rect x="-20" y="-20" width="2155.2000000000007" height="1743.0" stroke="none" fill="white" />"
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1026.0000000000002' y='132.0'><tspan x='1026.0000000000002' y='132.0' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">hypernym</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='244.79999999999995' y='453.2'><tspan x='244.79999999999995' y='453.2' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">meronym</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='244.79999999999995' y='477.4'><tspan x='244.79999999999995' y='477.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">meronym</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='28.799999999999955' y='796.4'><tspan x='28.799999999999955' y='796.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">meronymy/part-whole</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='28.799999999999955' y='855.8'><tspan x='28.799999999999955' y='855.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">meronymy/part-whole</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='244.79999999999995' y='1139.6'><tspan x='244.79999999999995' y='1139.6' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">holonym</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='244.79999999999995' y='1234.1999999999998'><tspan x='244.79999999999995' y='1234.1999999999998' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">holonym</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='936.0000000000002' y='453.2'><tspan x='936.0000000000002' y='453.2' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">superordinate</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='936.0000000000002' y='477.4'><tspan x='936.0000000000002' y='477.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">superordinate</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1098.0000000000002' y='796.4'><tspan x='1098.0000000000002' y='796.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">word</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1098.0000000000002' y='855.8'><tspan x='1098.0000000000002' y='855.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">word</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='972.0000000000002' y='1139.6'><tspan x='972.0000000000002' y='1139.6' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">subordinate</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='972.0000000000002' y='1234.1999999999998'><tspan x='972.0000000000002' y='1234.1999999999998' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">subordinate</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1044.0000000000002' y='1482.8'><tspan x='1044.0000000000002' y='1482.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">hyponym</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1044.0000000000002' y='1612.6'><tspan x='1044.0000000000002' y='1612.6' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">hyponym</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1951.2000000000003' y='453.2'><tspan x='1951.2000000000003' y='453.2' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1951.2000000000003' y='477.4'><tspan x='1951.2000000000003' y='477.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1843.2000000000003' y='796.4'><tspan x='1843.2000000000003' y='796.4' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">synonym</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='1843.2000000000003' y='855.8'><tspan x='1843.2000000000003' y='855.8' style="" text-decoration="" font-family="'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">synonym</tspan>
 </text>
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='370.79999999999995' y1='343.2' x2='1170.0000000000002' y2='187.0' />
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1170.0000000000002' y1='343.2' x2='1170.0000000000002' y2='187.0' />
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1969.2000000000003' y1='343.2' x2='1170.0000000000002' y2='187.0' />
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='370.79999999999995' y1='686.4' x2='370.79999999999995' y2='508.2' />
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='370.79999999999995' y1='1029.6' x2='370.79999999999995' y2='851.4' />
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1170.0000000000002' y1='686.4' x2='1170.0000000000002' y2='508.2' />
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1170.0000000000002' y1='1029.6' x2='1170.0000000000002' y2='851.4' />
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1170.0000000000002' y1='1372.8' x2='1170.0000000000002' y2='1194.6' />
-<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1969.2000000000003' y1='686.4' x2='1969.2000000000003' y2='508.2' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='370.79999999999995' y1='367.4' x2='1170.0000000000002' y2='187.0' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1170.0000000000002' y1='367.4' x2='1170.0000000000002' y2='187.0' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1969.2000000000003' y1='367.4' x2='1170.0000000000002' y2='187.0' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='370.79999999999995' y1='745.8' x2='370.79999999999995' y2='532.4' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='370.79999999999995' y1='1124.1999999999998' x2='370.79999999999995' y2='910.8' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1170.0000000000002' y1='745.8' x2='1170.0000000000002' y2='532.4' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1170.0000000000002' y1='1124.1999999999998' x2='1170.0000000000002' y2='910.8' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1170.0000000000002' y1='1502.6' x2='1170.0000000000002' y2='1289.1999999999998' />
+<line style='stroke:none; stroke-width:3; stroke-linecap:round;' x1='1969.2000000000003' y1='745.8' x2='1969.2000000000003' y2='532.4' />
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
                             points='1011.6000000000003,33.0 1328.4000000000003,33.0 1328.4000000000003,176.0 1011.6000000000003,176.0' />
 
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
-                            points='230.39999999999995,354.2 511.19999999999993,354.2 511.19999999999993,497.2 230.39999999999995,497.2' />
+                            points='230.39999999999995,378.4 511.19999999999993,378.4 511.19999999999993,521.4 230.39999999999995,521.4' />
 
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
-                            points='230.39999999999995,1040.6 511.19999999999993,1040.6 511.19999999999993,1183.6 230.39999999999995,1183.6' />
+                            points='230.39999999999995,1135.1999999999998 511.19999999999993,1135.1999999999998 511.19999999999993,1278.1999999999998 230.39999999999995,1278.1999999999998' />
 
 <polygon style='stroke:black; stroke-width:6; fill:none; stroke-linejoin:round;'
-                            points='1083.6000000000001,697.4 1256.4,697.4 1256.4,840.4 1083.6000000000001,840.4' />
+                            points='1083.6000000000001,756.8 1256.4,756.8 1256.4,899.8 1083.6000000000001,899.8' />
 
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
-                            points='1029.6000000000001,1383.8 1310.4,1383.8 1310.4,1526.8 1029.6000000000001,1526.8' />
+                            points='1029.6000000000001,1513.6 1310.4,1513.6 1310.4,1656.6 1029.6000000000001,1656.6' />
 
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round;'
-                            points='1828.8000000000002,697.4 2109.6000000000004,697.4 2109.6000000000004,840.4 1828.8000000000002,840.4' />
+                            points='1828.8000000000002,756.8 2109.6000000000004,756.8 2109.6000000000004,899.8 1828.8000000000002,899.8' />
 
-<path d='M1170.0000000000002,343.2 L1170.0000000000002,265.1 L1170.0000000000002, 187.0' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<path d='M370.79999999999995,686.4 L370.79999999999995,597.3 L370.79999999999995, 508.2' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<path d='M370.79999999999995,1029.6 L370.79999999999995,940.5 L370.79999999999995, 851.4' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M741.5999999999999,768.9 L905.4000000000001,768.9 L1069.2000000000003, 768.9' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M1170.0000000000002,686.4 L1170.0000000000002,597.3 L1170.0000000000002, 508.2' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<path d='M1270.8000000000002,768.9 L1542.6000000000004,768.9 L1814.4000000000003, 768.9' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
-<path d='M1170.0000000000002,1029.6 L1170.0000000000002,940.5 L1170.0000000000002, 851.4' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M1170.0000000000002,1372.8 L1170.0000000000002,1283.6999999999998 L1170.0000000000002, 1194.6' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' /></svg>
+<path d='M1170.0000000000002,367.4 L1170.0000000000002,277.2 L1170.0000000000002, 187.0' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
+<path d='M370.79999999999995,745.8 L370.79999999999995,639.0999999999999 L370.79999999999995, 532.4' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
+<path d='M370.79999999999995,1124.1999999999998 L370.79999999999995,1017.4999999999999 L370.79999999999995, 910.8' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
+<path d='M741.5999999999999,828.3 L905.4000000000001,828.3 L1069.2000000000003, 828.3' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
+<path d='M1170.0000000000002,745.8 L1170.0000000000002,639.0999999999999 L1170.0000000000002, 532.4' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
+<path d='M1270.8000000000002,828.3 L1542.6000000000004,828.3 L1814.4000000000003, 828.3' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
+<path d='M1170.0000000000002,1124.1999999999998 L1170.0000000000002,1017.4999999999999 L1170.0000000000002, 910.8' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
+<path d='M1170.0000000000002,1502.6 L1170.0000000000002,1395.8999999999999 L1170.0000000000002, 1289.1999999999998' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' /></svg>

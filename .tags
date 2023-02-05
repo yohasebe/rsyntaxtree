@@ -856,6 +856,7 @@ draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f
 draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:RSyntaxTree.BaseGraph
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph
+draw_png	lib/rsyntaxtree.rb	/^    def draw_png$/;"	f	class:RSyntaxTree
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	module:RSyntaxTree
 draw_rect	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rect$/;"	f

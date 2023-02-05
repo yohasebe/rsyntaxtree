@@ -139,22 +139,21 @@ module RSyntaxTree
               elements_height << height
             else
               one_bvm_given = true
-              elements_height << height + @global[:box_vertical_margin] / 2
+              elements_height << height + @global[:box_vertical_margin]
             end
 
             e[:width] = width
             row_width += width
           end
 
-          total_height += if @parent.zero? && @children.empty? && @enclosure == :none
-                            elements_height.max + @global[:height_connector_to_text] * 2
-                          elsif @parent.zero? && @children.empty?
-                            elements_height.max + @global[:height_connector_to_text] / 2
-                          else
-                            elements_height.max + @global[:height_connector_to_text]
-                          end
+          total_height += elements_height.max
           content_width += row_width
         end
+        total_height += if @parent.zero? && @children.empty? && @enclosure != :none
+                          @global[:height_connector_to_text] / 4
+                        else
+                          @global[:height_connector_to_text]
+                        end
         total_width = content_width if total_width < content_width
       end
       @content_width = total_width

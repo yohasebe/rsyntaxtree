@@ -83,7 +83,7 @@ module RSyntaxTree
             fontset[:bolditalic] = FONT_DIR + "/NotoSansMono_SemiCondensed-Bold.ttf"
             fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
             fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
+            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf"
             new_params[:fontstyle] = "mono"
           when "noto-sans", "sans"
             fontset[:normal] = FONT_DIR + "/NotoSans-Regular.ttf"
@@ -92,7 +92,7 @@ module RSyntaxTree
             fontset[:bolditalic] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
             fontset[:math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
             fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
+            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
             new_params[:fontstyle] = "sans"
           when "noto-serif", "serif"
             fontset[:normal] = FONT_DIR + "/NotoSerif-Regular.ttf"
@@ -101,7 +101,7 @@ module RSyntaxTree
             fontset[:bolditalic] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
             fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
             fontset[:cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
+            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
             new_params[:fontstyle] = "serif"
           when "cjk zenhei", "cjk"
             fontset[:normal] = FONT_DIR + "/wqy-zenhei.ttf"
@@ -110,7 +110,7 @@ module RSyntaxTree
             fontset[:bolditalic] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
             fontset[:math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
             fontset[:cjk] = FONT_DIR + "/wqy-zenhei.ttf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-Black.ttf"
+            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
             new_params[:fontstyle] = "cjk"
           end
         else
@@ -145,7 +145,7 @@ module RSyntaxTree
       @global[:height_connector_to_text] = single_x_metrics.height / 2.0
       @global[:single_line_height] = single_x_metrics.height * 2.0
       @global[:width_half_x] = single_x_metrics.width / 2.0
-      @global[:height_connector] = single_x_metrics.height * 1.0 * @params[:vheight]
+      @global[:height_connector] = single_x_metrics.height * @params[:vheight]
       @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8
       @global[:box_vertical_margin] = single_x_metrics.height * 0.8
     end

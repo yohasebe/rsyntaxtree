@@ -41,11 +41,7 @@ module RSyntaxTree
 
     def svg_data
       metrics = parse_list
-      @height = if @element_list.elements.size == 1
-                  metrics[:height]
-                else
-                  metrics[:height] + @margin * 2
-                end
+      @height = metrics[:height] + @margin * 2
       @width = metrics[:width] + @margin * 2
 
       x1 = 0 - @margin
@@ -53,10 +49,6 @@ module RSyntaxTree
       x2 = @width + @margin
       y2 = @height + @margin
       extra_lines = @extra_lines.join("\n")
-
-      # as  = @global[:h_gap_between_nodes] / 4 * 0.8
-      # as2 = @global[:h_gap_between_nodes] / 2 * 0.8
-      # as4 = @global[:h_gap_between_nodes] * 1.2
 
       as2 = @global[:h_gap_between_nodes] * 1.0
       as4 = as2 * 3
@@ -305,12 +297,12 @@ module RSyntaxTree
                 @extra_lines << bar
 
                 if e[:decoration].include?(:arrow_to_l)
-                  l_arrowhead = "<polyline stroke-linejoin='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x1 + ar_hwidth},#{y1 + ar_hwidth / 2} #{x1},#{y1} #{x1 + ar_hwidth},#{y1 - ar_hwidth / 2}' />\n"
+                  l_arrowhead = "<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x1 + ar_hwidth},#{y1 + ar_hwidth / 2} #{x1 + stroke_width / 2},#{y1} #{x1 + ar_hwidth},#{y1 - ar_hwidth / 2}' />\n"
                   @extra_lines << l_arrowhead
                 end
 
                 if e[:decoration].include?(:arrow_to_r)
-                  r_arrowhead = "<polyline stroke-linejoin='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x2 - ar_hwidth},#{y2 - ar_hwidth / 2} #{x2},#{y2} #{x2 - ar_hwidth},#{y2 + ar_hwidth / 2}' />\n"
+                  r_arrowhead = "<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x2 - ar_hwidth},#{y2 - ar_hwidth / 2} #{x2 - stroke_width / 2},#{y2} #{x2 - ar_hwidth},#{y2 + ar_hwidth / 2}' />\n"
                   @extra_lines << r_arrowhead
                 end
               end
@@ -341,6 +333,7 @@ module RSyntaxTree
         end
         @height = text_y if text_y > @height
       end
+
       bc[:y] = bc[:y] + @global[:height_connector_to_text] * 3 / 4
       bc[:height] = text_y - bc[:y] + @global[:height_connector_to_text]
       case element.enclosure
@@ -469,7 +462,15 @@ module RSyntaxTree
         elsif a[:y][:bottom] < b[:y][:top]
           generate_connectors(b[:x][:center], b[:y][:top], a[:x][:center], a[:y][:bottom], @col_extra, false, b[:arrow], a[:arrow])
         elsif a[:x][:center] < b[:x][:center]
-          generate_connectors(a[:x][:right], a[:y][:center], b[:x][:left], b[:y][:center], @col_extra, false, a[:arrow], b[:arrow])
+          if a[:y][:top] == b[:y][:top]
+            upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
+            generate_connectors(a[:x][:right], upper_y, b[:x][:left], upper_y, @col_extra, false, a[:arrow], b[:arrow])
+          else
+            generate_connectors(a[:x][:right], a[:y][:center], b[:x][:left], b[:y][:center], @col_extra, false, a[:arrow], b[:arrow])
+          end
+        elsif a[:y][:top] == b[:y][:top]
+          upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
+          generate_connectors(b[:x][:right], upper_y, a[:x][:left], upper_y, @col_extra, false, b[:arrow], a[:arrow])
         else
           generate_connectors(b[:x][:right], b[:y][:center], a[:x][:left], a[:y][:center], @col_extra, false, b[:arrow], a[:arrow])
         end
