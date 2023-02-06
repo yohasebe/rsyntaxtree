@@ -52,7 +52,7 @@ opts.each do |key, value|
   string_opts[key.to_sym] = value unless key == :font && !value
 end
 
-data = if File.exist?(File.expand_path(ARGV[0]))
+data = if ARGV[0] && File.exist?(File.expand_path(ARGV[0]))
          File.read ARGV[0]
        else
          ARGV[0]

@@ -70,20 +70,22 @@ Usage:
        1) rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
        2) rsyntaxtree [options] "/path/to/text/file"
 where [options] are:
-  -o, --outdir=<s>         Output directory (default: ./)
-  -f, --format=<s>         Output format: png, gif, jpg, pdf, or svg (default: png)
-  -l, --leafstyle=<s>      visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
-  -n, --fontstyle=<s>      Font style (available when ttf font is specified): sans, serif, cjk (default: sans)
-  -t, --font=<s>           Path to a ttf font used to generate tree (optional)
-  -s, --fontsize=<i>       Size: 8-26 (default: 16)
-  -m, --margin=<i>         Margin: 0-10 (default: 1)
-  -v, --vheight=<f>        Connector Height: 0.5-5.0 (default: 2.0)
-  -c, --color=<s>          Color text and bars: on or off (default: on)
-  -y, --symmetrize=<s>     Generate radically symmetrical, balanced tree: on or off (default: off)
-  -r, --transparent=<s>    Make background transparent: on or off (default: off)
-  -p, --polyline=<s>       draw polyline connectors: on or off (default: off)
-  -e, --version            Print version and exit
-  -h, --help               Show this message
+  -o, --outdir=<s>                     Output directory (default: ./)
+  -f, --format=<s>                     Output format: png, gif, jpg, pdf, or svg (default: png)
+  -l, --leafstyle=<s>                  visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
+  -n, --fontstyle=<s>                  Font style (available when ttf font is specified): sans, serif, cjk, mono (default: sans)
+  -t, --font=<s>                       Path to a ttf font used to generate tree (optional)
+  -s, --fontsize=<i>                   Size: 8-26 (default: 16)
+  -i, --linewidth=<i>                  Size: 1-5 (default: 1)
+  -m, --margin=<i>                     Margin: 0-10 (default: 1)
+  -v, --vheight=<f>                    Connector Height: 0.5-5.0 (default: 2.0)
+  -c, --color=<s>                      Color text and bars: modern, traditional, or off (default: modern)
+  -y, --symmetrize=<s>                 Generate radically symmetrical, balanced tree: on or off (default: off)
+  -r, --transparent=<s>                Make background transparent: on or off (default: off)
+  -p, --polyline=<s>                   draw polyline connectors: on or off (default: off)
+  -h, --hide-default-connectors=<s>    make default connectors transparent: on or off (default: off)
+  -e, --version                        Print version and exit
+  --help                               Show this message
 ```
 
 See the [documentation](https://yohasebe.github.io/rsyntaxtree/documentation) for more detailed info about the syntax.
