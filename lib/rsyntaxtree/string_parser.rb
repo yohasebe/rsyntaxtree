@@ -51,10 +51,10 @@ module RSyntaxTree
     end
 
     def self.valid?(data)
-      raise RSTError, "Error: input text is empty" if data.empty?
+      raise RSTError, +"Error: input text is empty" if data.empty?
 
       if /\[\s*\]/m =~ data
-        raise RSTError, "Error: inside the brackets is empty"
+        raise RSTError, +"Error: inside the brackets is empty"
       end
 
       text = data.strip
@@ -85,11 +85,11 @@ module RSyntaxTree
       end
 
       if open_br.empty? && close_br.empty?
-        raise RSTError, "Error: input text does not contain paired brackets"
+        raise RSTError, +"Error: input text does not contain paired brackets"
       elsif open_br.length == close_br.length
         true
       else
-        raise RSTError, "Error: open and close brackets do not match"
+        raise RSTError, +"Error: open and close brackets do not match"
       end
     end
 

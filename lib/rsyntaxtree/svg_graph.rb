@@ -28,10 +28,10 @@ module RSyntaxTree
       @fontstyle = params[:fontstyle]
       @margin = params[:margin].to_i
       @polyline = params[:polyline]
-      @line_styles = "<line style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
-      @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round;'
+      @line_styles = "<line style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
+      @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
-      @polygon_styles = "<polygon style='fill: none; stroke: black; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
+      @polygon_styles = "<polygon style='fill: none; stroke: black; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round;stroke-linecap:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
       @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
       @tree_data = String.new
       @visited_x = {}
@@ -46,8 +46,8 @@ module RSyntaxTree
 
       x1 = 0 - @margin
       y1 = 0 - @margin
-      x2 = @width + @margin
-      y2 = @height + @margin
+      x2 = @width + @margin * 2
+      y2 = @height + @margin * 2
       extra_lines = @extra_lines.join("\n")
 
       as2 = @global[:h_gap_between_nodes] * 1.0
@@ -182,7 +182,7 @@ module RSyntaxTree
           when :bborder
             stroke_width = @linewidth + BLINE_SCALING
           end
-          @extra_lines << "<line style=\"stroke:#{col}; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
+          @extra_lines << "<line style=\"stroke:#{col}; stroke-linecap:round; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
         else
           if element.enclosure == :brackets
             this_x = txt_pos - element.content_width / 2
@@ -278,7 +278,7 @@ module RSyntaxTree
                              end
 
               if e[:decoration].include?(:box)
-                enc = "<rect style='stroke: #{col}; stroke-width:#{stroke_width};'
+                enc = "<rect style='stroke: #{col}; stroke-linejoin:round; stroke-width:#{stroke_width};'
                         x='#{enc_x}' y='#{enc_y}'
                         width='#{enc_width}' height='#{enc_height}'
                         fill='#{fill}' />\n"
@@ -293,7 +293,7 @@ module RSyntaxTree
                 x2 = enc_x + enc_width
                 y2 = y1
                 ar_hwidth = e[:width] / 4.0
-                bar = "<line style='stroke:#{col}; stroke-width:#{stroke_width};' x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}'></line>\n"
+                bar = "<line style='stroke:#{col}; stroke-linejoin:round; stroke-linecap:round; stroke-width:#{stroke_width};' x1='#{x1}' y1='#{y1}' x2='#{x2 - stroke_width / 2}' y2='#{y2}'></line>\n"
                 @extra_lines << bar
 
                 if e[:decoration].include?(:arrow_to_l)
@@ -351,16 +351,16 @@ module RSyntaxTree
 
     def draw_rectangle(x1, y1, width, height, col, bline = false)
       swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
-      @extra_lines << "<polygon style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round;'
+      @extra_lines << "<polygon style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='#{x1},#{y1} #{x1 + width},#{y1} #{x1 + width},#{y1 + height} #{x1},#{y1 + height}' />\n"
     end
 
     def draw_bracket(x1, y1, width, height, col, bline = false)
       swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
       slwidth = @global[:h_gap_between_nodes] / 2
-      @extra_lines << "<polyline style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round;'
+      @extra_lines << "<polyline style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='#{x1 + slwidth},#{y1} #{x1},#{y1} #{x1},#{y1 + height} #{x1 + slwidth},#{y1 + height}' />\n"
-      @extra_lines << "<polyline style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round;'
+      @extra_lines << "<polyline style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='#{x1 + width - slwidth},#{y1} #{x1 + width},#{y1} #{x1 + width},#{y1 + height} #{x1 + width - slwidth},#{y1 + height}' />\n"
     end
 
@@ -420,12 +420,12 @@ module RSyntaxTree
             path_pool_source[tr] = [x1, y1]
             path_flags << tr
           end
-          raise RSTError, "Error: input text contains a path having more than two ends:\n > #{tr}" if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
+          raise RSTError, +"Error: input text contains a path having more than two ends:\n > #{tr}" if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
         end
       end
 
       path_flags.tally.each do |k, v|
-        raise RSTError, "Error: input text contains a path having only one end:\n > #{k}" if v == 1
+        raise RSTError, +"Error: input text contains a path having only one end:\n > #{k}" if v == 1
       end
 
       path_pool_source.each do |k, v|

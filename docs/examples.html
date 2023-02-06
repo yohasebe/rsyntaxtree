@@ -8,14 +8,14 @@ layout: default
 {% assign categories =  all_examples | map: 'category' | join: ','  | split: ','  | group_by: category %}
 <ul>
   {%- for category in categories -%}
-    {%- if category.name != "Test" -%}
+    {%- if category.name != "Test" and category.name != "Error" -%}
       <li><a href="#category-{{ category.name | slugify }}">{{ category.name }}</a> [{{category.size}}]</li>
     {%- endif -%}
   {%- endfor -%}
 </ul>
 
 {%- for category in categories -%}
-  {%- if category.name != "Test" -%}
+  {%- if category.name != "Test" and category.name != "Error" -%}
     <hr />
     <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b></h2>
     {%- for example in all_examples -%}

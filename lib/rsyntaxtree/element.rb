@@ -41,7 +41,7 @@ module RSyntaxTree
       if parsed[:status] == :success
         results = parsed[:results]
       else
-        error_text = "Error: input text contains an invalid string"
+        error_text = +"Error: input text contains an invalid string"
         error_text += "\n > " + content
         raise RSTError, error_text
       end
@@ -149,11 +149,6 @@ module RSyntaxTree
           total_height += elements_height.max
           content_width += row_width
         end
-        total_height += if @parent.zero? && @children.empty? && @enclosure != :none
-                          @global[:height_connector_to_text] / 4
-                        else
-                          @global[:height_connector_to_text]
-                        end
         total_width = content_width if total_width < content_width
       end
       @content_width = total_width

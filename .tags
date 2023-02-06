@@ -227,7 +227,7 @@
 Animal ontology	docs/_site/examples.html	/^    <h2 id="category-formal-concept-analysis"><b>Formal Concept Analysis<\/b><\/h2><h3>Animal on/;"	j
 Arithmetic parser	docs/_site/examples.html	/^        <div><a href="#examples">🔝<\/a><\/div><h3>Arithmetic parser<\/h3>$/;"	j
 Author	README.md	/^## Author$/;"	s
-BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	class:RSyntaxTree
+BLINE_SCALING	lib/rsyntaxtree.rb	/^BLINE_SCALING = 5$/;"	C
 BaseGraph	lib/rsyntaxtree/base_graph.rb	/^  class BaseGraph$/;"	c	module:RSyntaxTree
 Basic Usage	docs/_site/documentation.html	/^<h3 id="basic-usage">Basic Usage<\/h3>$/;"	j
 Basic Usage	docs/documentation.md	/^### Basic Usage$/;"	S	chapter:Documentation
@@ -253,9 +253,7 @@ Draw Paths between Nodes (experimental)	docs/documentation.md	/^### Draw Paths b
 ETYPE_LEAF	lib/rsyntaxtree.rb	/^ETYPE_LEAF = 2$/;"	C
 ETYPE_LEAF	lib/rsyntaxtree/base_graph.rb	/^                             ETYPE_LEAF == target.type && parent.children.size == 1$/;"	C	method:RSyntaxTree.BaseGraph.calculate_height
 ETYPE_NODE	lib/rsyntaxtree.rb	/^ETYPE_NODE = 1$/;"	C
-Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	class:RSyntaxTree
 Element	lib/rsyntaxtree/element.rb	/^  class Element$/;"	c	module:RSyntaxTree
-ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	class:RSyntaxTree
 ElementList	lib/rsyntaxtree/elementlist.rb	/^  class ElementList$/;"	c	module:RSyntaxTree
 Escape Special Characters	docs/_site/documentation.html	/^<h3 id="escape-special-characters">Escape Special Characters<\/h3>$/;"	j
 Escape Special Characters	docs/documentation.md	/^### Escape Special Characters$/;"	S	chapter:Documentation
@@ -282,6 +280,7 @@ Horizontal Line	docs/documentation.md	/^#### Horizontal Line$/;"	t	subsection:Do
 Install Fonts for SVG	docs/_site/documentation.html	/^<h3 id="install-fonts-for-svg">Install Fonts for SVG<\/h3>$/;"	j
 Install Fonts for SVG	docs/documentation.md	/^### Install Fonts for SVG$/;"	S	chapter:Documentation
 Installation	README.md	/^## Installation$/;"	s
+LINE_SCALING	lib/rsyntaxtree.rb	/^LINE_SCALING = 2$/;"	C
 Lambda calculus	docs/_site/examples.html	/^    <h2 id="category-formal-semantics"><b>Formal Semantics<\/b><\/h2><h3>Lambda calculus<\/h3>$/;"	j
 License	README.md	/^## License$/;"	s
 Markup	lib/rsyntaxtree/markup_parser.rb	/^module Markup$/;"	m
@@ -299,7 +298,6 @@ Phonology	docs/_site/examples.html	/^    <h2 id="category-phonology"><b>Phonolog
 Phonology sample	docs/_site/examples.html	/^    <h2 id="category-phonology"><b>Phonology<\/b><\/h2><h3>Phonology sample<\/h3>$/;"	j
 Pragmatics	docs/_site/examples.html	/^    <h2 id="category-pragmatics"><b>Pragmatics<\/b><\/h2><h3>Types of meaning<\/h3>$/;"	i
 Programming language parser	docs/_site/examples.html	/^    <h2 id="category-computer-science"><b>Computer Science<\/b><\/h2><h3>Programming language pa/;"	j
-RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	class:RSyntaxTree
 RSGenerator	lib/rsyntaxtree.rb	/^  class RSGenerator$/;"	c	module:RSyntaxTree
 RSTError	lib/rsyntaxtree.rb	/^class RSTError < StandardError$/;"	c
 RSyntaxTree	docs/_site/404.html	/^      <\/h1>$/;"	h
@@ -320,12 +318,10 @@ RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/documentation_ja.h
 RSyntaxTree | Syntax tree generator made with Ruby	docs/_site/examples.html	/^<title>RSyntaxTree | Syntax tree generator made with Ruby<\/title>$/;"	j
 References	README.md	/^## References$/;"	s
 SUBSCRIPT_CONST	lib/rsyntaxtree.rb	/^SUBSCRIPT_CONST = 0.7$/;"	C
-SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	class:RSyntaxTree
 SVGGraph	lib/rsyntaxtree/svg_graph.rb	/^  class SVGGraph < BaseGraph$/;"	c	module:RSyntaxTree
 SVG形式を用いる場合	docs/_site/documentation_ja.html	/^<h3 id="svg形式を用いる場合">SVG形式を用いる場合<\/h3>$/;"	j
 SVG形式を用いる場合	docs/documentation_ja.md	/^### SVG形式を用いる場合$/;"	S	chapter:ドキュメンテーション
 String	lib/rsyntaxtree/utils.rb	/^class String$/;"	c
-StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	class:RSyntaxTree
 StringParser	lib/rsyntaxtree/string_parser.rb	/^  class StringParser$/;"	c	module:RSyntaxTree
 Subject-predicate construction	docs/_site/examples.html	/^        <div><a href="#examples">🔝<\/a><\/div><h3>Subject-predicate construction<\/h3>$/;"	j
 Subscript and Superscript	docs/documentation.md	/^#### Subscript and Superscript$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
@@ -345,7 +341,7 @@ Types of meaning	docs/_site/examples.html	/^    <h2 id="category-pragmatics"><b>
 Types of reference	docs/_site/examples.html	/^        <div><a href="#examples">🔝<\/a><\/div><h3>Types of reference<\/h3>$/;"	j
 Types of rejoinder	docs/_site/examples.html	/^        <div><a href="#examples">🔝<\/a><\/div><h3>Types of rejoinder<\/h3>$/;"	j
 Usage	README.md	/^## Usage$/;"	s
-VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.2.3"$/;"	C	module:RSyntaxTree
+VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.2.6"$/;"	C	module:RSyntaxTree
 WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
 Web Interface	README.md	/^## Web Interface$/;"	s
 Whitespace inside Label	docs/documentation.md	/^#### Whitespace inside Label$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
@@ -359,7 +355,6 @@ a:hover	docs/_site/assets/css/style.css	/^a:active, a:hover { outline: 0; }$/;"	
 a:hover	docs/_site/assets/css/style.css	/^a:hover { text-decoration: underline; }$/;"	s
 abbr[title]	docs/_site/assets/css/style.css	/^abbr[title] { border-bottom: 1px dotted; }$/;"	s
 add	lib/rsyntaxtree/elementlist.rb	/^    def add(element)$/;"	f	class:RSyntaxTree.ElementList
-add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f
 add_child	lib/rsyntaxtree/element.rb	/^    def add_child(child_id)$/;"	f	class:RSyntaxTree.Element
 all_emoji?	lib/rsyntaxtree/utils.rb	/^  def all_emoji?$/;"	f	class:String
 arrow	docs/_site/assets/svg/000.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
@@ -430,344 +425,384 @@ arrow	docs/_site/assets/svg/032.svg	/^    <marker id="arrow" markerUnits="stroke
 arrow	docs/_site/assets/svg/032.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
 arrow	docs/_site/assets/svg/033.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
 arrow	docs/_site/assets/svg/033.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/000.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/000.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/001.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/001.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/002.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/002.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/003.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/003.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/004.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/004.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/005.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/005.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/006.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/006.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/007.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/007.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/008.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/008.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/009.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/009.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/010.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/010.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/011.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/011.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/012.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/012.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/013.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/013.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/014.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/014.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/015.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/015.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/016.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/016.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/017.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/017.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/018.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/018.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/019.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/019.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/020.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/020.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.200000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/021.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/021.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/022.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/022.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/023.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="12.160000000000002" markerHeight="/;"	d
-arrow	docs/assets/svg/023.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="12.160000000000002" markerHeight="/;"	i
-arrow	docs/assets/svg/024.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/024.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/025.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/025.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/026.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/026.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/027.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/027.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/028.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/028.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/029.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/029.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/030.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/030.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/031.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/031.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/032.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/032.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/033.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/033.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/034.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/034.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/035.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/035.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/036.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/036.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/037.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/037.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/038.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/038.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/039.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/039.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/040.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/040.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="11.520000000000001" markerHeight="/;"	i
-arrow	docs/assets/svg/041.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	d
-arrow	docs/assets/svg/041.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="13.440000000000001" markerHeight="/;"	i
+arrow	docs/assets/svg/000.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/000.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/001.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/001.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/002.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/002.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/003.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/003.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/004.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/004.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/005.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/005.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/006.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/006.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/007.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/007.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/008.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/008.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/009.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/009.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/010.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/010.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/011.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/011.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/012.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/012.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/013.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/013.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/014.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/014.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/015.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/015.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/016.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/016.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/017.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/017.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/018.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/018.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/019.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/019.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/020.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/020.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/021.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/021.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/022.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/022.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/023.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/023.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/024.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/024.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/025.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/025.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/026.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/026.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/027.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/027.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/028.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/028.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/029.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/029.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/030.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/030.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/031.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/031.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/032.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/032.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/033.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/033.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/034.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/034.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/035.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/035.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/036.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/036.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/037.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/037.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/038.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/038.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/039.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/039.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/040.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/040.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/041.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/041.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/042.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/042.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/043.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/043.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/044.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/044.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/045.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/045.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
+arrow	docs/assets/svg/046.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	d
+arrow	docs/assets/svg/046.svg	/^    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" marke/;"	i
 arrow	img/sample.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7/;"	d
 arrow	img/sample.svg	/^    <marker id="arrow" markerUnits="strokeWidth" markerWidth="7.823437500000001" markerHeight="7/;"	i
-arrowBackward	docs/assets/svg/000.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	d
-arrowBackward	docs/assets/svg/000.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	i
-arrowBackward	docs/assets/svg/001.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/001.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/002.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/002.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/003.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/003.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/004.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/004.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/005.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/005.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/006.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/006.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/007.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/007.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/008.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/008.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/009.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/009.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/010.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/010.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/011.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/011.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/012.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/012.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/013.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/013.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/014.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/014.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/015.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.20000000000/;"	d
-arrowBackward	docs/assets/svg/015.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.20000000000/;"	i
-arrowBackward	docs/assets/svg/016.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.20000000000/;"	d
-arrowBackward	docs/assets/svg/016.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.20000000000/;"	i
-arrowBackward	docs/assets/svg/017.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/017.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/018.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/018.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/019.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	d
-arrowBackward	docs/assets/svg/019.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	i
-arrowBackward	docs/assets/svg/020.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.20000000000/;"	d
-arrowBackward	docs/assets/svg/020.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.20000000000/;"	i
-arrowBackward	docs/assets/svg/021.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/021.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/022.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	d
-arrowBackward	docs/assets/svg/022.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	i
-arrowBackward	docs/assets/svg/023.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="12.16000000000/;"	d
-arrowBackward	docs/assets/svg/023.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="12.16000000000/;"	i
-arrowBackward	docs/assets/svg/024.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/024.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/025.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/025.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/026.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/026.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/027.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/027.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/028.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/028.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/029.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	d
-arrowBackward	docs/assets/svg/029.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	i
-arrowBackward	docs/assets/svg/030.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/030.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/031.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	d
-arrowBackward	docs/assets/svg/031.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	i
-arrowBackward	docs/assets/svg/032.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	d
-arrowBackward	docs/assets/svg/032.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	i
-arrowBackward	docs/assets/svg/033.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/033.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/034.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/034.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/035.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/035.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/036.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/036.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/037.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/037.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/038.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	d
-arrowBackward	docs/assets/svg/038.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	i
-arrowBackward	docs/assets/svg/039.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/039.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBackward	docs/assets/svg/040.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	d
-arrowBackward	docs/assets/svg/040.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.52000000000/;"	i
-arrowBackward	docs/assets/svg/041.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	d
-arrowBackward	docs/assets/svg/041.svg	/^    <marker id="arrowBackward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.44000000000/;"	i
-arrowBothways	docs/assets/svg/000.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	d
-arrowBothways	docs/assets/svg/000.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	i
-arrowBothways	docs/assets/svg/001.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/001.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/002.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/002.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/003.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/003.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/004.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/004.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/005.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/005.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/006.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/006.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/007.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/007.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/008.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/008.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/009.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/009.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/010.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/010.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/011.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/011.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/012.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/012.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/013.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/013.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/014.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/014.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/015.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="33.6" markerH/;"	d
-arrowBothways	docs/assets/svg/015.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="33.6" markerH/;"	i
-arrowBothways	docs/assets/svg/016.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="33.6" markerH/;"	d
-arrowBothways	docs/assets/svg/016.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="33.6" markerH/;"	i
-arrowBothways	docs/assets/svg/017.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/017.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/018.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/018.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/019.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	d
-arrowBothways	docs/assets/svg/019.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	i
-arrowBothways	docs/assets/svg/020.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="33.6" markerH/;"	d
-arrowBothways	docs/assets/svg/020.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="33.6" markerH/;"	i
-arrowBothways	docs/assets/svg/021.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/021.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/022.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	d
-arrowBothways	docs/assets/svg/022.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	i
-arrowBothways	docs/assets/svg/023.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="36.4800000000/;"	d
-arrowBothways	docs/assets/svg/023.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="36.4800000000/;"	i
-arrowBothways	docs/assets/svg/024.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/024.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/025.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/025.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/026.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/026.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/027.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/027.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/028.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/028.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/029.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	d
-arrowBothways	docs/assets/svg/029.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	i
-arrowBothways	docs/assets/svg/030.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/030.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/031.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	d
-arrowBothways	docs/assets/svg/031.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	i
-arrowBothways	docs/assets/svg/032.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	d
-arrowBothways	docs/assets/svg/032.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	i
-arrowBothways	docs/assets/svg/033.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/033.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/034.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/034.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/035.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/035.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/036.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/036.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/037.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/037.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/038.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	d
-arrowBothways	docs/assets/svg/038.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	i
-arrowBothways	docs/assets/svg/039.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/039.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowBothways	docs/assets/svg/040.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	d
-arrowBothways	docs/assets/svg/040.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="34.56" marker/;"	i
-arrowBothways	docs/assets/svg/041.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	d
-arrowBothways	docs/assets/svg/041.svg	/^    <marker id="arrowBothways" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.32" marker/;"	i
-arrowForward	docs/assets/svg/000.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	d
-arrowForward	docs/assets/svg/000.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	i
-arrowForward	docs/assets/svg/001.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/001.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/002.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/002.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/003.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/003.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/004.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/004.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/005.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/005.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/006.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/006.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/007.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/007.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/008.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/008.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/009.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/009.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/010.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/010.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/011.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/011.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/012.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/012.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/013.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/013.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/014.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/014.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/015.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000/;"	d
-arrowForward	docs/assets/svg/015.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000/;"	i
-arrowForward	docs/assets/svg/016.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000/;"	d
-arrowForward	docs/assets/svg/016.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000/;"	i
-arrowForward	docs/assets/svg/017.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/017.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/018.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/018.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/019.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	d
-arrowForward	docs/assets/svg/019.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	i
-arrowForward	docs/assets/svg/020.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000/;"	d
-arrowForward	docs/assets/svg/020.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.200000000000/;"	i
-arrowForward	docs/assets/svg/021.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/021.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/022.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	d
-arrowForward	docs/assets/svg/022.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	i
-arrowForward	docs/assets/svg/023.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="12.160000000000/;"	d
-arrowForward	docs/assets/svg/023.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="12.160000000000/;"	i
-arrowForward	docs/assets/svg/024.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/024.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/025.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/025.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/026.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/026.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/027.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/027.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/028.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/028.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/029.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	d
-arrowForward	docs/assets/svg/029.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	i
-arrowForward	docs/assets/svg/030.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/030.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/031.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	d
-arrowForward	docs/assets/svg/031.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	i
-arrowForward	docs/assets/svg/032.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	d
-arrowForward	docs/assets/svg/032.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	i
-arrowForward	docs/assets/svg/033.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/033.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/034.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/034.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/035.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/035.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/036.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/036.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/037.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/037.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/038.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	d
-arrowForward	docs/assets/svg/038.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	i
-arrowForward	docs/assets/svg/039.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/039.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
-arrowForward	docs/assets/svg/040.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	d
-arrowForward	docs/assets/svg/040.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="11.520000000000/;"	i
-arrowForward	docs/assets/svg/041.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	d
-arrowForward	docs/assets/svg/041.svg	/^    <marker id="arrowForward" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.440000000000/;"	i
+arrowBackward	docs/assets/svg/000.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/000.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/001.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/001.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/002.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/002.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/003.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/003.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/004.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/004.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/005.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/005.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/006.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/006.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/007.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/007.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/008.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/008.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/009.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/009.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/010.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/010.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/011.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/011.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/012.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/012.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/013.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/013.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/014.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/014.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/015.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/015.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/016.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/016.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/017.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/017.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/018.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/018.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/019.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/019.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/020.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/020.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/021.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/021.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/022.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/022.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/023.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/023.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/024.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/024.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/025.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/025.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/026.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/026.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/027.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/027.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/028.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/028.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/029.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/029.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/030.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/030.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/031.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/031.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/032.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/032.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/033.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/033.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/034.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/034.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/035.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/035.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/036.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/036.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/037.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/037.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/038.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/038.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/039.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/039.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/040.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/040.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/041.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/041.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/042.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/042.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/043.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/043.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/044.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/044.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/045.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/045.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBackward	docs/assets/svg/046.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	d
+arrowBackward	docs/assets/svg/046.svg	/^    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5/;"	i
+arrowBothways	docs/assets/svg/000.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/000.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/001.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/001.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/002.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/002.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/003.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/003.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/004.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/004.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/005.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/005.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/006.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/006.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/007.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/007.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/008.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/008.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/009.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/009.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/010.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/010.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/011.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/011.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/012.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/012.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/013.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/013.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/014.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/014.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/015.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/015.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/016.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/016.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/017.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/017.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/018.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/018.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/019.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/019.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/020.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/020.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/021.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/021.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/022.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/022.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/023.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/023.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/024.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/024.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/025.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/025.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/026.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/026.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/027.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/027.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/028.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/028.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/029.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/029.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/030.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/030.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/031.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/031.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/032.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/032.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/033.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/033.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/034.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/034.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/035.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/035.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/036.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/036.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/037.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/037.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/038.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/038.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/039.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/039.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/040.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/040.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/041.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/041.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/042.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/042.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/043.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/043.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/044.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/044.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/045.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/045.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowBothways	docs/assets/svg/046.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	d
+arrowBothways	docs/assets/svg/046.svg	/^    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="/;"	i
+arrowForward	docs/assets/svg/000.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/000.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/001.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/001.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/002.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/002.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/003.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/003.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/004.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/004.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/005.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/005.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/006.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/006.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/007.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/007.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/008.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/008.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/009.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/009.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/010.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/010.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/011.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/011.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/012.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/012.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/013.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/013.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/014.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/014.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/015.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/015.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/016.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/016.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/017.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/017.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/018.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/018.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/019.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/019.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/020.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/020.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/021.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/021.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/022.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/022.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/023.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/023.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/024.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/024.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/025.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/025.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/026.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/026.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/027.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/027.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/028.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/028.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/029.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/029.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/030.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/030.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/031.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/031.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/032.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/032.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/033.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/033.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/034.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/034.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/035.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/035.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/036.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/036.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/037.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/037.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/038.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/038.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/039.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/039.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/040.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/040.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/041.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/041.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/042.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/042.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/043.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/043.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/044.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/044.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/045.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/045.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
+arrowForward	docs/assets/svg/046.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	d
+arrowForward	docs/assets/svg/046.svg	/^    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5"/;"	i
 article	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 aside	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 audio	docs/_site/assets/css/style.css	/^audio, canvas, progress, video { display: inline-block; \/* 1 *\/ vertical-align: baseline; \/* /;"	s
@@ -783,13 +818,9 @@ button	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textar
 button	docs/_site/assets/css/style.css	/^button, select { text-transform: none; }$/;"	s
 button::-moz-focus-inner	docs/_site/assets/css/style.css	/^button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }$/;"	s
 button[disabled]	docs/_site/assets/css/style.css	/^button[disabled], html input[disabled] { cursor: default; }$/;"	s
-calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f
 calculate_height	lib/rsyntaxtree/base_graph.rb	/^    def calculate_height(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f
 calculate_indent	lib/rsyntaxtree/base_graph.rb	/^    def calculate_indent$/;"	f	class:RSyntaxTree.BaseGraph
-calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree
 calculate_level	lib/rsyntaxtree/base_graph.rb	/^    def calculate_level$/;"	f	class:RSyntaxTree.BaseGraph
-calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree
 calculate_width	lib/rsyntaxtree/base_graph.rb	/^    def calculate_width(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 canvas	docs/_site/assets/css/style.css	/^audio, canvas, progress, video { display: inline-block; \/* 1 *\/ vertical-align: baseline; \/* /;"	s
 category-cognitive-grammar	docs/_site/examples.html	/^    <h2 id="category-cognitive-grammar"><b>Cognitive Grammar<\/b><\/h2><h3>Cognitive Grammar sam/;"	I
@@ -805,7 +836,6 @@ category-miscellaneous	docs/_site/examples.html	/^    <h2 id="category-miscellan
 category-phonology	docs/_site/examples.html	/^    <h2 id="category-phonology"><b>Phonology<\/b><\/h2><h3>Phonology sample<\/h3>$/;"	I
 category-pragmatics	docs/_site/examples.html	/^    <h2 id="category-pragmatics"><b>Pragmatics<\/b><\/h2><h3>Types of meaning<\/h3>$/;"	I
 category-{{category.name | slugify }}	docs/examples.html	/^    <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}<\/b><\/h2>$/;"	I
-check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	F	class:RSyntaxTree
 check_data	lib/rsyntaxtree.rb	/^    def self.check_data(text)$/;"	S	module:RSyntaxTree
 children	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 children=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
@@ -825,49 +855,26 @@ content_height	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :typ
 content_height=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 content_width	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 content_width=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
-copyToClipBoard	docs/_site/documentation.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/_site/documentation_ja.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/_site/examples.html	/^  function copyToClipBoard(id){$/;"	f
-copyToClipBoard	docs/examples.html	/^  function copyToClipBoard(id){$/;"	f
 data	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 data=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 details	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 dfn	docs/_site/assets/css/style.css	/^dfn { font-style: italic; }$/;"	s
 div.grid	docs/_site/assets/css/style.css	/^@media only screen and (max-width: 768px) { div.grid { display: block; } }$/;"	c
 div.grid	docs/_site/assets/css/style.css	/^div.grid { display: grid; grid-template-columns: 1fr 1fr; }$/;"	c
+docker_build	Rakefile	/^task :docker_build do$/;"	t
+docker_generate	Rakefile	/^task :docker_generate do$/;"	t
 documentation	docs/_site/documentation.html	/^      <h1 class="no_toc" id="documentation">Documentation<\/h1>$/;"	I
-draw	lib/rsyntaxtree/svg_graph.rb	/^    def draw bracket$/;"	f
 draw-extra-connectors-between-nodes-experimental	docs/_site/documentation.html	/^<h3 id="draw-extra-connectors-between-nodes-experimental">Draw Extra Connectors between Nodes (e/;"	I
 draw-paths-between-nodes-experimental	docs/_site/documentation.html	/^<h3 id="draw-paths-between-nodes-experimental">Draw Paths between Nodes (experimental)<\/h3>$/;"	I
-draw_a_path	lib/rsyntaxtree/svg_graph.rb	/^    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)$/;"	f	class:RSyntaxTree
 draw_a_path	lib/rsyntaxtree/svg_graph.rb	/^    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)$/;"	f	class:RSyntaxTree.SVGGraph
-draw_bracke	lib/rsyntaxtree/svg_graph.rb	/^    def draw_bracke(x1, y1, width, height, col, bline = false)t$/;"	f
-draw_bracket	lib/rsyntaxtree/svg_graph.rb	/^    def draw_bracket$/;"	f
-draw_bracket	lib/rsyntaxtree/svg_graph.rb	/^    def draw_bracket(x1, y1, width, height, col, bline = false)$/;"	f
-draw_bracket	lib/rsyntaxtree/svg_graph.rb	/^    def draw_bracket(x1, y1, x2, y2, col, bline = false)$/;"	f
-draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f
+draw_bracket	lib/rsyntaxtree/svg_graph.rb	/^    def draw_bracket(x1, y1, width, height, col, bline = false)$/;"	f	class:RSyntaxTree.SVGGraph
 draw_connector	lib/rsyntaxtree/base_graph.rb	/^    def draw_connector(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-draw_direct_line	lib/rsyntaxtree/svg_graph.rb	/^    def draw_direct_line(s_x, s_y, t_x, t_y, s_arrow = false, t_arrow = false)$/;"	f	class:RSyntaxTree
-draw_direct_line	lib/rsyntaxtree/svg_graph.rb	/^    def draw_direct_line(s_x, s_y, t_x, t_y, s_arrow = false, t_arrow = false)$/;"	f	class:RSyntaxTree.SVGGraph
-draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f
-draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree
 draw_element	lib/rsyntaxtree/svg_graph.rb	/^    def draw_element(element)$/;"	f	class:RSyntaxTree.SVGGraph
-draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f
 draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:RSyntaxTree.BaseGraph
-draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph
-draw_png	lib/rsyntaxtree.rb	/^    def draw_png$/;"	f	class:RSyntaxTree
-draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	module:RSyntaxTree
-draw_rect	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rect$/;"	f
-draw_rect	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rect(bline = false)$/;"	f
-draw_rectangle	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rectangle(bline = false)$/;"	f
-draw_rectangle	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rectangle(x1, y1, width, height, col, bline = false)$/;"	f
-draw_rectangle	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rectangle(x1, y1, width, heigth, col, bline = false)$/;"	f
-draw_rectangle	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rectangle(x1, y1, x2, y2, col, bline = false)$/;"	f
-draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	class:RSyntaxTree
+draw_rectangle	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rectangle(x1, y1, width, height, col, bline = false)$/;"	f	class:RSyntaxTree.SVGGraph
 draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	module:RSyntaxTree
-draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	class:RSyntaxTree
 draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	module:RSyntaxTree
 elements	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator$/;"	A	class:RSyntaxTree.ElementList
 elements=	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator$/;"	A	class:RSyntaxTree.ElementList
@@ -891,33 +898,21 @@ fontsize	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :le
 fontsize=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 footer	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 generate	Rakefile	/^task :generate do$/;"	t
-generate_connector	lib/rsyntaxtree/svg_graph.rb	/^    def generate_connector(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, bline = false)$/;"	f
-generate_connector	lib/rsyntaxtree/svg_graph.rb	/^    def generate_connector(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, false)$/;"	f
-generate_connector	lib/rsyntaxtree/svg_graph.rb	/^    def generate_connector(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, stroke_width = 1)$/;"	f
-generate_connector	lib/rsyntaxtree/svg_graph.rb	/^    def generate_connector(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false/;"	f	class:RSyntaxTree.SVGGraph
-generate_connectors	lib/rsyntaxtree/svg_graph.rb	/^    def generate_connectors(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, bline = false)$/;"	f
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, bline = false)$/;"	f
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, bline)$/;"	f
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f
-generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, stroke_width = 1)$/;"	f	class:RSyntaxTree.SVGGraph
+generate_connectors	lib/rsyntaxtree/svg_graph.rb	/^    def generate_connectors(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = fals/;"	f	class:RSyntaxTree.SVGGraph
+generate_line	lib/rsyntaxtree/svg_graph.rb	/^    def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, bline = false)$/;"	f	class:RSyntaxTree.SVGGraph
 get_child_count	lib/rsyntaxtree/elementlist.rb	/^    def get_child_count(id)$/;"	f	class:RSyntaxTree.ElementList
 get_children	lib/rsyntaxtree/elementlist.rb	/^    def get_children(id)$/;"	f	class:RSyntaxTree.ElementList
 get_element_width	lib/rsyntaxtree/elementlist.rb	/^    def get_element_width(id)$/;"	f	class:RSyntaxTree.ElementList
-get_elementlist	lib/rsyntaxtree/string_parser.rb	/^    def get_elementlist$/;"	f
 get_elementlist	lib/rsyntaxtree/string_parser.rb	/^    def get_elementlist$/;"	f	class:RSyntaxTree.StringParser
 get_elements	lib/rsyntaxtree/elementlist.rb	/^    def get_elements$/;"	f	class:RSyntaxTree.ElementList
 get_first	lib/rsyntaxtree/elementlist.rb	/^    def get_first$/;"	f	class:RSyntaxTree.ElementList
 get_id	lib/rsyntaxtree/elementlist.rb	/^    def get_id(id)$/;"	f	class:RSyntaxTree.ElementList
 get_indent	lib/rsyntaxtree/elementlist.rb	/^    def get_indent(id)$/;"	f	class:RSyntaxTree.ElementList
-get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f
 get_leftmost	lib/rsyntaxtree/base_graph.rb	/^    def get_leftmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 get_level_height	lib/rsyntaxtree/elementlist.rb	/^    def get_level_height$/;"	f	class:RSyntaxTree.ElementList
-get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	class:FontMetrics
 get_metrics	lib/rsyntaxtree/utils.rb	/^  def get_metrics(text, font, fontsize, font_style, font_weight)$/;"	f	module:FontMetrics
 get_next	lib/rsyntaxtree/elementlist.rb	/^    def get_next$/;"	f	class:RSyntaxTree.ElementList
-get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f
 get_next_token	lib/rsyntaxtree/string_parser.rb	/^    def get_next_token$/;"	f	class:RSyntaxTree.StringParser
-get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f
 get_rightmost	lib/rsyntaxtree/base_graph.rb	/^    def get_rightmost(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
 grid	docs/assets/css/style.scss	/^  div.grid {$/;"	c
 grid	docs/assets/css/style.scss	/^div.grid {$/;"	c
@@ -1075,6 +1070,16 @@ hatchBlack	docs/assets/svg/040.svg	/^    <pattern id="hatchBlack" x="10" y="10" 
 hatchBlack	docs/assets/svg/040.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
 hatchBlack	docs/assets/svg/041.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
 hatchBlack	docs/assets/svg/041.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/042.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/042.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/043.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/043.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/044.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/044.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/045.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/045.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
+hatchBlack	docs/assets/svg/046.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	d
+hatchBlack	docs/assets/svg/046.svg	/^    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" /;"	i
 hatchForLeaf	docs/_site/assets/svg/000.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
 hatchForLeaf	docs/_site/assets/svg/000.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
 hatchForLeaf	docs/_site/assets/svg/001.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
@@ -1227,6 +1232,16 @@ hatchForLeaf	docs/assets/svg/040.svg	/^    <pattern id="hatchForLeaf" x="10" y="
 hatchForLeaf	docs/assets/svg/040.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
 hatchForLeaf	docs/assets/svg/041.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
 hatchForLeaf	docs/assets/svg/041.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/042.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/042.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/043.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/043.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/044.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/044.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/045.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/045.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForLeaf	docs/assets/svg/046.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForLeaf	docs/assets/svg/046.svg	/^    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
 hatchForNode	docs/_site/assets/svg/000.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
 hatchForNode	docs/_site/assets/svg/000.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
 hatchForNode	docs/_site/assets/svg/001.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
@@ -1379,6 +1394,16 @@ hatchForNode	docs/assets/svg/040.svg	/^    <pattern id="hatchForNode" x="10" y="
 hatchForNode	docs/assets/svg/040.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
 hatchForNode	docs/assets/svg/041.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
 hatchForNode	docs/assets/svg/041.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/042.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/042.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/043.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/043.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/044.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/044.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/045.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/045.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
+hatchForNode	docs/assets/svg/046.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	d
+hatchForNode	docs/assets/svg/046.svg	/^    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse/;"	i
 header	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 height	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 height	lib/rsyntaxtree/svg_graph.rb	/^    attr_accessor :width, :height$/;"	A	class:RSyntaxTree.SVGGraph
@@ -1426,12 +1451,9 @@ level	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level
 level	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
 level=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 level=	lib/rsyntaxtree/string_parser.rb	/^    attr_accessor :data, :elist, :pos, :id, :level$/;"	A	class:RSyntaxTree.StringParser
-line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f
 line_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def line_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 main	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
-make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f
 make_balance	lib/rsyntaxtree/base_graph.rb	/^    def make_balance(id = 1)$/;"	f	class:RSyntaxTree.BaseGraph
-make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f
 make_tree	lib/rsyntaxtree/string_parser.rb	/^    def make_tree(parent)$/;"	f	class:RSyntaxTree.StringParser
 mark	docs/_site/assets/css/style.css	/^mark { background: #ff0; color: #000; }$/;"	s
 markdown-toc	docs/_site/documentation.html	/^<ol id="markdown-toc">$/;"	I
@@ -1472,95 +1494,96 @@ markdown-toc-水平線	docs/_site/documentation_ja.html	/^      <li><a href="#�
 menu	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 nav	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 newline	docs/_site/documentation.html	/^<h4 id="newline">Newline<\/h4>$/;"	I
-node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f
 node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree.BaseGraph
-ns1d8799cc0101	docs/assets/svg/000.svg	/^  <svg width="1906.4" height="1756.0" viewBox="-20, -20, 1926.4, 1776.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns1d99b24d0101	docs/assets/svg/001.svg	/^  <svg width="647.8000000000001" height="937.5999999999999" viewBox="-20, -20, 667.8000000000001/;"	n	uri:http://www.w3.org/2000/svg
+ns1d8799cc0101	docs/assets/svg/000.svg	/^  <svg width="1793.2000000000003" height="1448.0" viewBox="-20, -20, 1833.2000000000003, 1488.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns1d99b24d0101	docs/assets/svg/001.svg	/^  <svg width="647.8000000000001" height="603.2" viewBox="-20, -20, 687.8000000000001, 643.2" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns1d9e026f0101	docs/_site/assets/svg/000.svg	/^  <svg width="1906.4" height="1571.2000000000003" viewBox="-20, -20, 1926.4, 1591.2000000000003"/;"	n	uri:http://www.w3.org/2000/svg
-ns1dabcace0101	docs/assets/svg/002.svg	/^  <svg width="1601.0" height="1967.2" viewBox="-20, -20, 1621.0, 1987.2" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns1dabcace0101	docs/assets/svg/002.svg	/^  <svg width="1601.0" height="1430.4" viewBox="-20, -20, 1641.0, 1470.4" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
 ns1db01af00101	docs/_site/assets/svg/001.svg	/^  <svg width="647.8000000000001" height="770.4" viewBox="-20, -20, 667.8000000000001, 790.4" ver/;"	n	uri:http://www.w3.org/2000/svg
-ns1dbde34f0101	docs/assets/svg/003.svg	/^  <svg width="1344.1999999999998" height="1967.2" viewBox="-20, -20, 1364.1999999999998, 1987.2"/;"	n	uri:http://www.w3.org/2000/svg
+ns1dbde34f0101	docs/assets/svg/003.svg	/^  <svg width="1344.1999999999998" height="1430.4" viewBox="-20, -20, 1384.1999999999998, 1470.4"/;"	n	uri:http://www.w3.org/2000/svg
 ns1dc233710101	docs/_site/assets/svg/002.svg	/^  <svg width="1601.0" height="1668.0000000000002" viewBox="-20, -20, 1621.0, 1688.0000000000002"/;"	n	uri:http://www.w3.org/2000/svg
-ns1dcffbd00101	docs/assets/svg/004.svg	/^  <svg width="1614.1999999999998" height="1967.2" viewBox="-20, -20, 1634.1999999999998, 1987.2"/;"	n	uri:http://www.w3.org/2000/svg
+ns1dcffbd00101	docs/assets/svg/004.svg	/^  <svg width="1614.1999999999998" height="1430.4" viewBox="-20, -20, 1654.1999999999998, 1470.4"/;"	n	uri:http://www.w3.org/2000/svg
 ns1dd44bf20101	docs/_site/assets/svg/003.svg	/^  <svg width="1344.1999999999998" height="1668.0000000000002" viewBox="-20, -20, 1364.1999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns1de214510101	docs/assets/svg/005.svg	/^  <svg width="918.8" height="1300.8" viewBox="-20, -20, 938.8, 1320.8" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
+ns1de214510101	docs/assets/svg/005.svg	/^  <svg width="918.8" height="957.6" viewBox="-20, -20, 958.8, 997.6" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
 ns1de664730101	docs/_site/assets/svg/004.svg	/^  <svg width="1614.1999999999998" height="1668.0000000000002" viewBox="-20, -20, 1634.1999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns1df42cd20101	docs/assets/svg/006.svg	/^  <svg width="1159.1999999999998" height="1649.0" viewBox="-20, -20, 1179.1999999999998, 1669.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns1df42cd20101	docs/assets/svg/006.svg	/^  <svg width="1159.1999999999998" height="1209.0" viewBox="-20, -20, 1199.1999999999998, 1249.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns1df87cf40101	docs/_site/assets/svg/005.svg	/^  <svg width="918.8" height="1084.6" viewBox="-20, -20, 938.8, 1104.6" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns1e0645530101	docs/assets/svg/007.svg	/^  <svg width="1617.7999999999997" height="1786.0" viewBox="-20, -20, 1637.7999999999997, 1806.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns1e0645530101	docs/assets/svg/007.svg	/^  <svg width="1617.7999999999997" height="1302.0" viewBox="-20, -20, 1657.7999999999997, 1342.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns1e0a95750101	docs/_site/assets/svg/006.svg	/^  <svg width="1159.1999999999998" height="1388.8" viewBox="-20, -20, 1179.1999999999998, 1408.8"/;"	n	uri:http://www.w3.org/2000/svg
-ns1e185dd40101	docs/assets/svg/008.svg	/^  <svg width="1705.6" height="2345.3999999999996" viewBox="-20, -20, 1725.6, 2365.3999999999996"/;"	n	uri:http://www.w3.org/2000/svg
+ns1e185dd40101	docs/assets/svg/008.svg	/^  <svg width="1705.6" height="1711.8000000000002" viewBox="-20, -20, 1745.6, 1751.8000000000002"/;"	n	uri:http://www.w3.org/2000/svg
 ns1e1cadf60101	docs/_site/assets/svg/007.svg	/^  <svg width="1617.7999999999997" height="1513.1999999999998" viewBox="-20, -20, 1637.7999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns1e2a76550101	docs/assets/svg/009.svg	/^  <svg width="1292.6" height="1649.0" viewBox="-20, -20, 1312.6, 1669.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns1e2a76550101	docs/assets/svg/009.svg	/^  <svg width="1292.6" height="1209.0" viewBox="-20, -20, 1332.6, 1249.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
 ns1e2ec6770101	docs/_site/assets/svg/008.svg	/^  <svg width="1705.6" height="1997.2" viewBox="-20, -20, 1725.6, 2017.2" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
 ns1e40def80101	docs/_site/assets/svg/009.svg	/^  <svg width="1292.6" height="1388.8" viewBox="-20, -20, 1312.6, 1408.8" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns1fdcc26d0101	docs/assets/svg/010.svg	/^  <svg width="2481.3999999999996" height="3089.5999999999995" viewBox="-20, -20, 2501.3999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns1feedaee0101	docs/assets/svg/011.svg	/^  <svg width="1175.7999999999997" height="1465.6000000000001" viewBox="-20, -20, 1195.7999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns1fdcc26d0101	docs/assets/svg/010.svg	/^  <svg width="2481.3999999999996" height="2227.2000000000003" viewBox="-20, -20, 2521.3999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns1feedaee0101	docs/assets/svg/011.svg	/^  <svg width="1175.7999999999997" height="1043.1999999999998" viewBox="-20, -20, 1215.7999999999/;"	n	uri:http://www.w3.org/2000/svg
 ns1ff32b100101	docs/_site/assets/svg/010.svg	/^  <svg width="2481.3999999999996" height="2719.4" viewBox="-20, -20, 2501.3999999999996, 2739.4"/;"	n	uri:http://www.w3.org/2000/svg
-ns2000f36f0101	docs/assets/svg/012.svg	/^  <svg width="1173.7999999999997" height="2416.0" viewBox="-20, -20, 1193.7999999999997, 2436.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns2000f36f0101	docs/assets/svg/012.svg	/^  <svg width="1173.7999999999997" height="1712.0" viewBox="-20, -20, 1213.7999999999997, 1752.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns200543910101	docs/_site/assets/svg/011.svg	/^  <svg width="1175.7999999999997" height="1219.1999999999998" viewBox="-20, -20, 1195.7999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns20130bf00101	docs/assets/svg/013.svg	/^  <svg width="2539.7999999999997" height="3640.0" viewBox="-20, -20, 2559.7999999999997, 3660.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns20130bf00101	docs/assets/svg/013.svg	/^  <svg width="2539.7999999999997" height="3112.0" viewBox="-20, -20, 2579.7999999999997, 3152.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns20175c120101	docs/_site/assets/svg/012.svg	/^  <svg width="1173.7999999999997" height="2064.0" viewBox="-20, -20, 1193.7999999999997, 2084.0"/;"	n	uri:http://www.w3.org/2000/svg
-ns202524710101	docs/assets/svg/014.svg	/^  <svg width="1796.7999999999997" height="1994.6000000000001" viewBox="-20, -20, 1816.7999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns202524710101	docs/assets/svg/014.svg	/^  <svg width="1796.7999999999997" height="1616.1999999999998" viewBox="-20, -20, 1836.7999999999/;"	n	uri:http://www.w3.org/2000/svg
 ns202974930101	docs/_site/assets/svg/013.svg	/^  <svg width="2539.7999999999997" height="3987.0" viewBox="-20, -20, 2559.7999999999997, 4007.0"/;"	n	uri:http://www.w3.org/2000/svg
-ns20373cf20101	docs/assets/svg/015.svg	/^  <svg width="1850.8333333333335" height="1153.9" viewBox="-20, -20, 1870.8333333333335, 1173.9"/;"	n	uri:http://www.w3.org/2000/svg
+ns20373cf20101	docs/assets/svg/015.svg	/^  <svg width="1850.8333333333335" height="845.8" viewBox="-20, -20, 1890.8333333333335, 885.8" v/;"	n	uri:http://www.w3.org/2000/svg
 ns203b8d140101	docs/_site/assets/svg/014.svg	/^  <svg width="1796.7999999999997" height="2205.7999999999997" viewBox="-20, -20, 1816.7999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns204955730101	docs/assets/svg/016.svg	/^  <svg width="2050.0" height="2180.9" viewBox="-20, -20, 2070.0, 2200.9" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns204955730101	docs/assets/svg/016.svg	/^  <svg width="2050.0" height="1477.8" viewBox="-20, -20, 2090.0, 1517.8" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
 ns204da5950101	docs/_site/assets/svg/015.svg	/^  <svg width="1850.8333333333335" height="964.3000000000001" viewBox="-20, -20, 1870.83333333333/;"	n	uri:http://www.w3.org/2000/svg
-ns205b6df40101	docs/assets/svg/017.svg	/^  <svg width="1353.4" height="1280.8" viewBox="-20, -20, 1373.4, 1300.8" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns205b6df40101	docs/assets/svg/017.svg	/^  <svg width="1353.4" height="937.6" viewBox="-20, -20, 1393.4, 977.6" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
 ns205fbe160101	docs/_site/assets/svg/016.svg	/^  <svg width="2050.0" height="1841.1999999999998" viewBox="-20, -20, 2070.0, 1861.1999999999998"/;"	n	uri:http://www.w3.org/2000/svg
-ns206d86750101	docs/assets/svg/018.svg	/^  <svg width="2166.6" height="1967.2" viewBox="-20, -20, 2186.6, 1987.2" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns206d86750101	docs/assets/svg/018.svg	/^  <svg width="2166.6" height="1430.4" viewBox="-20, -20, 2206.6, 1470.4" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
 ns2071d6970101	docs/_site/assets/svg/017.svg	/^  <svg width="1353.4" height="1069.6" viewBox="-20, -20, 1373.4, 1089.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns207f9ef60101	docs/assets/svg/019.svg	/^  <svg width="3783.2" height="3295.999999999999" viewBox="-20, -20, 3803.2, 3315.999999999999" v/;"	n	uri:http://www.w3.org/2000/svg
+ns207f9ef60101	docs/assets/svg/019.svg	/^  <svg width="3719.2" height="2416.0000000000005" viewBox="-20, -20, 3759.2, 2456.0000000000005"/;"	n	uri:http://www.w3.org/2000/svg
 ns2083ef180101	docs/_site/assets/svg/018.svg	/^  <svg width="2166.6" height="1668.0000000000002" viewBox="-20, -20, 2186.6, 1688.0000000000002"/;"	n	uri:http://www.w3.org/2000/svg
 ns209607990101	docs/_site/assets/svg/019.svg	/^  <svg width="3783.2" height="3295.999999999999" viewBox="-20, -20, 3803.2, 3315.999999999999" v/;"	n	uri:http://www.w3.org/2000/svg
-ns2231eb0e0101	docs/assets/svg/020.svg	/^  <svg width="1840.0" height="1462.0" viewBox="-20, -20, 1860.0, 1482.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns2244038f0101	docs/assets/svg/021.svg	/^  <svg width="3657.9999999999995" height="1888.0" viewBox="-20, -20, 3677.9999999999995, 1908.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns2231eb0e0101	docs/assets/svg/020.svg	/^  <svg width="1840.0" height="1383.0" viewBox="-20, -20, 1880.0, 1423.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns2244038f0101	docs/assets/svg/021.svg	/^  <svg width="3657.9999999999995" height="1360.0" viewBox="-20, -20, 3697.9999999999995, 1400.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns224853b10101	docs/_site/assets/svg/020.svg	/^  <svg width="1840.0" height="1232.9" viewBox="-20, -20, 1860.0, 1252.9" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns22561c100101	docs/assets/svg/022.svg	/^  <svg width="2810.8" height="3050.7999999999993" viewBox="-20, -20, 2830.8, 3070.7999999999993"/;"	n	uri:http://www.w3.org/2000/svg
+ns22561c100101	docs/assets/svg/022.svg	/^  <svg width="2810.8" height="2223.6000000000004" viewBox="-20, -20, 2850.8, 2263.6000000000004"/;"	n	uri:http://www.w3.org/2000/svg
 ns225a6c320101	docs/_site/assets/svg/021.svg	/^  <svg width="3657.9999999999995" height="1606.4" viewBox="-20, -20, 3677.9999999999995, 1626.4"/;"	n	uri:http://www.w3.org/2000/svg
-ns226834910101	docs/assets/svg/023.svg	/^  <svg width="1438.6000000000004" height="1280.8" viewBox="-20, -20, 1458.6000000000004, 1300.8"/;"	n	uri:http://www.w3.org/2000/svg
+ns226834910101	docs/assets/svg/023.svg	/^  <svg width="1438.6000000000004" height="937.6" viewBox="-20, -20, 1478.6000000000004, 977.6" v/;"	n	uri:http://www.w3.org/2000/svg
 ns226c84b30101	docs/_site/assets/svg/022.svg	/^  <svg width="2810.8" height="2613.6" viewBox="-20, -20, 2830.8, 2633.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns227a4d120101	docs/assets/svg/024.svg	/^  <svg width="1554.7999999999997" height="1448.0" viewBox="-20, -20, 1574.7999999999997, 1468.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns227a4d120101	docs/assets/svg/024.svg	/^  <svg width="1554.7999999999997" height="1096.0" viewBox="-20, -20, 1594.7999999999997, 1136.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns227e9d340101	docs/_site/assets/svg/023.svg	/^  <svg width="1438.6000000000004" height="1069.6" viewBox="-20, -20, 1458.6000000000004, 1089.6"/;"	n	uri:http://www.w3.org/2000/svg
-ns228c65930101	docs/assets/svg/025.svg	/^  <svg width="5861.0" height="2917.6000000000004" viewBox="-20, -20, 5881.0, 2937.6000000000004"/;"	n	uri:http://www.w3.org/2000/svg
+ns228c65930101	docs/assets/svg/025.svg	/^  <svg width="5861.0" height="2363.2" viewBox="-20, -20, 5901.0, 2403.2" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
 ns2290b5b50101	docs/_site/assets/svg/024.svg	/^  <svg width="1554.7999999999997" height="1192.8000000000002" viewBox="-20, -20, 1574.7999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns229e7e140101	docs/assets/svg/026.svg	/^  <svg width="1902.4" height="1201.6" viewBox="-20, -20, 1922.4, 1221.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns229e7e140101	docs/assets/svg/026.svg	/^  <svg width="1902.4" height="867.1999999999999" viewBox="-20, -20, 1942.4, 907.1999999999999" v/;"	n	uri:http://www.w3.org/2000/svg
 ns22a2ce360101	docs/_site/assets/svg/025.svg	/^  <svg width="5861.0" height="3340.0" viewBox="-20, -20, 5881.0, 3360.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns22b096950101	docs/assets/svg/027.svg	/^  <svg width="5044.799999999999" height="1984.8000000000002" viewBox="-20, -20, 5064.79999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns22b096950101	docs/assets/svg/027.svg	/^  <svg width="5044.799999999999" height="1641.6" viewBox="-20, -20, 5084.799999999999, 1681.6" v/;"	n	uri:http://www.w3.org/2000/svg
 ns22b4e6b70101	docs/_site/assets/svg/026.svg	/^  <svg width="1902.4" height="1008.0" viewBox="-20, -20, 1922.4, 1028.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns22c2af160101	docs/assets/svg/028.svg	/^  <svg width="818.4" height="1280.8" viewBox="-20, -20, 838.4, 1300.8" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
+ns22c2af160101	docs/assets/svg/028.svg	/^  <svg width="818.4" height="937.6" viewBox="-20, -20, 858.4, 977.6" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
 ns22c6ff380101	docs/_site/assets/svg/027.svg	/^  <svg width="5044.799999999999" height="1676.8000000000002" viewBox="-20, -20, 5064.79999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns22d4c7970101	docs/assets/svg/029.svg	/^  <svg width="3654.3999999999996" height="2724.0" viewBox="-20, -20, 3674.3999999999996, 2744.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns22d4c7970101	docs/assets/svg/029.svg	/^  <svg width="3654.3999999999996" height="2768.0" viewBox="-20, -20, 3694.3999999999996, 2808.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns22d917b90101	docs/_site/assets/svg/028.svg	/^  <svg width="818.4" height="1069.6" viewBox="-20, -20, 838.4, 1089.6" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
 ns22eb303a0101	docs/_site/assets/svg/029.svg	/^  <svg width="3654.3999999999996" height="2803.2" viewBox="-20, -20, 3674.3999999999996, 2823.2"/;"	n	uri:http://www.w3.org/2000/svg
-ns248713af0101	docs/assets/svg/030.svg	/^  <svg width="2961.4" height="1800.0" viewBox="-20, -20, 2981.4, 1820.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns24992c300101	docs/assets/svg/031.svg	/^  <svg width="1265.2" height="955.5999999999999" viewBox="-20, -20, 1285.2, 975.5999999999999" v/;"	n	uri:http://www.w3.org/2000/svg
+ns248713af0101	docs/assets/svg/030.svg	/^  <svg width="2961.4" height="1712.0" viewBox="-20, -20, 3001.4, 1752.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns24992c300101	docs/assets/svg/031.svg	/^  <svg width="1265.2" height="709.2" viewBox="-20, -20, 1305.2, 749.2" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
 ns249d7c520101	docs/_site/assets/svg/030.svg	/^  <svg width="2961.4" height="1747.1999999999998" viewBox="-20, -20, 2981.4, 1767.1999999999998"/;"	n	uri:http://www.w3.org/2000/svg
-ns24ab44b10101	docs/assets/svg/032.svg	/^  <svg width="846.3999999999999" height="1509.6000000000001" viewBox="-20, -20, 866.399999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns24ab44b10101	docs/assets/svg/032.svg	/^  <svg width="846.3999999999999" height="1439.1999999999998" viewBox="-20, -20, 886.399999999999/;"	n	uri:http://www.w3.org/2000/svg
 ns24af94d30101	docs/_site/assets/svg/031.svg	/^  <svg width="1301.2" height="782.4" viewBox="-20, -20, 1321.2, 802.4" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns24bd5d320101	docs/assets/svg/033.svg	/^  <svg width="1855.7999999999997" height="1756.0" viewBox="-20, -20, 1875.7999999999997, 1776.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns24bd5d320101	docs/assets/svg/033.svg	/^  <svg width="1855.7999999999997" height="1272.0" viewBox="-20, -20, 1895.7999999999997, 1312.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns24c1ad540101	docs/_site/assets/svg/032.svg	/^  <svg width="623.2" height="1500.8" viewBox="-20, -20, 643.2, 1520.8" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns24cf75b30101	docs/assets/svg/034.svg	/^  <svg width="2715.2" height="1236.8" viewBox="-20, -20, 2735.2, 1256.8" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns24cf75b30101	docs/assets/svg/034.svg	/^  <svg width="2715.2" height="1201.6" viewBox="-20, -20, 2755.2, 1241.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
 ns24d3c5d50101	docs/_site/assets/svg/033.svg	/^  <svg width="623.2" height="1676.8" viewBox="-20, -20, 643.2, 1696.8" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns24e18e340101	docs/assets/svg/035.svg	/^  <svg width="3630.4" height="1896.8000000000002" viewBox="-20, -20, 3650.4, 1916.8000000000002"/;"	n	uri:http://www.w3.org/2000/svg
-ns24f3a6b50101	docs/assets/svg/036.svg	/^  <svg width="803.0" height="550.4" viewBox="-20, -20, 823.0, 570.4" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
-ns2505bf360101	docs/assets/svg/037.svg	/^  <svg width="513.6" height="695.2" viewBox="-20, -20, 533.6, 715.2" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
-ns2517d7b70101	docs/assets/svg/038.svg	/^  <svg width="2135.2000000000007" height="1580.0" viewBox="-20, -20, 2155.2000000000007, 1600.0"/;"	n	uri:http://www.w3.org/2000/svg
-ns2529f0380101	docs/assets/svg/039.svg	/^  <svg width="115.6" height="211.2" viewBox="-20, -20, 135.6, 231.2" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
-ns26dc3c500101	docs/assets/svg/040.svg	/^  <svg width="3020.8" height="2600.8" viewBox="-20, -20, 3040.8, 2620.8" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns26ee54d10101	docs/assets/svg/041.svg	/^  <svg width="1970.4" height="1580.0" viewBox="-20, -20, 1990.4, 1600.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns24e18e340101	docs/assets/svg/035.svg	/^  <svg width="3630.4" height="1729.6" viewBox="-20, -20, 3670.4, 1769.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns24f3a6b50101	docs/assets/svg/036.svg	/^  <svg width="803.0" height="532.8" viewBox="-20, -20, 843.0, 572.8" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
+ns2505bf360101	docs/assets/svg/037.svg	/^  <svg width="1253.6" height="550.4" viewBox="-20, -20, 1293.6, 590.4" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
+ns2517d7b70101	docs/assets/svg/038.svg	/^  <svg width="2135.2000000000007" height="1536.0" viewBox="-20, -20, 2175.2000000000007, 1576.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns2529f0380101	docs/assets/svg/039.svg	/^  <svg width="115.6" height="198.4" viewBox="-20, -20, 155.6, 238.4" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
+ns26dc3c500101	docs/assets/svg/040.svg	/^  <svg width="3020.8" height="1729.6" viewBox="-20, -20, 3060.8, 1769.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns26ee54d10101	docs/assets/svg/041.svg	/^  <svg width="1970.4" height="1888.0" viewBox="-20, -20, 2010.4, 1928.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns27006d520101	docs/assets/svg/042.svg	/^  <svg width="454.4" height="618.2" viewBox="-20, -20, 494.4, 658.2" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
+ns271285d30101	docs/assets/svg/043.svg	/^  <svg width="2299.4" height="1201.6" viewBox="-20, -20, 2339.4, 1241.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns27249e540101	docs/assets/svg/044.svg	/^  <svg width="178.4" height="198.4" viewBox="-20, -20, 218.4, 238.4" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
+ns2736b6d50101	docs/assets/svg/045.svg	/^  <svg width="2578.2" height="3102.4" viewBox="-20, -20, 2618.2, 3142.4" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns2748cf560101	docs/assets/svg/046.svg	/^  <svg width="37609.600000000006" height="1008.0" viewBox="-20, -20, 37649.600000000006, 1048.0"/;"	n	uri:http://www.w3.org/2000/svg
 ns59d2ecb30101	docs/_site/feed.xml	/^<?xml version="1.0" encoding="utf-8"?><feed xmlns="http:\/\/www.w3.org\/2005\/Atom" ><generator /;"	n	uri:http://www.w3.org/2005/Atom
 ns8fb8be310101	img/sample.svg	/^  <svg width="1211.119140625" height="941.0" viewBox="-40, -40, 1251.119140625, 981.0" version="/;"	n	uri:http://www.w3.org/2000/svg
 optgroup	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textarea { color: inherit; \/* 1 *\/ font: inherit; \/* 2 *\/ m/;"	s
 optgroup	docs/_site/assets/css/style.css	/^optgroup { font-weight: bold; }$/;"	s
 parent	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 parent=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
-parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	class:Markup
 parse	lib/rsyntaxtree/markup_parser.rb	/^  def parse(txt)$/;"	f	module:Markup
-parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f
 parse	lib/rsyntaxtree/string_parser.rb	/^    def parse$/;"	f	class:RSyntaxTree.StringParser
-parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f
 parse_list	lib/rsyntaxtree/base_graph.rb	/^    def parse_list$/;"	f	class:RSyntaxTree.BaseGraph
 path	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 path=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
@@ -1578,9 +1601,7 @@ select	docs/_site/assets/css/style.css	/^button, select { text-transform: none; 
 set_element_width	lib/rsyntaxtree/elementlist.rb	/^    def set_element_width(id, width)$/;"	f	class:RSyntaxTree.ElementList
 set_hierarchy	lib/rsyntaxtree/elementlist.rb	/^    def set_hierarchy$/;"	f	class:RSyntaxTree.ElementList
 set_indent	lib/rsyntaxtree/elementlist.rb	/^    def set_indent(id, indent)$/;"	f	class:RSyntaxTree.ElementList
-set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(this_x, this_y, style, decoration, fontstyle, text)$/;"	f
 set_tspan	lib/rsyntaxtree/svg_graph.rb	/^    def set_tspan(this_x, this_y, style, decoration, fontstyle, text)$/;"	f	class:RSyntaxTree.SVGGraph
-setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree
 setup	lib/rsyntaxtree/element.rb	/^    def setup$/;"	f	class:RSyntaxTree.Element
 setup	test/markup_parser_test.rb	/^  def setup$/;"	f	class:MarkupParserTest
 skip-to-content	docs/_layouts/default.html	/^    <a id="skip-to-content" href="#content">Skip to the content.<\/a>$/;"	I
@@ -1609,42 +1630,26 @@ table	docs/_site/assets/css/style.css	/^table { border-collapse: collapse; borde
 table-of-contents	docs/_site/documentation.html	/^<h3 class="no_toc" id="table-of-contents">Table of Contents<\/h3>$/;"	I
 td	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 template	docs/_site/assets/css/style.css	/^[hidden], template { display: none; }$/;"	s
-test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f
 test_evaluator	test/markup_parser_test.rb	/^  def test_evaluator$/;"	f	class:MarkupParserTest
-test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f
 test_rule_bold	test/markup_parser_test.rb	/^  def test_rule_bold$/;"	f	class:MarkupParserTest
-test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f
 test_rule_bolditalic	test/markup_parser_test.rb	/^  def test_rule_bolditalic$/;"	f	class:MarkupParserTest
-test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f
 test_rule_border	test/markup_parser_test.rb	/^  def test_rule_border$/;"	f	class:MarkupParserTest
-test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f
 test_rule_box	test/markup_parser_test.rb	/^  def test_rule_box$/;"	f	class:MarkupParserTest
 test_rule_brackets	test/markup_parser_test.rb	/^  def test_rule_brackets$/;"	f	class:MarkupParserTest
 test_rule_cr	test/markup_parser_test.rb	/^  def test_rule_cr$/;"	f	class:MarkupParserTest
 test_rule_escaped	test/markup_parser_test.rb	/^  def test_rule_escaped$/;"	f	class:MarkupParserTest
-test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f
 test_rule_italic	test/markup_parser_test.rb	/^  def test_rule_italic$/;"	f	class:MarkupParserTest
-test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f
 test_rule_line	test/markup_parser_test.rb	/^  def test_rule_line$/;"	f	class:MarkupParserTest
-test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f
 test_rule_lines	test/markup_parser_test.rb	/^  def test_rule_lines$/;"	f	class:MarkupParserTest
-test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f
 test_rule_linethrough	test/markup_parser_test.rb	/^  def test_rule_linethrough$/;"	f	class:MarkupParserTest
-test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f
 test_rule_markup	test/markup_parser_test.rb	/^  def test_rule_markup$/;"	f	class:MarkupParserTest
-test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f
 test_rule_non_escaped	test/markup_parser_test.rb	/^  def test_rule_non_escaped$/;"	f	class:MarkupParserTest
-test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f
 test_rule_overline	test/markup_parser_test.rb	/^  def test_rule_overline$/;"	f	class:MarkupParserTest
 test_rule_path	test/markup_parser_test.rb	/^  def test_rule_path$/;"	f	class:MarkupParserTest
-test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f
 test_rule_subscript	test/markup_parser_test.rb	/^  def test_rule_subscript$/;"	f	class:MarkupParserTest
-test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f
 test_rule_superscript	test/markup_parser_test.rb	/^  def test_rule_superscript$/;"	f	class:MarkupParserTest
-test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f
 test_rule_text	test/markup_parser_test.rb	/^  def test_rule_text$/;"	f	class:MarkupParserTest
 test_rule_triangle	test/markup_parser_test.rb	/^  def test_rule_triangle$/;"	f	class:MarkupParserTest
-test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f
 test_rule_underline	test/markup_parser_test.rb	/^  def test_rule_underline$/;"	f	class:MarkupParserTest
 text-000	docs/_site/examples.html	/^            <div id="text-000" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'/;"	I
 text-001	docs/_site/examples.html	/^            <div id="text-001" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'/;"	I
@@ -1686,12 +1691,10 @@ th	docs/_site/assets/css/style.css	/^td, th { padding: 0; }$/;"	s
 triangle	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 triangle-square-brackets-rectangle	docs/_site/documentation.html	/^<h3 id="triangle-square-brackets-rectangle">Triangle, Square Brackets, Rectangle<\/h3>$/;"	I
 triangle=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
-triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f
 triangle_to_parent	lib/rsyntaxtree/svg_graph.rb	/^    def triangle_to_parent(parent, child)$/;"	f	class:RSyntaxTree.SVGGraph
 type	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 type=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 vP-shell (Japanese)	docs/_site/examples.html	/^        <div><a href="#examples">🔝<\/a><\/div><h3>vP-shell (Japanese)<\/h3>$/;"	j
-valid	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	F	class:RSyntaxTree
 valid?	lib/rsyntaxtree/string_parser.rb	/^    def self.valid?(data)$/;"	S	class:RSyntaxTree.StringParser
 vertical_indent	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element
 vertical_indent=	lib/rsyntaxtree/element.rb	/^    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :conte/;"	A	class:RSyntaxTree.Element

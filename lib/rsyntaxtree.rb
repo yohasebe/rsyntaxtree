@@ -83,7 +83,7 @@ module RSyntaxTree
             fontset[:bolditalic] = FONT_DIR + "/NotoSansMono_SemiCondensed-Bold.ttf"
             fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
             fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf"
+            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
             new_params[:fontstyle] = "mono"
           when "noto-sans", "sans"
             fontset[:normal] = FONT_DIR + "/NotoSans-Regular.ttf"
@@ -151,7 +151,7 @@ module RSyntaxTree
     end
 
     def self.check_data(text)
-      raise RSTError, "Error: input text is empty" if text.to_s == ""
+      raise RSTError, +"Error: input text is empty" if text.to_s == ""
 
       StringParser.valid?(text)
     end
@@ -170,6 +170,8 @@ module RSyntaxTree
       else
         b.string
       end
+    rescue Cairo::InvalidSize
+      raise RSTError, +"Error: the result syntree is too big"
     end
 
     def draw_svg
