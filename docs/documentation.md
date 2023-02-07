@@ -80,7 +80,7 @@ Note: Currently, overline is displayed in SVG, but not in PNG.
 |`normal_subscript_`    |normal<sub>subscript</sub>  |
 |`normal__superscript__`|normal<sup>superscript</sup>|
 
-#### Box and Circle
+#### Box, Circle, Bar, and Arrow
 
 {% include box_and_circle_table.html %}
 
