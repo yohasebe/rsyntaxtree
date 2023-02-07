@@ -29,6 +29,7 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 - Construction Grammar
 - Pragmatics
 - Phonology
+- etc.
 
 **NOTE**: Some tree structures in the example gallery are experimental in the sense that they are not drawn according to conventions of the field.
 
@@ -82,9 +83,9 @@ where [options] are:
   -y, --symmetrize=<s>                 Generate radically symmetrical, balanced tree: on or off (default: off)
   -r, --transparent=<s>                Make background transparent: on or off (default: off)
   -p, --polyline=<s>                   draw polyline connectors: on or off (default: off)
-  -h, --hide-default-connectors=<s>    make default connectors transparent: on or off (default: off)
+  -d, --hide-default-connectors=<s>    make default connectors transparent: on or off (default: off)
+  -h, --help                           This is a custom help message
   -e, --version                        Print version and exit
-  --help                               Show this message
 ```
 
 See the [documentation](https://yohasebe.github.io/rsyntaxtree/documentation) for more detailed info about the syntax.
