@@ -294,7 +294,7 @@ module RSyntaxTree
                 x2 = enc_x + enc_width
                 y2 = y1
                 ar_hwidth = e[:width] / 4.0
-                bar = "<line style='stroke:#{col}; stroke-linejoin:round; stroke-linecap:round; stroke-width:#{stroke_width};' x1='#{x1}' y1='#{y1}' x2='#{x2 - stroke_width / 2}' y2='#{y2}'></line>\n"
+                bar = "<line style='stroke:#{col}; stroke-linejoin:round; stroke-linecap:round; stroke-width:#{stroke_width};' x1='#{x1 + stroke_width / 2}' y1='#{y1}' x2='#{x2 - stroke_width / 2}' y2='#{y2}'></line>\n"
                 @extra_lines << bar
 
                 if e[:decoration].include?(:arrow_to_l)
