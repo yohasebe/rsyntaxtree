@@ -30,7 +30,6 @@ Dir.glob("*.md", base: examples_dir).map do |md|
     fontstyle: "sans",
     fontsize: 16,
     linewidth: 1,
-    margin: 1,
     vheight: 2.0,
     color: "modern",
     symmetrize: "on",

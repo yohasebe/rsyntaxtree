@@ -70,8 +70,6 @@ module RSyntaxTree
           new_params[key] = value.to_i * FONT_SCALING
         when :linewidth
           new_params[key] = value.to_i
-        when :margin
-          new_params[key] = value.to_i * FONT_SCALING * 5
         when :vheight
           new_params[key] = value.to_f
         when :fontstyle
@@ -129,15 +127,13 @@ module RSyntaxTree
         leafstyle: "auto",
         filename: "syntree",
         data: "",
-        margin: 0,
         vheight: 1.0,
         polyline: false,
         hide_default_connectors: false
       }
 
       @params.merge! new_params
-      @params[:fontsize]  = @params[:fontsize] * FONT_SCALING
-      @params[:margin]    = @params[:margin] * FONT_SCALING
+      @params[:fontsize] = @params[:fontsize] * FONT_SCALING
       @params[:fontset] = fontset
       single_x_metrics = FontMetrics.get_metrics("X", fontset[:normal], @params[:fontsize], :normal, :normal)
       @global = {}

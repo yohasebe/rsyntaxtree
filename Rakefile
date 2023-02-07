@@ -20,12 +20,13 @@ end
 
 desc "Docker image Build"
 task :docker_build do
-  `docker build ./ -t rsyntaxtree:devel`
+  `docker build ./ -t rsyntaxtree_devel`
 end
 
 desc "Generate SVG and PNG example images using Docker mage"
 task :docker_generate do
   docpath = File.expand_path(File.join(__dir__, "docs"))
-  `docker run --rm -v #{docpath}:/rsyntaxtree/hostdocs rsyntaxtree:devel ruby /rsyntaxtree/dev/generate_examples.rb /rsyntaxtree/hostdocs`
+  `docker build ./ -t rsyntaxtree_devel`
+  `docker run --rm -v #{docpath}:/rsyntaxtree/hostdocs rsyntaxtree_devel ruby /rsyntaxtree/dev/generate_examples.rb /rsyntaxtree/hostdocs`
   `cat #{docpath}/generate_examples.log`
 end

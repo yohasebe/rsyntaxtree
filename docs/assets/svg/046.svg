@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="37609.600000000006" height="1008.0" viewBox="-20, -20, 37649.600000000006, 1048.0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="37586.40000000001" height="990.0" viewBox="0, 0, 37603.20000000001, 1012.0" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-20" y="-20" width="37649.600000000006" height="1048.0" stroke="none" fill="white" />"
+<rect x="0" y="0" width="37603.20000000001" height="1012.0" stroke="none" fill="white" />"
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; font-size: 64px;' x='18778.600000000002' y='132.0'><tspan x='18778.600000000002' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">A</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; font-size: 64px;' x='2299.7999999999993' y='334.4'><tspan x='2299.7999999999993' y='334.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">B</tspan>

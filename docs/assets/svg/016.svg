@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="2050.0" height="1477.8" viewBox="-20, -20, 2090.0, 1517.8" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="2024.0" height="1457.55" viewBox="0, 0, 2038.0, 1477.3" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="28.0" markerHeight="28.0" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-20" y="-20" width="2090.0" height="1517.8" stroke="none" fill="white" />"
+<rect x="0" y="0" width="2038.0" height="1477.3" stroke="none" fill="white" />"
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='900.5' y='118.5'><tspan x='908.0' y='118.5' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">○</tspan>
 <tspan x='987.0' y='118.5' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">　</tspan>
 <tspan x='1066.0' y='118.5' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">　</tspan>

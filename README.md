@@ -77,7 +77,6 @@ where [options] are:
   -t, --font=<s>                       Path to a ttf font used to generate tree (optional)
   -s, --fontsize=<i>                   Size: 8-26 (default: 16)
   -i, --linewidth=<i>                  Size: 1-5 (default: 1)
-  -m, --margin=<i>                     Margin: 0-10 (default: 1)
   -v, --vheight=<f>                    Connector Height: 0.5-5.0 (default: 2.0)
   -c, --color=<s>                      Color text and bars: modern, traditional, or off (default: modern)
   -y, --symmetrize=<s>                 Generate radically symmetrical, balanced tree: on or off (default: off)

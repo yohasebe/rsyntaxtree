@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="1902.4" height="867.1999999999999" viewBox="-20, -20, 1942.4, 907.1999999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="1879.2" height="849.1999999999999" viewBox="0, 0, 1896.0, 871.1999999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-20" y="-20" width="1942.4" height="907.1999999999999" stroke="none" fill="white" />"
+<rect x="0" y="0" width="1896.0" height="871.1999999999999" stroke="none" fill="white" />"
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='551.15' y='132.0'><tspan x='551.15' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Reference:</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='33.60000000000002' y='378.4'><tspan x='33.60000000000002' y='378.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">[situational]</tspan>

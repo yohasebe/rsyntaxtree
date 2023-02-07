@@ -26,7 +26,6 @@ module RSyntaxTree
       @transparent = params[:transparent]
       @color = params[:color]
       @fontstyle = params[:fontstyle]
-      @margin = params[:margin].to_i
       @polyline = params[:polyline]
       @line_styles = "<line style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
@@ -41,13 +40,15 @@ module RSyntaxTree
 
     def svg_data
       metrics = parse_list
-      @height = metrics[:height] + @margin * 2
-      @width = metrics[:width] + @margin * 2
 
-      x1 = 0 - @margin
-      y1 = 0 - @margin
-      x2 = @width + @margin * 2
-      y2 = @height + @margin * 2
+      @height = metrics[:height] + @global[:height_connector_to_text] / 2
+      @width = metrics[:width] + @global[:h_gap_between_nodes] / 2
+
+      x1 = 0
+      y1 = 0
+      x2 = @width + @global[:h_gap_between_nodes] / 2
+      y2 = @height + @global[:height_connector_to_text] / 2
+
       extra_lines = @extra_lines.join("\n")
 
       as2 = @global[:h_gap_between_nodes] * 1.0

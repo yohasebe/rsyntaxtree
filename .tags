@@ -341,7 +341,7 @@ Types of meaning	docs/_site/examples.html	/^    <h2 id="category-pragmatics"><b>
 Types of reference	docs/_site/examples.html	/^        <div><a href="#examples">🔝<\/a><\/div><h3>Types of reference<\/h3>$/;"	j
 Types of rejoinder	docs/_site/examples.html	/^        <div><a href="#examples">🔝<\/a><\/div><h3>Types of rejoinder<\/h3>$/;"	j
 Usage	README.md	/^## Usage$/;"	s
-VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.2.6"$/;"	C	module:RSyntaxTree
+VERSION	lib/rsyntaxtree/version.rb	/^  VERSION = "1.2.7"$/;"	C	module:RSyntaxTree
 WHITESPACE_BLOCK	lib/rsyntaxtree.rb	/^WHITESPACE_BLOCK = "￭"$/;"	C
 Web Interface	README.md	/^## Web Interface$/;"	s
 Whitespace inside Label	docs/documentation.md	/^#### Whitespace inside Label$/;"	t	subsection:Documentation""Font Styles, Text Decoration, and Sub/Superscripts
@@ -1495,87 +1495,87 @@ menu	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figu
 nav	docs/_site/assets/css/style.css	/^article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, s/;"	s
 newline	docs/_site/documentation.html	/^<h4 id="newline">Newline<\/h4>$/;"	I
 node_centering	lib/rsyntaxtree/base_graph.rb	/^    def node_centering$/;"	f	class:RSyntaxTree.BaseGraph
-ns1d8799cc0101	docs/assets/svg/000.svg	/^  <svg width="1793.2000000000003" height="1448.0" viewBox="-20, -20, 1833.2000000000003, 1488.0"/;"	n	uri:http://www.w3.org/2000/svg
-ns1d99b24d0101	docs/assets/svg/001.svg	/^  <svg width="647.8000000000001" height="603.2" viewBox="-20, -20, 687.8000000000001, 643.2" ver/;"	n	uri:http://www.w3.org/2000/svg
+ns1d8799cc0101	docs/assets/svg/000.svg	/^  <svg width="1768.4000000000003" height="1430.0" viewBox="0, 0, 1783.6000000000004, 1452.0" ver/;"	n	uri:http://www.w3.org/2000/svg
+ns1d99b24d0101	docs/assets/svg/001.svg	/^  <svg width="624.6" height="673.2" viewBox="0, 0, 641.4, 695.2" version="1.1" xmlns="http:\/\/w/;"	n	uri:http://www.w3.org/2000/svg
 ns1d9e026f0101	docs/_site/assets/svg/000.svg	/^  <svg width="1906.4" height="1571.2000000000003" viewBox="-20, -20, 1926.4, 1591.2000000000003"/;"	n	uri:http://www.w3.org/2000/svg
-ns1dabcace0101	docs/assets/svg/002.svg	/^  <svg width="1601.0" height="1430.4" viewBox="-20, -20, 1641.0, 1470.4" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns1dabcace0101	docs/assets/svg/002.svg	/^  <svg width="1577.8" height="1412.4" viewBox="0, 0, 1594.6, 1434.4" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
 ns1db01af00101	docs/_site/assets/svg/001.svg	/^  <svg width="647.8000000000001" height="770.4" viewBox="-20, -20, 667.8000000000001, 790.4" ver/;"	n	uri:http://www.w3.org/2000/svg
-ns1dbde34f0101	docs/assets/svg/003.svg	/^  <svg width="1344.1999999999998" height="1430.4" viewBox="-20, -20, 1384.1999999999998, 1470.4"/;"	n	uri:http://www.w3.org/2000/svg
+ns1dbde34f0101	docs/assets/svg/003.svg	/^  <svg width="1320.9999999999998" height="1412.4" viewBox="0, 0, 1337.7999999999997, 1434.4" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns1dc233710101	docs/_site/assets/svg/002.svg	/^  <svg width="1601.0" height="1668.0000000000002" viewBox="-20, -20, 1621.0, 1688.0000000000002"/;"	n	uri:http://www.w3.org/2000/svg
-ns1dcffbd00101	docs/assets/svg/004.svg	/^  <svg width="1614.1999999999998" height="1430.4" viewBox="-20, -20, 1654.1999999999998, 1470.4"/;"	n	uri:http://www.w3.org/2000/svg
+ns1dcffbd00101	docs/assets/svg/004.svg	/^  <svg width="1590.9999999999998" height="1412.4" viewBox="0, 0, 1607.7999999999997, 1434.4" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns1dd44bf20101	docs/_site/assets/svg/003.svg	/^  <svg width="1344.1999999999998" height="1668.0000000000002" viewBox="-20, -20, 1364.1999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns1de214510101	docs/assets/svg/005.svg	/^  <svg width="918.8" height="957.6" viewBox="-20, -20, 958.8, 997.6" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
+ns1de214510101	docs/assets/svg/005.svg	/^  <svg width="895.5999999999999" height="939.6" viewBox="0, 0, 912.3999999999999, 961.6" version/;"	n	uri:http://www.w3.org/2000/svg
 ns1de664730101	docs/_site/assets/svg/004.svg	/^  <svg width="1614.1999999999998" height="1668.0000000000002" viewBox="-20, -20, 1634.1999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns1df42cd20101	docs/assets/svg/006.svg	/^  <svg width="1159.1999999999998" height="1209.0" viewBox="-20, -20, 1199.1999999999998, 1249.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns1df42cd20101	docs/assets/svg/006.svg	/^  <svg width="1135.9999999999998" height="1191.0" viewBox="0, 0, 1152.7999999999997, 1213.0" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns1df87cf40101	docs/_site/assets/svg/005.svg	/^  <svg width="918.8" height="1084.6" viewBox="-20, -20, 938.8, 1104.6" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns1e0645530101	docs/assets/svg/007.svg	/^  <svg width="1617.7999999999997" height="1302.0" viewBox="-20, -20, 1657.7999999999997, 1342.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns1e0645530101	docs/assets/svg/007.svg	/^  <svg width="1594.5999999999997" height="1284.0" viewBox="0, 0, 1611.3999999999996, 1306.0" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns1e0a95750101	docs/_site/assets/svg/006.svg	/^  <svg width="1159.1999999999998" height="1388.8" viewBox="-20, -20, 1179.1999999999998, 1408.8"/;"	n	uri:http://www.w3.org/2000/svg
-ns1e185dd40101	docs/assets/svg/008.svg	/^  <svg width="1705.6" height="1711.8000000000002" viewBox="-20, -20, 1745.6, 1751.8000000000002"/;"	n	uri:http://www.w3.org/2000/svg
+ns1e185dd40101	docs/assets/svg/008.svg	/^  <svg width="1682.3999999999999" height="1693.8000000000002" viewBox="0, 0, 1699.1999999999998,/;"	n	uri:http://www.w3.org/2000/svg
 ns1e1cadf60101	docs/_site/assets/svg/007.svg	/^  <svg width="1617.7999999999997" height="1513.1999999999998" viewBox="-20, -20, 1637.7999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns1e2a76550101	docs/assets/svg/009.svg	/^  <svg width="1292.6" height="1209.0" viewBox="-20, -20, 1332.6, 1249.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns1e2a76550101	docs/assets/svg/009.svg	/^  <svg width="1269.3999999999999" height="1191.0" viewBox="0, 0, 1286.1999999999998, 1213.0" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns1e2ec6770101	docs/_site/assets/svg/008.svg	/^  <svg width="1705.6" height="1997.2" viewBox="-20, -20, 1725.6, 2017.2" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
 ns1e40def80101	docs/_site/assets/svg/009.svg	/^  <svg width="1292.6" height="1388.8" viewBox="-20, -20, 1312.6, 1408.8" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns1fdcc26d0101	docs/assets/svg/010.svg	/^  <svg width="2481.3999999999996" height="2227.2000000000003" viewBox="-20, -20, 2521.3999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns1feedaee0101	docs/assets/svg/011.svg	/^  <svg width="1175.7999999999997" height="1043.1999999999998" viewBox="-20, -20, 1215.7999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns1fdcc26d0101	docs/assets/svg/010.svg	/^  <svg width="2458.2" height="2209.2000000000003" viewBox="0, 0, 2475.0, 2231.2000000000003" ver/;"	n	uri:http://www.w3.org/2000/svg
+ns1feedaee0101	docs/assets/svg/011.svg	/^  <svg width="1152.5999999999997" height="1025.1999999999998" viewBox="0, 0, 1169.3999999999996,/;"	n	uri:http://www.w3.org/2000/svg
 ns1ff32b100101	docs/_site/assets/svg/010.svg	/^  <svg width="2481.3999999999996" height="2719.4" viewBox="-20, -20, 2501.3999999999996, 2739.4"/;"	n	uri:http://www.w3.org/2000/svg
-ns2000f36f0101	docs/assets/svg/012.svg	/^  <svg width="1173.7999999999997" height="1712.0" viewBox="-20, -20, 1213.7999999999997, 1752.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns2000f36f0101	docs/assets/svg/012.svg	/^  <svg width="1150.5999999999997" height="1694.0" viewBox="0, 0, 1167.3999999999996, 1716.0" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns200543910101	docs/_site/assets/svg/011.svg	/^  <svg width="1175.7999999999997" height="1219.1999999999998" viewBox="-20, -20, 1195.7999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns20130bf00101	docs/assets/svg/013.svg	/^  <svg width="2539.7999999999997" height="3112.0" viewBox="-20, -20, 2579.7999999999997, 3152.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns20130bf00101	docs/assets/svg/013.svg	/^  <svg width="2516.6" height="3094.0" viewBox="0, 0, 2533.4, 3116.0" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
 ns20175c120101	docs/_site/assets/svg/012.svg	/^  <svg width="1173.7999999999997" height="2064.0" viewBox="-20, -20, 1193.7999999999997, 2084.0"/;"	n	uri:http://www.w3.org/2000/svg
-ns202524710101	docs/assets/svg/014.svg	/^  <svg width="1796.7999999999997" height="1616.1999999999998" viewBox="-20, -20, 1836.7999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns202524710101	docs/assets/svg/014.svg	/^  <svg width="1773.5999999999997" height="1598.1999999999998" viewBox="0, 0, 1790.3999999999996,/;"	n	uri:http://www.w3.org/2000/svg
 ns202974930101	docs/_site/assets/svg/013.svg	/^  <svg width="2539.7999999999997" height="3987.0" viewBox="-20, -20, 2559.7999999999997, 4007.0"/;"	n	uri:http://www.w3.org/2000/svg
-ns20373cf20101	docs/assets/svg/015.svg	/^  <svg width="1850.8333333333335" height="845.8" viewBox="-20, -20, 1890.8333333333335, 885.8" v/;"	n	uri:http://www.w3.org/2000/svg
+ns20373cf20101	docs/assets/svg/015.svg	/^  <svg width="1824.8333333333335" height="825.55" viewBox="0, 0, 1838.8333333333335, 845.3" vers/;"	n	uri:http://www.w3.org/2000/svg
 ns203b8d140101	docs/_site/assets/svg/014.svg	/^  <svg width="1796.7999999999997" height="2205.7999999999997" viewBox="-20, -20, 1816.7999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns204955730101	docs/assets/svg/016.svg	/^  <svg width="2050.0" height="1477.8" viewBox="-20, -20, 2090.0, 1517.8" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns204955730101	docs/assets/svg/016.svg	/^  <svg width="2024.0" height="1457.55" viewBox="0, 0, 2038.0, 1477.3" version="1.1" xmlns="http:/;"	n	uri:http://www.w3.org/2000/svg
 ns204da5950101	docs/_site/assets/svg/015.svg	/^  <svg width="1850.8333333333335" height="964.3000000000001" viewBox="-20, -20, 1870.83333333333/;"	n	uri:http://www.w3.org/2000/svg
-ns205b6df40101	docs/assets/svg/017.svg	/^  <svg width="1353.4" height="937.6" viewBox="-20, -20, 1393.4, 977.6" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
+ns205b6df40101	docs/assets/svg/017.svg	/^  <svg width="1330.2" height="919.6" viewBox="0, 0, 1347.0, 941.6" version="1.1" xmlns="http:\/\//;"	n	uri:http://www.w3.org/2000/svg
 ns205fbe160101	docs/_site/assets/svg/016.svg	/^  <svg width="2050.0" height="1841.1999999999998" viewBox="-20, -20, 2070.0, 1861.1999999999998"/;"	n	uri:http://www.w3.org/2000/svg
-ns206d86750101	docs/assets/svg/018.svg	/^  <svg width="2166.6" height="1430.4" viewBox="-20, -20, 2206.6, 1470.4" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns206d86750101	docs/assets/svg/018.svg	/^  <svg width="2143.4" height="1412.4" viewBox="0, 0, 2160.2000000000003, 1434.4" version="1.1" x/;"	n	uri:http://www.w3.org/2000/svg
 ns2071d6970101	docs/_site/assets/svg/017.svg	/^  <svg width="1353.4" height="1069.6" viewBox="-20, -20, 1373.4, 1089.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns207f9ef60101	docs/assets/svg/019.svg	/^  <svg width="3719.2" height="2416.0000000000005" viewBox="-20, -20, 3759.2, 2456.0000000000005"/;"	n	uri:http://www.w3.org/2000/svg
+ns207f9ef60101	docs/assets/svg/019.svg	/^  <svg width="3693.6" height="2398.0000000000005" viewBox="0, 0, 3708.0, 2420.0000000000005" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns2083ef180101	docs/_site/assets/svg/018.svg	/^  <svg width="2166.6" height="1668.0000000000002" viewBox="-20, -20, 2186.6, 1688.0000000000002"/;"	n	uri:http://www.w3.org/2000/svg
 ns209607990101	docs/_site/assets/svg/019.svg	/^  <svg width="3783.2" height="3295.999999999999" viewBox="-20, -20, 3803.2, 3315.999999999999" v/;"	n	uri:http://www.w3.org/2000/svg
-ns2231eb0e0101	docs/assets/svg/020.svg	/^  <svg width="1840.0" height="1383.0" viewBox="-20, -20, 1880.0, 1423.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns2244038f0101	docs/assets/svg/021.svg	/^  <svg width="3657.9999999999995" height="1360.0" viewBox="-20, -20, 3697.9999999999995, 1400.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns2231eb0e0101	docs/assets/svg/020.svg	/^  <svg width="1814.0" height="1362.75" viewBox="0, 0, 1828.0, 1382.5" version="1.1" xmlns="http:/;"	n	uri:http://www.w3.org/2000/svg
+ns2244038f0101	docs/assets/svg/021.svg	/^  <svg width="3634.7999999999997" height="1342.0" viewBox="0, 0, 3651.6, 1364.0" version="1.1" x/;"	n	uri:http://www.w3.org/2000/svg
 ns224853b10101	docs/_site/assets/svg/020.svg	/^  <svg width="1840.0" height="1232.9" viewBox="-20, -20, 1860.0, 1252.9" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns22561c100101	docs/assets/svg/022.svg	/^  <svg width="2810.8" height="2223.6000000000004" viewBox="-20, -20, 2850.8, 2263.6000000000004"/;"	n	uri:http://www.w3.org/2000/svg
+ns22561c100101	docs/assets/svg/022.svg	/^  <svg width="2785.2000000000003" height="2205.6000000000004" viewBox="0, 0, 2799.6000000000004,/;"	n	uri:http://www.w3.org/2000/svg
 ns225a6c320101	docs/_site/assets/svg/021.svg	/^  <svg width="3657.9999999999995" height="1606.4" viewBox="-20, -20, 3677.9999999999995, 1626.4"/;"	n	uri:http://www.w3.org/2000/svg
-ns226834910101	docs/assets/svg/023.svg	/^  <svg width="1438.6000000000004" height="937.6" viewBox="-20, -20, 1478.6000000000004, 977.6" v/;"	n	uri:http://www.w3.org/2000/svg
+ns226834910101	docs/assets/svg/023.svg	/^  <svg width="1413.8000000000004" height="919.6" viewBox="0, 0, 1429.0000000000005, 941.6" versi/;"	n	uri:http://www.w3.org/2000/svg
 ns226c84b30101	docs/_site/assets/svg/022.svg	/^  <svg width="2810.8" height="2613.6" viewBox="-20, -20, 2830.8, 2633.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns227a4d120101	docs/assets/svg/024.svg	/^  <svg width="1554.7999999999997" height="1096.0" viewBox="-20, -20, 1594.7999999999997, 1136.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns227a4d120101	docs/assets/svg/024.svg	/^  <svg width="1531.5999999999997" height="1078.0" viewBox="0, 0, 1548.3999999999996, 1100.0" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns227e9d340101	docs/_site/assets/svg/023.svg	/^  <svg width="1438.6000000000004" height="1069.6" viewBox="-20, -20, 1458.6000000000004, 1089.6"/;"	n	uri:http://www.w3.org/2000/svg
-ns228c65930101	docs/assets/svg/025.svg	/^  <svg width="5861.0" height="2363.2" viewBox="-20, -20, 5901.0, 2403.2" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns228c65930101	docs/assets/svg/025.svg	/^  <svg width="5837.8" height="2345.2" viewBox="0, 0, 5854.6, 2367.2" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
 ns2290b5b50101	docs/_site/assets/svg/024.svg	/^  <svg width="1554.7999999999997" height="1192.8000000000002" viewBox="-20, -20, 1574.7999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns229e7e140101	docs/assets/svg/026.svg	/^  <svg width="1902.4" height="867.1999999999999" viewBox="-20, -20, 1942.4, 907.1999999999999" v/;"	n	uri:http://www.w3.org/2000/svg
+ns229e7e140101	docs/assets/svg/026.svg	/^  <svg width="1879.2" height="849.1999999999999" viewBox="0, 0, 1896.0, 871.1999999999999" versi/;"	n	uri:http://www.w3.org/2000/svg
 ns22a2ce360101	docs/_site/assets/svg/025.svg	/^  <svg width="5861.0" height="3340.0" viewBox="-20, -20, 5881.0, 3360.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns22b096950101	docs/assets/svg/027.svg	/^  <svg width="5044.799999999999" height="1641.6" viewBox="-20, -20, 5084.799999999999, 1681.6" v/;"	n	uri:http://www.w3.org/2000/svg
+ns22b096950101	docs/assets/svg/027.svg	/^  <svg width="5021.599999999999" height="1623.6" viewBox="0, 0, 5038.4, 1645.6" version="1.1" xm/;"	n	uri:http://www.w3.org/2000/svg
 ns22b4e6b70101	docs/_site/assets/svg/026.svg	/^  <svg width="1902.4" height="1008.0" viewBox="-20, -20, 1922.4, 1028.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns22c2af160101	docs/assets/svg/028.svg	/^  <svg width="818.4" height="937.6" viewBox="-20, -20, 858.4, 977.6" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
+ns22c2af160101	docs/assets/svg/028.svg	/^  <svg width="795.1999999999999" height="919.6" viewBox="0, 0, 811.9999999999999, 941.6" version/;"	n	uri:http://www.w3.org/2000/svg
 ns22c6ff380101	docs/_site/assets/svg/027.svg	/^  <svg width="5044.799999999999" height="1676.8000000000002" viewBox="-20, -20, 5064.79999999999/;"	n	uri:http://www.w3.org/2000/svg
-ns22d4c7970101	docs/assets/svg/029.svg	/^  <svg width="3654.3999999999996" height="2768.0" viewBox="-20, -20, 3694.3999999999996, 2808.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns22d4c7970101	docs/assets/svg/029.svg	/^  <svg width="3628.7999999999997" height="2750.0" viewBox="0, 0, 3643.2, 2772.0" version="1.1" x/;"	n	uri:http://www.w3.org/2000/svg
 ns22d917b90101	docs/_site/assets/svg/028.svg	/^  <svg width="818.4" height="1069.6" viewBox="-20, -20, 838.4, 1089.6" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
 ns22eb303a0101	docs/_site/assets/svg/029.svg	/^  <svg width="3654.3999999999996" height="2803.2" viewBox="-20, -20, 3674.3999999999996, 2823.2"/;"	n	uri:http://www.w3.org/2000/svg
-ns248713af0101	docs/assets/svg/030.svg	/^  <svg width="2961.4" height="1712.0" viewBox="-20, -20, 3001.4, 1752.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns24992c300101	docs/assets/svg/031.svg	/^  <svg width="1265.2" height="709.2" viewBox="-20, -20, 1305.2, 749.2" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
+ns248713af0101	docs/assets/svg/030.svg	/^  <svg width="2938.2000000000003" height="1694.0" viewBox="0, 0, 2955.0000000000005, 1716.0" ver/;"	n	uri:http://www.w3.org/2000/svg
+ns24992c300101	docs/assets/svg/031.svg	/^  <svg width="1239.6000000000001" height="691.2" viewBox="0, 0, 1254.0000000000002, 713.2" versi/;"	n	uri:http://www.w3.org/2000/svg
 ns249d7c520101	docs/_site/assets/svg/030.svg	/^  <svg width="2961.4" height="1747.1999999999998" viewBox="-20, -20, 2981.4, 1767.1999999999998"/;"	n	uri:http://www.w3.org/2000/svg
-ns24ab44b10101	docs/assets/svg/032.svg	/^  <svg width="846.3999999999999" height="1439.1999999999998" viewBox="-20, -20, 886.399999999999/;"	n	uri:http://www.w3.org/2000/svg
+ns24ab44b10101	docs/assets/svg/032.svg	/^  <svg width="820.7999999999998" height="1421.1999999999998" viewBox="0, 0, 835.1999999999998, 1/;"	n	uri:http://www.w3.org/2000/svg
 ns24af94d30101	docs/_site/assets/svg/031.svg	/^  <svg width="1301.2" height="782.4" viewBox="-20, -20, 1321.2, 802.4" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns24bd5d320101	docs/assets/svg/033.svg	/^  <svg width="1855.7999999999997" height="1272.0" viewBox="-20, -20, 1895.7999999999997, 1312.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns24bd5d320101	docs/assets/svg/033.svg	/^  <svg width="1832.5999999999997" height="1254.0" viewBox="0, 0, 1849.3999999999996, 1276.0" ver/;"	n	uri:http://www.w3.org/2000/svg
 ns24c1ad540101	docs/_site/assets/svg/032.svg	/^  <svg width="623.2" height="1500.8" viewBox="-20, -20, 643.2, 1520.8" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns24cf75b30101	docs/assets/svg/034.svg	/^  <svg width="2715.2" height="1201.6" viewBox="-20, -20, 2755.2, 1241.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
+ns24cf75b30101	docs/assets/svg/034.svg	/^  <svg width="2692.0" height="1183.6" viewBox="0, 0, 2708.8, 1205.6" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
 ns24d3c5d50101	docs/_site/assets/svg/033.svg	/^  <svg width="623.2" height="1676.8" viewBox="-20, -20, 643.2, 1696.8" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns24e18e340101	docs/assets/svg/035.svg	/^  <svg width="3630.4" height="1729.6" viewBox="-20, -20, 3670.4, 1769.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns24f3a6b50101	docs/assets/svg/036.svg	/^  <svg width="803.0" height="532.8" viewBox="-20, -20, 843.0, 572.8" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
-ns2505bf360101	docs/assets/svg/037.svg	/^  <svg width="1253.6" height="550.4" viewBox="-20, -20, 1293.6, 590.4" version="1.1" xmlns="http/;"	n	uri:http://www.w3.org/2000/svg
-ns2517d7b70101	docs/assets/svg/038.svg	/^  <svg width="2135.2000000000007" height="1536.0" viewBox="-20, -20, 2175.2000000000007, 1576.0"/;"	n	uri:http://www.w3.org/2000/svg
-ns2529f0380101	docs/assets/svg/039.svg	/^  <svg width="115.6" height="198.4" viewBox="-20, -20, 155.6, 238.4" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
-ns26dc3c500101	docs/assets/svg/040.svg	/^  <svg width="3020.8" height="1729.6" viewBox="-20, -20, 3060.8, 1769.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns26ee54d10101	docs/assets/svg/041.svg	/^  <svg width="1970.4" height="1888.0" viewBox="-20, -20, 2010.4, 1928.0" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns27006d520101	docs/assets/svg/042.svg	/^  <svg width="454.4" height="618.2" viewBox="-20, -20, 494.4, 658.2" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
-ns271285d30101	docs/assets/svg/043.svg	/^  <svg width="2299.4" height="1201.6" viewBox="-20, -20, 2339.4, 1241.6" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns27249e540101	docs/assets/svg/044.svg	/^  <svg width="178.4" height="198.4" viewBox="-20, -20, 218.4, 238.4" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
-ns2736b6d50101	docs/assets/svg/045.svg	/^  <svg width="2578.2" height="3102.4" viewBox="-20, -20, 2618.2, 3142.4" version="1.1" xmlns="ht/;"	n	uri:http://www.w3.org/2000/svg
-ns2748cf560101	docs/assets/svg/046.svg	/^  <svg width="37609.600000000006" height="1008.0" viewBox="-20, -20, 37649.600000000006, 1048.0"/;"	n	uri:http://www.w3.org/2000/svg
+ns24e18e340101	docs/assets/svg/035.svg	/^  <svg width="3607.2000000000003" height="1711.6" viewBox="0, 0, 3624.0000000000005, 1733.6" ver/;"	n	uri:http://www.w3.org/2000/svg
+ns24f3a6b50101	docs/assets/svg/036.svg	/^  <svg width="779.8" height="514.8" viewBox="0, 0, 796.5999999999999, 536.8" version="1.1" xmlns/;"	n	uri:http://www.w3.org/2000/svg
+ns2505bf360101	docs/assets/svg/037.svg	/^  <svg width="1230.3999999999999" height="532.4" viewBox="0, 0, 1247.1999999999998, 554.4" versi/;"	n	uri:http://www.w3.org/2000/svg
+ns2517d7b70101	docs/assets/svg/038.svg	/^  <svg width="2109.600000000001" height="1518.0" viewBox="0, 0, 2124.000000000001, 1540.0" versi/;"	n	uri:http://www.w3.org/2000/svg
+ns2529f0380101	docs/assets/svg/039.svg	/^  <svg width="92.39999999999999" height="180.4" viewBox="0, 0, 109.19999999999999, 202.4" versio/;"	n	uri:http://www.w3.org/2000/svg
+ns26dc3c500101	docs/assets/svg/040.svg	/^  <svg width="2995.2000000000003" height="1711.6" viewBox="0, 0, 3009.6000000000004, 1733.6" ver/;"	n	uri:http://www.w3.org/2000/svg
+ns26ee54d10101	docs/assets/svg/041.svg	/^  <svg width="1947.2" height="1870.0" viewBox="0, 0, 1964.0, 1892.0" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
+ns27006d520101	docs/assets/svg/042.svg	/^  <svg width="431.2" height="600.2" viewBox="0, 0, 448.0, 622.2" version="1.1" xmlns="http:\/\/w/;"	n	uri:http://www.w3.org/2000/svg
+ns271285d30101	docs/assets/svg/043.svg	/^  <svg width="2274.6" height="1183.6" viewBox="0, 0, 2289.7999999999997, 1205.6" version="1.1" x/;"	n	uri:http://www.w3.org/2000/svg
+ns27249e540101	docs/assets/svg/044.svg	/^  <svg width="153.6" height="180.4" viewBox="0, 0, 168.79999999999998, 202.4" version="1.1" xmln/;"	n	uri:http://www.w3.org/2000/svg
+ns2736b6d50101	docs/assets/svg/045.svg	/^  <svg width="2555.0" height="3084.4" viewBox="0, 0, 2571.8, 3106.4" version="1.1" xmlns="http:\//;"	n	uri:http://www.w3.org/2000/svg
+ns2748cf560101	docs/assets/svg/046.svg	/^  <svg width="37586.40000000001" height="990.0" viewBox="0, 0, 37603.20000000001, 1012.0" versio/;"	n	uri:http://www.w3.org/2000/svg
 ns59d2ecb30101	docs/_site/feed.xml	/^<?xml version="1.0" encoding="utf-8"?><feed xmlns="http:\/\/www.w3.org\/2005\/Atom" ><generator /;"	n	uri:http://www.w3.org/2005/Atom
 ns8fb8be310101	img/sample.svg	/^  <svg width="1211.119140625" height="941.0" viewBox="-40, -40, 1251.119140625, 981.0" version="/;"	n	uri:http://www.w3.org/2000/svg
 optgroup	docs/_site/assets/css/style.css	/^button, input, optgroup, select, textarea { color: inherit; \/* 1 *\/ font: inherit; \/* 2 *\/ m/;"	s

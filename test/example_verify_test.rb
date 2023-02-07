@@ -21,7 +21,6 @@ class ExampleParserTest < Minitest::Test
       fontstyle: "sans",
       fontsize: 16,
       linewidth: 1,
-      margin: 1,
       vheight: 2.0,
       color: "on",
       symmetrize: "on",

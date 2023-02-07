@@ -12,8 +12,10 @@ RUN apk update && \
 ADD Gemfile $WORKSPACE
 RUN bundle install -j4
 
-ADD . $WORKSPACE
+ADD fonts $WORKSPACE
 RUN mkdir -p /usr/share/fonts/yh
 COPY ./fonts/* /usr/share/fonts/yh/
 RUN fc-cache -fv
+
+ADD . $WORKSPACE
 CMD ["/bin/bash"]
