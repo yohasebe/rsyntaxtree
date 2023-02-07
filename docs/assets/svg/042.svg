@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="431.2" height="600.2" viewBox="0, 0, 448.0, 622.2" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="431.2" height="688.2" viewBox="0, 0, 448.0, 710.2" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
@@ -24,19 +24,19 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="0" y="0" width="448.0" height="622.2" stroke="none" fill="white" />"
+<rect x="0" y="0" width="448.0" height="710.2" stroke="none" fill="white" />"
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='162.4' y='132.0'><tspan x='162.4' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">γ</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='33.599999999999994' y='339.4'><tspan x='33.599999999999994' y='339.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">γ</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='33.599999999999994' y='383.4'><tspan x='33.599999999999994' y='383.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">γ</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='288.7' y='339.4'><tspan x='288.7' y='339.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">α</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='288.7' y='383.4'><tspan x='288.7' y='383.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">α</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='202.0' y='546.8'><tspan x='202.0' y='546.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">α</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='202.0' y='634.8'><tspan x='202.0' y='634.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">α</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='375.4' y='546.8'><tspan x='375.4' y='546.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">β</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='375.4' y='634.8'><tspan x='375.4' y='634.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">β</tspan>
 </text>
-<line style='stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='50.599999999999994' y1='229.4' x2='179.4' y2='187.0' />
-<line style='stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='308.2' y1='229.4' x2='179.4' y2='187.0' />
-<line style='stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='221.5' y1='436.8' x2='308.2' y2='394.4' />
-<line style='stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='394.9' y1='436.8' x2='308.2' y2='394.4' />
+<line style='stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='50.599999999999994' y1='273.4' x2='179.4' y2='187.0' />
+<line style='stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='308.2' y1='273.4' x2='179.4' y2='187.0' />
+<line style='stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='221.5' y1='524.8' x2='308.2' y2='438.4' />
+<line style='stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='394.9' y1='524.8' x2='308.2' y2='438.4' />
 </svg>

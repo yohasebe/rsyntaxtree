@@ -2,6 +2,12 @@
 --- 
 @import "{{ site.theme }}"; 
 
+@media screen and (min-width: 64em) {
+  .main-content {
+    max-width: 72rem;
+  }
+}
+
 div.grid {
   display: grid;
   grid-template-columns: 1fr 1fr; 

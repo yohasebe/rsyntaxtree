@@ -27,8 +27,8 @@ layout: default
           </button>
         </div>
         <div class='grid'>
-          <div style='margin-top: 0; margin-bottom: auto;'>
-            <div id="text-{{example.name}}" style='max-height: 600px; overflow-y: auto; margin-bottom: 20px;'>
+          <div style='margin-top: 0; margin-bottom: auto; '>
+            <div id="text-{{example.name}}" style='max-height: 600px; overflow-x: auto; overflow-y: auto; margin-bottom: 20px;'>
               {{ example.content | markdownify }}
             </div>
             <table style='line-height: 110%; font-size: 0.85em; margin-bottom: 20px;'>
@@ -36,6 +36,7 @@ layout: default
               <tbody>
                 <tr><td>Category</td><td>{{ example.category}}</td></tr>
                 <tr><td>Connector</td><td>{{ example.connector }}</td></tr>
+                <tr><td>Connector Height</td><td>{{ example.vheight }}</td></tr>
                 <tr><td>Line Width</td><td>{{ example.linewidth }}</td></tr>
                 <tr><td>Hide Default Connectors</td><td>{{ example.hide_default_connectors }}</td></tr>
                 <tr><td>Polyline</td><td>{{ example.polyline }}</td></tr>
@@ -48,9 +49,9 @@ layout: default
               </tbody>
             </table>
           </div>
-          <div style='margin-top: 0; margin-bottom: auto;'>
+          <div style='margin-top: 0; padding: 10px; margin-bottom: auto;'>
             <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}'>
-              <img src='assets/img/{{ example.name}}.png'/>
+              <img src='assets/img/{{ example.name}}.png' />
             </a>
           </div>
         </div>

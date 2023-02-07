@@ -127,7 +127,7 @@ module RSyntaxTree
         leafstyle: "auto",
         filename: "syntree",
         data: "",
-        vheight: 1.0,
+        vheight: 2.0,
         polyline: false,
         hide_default_connectors: false
       }
