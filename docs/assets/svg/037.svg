@@ -25,7 +25,7 @@
     </pattern>
   </defs>
 <rect x="0" y="0" width="1247.1999999999998" height="554.4" stroke="none" fill="white" />"
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; font-size: 64px;' x='33.60000000000002' y='132.0'><tspan x='33.60000000000002' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">John<tspan style='fill:none;'>￭</tspan>opened<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>door<tspan style='fill:none;'>￭</tspan>with<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>key</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 64px;' x='33.60000000000002' y='132.0'><tspan x='33.60000000000002' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">John<tspan style='fill:none;'>￭</tspan>opened<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>door<tspan style='fill:none;'>￭</tspan>with<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>key</tspan>
 <tspan x='604.6' y='220.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 <tspan x='384.6' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
 <tspan x='472.6' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
@@ -36,33 +36,33 @@
 <tspan x='604.6' y='396.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 <tspan x='312.1' y='484.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">AGT<tspan style='fill:none;'>￭</tspan>&#62;<tspan style='fill:none;'>￭</tspan>INST<tspan style='fill:none;'>￭</tspan>&#62;<tspan style='fill:none;'>￭</tspan>PAT</tspan>
 </text>
-<rect style='stroke: #009E73; stroke-width:5;'
-                        x='359.6' y='239.6' rx='44.0' ry='44.0'
+<rect style='fill: none; stroke: #009E73; stroke-width:4;'
+                        x='359.6' y='237.6' rx='44.0' ry='44.0'
                         width='88.0' height='88.0'
                         fill='none' />
 
-<line style='stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:5;' x1='449.6' y1='283.6' x2='533.6' y2='283.6'></line>
+<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='449.6' y1='281.6' x2='533.6' y2='281.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='5' points='513.6,272.6 533.6,283.6 513.6,294.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='513.6,270.6 533.6,281.6 513.6,292.6' />
 
-<rect style='stroke: #009E73; stroke-width:5;'
-                        x='535.6' y='239.6' rx='44.0' ry='44.0'
+<rect style='fill: none; stroke: #009E73; stroke-width:4;'
+                        x='535.6' y='237.6' rx='44.0' ry='44.0'
                         width='88.0' height='88.0'
                         fill='none' />
 
-<line style='stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:5;' x1='625.6' y1='283.6' x2='709.6' y2='283.6'></line>
+<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='625.6' y1='281.6' x2='709.6' y2='281.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='5' points='689.6,272.6 709.6,283.6 689.6,294.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='689.6,270.6 709.6,281.6 689.6,292.6' />
 
-<rect style='stroke: #009E73; stroke-width:5;'
-                        x='711.6' y='239.6' rx='44.0' ry='44.0'
+<rect style='fill: none; stroke: #009E73; stroke-width:4;'
+                        x='711.6' y='237.6' rx='44.0' ry='44.0'
                         width='88.0' height='88.0'
                         fill='none' />
 
-<line style='stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:5;' x1='801.6' y1='283.6' x2='885.6' y2='283.6'></line>
+<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='801.6' y1='281.6' x2='885.6' y2='281.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='5' points='865.6,272.6 885.6,283.6 865.6,294.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='865.6,270.6 885.6,281.6 865.6,292.6' />
 
-<polygon style='stroke:#009E73; stroke-width:8; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polygon style='stroke:#009E73; stroke-width:5; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='16.800000000000022,33.0 1230.3999999999999,33.0 1230.3999999999999,528.0 16.800000000000022,528.0' />
 </svg>

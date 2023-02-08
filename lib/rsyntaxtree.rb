@@ -13,9 +13,22 @@ ETYPE_NODE = 1
 ETYPE_LEAF = 2
 SUBSCRIPT_CONST = 0.7
 FONT_SCALING = 2
-LINE_SCALING = 2
-BLINE_SCALING = 5
+LINE_SCALING = 1
+BLINE_SCALING = 2
 WHITESPACE_BLOCK = "￭"
+DEFAULT_OPTS = {
+  format: "png",
+  leafstyle: "auto",
+  fontstyle: "sans",
+  fontsize: 16,
+  linewidth: 1,
+  vheight: 2.0,
+  color: "modern",
+  symmetrize: "on",
+  transparent: "off",
+  polyline: "off",
+  hide_default_connectors: "off"
+}.freeze
 
 class RSTError < StandardError
   def initialize(msg = "Error: something unexpected occurred")
@@ -117,21 +130,7 @@ module RSyntaxTree
       end
 
       # defaults to the following
-      @params = {
-        symmetrize: true,
-        color: "modern",
-        transparent: false,
-        fontsize: 16,
-        linewidth: 2,
-        format: "png",
-        leafstyle: "auto",
-        filename: "syntree",
-        data: "",
-        vheight: 2.0,
-        polyline: false,
-        hide_default_connectors: false
-      }
-
+      @params = DEFAULT_OPTS.dup
       @params.merge! new_params
       @params[:fontsize] = @params[:fontsize] * FONT_SCALING
       @params[:fontset] = fontset
@@ -170,6 +169,17 @@ module RSyntaxTree
       raise RSTError, +"Error: the result syntree is too big"
     end
 
+    def draw_pdf(filename)
+      svg = draw_svg
+      rsvg = RSVG::Handle.new_from_data(svg)
+      dim = rsvg.dimensions
+      surface = Cairo::PDFSurface.new(filename, dim.width, dim.height)
+      context = Cairo::Context.new(surface)
+      context.render_rsvg_handle(rsvg)
+    rescue Cairo::InvalidSize
+      raise RSTError, +"Error: the result syntree is too big"
+    end
+
     def draw_svg
       sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
       sp.parse
@@ -177,17 +187,14 @@ module RSyntaxTree
       graph.svg_data
     end
 
+    # Currently not used
     def draw_tree
       svg = draw_svg
       image, _data = Magick::Image.from_blob(svg) do |im|
         im.format = 'svg'
       end
-      if @params[:format] == "png"
-        image = draw_png(false)
-      else
-        image.to_blob do |im|
-          im.format = @params[:format].upcase
-        end
+      image.to_blob do |im|
+        im.format = @params[:format].upcase
       end
       image
     end

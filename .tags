@@ -893,12 +893,17 @@ draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f
 draw_elements	lib/rsyntaxtree/base_graph.rb	/^    def draw_elements$/;"	f	class:RSyntaxTree.BaseGraph
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph
+draw_pdf	lib/rsyntaxtree.rb	/^    def draw_pdf()$/;"	f	class:RSyntaxTree
+draw_pdf	lib/rsyntaxtree.rb	/^    def draw_pdf(binary = false)$/;"	f	class:RSyntaxTree
+draw_pdf	lib/rsyntaxtree.rb	/^    def draw_pdf(filename)$/;"	f	class:RSyntaxTree
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	module:RSyntaxTree
 draw_rectangle	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rectangle(x1, y1, width, height, col, bline = false)$/;"	f
 draw_rectangle	lib/rsyntaxtree/svg_graph.rb	/^    def draw_rectangle(x1, y1, width, height, col, bline = false)$/;"	f	class:RSyntaxTree.SVGGraph
 draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	class:RSyntaxTree
 draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg$/;"	f	module:RSyntaxTree
+draw_svg	lib/rsyntaxtree.rb	/^    def draw_svg(filename)$/;"	f	class:RSyntaxTree
+draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree # currently not used$/;"	f	class:RSyntaxTree
 draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	class:RSyntaxTree
 draw_tree	lib/rsyntaxtree.rb	/^    def draw_tree$/;"	f	module:RSyntaxTree
 elements	lib/rsyntaxtree/elementlist.rb	/^    attr_accessor :elements, :iterator$/;"	A	class:RSyntaxTree.ElementList

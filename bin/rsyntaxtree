@@ -17,7 +17,7 @@ opts = Optimist.options do
   BANNER
 
   opt :outdir, "Output directory", default: "./"
-  opt :format, "Output format: png, gif, jpg, pdf, or svg", default: "png"
+  opt :format, "Output format: png, pdf, or svg", default: "png"
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto"
   opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk, mono", default: "sans"
   opt :font, "Path to a ttf font used to generate tree (optional)", type: String
@@ -33,7 +33,7 @@ opts = Optimist.options do
 end
 
 Optimist.die :outdir, "must be an exsting directory path" unless FileTest.directory?(opts[:outdir])
-Optimist.die :format, "must be png, jpg, gif, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
+Optimist.die :format, "must be png, pdf, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
 Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless /\A(sans|serif|cjk|mono)\z/ =~ opts[:fontstyle]
 Optimist.die :font, "must be path to an existing ttf font" if opts[:font] && !File.exist?(opts[:font])
@@ -70,11 +70,11 @@ begin
   ext = string_opts[:format]
   filepath = File.expand_path(string_opts[:outdir]) + "/syntree." + ext
   case ext
-  when "jpg", "gif", "pdf"
-    rsg.draw_tree.write(filepath)
+  when "pdf"
+    rsg.draw_pdf(filepath)
   when "png"
     outfile = File.new(filepath, "wb")
-    outfile.write rsg.draw_tree
+    outfile.write rsg.draw_png
     outfile.close
   when "svg"
     outfile = File.new(filepath, "wb")

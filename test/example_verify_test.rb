@@ -15,19 +15,7 @@ class ExampleParserTest < Minitest::Test
     config = YAML.load_file(md)
     rst = File.read(md).scan(/```([^`]+)```/m).last.first
 
-    opts = {
-      format: "png",
-      leafstyle: "auto",
-      fontstyle: "sans",
-      fontsize: 16,
-      linewidth: 1,
-      vheight: 2.0,
-      color: "on",
-      symmetrize: "on",
-      transparent: "off",
-      polyline: "off",
-      hide_default_connectors: "off"
-    }
+    opts = DEFAULT_OPTS.dup
     name = nil
     config.each do |key, value|
       next if value.to_s == ""

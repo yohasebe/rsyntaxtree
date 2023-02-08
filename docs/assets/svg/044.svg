@@ -25,8 +25,8 @@
     </pattern>
   </defs>
 <rect x="0" y="0" width="168.79999999999998" height="202.4" stroke="none" fill="white" />"
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; font-size: 64px;' x='30.400000000000006' y='132.0'><tspan x='30.400000000000006' y='132.0' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">aaa</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 64px;' x='30.400000000000006' y='132.0'><tspan x='30.400000000000006' y='132.0' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">aaa</tspan>
 </text>
-<polygon style='stroke:#009E73; stroke-width:6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polygon style='stroke:#009E73; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='15.200000000000005,33.0 153.60000000000002,33.0 153.60000000000002,176.0 15.200000000000005,176.0' />
 </svg>

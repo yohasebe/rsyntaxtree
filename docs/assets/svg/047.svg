@@ -25,7 +25,7 @@
     </pattern>
   </defs>
 <rect x="0" y="0" width="155.20000000000002" height="730.4" stroke="none" fill="white" />"
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; font-size: 64px;' x='33.599999999999994' y='132.0'><tspan x='58.599999999999994' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='33.599999999999994' y='132.0'><tspan x='58.599999999999994' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
 <tspan x='58.599999999999994' y='220.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
 <tspan x='58.599999999999994' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
 <tspan x='58.599999999999994' y='396.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
@@ -33,35 +33,35 @@
 <tspan x='58.599999999999994' y='572.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
 <tspan x='58.599999999999994' y='660.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
 </text>
-<line style='stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='34.599999999999994' y1='107.6' x2='120.6' y2='107.6'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:2;' x1='34.599999999999994' y1='105.6' x2='120.6' y2='105.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='99.6,96.6 120.6,107.6 99.6,118.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='2' points='99.6,94.6 120.6,105.6 99.6,116.6' />
 
-<line style='stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:6;' x1='36.599999999999994' y1='195.6' x2='118.6' y2='195.6'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='34.599999999999994' y1='193.6' x2='120.6' y2='193.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='6' points='99.6,184.6 118.6,195.6 99.6,206.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='99.6,182.6 120.6,193.6 99.6,204.6' />
 
-<line style='stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='34.599999999999994' y1='283.6' x2='120.6' y2='283.6'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:2;' x1='34.599999999999994' y1='281.6' x2='120.6' y2='281.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='55.599999999999994,294.6 34.599999999999994,283.6 55.599999999999994,272.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='2' points='55.599999999999994,292.6 34.599999999999994,281.6 55.599999999999994,270.6' />
 
-<line style='stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:6;' x1='36.599999999999994' y1='371.6' x2='118.6' y2='371.6'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='34.599999999999994' y1='369.6' x2='120.6' y2='369.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='6' points='55.599999999999994,382.6 36.599999999999994,371.6 55.599999999999994,360.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='55.599999999999994,380.6 34.599999999999994,369.6 55.599999999999994,358.6' />
 
-<line style='stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='34.599999999999994' y1='459.6' x2='120.6' y2='459.6'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:2;' x1='34.599999999999994' y1='457.6' x2='120.6' y2='457.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='55.599999999999994,470.6 34.599999999999994,459.6 55.599999999999994,448.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='2' points='55.599999999999994,468.6 34.599999999999994,457.6 55.599999999999994,446.6' />
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='99.6,448.6 120.6,459.6 99.6,470.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='2' points='99.6,446.6 120.6,457.6 99.6,468.6' />
 
-<line style='stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:6;' x1='36.599999999999994' y1='547.6' x2='118.6' y2='547.6'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='34.599999999999994' y1='545.6' x2='120.6' y2='545.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='6' points='55.599999999999994,558.6 36.599999999999994,547.6 55.599999999999994,536.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='55.599999999999994,556.6 34.599999999999994,545.6 55.599999999999994,534.6' />
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='6' points='99.6,536.6 118.6,547.6 99.6,558.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='99.6,534.6 120.6,545.6 99.6,556.6' />
 
-<line style='stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='34.599999999999994' y1='635.6' x2='120.6' y2='635.6'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:2;' x1='34.599999999999994' y1='633.6' x2='120.6' y2='633.6'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='3' points='55.599999999999994,646.6 34.599999999999994,635.6 55.599999999999994,624.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='black' stroke-width='2' points='55.599999999999994,644.6 34.599999999999994,633.6 55.599999999999994,622.6' />
 </svg>

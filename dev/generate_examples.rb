@@ -24,19 +24,7 @@ Dir.glob("*.md", base: examples_dir).map do |md|
     logfile.puts "Error detected in #{md}"
   end
 
-  opts = {
-    format: "png",
-    leafstyle: "auto",
-    fontstyle: "sans",
-    fontsize: 16,
-    linewidth: 1,
-    vheight: 2.0,
-    color: "modern",
-    symmetrize: "on",
-    transparent: "off",
-    polyline: "off",
-    hide_default_connectors: "off"
-  }
+  opts = DEFAULT_OPTS.dup
   name = nil
   config.each do |key, value|
     next if value.to_s == ""

@@ -27,11 +27,11 @@ module RSyntaxTree
       @color = params[:color]
       @fontstyle = params[:fontstyle]
       @polyline = params[:polyline]
-      @line_styles = "<line style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
+      @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
       @polygon_styles = "<polygon style='fill: none; stroke: black; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round;stroke-linecap:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-      @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
+      @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; storoke-width: 0; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
       @tree_data = String.new
       @visited_x = {}
       @visited_y = {}
@@ -183,7 +183,7 @@ module RSyntaxTree
           when :bborder
             stroke_width = @linewidth + BLINE_SCALING
           end
-          @extra_lines << "<line style=\"stroke:#{col}; stroke-linecap:round; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
+          @extra_lines << "<line style=\"stroke:#{col}; fill:none; stroke-linecap:round; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
         else
           if element.enclosure == :brackets
             this_x = txt_pos - element.content_width / 2
@@ -247,7 +247,8 @@ module RSyntaxTree
 
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
               enc_height = e[:height]
-              enc_y = this_y - e[:height] * 0.8 + FONT_SCALING
+              # enc_y = this_y - e[:height] * 0.8 + FONT_SCALING
+              enc_y = this_y - e[:height] * 0.8
               enc_width = e[:width]
               enc_x = this_x
 
@@ -279,12 +280,12 @@ module RSyntaxTree
                              end
 
               if e[:decoration].include?(:box)
-                enc = "<rect style='stroke: #{col}; stroke-linejoin:round; stroke-width:#{stroke_width};'
+                enc = "<rect style='fill: none; stroke: #{col}; stroke-linejoin:round; stroke-width:#{stroke_width};'
                         x='#{enc_x}' y='#{enc_y}'
                         width='#{enc_width}' height='#{enc_height}'
                         fill='#{fill}' />\n"
               elsif e[:decoration].include?(:circle)
-                enc = "<rect style='stroke: #{col}; stroke-width:#{stroke_width};'
+                enc = "<rect style='fill: none; stroke: #{col}; stroke-width:#{stroke_width};'
                         x='#{enc_x}' y='#{enc_y}' rx='#{enc_height / 2}' ry='#{enc_height / 2}'
                         width='#{enc_width}' height='#{enc_height}'
                         fill='#{fill}' />\n"
@@ -294,7 +295,7 @@ module RSyntaxTree
                 x2 = enc_x + enc_width
                 y2 = y1
                 ar_hwidth = e[:width] / 4.0
-                bar = "<line style='stroke:#{col}; stroke-linejoin:round; stroke-linecap:round; stroke-width:#{stroke_width};' x1='#{x1 + stroke_width / 2}' y1='#{y1}' x2='#{x2 - stroke_width / 2}' y2='#{y2}'></line>\n"
+                bar = "<line style='fill:none; stroke:#{col}; stroke-linejoin:round; stroke-linecap:round; stroke-width:#{stroke_width};' x1='#{x1 + stroke_width / 2}' y1='#{y1}' x2='#{x2 - stroke_width / 2}' y2='#{y2}'></line>\n"
                 @extra_lines << bar
 
                 if e[:decoration].include?(:arrow_to_l)
