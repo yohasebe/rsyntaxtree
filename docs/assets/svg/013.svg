@@ -1,17 +1,17 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="2516.6" height="3094.0" viewBox="0, 0, 2533.4, 3116.0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="1280.9999999999998" height="1573.25" viewBox="-16.8, 0, 1297.7999999999997, 1584.5" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
     </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
     </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -24,189 +24,189 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="0" y="0" width="2533.4" height="3116.0" stroke="none" fill="white" />"
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='629.0124999999998' y='132.0'><tspan x='629.0124999999998' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='873.5124999999998' y='127.4' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">1</tspan>
-<tspan x='629.0124999999998' y='313.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
-<tspan x='629.0124999999998' y='406.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<rect x="-16.8" y="0" width="1297.7999999999997" height="1584.5" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='313.7874999999999' y='67.5'><tspan x='313.7874999999999' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='436.2874999999999' y='66.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">1</tspan>
+<tspan x='313.7874999999999' y='159.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<tspan x='313.7874999999999' y='206.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='33.60000000000002' y='745.4'><tspan x='33.60000000000002' y='745.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='278.1' y='740.8' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">2</tspan>
-<tspan x='33.60000000000002' y='926.4' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">noun</tspan>
-<tspan x='33.60000000000002' y='1107.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
-<tspan x='33.60000000000002' y='1200.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='16.80000000000001' y='379.5'><tspan x='16.80000000000001' y='379.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='139.3' y='378.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">2</tspan>
+<tspan x='16.80000000000001' y='471.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">noun</tspan>
+<tspan x='16.80000000000001' y='563.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<tspan x='16.80000000000001' y='610.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='165.60000000000002' y='1539.8'><tspan x='165.60000000000002' y='1539.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Kim</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='82.80000000000001' y='783.5'><tspan x='82.80000000000001' y='783.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Kim</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1240.4249999999997' y='745.4'><tspan x='1240.4249999999997' y='745.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='1484.9249999999997' y='740.8' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">1</tspan>
-<tspan x='1240.4249999999997' y='926.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='1510.9249999999997' y='921.8' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">2</tspan>
-<tspan x='1555.4249999999997' y='926.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>〉</tspan>
-<tspan x='1240.4249999999997' y='1019.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='618.7749999999999' y='379.5'><tspan x='618.7749999999999' y='379.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='741.2749999999999' y='378.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">1</tspan>
+<tspan x='618.7749999999999' y='471.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='754.2749999999999' y='470.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">2</tspan>
+<tspan x='776.7749999999999' y='471.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>〉</tspan>
+<tspan x='618.7749999999999' y='518.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='561.0' y='1358.8'><tspan x='561.0' y='1358.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='805.5' y='1354.2' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">1</tspan>
-<tspan x='561.0' y='1539.8' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">verb</tspan>
-<tspan x='561.0' y='1720.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='831.5' y='1716.2' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">2</tspan>
-<tspan x='876.0' y='1720.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>NP〉</tspan>
-<tspan x='561.0' y='1813.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='942.5' y='1809.2' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">3</tspan>
-<tspan x='987.0' y='1813.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>PP[</tspan>
-<tspan x='1123.0' y='1813.8' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">on</tspan>
-<tspan x='1198.0' y='1813.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">]〉</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='280.0' y='691.5'><tspan x='280.0' y='691.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='402.5' y='690.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">1</tspan>
+<tspan x='280.0' y='783.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">verb</tspan>
+<tspan x='280.0' y='875.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='415.5' y='874.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">2</tspan>
+<tspan x='438.0' y='875.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>NP〉</tspan>
+<tspan x='280.0' y='922.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='470.5' y='921.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">3</tspan>
+<tspan x='493.0' y='922.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>PP[</tspan>
+<tspan x='560.0' y='922.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">on</tspan>
+<tspan x='597.0' y='922.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">]〉</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='837.0' y='2153.2'><tspan x='837.0' y='2153.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">relies</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='417.0' y='1095.5'><tspan x='417.0' y='1095.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">relies</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1770.85' y='1358.8'><tspan x='1770.85' y='1358.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭￭￭￭￭￭</tspan></tspan>
-<tspan x='1983.35' y='1354.2' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">3</tspan>
-<tspan x='1770.85' y='1539.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='2015.35' y='1535.2' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">4</tspan>
-<tspan x='1770.85' y='1720.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
-<tspan x='1770.85' y='1813.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='883.55' y='691.5'><tspan x='883.55' y='691.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭￭￭￭￭￭</tspan></tspan>
+<tspan x='990.05' y='690.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">3</tspan>
+<tspan x='883.55' y='783.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='1006.05' y='782.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">4</tspan>
+<tspan x='883.55' y='875.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<tspan x='883.55' y='922.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1418.4' y='2153.2'><tspan x='1418.4' y='2153.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='1662.9' y='2148.6' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">4</tspan>
-<tspan x='1418.4' y='2334.2' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">prep</tspan>
-<tspan x='1418.4' y='2427.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">FORM<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='1647.4' y='2427.2' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">on</tspan>
-<tspan x='1418.4' y='2608.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
-<tspan x='1418.4' y='2701.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='1799.9' y='2696.6' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">5</tspan>
-<tspan x='1844.4' y='2701.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>〉</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='707.2' y='1095.5'><tspan x='707.2' y='1095.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='829.7' y='1094.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">4</tspan>
+<tspan x='707.2' y='1187.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">prep</tspan>
+<tspan x='707.2' y='1234.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">FORM<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='822.2' y='1234.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">on</tspan>
+<tspan x='707.2' y='1326.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<tspan x='707.2' y='1373.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='897.7' y='1372.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">5</tspan>
+<tspan x='920.2' y='1373.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>〉</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1639.4' y='3040.6'><tspan x='1639.4' y='3040.6' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">on</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='817.7' y='1546.5'><tspan x='817.7' y='1546.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">on</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='2074.7999999999997' y='2153.2'><tspan x='2074.7999999999997' y='2153.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='2319.2999999999997' y='2148.6' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">5</tspan>
-<tspan x='2074.7999999999997' y='2334.2' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">noun</tspan>
-<tspan x='2074.7999999999997' y='2515.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
-<tspan x='2074.7999999999997' y='2608.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='1035.3999999999999' y='1095.5'><tspan x='1035.3999999999999' y='1095.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='1157.8999999999999' y='1094.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">5</tspan>
+<tspan x='1035.3999999999999' y='1187.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">noun</tspan>
+<tspan x='1035.3999999999999' y='1279.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
+<tspan x='1035.3999999999999' y='1326.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">COMPS<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='2193.2999999999997' y='2947.6'><tspan x='2193.2999999999997' y='2947.6' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Sandy</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='1093.8999999999999' y='1499.5'><tspan x='1093.8999999999999' y='1499.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Sandy</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='230.10000000000002' y1='635.4' x2='841.5124999999999' y2='461.0' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1452.9249999999997' y1='635.4' x2='841.5124999999999' y2='461.0' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='230.10000000000002' y1='1429.8' x2='230.10000000000002' y2='1255.4' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='922.5' y1='1248.8' x2='1452.9249999999997' y2='1074.4' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1983.35' y1='1248.8' x2='1452.9249999999997' y2='1074.4' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='922.5' y1='2043.1999999999998' x2='922.5' y2='1868.8' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1679.4' y1='2043.1999999999998' x2='1983.35' y2='1868.8' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='2287.2999999999997' y1='2043.1999999999998' x2='1983.35' y2='1868.8' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1679.4' y1='2930.6' x2='1679.4' y2='2756.2' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='2287.2999999999997' y1='2837.6' x2='2287.2999999999997' y2='2663.2' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='114.80000000000001' y1='323.25' x2='419.78749999999997' y2='234.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='724.7749999999999' y1='323.25' x2='419.78749999999997' y2='234.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='114.80000000000001' y1='727.25' x2='114.80000000000001' y2='638.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='460.0' y1='635.25' x2='724.7749999999999' y2='546.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='989.55' y1='635.25' x2='724.7749999999999' y2='546.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='460.0' y1='1039.25' x2='460.0' y2='950.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='837.7' y1='1039.25' x2='989.55' y2='950.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1141.3999999999999' y1='1039.25' x2='989.55' y2='950.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='837.7' y1='1490.25' x2='837.7' y2='1401.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1141.3999999999999' y1='1443.25' x2='1141.3999999999999' y2='1354.625' />
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='853.0124999999998' y='75.4'
-                        width='65.0' height='65.0'
+                        x='425.7874999999999' y='39.724999999999994'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="629.0124999999998" y1="198.0" x2="1054.0124999999998" y2="198.0"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="313.7874999999999" y1="101.25" x2="525.7874999999999" y2="101.25"></line>
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='629.0124999999998,33.0 612.2124999999999,33.0 612.2124999999999,450.0 629.0124999999998,450.0' />
+                            points='313.7874999999999,16.875 305.38749999999993,16.875 305.38749999999993,229.0 313.7874999999999,229.0' />
 
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1054.0125,33.0 1070.8125,33.0 1070.8125,450.0 1054.0125,450.0' />
+                            points='525.7875,16.875 534.1875,16.875 534.1875,229.0 525.7875,229.0' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='257.6' y='688.8'
-                        width='65.0' height='65.0'
+                        x='128.8' y='351.725'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="33.60000000000002" y1="811.4" x2="426.6" y2="811.4"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="33.60000000000002" y1="992.4" x2="426.6" y2="992.4"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="16.80000000000001" y1="413.25" x2="212.8" y2="413.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="16.80000000000001" y1="505.25" x2="212.8" y2="505.25"></line>
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='33.60000000000002,646.4 16.800000000000022,646.4 16.800000000000022,1244.4 33.60000000000002,1244.4' />
-
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='426.6,646.4 443.40000000000003,646.4 443.40000000000003,1244.4 426.6,1244.4' />
-
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='1464.4249999999997' y='688.8'
-                        width='65.0' height='65.0'
-                        fill='none' />
-
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1240.4249999999997" y1="811.4" x2="1665.4249999999997" y2="811.4"></line>
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='1490.4249999999997' y='869.8'
-                        width='65.0' height='65.0'
-                        fill='none' />
+                            points='16.80000000000001,328.875 8.400000000000011,328.875 8.400000000000011,633.0 16.80000000000001,633.0' />
 
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1240.4249999999997,646.4 1223.6249999999998,646.4 1223.6249999999998,1063.4 1240.4249999999997,1063.4' />
-
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1665.425,646.4 1682.225,646.4 1682.225,1063.4 1665.425,1063.4' />
+                            points='212.8,328.875 221.20000000000002,328.875 221.20000000000002,633.0 212.8,633.0' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='785.0' y='1302.2'
-                        width='65.0' height='65.0'
+                        x='730.7749999999999' y='351.725'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="561.0" y1="1424.8" x2="1284.0" y2="1424.8"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="561.0" y1="1605.8" x2="1284.0" y2="1605.8"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="618.7749999999999" y1="413.25" x2="830.7749999999999" y2="413.25"></line>
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='811.0' y='1664.2'
-                        width='65.0' height='65.0'
-                        fill='none' />
-
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='922.0' y='1757.2'
-                        width='65.0' height='65.0'
+                        x='743.7749999999999' y='443.725'
+                        width='33.0' height='33.0'
                         fill='none' />
 
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='561.0,1259.8 544.2,1259.8 544.2,1857.8 561.0,1857.8' />
+                            points='618.7749999999999,328.875 610.3749999999999,328.875 610.3749999999999,541.0 618.7749999999999,541.0' />
 
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1284.0000000000002,1259.8 1300.8000000000002,1259.8 1300.8000000000002,1857.8 1284.0000000000002,1857.8' />
+                            points='830.775,328.875 839.175,328.875 839.175,541.0 830.775,541.0' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='1962.85' y='1302.2'
-                        width='65.0' height='65.0'
+                        x='392.0' y='663.725'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1770.85" y1="1424.8" x2="2195.85" y2="1424.8"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="280.0" y1="725.25" x2="640.0" y2="725.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="280.0" y1="817.25" x2="640.0" y2="817.25"></line>
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='1994.85' y='1483.2'
-                        width='65.0' height='65.0'
+                        x='405.0' y='847.725'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1770.85" y1="1605.8" x2="2195.85" y2="1605.8"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1770.85,1259.8 1754.05,1259.8 1754.05,1857.8 1770.85,1857.8' />
-
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='2195.85,1259.8 2212.65,1259.8 2212.65,1857.8 2195.85,1857.8' />
-
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='1642.4' y='2096.6'
-                        width='65.0' height='65.0'
-                        fill='none' />
-
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1418.4" y1="2219.2" x2="1940.4" y2="2219.2"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1418.4" y1="2493.2" x2="1940.4" y2="2493.2"></line>
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='1779.4' y='2644.6'
-                        width='65.0' height='65.0'
+                        x='460.0' y='894.725'
+                        width='33.0' height='33.0'
                         fill='none' />
 
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1418.4,2054.2 1401.6000000000001,2054.2 1401.6000000000001,2745.2 1418.4,2745.2' />
+                            points='280.0,640.875 271.6,640.875 271.6,945.0 280.0,945.0' />
 
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1940.4000000000003,2054.2 1957.2000000000003,2054.2 1957.2000000000003,2745.2 1940.4000000000003,2745.2' />
+                            points='640.0000000000001,640.875 648.4000000000001,640.875 648.4000000000001,945.0 640.0000000000001,945.0' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='2298.7999999999997' y='2096.6'
-                        width='65.0' height='65.0'
+                        x='979.55' y='663.725'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="2074.7999999999997" y1="2219.2" x2="2499.7999999999997" y2="2219.2"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="2074.7999999999997" y1="2400.2" x2="2499.7999999999997" y2="2400.2"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="883.55" y1="725.25" x2="1095.55" y2="725.25"></line>
+<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+                        x='995.55' y='755.725'
+                        width='33.0' height='33.0'
+                        fill='none' />
+
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="883.55" y1="817.25" x2="1095.55" y2="817.25"></line>
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='2074.7999999999997,2054.2 2057.9999999999995,2054.2 2057.9999999999995,2652.2 2074.7999999999997,2652.2' />
+                            points='883.55,640.875 875.15,640.875 875.15,945.0 883.55,945.0' />
 
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='2499.7999999999993,2054.2 2516.5999999999995,2054.2 2516.5999999999995,2652.2 2499.7999999999993,2652.2' />
+                            points='1095.55,640.875 1103.95,640.875 1103.95,945.0 1095.55,945.0' />
+
+<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+                        x='819.2' y='1067.725'
+                        width='33.0' height='33.0'
+                        fill='none' />
+
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="707.2" y1="1129.25" x2="968.2" y2="1129.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="707.2" y1="1268.25" x2="968.2" y2="1268.25"></line>
+<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+                        x='887.2' y='1345.725'
+                        width='33.0' height='33.0'
+                        fill='none' />
+
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='707.2,1044.875 698.8000000000001,1044.875 698.8000000000001,1396.0 707.2,1396.0' />
+
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='968.2000000000002,1044.875 976.6000000000001,1044.875 976.6000000000001,1396.0 968.2000000000002,1396.0' />
+
+<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+                        x='1147.3999999999999' y='1067.725'
+                        width='33.0' height='33.0'
+                        fill='none' />
+
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1035.3999999999999" y1="1129.25" x2="1247.3999999999999" y2="1129.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1035.3999999999999" y1="1221.25" x2="1247.3999999999999" y2="1221.25"></line>
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1035.3999999999999,1044.875 1026.9999999999998,1044.875 1026.9999999999998,1349.0 1035.3999999999999,1349.0' />
+
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1247.3999999999996,1044.875 1255.7999999999997,1044.875 1255.7999999999997,1349.0 1247.3999999999996,1349.0' />
 </svg>

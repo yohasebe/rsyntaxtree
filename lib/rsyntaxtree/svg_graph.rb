@@ -41,12 +41,12 @@ module RSyntaxTree
     def svg_data
       metrics = parse_list
 
+      @width = metrics[:width] + @global[:h_gap_between_nodes] * 2
       @height = metrics[:height] + @global[:height_connector_to_text] / 2
-      @width = metrics[:width] + @global[:h_gap_between_nodes] / 2
 
-      x1 = 0
+      x1 = 0 - @global[:h_gap_between_nodes]
       y1 = 0
-      x2 = @width + @global[:h_gap_between_nodes] / 2
+      x2 = @width + @global[:h_gap_between_nodes]
       y2 = @height + @global[:height_connector_to_text] / 2
 
       extra_lines = @extra_lines.join("\n")
@@ -247,7 +247,6 @@ module RSyntaxTree
 
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
               enc_height = e[:height]
-              # enc_y = this_y - e[:height] * 0.8 + FONT_SCALING
               enc_y = this_y - e[:height] * 0.8
               enc_width = e[:width]
               enc_x = this_x

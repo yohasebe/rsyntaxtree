@@ -1,17 +1,17 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="1947.2" height="1870.0" viewBox="0, 0, 1964.0, 1892.0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="999.8000000000001" height="956.25" viewBox="-16.8, 0, 1016.6, 967.5" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
     </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
     </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -24,70 +24,70 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="0" y="0" width="1964.0" height="1892.0" stroke="none" fill="white" />"
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='848.5' y='132.0'><tspan x='848.5' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Philosophy</tspan>
+<rect x="-16.8" y="0" width="1016.6" height="967.5" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='426.0' y='67.5'><tspan x='426.0' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Philosophy</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='146.60000000000002' y='554.4'><tspan x='146.60000000000002' y='554.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Psychology</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='74.30000000000001' y='283.5'><tspan x='74.30000000000001' y='283.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Psychology</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='298.1' y='976.8'><tspan x='298.1' y='976.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='149.3' y='499.5'><tspan x='149.3' y='499.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='33.60000000000002' y='1399.1999999999998'><tspan x='33.60000000000002' y='1399.1999999999998' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Computer<tspan style='fill:none;'>￭</tspan>Science</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='16.80000000000001' y='715.5'><tspan x='16.80000000000001' y='715.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Computer<tspan style='fill:none;'>￭</tspan>Science</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='999.5' y='554.4'><tspan x='999.5' y='554.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='500.5' y='283.5'><tspan x='500.5' y='283.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='999.5' y='976.8'><tspan x='999.5' y='976.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='500.5' y='499.5'><tspan x='500.5' y='499.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='999.5' y='1399.1999999999998'><tspan x='999.5' y='1399.1999999999998' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='500.5' y='715.5'><tspan x='500.5' y='715.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='813.0' y='1821.6'><tspan x='813.0' y='1821.6' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Neuroscience</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='407.5' y='931.5'><tspan x='407.5' y='931.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Neuroscience</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1555.9' y='554.4'><tspan x='1555.9' y='554.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Linguistics</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='779.7' y='283.5'><tspan x='779.7' y='283.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Linguistics</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1700.9' y='976.8'><tspan x='1700.9' y='976.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='851.7' y='499.5'><tspan x='851.7' y='499.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1509.4' y='1399.1999999999998'><tspan x='1509.4' y='1399.1999999999998' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Anthropology</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='756.2' y='715.5'><tspan x='756.2' y='715.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Anthropology</tspan>
 </text>
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='317.1' y1='444.4' x2='1018.5' y2='187.0' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='1018.5' y1='444.4' x2='1018.5' y2='187.0' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='1719.9' y1='444.4' x2='1018.5' y2='187.0' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='317.1' y1='866.8' x2='317.1' y2='609.4' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='317.1' y1='1289.1999999999998' x2='317.1' y2='1031.8' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='1018.5' y1='866.8' x2='1018.5' y2='609.4' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='1018.5' y1='1289.1999999999998' x2='1018.5' y2='1031.8' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='1018.5' y1='1711.6' x2='1018.5' y2='1454.1999999999998' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='1719.9' y1='866.8' x2='1719.9' y2='609.4' />
-<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='1719.9' y1='1289.1999999999998' x2='1719.9' y2='1031.8' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='158.8' y1='227.25' x2='510.0' y2='95.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='510.0' y1='227.25' x2='510.0' y2='95.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='861.2' y1='227.25' x2='510.0' y2='95.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='158.8' y1='443.25' x2='158.8' y2='311.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='158.8' y1='659.25' x2='158.8' y2='527.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='510.0' y1='443.25' x2='510.0' y2='311.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='510.0' y1='659.25' x2='510.0' y2='527.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='510.0' y1='875.25' x2='510.0' y2='743.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='861.2' y1='443.25' x2='861.2' y2='311.625' />
+<line style='fill: none; stroke:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round;' x1='861.2' y1='659.25' x2='861.2' y2='527.625' />
 <polygon style='stroke:black; stroke-width:4; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='831.7,33.0 1205.3000000000002,33.0 1205.3000000000002,176.0 831.7,176.0' />
+                            points='417.6,16.875 602.4000000000001,16.875 602.4000000000001,90.0 417.6,90.0' />
 
 <polygon style='stroke:black; stroke-width:4; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='129.8,455.4 504.40000000000003,455.4 504.40000000000003,598.4 129.8,598.4' />
+                            points='65.9,232.875 251.70000000000002,232.875 251.70000000000002,306.0 65.9,306.0' />
 
 <polygon style='stroke:black; stroke-width:4; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='16.800000000000022,1300.1999999999998 617.4000000000001,1300.1999999999998 617.4000000000001,1443.1999999999998 16.800000000000022,1443.1999999999998' />
+                            points='8.400000000000011,664.875 309.20000000000005,664.875 309.20000000000005,738.0 8.400000000000011,738.0' />
 
 <polygon style='stroke:black; stroke-width:4; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='796.2,1722.6 1240.8000000000002,1722.6 1240.8000000000002,1865.6 796.2,1865.6' />
+                            points='399.1,880.875 620.9000000000001,880.875 620.9000000000001,954.0 399.1,954.0' />
 
 <polygon style='stroke:black; stroke-width:4; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1539.1000000000001,455.4 1900.7000000000003,455.4 1900.7000000000003,598.4 1539.1000000000001,598.4' />
+                            points='771.3000000000001,232.875 951.1000000000001,232.875 951.1000000000001,306.0 771.3000000000001,306.0' />
 
 <polygon style='stroke:black; stroke-width:4; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1492.6000000000001,1300.1999999999998 1947.2000000000003,1300.1999999999998 1947.2000000000003,1443.1999999999998 1492.6000000000001,1443.1999999999998' />
+                            points='747.8000000000001,664.875 974.6000000000001,664.875 974.6000000000001,738.0 747.8000000000001,738.0' />
 
-<line x1='317.1' y1='444.4' x2='1018.5' y2='187.0' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='317.1' y1='1289.1999999999998' x2='1018.5' y2='187.0' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1018.5' y1='1711.6' x2='1018.5' y2='187.0' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1719.9' y1='444.4' x2='1018.5' y2='187.0' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1719.9' y1='1289.1999999999998' x2='1018.5' y2='187.0' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='317.1' y1='1289.1999999999998' x2='317.1' y2='609.4' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='317.1' y1='1289.1999999999998' x2='317.1' y2='609.4' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1018.5' y1='1711.6' x2='317.1' y2='609.4' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='521.2' y1='526.9' x2='1522.3000000000002' y2='526.9' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1719.9' y1='1289.1999999999998' x2='317.1' y2='609.4' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1018.5' y1='1711.6' x2='317.1' y2='1454.1999999999998' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='317.1' y1='1289.1999999999998' x2='1719.9' y2='609.4' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='634.2' y1='1371.6999999999998' x2='1475.8000000000002' y2='1371.6999999999998' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1018.5' y1='1711.6' x2='1719.9' y2='609.4' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1018.5' y1='1711.6' x2='1719.9' y2='1454.1999999999998' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
-<line x1='1719.9' y1='1289.1999999999998' x2='1719.9' y2='609.4' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  /></svg>
+<line x1='158.8' y1='227.25' x2='510.0' y2='95.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='158.8' y1='659.25' x2='510.0' y2='95.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='510.0' y1='875.25' x2='510.0' y2='95.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='861.2' y1='227.25' x2='510.0' y2='95.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='861.2' y1='659.25' x2='510.0' y2='95.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='158.8' y1='659.25' x2='158.8' y2='311.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='158.8' y1='659.25' x2='158.8' y2='311.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='510.0' y1='875.25' x2='158.8' y2='311.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='260.1' y1='269.4375' x2='762.9000000000001' y2='269.4375' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='861.2' y1='659.25' x2='158.8' y2='311.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='510.0' y1='875.25' x2='158.8' y2='743.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='158.8' y1='659.25' x2='861.2' y2='311.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='317.6' y1='701.4375' x2='739.4000000000001' y2='701.4375' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='510.0' y1='875.25' x2='861.2' y2='311.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='510.0' y1='875.25' x2='861.2' y2='743.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  />
+<line x1='861.2' y1='659.25' x2='861.2' y2='311.625' style='fill: none; stroke: black; stroke-width:4; stroke-linecap:round;'  /></svg>

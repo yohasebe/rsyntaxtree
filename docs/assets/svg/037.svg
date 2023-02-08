@@ -1,17 +1,17 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="1230.3999999999999" height="532.4" viewBox="0, 0, 1247.1999999999998, 554.4" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="638.4" height="272.25" viewBox="-16.8, 0, 655.1999999999999, 283.5" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -24,45 +24,45 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="0" y="0" width="1247.1999999999998" height="554.4" stroke="none" fill="white" />"
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 64px;' x='33.60000000000002' y='132.0'><tspan x='33.60000000000002' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">John<tspan style='fill:none;'>￭</tspan>opened<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>door<tspan style='fill:none;'>￭</tspan>with<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>key</tspan>
-<tspan x='604.6' y='220.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='384.6' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='472.6' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='560.6' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='648.6' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='736.6' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='824.6' y='308.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='604.6' y='396.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
-<tspan x='312.1' y='484.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">AGT<tspan style='fill:none;'>￭</tspan>&#62;<tspan style='fill:none;'>￭</tspan>INST<tspan style='fill:none;'>￭</tspan>&#62;<tspan style='fill:none;'>￭</tspan>PAT</tspan>
+<rect x="-16.8" y="0" width="655.1999999999999" height="283.5" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='16.80000000000001' y='67.5'><tspan x='16.80000000000001' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">John<tspan style='fill:none;'>￭</tspan>opened<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>door<tspan style='fill:none;'>￭</tspan>with<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>key</tspan>
+<tspan x='301.3' y='112.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='188.8' y='157.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='233.8' y='157.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='278.8' y='157.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='323.8' y='157.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='368.8' y='157.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='413.8' y='157.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='301.3' y='202.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='154.3' y='247.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">AGT<tspan style='fill:none;'>￭</tspan>&#62;<tspan style='fill:none;'>￭</tspan>INST<tspan style='fill:none;'>￭</tspan>&#62;<tspan style='fill:none;'>￭</tspan>PAT</tspan>
 </text>
 <rect style='fill: none; stroke: #009E73; stroke-width:4;'
-                        x='359.6' y='237.6' rx='44.0' ry='44.0'
-                        width='88.0' height='88.0'
+                        x='175.8' y='121.5' rx='22.5' ry='22.5'
+                        width='45.0' height='45.0'
                         fill='none' />
 
-<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='449.6' y1='281.6' x2='533.6' y2='281.6'></line>
+<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='222.8' y1='144.0' x2='263.8' y2='144.0'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='513.6,270.6 533.6,281.6 513.6,292.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='254.55,138.375 263.8,144.0 254.55,149.625' />
 
 <rect style='fill: none; stroke: #009E73; stroke-width:4;'
-                        x='535.6' y='237.6' rx='44.0' ry='44.0'
-                        width='88.0' height='88.0'
+                        x='265.8' y='121.5' rx='22.5' ry='22.5'
+                        width='45.0' height='45.0'
                         fill='none' />
 
-<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='625.6' y1='281.6' x2='709.6' y2='281.6'></line>
+<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='312.8' y1='144.0' x2='353.8' y2='144.0'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='689.6,270.6 709.6,281.6 689.6,292.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='344.55,138.375 353.8,144.0 344.55,149.625' />
 
 <rect style='fill: none; stroke: #009E73; stroke-width:4;'
-                        x='711.6' y='237.6' rx='44.0' ry='44.0'
-                        width='88.0' height='88.0'
+                        x='355.8' y='121.5' rx='22.5' ry='22.5'
+                        width='45.0' height='45.0'
                         fill='none' />
 
-<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='801.6' y1='281.6' x2='885.6' y2='281.6'></line>
+<line style='fill:none; stroke:#009E73; stroke-linejoin:round; stroke-linecap:round; stroke-width:4;' x1='402.8' y1='144.0' x2='443.8' y2='144.0'></line>
 
-<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='865.6,270.6 885.6,281.6 865.6,292.6' />
+<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#009E73' stroke-width='4' points='434.55,138.375 443.8,144.0 434.55,149.625' />
 
 <polygon style='stroke:#009E73; stroke-width:5; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='16.800000000000022,33.0 1230.3999999999999,33.0 1230.3999999999999,528.0 16.800000000000022,528.0' />
+                            points='8.400000000000011,16.875 613.1999999999999,16.875 613.1999999999999,270.0 8.400000000000011,270.0' />
 </svg>

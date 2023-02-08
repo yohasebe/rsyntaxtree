@@ -1,17 +1,17 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="1773.5999999999997" height="1510.1999999999998" viewBox="0, 0, 1790.3999999999996, 1532.1999999999998" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="915.9999999999999" height="767.25" viewBox="-16.8, 0, 932.7999999999998, 778.5" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
     </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="33.6" markerHeight="33.6" orient="auto">
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
     </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="100.80000000000001" markerHeight="33.6" orient="auto">
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -24,167 +24,167 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="0" y="0" width="1790.3999999999996" height="1532.1999999999998" stroke="none" fill="white" />"
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='574.9499999999998' y='132.0'><tspan x='724.4499999999998' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">👧</tspan>
-<tspan x='826.9499999999998' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='936.9499999999998' y='132.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">s</tspan>
-<tspan x='655.4499999999998' y='204.0' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
-<tspan x='704.4499999999998' y='225.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>RELATION</tspan>
-<tspan x='574.9499999999998' y='406.0' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">that<tspan style='fill:none;'>￭</tspan>girl<tspan style='fill:none;'>￭</tspan>is<tspan style='fill:none;'>￭</tspan>smart</tspan>
+<rect x="-16.8" y="0" width="932.7999999999998" height="778.5" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='287.8499999999999' y='67.5'><tspan x='363.8499999999999' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">👧</tspan>
+<tspan x='415.3499999999999' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='470.8499999999999' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">s</tspan>
+<tspan x='328.8499999999999' y='104.25' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
+<tspan x='353.8499999999999' y='114.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>RELATION</tspan>
+<tspan x='287.8499999999999' y='206.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">that<tspan style='fill:none;'>￭</tspan>girl<tspan style='fill:none;'>￭</tspan>is<tspan style='fill:none;'>￭</tspan>smart</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='235.54999999999995' y='657.4'><tspan x='353.04999999999995' y='657.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">👧</tspan>
-<tspan x='251.54999999999995' y='729.4' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
-<tspan x='300.54999999999995' y='750.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>THING</tspan>
-<tspan x='261.54999999999995' y='931.4' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">that<tspan style='fill:none;'>￭</tspan>girl</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='118.14999999999998' y='334.5'><tspan x='177.64999999999998' y='334.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">👧</tspan>
+<tspan x='126.14999999999998' y='371.25' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
+<tspan x='151.14999999999998' y='381.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>THING</tspan>
+<tspan x='131.14999999999998' y='473.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">that<tspan style='fill:none;'>￭</tspan>girl</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='33.60000000000002' y='1182.8'><tspan x='160.60000000000002' y='1182.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='49.60000000000002' y='1254.8' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
-<tspan x='98.60000000000002' y='1275.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>THING</tspan>
-<tspan x='131.10000000000002' y='1456.8' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">that</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='16.80000000000001' y='601.5'><tspan x='80.80000000000001' y='601.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='24.80000000000001' y='638.25' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
+<tspan x='49.80000000000001' y='648.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>THING</tspan>
+<tspan x='65.80000000000001' y='740.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">that</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='486.0' y='1182.8'><tspan x='555.0' y='1182.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">👧</tspan>
-<tspan x='486.0' y='1275.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">THING</tspan>
-<tspan x='544.0' y='1456.8' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">girl</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='244.0' y='601.5'><tspan x='279.0' y='601.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">👧</tspan>
+<tspan x='244.0' y='648.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">THING</tspan>
+<tspan x='273.0' y='740.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">girl</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1103.85' y='657.4'><tspan x='1198.35' y='657.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='1291.35' y='657.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='1401.35' y='657.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">s</tspan>
-<tspan x='1119.85' y='729.4' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
-<tspan x='1168.85' y='750.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>RELATION</tspan>
-<tspan x='1190.85' y='931.4' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">is<tspan style='fill:none;'>￭</tspan>smart</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='554.05' y='334.5'><tspan x='601.55' y='334.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='648.55' y='334.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='704.05' y='334.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">s</tspan>
+<tspan x='562.05' y='371.25' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
+<tspan x='587.05' y='381.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>RELATION</tspan>
+<tspan x='597.55' y='473.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">is<tspan style='fill:none;'>￭</tspan>smart</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='841.4000000000001' y='1182.8'><tspan x='935.9000000000001' y='1182.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='1028.9' y='1182.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='1121.9' y='1182.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='857.4000000000001' y='1254.8' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
-<tspan x='906.4000000000001' y='1275.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>RELATION</tspan>
-<tspan x='1036.4' y='1456.8' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">is</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='422.20000000000005' y='601.5'><tspan x='469.70000000000005' y='601.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='516.7' y='601.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='563.7' y='601.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='430.20000000000005' y='638.25' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">G</tspan>
+<tspan x='455.20000000000005' y='648.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>RELATION</tspan>
+<tspan x='520.2' y='740.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">is</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 64px;' x='1414.7999999999997' y='1182.8'><tspan x='1460.7999999999997' y='1182.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='1553.7999999999997' y='1182.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
-<tspan x='1663.7999999999997' y='1182.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">s</tspan>
-<tspan x='1414.7999999999997' y='1275.8' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">RELATION</tspan>
-<tspan x='1496.7999999999997' y='1456.8' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">smart</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='710.3999999999999' y='601.5'><tspan x='733.3999999999999' y='601.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='780.3999999999999' y='601.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">　</tspan>
+<tspan x='835.8999999999999' y='601.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">s</tspan>
+<tspan x='710.3999999999999' y='648.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">RELATION</tspan>
+<tspan x='751.3999999999999' y='740.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">smart</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='394.55' y1='547.4' x2='858.9499999999999' y2='461.0' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1323.35' y1='547.4' x2='858.9499999999999' y2='461.0' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='192.60000000000002' y1='1072.8' x2='394.55' y2='986.4' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='596.5' y1='1072.8' x2='394.55' y2='986.4' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1060.9' y1='1072.8' x2='1323.35' y2='986.4' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1585.7999999999997' y1='1072.8' x2='1323.35' y2='986.4' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='198.15' y1='278.25' x2='431.34999999999997' y2='234.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='664.55' y1='278.25' x2='431.34999999999997' y2='234.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='96.80000000000001' y1='545.25' x2='198.15' y2='501.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='299.5' y1='545.25' x2='198.15' y2='501.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='532.7' y1='545.25' x2='664.55' y2='501.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='796.3999999999999' y1='545.25' x2='664.55' y2='501.625' />
 <rect style='fill: none; stroke: black; stroke-width:3;'
-                        x='719.4499999999998' y='57.599999999999994' rx='46.5' ry='46.5'
-                        width='93.0' height='93.0'
+                        x='360.8499999999999' y='29.9' rx='23.5' ry='23.5'
+                        width='47.0' height='47.0'
                         fill='none' />
 
-<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='813.4499999999998' y1='104.1' x2='904.4499999999998' y2='104.1'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='408.8499999999999' y1='53.4' x2='453.8499999999999' y2='53.4'></line>
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:3;'
-                        x='905.4499999999998' y='57.599999999999994'
-                        width='93.0' height='93.0'
+                        x='454.8499999999999' y='29.9'
+                        width='47.0' height='47.0'
                         fill='none' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='639.4499999999998' y='152.0'
-                        width='65.0' height='65.0'
+                        x='320.8499999999999' y='77.85'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="574.9499999999998" y1="291.0" x2="1142.9499999999998" y2="291.0"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="287.8499999999999" y1="148.25" x2="574.8499999999999" y2="148.25"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='558.1499999999999,33.0 1159.75,33.0 1159.75,450.0 558.1499999999999,450.0' />
+                            points='279.44999999999993,16.875 583.25,16.875 583.25,229.0 279.44999999999993,229.0' />
 
 <rect style='fill: none; stroke: black; stroke-width:3;'
-                        x='348.04999999999995' y='583.0' rx='46.5' ry='46.5'
-                        width='93.0' height='93.0'
+                        x='174.64999999999998' y='296.9' rx='23.5' ry='23.5'
+                        width='47.0' height='47.0'
                         fill='none' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='235.54999999999995' y='677.4'
-                        width='65.0' height='65.0'
+                        x='118.14999999999998' y='344.85'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="235.54999999999995" y1="816.4" x2="553.55" y2="816.4"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="118.14999999999998" y1="415.25" x2="278.15" y2="415.25"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='218.74999999999994,558.4 570.3499999999999,558.4 570.3499999999999,975.4 218.74999999999994,975.4' />
+                            points='109.74999999999997,283.875 286.54999999999995,283.875 286.54999999999995,496.0 109.74999999999997,496.0' />
 
 <rect style='fill: none; stroke: black; stroke-width:3;'
-                        x='146.10000000000002' y='1108.3999999999999' rx='46.5' ry='46.5'
-                        width='93.0' height='93.0'
+                        x='73.30000000000001' y='563.9' rx='23.5' ry='23.5'
+                        width='47.0' height='47.0'
                         fill='url(#hatchForLeaf)' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='33.60000000000002' y='1202.8'
-                        width='65.0' height='65.0'
+                        x='16.80000000000001' y='611.85'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="33.60000000000002" y1="1341.8" x2="351.6" y2="1341.8"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="16.80000000000001" y1="682.25" x2="176.8" y2="682.25"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='16.800000000000022,1083.8 368.40000000000003,1083.8 368.40000000000003,1500.8 16.800000000000022,1500.8' />
+                            points='8.400000000000011,550.875 185.20000000000002,550.875 185.20000000000002,763.0 8.400000000000011,763.0' />
 
 <rect style='fill: none; stroke: black; stroke-width:3;'
-                        x='550.0' y='1108.3999999999999' rx='46.5' ry='46.5'
-                        width='93.0' height='93.0'
+                        x='276.0' y='563.9' rx='23.5' ry='23.5'
+                        width='47.0' height='47.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="486.0" y1="1341.8" x2="707.0" y2="1341.8"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="244.0" y1="682.25" x2="355.0" y2="682.25"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='469.2,1083.8 723.8,1083.8 723.8,1500.8 469.2,1500.8' />
+                            points='235.6,550.875 363.4,550.875 363.4,763.0 235.6,763.0' />
 
 <rect style='fill: none; stroke: black; stroke-width:2;'
-                        x='1183.85' y='583.0' rx='46.5' ry='46.5'
-                        width='93.0' height='93.0'
+                        x='594.05' y='296.9' rx='23.5' ry='23.5'
+                        width='47.0' height='47.0'
                         fill='url(#hatchForNode)' />
 
-<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='1277.85' y1='629.5' x2='1368.85' y2='629.5'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='642.05' y1='320.4' x2='687.05' y2='320.4'></line>
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:3;'
-                        x='1369.85' y='583.0'
-                        width='93.0' height='93.0'
+                        x='688.05' y='296.9'
+                        width='47.0' height='47.0'
                         fill='none' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='1103.85' y='677.4'
-                        width='65.0' height='65.0'
+                        x='554.05' y='344.85'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1103.85" y1="816.4" x2="1542.85" y2="816.4"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="554.05" y1="415.25" x2="775.05" y2="415.25"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1087.05,558.4 1559.65,558.4 1559.65,975.4 1087.05,975.4' />
+                            points='545.65,283.875 783.45,283.875 783.45,496.0 545.65,496.0' />
 
 <rect style='fill: none; stroke: black; stroke-width:2;'
-                        x='921.4000000000001' y='1108.3999999999999' rx='46.5' ry='46.5'
-                        width='93.0' height='93.0'
+                        x='462.20000000000005' y='563.9' rx='23.5' ry='23.5'
+                        width='47.0' height='47.0'
                         fill='url(#hatchForLeaf)' />
 
-<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='1015.4000000000001' y1='1154.8999999999999' x2='1106.4' y2='1154.8999999999999'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='510.20000000000005' y1='587.4' x2='555.2' y2='587.4'></line>
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='1107.4' y='1108.3999999999999'
-                        width='93.0' height='93.0'
+                        x='556.2' y='563.9'
+                        width='47.0' height='47.0'
                         fill='url(#hatchForLeaf)' />
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
-                        x='841.4000000000001' y='1202.8'
-                        width='65.0' height='65.0'
+                        x='422.20000000000005' y='611.85'
+                        width='33.0' height='33.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="841.4000000000001" y1="1341.8" x2="1280.4" y2="1341.8"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="422.20000000000005" y1="682.25" x2="643.2" y2="682.25"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='824.6000000000001,1083.8 1297.2000000000003,1083.8 1297.2000000000003,1500.8 824.6000000000001,1500.8' />
+                            points='413.80000000000007,550.875 651.6000000000001,550.875 651.6000000000001,763.0 413.80000000000007,763.0' />
 
 <rect style='fill: none; stroke: black; stroke-width:2;'
-                        x='1446.2999999999997' y='1108.3999999999999' rx='46.5' ry='46.5'
-                        width='93.0' height='93.0'
+                        x='725.8999999999999' y='563.9' rx='23.5' ry='23.5'
+                        width='47.0' height='47.0'
                         fill='url(#hatchForLeaf)' />
 
-<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:2;' x1='1540.2999999999997' y1='1154.8999999999999' x2='1631.2999999999997' y2='1154.8999999999999'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:2;' x1='773.8999999999999' y1='587.4' x2='818.8999999999999' y2='587.4'></line>
 
 <rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:3;'
-                        x='1632.2999999999997' y='1108.3999999999999'
-                        width='93.0' height='93.0'
+                        x='819.8999999999999' y='563.9'
+                        width='47.0' height='47.0'
                         fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1414.7999999999997" y1="1341.8" x2="1756.7999999999997" y2="1341.8"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="710.3999999999999" y1="682.25" x2="882.3999999999999" y2="682.25"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1397.9999999999998,1083.8 1773.6,1083.8 1773.6,1500.8 1397.9999999999998,1500.8' />
+                            points='701.9999999999999,550.875 890.8,550.875 890.8,763.0 701.9999999999999,763.0' />
 </svg>

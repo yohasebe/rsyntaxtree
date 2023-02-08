@@ -80,7 +80,7 @@ module RSyntaxTree
                               "off"
                             end
         when :fontsize
-          new_params[key] = value.to_i * FONT_SCALING
+          new_params[key] = value.to_i
         when :linewidth
           new_params[key] = value.to_i
         when :vheight
@@ -169,13 +169,20 @@ module RSyntaxTree
       raise RSTError, +"Error: the result syntree is too big"
     end
 
-    def draw_pdf(filename)
+    def draw_pdf(binary = false)
+      b = StringIO.new
       svg = draw_svg
       rsvg = RSVG::Handle.new_from_data(svg)
       dim = rsvg.dimensions
-      surface = Cairo::PDFSurface.new(filename, dim.width, dim.height)
+      surface = Cairo::PDFSurface.new(b, dim.width, dim.height)
       context = Cairo::Context.new(surface)
       context.render_rsvg_handle(rsvg)
+      surface.finish
+      if binary
+        b
+      else
+        b.string
+      end
     rescue Cairo::InvalidSize
       raise RSTError, +"Error: the result syntree is too big"
     end

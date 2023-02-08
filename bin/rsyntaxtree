@@ -71,7 +71,9 @@ begin
   filepath = File.expand_path(string_opts[:outdir]) + "/syntree." + ext
   case ext
   when "pdf"
-    rsg.draw_pdf(filepath)
+    outfile = File.new(filepath, "wb")
+    outfile.write rsg.draw_pdf
+    outfile.close
   when "png"
     outfile = File.new(filepath, "wb")
     outfile.write rsg.draw_png

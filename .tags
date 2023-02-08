@@ -895,6 +895,7 @@ draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f
 draw_paths	lib/rsyntaxtree/svg_graph.rb	/^    def draw_paths$/;"	f	class:RSyntaxTree.SVGGraph
 draw_pdf	lib/rsyntaxtree.rb	/^    def draw_pdf()$/;"	f	class:RSyntaxTree
 draw_pdf	lib/rsyntaxtree.rb	/^    def draw_pdf(binary = false)$/;"	f	class:RSyntaxTree
+draw_pdf	lib/rsyntaxtree.rb	/^    def draw_pdf(binary = true)$/;"	f	class:RSyntaxTree
 draw_pdf	lib/rsyntaxtree.rb	/^    def draw_pdf(filename)$/;"	f	class:RSyntaxTree
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	class:RSyntaxTree
 draw_png	lib/rsyntaxtree.rb	/^    def draw_png(binary = false)$/;"	f	module:RSyntaxTree

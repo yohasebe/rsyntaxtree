@@ -57,7 +57,8 @@ module RSyntaxTree
 
     def calculate_level
       @element_list.get_elements.select { |e| e.type == 2 }.each do |e|
-        e.level = @element_list.get_id(e.parent).level + 1
+        parent = @element_list.get_id(e.parent)
+        e.level = @element_list.get_id(e.parent).level + 1 if parent
       end
     end
 
