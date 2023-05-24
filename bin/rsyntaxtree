@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'optimist'
+
 require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
-require 'optimist'
 
 opts = Optimist.options do
   version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2023 Yoichiro Hasebe"

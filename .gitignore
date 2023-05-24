@@ -14,3 +14,7 @@ bin/rsync_code
 bin/linktree.rb
 tags
 .tags
+.rubocop.yml
+.rubocop_todo.yml
+.solargraph.yml
+
