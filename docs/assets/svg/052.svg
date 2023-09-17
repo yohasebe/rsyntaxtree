@@ -1,0 +1,96 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="4251.800000000001" height="875.25" viewBox="-16.8, 0, 4268.600000000001, 886.5" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
+    </marker>
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+    </marker>
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
+    </marker>
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
+    </marker>
+    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    </pattern>
+    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    </pattern>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    </pattern>
+  </defs>
+<rect x="-16.8" y="0" width="4268.600000000001" height="886.5" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='1639.6999999999998' y='67.5'><tspan x='1639.6999999999998' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Major<tspan style='fill:none;'>￭</tspan>clause<tspan style='fill:none;'>￭</tspan>construction</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='16.799999999999955' y='283.5'><tspan x='16.799999999999955' y='283.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Declarative<tspan style='fill:none;'>￭</tspan>clause<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+<tspan x='88.79999999999995' y='373.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">He<tspan style='fill:none;'>￭</tspan>was<tspan style='fill:none;'>￭</tspan>tired.</tspan>
+<tspan x='46.299999999999955' y='418.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">He<tspan style='fill:none;'>￭</tspan>made<tspan style='fill:none;'>￭</tspan>mistakes.</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='884.6500000000001' y='283.5'><tspan x='884.6500000000001' y='283.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Interrogative<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='584.5' y='499.5'><tspan x='584.5' y='499.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Yes/No</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='447.0' y='715.5'><tspan x='498.5' y='715.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">interrogative<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+<tspan x='521.0' y='805.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Was<tspan style='fill:none;'>￭</tspan>he<tspan style='fill:none;'>￭</tspan>tired?</tspan>
+<tspan x='447.0' y='850.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Did<tspan style='fill:none;'>￭</tspan>he<tspan style='fill:none;'>￭</tspan>make<tspan style='fill:none;'>￭</tspan>mistakes?</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='1238.3000000000002' y='499.5'><tspan x='1238.3000000000002' y='499.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">WH-interrogative<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='891.2000000000003' y='715.5'><tspan x='891.2000000000003' y='715.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">WH-subject<tspan style='fill:none;'>￭</tspan>interrogative<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+<tspan x='997.7000000000003' y='805.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Who<tspan style='fill:none;'>￭</tspan>was<tspan style='fill:none;'>￭</tspan>tired?</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='1428.4' y='715.5'><tspan x='1428.4' y='715.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">WH-nonsubject<tspan style='fill:none;'>￭</tspan>interrogative<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+<tspan x='1576.9' y='805.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">What<tspan style='fill:none;'>￭</tspan>was<tspan style='fill:none;'>￭</tspan>he?</tspan>
+<tspan x='1532.4' y='850.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">What<tspan style='fill:none;'>￭</tspan>did<tspan style='fill:none;'>￭</tspan>he<tspan style='fill:none;'>￭</tspan>make?</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='2025.6000000000004' y='283.5'><tspan x='2062.6000000000004' y='283.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">WH-exclamative<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+<tspan x='2075.1000000000004' y='373.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">How<tspan style='fill:none;'>￭</tspan>tired<tspan style='fill:none;'>￭</tspan>he<tspan style='fill:none;'>￭</tspan>was!</tspan>
+<tspan x='2025.6000000000004' y='418.5' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">What<tspan style='fill:none;'>￭</tspan>mistakes<tspan style='fill:none;'>￭</tspan>he<tspan style='fill:none;'>￭</tspan>made!</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='2495.8' y='283.5'><tspan x='2495.8' y='283.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Imperative<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='3340.1000000000004' y='283.5'><tspan x='3340.1000000000004' y='283.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">Relative<tspan style='fill:none;'>￭</tspan>clause<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='2807.0' y='499.5'><tspan x='2875.5' y='499.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">WH-subject<tspan style='fill:none;'>￭</tspan>relative<tspan style='fill:none;'>￭</tspan>clause<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+<tspan x='2807.0' y='589.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">The<tspan style='fill:none;'>￭</tspan>emails,<tspan style='fill:none;'>￭</tspan>which<tspan style='fill:none;'>￭</tspan>arrived<tspan style='fill:none;'>￭</tspan>overnight<tspan style='fill:none;'>￭</tspan>...</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='3513.2000000000007' y='499.5'><tspan x='3584.7000000000007' y='499.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">WH-nonsubject<tspan style='fill:none;'>￭</tspan>relative<tspan style='fill:none;'>￭</tspan>clause<tspan style='fill:none;'>￭</tspan>cxn</tspan>
+<tspan x='3513.2000000000007' y='589.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">A<tspan style='fill:none;'>￭</tspan>pilot<tspan style='fill:none;'>￭</tspan>shouldn't<tspan style='fill:none;'>￭</tspan>be<tspan style='fill:none;'>￭</tspan>tired,<tspan style='fill:none;'>￭</tspan>which<tspan style='fill:none;'>￭</tspan>Ben<tspan style='fill:none;'>￭</tspan>was.</tspan>
+<tspan x='3615.2000000000007' y='634.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">The<tspan style='fill:none;'>￭</tspan>mistalkes<tspan style='fill:none;'>￭</tspan>that<tspan style='fill:none;'>￭</tspan>he<tspan style='fill:none;'>￭</tspan>made<tspan style='fill:none;'>￭</tspan>...</tspan>
+</text>
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='198.29999999999995 227.25 198.29999999999995 161.4375 1847.2 161.4375 1847.2 95.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1022.6500000000001 227.25 1022.6500000000001 161.4375 1847.2 161.4375 1847.2 95.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='2227.1000000000004 227.25 2227.1000000000004 161.4375 1847.2 161.4375 1847.2 95.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='2617.8 227.25 2617.8 161.4375 1847.2 161.4375 1847.2 95.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='3496.1000000000004 227.25 3496.1000000000004 161.4375 1847.2 161.4375 1847.2 95.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='635.5 443.25 635.5 377.4375 1022.6500000000001 377.4375 1022.6500000000001 311.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1409.8000000000002 443.25 1409.8000000000002 377.4375 1022.6500000000001 377.4375 1022.6500000000001 311.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='635.5 659.25 635.5 593.4375 635.5 593.4375 635.5 527.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1126.2000000000003 659.25 1126.2000000000003 593.4375 1409.8000000000002 593.4375 1409.8000000000002 527.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1693.4 659.25 1693.4 593.4375 1409.8000000000002 593.4375 1409.8000000000002 527.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='3126.5 443.25 3126.5 377.4375 3496.1000000000004 377.4375 3496.1000000000004 311.625' />
+<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='3865.7000000000007 443.25 3865.7000000000007 377.4375 3496.1000000000004 377.4375 3496.1000000000004 311.625' />
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="16.799999999999955" y1="317.25" x2="379.79999999999995" y2="317.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="447.0" y1="749.25" x2="824.0" y2="749.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="891.2000000000003" y1="749.25" x2="1361.2000000000003" y2="749.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1428.4" y1="749.25" x2="1958.4" y2="749.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="2025.6000000000004" y1="317.25" x2="2428.6000000000004" y2="317.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="2807.0" y1="533.25" x2="3446.0" y2="533.25"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="3513.2000000000007" y1="533.25" x2="4218.200000000001" y2="533.25"></line></svg>
