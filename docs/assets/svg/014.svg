@@ -72,19 +72,19 @@
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='299.5' y1='545.25' x2='198.15' y2='501.625' />
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='532.7' y1='545.25' x2='664.55' y2='501.625' />
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='796.3999999999999' y1='545.25' x2='664.55' y2='501.625' />
-<rect style='fill: none; stroke: black; stroke-width:3;'
+<rect style='stroke: black; stroke-width:3;'
                         x='360.8499999999999' y='29.9' rx='23.5' ry='23.5'
                         width='47.0' height='47.0'
                         fill='none' />
 
 <line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='408.8499999999999' y1='53.4' x2='453.8499999999999' y2='53.4'></line>
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:3;'
                         x='454.8499999999999' y='29.9'
                         width='47.0' height='47.0'
                         fill='none' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='320.8499999999999' y='77.85'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -93,12 +93,12 @@
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='279.44999999999993,16.875 583.25,16.875 583.25,229.0 279.44999999999993,229.0' />
 
-<rect style='fill: none; stroke: black; stroke-width:3;'
+<rect style='stroke: black; stroke-width:3;'
                         x='174.64999999999998' y='296.9' rx='23.5' ry='23.5'
                         width='47.0' height='47.0'
                         fill='none' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='118.14999999999998' y='344.85'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -107,12 +107,12 @@
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='109.74999999999997,283.875 286.54999999999995,283.875 286.54999999999995,496.0 109.74999999999997,496.0' />
 
-<rect style='fill: none; stroke: black; stroke-width:3;'
+<rect style='stroke: black; stroke-width:3;'
                         x='73.30000000000001' y='563.9' rx='23.5' ry='23.5'
                         width='47.0' height='47.0'
                         fill='url(#hatchForLeaf)' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='16.80000000000001' y='611.85'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -121,7 +121,7 @@
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='8.400000000000011,550.875 185.20000000000002,550.875 185.20000000000002,763.0 8.400000000000011,763.0' />
 
-<rect style='fill: none; stroke: black; stroke-width:3;'
+<rect style='stroke: black; stroke-width:3;'
                         x='276.0' y='563.9' rx='23.5' ry='23.5'
                         width='47.0' height='47.0'
                         fill='none' />
@@ -130,19 +130,19 @@
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='235.6,550.875 363.4,550.875 363.4,763.0 235.6,763.0' />
 
-<rect style='fill: none; stroke: black; stroke-width:2;'
+<rect style='stroke: black; stroke-width:2;'
                         x='594.05' y='296.9' rx='23.5' ry='23.5'
                         width='47.0' height='47.0'
                         fill='url(#hatchForNode)' />
 
 <line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='642.05' y1='320.4' x2='687.05' y2='320.4'></line>
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:3;'
                         x='688.05' y='296.9'
                         width='47.0' height='47.0'
                         fill='none' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='554.05' y='344.85'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -151,19 +151,19 @@
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='545.65,283.875 783.45,283.875 783.45,496.0 545.65,496.0' />
 
-<rect style='fill: none; stroke: black; stroke-width:2;'
+<rect style='stroke: black; stroke-width:2;'
                         x='462.20000000000005' y='563.9' rx='23.5' ry='23.5'
                         width='47.0' height='47.0'
                         fill='url(#hatchForLeaf)' />
 
 <line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='510.20000000000005' y1='587.4' x2='555.2' y2='587.4'></line>
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='556.2' y='563.9'
                         width='47.0' height='47.0'
                         fill='url(#hatchForLeaf)' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='422.20000000000005' y='611.85'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -172,14 +172,14 @@
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='413.80000000000007,550.875 651.6000000000001,550.875 651.6000000000001,763.0 413.80000000000007,763.0' />
 
-<rect style='fill: none; stroke: black; stroke-width:2;'
+<rect style='stroke: black; stroke-width:2;'
                         x='725.8999999999999' y='563.9' rx='23.5' ry='23.5'
                         width='47.0' height='47.0'
                         fill='url(#hatchForLeaf)' />
 
 <line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:2;' x1='773.8999999999999' y1='587.4' x2='818.8999999999999' y2='587.4'></line>
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:3;'
                         x='819.8999999999999' y='563.9'
                         width='47.0' height='47.0'
                         fill='none' />

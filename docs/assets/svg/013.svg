@@ -96,7 +96,7 @@
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1141.3999999999999' y1='1039.25' x2='989.55' y2='950.625' />
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='837.7' y1='1490.25' x2='837.7' y2='1401.625' />
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='1141.3999999999999' y1='1443.25' x2='1141.3999999999999' y2='1354.625' />
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='425.7874999999999' y='39.724999999999994'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -108,7 +108,7 @@
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='525.7875,16.875 534.1875,16.875 534.1875,229.0 525.7875,229.0' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='128.8' y='351.725'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -121,13 +121,13 @@
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='212.8,328.875 221.20000000000002,328.875 221.20000000000002,633.0 212.8,633.0' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='730.7749999999999' y='351.725'
                         width='33.0' height='33.0'
                         fill='none' />
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="618.7749999999999" y1="413.25" x2="830.7749999999999" y2="413.25"></line>
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='743.7749999999999' y='443.725'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -138,19 +138,19 @@
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='830.775,328.875 839.175,328.875 839.175,541.0 830.775,541.0' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='392.0' y='663.725'
                         width='33.0' height='33.0'
                         fill='none' />
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="280.0" y1="725.25" x2="640.0" y2="725.25"></line>
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="280.0" y1="817.25" x2="640.0" y2="817.25"></line>
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='405.0' y='847.725'
                         width='33.0' height='33.0'
                         fill='none' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='460.0' y='894.725'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -161,13 +161,13 @@
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='640.0000000000001,640.875 648.4000000000001,640.875 648.4000000000001,945.0 640.0000000000001,945.0' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='979.55' y='663.725'
                         width='33.0' height='33.0'
                         fill='none' />
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="883.55" y1="725.25" x2="1095.55" y2="725.25"></line>
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='995.55' y='755.725'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -179,14 +179,14 @@
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1095.55,640.875 1103.95,640.875 1103.95,945.0 1095.55,945.0' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='819.2' y='1067.725'
                         width='33.0' height='33.0'
                         fill='none' />
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="707.2" y1="1129.25" x2="968.2" y2="1129.25"></line>
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="707.2" y1="1268.25" x2="968.2" y2="1268.25"></line>
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='887.2' y='1345.725'
                         width='33.0' height='33.0'
                         fill='none' />
@@ -197,7 +197,7 @@
 <polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='968.2000000000002,1044.875 976.6000000000001,1044.875 976.6000000000001,1396.0 968.2000000000002,1396.0' />
 
-<rect style='fill: none; stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
                         x='1147.3999999999999' y='1067.725'
                         width='33.0' height='33.0'
                         fill='none' />

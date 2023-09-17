@@ -279,12 +279,12 @@ module RSyntaxTree
                              end
 
               if e[:decoration].include?(:box)
-                enc = "<rect style='fill: none; stroke: #{col}; stroke-linejoin:round; stroke-width:#{stroke_width};'
+                enc = "<rect style='stroke: #{col}; stroke-linejoin:round; stroke-width:#{stroke_width};'
                         x='#{enc_x}' y='#{enc_y}'
                         width='#{enc_width}' height='#{enc_height}'
                         fill='#{fill}' />\n"
               elsif e[:decoration].include?(:circle)
-                enc = "<rect style='fill: none; stroke: #{col}; stroke-width:#{stroke_width};'
+                enc = "<rect style='stroke: #{col}; stroke-width:#{stroke_width};'
                         x='#{enc_x}' y='#{enc_y}' rx='#{enc_height / 2}' ry='#{enc_height / 2}'
                         width='#{enc_width}' height='#{enc_height}'
                         fill='#{fill}' />\n"

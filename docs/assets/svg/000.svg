@@ -61,7 +61,7 @@
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='829.6000000000001' y1='524.25' x2='725.2' y2='437.625' />
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='620.8000000000001' y1='695.25' x2='620.8' y2='608.625' />
 <polygon style='fill: none; stroke: black; stroke-width:2; stroke-linejoin:round;stroke-linecap:round;' points='780.6000000000001 695.25 878.6000000000001 695.25 829.6000000000001 608.625' />
-<rect style='fill: none; stroke: #009E73; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:2;'
                         x='15.199999999999989' y='373.5'
                         width='45.0' height='45.0'
                         fill='none' />
