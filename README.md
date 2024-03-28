@@ -58,6 +58,8 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 
 `# gem install rsyntaxtree`
 
+**NOTE**: Currently, installation of the gem package on macOS is not recommended. Please use the [Docker image](https://hub.docker.com/r/yohasebe/rsyntaxtree) or the [web interface](https://yohasebe.com/rsyntaxtree).
+
 ## Usage
 
 For the web interface, see Usage section of <https://yohasebe.com/rsyntaxtree>.
