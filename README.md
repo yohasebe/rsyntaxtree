@@ -1,6 +1,6 @@
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='width: 256px;' />
 
-**RSyntaxTree** is a graphical syntax tree generator written in the Ruby programming language. 
+**RSyntaxTree** is a graphical syntax tree generator for linguistic research 
 
 ## Documentation
 
