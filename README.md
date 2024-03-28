@@ -56,7 +56,7 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 
 ## Installation
 
-**NOTE**: On macOS, run `brew install glib` before installing RSyntaxTree using [Homebrew](https://brew.sh/).
+**NOTE**: On macOS, install [Homebrew](https://brew.sh/) and run `brew install glib` before installing RSyntaxTree. 
 
 `# gem install rsyntaxtree`
 
