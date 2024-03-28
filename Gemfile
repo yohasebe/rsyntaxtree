@@ -4,5 +4,5 @@ source "https://rubygems.org"
 
 gem "optimist"
 gem "parslet"
-gem "rmagick"
+gem "rmagick", ">= 5.3.0"
 gem "rsvg2"
