@@ -9,7 +9,9 @@ RUN apk update && \
     apk add --no-cache gobject-introspection gobject-introspection-dev && \
     apk add --no-cache -t .build-packages --no-cache build-base curl-dev wget gcompat
 
+
 ADD Gemfile $WORKSPACE
+ADD rsyntaxtree.gemspec $WORKSPACE
 RUN bundle install -j4
 
 ADD fonts $WORKSPACE

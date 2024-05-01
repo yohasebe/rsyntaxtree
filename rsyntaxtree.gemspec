@@ -22,5 +22,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "rmagick", ">= 4.3"
   s.add_runtime_dependency "rsvg2"
 
+  s.add_development_dependency "nokogiri"
   s.add_development_dependency "yaml"
 end
