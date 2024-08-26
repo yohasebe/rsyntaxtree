@@ -6,7 +6,7 @@
 #
 # Parses a phrase into leafs and nodes and store the result in an element list
 # (see element_list.rb)
-# Copyright (c) 2007-2023 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
 
 require_relative 'elementlist'
 require_relative 'element'

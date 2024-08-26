@@ -6,7 +6,7 @@
 #
 # Facade of rsyntaxtree library.  When loaded by a driver script, it does all
 # the necessary 'require' to use the library.
-# Copyright (c) 2007-2023 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
 
 FONT_DIR = File.expand_path(File.join(__dir__, "/../fonts"))
 ETYPE_NODE = 1

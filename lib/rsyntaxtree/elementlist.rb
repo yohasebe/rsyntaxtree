@@ -5,7 +5,7 @@
 #==========================
 #
 # Contains a list of unordered tree elements with a defined parent
-# Copyright (c) 2007-2023 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
 
 require_relative "element"
 

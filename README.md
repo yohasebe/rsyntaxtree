@@ -74,6 +74,7 @@ Usage:
        2) rsyntaxtree [options] "/path/to/text/file"
 where [options] are:
   -o, --outdir=<s>                     Output directory (default: ./)
+  -u, --outfilename=<s>                Output file base name (default: syntree)
   -f, --format=<s>                     Output format: png, gif, jpg, pdf, or svg (default: png)
   -l, --leafstyle=<s>                  visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
   -n, --fontstyle=<s>                  Font style (available when ttf font is specified): sans, serif, cjk, mono (default: sans)
@@ -97,11 +98,11 @@ See the [documentation](https://yohasebe.github.io/rsyntaxtree/documentation) fo
 Please use the following BibTeX entry when referring to RSyntaxTree.
 
 ```
-@misc{rsyntaxtree_2023,
+@misc{rsyntaxtree_2024,
   author = {Yoichiro Hasebe},
   title = {RSyntaxTree: A graphical syntax tree image generator}
   url = {https://yohasebe.com/rsyntaxtree},
-  year = {2023}
+  year = {2024}
 }
 ```
 
