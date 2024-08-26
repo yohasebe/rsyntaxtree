@@ -18,6 +18,7 @@ opts = Optimist.options do
   BANNER
 
   opt :outdir, "Output directory", default: "./"
+  opt :outfilename, "Output file base name", default: "syntree"
   opt :format, "Output format: png, pdf, or svg", default: "png"
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto"
   opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk, mono", default: "sans"
@@ -69,7 +70,8 @@ begin
   string_opts[:data] = data
   rsg = RSyntaxTree::RSGenerator.new(string_opts)
   ext = string_opts[:format]
-  filepath = File.expand_path(string_opts[:outdir]) + "/syntree." + ext
+  outfilename = string_opts[:outfilename] || "syntree"
+  filepath = File.expand_path(string_opts[:outdir]) + "/#{outfilename}." + ext
   case ext
   when "pdf"
     outfile = File.new(filepath, "wb")
