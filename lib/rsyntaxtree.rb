@@ -66,8 +66,6 @@ module RSyntaxTree
                      .gsub('-CABRACKET-', '>')
                      .gsub('¥¥', '\¥')
                      .gsub(/(?<!\\)¥/, "\\")
-                     .gsub(/\\\[/, "［")
-                     .gsub(/\\\]/, "］")
           new_params[key] = data
 
         when :symmetrize, :transparent, :polyline, :hide_default_connectors

@@ -23,7 +23,7 @@ task :docker_build do
   `docker build ./ -t rsyntaxtree_devel`
 end
 
-desc "Generate SVG and PNG example images using Docker mage"
+desc "Generate SVG and PNG example images using Docker image"
 task :docker_generate do
   docpath = File.expand_path(File.join(__dir__, "docs"))
   `docker build ./ -t rsyntaxtree_devel`

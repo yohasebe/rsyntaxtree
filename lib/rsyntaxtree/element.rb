@@ -70,7 +70,12 @@ module RSyntaxTree
           elements_height = []
           content[:elements].each do |e|
             text = e[:text]
-            e[:text] = text.gsub(" ", WHITESPACE_BLOCK).gsub(">", '&#62;').gsub("<", '&#60;')
+            # エスケープされた角括弧の処理
+            text = text.gsub('\\[', '[')
+                      .gsub('\\]', ']')
+            e[:text] = text.gsub(" ", WHITESPACE_BLOCK)
+                          .gsub(">", '&#62;')
+                          .gsub("<", '&#60;')
 
             @contains_phrase = true if text.include?(" ")
             decoration = e[:decoration]
@@ -103,10 +108,10 @@ module RSyntaxTree
                        seg[:char]
                      end
                 this_font = if seg[:type] == :emoji
-                              @fontset[:emoji]
-                            else
-                              font
-                            end
+                             @fontset[:emoji]
+                           else
+                             font
+                           end
                 metrics = FontMetrics.get_metrics(ch, this_font, fontsize, style, weight)
                 width += metrics.width
               end
@@ -119,13 +124,14 @@ module RSyntaxTree
               width = metrics.width
             end
 
+            # 以下は変更なし
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
               e[:content_width] = width
               width += if e[:text].size == 1
-                         height - width
-                       else
-                         @global[:width_half_x]
-                       end
+                        height - width
+                      else
+                        @global[:width_half_x]
+                      end
             end
 
             if e[:decoration].include?(:whitespace)

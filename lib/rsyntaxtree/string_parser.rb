@@ -112,11 +112,11 @@ module RSyntaxTree
 
       escape = false
       while ((@pos + i) < data.length) && !gottoken
-        ch = data[@pos + i];
+        ch = data[@pos + i]
         case ch
         when "["
           if escape
-            token += ch
+            token += '\\['  # エスケープされた角括弧として保持
             escape = false
           elsif i.positive?
             gottoken = true
@@ -125,7 +125,7 @@ module RSyntaxTree
           end
         when "]"
           if escape
-            token += ch
+            token += '\\]'  # エスケープされた角括弧として保持
             escape = false
           else
             token += ch if i.zero?
@@ -179,33 +179,41 @@ module RSyntaxTree
         token_r = token.split(//)
         case token_r[0]
         when "["
-          tl = token_r.length
-          token_r = token_r[1, tl - 1]
-          spaceat = token_r.index(" ")
-          newparent = -1
-
-          if spaceat
-            parts[0] = token_r[0, spaceat].join
-
-            tl = token_r.length
-            parts[1] = token_r[spaceat, tl - spaceat].join
-
-            element = Element.new(@id, parent, parts[0], @level, @fontset, @fontsize, @global)
+          # エスケープされた角括弧をチェック
+          if token =~ /\A\\\[/ || token =~ /\A\\\]/
+            # エスケープされた角括弧の場合は通常のテキストとして扱う
+            element = Element.new(@id, parent, token, @level, @fontset, @fontsize, @global)
             @id += 1
             @elist.add(element)
-            newparent = element.id
-
-            element = Element.new(@id, @id - 1, parts[1], @level + 1, @fontset, @fontsize, @global)
-            @id += 1
           else
-            joined = token_r.join
-            element = Element.new(@id, parent, joined, @level, @fontset, @fontsize, @global)
-            @id += 1
-            newparent = element.id
+            # 以下、既存の処理
+            tl = token_r.length
+            token_r = token_r[1, tl - 1]
+            spaceat = token_r.index(" ")
+            newparent = -1
+
+            if spaceat
+              parts[0] = token_r[0, spaceat].join
+              tl = token_r.length
+              parts[1] = token_r[spaceat, tl - spaceat].join
+
+              element = Element.new(@id, parent, parts[0], @level, @fontset, @fontsize, @global)
+              @id += 1
+              @elist.add(element)
+              newparent = element.id
+
+              element = Element.new(@id, @id - 1, parts[1], @level + 1, @fontset, @fontsize, @global)
+              @id += 1
+            else
+              joined = token_r.join
+              element = Element.new(@id, parent, joined, @level, @fontset, @fontsize, @global)
+              @id += 1
+              newparent = element.id
+            end
+            @elist.add(element)
+            @level += 1
+            make_tree(newparent)
           end
-          @elist.add(element)
-          @level += 1
-          make_tree(newparent)
         else
           if token.strip != ""
             element = Element.new(@id, parent, token, @level, @fontset, @fontsize, @global)

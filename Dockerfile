@@ -1,5 +1,5 @@
-FROM ruby:3.2.0-alpine3.17
-ENV WORKSPACE /rsyntaxtree
+FROM ruby:3.3-alpine
+ENV WORKSPACE=/rsyntaxtree
 WORKDIR $WORKSPACE
 
 RUN apk update && \

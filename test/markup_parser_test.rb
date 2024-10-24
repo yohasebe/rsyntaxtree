@@ -207,4 +207,11 @@ class MarkupParserTest < Minitest::Test
     Markup.parse text2
     # {:status=>:error, :text=>"!^#----\\n\\nX_Y_Z+1+>2"}
   end
+
+  def test_escaped_brackets
+    text = "[expr [id x] [suffix \\[ [id 2] \\] ] ]"
+    @parser = MarkupParser.new
+    @parser.parse(text)
+    assert true
+  end
 end
