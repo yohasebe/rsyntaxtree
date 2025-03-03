@@ -53,7 +53,9 @@ module FontMetrics
       gca.interline_spacing = 0
       gca.interword_spacing = 0
     end
-    gc.get_multiline_type_metrics(background, text)
+    metrics = gc.get_multiline_type_metrics(background, text)
+    background.destroy! # Explicitly destroy the image
+    metrics
   end
   module_function :get_metrics
 end

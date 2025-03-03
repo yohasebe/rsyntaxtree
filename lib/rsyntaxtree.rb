@@ -160,11 +160,12 @@ module RSyntaxTree
       context.render_rsvg_handle(rsvg)
       b = StringIO.new
       surface.write_to_png(b)
-      if binary
-        b
-      else
-        b.string
-      end
+      result = binary ? b : b.string
+      # Clean up resources
+      b.close unless binary
+      surface.finish
+      context.destroy
+      result
     rescue Cairo::InvalidSize
       raise RSTError, +"Error: the result syntree is too big"
     end
@@ -178,11 +179,11 @@ module RSyntaxTree
       context = Cairo::Context.new(surface)
       context.render_rsvg_handle(rsvg)
       surface.finish
-      if binary
-        b
-      else
-        b.string
-      end
+      result = binary ? b : b.string
+      # Clean up resources
+      b.close unless binary
+      context.destroy
+      result
     rescue Cairo::InvalidSize
       raise RSTError, +"Error: the result syntree is too big"
     end
@@ -200,10 +201,12 @@ module RSyntaxTree
       image, _data = Magick::Image.from_blob(svg) do |im|
         im.format = 'svg'
       end
-      image.to_blob do |im|
+      blob = image.to_blob do |im|
         im.format = @params[:format].upcase
       end
-      image
+      # Clean up resources
+      image.destroy!
+      blob
     end
   end
 end

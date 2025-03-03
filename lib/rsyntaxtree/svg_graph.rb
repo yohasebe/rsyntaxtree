@@ -7,7 +7,7 @@
 # Parses an element list into an SVG tree.
 # Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
 
-require "tempfile"
+# No tempfile usage in this file
 require_relative 'base_graph'
 require_relative 'utils'
 
