@@ -10,6 +10,7 @@ Documentation is currently available in the following languages:
 - [日本語ドキュメント](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
 
 - [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples)
+
 ## Web Interface
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree-web-screenshot.png?raw=true' width='700px'/>
@@ -56,9 +57,27 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 
 ## Installation
 
-`# gem install rsyntaxtree`
+```
+gem install rsyntaxtree
+```
 
-**NOTE**: Currently, installation of the gem package on macOS is not recommended. Please use the [Docker image](https://hub.docker.com/r/yohasebe/rsyntaxtree) or the [web interface](https://yohasebe.com/rsyntaxtree).
+### macOS Installation Notice
+
+**Important for macOS users:** If you are installing the RSyntaxTree gem directly on macOS, you might encounter build errors for some native extensions (specifically for `gobject-introspection`, `cairo-gobject`, and `gio2`). These errors occur due to macOS linker requirements for dynamic symbol resolution. To work around this issue, please run the following commands in your terminal **before** installing RSyntaxTree:
+
+```bash
+gem install gobject-introspection -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
+gem install cairo-gobject -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
+gem install gio2 -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
+```
+
+After executing these commands, you can install RSyntaxTree normally:
+
+```bash
+gem install rsyntaxtree
+```
+
+Alternatively, if you prefer a smoother installation process, consider using the [Docker image](https://hub.docker.com/r/yohasebe/rsyntaxtree) or the [web interface](https://yohasebe.com/rsyntaxtree).
 
 ## Usage
 
