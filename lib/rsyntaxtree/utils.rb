@@ -5,7 +5,7 @@
 #==========================
 #
 # Image utility functions to inspect text font metrics
-# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2026 Yoichiro Hasebe <yohasebe@gmail.com>
 
 require 'rmagick'
 

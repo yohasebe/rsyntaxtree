@@ -13,6 +13,11 @@ class MarkupParser < Parslet::Parser
   rule(:brackets) { str('#') }
   rule(:triangle) { str('^') }
 
+  # Color specification: @colorname: or @#hexcode:
+  rule(:color_name) { match('[a-zA-Z]').repeat(1) }
+  rule(:color_hex) { str('#') >> match('[0-9a-fA-F]').repeat(3, 6) }
+  rule(:color_spec) { str('@') >> (color_hex | color_name).as(:color_value) >> str(':') }
+
   rule(:path) { (str('+') >> str('-').maybe >> (str('>') | str('<')).maybe >> match('\d').repeat(1)).as(:path) }
   # rule(:escaped) { str('\\') >> match('[#<>{}\\^+*_=~\|\n\-]').as(:chr) }
   rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]]').as(:chr) }
@@ -51,7 +56,7 @@ class MarkupParser < Parslet::Parser
   rule(:markup) { (text | decoration | shape | bstroke) }
 
   rule(:line) { (cr.as(:extracr) | border | bborder | markup.repeat(1).as(:line) >> (cr | eof | str('+').present?)) }
-  rule(:lines) { triangle.maybe.as(:triangle) >> (brectangle | rectangle | brackets).maybe.as(:enclosure) >> line.repeat(1) >> path.repeat(0).as(:paths) >> (cr | eof) }
+  rule(:lines) { triangle.maybe.as(:triangle) >> (brectangle | rectangle | brackets).maybe.as(:enclosure) >> color_spec.maybe.as(:color) >> line.repeat(1) >> path.repeat(0).as(:paths) >> (cr | eof) }
   root :lines
 end
 
@@ -171,7 +176,7 @@ module Markup
 
     applied = @evaluator.apply(parsed)
 
-    results = { enclosure: :none, triangle: false, paths: [], contents: [] }
+    results = { enclosure: :none, triangle: false, paths: [], contents: [], color: nil }
     applied.each do |h|
       if h[:enclosure]
         results[:enclosure] = case h[:enclosure].to_s
@@ -187,6 +192,12 @@ module Markup
       end
       results[:triangle] = h[:triangle].to_s == '^' if h[:triangle]
       results[:paths] = h[:paths] if h[:paths]
+      # Handle color specification
+      if h[:color] && h[:color][:color_value]
+        color_value = h[:color][:color_value].to_s
+        # Prepend # if it's a hex color without it (parser captures just the hex part after #)
+        results[:color] = color_value
+      end
       results[:contents] << h if h[:type] == :text || h[:type] == :border || h[:type] == :bborder
     end
     { status: :success, results: results }

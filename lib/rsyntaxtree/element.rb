@@ -5,14 +5,14 @@
 #==========================
 #
 # Aa class that represents a basic tree element, either node or leaf.
-# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2026 Yoichiro Hasebe <yohasebe@gmail.com>
 
 require_relative "markup_parser"
 require_relative "utils"
 
 module RSyntaxTree
   class Element
-    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path
+    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color
 
     def initialize(id, parent, content, level, fontset, fontsize, global)
       @global = global
@@ -49,6 +49,7 @@ module RSyntaxTree
       @paths = results[:paths]
       @enclosure = results[:enclosure]
       @triangle = results[:triangle]
+      @color = results[:color]
 
       @contains_phrase = false
       setup

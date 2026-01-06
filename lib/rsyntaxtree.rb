@@ -6,7 +6,7 @@
 #
 # Facade of rsyntaxtree library.  When loaded by a driver script, it does all
 # the necessary 'require' to use the library.
-# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2026 Yoichiro Hasebe <yohasebe@gmail.com>
 
 FONT_DIR = File.expand_path(File.join(__dir__, "/../fonts"))
 ETYPE_NODE = 1
@@ -24,7 +24,7 @@ DEFAULT_OPTS = {
   linewidth: 1,
   vheight: 2.0,
   color: "modern",
-  symmetrize: "on",
+  symmetrize: "off",
   transparent: "off",
   polyline: "off",
   hide_default_connectors: "off"
@@ -41,6 +41,7 @@ require_relative 'rsyntaxtree/utils'
 require_relative 'rsyntaxtree/element'
 require_relative 'rsyntaxtree/elementlist'
 require_relative 'rsyntaxtree/svg_graph'
+require_relative 'rsyntaxtree/tikz_generator'
 require_relative 'rsyntaxtree/version'
 require_relative 'rsyntaxtree/string_parser'
 
@@ -152,6 +153,9 @@ module RSyntaxTree
     end
 
     def draw_png(binary = false)
+      surface = nil
+      context = nil
+      b = nil
       svg = draw_svg
       rsvg = RSVG::Handle.new_from_data(svg)
       dim = rsvg.dimensions
@@ -160,17 +164,19 @@ module RSyntaxTree
       context.render_rsvg_handle(rsvg)
       b = StringIO.new
       surface.write_to_png(b)
-      result = binary ? b : b.string
-      # Clean up resources
-      b.close unless binary
-      surface.finish
-      context.destroy
-      result
+      binary ? b : b.string
     rescue Cairo::InvalidSize
       raise RSTError, +"Error: the result syntree is too big"
+    ensure
+      b&.close unless binary
+      surface&.finish
+      context&.destroy
     end
 
     def draw_pdf(binary = false)
+      surface = nil
+      context = nil
+      b = nil
       b = StringIO.new
       svg = draw_svg
       rsvg = RSVG::Handle.new_from_data(svg)
@@ -179,13 +185,12 @@ module RSyntaxTree
       context = Cairo::Context.new(surface)
       context.render_rsvg_handle(rsvg)
       surface.finish
-      result = binary ? b : b.string
-      # Clean up resources
-      b.close unless binary
-      context.destroy
-      result
+      binary ? b : b.string
     rescue Cairo::InvalidSize
       raise RSTError, +"Error: the result syntree is too big"
+    ensure
+      b&.close unless binary
+      context&.destroy
     end
 
     def draw_svg
@@ -195,18 +200,31 @@ module RSyntaxTree
       graph.svg_data
     end
 
-    # Currently not used
-    def draw_tree
-      svg = draw_svg
-      image, _data = Magick::Image.from_blob(svg) do |im|
-        im.format = 'svg'
-      end
-      blob = image.to_blob do |im|
-        im.format = @params[:format].upcase
-      end
-      # Clean up resources
-      image.destroy!
+    def draw_jpg
+      png_data = draw_png
+      images = Magick::Image.from_blob(png_data)
+      image = images.first
+      image.format = 'JPEG'
+      blob = image.to_blob
+      images.each(&:destroy!)
       blob
+    end
+
+    def draw_gif
+      png_data = draw_png
+      images = Magick::Image.from_blob(png_data)
+      image = images.first
+      image.format = 'GIF'
+      blob = image.to_blob
+      images.each(&:destroy!)
+      blob
+    end
+
+    def draw_tikz(standalone: false, font: nil)
+      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
+      sp.parse
+      generator = TikZGenerator.new(sp.get_elementlist, @params)
+      generator.generate(standalone: standalone, font: font)
     end
   end
 end

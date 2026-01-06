@@ -121,6 +121,25 @@ If `##` is placed at the beginning of the leaf text, a rectangle is drawn instea
 
 If `###` is placed at the beginning of the leaf text, a rectangle with thicker lines is drawn.
 
+### Per-Node Styling (Color)
+
+You can specify a custom color for individual nodes using the `@color:` prefix. Both named colors and hex color codes are supported.
+
+|Sample Input|Description|
+|------------|-----------|
+|`@red:NP`|Named color (red)|
+|`@blue:VP`|Named color (blue)|
+|`@#FF5500:NP`|Hex color code|
+|`@#0A0:VP`|Short hex color code|
+
+**Markup Order**: When combining with other prefixes, use this order: `^` (triangle) → `#` (enclosure) → `@color:` (color)
+
+|Sample Input|Description|
+|------------|-----------|
+|`^@blue:NP`|Triangle connector + blue color|
+|`#@red:NP`|Square brackets + red color|
+|`^#@green:NP`|Triangle + brackets + green color|
+
 ### Escape Special Characters
 
 The backslash character `\` must be used to print certain characters used in the markup. If you do not have the `\` key on your keyboard, you can also use the yen/yuan character `¥` to escape.
@@ -152,6 +171,76 @@ You can also add extra connector between nodes in the same fasion as you draw pa
 Each additional connectors is distinguished by an ID number. The ID is specified by putting a a number after a sequence of a plus and a minus symbols (e.g. `+-8`) at the end of the node text. If a greater-than `>` or less-than `<` symbol is placed between the minus sign and the number (e.g. `+->8`), an arrowhead will appear at the end of the connector. Note that it makes no difference whether `+->` or `+-<` is used. The arrow is always directed to the element with one of these ID symbols.
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the additional connector is rendered. The same ID number cannot appear in more than two places.
+
+### Command Line Interface Features
+
+The following features are available only in the command-line interface.
+
+#### Penn Treebank Format
+
+RSyntaxTree automatically detects and converts Penn Treebank format to bracket notation:
+
+```
+# Penn Treebank format
+(S (NP the dog) (VP runs))
+
+# Equivalent bracket notation
+[S [NP the dog] [VP runs]]
+```
+
+**Escaping special characters in Penn Treebank format:**
+
+| Input | Displayed as |
+|-------|--------------|
+| `\(` `\)` | Parentheses `()` as literal text |
+| `\[` `\]` | Square brackets `[]` as literal text |
+
+Example:
+```
+(S (NP hello\(world\)) (VP test))
+→ [S [NP hello(world)] [VP test]]
+```
+
+#### Standard Input Support
+
+You can pipe tree data via standard input:
+
+```bash
+echo "[S [NP hello] [VP world]]" | rsyntaxtree -f svg -o ./
+cat tree.txt | rsyntaxtree -f png -o ./
+```
+
+#### Configuration File
+
+Create a `.rsyntaxtreerc` file in your home directory or current directory to set default options:
+
+```yaml
+# ~/.rsyntaxtreerc
+format: svg
+color: modern
+fontsize: 18
+leafstyle: auto
+symmetrize: off
+```
+
+CLI arguments override configuration file settings. Unknown options in the config file will generate warnings, and invalid values will cause errors with helpful messages.
+
+#### TikZ Output
+
+RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz` option. The output can be used directly in LaTeX with the `forest` package.
+
+**Limitations:** The TikZ output focuses on tree structure and does not support the following visual features:
+
+| Feature | TikZ Support |
+|---------|--------------|
+| Per-node coloring (`@color:`) | Not supported |
+| Enclosures (`#`, `##`) | Not supported |
+| Triangle connectors (`^`) | Not supported |
+| Text decoration (bold, italic) | Not supported |
+| Subscript/superscript (`_x_`, `__x__`) | Not supported |
+| Path drawing (`+1`, `+>1`) | Not supported |
+
+Users familiar with LaTeX can manually add these features to the generated TikZ code using standard LaTeX commands (e.g., `\textcolor{red}{NP}`, `\textbf{...}`).
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>

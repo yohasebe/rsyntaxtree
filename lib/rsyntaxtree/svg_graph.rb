@@ -5,7 +5,7 @@
 #==========================
 #
 # Parses an element list into an SVG tree.
-# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2026 Yoichiro Hasebe <yohasebe@gmail.com>
 
 # No tempfile usage in this file
 require_relative 'base_graph'
@@ -149,7 +149,10 @@ module RSyntaxTree
       right = left + element.content_width
       txt_pos = left + (right - left) / 2
 
-      col = if element.type == ETYPE_LEAF
+      # Use element's custom color if specified, otherwise use default based on type
+      col = if element.color
+              element.color
+            elsif element.type == ETYPE_LEAF
               @col_leaf
             else
               @col_node
@@ -444,7 +447,11 @@ module RSyntaxTree
 
       path_flags.uniq.each do |k|
         targets = path_pool_target[k]
+        next if targets.nil? || targets.empty?
+
         fst = targets.shift
+        next if fst.nil?
+
         targets.each do |t|
           paths << { x1: fst[0], y1: fst[1], x2: t[0], y2: t[1], arrow: :double }
         end

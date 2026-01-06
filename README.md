@@ -1,27 +1,76 @@
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree.png?raw=true' style='width: 256px;' />
 
-**RSyntaxTree** is a graphical syntax tree generator for linguistic research 
+**RSyntaxTree** is a graphical syntax tree generator for linguistic research.
 
-## Documentation
+<p>
+  <a href="https://yohasebe.com/rsyntaxtree"><strong>Web App</strong></a> ·
+  <a href="https://yohasebe.github.io/rsyntaxtree/examples"><strong>Example Gallery</strong></a> ·
+  <a href="https://yohasebe.github.io/rsyntaxtree/documentation"><strong>Documentation</strong></a>
+</p>
 
-Documentation is currently available in the following languages:
+## Features
 
-- [Documentation in English](https://yohasebe.github.io/rsyntaxtree/documentation)
-- [日本語ドキュメント](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
+RSyntaxTree provides a rich set of features for creating publication-quality syntax trees:
 
-- [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples)
+### Basic Syntax
+
+Use bracket notation to define tree structures:
+
+```text
+[S [NP the cat] [VP [V sleeps]]]
+```
+
+### Text Decoration
+
+Apply various text styles to node labels:
+
+- **Bold**: `**text**`
+- *Italic*: `*text*`
+- Subscript: `_text_`
+- Superscript: `__text__`
+- Overline/Underline/Strikethrough: `=text=`, `-text-`, `~text~`
+
+### Per-Node Coloring
+
+Apply custom colors to individual nodes using `@color:` syntax:
+
+```text
+[S [@red:NP the cat] [@blue:VP sleeps]]
+```
+
+Supports named colors (`red`, `blue`, `green`, etc.) and hex colors (`@#FF5733:`).
+
+### Enclosures and Triangles
+
+- **Brackets**: `[#NP text]` → draws brackets around the node
+- **Rectangle**: `[##NP text]` → draws a rectangle around the node
+- **Triangle**: `[^NP the quick fox]` → draws a triangle connector
+
+Combine with colors: `[#@red:NP text]`, `[^@blue:VP phrase]`
+
+### Path Drawing
+
+Connect nodes with lines or arrows:
+
+```text
+[S [NP+1 text] [VP [V+>1 connects]]]
+```
+
+### Multiple Output Formats
+
+Generate trees in PNG, SVG, PDF, JPG, or GIF format.
 
 ## Web Interface
 
 <img src='https://github.com/yohasebe/rsyntaxtree/blob/master/img/rsyntaxtree-web-screenshot.png?raw=true' width='700px'/>
 
-See updates and a working web interface available at <https://yohasebe.com/rsyntaxtree>.
+A working web interface is available at <https://yohasebe.com/rsyntaxtree>.
 
-You can run RSyntaxTree's web interface on your local machine using Docker Desktop. See [RSyntaxTree Web UI](https://github.com/yohasebe/rsyntaxtree_web)
+You can also run RSyntaxTree's web interface on your local machine using Docker Desktop. See [RSyntaxTree Web UI](https://github.com/yohasebe/rsyntaxtree_web).
 
 ## Examples
 
-See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) page for examples for
+See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) for examples covering:
 
 - Generative Grammar
 - Combinatory Categorial Grammar
@@ -30,9 +79,7 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 - Construction Grammar
 - Pragmatics
 - Phonology
-- etc.
-
-**NOTE**: Some tree structures in the example gallery are experimental in the sense that they are not drawn according to conventions of the field.
+- and more
 
 **Input text**
 
@@ -57,13 +104,13 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 
 ## Installation
 
-```
+```bash
 gem install rsyntaxtree
 ```
 
 ### macOS Installation Notice
 
-**Important for macOS users:** If you are installing the RSyntaxTree gem directly on macOS, you might encounter build errors for some native extensions (specifically for `gobject-introspection`, `cairo-gobject`, and `gio2`). These errors occur due to macOS linker requirements for dynamic symbol resolution. To work around this issue, please run the following commands in your terminal **before** installing RSyntaxTree:
+**Important for macOS users:** If you encounter build errors for native extensions (`gobject-introspection`, `cairo-gobject`, `gio2`), run the following commands before installing RSyntaxTree:
 
 ```bash
 gem install gobject-introspection -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
@@ -71,69 +118,85 @@ gem install cairo-gobject -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
 gem install gio2 -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
 ```
 
-After executing these commands, you can install RSyntaxTree normally:
+Then install RSyntaxTree:
 
 ```bash
 gem install rsyntaxtree
 ```
 
-Alternatively, if you prefer a smoother installation process, consider using the [Docker image](https://hub.docker.com/r/yohasebe/rsyntaxtree) or the [web interface](https://yohasebe.com/rsyntaxtree).
+Alternatively, use the [Docker image](https://hub.docker.com/r/yohasebe/rsyntaxtree) or the [web interface](https://yohasebe.com/rsyntaxtree).
 
 ## Usage
 
-For the web interface, see Usage section of <https://yohasebe.com/rsyntaxtree>.
-
-For the command-line interface, type `$rsyntaxtree -h` after installation. Here's what you get:
+### Command Line
 
 ```text
-RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
-
 Usage:
-       1) rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
-       2) rsyntaxtree [options] "/path/to/text/file"
-where [options] are:
-  -o, --outdir=<s>                     Output directory (default: ./)
-  -u, --outfilename=<s>                Output file base name (default: syntree)
-  -f, --format=<s>                     Output format: png, gif, jpg, pdf, or svg (default: png)
-  -l, --leafstyle=<s>                  visual style of tree leaves: auto, triangle, bar, or nothing (default: auto)
-  -n, --fontstyle=<s>                  Font style (available when ttf font is specified): sans, serif, cjk, mono (default: sans)
-  -t, --font=<s>                       Path to a ttf font used to generate tree (optional)
-  -s, --fontsize=<i>                   Size: 8-26 (default: 16)
-  -i, --linewidth=<i>                  Size: 1-5 (default: 1)
-  -v, --vheight=<f>                    Connector Height: 0.5-5.0 (default: 2.0)
-  -c, --color=<s>                      Color text and bars: modern, traditional, or off (default: modern)
-  -y, --symmetrize=<s>                 Generate radically symmetrical, balanced tree: on or off (default: off)
-  -r, --transparent=<s>                Make background transparent: on or off (default: off)
-  -p, --polyline=<s>                   draw polyline connectors: on or off (default: off)
-  -d, --hide-default-connectors=<s>    make default connectors transparent: on or off (default: off)
-  -h, --help                           This is a custom help message
-  -e, --version                        Print version and exit
+       1) rsyntaxtree [options] "[S [NP text] [VP here]]"
+       2) rsyntaxtree [options] "(S (NP text) (VP here))"  # Penn Treebank format
+       3) rsyntaxtree [options] "/path/to/text/file"
+       4) echo "[S [NP text] [VP here]]" | rsyntaxtree [options]
 ```
 
-See the [documentation](https://yohasebe.github.io/rsyntaxtree/documentation) for more detailed info about the syntax.
+### Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `-o, --outdir` | Output directory | `./` |
+| `-f, --format` | Output format: png, gif, jpg, pdf, svg | `png` |
+| `-l, --leafstyle` | Leaf style: auto, triangle, bar, nothing | `auto` |
+| `-n, --fontstyle` | Font style: sans, serif, cjk, mono | `sans` |
+| `-s, --fontsize` | Font size: 8-26 | `16` |
+| `-c, --color` | Color mode: modern, traditional, off | `modern` |
+| `-y, --symmetrize` | Symmetrical tree: on, off | `off` |
+| `-p, --polyline` | Polyline connectors: on, off | `off` |
+
+Run `rsyntaxtree -h` for the full list of options.
+
+### Input Formats
+
+- **Bracket notation**: `[S [NP text] [VP here]]`
+- **Penn Treebank format**: `(S (NP text) (VP here))` - automatically converted
+- **Standard input**: `echo "[S [NP text]]" | rsyntaxtree`
+
+### Configuration File
+
+RSyntaxTree supports configuration files (`.rsyntaxtreerc`) in YAML format. Place the file in your home directory or current working directory.
+
+```yaml
+# ~/.rsyntaxtreerc
+format: svg
+color: modern
+fontsize: 18
+```
+
+CLI options override config file settings.
+
+## Documentation
+
+For detailed documentation on syntax and markup:
+
+- [Documentation in English](https://yohasebe.github.io/rsyntaxtree/documentation)
+- [日本語ドキュメント](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
+- [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples)
 
 ## References
 
-Please use the following BibTeX entry when referring to RSyntaxTree.
+Please use the following BibTeX entry when citing RSyntaxTree:
 
-```
-@misc{rsyntaxtree_2024,
+```bibtex
+@misc{rsyntaxtree,
   author = {Yoichiro Hasebe},
-  title = {RSyntaxTree: A graphical syntax tree image generator}
+  title = {RSyntaxTree: A graphical syntax tree image generator},
   url = {https://yohasebe.com/rsyntaxtree},
-  year = {2024}
+  year = {2026}
 }
 ```
 
-## Development
-
-For the latest updates and downloads please visit <http://github.com/yohasebe/rsyntaxtree>
-
 ## Author
 
-Yoichiro Hasebe <yohasebe@gmail.com>
+Yoichiro Hasebe (<yohasebe@gmail.com>)
 
 ## License
 
 RSyntaxTree is distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
-

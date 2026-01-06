@@ -5,7 +5,7 @@
 #==========================
 #
 # Image utility functions to inspect text font metrics
-# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2026 Yoichiro Hasebe <yohasebe@gmail.com>
 
 require_relative 'utils'
 
@@ -44,7 +44,7 @@ module RSyntaxTree
       @col_bg   = "none"
       @col_fg   = "black"
 
-      @col_line = if params[:hide_default_connectors]
+      @col_line = if params[:hide_default_connectors] == true
                     "none"
                   else
                     "black"
@@ -188,19 +188,19 @@ module RSyntaxTree
         child = children[0]
         case @leafstyle
         when "auto"
-          if child.contains_phrase || child.triangle
+          if parent.triangle || child.contains_phrase
             triangle_to_parent(parent, child)
           else
             line_to_parent(parent, child)
           end
         when "bar"
-          if child.triangle
+          if parent.triangle
             triangle_to_parent(parent, child)
           else
             line_to_parent(parent, child)
           end
         when "nothing", "none"
-          if child.triangle
+          if parent.triangle
             triangle_to_parent(parent, child)
           elsif ETYPE_LEAF != child.type
             line_to_parent(parent, child)

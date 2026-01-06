@@ -5,7 +5,7 @@
 #==========================
 #
 # Contains a list of unordered tree elements with a defined parent
-# Copyright (c) 2007-2024 Yoichiro Hasebe <yohasebe@gmail.com>
+# Copyright (c) 2007-2026 Yoichiro Hasebe <yohasebe@gmail.com>
 
 require_relative "element"
 
@@ -33,7 +33,7 @@ module RSyntaxTree
     end
 
     def get_first
-      return nil if @elements.length.empty?
+      return nil if @elements.empty?
 
       @iterator = 0
       @elements[@iterator]
@@ -41,9 +41,7 @@ module RSyntaxTree
 
     def get_next
       @iterator += 1
-      return @elements[@iterator] if @elements[@iterator]
-
-      nil
+      @elements[@iterator]
     end
 
     def get_id(id)

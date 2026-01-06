@@ -2,9 +2,85 @@
 # frozen_string_literal: true
 
 require 'optimist'
+require 'yaml'
 
 require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
+require_relative '../lib/rsyntaxtree/format_converter'
+
+# Valid configuration keys and their validators
+CONFIG_VALIDATORS = {
+  outdir: ->(v) { FileTest.directory?(v) ? nil : "must be an existing directory path" },
+  outfilename: ->(v) { v.is_a?(String) ? nil : "must be a string" },
+  format: ->(v) { /\A(png|jpg|gif|pdf|svg)\z/ =~ v.to_s ? nil : "must be png, jpg, gif, pdf, or svg" },
+  leafstyle: ->(v) { /\A(auto|triangle|bar|nothing)\z/ =~ v.to_s ? nil : "must be auto, triangle, bar, or nothing" },
+  fontstyle: ->(v) { /\A(sans|serif|cjk|mono)\z/ =~ v.to_s ? nil : "must be sans, serif, cjk, or mono" },
+  font: ->(v) { v.nil? || File.exist?(v) ? nil : "must be path to an existing ttf font" },
+  fontsize: ->(v) { v.is_a?(Integer) && v >= 8 && v <= 26 ? nil : "must be in the range of 8-26" },
+  linewidth: ->(v) { v.is_a?(Integer) && v >= 1 && v <= 5 ? nil : "must be in the range of 1-5" },
+  vheight: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 5.0 ? nil : "must be in the range of 0.5-5.0" },
+  color: ->(v) { /\A(modern|traditional|on|off|true|false)\z/ =~ v.to_s ? nil : "must be modern, traditional, or off" },
+  symmetrize: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
+  transparent: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
+  polyline: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
+  hide_default_connectors: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" }
+}.freeze
+
+# Validate configuration and return errors/warnings
+def validate_config(config, source_path)
+  errors = []
+  warnings = []
+
+  config.each do |key, value|
+    key_sym = key.to_sym
+    if CONFIG_VALIDATORS.key?(key_sym)
+      error_msg = CONFIG_VALIDATORS[key_sym].call(value)
+      if error_msg
+        errors << "Error in #{source_path}: '#{key}' #{error_msg} (got: #{value.inspect})"
+      end
+    else
+      warnings << "Warning: unknown option '#{key}' in #{source_path}"
+    end
+  end
+
+  { errors: errors, warnings: warnings }
+end
+
+# Load configuration from .rsyntaxtreerc files
+def load_config
+  config = {}
+  all_errors = []
+  all_warnings = []
+
+  config_files = [
+    File.join(Dir.home, '.rsyntaxtreerc'),
+    File.join(Dir.pwd, '.rsyntaxtreerc')
+  ]
+
+  config_files.each do |path|
+    if File.exist?(path)
+      file_config = YAML.safe_load(File.read(path), symbolize_names: true) || {}
+      validation = validate_config(file_config, path)
+      all_errors.concat(validation[:errors])
+      all_warnings.concat(validation[:warnings])
+      config.merge!(file_config)
+    end
+  end
+
+  { config: config, errors: all_errors, warnings: all_warnings }
+end
+
+loaded = load_config
+file_config = loaded[:config]
+
+# Show warnings for unknown keys
+loaded[:warnings].each { |w| warn w }
+
+# Exit with errors for invalid values
+unless loaded[:errors].empty?
+  loaded[:errors].each { |e| warn e }
+  exit 1
+end
 
 opts = Optimist.options do
   version "RSyntaxTree #{RSyntaxTree::VERSION} (c) 2024 Yoichiro Hasebe"
@@ -12,14 +88,16 @@ opts = Optimist.options do
     RSyntaxTree, (linguistic) syntax tree generator written in Ruby.
 
     Usage:
-           1) rsyntaxtree [options] "[VP [VP [V set] [NP bracket notation]] [ADV here]]"
-           2) rsyntaxtree [options] "/path/to/text/file"
+           1) rsyntaxtree [options] "[S [NP text] [VP here]]"
+           2) rsyntaxtree [options] "(S (NP text) (VP here))"  # Penn TreeBank format
+           3) rsyntaxtree [options] "/path/to/text/file"
+           4) echo "[S [NP text] [VP here]]" | rsyntaxtree [options]
     where [options] are:
   BANNER
 
   opt :outdir, "Output directory", default: "./"
   opt :outfilename, "Output file base name", default: "syntree"
-  opt :format, "Output format: png, pdf, or svg", default: "png"
+  opt :format, "Output format: png, jpg, gif, pdf, or svg", default: "png"
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto"
   opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk, mono", default: "sans"
   opt :font, "Path to a ttf font used to generate tree (optional)", type: String
@@ -48,16 +126,37 @@ Optimist.die :transparent, "must be either on or off" unless /\A(on|off|true|fal
 Optimist.die :polyline, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:polyline]
 Optimist.die :hide_default_connectors, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:hide_default_connectors]
 
+# Merge config file options with CLI options (CLI takes precedence)
 string_opts = {}
+
+# First, apply config file defaults
+file_config.each do |key, value|
+  string_opts[key.to_sym] = value
+end
+
+# Then, apply CLI options (overrides config file)
 opts.each do |key, value|
-  string_opts[key.to_sym] = value unless key == :font && !value
+  key_sym = key.to_sym
+  # Skip internal optimist keys and nil font
+  next if key.to_s.start_with?('_') || (key == :font && !value)
+  # Only override if explicitly given on CLI or not in config
+  if opts[:"#{key}_given"] || !file_config.key?(key_sym)
+    string_opts[key_sym] = value
+  end
 end
 
 data = if ARGV[0] && File.exist?(File.expand_path(ARGV[0]))
          File.read ARGV[0]
-       else
+       elsif ARGV[0]
          ARGV[0]
+       elsif !$stdin.tty?
+         $stdin.read
+       else
+         nil
        end
+
+# Auto-convert Penn TreeBank format to bracket notation
+data = RSyntaxTree::FormatConverter.to_bracket(data) if data
 
 begin
   RSyntaxTree::RSGenerator.check_data(data)
@@ -72,20 +171,9 @@ begin
   ext = string_opts[:format]
   outfilename = string_opts[:outfilename] || "syntree"
   filepath = File.expand_path(string_opts[:outdir]) + "/#{outfilename}." + ext
-  case ext
-  when "pdf"
-    outfile = File.new(filepath, "wb")
-    outfile.write rsg.draw_pdf
-    outfile.close
-  when "png"
-    outfile = File.new(filepath, "wb")
-    outfile.write rsg.draw_png
-    outfile.close
-  when "svg"
-    outfile = File.new(filepath, "wb")
-    outfile.write rsg.draw_svg
-    outfile.close
-  end
+  draw_method = "draw_#{ext}"
+  output = rsg.send(draw_method)
+  File.binwrite(filepath, output)
 rescue RSTError => e
   puts e
   exit
