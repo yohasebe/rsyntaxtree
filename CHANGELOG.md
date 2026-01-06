@@ -9,9 +9,6 @@
 - Configuration file support (`.rsyntaxtreerc`)
 - Config file validation with helpful error messages
 
-### Fixed
-- Triangle connector now correctly draws from parent to child (not child to grandchild)
-
 ### Documentation
 - Added TikZ output limitations section
 - Improved README with Features section
