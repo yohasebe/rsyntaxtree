@@ -13,6 +13,7 @@
 - Added TikZ output limitations section
 - Improved README with Features section
 - Added examples for per-node coloring (054, 055, 056)
+- Added example 057: Subscript and superscript demo
 
 ## [1.3.2] - 2024
 
