@@ -58,7 +58,7 @@ Connect nodes with lines or arrows:
 
 ### Multiple Output Formats
 
-Generate trees in PNG, SVG, PDF, JPG, or GIF format.
+Generate trees in PNG, SVG, PDF, JPG, GIF, or LSIF (JSON) format.
 
 ## Web Interface
 
@@ -143,7 +143,7 @@ Usage:
 | Option | Description | Default |
 |--------|-------------|---------|
 | `-o, --outdir` | Output directory | `./` |
-| `-f, --format` | Output format: png, gif, jpg, pdf, svg | `png` |
+| `-f, --format` | Output format: png, gif, jpg, pdf, svg, lsif | `png` |
 | `-l, --leafstyle` | Leaf style: auto, triangle, bar, nothing | `auto` |
 | `-n, --fontstyle` | Font style: sans, serif, cjk, mono | `sans` |
 | `-s, --fontsize` | Font size: 8-26 | `16` |

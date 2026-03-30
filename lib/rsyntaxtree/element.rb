@@ -12,7 +12,7 @@ require_relative "utils"
 
 module RSyntaxTree
   class Element
-    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color
+    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content
 
     def initialize(id, parent, content, level, fontset, fontsize, global)
       @global = global
@@ -35,6 +35,7 @@ module RSyntaxTree
 
       @fontset = fontset
       @fontsize = fontsize
+      @raw_content = content.sub(/\^?(?:\+-?>?<?\d+)+\^?\z/, '')
 
       parsed = Markup.parse(content)
 

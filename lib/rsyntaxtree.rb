@@ -41,6 +41,7 @@ require_relative 'rsyntaxtree/utils'
 require_relative 'rsyntaxtree/element'
 require_relative 'rsyntaxtree/elementlist'
 require_relative 'rsyntaxtree/svg_graph'
+require_relative 'rsyntaxtree/lsif_graph'
 require_relative 'rsyntaxtree/tikz_generator'
 require_relative 'rsyntaxtree/version'
 require_relative 'rsyntaxtree/string_parser'
@@ -218,6 +219,13 @@ module RSyntaxTree
       blob = image.to_blob
       images.each(&:destroy!)
       blob
+    end
+
+    def draw_lsif
+      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
+      sp.parse
+      graph = LsifGraph.new(sp.get_elementlist, @params, @global)
+      graph.lsif_data
     end
 
     def draw_tikz(standalone: false, font: nil)

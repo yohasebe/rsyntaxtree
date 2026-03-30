@@ -12,7 +12,7 @@ require_relative '../lib/rsyntaxtree/format_converter'
 CONFIG_VALIDATORS = {
   outdir: ->(v) { FileTest.directory?(v) ? nil : "must be an existing directory path" },
   outfilename: ->(v) { v.is_a?(String) ? nil : "must be a string" },
-  format: ->(v) { /\A(png|jpg|gif|pdf|svg)\z/ =~ v.to_s ? nil : "must be png, jpg, gif, pdf, or svg" },
+  format: ->(v) { /\A(png|jpg|gif|pdf|svg|lsif)\z/ =~ v.to_s ? nil : "must be png, jpg, gif, pdf, svg, or lsif" },
   leafstyle: ->(v) { /\A(auto|triangle|bar|nothing)\z/ =~ v.to_s ? nil : "must be auto, triangle, bar, or nothing" },
   fontstyle: ->(v) { /\A(sans|serif|cjk|mono)\z/ =~ v.to_s ? nil : "must be sans, serif, cjk, or mono" },
   font: ->(v) { v.nil? || File.exist?(v) ? nil : "must be path to an existing ttf font" },
@@ -97,7 +97,7 @@ opts = Optimist.options do
 
   opt :outdir, "Output directory", default: "./"
   opt :outfilename, "Output file base name", default: "syntree"
-  opt :format, "Output format: png, jpg, gif, pdf, or svg", default: "png"
+  opt :format, "Output format: png, jpg, gif, pdf, svg, or lsif", default: "png"
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto"
   opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk, mono", default: "sans"
   opt :font, "Path to a ttf font used to generate tree (optional)", type: String
@@ -113,7 +113,7 @@ opts = Optimist.options do
 end
 
 Optimist.die :outdir, "must be an exsting directory path" unless FileTest.directory?(opts[:outdir])
-Optimist.die :format, "must be png, pdf, or svg" unless /\A(png|jpg|gif|pdf|svg)\z/ =~ opts[:format]
+Optimist.die :format, "must be png, pdf, svg, or lsif" unless /\A(png|jpg|gif|pdf|svg|lsif)\z/ =~ opts[:format]
 Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless /\A(sans|serif|cjk|mono)\z/ =~ opts[:fontstyle]
 Optimist.die :font, "must be path to an existing ttf font" if opts[:font] && !File.exist?(opts[:font])
@@ -170,7 +170,8 @@ begin
   rsg = RSyntaxTree::RSGenerator.new(string_opts)
   ext = string_opts[:format]
   outfilename = string_opts[:outfilename] || "syntree"
-  filepath = File.expand_path(string_opts[:outdir]) + "/#{outfilename}." + ext
+  file_ext = ext == "lsif" ? "lsif.json" : ext
+  filepath = File.expand_path(string_opts[:outdir]) + "/#{outfilename}.#{file_ext}"
   draw_method = "draw_#{ext}"
   output = rsg.send(draw_method)
   File.binwrite(filepath, output)
