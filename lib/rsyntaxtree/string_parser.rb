@@ -116,7 +116,7 @@ module RSyntaxTree
         case ch
         when "["
           if escape
-            token += '\\['  # エスケープされた角括弧として保持
+            token += '\\['  # Preserve as escaped bracket
             escape = false
           elsif i.positive?
             gottoken = true
@@ -125,7 +125,7 @@ module RSyntaxTree
           end
         when "]"
           if escape
-            token += '\\]'  # エスケープされた角括弧として保持
+            token += '\\]'  # Preserve as escaped bracket
             escape = false
           else
             token += ch if i.zero?
@@ -179,14 +179,14 @@ module RSyntaxTree
         token_r = token.split(//)
         case token_r[0]
         when "["
-          # エスケープされた角括弧をチェック
+          # Check for escaped square brackets
           if token =~ /\A\\\[/ || token =~ /\A\\\]/
-            # エスケープされた角括弧の場合は通常のテキストとして扱う
+            # Treat escaped brackets as regular text
             element = Element.new(@id, parent, token, @level, @fontset, @fontsize, @global)
             @id += 1
             @elist.add(element)
           else
-            # 以下、既存の処理
+            # Existing processing below
             tl = token_r.length
             token_r = token_r[1, tl - 1]
             spaceat = token_r.index(" ")

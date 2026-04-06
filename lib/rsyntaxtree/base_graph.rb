@@ -255,6 +255,11 @@ module RSyntaxTree
         e.content_width = ch
         e.content_height = cw
       end
+
+      # Save original global values for restoration in finalize_ltr
+      @saved_h_gap = @global[:h_gap_between_nodes]
+      @saved_height_connector = @global[:height_connector]
+
       # In LTR, siblings stack vertically. The TTB h_gap (char_width * 0.8)
       # is disproportionately large relative to the swapped content dimensions.
       # Use height_connector_to_text / 2 (= font_height / 4) for tight
@@ -287,6 +292,10 @@ module RSyntaxTree
         e.content_width = ch
         e.content_height = cw
       end
+
+      # Restore original global values
+      @global[:h_gap_between_nodes] = @saved_h_gap
+      @global[:height_connector] = @saved_height_connector
     end
 
     def parse_list

@@ -72,7 +72,7 @@ module RSyntaxTree
           elements_height = []
           content[:elements].each do |e|
             text = e[:text]
-            # エスケープされた角括弧の処理
+            # Handle escaped square brackets
             text = text.gsub('\\[', '[')
                       .gsub('\\]', ']')
             e[:text] = text.gsub(" ", WHITESPACE_BLOCK)
@@ -126,7 +126,7 @@ module RSyntaxTree
               width = metrics.width
             end
 
-            # 以下は変更なし
+            # The following is unchanged
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
               e[:content_width] = width
               width += if e[:text].size == 1

@@ -7,6 +7,7 @@ Gemfile.lock
 *.bak
 *.~
 *.log
+*.gem
 log/
 logs/
 
