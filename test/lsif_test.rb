@@ -87,6 +87,7 @@ class LsifGeneratorTest < Minitest::Test
       # Verify geometry
       assert data["geometry"]["width"] > 0, "Width must be positive"
       assert data["geometry"]["height"] > 0, "Height must be positive"
+      assert %w[ttb ltr].include?(data["geometry"]["direction"]), "Direction must be ttb or ltr"
 
       # Verify nodes
       nodes = data["nodes"]
@@ -138,5 +139,152 @@ class LsifGeneratorTest < Minitest::Test
         assert %w[forward backward bidirectional].include?(path["direction"]), "Invalid direction"
       end
     end
+  end
+end
+
+class LsifDirectionTest < Minitest::Test
+  def test_lsif_default_direction_is_ttb
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP test] [VP works]]"
+    opts[:fontstyle] = "sans"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    data = JSON.parse(rsg.draw_lsif)
+    assert_equal "ttb", data["geometry"]["direction"]
+  end
+
+  def test_lsif_ltr_direction
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP test] [VP works]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ltr"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    data = JSON.parse(rsg.draw_lsif)
+    assert_equal "ltr", data["geometry"]["direction"]
+  end
+
+  def test_lsif_ltr_has_valid_structure
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP the cat] [VP [V sat] [PP [P on] [NP the mat]]]]"
+    opts[:fontstyle] = "serif"
+    opts[:direction] = "ltr"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    data = JSON.parse(rsg.draw_lsif)
+
+    assert data["geometry"]["width"] > 0
+    assert data["geometry"]["height"] > 0
+
+    nodes = data["nodes"]
+    refute_empty nodes
+
+    root = nodes.find { |n| n["parent"].nil? }
+    assert root, "Must have a root node"
+
+    # In LTR, all leaves should be to the right of root
+    leaf_xs = nodes.select { |n| n["children"].empty? }.map { |n| n["position"]["x"] }
+    root_x = root["position"]["x"]
+    assert leaf_xs.all? { |x| x >= root_x }, "In LTR, all leaves should be to the right of root"
+  end
+
+  def test_lsif_ltr_nodes_have_valid_positions
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[A [B [D] [E]] [C [F] [G]]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ltr"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    data = JSON.parse(rsg.draw_lsif)
+
+    data["nodes"].each do |node|
+      pos = node["position"]
+      assert pos["x"] >= 0, "Node #{node["id"]} x should be >= 0"
+      assert pos["y"] >= 0, "Node #{node["id"]} y should be >= 0"
+      assert pos["content_width"] > 0, "Node #{node["id"]} content_width should be > 0"
+      assert pos["content_height"] > 0, "Node #{node["id"]} content_height should be > 0"
+    end
+  end
+
+  def test_lsif_ltr_edges_reference_valid_nodes
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP test] [VP works]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ltr"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    data = JSON.parse(rsg.draw_lsif)
+
+    node_ids = data["nodes"].map { |n| n["id"] }
+    data["edges"].each do |edge|
+      assert node_ids.include?(edge["from"]), "Edge from #{edge["from"]} not in nodes"
+      assert node_ids.include?(edge["to"]), "Edge to #{edge["to"]} not in nodes"
+    end
+  end
+end
+
+class SvgDirectionTest < Minitest::Test
+  def test_svg_ltr_generates_valid_xml
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP test] [VP works]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ltr"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    svg = rsg.draw_svg
+    doc = Nokogiri::XML(svg)
+    assert doc.errors.empty?, "LTR SVG should be valid XML"
+  end
+
+  def test_svg_ltr_with_triangle
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP the cat] [VP sat]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ltr"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    svg = rsg.draw_svg
+    doc = Nokogiri::XML(svg)
+    assert doc.errors.empty?, "LTR SVG with triangle should be valid XML"
+  end
+
+  def test_svg_ltr_with_polyline
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP test] [VP works]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ltr"
+    opts[:polyline] = "on"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    svg = rsg.draw_svg
+    doc = Nokogiri::XML(svg)
+    assert doc.errors.empty?, "LTR SVG with polyline should be valid XML"
+  end
+
+  def test_svg_ltr_with_bar_style
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP test] [VP works]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ltr"
+    opts[:leafstyle] = "bar"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    svg = rsg.draw_svg
+    doc = Nokogiri::XML(svg)
+    assert doc.errors.empty?, "LTR SVG with bar style should be valid XML"
+  end
+
+  def test_svg_ltr_with_nothing_style
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP test] [VP works]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ltr"
+    opts[:leafstyle] = "nothing"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    svg = rsg.draw_svg
+    doc = Nokogiri::XML(svg)
+    assert doc.errors.empty?, "LTR SVG with nothing style should be valid XML"
+  end
+
+  def test_svg_ttb_unchanged_by_ltr_code
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [NP test] [VP works]]"
+    opts[:fontstyle] = "sans"
+    opts[:direction] = "ttb"
+    rsg = RSyntaxTree::RSGenerator.new(opts)
+    svg = rsg.draw_svg
+    doc = Nokogiri::XML(svg)
+    assert doc.errors.empty?, "TTB SVG should still be valid XML"
   end
 end
