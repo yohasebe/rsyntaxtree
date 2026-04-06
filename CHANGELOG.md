@@ -5,7 +5,12 @@
 ### Added
 - Left-to-right tree layout (`-d ltr` / `--direction ltr`)
 - LSIF `geometry.direction` field for layout direction
-- Examples 058-062: LTR versions of classification/taxonomy trees
+- LTR-aware path drawing (movement arrows route rightward in ⊃ shape)
+- LTR-aware line-type connections (direct lines between nodes)
+- Examples 058-063: LTR versions of classification trees and vP-shell with paths
+
+### Improved
+- TTB path bulge proportional to endpoint distance (reduced excess)
 
 ## [1.4.0] - 2026-01
 

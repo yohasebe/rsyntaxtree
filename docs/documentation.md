@@ -29,6 +29,15 @@ RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vecto
 
 The `Radical symmetrization` option affects the way branch nodes are drawn. The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
+### Tree Direction
+
+The `Direction` option controls the orientation of the tree layout:
+
+- **Top to Bottom** (`ttb`): The default. Root node at the top, leaves at the bottom.
+- **Left to Right** (`ltr`): Root node at the left, leaves expand to the right. Useful for classification trees, taxonomies, and other hierarchical structures where horizontal layout is preferred.
+
+In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `Connector Height` option controls the horizontal depth between tree levels in LTR mode.
+
 ### Fonts Used to Generate PNG
 
 Currently, you can choose among the font styles `Noto Sans`, `Noto Serif`, `Noto Sans Mono` and `WQY Zen Hei`.
