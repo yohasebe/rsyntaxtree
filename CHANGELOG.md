@@ -9,6 +9,9 @@
 - LTR-aware line-type connections (direct lines between nodes)
 - Examples 058-063: LTR versions of classification trees and vP-shell with paths
 
+### Fixed
+- Node label overlap when adjacent subtrees have long labels
+
 ### Improved
 - TTB path bulge proportional to endpoint distance (reduced excess)
 
