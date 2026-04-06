@@ -1,9 +1,15 @@
 # Changelog
 
-## [1.4.0] - 2026-01
+## [1.5.0] - 2026-04
 
 ### Added
 - Left-to-right tree layout (`-d ltr` / `--direction ltr`)
+- LSIF `geometry.direction` field for layout direction
+- Examples 058-062: LTR versions of classification/taxonomy trees
+
+## [1.4.0] - 2026-01
+
+### Added
 - LSIF (Linguistic Structure Interchange Format) JSON output (`-f lsif`)
 - Per-node coloring with `@color:` syntax (named colors and hex colors)
 - Penn Treebank format support with escaped parentheses (`\(`, `\)`)
