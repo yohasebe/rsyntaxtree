@@ -98,50 +98,71 @@ module RSyntaxTree
     end
 
     def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)
-      x_spacing = @global[:h_gap_between_nodes] * 1.25
-      y_spacing = @global[:height_connector] * 0.75
+      spacing = @global[:h_gap_between_nodes] * 1.25
+      min_bulge = @global[:height_connector_to_text]
 
-      ymax = [s_y, t_y].max
-      new_y = if ymax < @height
-                @height + y_spacing
-              else
-                ymax + y_spacing
-              end
-
-      if @visited_x[s_x]
-        new_s_x = s_x - x_spacing * @visited_x[s_x]
-        @visited_x[s_x] += 1
-      else
-        new_s_x = s_x
-        @visited_x[s_x] = 1
-      end
-
-      if @visited_x[t_x]
-        new_t_x = t_x - x_spacing * @visited_x[t_x]
-        @visited_x[t_x] += 1
-      else
-        new_t_x = t_x
-        @visited_x[t_x] = 1
-      end
+      # Centered offset for multiple lines at the same endpoint
+      s_key = "#{s_x.round}"
+      t_key = "#{t_x.round}"
+      @visited_x[s_key] = (@visited_x[s_key] || 0) + 1
+      @visited_x[t_key] = (@visited_x[t_key] || 0) + 1
+      s_offset = ((@visited_x[s_key] - 1) - (@visited_x[s_key] - 1) / 2.0) * spacing
+      t_offset = ((@visited_x[t_key] - 1) - (@visited_x[t_key] - 1) / 2.0) * spacing
 
       dashed = true if target_arrow == :none
 
-      case target_arrow
-      when :single
-        @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
-        @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
-        @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
-        @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed, true)
-      when :double
-        @extra_lines << generate_line(new_s_x, new_y, new_s_x, s_y, @col_path, dashed, true)
-        @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
-        @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed, true)
+      if @direction == "ltr"
+        # LTR: route to the RIGHT of the tree (⊃ shape / reversed C)
+        # Source → right → vertical → left → Target
+        xmax = [s_x, t_x].max
+        bulge = [min_bulge, (s_y - t_y).abs * 0.3 + min_bulge].min
+        new_x = xmax + bulge
+
+        new_s_y = s_y + s_offset
+        new_t_y = t_y + t_offset
+
+        case target_arrow
+        when :single
+          @extra_lines << generate_line(s_x, new_s_y, new_x, new_s_y, @col_path, dashed)
+          @extra_lines << generate_line(new_x, new_s_y, new_x, new_t_y, @col_path, dashed)
+          @extra_lines << generate_line(new_x, new_t_y, t_x, new_t_y, @col_path, dashed, true)
+        when :double
+          @extra_lines << generate_line(new_x, new_s_y, s_x, new_s_y, @col_path, dashed, true)
+          @extra_lines << generate_line(new_x, new_s_y, new_x, new_t_y, @col_path, dashed)
+          @extra_lines << generate_line(new_x, new_t_y, t_x, new_t_y, @col_path, dashed, true)
+        else
+          @extra_lines << generate_line(s_x, new_s_y, new_x, new_s_y, @col_path, dashed)
+          @extra_lines << generate_line(new_x, new_s_y, new_x, new_t_y, @col_path, dashed)
+          @extra_lines << generate_line(new_x, new_t_y, t_x, new_t_y, @col_path, dashed)
+        end
       else
-        @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
-        @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
-        @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed)
+        # TTB: route BELOW the tree (U shape)
+        # Source → down → horizontal → up → Target
+        ymax = [s_y, t_y].max
+        # Proportional bulge: based on distance between endpoints,
+        # not the full tree height
+        bulge = [min_bulge, (s_x - t_x).abs * 0.3 + min_bulge].min
+        new_y = ymax + bulge
+
+        new_s_x = s_x - s_offset
+        new_t_x = t_x - t_offset
+
+        case target_arrow
+        when :single
+          @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
+          @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
+          @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed, true)
+        when :double
+          @extra_lines << generate_line(new_s_x, new_y, new_s_x, s_y, @col_path, dashed, true)
+          @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
+          @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed, true)
+        else
+          @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
+          @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
+          @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed)
+        end
+        @height = new_y if new_y > @height
       end
-      @height = new_y if new_y > @height
     end
 
     def draw_element(element)
@@ -393,11 +414,22 @@ module RSyntaxTree
       elist = @element_list.get_elements
 
       elist.each do |element|
-        x0 = element.horizontal_indent - @global[:h_gap_between_nodes]
-        x1 = element.horizontal_indent + element.content_width / 2
-        x2 = element.horizontal_indent + element.content_width + @global[:h_gap_between_nodes]
-        y0 = element.vertical_indent + @global[:height_connector_to_text] / 2
-        y1 = element.vertical_indent + element.content_height + @global[:height_connector_to_text]
+        if @direction == "ltr"
+          # LTR anchors: paths attach at left/right edges, vertically centered
+          hctt = @global[:height_connector_to_text]
+          y_center = element.vertical_indent + (element.content_height + hctt * 1.5) / 2
+          x0 = element.horizontal_indent - hctt
+          x1 = element.horizontal_indent + element.content_width + hctt
+          x2 = element.horizontal_indent + element.content_width + hctt * 2
+          y0 = y_center
+          y1 = y_center
+        else
+          x0 = element.horizontal_indent - @global[:h_gap_between_nodes]
+          x1 = element.horizontal_indent + element.content_width / 2
+          x2 = element.horizontal_indent + element.content_width + @global[:h_gap_between_nodes]
+          y0 = element.vertical_indent + @global[:height_connector_to_text] / 2
+          y1 = element.vertical_indent + element.content_height + @global[:height_connector_to_text]
+        end
         et = element.path
         et.each do |tr|
           if /\A-(>|<)?(\d+)\z/ =~ tr

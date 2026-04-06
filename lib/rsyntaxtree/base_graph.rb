@@ -102,7 +102,12 @@ module RSyntaxTree
         vertical_indent = if !target.triangle &&
                              (@leafstyle == "nothing" || @leafstyle == "none") &&
                              ETYPE_LEAF == target.type && parent.children.size == 1
-                            parent.vertical_indent + parent.content_height
+                            if @direction == "ltr"
+                              # LTR: add small horizontal gap between parent and leaf
+                              parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+                            else
+                              parent.vertical_indent + parent.content_height
+                            end
                           else
                             parent.vertical_indent + parent.content_height + @global[:height_connector]
                           end
