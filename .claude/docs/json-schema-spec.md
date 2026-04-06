@@ -136,7 +136,18 @@ Bounding box of the rendered structure. Required at Rendered level; absent at Co
 |-------|------|-------------|
 | `width` | number | Total width of the rendered structure (px) |
 | `height` | number | Total height of the rendered structure (px) |
-| `direction` | string | Layout direction: `"ttb"` (top-to-bottom, default), `"ltr"` (left-to-right). Future: `"rtl"`, `"btt"`. Omit or `"ttb"` for default |
+| `direction` | string | Layout direction: `"ttb"` (top-to-bottom, default), `"ltr"` (left-to-right). Future: `"rtl"` (right-to-left), `"btt"` (bottom-to-top). Omit or `"ttb"` for default |
+
+**Direction values and coordinate transforms:**
+
+| Value | Root position | Leaf expansion | Coordinate transform from TTB |
+|-------|--------------|----------------|-------------------------------|
+| `"ttb"` | Top | Downward | Identity (default) |
+| `"ltr"` | Left | Rightward | Swap x↔y axes |
+| `"rtl"` | Right | Leftward | Swap x↔y + flip x-axis |
+| `"btt"` | Bottom | Upward | Flip y-axis |
+
+Note: `direction` describes the tree's structural orientation. Text rendering direction (for RTL scripts like Arabic/Hebrew) is a separate concern handled at the node level, not by this field.
 
 ### `nodes` (required)
 
