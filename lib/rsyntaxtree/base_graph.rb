@@ -88,7 +88,20 @@ module RSyntaxTree
                         accum_array.sum
                       end
 
-        target.width = [accum_width, target.content_width].max
+        if target.content_width > accum_width
+          # Parent label is wider than children's total width.
+          # Distribute the excess equally among children to prevent
+          # child labels from overlapping when centered in their slots.
+          excess = target.content_width - accum_width
+          per_child = excess / target.children.size.to_f
+          target.children.each do |c|
+            child = @element_list.get_id(c)
+            child.width += per_child
+          end
+          target.width = target.content_width
+        else
+          target.width = accum_width
+        end
       end
     end
 
