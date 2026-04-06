@@ -116,7 +116,12 @@ module RSyntaxTree
         # Source → right → vertical → left → Target
         xmax = [s_x, t_x].max
         bulge = [min_bulge, (s_y - t_y).abs * 0.3 + min_bulge].min
-        new_x = xmax + bulge
+        # Ensure paths don't overlap: extend beyond previous paths
+        new_x = if xmax < @width
+                  @width + bulge
+                else
+                  xmax + bulge
+                end
 
         new_s_y = s_y + s_offset
         new_t_y = t_y + t_offset
@@ -135,6 +140,7 @@ module RSyntaxTree
           @extra_lines << generate_line(new_x, new_s_y, new_x, new_t_y, @col_path, dashed)
           @extra_lines << generate_line(new_x, new_t_y, t_x, new_t_y, @col_path, dashed)
         end
+        @width = new_x if new_x > @width
       else
         # TTB: route BELOW the tree (U shape)
         # Source → down → horizontal → up → Target
@@ -501,22 +507,37 @@ module RSyntaxTree
         a = v[0]
         b = v[1]
 
-        if a[:y][:top] > b[:y][:bottom]
-          generate_connectors(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], @col_extra, false, a[:arrow], b[:arrow])
-        elsif a[:y][:bottom] < b[:y][:top]
-          generate_connectors(b[:x][:center], b[:y][:top], a[:x][:center], a[:y][:bottom], @col_extra, false, b[:arrow], a[:arrow])
-        elsif a[:x][:center] < b[:x][:center]
-          if a[:y][:top] == b[:y][:top]
-            upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
-            generate_connectors(a[:x][:right], upper_y, b[:x][:left], upper_y, @col_extra, false, a[:arrow], b[:arrow])
+        if @direction == "ltr"
+          # LTR: use x-position to determine depth relationship,
+          # y-position for sibling relationship
+          if a[:x][:left] > b[:x][:right]
+            generate_connectors(a[:x][:left], a[:y][:center], b[:x][:right], b[:y][:center], @col_extra, false, a[:arrow], b[:arrow])
+          elsif a[:x][:right] < b[:x][:left]
+            generate_connectors(b[:x][:left], b[:y][:center], a[:x][:right], a[:y][:center], @col_extra, false, b[:arrow], a[:arrow])
+          elsif a[:y][:center] < b[:y][:center]
+            generate_connectors(a[:x][:center], a[:y][:bottom], b[:x][:center], b[:y][:top], @col_extra, false, a[:arrow], b[:arrow])
           else
-            generate_connectors(a[:x][:right], a[:y][:center], b[:x][:left], b[:y][:center], @col_extra, false, a[:arrow], b[:arrow])
+            generate_connectors(b[:x][:center], b[:y][:bottom], a[:x][:center], a[:y][:top], @col_extra, false, b[:arrow], a[:arrow])
           end
-        elsif a[:y][:top] == b[:y][:top]
-          upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
-          generate_connectors(b[:x][:right], upper_y, a[:x][:left], upper_y, @col_extra, false, b[:arrow], a[:arrow])
         else
-          generate_connectors(b[:x][:right], b[:y][:center], a[:x][:left], a[:y][:center], @col_extra, false, b[:arrow], a[:arrow])
+          # TTB: use y-position to determine depth relationship
+          if a[:y][:top] > b[:y][:bottom]
+            generate_connectors(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], @col_extra, false, a[:arrow], b[:arrow])
+          elsif a[:y][:bottom] < b[:y][:top]
+            generate_connectors(b[:x][:center], b[:y][:top], a[:x][:center], a[:y][:bottom], @col_extra, false, b[:arrow], a[:arrow])
+          elsif a[:x][:center] < b[:x][:center]
+            if a[:y][:top] == b[:y][:top]
+              upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
+              generate_connectors(a[:x][:right], upper_y, b[:x][:left], upper_y, @col_extra, false, a[:arrow], b[:arrow])
+            else
+              generate_connectors(a[:x][:right], a[:y][:center], b[:x][:left], b[:y][:center], @col_extra, false, a[:arrow], b[:arrow])
+            end
+          elsif a[:y][:top] == b[:y][:top]
+            upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
+            generate_connectors(b[:x][:right], upper_y, a[:x][:left], upper_y, @col_extra, false, b[:arrow], a[:arrow])
+          else
+            generate_connectors(b[:x][:right], b[:y][:center], a[:x][:left], a[:y][:center], @col_extra, false, b[:arrow], a[:arrow])
+          end
         end
       end
       paths.size + line_pool.keys.size
