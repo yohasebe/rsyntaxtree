@@ -47,6 +47,8 @@ class LsifGeneratorTest < Minitest::Test
         opts[:symmetrize] = value
       when "connector"
         opts[:leafstyle] = value
+      when "direction"
+        opts[:direction] = value
       when "font"
         opts[:fontstyle] = case value
                            when /mono/i

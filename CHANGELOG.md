@@ -3,6 +3,7 @@
 ## [1.4.0] - 2026-01
 
 ### Added
+- Left-to-right tree layout (`-d ltr` / `--direction ltr`)
 - LSIF (Linguistic Structure Interchange Format) JSON output (`-f lsif`)
 - Per-node coloring with `@color:` syntax (named colors and hex colors)
 - Penn Treebank format support with escaped parentheses (`\(`, `\)`)

@@ -285,7 +285,8 @@ module RSyntaxTree
         },
         geometry: {
           width: @width.round(1),
-          height: @height.round(1)
+          height: @height.round(1),
+          direction: @params[:direction] || "ttb"
         },
         nodes: @nodes,
         edges: @edges,

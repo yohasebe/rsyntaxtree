@@ -23,7 +23,8 @@ CONFIG_VALIDATORS = {
   symmetrize: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   transparent: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   polyline: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
-  hide_default_connectors: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" }
+  hide_default_connectors: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
+  direction: ->(v) { /\A(ttb|ltr)\z/ =~ v.to_s ? nil : "must be ttb or ltr" }
 }.freeze
 
 # Validate configuration and return errors/warnings
@@ -109,10 +110,12 @@ opts = Optimist.options do
   opt :transparent, "Make background transparent: on or off", default: "off"
   opt :polyline, "draw polyline connectors: on or off", default: "off"
   opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off"
+  opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb"
   opt :help, "This is a custom help message", short: :h
 end
 
 Optimist.die :outdir, "must be an exsting directory path" unless FileTest.directory?(opts[:outdir])
+Optimist.die :direction, "must be ttb or ltr" unless /\A(ttb|ltr)\z/ =~ opts[:direction]
 Optimist.die :format, "must be png, pdf, svg, or lsif" unless /\A(png|jpg|gif|pdf|svg|lsif)\z/ =~ opts[:format]
 Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless /\A(sans|serif|cjk|mono)\z/ =~ opts[:fontstyle]

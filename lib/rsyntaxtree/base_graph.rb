@@ -15,6 +15,7 @@ module RSyntaxTree
       @global = global
       @element_list = element_list
       @symmetrize = params[:symmetrize]
+      @direction = params[:direction] || "ttb"
 
       case params[:color]
       # Okabe-Ito Color
@@ -242,7 +243,56 @@ module RSyntaxTree
       end
     end
 
+    # LTR layout: two-phase coordinate transformation.
+    #
+    # Phase 1 (before layout): swap content dimensions so the layout
+    # algorithm uses text height for sibling spreading (→ vertical)
+    # and text width for depth spacing (→ horizontal).
+    def prepare_ltr
+      @element_list.get_elements.each do |e|
+        cw = e.content_width
+        ch = e.content_height
+        e.content_width = ch
+        e.content_height = cw
+      end
+      # In LTR, siblings stack vertically. The TTB h_gap (char_width * 0.8)
+      # is disproportionately large relative to the swapped content dimensions.
+      # Use height_connector_to_text / 2 (= font_height / 4) for tight
+      # vertical packing proportional to the font size.
+      @global[:h_gap_between_nodes] = @global[:height_connector_to_text] / 2
+
+      # In LTR, height_connector becomes horizontal depth between levels.
+      # After content swap, content_height = original content_width (small),
+      # so depth = small_value + height_connector. To maintain proportional
+      # depth similar to TTB (where depth = content_height + height_connector),
+      # compensate for the content dimension difference.
+      metrics = @global[:single_x_metrics]
+      content_diff = @global[:single_line_height] - metrics.width
+      @global[:height_connector] = @global[:height_connector] + [content_diff, 0].max
+    end
+
+    # Phase 2 (after layout, before drawing): swap position axes
+    # and restore original content dimensions for correct text rendering.
+    def finalize_ltr
+      @element_list.get_elements.each do |e|
+        # Swap position axes
+        h = e.horizontal_indent
+        v = e.vertical_indent
+        e.horizontal_indent = v
+        e.vertical_indent = h
+
+        # Restore original content dimensions (text is still horizontal)
+        cw = e.content_width
+        ch = e.content_height
+        e.content_width = ch
+        e.content_height = cw
+      end
+    end
+
     def parse_list
+      # Phase 1: swap content dimensions for LTR layout calculation
+      prepare_ltr if @direction == "ltr"
+
       if @element_list.elements.size > 1
         calculate_level
         calculate_width
@@ -264,12 +314,25 @@ module RSyntaxTree
       end
 
       calculate_height
+
+      # Phase 2: swap axes and restore content dimensions for LTR
+      finalize_ltr if @direction == "ltr"
+
       draw_elements
       draw_connector
       draw_paths
 
-      width = get_rightmost - get_leftmost + @global[:h_gap_between_nodes]
-      height = @element_list.get_id(1).height
+      # Calculate final bounds
+      max_x = 0
+      max_y = 0
+      @element_list.get_elements.each do |e|
+        r = e.horizontal_indent + e.content_width
+        b = e.vertical_indent + e.content_height
+        max_x = r if r > max_x
+        max_y = b if b > max_y
+      end
+      width = max_x + @global[:h_gap_between_nodes]
+      height = max_y
       height = @height if @height > height
       { height: height, width: width }
     end

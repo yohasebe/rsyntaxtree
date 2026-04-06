@@ -54,6 +54,8 @@ Dir.glob("*.md", base: examples_dir).map do |md|
       opts[:symmetrize] = value
     when "connector"
       opts[:leafstyle] = value
+    when "direction"
+      opts[:direction] = value
     when "font"
       opts[:fontstyle] = case value
                          when /mono/i

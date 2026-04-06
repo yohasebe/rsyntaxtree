@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="1294.9999999999998" height="1573.25" viewBox="-17.6, 0, 1312.5999999999997, 1584.5" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="1312.5999999999997" height="1563.375" viewBox="-17.6, 0, 1330.1999999999996, 1574.625" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="17.6" markerHeight="17.6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-17.6" y="0" width="1312.5999999999997" height="1584.5" stroke="none" fill="white" />"
+<rect x="-17.6" y="0" width="1330.1999999999996" height="1574.625" stroke="none" fill="white" />"
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='318.13749999999993' y='67.5'><tspan x='318.13749999999993' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">HEAD<tspan style='fill:none;'>￭</tspan></tspan>
 <tspan x='440.13749999999993' y='66.125' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">1</tspan>
 <tspan x='318.13749999999993' y='159.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">SPR<tspan style='fill:none;'>￭</tspan>〈<tspan style='fill:none;'>￭</tspan>〉</tspan>

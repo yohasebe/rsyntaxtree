@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="432.59999999999997" height="470.25" viewBox="-17.6, 0, 450.2, 481.5" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="450.2" height="462.375" viewBox="-17.6, 0, 467.8, 473.625" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="17.6" markerHeight="17.6" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-17.6" y="0" width="450.2" height="481.5" stroke="none" fill="white" />"
+<rect x="-17.6" y="0" width="467.8" height="473.625" stroke="none" fill="white" />"
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='177.775' y='67.5'><tspan x='177.775' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">NP</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='68.6' y='193.5'><tspan x='68.6' y='193.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">NP</tspan>

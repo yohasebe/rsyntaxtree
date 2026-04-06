@@ -150,6 +150,7 @@ Usage:
 | `-c, --color` | Color mode: modern, traditional, off | `modern` |
 | `-y, --symmetrize` | Symmetrical tree: on, off | `off` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
+| `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |
 
 Run `rsyntaxtree -h` for the full list of options.
 

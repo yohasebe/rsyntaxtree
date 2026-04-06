@@ -27,7 +27,8 @@ DEFAULT_OPTS = {
   symmetrize: "off",
   transparent: "off",
   polyline: "off",
-  hide_default_connectors: "off"
+  hide_default_connectors: "off",
+  direction: "ttb"
 }.freeze
 
 class RSTError < StandardError

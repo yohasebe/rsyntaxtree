@@ -127,7 +127,8 @@ Bounding box of the rendered structure. Required at Rendered level; absent at Co
 ```json
 {
   "width": 540.0,
-  "height": 480.0
+  "height": 480.0,
+  "direction": "ttb"
 }
 ```
 
@@ -135,6 +136,7 @@ Bounding box of the rendered structure. Required at Rendered level; absent at Co
 |-------|------|-------------|
 | `width` | number | Total width of the rendered structure (px) |
 | `height` | number | Total height of the rendered structure (px) |
+| `direction` | string | Layout direction: `"ttb"` (top-to-bottom, default), `"ltr"` (left-to-right). Future: `"rtl"`, `"btt"`. Omit or `"ttb"` for default |
 
 ### `nodes` (required)
 

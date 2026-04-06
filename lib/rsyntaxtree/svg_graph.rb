@@ -27,6 +27,7 @@ module RSyntaxTree
       @color = params[:color]
       @fontstyle = params[:fontstyle]
       @polyline = params[:polyline]
+      @direction = params[:direction] || "ttb"
       @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
@@ -188,7 +189,10 @@ module RSyntaxTree
           end
           @extra_lines << "<line style=\"stroke:#{col}; fill:none; stroke-linecap:round; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
         else
-          if element.enclosure == :brackets
+          if @direction == "ltr" && element.type == ETYPE_LEAF
+            # LTR leaves: left-align text at the node's left edge
+            this_x = left
+          elsif element.enclosure == :brackets
             this_x = txt_pos - element.content_width / 2
           else
             ewidth = 0
@@ -532,37 +536,70 @@ module RSyntaxTree
     def line_to_parent(parent, child)
       return if child.horizontal_indent.zero?
 
-      if @polyline
-        chi_x = child.horizontal_indent + child.content_width / 2
-        chi_y = child.vertical_indent + @global[:height_connector_to_text] / 2
+      if @direction == "ltr"
+        # LTR: parent's right side → child's left side
+        # Y center = midpoint between TTB top-connection and bottom-connection
+        # top = vi + hctt/2, bottom = vi + content_height + hctt
+        # midpoint = vi + (content_height + hctt * 1.5) / 2
+        hctt = @global[:height_connector_to_text]
+        y1 = child.vertical_indent + (child.content_height + hctt * 1.5) / 2
+        y2 = parent.vertical_indent + (parent.content_height + hctt * 1.5) / 2
+        x1 = child.horizontal_indent - hctt
+        x2 = parent.horizontal_indent + parent.content_width + hctt
 
-        par_x = parent.horizontal_indent + parent.content_width / 2
-        par_y = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
-
-        mid_x1 = chi_x
-        mid_y1 = par_y + (chi_y - par_y) / 2
-
-        mid_x2 = par_x
-        mid_y2 = mid_y1
-
-        @tree_data += @polyline_styles.sub(/CHIX/, chi_x.to_s)
-                                      .sub(/CHIY/, chi_y.to_s)
-                                      .sub(/MIDX1/, mid_x1.to_s)
-                                      .sub(/MIDY1/, mid_y1.to_s)
-                                      .sub(/MIDX2/, mid_x2.to_s)
-                                      .sub(/MIDY2/, mid_y2.to_s)
-                                      .sub(/PARX/, par_x.to_s)
-                                      .sub(/PARY/, par_y.to_s)
+        if @polyline
+          mid_x1 = x2 + (x1 - x2) / 2
+          mid_y1 = y1
+          mid_x2 = mid_x1
+          mid_y2 = y2
+          @tree_data += @polyline_styles.sub(/CHIX/, x1.to_s)
+                                        .sub(/CHIY/, y1.to_s)
+                                        .sub(/MIDX1/, mid_x1.to_s)
+                                        .sub(/MIDY1/, mid_y1.to_s)
+                                        .sub(/MIDX2/, mid_x2.to_s)
+                                        .sub(/MIDY2/, mid_y2.to_s)
+                                        .sub(/PARX/, x2.to_s)
+                                        .sub(/PARY/, y2.to_s)
+        else
+          line_data   = @line_styles.sub(/X1/, x1.to_s)
+          line_data   = line_data.sub(/Y1/, y1.to_s)
+          line_data   = line_data.sub(/X2/, x2.to_s)
+          @tree_data += line_data.sub(/Y2/, y2.to_s)
+        end
       else
-        x1 = child.horizontal_indent + child.content_width / 2
-        y1 = child.vertical_indent + @global[:height_connector_to_text] / 2
-        x2 = parent.horizontal_indent + parent.content_width / 2
-        y2 = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+        # TTB: parent's bottom → child's top
+        if @polyline
+          chi_x = child.horizontal_indent + child.content_width / 2
+          chi_y = child.vertical_indent + @global[:height_connector_to_text] / 2
 
-        line_data   = @line_styles.sub(/X1/, x1.to_s)
-        line_data   = line_data.sub(/Y1/, y1.to_s)
-        line_data   = line_data.sub(/X2/, x2.to_s)
-        @tree_data += line_data.sub(/Y2/, y2.to_s)
+          par_x = parent.horizontal_indent + parent.content_width / 2
+          par_y = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+
+          mid_x1 = chi_x
+          mid_y1 = par_y + (chi_y - par_y) / 2
+
+          mid_x2 = par_x
+          mid_y2 = mid_y1
+
+          @tree_data += @polyline_styles.sub(/CHIX/, chi_x.to_s)
+                                        .sub(/CHIY/, chi_y.to_s)
+                                        .sub(/MIDX1/, mid_x1.to_s)
+                                        .sub(/MIDY1/, mid_y1.to_s)
+                                        .sub(/MIDX2/, mid_x2.to_s)
+                                        .sub(/MIDY2/, mid_y2.to_s)
+                                        .sub(/PARX/, par_x.to_s)
+                                        .sub(/PARY/, par_y.to_s)
+        else
+          x1 = child.horizontal_indent + child.content_width / 2
+          y1 = child.vertical_indent + @global[:height_connector_to_text] / 2
+          x2 = parent.horizontal_indent + parent.content_width / 2
+          y2 = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+
+          line_data   = @line_styles.sub(/X1/, x1.to_s)
+          line_data   = line_data.sub(/Y1/, y1.to_s)
+          line_data   = line_data.sub(/X2/, x2.to_s)
+          @tree_data += line_data.sub(/Y2/, y2.to_s)
+        end
       end
     end
 
@@ -570,12 +607,30 @@ module RSyntaxTree
     def triangle_to_parent(parent, child)
       return if child.horizontal_indent.zero?
 
-      x1 = child.horizontal_indent
-      y1 = child.vertical_indent + @global[:height_connector_to_text] / 2
-      x2 = child.horizontal_indent + child.content_width
-      y2 = child.vertical_indent + @global[:height_connector_to_text] / 2
-      x3 = parent.horizontal_indent + parent.content_width / 2
-      y3 = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+      if @direction == "ltr"
+        # LTR: triangle opens vertically (top-bottom of child),
+        # apex at parent's right side.
+        # Use same vertical reference and dimensions as TTB uses horizontally.
+        hctt = @global[:height_connector_to_text]
+        child_y_center = child.vertical_indent + (child.content_height + hctt * 1.5) / 2
+        parent_y_center = parent.vertical_indent + (parent.content_height + hctt * 1.5) / 2
+        tri_half = @global[:single_x_metrics].height / 2
+        x1 = child.horizontal_indent - @global[:height_connector_to_text] / 2
+        y1 = child_y_center - tri_half
+        x2 = child.horizontal_indent - @global[:height_connector_to_text] / 2
+        y2 = child_y_center + tri_half
+        x3 = parent.horizontal_indent + parent.content_width + @global[:height_connector_to_text]
+        y3 = parent_y_center
+      else
+        # TTB: triangle opens horizontally (left-right of child text),
+        # apex at parent's bottom
+        x1 = child.horizontal_indent
+        y1 = child.vertical_indent + @global[:height_connector_to_text] / 2
+        x2 = child.horizontal_indent + child.content_width
+        y2 = child.vertical_indent + @global[:height_connector_to_text] / 2
+        x3 = parent.horizontal_indent + parent.content_width / 2
+        y3 = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+      end
 
       polygon_data = @polygon_styles.sub(/X1/, x1.to_s)
       polygon_data = polygon_data.sub(/Y1/, y1.to_s)
