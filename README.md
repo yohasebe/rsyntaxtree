@@ -194,6 +194,10 @@ Please use the following BibTeX entry when citing RSyntaxTree:
 }
 ```
 
+## Related Blog Posts
+
+- [RSyntaxTree tag on yohasebe.com](https://yohasebe.com/tags/rsyntaxtree/)
+
 ## Author
 
 Yoichiro Hasebe (<yohasebe@gmail.com>)
