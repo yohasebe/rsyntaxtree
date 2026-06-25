@@ -18,9 +18,16 @@ class MarkupParser < Parslet::Parser
   rule(:color_hex) { str('#') >> match('[0-9a-fA-F]').repeat(3, 6) }
   rule(:color_spec) { str('@') >> (color_hex | color_name).as(:color_value) >> str(':') }
 
+  # Region shade: '%' marks the node so that the whole subtree it governs
+  # gets a semi-transparent background plane. An optional color spec right
+  # after '%' sets the shade color (reusing color_spec); '%' alone uses the
+  # default shade color. A separate trailing color_spec still sets the node
+  # text/line color, so '%@yellow:@blue:VP' = yellow plane + blue label.
+  rule(:region) { str('%') >> color_spec.maybe.as(:region_color) }
+
   rule(:path) { (str('+') >> str('-').maybe >> (str('>') | str('<')).maybe >> match('\d').repeat(1)).as(:path) }
   # rule(:escaped) { str('\\') >> match('[#<>{}\\^+*_=~\|\n\-]').as(:chr) }
-  rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]]').as(:chr) }
+  rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]%]').as(:chr) }
   rule(:non_escaped) { ((match('[#<>{}\\^+*_=~\|\-]') | str('\\n')).absent? >> any).as(:chr) }
   rule(:text) { (escaped | non_escaped).repeat(1).as(:text) }
 
@@ -56,7 +63,7 @@ class MarkupParser < Parslet::Parser
   rule(:markup) { (text | decoration | shape | bstroke) }
 
   rule(:line) { (cr.as(:extracr) | border | bborder | markup.repeat(1).as(:line) >> (cr | eof | str('+').present?)) }
-  rule(:lines) { triangle.maybe.as(:triangle) >> (brectangle | rectangle | brackets).maybe.as(:enclosure) >> color_spec.maybe.as(:color) >> line.repeat(1) >> path.repeat(0).as(:paths) >> (cr | eof) }
+  rule(:lines) { triangle.maybe.as(:triangle) >> (brectangle | rectangle | brackets).maybe.as(:enclosure) >> region.maybe.as(:region) >> color_spec.maybe.as(:color) >> line.repeat(1) >> path.repeat(0).as(:paths) >> (cr | eof) }
   root :lines
 end
 
@@ -176,8 +183,15 @@ module Markup
 
     applied = @evaluator.apply(parsed)
 
-    results = { enclosure: :none, triangle: false, paths: [], contents: [], color: nil }
+    results = { enclosure: :none, triangle: false, paths: [], contents: [], color: nil, region: false, region_color: nil }
     applied.each do |h|
+      # Region shade (whole-subtree background). '%' sets it on; an optional
+      # color right after '%' overrides the default shade color.
+      if h[:region]
+        results[:region] = true
+        region_color = h[:region][:region_color]
+        results[:region_color] = region_color[:color_value].to_s if region_color && region_color[:color_value]
+      end
       if h[:enclosure]
         results[:enclosure] = case h[:enclosure].to_s
                               when '###'

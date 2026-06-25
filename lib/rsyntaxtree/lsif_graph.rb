@@ -216,7 +216,8 @@ module RSyntaxTree
         style: {
           color: col,
           enclosure: map_enclosure(element.enclosure),
-          triangle: element.triangle
+          triangle: element.triangle,
+          region: element.region ? { color: element.region_color } : nil
         },
         parent: element.parent.zero? ? nil : element.parent,
         children: element.children
@@ -261,7 +262,7 @@ module RSyntaxTree
     def build_json
       data = {
         lsif: {
-          version: "0.2.0",
+          version: "0.3.0",
           generator: "rsyntaxtree #{RSyntaxTree::VERSION}",
           level: "rendered"
         },

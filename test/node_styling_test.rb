@@ -236,4 +236,121 @@ class NodeStylingTest < Minitest::Test
     assert svg.include?("green"), "Should contain green for VP"
     assert svg.include?("purple"), "Should contain purple for NP"
   end
+
+  # ===================
+  # Region shade tests
+  # ===================
+
+  def test_region_shade_colored
+    opts = @base_opts.merge(color: "modern", data: "[S [%@yellow:NP the dog] [VP [V barks]]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    shade = svg[/<rect[^>]*fill-opacity[^>]*>/]
+    refute_nil shade, "Should emit a semi-transparent region rectangle"
+    assert shade.include?("fill='yellow'"), "Region shade should use the given color"
+    assert shade.include?("stroke='yellow'"), "Region shade should have a same-color border"
+    assert shade.include?("stroke-opacity"), "Border should be drawn with its own opacity"
+  end
+
+  def test_region_shade_default_color
+    opts = @base_opts.merge(color: "modern", data: "[S [%NP the dog] [VP [V barks]]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    shade = svg[/<rect[^>]*fill-opacity[^>]*>/]
+    refute_nil shade, "Bare '%' should still emit a region rectangle"
+    assert shade.include?("fill='#888888'"), "Bare '%' should use the default gray shade"
+  end
+
+  def test_region_shade_explicit_color_honored_in_monochrome
+    # An explicit shade color is honored even in color-off mode, consistent
+    # with how the @color: node-text color behaves.
+    opts = @base_opts.merge(color: "off", data: "[S [%@yellow:NP the dog] [VP barks]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    shade = svg[/<rect[^>]*fill-opacity[^>]*>/]
+    refute_nil shade, "Region should still render in color-off mode (not ignored)"
+    assert shade.include?("fill='yellow'"), "Explicit shade color must be kept in color-off mode"
+    assert shade.include?("stroke='yellow'"), "Border should match the explicit color"
+  end
+
+  def test_region_shade_bare_defaults_gray_in_monochrome
+    opts = @base_opts.merge(color: "off", data: "[S [%NP the dog] [VP barks]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    shade = svg[/<rect[^>]*fill-opacity[^>]*>/]
+    refute_nil shade
+    assert shade.include?("fill='#888888'"), "Bare '%' should default to gray"
+  end
+
+  def test_region_shade_behind_tree
+    opts = @base_opts.merge(data: "[S [%@yellow:NP the dog] [VP barks]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    shade_pos = svg.index("fill-opacity")
+    text_pos = svg.index("<text")
+    refute_nil shade_pos
+    refute_nil text_pos
+    assert shade_pos < text_pos, "Region shade must be drawn before (behind) node text"
+  end
+
+  def test_escaped_percent_is_literal
+    opts = @base_opts.merge(color: "modern", data: "[S [NP \\%foo] [VP b]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    assert_nil svg[/<rect[^>]*fill-opacity[^>]*>/], "Escaped \\% must not create a region"
+    texts = svg.scan(%r{<tspan[^>]*>([^<]*)</tspan>}).flatten.join
+    assert texts.include?("%foo"), "Escaped \\% should render a literal % (got #{texts})"
+  end
+
+  def test_region_on_root_not_clipped
+    # A region on the topmost node must not extend above the canvas: the
+    # viewBox/background should grow to include the whole shade.
+    opts = @base_opts.merge(color: "modern", data: "[%@orange:S [NP a] [VP b]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    minx, miny, vbw, vbh = svg[/viewBox="([^"]*)"/, 1].split(",").map(&:to_f)
+    rect = svg[/<rect[^>]*fill-opacity[^>]*>/]
+    rx = rect[/\bx='([\-0-9.]+)'/, 1].to_f
+    ry = rect[/\by='([\-0-9.]+)'/, 1].to_f
+    rw = rect[/width='([\-0-9.]+)'/, 1].to_f
+    rh = rect[/height='([\-0-9.]+)'/, 1].to_f
+
+    eps = 0.01
+    assert ry >= miny - eps, "region top #{ry} clipped above viewBox top #{miny}"
+    assert rx >= minx - eps, "region left #{rx} clipped beyond viewBox left #{minx}"
+    assert ry + rh <= miny + vbh + eps, "region bottom clipped below viewBox"
+    assert rx + rw <= minx + vbw + eps, "region right clipped beyond viewBox"
+  end
+
+  def test_smart_apostrophe_in_label
+    # A straight ASCII apostrophe (U+0027) in a label is rendered as a
+    # typographic apostrophe (U+2019) for smarter typography (e.g. X-bar "T'").
+    opts = @base_opts.merge(data: "[TP [T' [T a]]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    label = svg[%r{<tspan[^>]*>T\S*</tspan>}]
+    assert svg.include?("T’"), "Apostrophe should render as U+2019 (got #{label.inspect})"
+    refute svg.include?("T'"), "Straight ASCII apostrophe should not remain in a label"
+  end
+
+  def test_region_shade_in_ltr_layout
+    # subtree_bounds runs after the LTR axis swap, so a region must still
+    # produce a valid, finite rectangle in left-to-right layout.
+    opts = @base_opts.merge(color: "modern", direction: "ltr",
+                            data: "[S [NP a] [%@yellow:VP [V b]]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    shade = svg[/<rect[^>]*fill-opacity[^>]*>/]
+    refute_nil shade, "Region shade should render in LTR layout"
+    w = shade[/width='([\-0-9.]+)'/, 1].to_f
+    h = shade[/height='([\-0-9.]+)'/, 1].to_f
+    assert w > 0 && h > 0, "LTR region rect should have positive size (#{w}x#{h})"
+  end
+
+  def test_no_region_no_shade
+    opts = @base_opts.merge(data: "[S [NP the dog] [VP barks]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    assert_nil svg[/<rect[^>]*fill-opacity[^>]*>/], "Tree without '%' should have no region shade"
+  end
 end

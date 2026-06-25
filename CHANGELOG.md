@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.6.0] - 2026-06
+
+### Added
+- Region shade (`%` prefix): paints a semi-transparent plane behind the whole
+  subtree a node governs, for marking c-command/binding domains and cognitive
+  grammar dominions. Color reuses the `@color:` syntax; bare `%` uses light gray.
+  Each plane has a darker same-color border for visibility on white. An explicit
+  shade color is always honored (consistent with `@color:` node text); use bare
+  `%` for a gray monochrome shade. Works in both TTB and LTR layouts and across
+  SVG/PNG/PDF/JPG/GIF.
+- Region shade support in TikZ export (via `forest` `fit to=tree`) and in LSIF
+  node `style.region`. TikZ region colors (names and hex, including SVG/CSS
+  names like `lightblue` that xcolor lacks) are emitted as explicit RGB so the
+  output compiles.
+- `\%` escape for a literal leading percent sign.
+- Typographic apostrophe: a straight ASCII apostrophe (`'`) in a label is now
+  rendered as a curly apostrophe (`’`, U+2019) for smarter typography, e.g. the
+  X-bar prime in `T'`. Applied to all fonts and measured before layout so
+  spacing stays correct.
+- Example 064: region shade for a c-command domain.
+
+### Changed
+- LSIF output version bumped to `0.3.0` (adds node `style.region`).
+
+### Fixed
+- Region shade on the root/topmost node no longer clipped by the canvas: the
+  SVG viewBox now grows to include region planes that extend past the tree.
+
 ## [1.5.0] - 2026-04
 
 ### Added

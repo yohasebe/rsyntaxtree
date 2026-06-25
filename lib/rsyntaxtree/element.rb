@@ -12,7 +12,7 @@ require_relative "utils"
 
 module RSyntaxTree
   class Element
-    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content
+    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
 
     def initialize(id, parent, content, level, fontset, fontsize, global)
       @global = global
@@ -51,6 +51,8 @@ module RSyntaxTree
       @enclosure = results[:enclosure]
       @triangle = results[:triangle]
       @color = results[:color]
+      @region = results[:region]
+      @region_color = results[:region_color]
 
       @contains_phrase = false
       setup
@@ -75,6 +77,11 @@ module RSyntaxTree
             # Handle escaped square brackets
             text = text.gsub('\\[', '[')
                       .gsub('\\]', ']')
+            # Typographic apostrophe: render a straight ASCII apostrophe (U+0027)
+            # as a curly apostrophe (U+2019) for smarter typography, e.g. the
+            # X-bar prime in "T'". Applied before metrics so the measured glyph
+            # matches the rendered one.
+            text = text.gsub("'", "’")
             e[:text] = text.gsub(" ", WHITESPACE_BLOCK)
                           .gsub(">", '&#62;')
                           .gsub("<", '&#60;')

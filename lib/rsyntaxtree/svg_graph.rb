@@ -13,6 +13,18 @@ require_relative 'utils'
 
 module RSyntaxTree
   class SVGGraph < BaseGraph
+    # Default color for a region shade drawn with bare '%' (no color spec).
+    # An explicit '%@color:' is always honored, even in color-off mode, to
+    # stay consistent with how the @color: node-text color behaves.
+    REGION_DEFAULT_COLOR = "#888888"
+    # Fill opacity for region shades; low enough that nested/overlapping
+    # shades stack naturally without obscuring the tree underneath.
+    REGION_FILL_OPACITY = 0.2
+    # The border reuses the fill color but at a higher opacity, so it reads as
+    # a darker shade of the same color — keeping the region clearly bounded on
+    # a white page without a per-color "darker shade" lookup.
+    REGION_STROKE_OPACITY = 0.55
+
     attr_accessor :width, :height
 
     def initialize(element_list, params, global)
@@ -20,6 +32,7 @@ module RSyntaxTree
       @height = 0
       @width  = 0
       @extra_lines = []
+      @region_shades = []
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
       @linewidth = params[:linewidth]
@@ -42,6 +55,11 @@ module RSyntaxTree
     def svg_data
       metrics = parse_list
 
+      # Region shades depend on the final element positions and on the node
+      # content_height that draw_element recomputes, so collect them only
+      # after parse_list (which runs draw_elements) has completed.
+      collect_region_shades
+
       @width = metrics[:width] + @global[:h_gap_between_nodes] * 2
       @height = metrics[:height] + @global[:height_connector_to_text] / 2
 
@@ -49,6 +67,25 @@ module RSyntaxTree
       y1 = 0
       x2 = @width + @global[:h_gap_between_nodes]
       y2 = @height + @global[:height_connector_to_text] / 2
+
+      # Grow the canvas so region shades that reach past the tree's own bounds
+      # (e.g. a region on the root node, whose top sits above y=0) are not
+      # clipped. x2/y2 are the viewBox width/height, so right = x1 + x2.
+      if @region_bounds
+        rb = @region_bounds
+        left = [x1, rb[:min_x]].min
+        top = [y1, rb[:min_y]].min
+        right = [x1 + x2, rb[:max_x]].max
+        bottom = [y1 + y2, rb[:max_y]].max
+        new_x2 = right - left
+        new_y2 = bottom - top
+        @width += new_x2 - x2
+        @height += new_y2 - y2
+        x1 = left
+        y1 = top
+        x2 = new_x2
+        y2 = new_y2
+      end
 
       extra_lines = @extra_lines.join("\n")
 
@@ -90,10 +127,46 @@ module RSyntaxTree
 
       footer = "</svg>"
 
+      # Region shades go at the very back: above the white background but
+      # below tree connectors and labels.
+      shades = @region_shades.join
+
       if @transparent
-        header + @tree_data + extra_lines + footer
+        header + shades + @tree_data + extra_lines + footer
       else
-        header + rect + @tree_data + extra_lines + footer
+        header + rect + shades + @tree_data + extra_lines + footer
+      end
+    end
+
+    # Collect a background rectangle for every element flagged with '%'.
+    # Outer (shallower) regions are emitted first so deeper ones layer on
+    # top; with low opacity the overlap reads as a darker nesting.
+    def collect_region_shades
+      pad = @global[:h_gap_between_nodes] / 2
+      stroke_width = @linewidth + LINE_SCALING
+      half = stroke_width / 2.0
+      @element_list.get_elements.each do |element|
+        next unless element.region
+
+        b = subtree_bounds(element.id)
+        x = b[:left] - pad
+        y = b[:top] - pad
+        w = (b[:right] - b[:left]) + pad * 2
+        h = (b[:bottom] - b[:top]) + pad * 2
+        # An explicit shade color is always honored (consistent with the
+        # @color: node-text color); bare '%' falls back to gray.
+        color = element.region_color || REGION_DEFAULT_COLOR
+        @region_shades << "<rect x='#{x}' y='#{y}' width='#{w}' height='#{h}' rx='#{pad}' ry='#{pad}' " \
+                          "fill='#{color}' fill-opacity='#{REGION_FILL_OPACITY}' " \
+                          "stroke='#{color}' stroke-opacity='#{REGION_STROKE_OPACITY}' stroke-width='#{stroke_width}' />\n"
+
+        # Track the union of region extents (the stroke straddles the edge, so
+        # it reaches half a stroke-width outside the rect) for canvas growth.
+        rb = (@region_bounds ||= { min_x: x - half, min_y: y - half, max_x: x + w + half, max_y: y + h + half })
+        rb[:min_x] = x - half if x - half < rb[:min_x]
+        rb[:min_y] = y - half if y - half < rb[:min_y]
+        rb[:max_x] = x + w + half if x + w + half > rb[:max_x]
+        rb[:max_y] = y + h + half if y + h + half > rb[:max_y]
       end
     end
 

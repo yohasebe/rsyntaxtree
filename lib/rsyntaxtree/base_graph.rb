@@ -236,6 +236,26 @@ module RSyntaxTree
       end
     end
 
+    # Bounding box of the subtree rooted at +id+, expressed in final drawing
+    # coordinates (horizontal_indent / vertical_indent / content_*). Works for
+    # both TTB and LTR because it runs after layout (and finalize_ltr) has
+    # placed every element. Used to draw whole-subtree region shades.
+    def subtree_bounds(id = 1)
+      el = @element_list.get_id(id)
+      left = el.horizontal_indent
+      right = el.horizontal_indent + el.content_width
+      top = el.vertical_indent
+      bottom = el.vertical_indent + el.content_height
+      el.children.each do |c|
+        cb = subtree_bounds(c)
+        left = cb[:left] if cb[:left] < left
+        right = cb[:right] if cb[:right] > right
+        top = cb[:top] if cb[:top] < top
+        bottom = cb[:bottom] if cb[:bottom] > bottom
+      end
+      { left: left, right: right, top: top, bottom: bottom }
+    end
+
     def get_leftmost(id = 1)
       target = @element_list.get_id(id)
       target_indent = target.horizontal_indent

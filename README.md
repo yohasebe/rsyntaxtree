@@ -48,6 +48,14 @@ Supports named colors (`red`, `blue`, `green`, etc.) and hex colors (`@#FF5733:`
 
 Combine with colors: `[#@red:NP text]`, `[^@blue:VP phrase]`
 
+### Region Shade
+
+Shade the whole subtree a node governs with a semi-transparent plane — useful for c-command/binding domains and cognitive grammar dominions. Prefix the node with `%`; the color reuses the `@color:` syntax (bare `%` is gray):
+
+```text
+[TP [DP everyone] [%@lightblue:T' [T will] [VP praise it]]]
+```
+
 ### Path Drawing
 
 Connect nodes with lines or arrows:

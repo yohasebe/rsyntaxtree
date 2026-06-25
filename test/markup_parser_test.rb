@@ -208,10 +208,53 @@ class MarkupParserTest < Minitest::Test
     # {:status=>:error, :text=>"!^#----\\n\\nX_Y_Z+1+>2"}
   end
 
+  def test_escaped_percent
+    # A backslash-escaped percent is literal text, not a region marker.
+    r = Markup.parse("\\%foo")[:results]
+    assert_equal false, r[:region]
+    text = r[:contents].first[:elements].map { |e| e[:text] }.join
+    assert_equal "%foo", text
+  end
+
   def test_escaped_brackets
     text = "[expr [id x] [suffix \\[ [id 2] \\] ] ]"
     @parser = MarkupParser.new
     @parser.parse(text)
     assert true
+  end
+
+  def test_region
+    # '%' alone: region on, default (nil) color, no node color
+    r = Markup.parse("%VP")[:results]
+    assert_equal true, r[:region]
+    assert_nil r[:region_color]
+    assert_nil r[:color]
+
+    # '%@yellow:' : region on with shade color, still no node color
+    r = Markup.parse("%@yellow:VP")[:results]
+    assert_equal true, r[:region]
+    assert_equal "yellow", r[:region_color]
+    assert_nil r[:color]
+
+    # region shade color and node text color are independent
+    r = Markup.parse("%@yellow:@blue:VP")[:results]
+    assert_equal "yellow", r[:region_color]
+    assert_equal "blue", r[:color]
+
+    # hex shade color keeps the leading '#'
+    r = Markup.parse("%@#ffcc00:VP")[:results]
+    assert_equal "#ffcc00", r[:region_color]
+
+    # no '%' : region off, default value
+    r = Markup.parse("@blue:VP")[:results]
+    assert_equal false, r[:region]
+    assert_nil r[:region_color]
+
+    # region composes with triangle and enclosure
+    r = Markup.parse("^##%@red:NP")[:results]
+    assert_equal true, r[:region]
+    assert_equal "red", r[:region_color]
+    assert_equal true, r[:triangle]
+    assert_equal :rectangle, r[:enclosure]
   end
 end

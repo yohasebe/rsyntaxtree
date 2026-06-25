@@ -141,13 +141,42 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 |`@#FF5500:NP`|Hex color code|
 |`@#0A0:VP`|Short hex color code|
 
-**Markup Order**: When combining with other prefixes, use this order: `^` (triangle) → `#` (enclosure) → `@color:` (color)
+**Markup Order**: When combining with other prefixes, use this order: `^` (triangle) → `#` (enclosure) → `%` (region shade) → `@color:` (color)
 
 |Sample Input|Description|
 |------------|-----------|
 |`^@blue:NP`|Triangle connector + blue color|
 |`#@red:NP`|Square brackets + red color|
 |`^#@green:NP`|Triangle + brackets + green color|
+
+### Region Shade
+
+While `#`, `##`, and `###` enclose a single node label, a region shade paints a
+semi-transparent plane behind the **whole subtree** that a node governs. This is
+useful for marking spans such as c-command domains, binding domains, or the
+dominion of a reference point in cognitive grammar.
+
+Put a `%` at the beginning of a node label (after `^`/`#` if present). The plane
+covers the bounding box of that node together with all of its descendants and is
+drawn behind the tree lines and labels. The shade color reuses the same
+`@color:` syntax; `%` on its own uses a light gray.
+
+|Sample Input|Description|
+|------------|-----------|
+|`%VP`|Region shade in the default light gray|
+|`%@yellow:VP`|Region shade in yellow (named color)|
+|`%@#ffcc00:VP`|Region shade with a hex color|
+|`%@yellow:@blue:VP`|Yellow shade plane **and** blue node label (the two colors are independent)|
+
+Each plane is drawn with a border in a darker shade of its own fill color, so
+the region stays clearly bounded even on a white background. An explicit shade
+color is always honored (just like the `@color:` node-text color), so for a
+black-and-white figure use bare `%` (gray) rather than a colored shade.
+
+Overlapping or nested regions blend naturally because the planes are
+semi-transparent. Region shade works in both top-to-bottom and left-to-right
+(`-d ltr`) layouts, and applies to all raster/vector outputs (SVG, PNG, PDF,
+JPG, GIF).
 
 ### Escape Special Characters
 
@@ -156,6 +185,8 @@ The backslash character `\` must be used to print certain characters used in the
 {% include escape_char_table.html %}
 
 **Note:** A newline character `↩️` is treated just as a whitespace. Thus 1) `\n`, 2) `\↩️`, and 3) `\` followed by a whitespace character are all rendered as a newline `↩️` in the resulting image. Note also that a `↩️` or a whitespace repeated more than once is reduced to a single whitespace.
+
+**Note:** A straight ASCII apostrophe (`'`) in a label is automatically rendered as a typographic (curly) apostrophe `’`, which looks smarter in serif fonts and suits X-bar primes such as `T'`. This also applies to apostrophes in ordinary words (e.g. *John's*).
 
 ### Draw Paths between Nodes (experimental)
 
@@ -248,8 +279,11 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 | Text decoration (bold, italic) | Not supported |
 | Subscript/superscript (`_x_`, `__x__`) | Not supported |
 | Path drawing (`+1`, `+>1`) | Not supported |
+| Region shade (`%`) | Supported (via `forest` `fit to=tree`) |
 
 Users familiar with LaTeX can manually add these features to the generated TikZ code using standard LaTeX commands (e.g., `\textcolor{red}{NP}`, `\textbf{...}`).
+
+**Note on region shade:** The generated `forest` code draws each region plane on the TikZ background layer. When you embed non-standalone output in your own document, load the required libraries with `\usetikzlibrary{backgrounds,fit}` (the standalone output adds this automatically). Region colors (named or hex) are emitted as explicit RGB values, so SVG/CSS color names that xcolor does not define (e.g. `lightblue`) still compile.
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>

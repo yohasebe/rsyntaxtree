@@ -80,7 +80,7 @@ class LsifGeneratorTest < Minitest::Test
       assert data.key?("paths"), "Missing 'paths' key"
 
       # Verify lsif section
-      assert_equal "0.2.0", data["lsif"]["version"]
+      assert_equal "0.3.0", data["lsif"]["version"]
       assert_equal "rendered", data["lsif"]["level"]
       assert data["lsif"]["generator"].start_with?("rsyntaxtree")
 
@@ -286,5 +286,19 @@ class SvgDirectionTest < Minitest::Test
     svg = rsg.draw_svg
     doc = Nokogiri::XML(svg)
     assert doc.errors.empty?, "TTB SVG should still be valid XML"
+  end
+
+  def test_lsif_records_region_in_node_style
+    opts = DEFAULT_OPTS.dup
+    opts[:data] = "[S [%@yellow:NP a] [VP b]]"
+    opts[:fontstyle] = "sans"
+    data = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_lsif)
+
+    np = data["nodes"].find { |n| n["label"]["lines"].first["segments"].first["text"] == "NP" }
+    refute_nil np
+    assert_equal({ "color" => "yellow" }, np["style"]["region"], "Region color should be recorded")
+
+    vp = data["nodes"].find { |n| n["label"]["lines"].first["segments"].first["text"] == "VP" }
+    assert_nil vp["style"]["region"], "Non-region node should have null region"
   end
 end
