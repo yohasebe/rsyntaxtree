@@ -322,6 +322,27 @@ class NodeStylingTest < Minitest::Test
     assert rx + rw <= minx + vbw + eps, "region right clipped beyond viewBox"
   end
 
+  def test_region_keeps_margin_from_canvas_edge
+    # Regression: when a region's padded bounds extend past the tree's natural
+    # extent (here an enclosed multi-line node deep in the shaded subtree), the
+    # canvas must grow with a margin so the plane does not touch the image edge.
+    opts = @base_opts.merge(color: "modern", data: "[S [A x] [%B [C #\\+one\\ \\+two]]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    minx, miny, vbw, vbh = svg[/viewBox="([^"]*)"/, 1].split(",").map(&:to_f)
+    shade = svg[/<rect[^>]*fill-opacity[^>]*>/]
+    refute_nil shade
+    rx = shade[/\bx='([\-0-9.]+)'/, 1].to_f
+    ry = shade[/\by='([\-0-9.]+)'/, 1].to_f
+    rw = shade[/width='([\-0-9.]+)'/, 1].to_f
+    rh = shade[/height='([\-0-9.]+)'/, 1].to_f
+
+    bottom_margin = (miny + vbh) - (ry + rh)
+    right_margin = (minx + vbw) - (rx + rw)
+    assert bottom_margin > 8, "Region must keep a bottom margin from the canvas edge (got #{bottom_margin.round(1)})"
+    assert right_margin > 8, "Region must keep a right margin from the canvas edge (got #{right_margin.round(1)})"
+  end
+
   def test_smart_apostrophe_in_label
     # A straight ASCII apostrophe (U+0027) in a label is rendered as a
     # typographic apostrophe (U+2019) for smarter typography (e.g. X-bar "T'").

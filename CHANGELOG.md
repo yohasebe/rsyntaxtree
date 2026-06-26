@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2] - 2026-06
+
+### Fixed
+- Region shade no longer touches the image edge when its padded bounds reach
+  past the tree's natural extent (e.g. a deep enclosed/multi-line node): the
+  canvas now grows with a margin around the shaded plane.
+
 ## [1.6.1] - 2026-06
 
 ### Improved

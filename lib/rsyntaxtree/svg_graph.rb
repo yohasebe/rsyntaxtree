@@ -69,14 +69,17 @@ module RSyntaxTree
       y2 = @height + @global[:height_connector_to_text] / 2
 
       # Grow the canvas so region shades that reach past the tree's own bounds
-      # (e.g. a region on the root node, whose top sits above y=0) are not
-      # clipped. x2/y2 are the viewBox width/height, so right = x1 + x2.
+      # (e.g. a region on the root node, or one whose padded edge extends beyond
+      # the deepest leaf) keep a margin instead of touching the image edge. A
+      # margin is added around the region extents before unioning with the tree
+      # bounds. x2/y2 are the viewBox width/height, so right = x1 + x2.
       if @region_bounds
         rb = @region_bounds
-        left = [x1, rb[:min_x]].min
-        top = [y1, rb[:min_y]].min
-        right = [x1 + x2, rb[:max_x]].max
-        bottom = [y1 + y2, rb[:max_y]].max
+        m = @global[:h_gap_between_nodes]
+        left = [x1, rb[:min_x] - m].min
+        top = [y1, rb[:min_y] - m].min
+        right = [x1 + x2, rb[:max_x] + m].max
+        bottom = [y1 + y2, rb[:max_y] + m].max
         new_x2 = right - left
         new_y2 = bottom - top
         @width += new_x2 - x2
