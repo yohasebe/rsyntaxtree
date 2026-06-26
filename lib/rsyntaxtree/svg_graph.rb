@@ -142,21 +142,57 @@ module RSyntaxTree
     # Outer (shallower) regions are emitted first so deeper ones layer on
     # top; with low opacity the overlap reads as a darker nesting.
     def collect_region_shades
-      pad = @global[:h_gap_between_nodes] / 2
+      hctt = @global[:height_connector_to_text]
+      pad = @global[:h_gap_between_nodes]  # generous padding for the non-parent-facing edges
+      pad_parent = hctt / 2.0              # tighter margin on the parent-facing edge of the root
+      radius = hctt / 2.0
       stroke_width = @linewidth + LINE_SCALING
       half = stroke_width / 2.0
       @element_list.get_elements.each do |element|
         next unless element.region
 
-        b = subtree_bounds(element.id)
-        x = b[:left] - pad
-        y = b[:top] - pad
-        w = (b[:right] - b[:left]) + pad * 2
-        h = (b[:bottom] - b[:top]) + pad * 2
+        b = region_subtree_bounds(element.id)
+        left = b[:left] - pad
+        right = b[:right] + pad
+        top = b[:top] - pad
+        bottom = b[:bottom] + pad
+
+        # The edge facing the parent is handled specially so the incoming
+        # connector neither overlaps nor touches the plane. That edge is the
+        # TOP in top-to-bottom layout and the LEFT in left-to-right layout; the
+        # other edges keep the generous padding. For a non-root node the edge
+        # is placed midway between the connector anchor and the content edge
+        # (even gap on both sides); the tree root has no incoming connector, so
+        # it just gets a tighter-but-consistent margin there.
+        is_root = element.parent.zero?
+        if @direction == "ltr"
+          anchor = element.horizontal_indent - hctt
+          left = if is_root
+                   b[:left] - pad_parent
+                 elsif anchor < b[:left]
+                   (b[:left] + anchor) / 2.0
+                 else
+                   left
+                 end
+        else
+          anchor = element.vertical_indent + hctt / 2.0
+          top = if is_root
+                  b[:top] - pad_parent
+                elsif anchor < b[:top]
+                  (b[:top] + anchor) / 2.0
+                else
+                  top
+                end
+        end
+
+        x = left
+        y = top
+        w = right - left
+        h = bottom - top
         # An explicit shade color is always honored (consistent with the
         # @color: node-text color); bare '%' falls back to gray.
         color = element.region_color || REGION_DEFAULT_COLOR
-        @region_shades << "<rect x='#{x}' y='#{y}' width='#{w}' height='#{h}' rx='#{pad}' ry='#{pad}' " \
+        @region_shades << "<rect x='#{x}' y='#{y}' width='#{w}' height='#{h}' rx='#{radius}' ry='#{radius}' " \
                           "fill='#{color}' fill-opacity='#{REGION_FILL_OPACITY}' " \
                           "stroke='#{color}' stroke-opacity='#{REGION_STROKE_OPACITY}' stroke-width='#{stroke_width}' />\n"
 
@@ -168,6 +204,49 @@ module RSyntaxTree
         rb[:max_x] = x + w + half if x + w + half > rb[:max_x]
         rb[:max_y] = y + h + half if y + h + half > rb[:max_y]
       end
+    end
+
+    # Visual bounding box of a single element as actually drawn: the label /
+    # enclosure box (which starts hctt*3/4 below vertical_indent, i.e. below the
+    # connector gap) widened to include any enclosure bracket/rectangle that is
+    # painted beyond the content width.
+    def element_visual_box(el)
+      hctt = @global[:height_connector_to_text]
+      box_top = el.vertical_indent + hctt * 3 / 4 # bc[:y]: line-height / enclosure box top
+      box_bottom = box_top + el.content_height
+      left = el.horizontal_indent
+      right = el.horizontal_indent + el.content_width
+      if [:brackets, :rectangle, :brectangle].include?(el.enclosure)
+        ext = @global[:h_gap_between_nodes] / 2 + (@linewidth + BLINE_SCALING)
+        left -= ext
+        right += ext
+        sw = @linewidth + BLINE_SCALING
+        top = box_top - sw
+        bottom = box_bottom + sw
+      else
+        # No enclosure box is painted, so hug the actual glyphs rather than the
+        # taller line-height box: the line box carries ~hctt*3/4 of leading both
+        # above the cap top and below the baseline, which would otherwise leave
+        # too much empty space above and below a plain label.
+        top = el.vertical_indent + hctt * 3 / 2
+        bottom = box_bottom - hctt * 3 / 4
+      end
+      { left: left, top: top, right: right, bottom: bottom }
+    end
+
+    # Union of element_visual_box over the subtree rooted at +id+, in final
+    # drawing coordinates. Used to size region shades so the whole subtree
+    # (labels, enclosures, brackets) sits inside the plane.
+    def region_subtree_bounds(id)
+      b = element_visual_box(@element_list.get_id(id))
+      @element_list.get_id(id).children.each do |c|
+        cb = region_subtree_bounds(c)
+        b[:left] = cb[:left] if cb[:left] < b[:left]
+        b[:right] = cb[:right] if cb[:right] > b[:right]
+        b[:top] = cb[:top] if cb[:top] < b[:top]
+        b[:bottom] = cb[:bottom] if cb[:bottom] > b[:bottom]
+      end
+      b
     end
 
     def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)

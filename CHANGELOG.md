@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.1] - 2026-06
+
+### Improved
+- Region shade rendering wraps the subtree more cleanly: wider, balanced
+  padding; bracket/rectangle enclosures are kept inside the plane; the incoming
+  parent connector stops just short of the plane (no overlap or touching); and
+  the margin is consistent between root and non-root regions. Works in both
+  top-to-bottom and left-to-right layouts (the connector-facing edge is the top
+  in TTB and the left in LTR, with symmetric padding on the other sides).
+
+### Added
+- Example 065: nested (overlapping) region shades, shown as progressively
+  darker gray.
+
 ## [1.6.0] - 2026-06
 
 ### Added
