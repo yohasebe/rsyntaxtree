@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.3] - 2026-07
+
+### Fixed
+- Packaged files no longer carry owner-only permissions. `gem build` preserves
+  on-disk modes, so gems built from a checkout with `0600`/`0700` files shipped
+  a library unreadable — and a `rsyntaxtree` CLI unexecutable — by anyone but
+  the owner after `sudo gem install`. File modes are now normalized before the
+  gem is built: `0755` for commands (`bin/`, `exe/`) and shebang scripts, `0644`
+  for everything else. This also drops stray executable bits that the working
+  tree had picked up on data files (images, fonts, Markdown, CSS, library
+  sources).
+
 ## [1.6.2] - 2026-06
 
 ### Fixed
