@@ -189,16 +189,17 @@ For detailed documentation on syntax and markup:
 - [日本語ドキュメント](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
 - [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples)
 
-## References
+## How to Cite
 
-Please use the following BibTeX entry when citing RSyntaxTree:
+If you use RSyntaxTree in your research, please cite it. You can use the "Cite this repository" button on GitHub (powered by [CITATION.cff](CITATION.cff)), or the following BibTeX entry (adjust `version` to the one you used):
 
 ```bibtex
-@misc{rsyntaxtree,
-  author = {Yoichiro Hasebe},
-  title = {RSyntaxTree: A graphical syntax tree image generator},
-  url = {https://yohasebe.com/rsyntaxtree},
-  year = {2026}
+@software{hasebe_rsyntaxtree,
+  author  = {Hasebe, Yoichiro},
+  title   = {RSyntaxTree: A graphical syntax tree image generator},
+  url     = {https://yohasebe.com/rsyntaxtree},
+  version = {1.6.3},
+  year    = {2026}
 }
 ```
 

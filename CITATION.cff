@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use RSyntaxTree in your research, please cite it as below."
+type: software
+title: "RSyntaxTree: A graphical syntax tree image generator"
+authors:
+  - family-names: "Hasebe"
+    given-names: "Yoichiro"
+    email: "yohasebe@gmail.com"
+url: "https://yohasebe.com/rsyntaxtree"
+repository-code: "https://github.com/yohasebe/rsyntaxtree"
+license: MIT
+version: 1.6.3
+date-released: "2026-07-19"
+keywords:
+  - linguistics
+  - syntax tree
+  - syntactic analysis
+  - visualization
+  - Ruby
