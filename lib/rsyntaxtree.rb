@@ -98,6 +98,8 @@ module RSyntaxTree
             fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
             fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
             fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
+            fontset[:family] = FontFamily.for_pango(:mono)
+            fontset[:family_cjk] = FontFamily.for_pango(:mono, cjk_priority: true)
             new_params[:fontstyle] = "mono"
           when "noto-sans", "sans"
             fontset[:normal] = FONT_DIR + "/NotoSans-Regular.ttf"
@@ -107,6 +109,8 @@ module RSyntaxTree
             fontset[:math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
             fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
             fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
+            fontset[:family] = FontFamily.for_pango(:sans)
+            fontset[:family_cjk] = FontFamily.for_pango(:sans, cjk_priority: true)
             new_params[:fontstyle] = "sans"
           when "noto-serif", "serif"
             fontset[:normal] = FONT_DIR + "/NotoSerif-Regular.ttf"
@@ -116,6 +120,8 @@ module RSyntaxTree
             fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
             fontset[:cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
             fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
+            fontset[:family] = FontFamily.for_pango(:serif)
+            fontset[:family_cjk] = FontFamily.for_pango(:serif, cjk_priority: true)
             new_params[:fontstyle] = "serif"
           when "cjk zenhei", "cjk"
             fontset[:normal] = FONT_DIR + "/wqy-zenhei.ttf"
@@ -125,6 +131,8 @@ module RSyntaxTree
             fontset[:math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
             fontset[:cjk] = FONT_DIR + "/wqy-zenhei.ttf"
             fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
+            fontset[:family] = FontFamily.for_pango(:cjk)
+            fontset[:family_cjk] = FontFamily.for_pango(:cjk)
             new_params[:fontstyle] = "cjk"
           end
         else
@@ -136,8 +144,14 @@ module RSyntaxTree
       @params = DEFAULT_OPTS.dup
       @params.merge! new_params
       @params[:fontsize] = @params[:fontsize] * FONT_SCALING
+      # fontset is populated above only when :fontstyle is passed explicitly;
+      # fall back to the merged default style otherwise
+      if fontset[:family].nil?
+        fontset[:family] = FontFamily.for_pango(@params[:fontstyle])
+        fontset[:family_cjk] = FontFamily.for_pango(@params[:fontstyle], cjk_priority: true)
+      end
       @params[:fontset] = fontset
-      single_x_metrics = FontMetrics.get_metrics("X", fontset[:normal], @params[:fontsize], :normal, :normal)
+      single_x_metrics = FontMetrics.get_metrics("X", fontset[:family], @params[:fontsize], :normal, :normal)
       @global = {}
       @global[:single_x_metrics] = single_x_metrics
       @global[:height_connector_to_text] = single_x_metrics.height / 2.0

@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.7.0] - 2026-08
+
+### Changed
+- Text measurement now uses Pango, the same engine (and the same fontconfig
+  font-fallback resolution) librsvg uses to render the output, instead of
+  RMagick with the bundled font files. Labels in any script are measured with
+  the font that actually draws them, which fixes off-center labels for scripts
+  the bundled fonts do not cover (e.g. Khmer, #14) without bundling per-script
+  fonts. Horizontal dimensions of the output may change slightly.
+- Vertical rhythm is now derived deterministically from the font size
+  (1.4 x size, matching the previous Latin line height) and is identical
+  across scripts; the old engine spaced Japanese text 1.5x and WenQuanYi
+  1.25x, so mixed-language documents had inconsistent spacing.
+- The font-family lists used in the SVG output and in measurement are now
+  defined in a single place (`FONT_FAMILIES` / `FontFamily`).
+
+### Added
+- Runtime dependency on the `pango` gem (ruby-gnome). No new system
+  requirements: librsvg already depends on Pango.
+
 ## [1.6.3] - 2026-07
 
 ### Fixed

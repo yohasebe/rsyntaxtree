@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   s.add_runtime_dependency "optimist", ">= 3.0.1"
+  s.add_runtime_dependency "pango"
   s.add_runtime_dependency "parslet"
   s.add_runtime_dependency "rmagick", ">= 4.3"
   s.add_runtime_dependency "rsvg2"

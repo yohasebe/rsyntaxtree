@@ -92,17 +92,11 @@ module RSyntaxTree
             fontsize = decoration.include?(:subscript) || decoration.include?(:superscript) ? fontsize * SUBSCRIPT_CONST : fontsize
             style    = decoration.include?(:italic) || decoration.include?(:bolditalic) ? :italic : :normal
             weight   = decoration.include?(:bold) || decoration.include?(:bolditalic) ? :bold : :normal
-            font = if decoration.include? :bolditalic
-                     @fontset[:bolditalic]
-                   elsif decoration.include? :bold
-                     @fontset[:bold]
-                   elsif decoration.include? :italic
-                     @fontset[:italic]
-                   else
-                     @fontset[:normal]
-                   end
+            # Bold/italic are expressed through Pango's style/weight parameters,
+            # so a single family list is measured for every decoration.
+            font = @fontset[:family]
 
-            standard_metrics = FontMetrics.get_metrics('X', @fontset[:normal], fontsize, :normal, :normal)
+            standard_metrics = FontMetrics.get_metrics('X', font, fontsize, :normal, :normal)
 
             height = standard_metrics.height
             if /\A[<>]+\z/ =~ text
@@ -116,12 +110,9 @@ module RSyntaxTree
                      else
                        seg[:char]
                      end
-                this_font = if seg[:type] == :emoji
-                             @fontset[:emoji]
-                           else
-                             font
-                           end
-                metrics = FontMetrics.get_metrics(ch, this_font, fontsize, style, weight)
+                # Emoji segments are measured with the same family list;
+                # fontconfig/coretext falls back to an emoji font.
+                metrics = FontMetrics.get_metrics(ch, font, fontsize, style, weight)
                 width += metrics.width
               end
             else

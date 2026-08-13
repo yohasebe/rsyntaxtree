@@ -411,28 +411,7 @@ module RSyntaxTree
             style += "font-style: italic; " if e[:decoration].include?(:italic) || e[:decoration].include?(:bolditalic)
             style += "\""
 
-            case @fontstyle
-            when /(?:cjk)/
-              fontstyle = "'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
-            when /(?:mono)/
-              fontstyle = if e[:cjk]
-                            "'Noto Sans JP', 'Noto Sans Mono SemiCondensed', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
-                          else
-                            "'Noto Sans Mono SemiCondensed', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
-                          end
-            when /(?:sans)/
-              fontstyle = if e[:cjk]
-                            "'Noto Sans JP', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
-                          else
-                            "'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif"
-                          end
-            when /(?:serif)/
-              fontstyle = if e[:cjk]
-                            "'Noto Serif JP', 'Noto Serif', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"
-                          else
-                            "'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"
-                          end
-            end
+            fontstyle = FontFamily.for_svg(@fontstyle, cjk_priority: e[:cjk])
 
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
               enc_height = e[:height]

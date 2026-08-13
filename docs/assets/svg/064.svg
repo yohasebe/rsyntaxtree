@@ -1,17 +1,17 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="743.6000000000001" height="782.075" viewBox="-17.6, 0, 761.2000000000002, 793.325" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="725.8" height="777.1599999999999" viewBox="-16.8, 0, 742.5999999999999, 788.3599999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="17.6" markerHeight="17.6" orient="auto">
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="17.6" markerHeight="17.6" orient="auto">
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="17.6" markerHeight="17.6" orient="auto">
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="52.800000000000004" markerHeight="17.6" orient="auto">
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -24,40 +24,40 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-17.6" y="0" width="761.2000000000002" height="793.325" stroke="none" fill="white" />"
-<rect x='213.4' y='193.5' width='495.0000000000001' height='581.225' rx='11.25' ry='11.25' fill='lightblue' fill-opacity='0.2' stroke='lightblue' stroke-opacity='0.55' stroke-width='2' />
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='216.76250000000002' y='67.5'><tspan x='216.76250000000002' y='67.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">TP</tspan>
+<rect x="-16.8" y="0" width="742.5999999999999" height="788.3599999999999" stroke="none" fill="white" />"
+<rect x='209.19999999999996' y='192.64' width='483.0' height='577.92' rx='11.2' ry='11.2' fill='lightblue' fill-opacity='0.2' stroke='lightblue' stroke-opacity='0.55' stroke-width='2' />
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='212.35' y='67.19999999999999'><tspan x='212.35' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">TP</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='67.6' y='238.5'><tspan x='67.6' y='238.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">DP</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='66.80000000000001' y='237.43999999999997'><tspan x='66.80000000000001' y='237.43999999999997' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">DP</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='17.599999999999994' y='409.5'><tspan x='17.599999999999994' y='409.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">everyone</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='16.80000000000001' y='407.67999999999995'><tspan x='16.80000000000001' y='407.67999999999995' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">everyone</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='369.42500000000007' y='238.5'><tspan x='369.42500000000007' y='238.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">T’</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='360.9' y='237.43999999999997'><tspan x='360.9' y='237.43999999999997' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">T’</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='250.0' y='409.5'><tspan x='250.0' y='409.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">T</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='245.0' y='407.67999999999995'><tspan x='245.0' y='407.67999999999995' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">T</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='231.0' y='580.5'><tspan x='231.0' y='580.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">will</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='226.0' y='577.92'><tspan x='226.0' y='577.92' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">will</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='486.35' y='409.5'><tspan x='486.35' y='409.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">VP</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='475.29999999999995' y='407.67999999999995'><tspan x='475.29999999999995' y='407.67999999999995' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">VP</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='395.4' y='580.5'><tspan x='395.4' y='580.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">V</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='386.19999999999993' y='577.92'><tspan x='386.19999999999993' y='577.92' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">V</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='359.4' y='751.5'><tspan x='359.4' y='751.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">praise</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='351.69999999999993' y='748.16'><tspan x='351.69999999999993' y='748.16' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">praise</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='585.8000000000001' y='580.5'><tspan x='585.8000000000001' y='580.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">DP</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='572.4' y='577.92'><tspan x='572.4' y='577.92' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">DP</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='523.8000000000001' y='751.5'><tspan x='523.8000000000001' y='751.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">his</tspan>
-<tspan x='568.8000000000001' y='755.5' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">i</tspan>
-<tspan x='576.8000000000001' y='751.5' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>friend</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='511.4' y='748.16'><tspan x='511.4' y='748.16' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">his</tspan>
+<tspan x='555.4' y='752.16' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif">i</tspan>
+<tspan x='562.4' y='748.16' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', serif"><tspan style='fill:none;'>￭</tspan>friend</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='89.1' y1='182.25' x2='236.26250000000002' y2='95.625' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='383.42500000000007' y1='182.25' x2='236.26250000000002' y2='95.625' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='89.1' y1='353.25' x2='89.1' y2='266.625' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='260.0' y1='353.25' x2='383.42500000000007' y2='266.625' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='506.85' y1='353.25' x2='383.42500000000007' y2='266.625' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='260.0' y1='524.25' x2='260.0' y2='437.625' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='406.4' y1='524.25' x2='506.85' y2='437.625' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='607.3000000000001' y1='524.25' x2='506.85' y2='437.625' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='406.4' y1='695.25' x2='406.4' y2='608.625' />
-<polygon style='fill: none; stroke: black; stroke-width:2; stroke-linejoin:round;stroke-linecap:round;' points='523.8000000000001 695.25 690.8000000000001 695.25 607.3000000000001 608.625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='87.80000000000001' y1='181.43999999999997' x2='230.85' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='374.9' y1='181.43999999999997' x2='230.85' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='87.80000000000001' y1='351.67999999999995' x2='87.80000000000001' y2='265.44' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='254.99999999999997' y1='351.67999999999995' x2='374.9' y2='265.44' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='494.79999999999995' y1='351.67999999999995' x2='374.9' y2='265.44' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='254.99999999999997' y1='521.92' x2='254.99999999999997' y2='435.67999999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='397.19999999999993' y1='521.92' x2='494.79999999999995' y2='435.67999999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='593.4' y1='521.92' x2='494.79999999999995' y2='435.67999999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='397.19999999999993' y1='692.16' x2='397.19999999999993' y2='605.92' />
+<polygon style='fill: none; stroke: black; stroke-width:2; stroke-linejoin:round;stroke-linecap:round;' points='511.4 692.16 675.4 692.16 593.4 605.92' />
 </svg>
