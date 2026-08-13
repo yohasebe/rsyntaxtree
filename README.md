@@ -191,6 +191,8 @@ For detailed documentation on syntax and markup:
 
 ## How to Cite
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21916150.svg)](https://doi.org/10.5281/zenodo.21916150)
+
 If you use RSyntaxTree in your research, please cite it. You can use the "Cite this repository" button on GitHub (powered by [CITATION.cff](CITATION.cff)), or the following BibTeX entry (adjust `version` to the one you used):
 
 ```bibtex
@@ -198,6 +200,7 @@ If you use RSyntaxTree in your research, please cite it. You can use the "Cite t
   author  = {Hasebe, Yoichiro},
   title   = {RSyntaxTree: A graphical syntax tree image generator},
   url     = {https://yohasebe.com/rsyntaxtree},
+  doi     = {10.5281/zenodo.21916150},
   version = {1.6.3},
   year    = {2026}
 }
