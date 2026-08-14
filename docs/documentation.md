@@ -43,12 +43,12 @@ In left-to-right mode, connectors, triangles, movement paths, and line-type conn
 The `Tidy layout` option (`tidy`, CLI `--tidy`) enables a space-efficient layout mode with three levels:
 
 - **Off** (`off`): the traditional layout.
-- **Standard** (`on`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space, typically reducing overall width by about 30%. Every leaf keeps its strict left-to-right position, so the terminal string still reads in surface (word) order across the whole figure — choose this for figures whose point is word order, such as cross-linguistic comparisons.
-- **Max** (`compact`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Leaf order is then guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
+- **On** (`on`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space, typically reducing overall width by about 30%. Every leaf keeps its strict left-to-right position, so the terminal string still reads in surface (word) order across the whole figure — choose this for figures whose point is word order, such as cross-linguistic comparisons.
+- **Compact** (`compact`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Leaf order is then guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
 
 Connector heights adjust automatically: tidy mode spends a small height budget (about 5% of the tree's height) on the levels whose branches spread widest, evening out branch angles without making the figure noticeably taller. There is nothing to tune.
 
-Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. When tidy is enabled, the `Radical symmetrization` option is ignored. Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with Standard; the X-bar and Morphology examples use Max.
+Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. When tidy is enabled, the `Radical symmetrization` option is ignored. Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `on`; the X-bar and Morphology examples use `compact`.
 
 For fine control from the CLI or a config file, `tidy_spacing` (default 1.0, range 0.5–3.0) scales the minimum clearance kept between neighboring subtrees.
 
