@@ -58,6 +58,8 @@ Dir.glob("*.md", base: examples_dir).map do |md|
       opts[:direction] = value
     when "tidy"
       opts[:tidy] = value
+    when "tidy_nest"
+      opts[:tidy_nest] = value
     when "tidy_spacing"
       opts[:tidy_spacing] = value
     when "tidy_slope"

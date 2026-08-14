@@ -119,6 +119,8 @@ Note: Currently, overline is displayed in SVG, but not in PNG.
 |------------|--------|
 |`X<>Y`      |X&nbsp;Y|
 
+A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes (e.g. `[the [<> ði]]`) pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
+
 #### Newline
 
 |Sample Input                   |Output              |

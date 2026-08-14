@@ -719,7 +719,10 @@ module RSyntaxTree
       "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray} #{string}/>"
     end
 
-    # Draw a line between child/parent elements
+    # Draw a line between child/parent elements. An empty-label element
+    # (see Element#empty_label?) is a pass-through joint: the line runs to
+    # its center instead of stopping at its (invisible) text box, so the
+    # segments on both sides connect without a gap.
     def line_to_parent(parent, child)
       return if child.horizontal_indent.zero?
 
@@ -731,8 +734,8 @@ module RSyntaxTree
         hctt = @global[:height_connector_to_text]
         y1 = child.vertical_indent + (child.content_height + hctt * 1.5) / 2
         y2 = parent.vertical_indent + (parent.content_height + hctt * 1.5) / 2
-        x1 = child.horizontal_indent - hctt
-        x2 = parent.horizontal_indent + parent.content_width + hctt
+        x1 = child.empty_label? ? child.horizontal_indent + child.content_width / 2 : child.horizontal_indent - hctt
+        x2 = parent.empty_label? ? parent.horizontal_indent + parent.content_width / 2 : parent.horizontal_indent + parent.content_width + hctt
 
         if @polyline
           mid_x1 = x2 + (x1 - x2) / 2
@@ -757,10 +760,10 @@ module RSyntaxTree
         # TTB: parent's bottom → child's top
         if @polyline
           chi_x = child.horizontal_indent + child.content_width / 2
-          chi_y = child.vertical_indent + @global[:height_connector_to_text] / 2
+          chi_y = child.empty_label? ? child.vertical_indent + child.content_height / 2 : child.vertical_indent + @global[:height_connector_to_text] / 2
 
           par_x = parent.horizontal_indent + parent.content_width / 2
-          par_y = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+          par_y = parent.empty_label? ? parent.vertical_indent + parent.content_height / 2 : parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
 
           mid_x1 = chi_x
           mid_y1 = par_y + (chi_y - par_y) / 2
@@ -778,9 +781,9 @@ module RSyntaxTree
                                         .sub(/PARY/, par_y.to_s)
         else
           x1 = child.horizontal_indent + child.content_width / 2
-          y1 = child.vertical_indent + @global[:height_connector_to_text] / 2
+          y1 = child.empty_label? ? child.vertical_indent + child.content_height / 2 : child.vertical_indent + @global[:height_connector_to_text] / 2
           x2 = parent.horizontal_indent + parent.content_width / 2
-          y2 = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+          y2 = parent.empty_label? ? parent.vertical_indent + parent.content_height / 2 : parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
 
           line_data   = @line_styles.sub(/X1/, x1.to_s)
           line_data   = line_data.sub(/Y1/, y1.to_s)

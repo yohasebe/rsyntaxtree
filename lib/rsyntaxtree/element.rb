@@ -58,6 +58,20 @@ module RSyntaxTree
       setup
     end
 
+    # True when the element renders no visible label — its text consists
+    # only of whitespace placeholders (from `<>`) and it carries no
+    # enclosure. Such nodes act as pass-through joints: connectors run
+    # continuously through them, which lets a `<>` chain push a leaf down
+    # to align with deeper leaves while the line stays unbroken.
+    def empty_label?
+      return false if @enclosure && @enclosure != :none
+
+      @content.all? do |c|
+        c[:type] == :text &&
+          c[:elements].all? { |e| e[:text].gsub(WHITESPACE_BLOCK, "").strip.empty? }
+      end
+    end
+
     def setup
       total_width = 0
       total_height = 0

@@ -56,6 +56,7 @@ module RSyntaxTree
       @fontsize = params[:fontsize]
       @mirror = params[:mirror] == true
       @tidy = params[:tidy] == true
+      @tidy_nest = params[:tidy_nest] == true
       @tidy_spacing = params[:tidy_spacing] || 1.0
       @tidy_slope = params[:tidy_slope] || 0.3
       # Tidy mode bundles the dynamic connector height: contour compression
@@ -343,6 +344,14 @@ module RSyntaxTree
     TIDY_MAX_ITERATIONS = 10
     TIDY_CONVERGENCE = 0.5 # px; a pass shifting less than this is stable
 
+    # Minimum sibling-center distance as a fraction of the widest child-level
+    # spread inside the pair's own subtrees. Prevents a parent's pair from
+    # being compressed narrower than the level right below it (an inversion
+    # that reads as a needle-thin top over flat lower branches); branch
+    # angles then stay comparable between adjacent levels. 1.0 = a pair is
+    # never tighter than the widest pair among its own children.
+    TIDY_LEVEL_BALANCE = 1.0
+
     # Base multiplier for the minimum clearance between adjacent subtrees.
     # At 1.0 (= raw h_gap_between_nodes) leaf labels sit closer than in the
     # standard layout, which reads as crowded; 2.5 restores comparable air
@@ -393,8 +402,7 @@ module RSyntaxTree
 
     # [left edge of the leftmost leaf, right edge of the rightmost leaf] of
     # the subtree rooted at +id+ (effective extents), or nil when the
-    # subtree has no leaf (cannot happen in practice — every subtree ends
-    # in leaves).
+    # subtree has no leaf.
     def subtree_leaf_span(id)
       leaves = []
       stack = [@element_list.get_id(id)]
@@ -431,6 +439,16 @@ module RSyntaxTree
       clearance.infinite? ? nil : clearance
     end
 
+    # Spread (max center-to-center distance) of +node+'s immediate children,
+    # or nil when it has fewer than two.
+    def child_spread(node)
+      kids = node.children.map { |c| @element_list.get_id(c) }
+      return nil if kids.size < 2
+
+      centers = kids.map { |k| k.horizontal_indent + k.content_width / 2.0 }
+      centers.max - centers.min
+    end
+
     def shift_subtree(id, delta)
       node = @element_list.get_id(id)
       node.horizontal_indent += delta
@@ -439,10 +457,15 @@ module RSyntaxTree
 
     # One compression pass. For each internal node (deepest first), adjacent
     # child subtrees are pulled together until (a) their contours clear each
-    # other by tidy_gap and (b) the leftmost leaf of the right subtree stays
-    # right of the rightmost leaf of the left subtree — (b) keeps the global
-    # leaf order intact even where the two subtrees never share a y band
-    # (contours alone cannot see that case). A negative clearance (possible
+    # other by tidy_gap and (b) — unless tidy_nest is on — the leftmost leaf
+    # of the right subtree stays right of the rightmost leaf of the left
+    # subtree; (b) keeps the global leaf order intact even where the two
+    # subtrees never share a y band (contours alone cannot see that case).
+    # With tidy_nest on, only (a) applies: elements on the same visual row
+    # still keep their order and spacing, but a shallow subtree may nest
+    # above the deep tail of its neighbor (e.g. a spec NP tucking toward the
+    # head across rows) — leaf x-order is then guaranteed within rows, not
+    # globally. A negative clearance (possible
     # when the previous height recalculation raised nodes into a shared y
     # band) pushes the right subtree back out — the dynamic connector height
     # couples y to the horizontal spread, so passes must run in both
@@ -463,11 +486,32 @@ module RSyntaxTree
           clearance = contour_clearance(subtree_rects(left_child.id), subtree_rects(right_child.id))
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 
-          left_span = subtree_leaf_span(left_child.id)
-          right_span = subtree_leaf_span(right_child.id)
-          if left_span && right_span
-            leaf_delta = left_span[1] + tidy_gap - right_span[0]
-            delta = leaf_delta if leaf_delta > delta
+          unless @tidy_nest
+            left_span = subtree_leaf_span(left_child.id)
+            right_span = subtree_leaf_span(right_child.id)
+            if left_span && right_span
+              leaf_delta = left_span[1] + tidy_gap - right_span[0]
+              delta = leaf_delta if leaf_delta > delta
+            end
+          end
+
+          # Level-balance floor (nest mode only): keep the pair at least a
+          # fraction of the widest child-level spread found inside its own
+          # two subtrees. Nesting can tuck an upper pair far narrower than
+          # the level right below it — an inversion that reads as a
+          # needle-thin top over flat lower branches. Without nesting the
+          # leaf-span guard already prevents such inversions, and applying
+          # the floor there would only forfeit legitimate compression.
+          # Compression is a negative delta (the right subtree moves left),
+          # so the floor bounds delta from below.
+          if @tidy_nest && delta.negative?
+            dist = (right_child.horizontal_indent + right_child.content_width / 2.0) -
+                   (left_child.horizontal_indent + left_child.content_width / 2.0)
+            below = [left_child, right_child].map { |c| child_spread(c) }.compact.max
+            if below
+              min_dist = below * TIDY_LEVEL_BALANCE
+              delta = [delta, min_dist - dist].max
+            end
           end
           next if delta.abs < 0.01
 

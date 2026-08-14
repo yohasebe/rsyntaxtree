@@ -30,6 +30,7 @@ DEFAULT_OPTS = {
   hide_default_connectors: "off",
   mirror: "off",
   tidy: "off",
+  tidy_nest: "off",
   tidy_spacing: 1.0,
   tidy_slope: 0.3,
   direction: "ttb"
@@ -75,7 +76,7 @@ module RSyntaxTree
                      .gsub(/(?<!\\)¥/, "\\")
           new_params[key] = data
 
-        when :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror, :tidy
+        when :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror, :tidy, :tidy_nest
           new_params[key] = value && (value != "off" && value != "false") ? true : false
         when :color
           new_params[key] = case value
