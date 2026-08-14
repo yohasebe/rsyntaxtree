@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.8.0] - 2026-08
+
+### Added
+- `tidy` layout scale, one option covering every layout mode from the most
+  spacious to the most dense: `symmetric` (radical symmetrization) | `off` |
+  `low` (contour packing, strict leaf positions) | `medium` (packing with
+  cross-row tucking that never lets two leaves swap their left-right order) |
+  `high` (free tucking; leaf order kept per row only). Connector heights
+  adjust automatically: a small height budget (5% of the tree's height) is
+  spent on the levels whose branches spread widest, evening out branch
+  angles. Tidy never produces overlapping labels (collisions roll back).
+- `mirror` option: flips the finished layout horizontally for the
+  right-to-left tree convention of Arabic/Hebrew syntax (composes with
+  `direction`).
+- `hspacing` option: scales every horizontal gap in every layout mode — the
+  horizontal counterpart of `vheight`/connector height.
+- Pass-through empty nodes: a node labeled only `<>` renders as an invisible
+  joint with the connector running continuously through it, so a `<>` chain
+  aligns a shallow leaf with deeper leaves without a broken line.
+- Full CJK coverage in every font style: the family chains fall back to
+  Noto Sans/Serif/Mono CJK, so Hangul and simplified/traditional Han render
+  in all styles (the standalone Noto JP faces carry no Hangul).
+- Example gallery: Multilingual category (the same UD-PUD sentence in nine
+  languages, constituency derived mechanically from the dependency
+  annotation; the Arabic example demonstrates `mirror`), a Morphology
+  category, and per-figure tidy settings across the whole gallery.
+- CI on GitHub Actions (Ruby 3.2/3.4).
+
+### Changed
+- The standalone `symmetrize` option and `-y` flag are deprecated aliases of
+  `tidy: symmetric`; `tidy_spacing` is a deprecated alias of `hspacing`.
+- `--direction` now owns the `-d` short flag (it had been auto-assigned to
+  `--hide-default-connectors`, so the documented `-d ltr` silently did
+  nothing).
+- The gem no longer bundles font files (38MB that were never opened at
+  runtime since the Pango migration): fonts resolve by family name through
+  fontconfig. See README for the system font packages. The dead `--font`
+  CLI option (its value was never read) is gone.
+
+### Fixed
+- Boolean options left at their defaults are no longer misread as enabled
+  when the caller passes only a partial parameter set (e.g. `tidy: off`
+  rendered as `symmetric` in the web UI).
+
 ## [1.7.0] - 2026-08
 
 ### Changed

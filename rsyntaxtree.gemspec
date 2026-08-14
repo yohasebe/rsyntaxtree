@@ -12,7 +12,11 @@ Gem::Specification.new do |s|
   s.description = "Syntax tree generator made with Ruby"
   s.licenses    = ["MIT"]
   s.required_ruby_version = Gem::Requirement.new(">= 2.6")
-  s.files         = `git ls-files`.split("\n")
+  # Exclude the documentation site (gallery assets), development tools and
+  # tests from the installed gem; they live in the repository.
+  s.files         = `git ls-files`.split("\n").reject do |path|
+                      path.start_with?("docs/", "dev/", "img/", "test/")
+                    end
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
