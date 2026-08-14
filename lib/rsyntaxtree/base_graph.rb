@@ -55,22 +55,24 @@ module RSyntaxTree
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
       @mirror = params[:mirror] == true
-      # tidy has three levels: "off" | "medium" (strict leaf order) |
-      # "high" (cross-row nesting allowed). Legacy tidy_nest: on upgrades
-      # "medium" to "high".
+      # tidy is one layout scale: "symmetric" (radical symmetrization) |
+      # "off" | "medium" (strict leaf order) | "high" (cross-row nesting
+      # allowed). Legacy inputs upgrade into the scale: tidy_nest: on
+      # lifts "medium" to "high", and the old standalone symmetrize: on
+      # lifts "off" to "symmetric". When tidy packing is active the
+      # symmetric layout is meaningless, so medium/high win over a legacy
+      # symmetrize flag.
       tidy_mode = params[:tidy].to_s
       tidy_mode = "high" if tidy_mode == "medium" && params[:tidy_nest] == true
+      tidy_mode = "symmetric" if tidy_mode == "off" && @symmetrize
       @tidy = %w[medium high].include?(tidy_mode)
       @tidy_nest = tidy_mode == "high"
       @tidy_spacing = params[:tidy_spacing] || 1.0
-      # Tidy mode bundles the dynamic connector height: contour compression
-      # pulls sibling subtrees together, and the dynamic drop keeps branch
-      # angles even as the horizontal spread shrinks.
+      # Tidy packing bundles the dynamic connector height: contour
+      # compression pulls sibling subtrees together, and the dynamic drop
+      # keeps branch angles even as the horizontal spread shrinks.
       @dynamic_connector = @tidy
-      # Symmetrize (uniform sibling slots) and tidy (contour packing) pursue
-      # contradictory layouts; combining them is meaningless, so tidy wins
-      # and symmetrize is silently ignored when both are on.
-      @symmetrize = false if @tidy
+      @symmetrize = tidy_mode == "symmetric"
     end
 
     # Vertical drop for the connectors descending from +parent+.

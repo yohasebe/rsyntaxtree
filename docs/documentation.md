@@ -27,7 +27,7 @@ The newline character `\n` can be used within the text of both node lables and l
 
 RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vector graphics software such as Adobe Illustrator, Microsoft Visio, [BOXY SVG](https://boxy-svg.com/), etc. It is very useful if you want to modify the output image.
 
-The `Radical symmetrization` option affects the way branch nodes are drawn. The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
+The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
 ### Tree Direction
 
@@ -42,13 +42,14 @@ In left-to-right mode, connectors, triangles, movement paths, and line-type conn
 
 The `Tidy layout` option (`tidy`, CLI `--tidy`) enables a space-efficient layout mode with three levels:
 
+- **Symmetric** (`symmetric`): radical symmetrization — every subtree is centered in a uniform slot, giving a wide, fully balanced figure. (Formerly the separate `Radical symmetrization` option, which remains as a legacy alias.)
 - **Off** (`off`): the traditional layout.
 - **Medium** (`medium`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space, typically reducing overall width by about 30%. Every leaf keeps its strict left-to-right position, so the terminal string still reads in surface (word) order across the whole figure — choose this for figures whose point is word order, such as cross-linguistic comparisons.
 - **High** (`high`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Leaf order is then guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
 
 Connector heights adjust automatically: tidy mode spends a small height budget (about 5% of the tree's height) on the levels whose branches spread widest, evening out branch angles without making the figure noticeably taller. There is nothing to tune.
 
-Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. When tidy is enabled, the `Radical symmetrization` option is ignored. Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `medium`; the X-bar and Morphology examples use `high`.
+Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. The scale runs from the most spacious (`symmetric`) to the most dense (`high`). Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `medium`; the X-bar and Morphology examples use `high`.
 
 For fine control from the CLI or a config file, `tidy_spacing` (default 1.0, range 0.5–3.0) scales the minimum clearance kept between neighboring subtrees.
 

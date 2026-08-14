@@ -170,4 +170,9 @@ class TidyTest < Minitest::Test
     assert_equal generator(SIMPLE, tidy: "medium").draw_svg, generator(SIMPLE, tidy: "on").draw_svg
     assert_equal generator(SIMPLE, tidy: "high").draw_svg, generator(SIMPLE, tidy: "compact").draw_svg
   end
+  # symmetric level == the legacy standalone symmetrize option
+  def test_tidy_symmetric_equals_legacy_symmetrize
+    assert_equal generator(SIMPLE, tidy: "symmetric").draw_svg,
+                 generator(SIMPLE, symmetrize: "on").draw_svg
+  end
 end

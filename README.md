@@ -156,10 +156,9 @@ Usage:
 | `-n, --fontstyle` | Font style: sans, serif, cjk, mono | `sans` |
 | `-s, --fontsize` | Font size: 8-26 | `16` |
 | `-c, --color` | Color mode: modern, traditional, off | `modern` |
-| `-y, --symmetrize` | Symmetrical tree: on, off | `off` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
 | `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |
-| `--tidy` | Tidy layout: off, medium (strict leaf order), high (may tuck across rows) | `off` |
+| `--tidy` | Layout scale: off, symmetric, medium (strict leaf order), high (may tuck across rows) | `off` |
 | `--tidy-spacing` | Tidy: minimum label spacing factor (0.5-3.0) | `1.0` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
 

@@ -75,15 +75,21 @@ module RSyntaxTree
           new_params[key] = data
 
         when :tidy
-          # Three levels: "off", "medium" (strict leaf order), "high"
-          # (branches may tuck across rows; leaf order kept per row).
-          # "on"/"compact" are accepted as legacy aliases, and legacy
-          # tidy_nest: "on" upgrades "medium" to "high" below.
+          # One layout scale from the most spacious to the most dense:
+          # "symmetric" (radical symmetrization, uniform sibling slots),
+          # "off" (the traditional layout), "medium" (contour packing with
+          # strict leaf order), "high" (packing that may also tuck branches
+          # across rows; leaf order kept per row). "on"/"compact" are
+          # accepted as legacy aliases of medium/high, legacy tidy_nest:
+          # "on" upgrades medium to high, and legacy symmetrize: "on"
+          # upgrades "off" to "symmetric" (both below, in BaseGraph).
           new_params[key] = case value.to_s
                             when "high", "compact"
                               "high"
                             when "medium", "on", "true"
                               "medium"
+                            when "symmetric"
+                              "symmetric"
                             else
                               "off"
                             end
