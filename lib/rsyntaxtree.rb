@@ -29,6 +29,7 @@ DEFAULT_OPTS = {
   polyline: "off",
   hide_default_connectors: "off",
   dynamic_connector: "off",
+  mirror: "off",
   direction: "ttb"
 }.freeze
 
@@ -72,7 +73,7 @@ module RSyntaxTree
                      .gsub(/(?<!\\)¥/, "\\")
           new_params[key] = data
 
-        when :symmetrize, :transparent, :polyline, :hide_default_connectors, :dynamic_connector
+        when :symmetrize, :transparent, :polyline, :hide_default_connectors, :dynamic_connector, :mirror
           new_params[key] = value && (value != "off" && value != "false") ? true : false
         when :color
           new_params[key] = case value

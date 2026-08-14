@@ -55,6 +55,7 @@ module RSyntaxTree
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
       @dynamic_connector = params[:dynamic_connector] == true
+      @mirror = params[:mirror] == true
     end
 
     # Vertical drop for the connectors descending from +parent+.
@@ -287,6 +288,22 @@ module RSyntaxTree
       end
     end
 
+    # Flip the laid-out tree horizontally (RTL linguistics convention: the
+    # first word sits at the right edge). Connectors, triangles, polylines,
+    # movement paths, and region shades all derive from element coordinates,
+    # so flipping every element here keeps them consistent. Works for both
+    # directions: ttb yields a right-to-left vertical tree; ltr puts the
+    # root at the right edge of the horizontal tree.
+    def mirror_layout
+      max_right = @element_list.get_elements.map { |e| e.horizontal_indent + e.content_width }.max
+      @element_list.get_elements.each do |e|
+        e.horizontal_indent = max_right - (e.horizontal_indent + e.content_width)
+      end
+      # Re-align the left edge to the standard left margin
+      offset = @global[:h_gap_between_nodes] - get_leftmost
+      @element_list.get_elements.each { |e| e.horizontal_indent += offset }
+    end
+
     # LTR layout: two-phase coordinate transformation.
     #
     # Phase 1 (before layout): swap content dimensions so the layout
@@ -370,6 +387,9 @@ module RSyntaxTree
 
       # Phase 2: swap axes and restore content dimensions for LTR
       finalize_ltr if @direction == "ltr"
+
+      # RTL flip (mirror option): after the layout is final, before drawing
+      mirror_layout if @mirror
 
       draw_elements
       draw_connector
