@@ -94,19 +94,28 @@ class TidyTest < Minitest::Test
     assert gaps[0] < gaps[1] && gaps[1] < gaps[2], "min label gap should grow with spacing: #{gaps.inspect}"
   end
 
-  # tidy_slope: larger slope => taller tree (the height cap scales with it)
-  def test_tidy_slope_monotonic
+  # tidy height budget: the tidy tree is never much taller than off
+  # (the automatic budget replaces the old tidy_slope knob)
+  def test_tidy_height_budget
     bracket, fontstyle = UD_TREES["Chinese"]
-    heights = [0.15, 0.3, 0.6].map do |sl|
-      lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "on", tidy_slope: sl)["geometry"]["height"]
-    end
-    assert heights[0] < heights[1] && heights[1] < heights[2], "total height should grow with slope: #{heights.inspect}"
+    h_off = lsif(bracket, fontstyle: fontstyle, vheight: 1.2)["geometry"]["height"]
+    h_on = lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "on")["geometry"]["height"]
+    assert h_on <= h_off * 1.10, "tidy height #{h_on} should stay within 10% of off height #{h_off}"
+  end
+
+  # tidy: compact nests across rows => at least as narrow as plain tidy
+  def test_tidy_compact_no_wider
+    data = "[CP [John] [TP [T [V [V cause] [V fall]] [T]] [VP [V t] [CP [books] [t]]]]]"
+    w_on = lsif(data, tidy: "on")["geometry"]["width"]
+    w_compact = lsif(data, tidy: "compact")["geometry"]["width"]
+    assert w_compact <= w_on, "compact (#{w_compact}) should not be wider than on (#{w_on})"
+    assert_no_overlaps lsif(data, tidy: "compact")["nodes"], "compact"
   end
 
   # Knobs are inert when tidy is off (backward compatibility)
   def test_knobs_inert_when_tidy_off
     plain = generator(SIMPLE).draw_svg
-    with_knobs = generator(SIMPLE, tidy_spacing: 2.0, tidy_slope: 0.6).draw_svg
+    with_knobs = generator(SIMPLE, tidy_spacing: 2.0).draw_svg
     assert_equal plain, with_knobs
   end
 

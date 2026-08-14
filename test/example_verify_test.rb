@@ -48,12 +48,8 @@ class ExampleParserTest < Minitest::Test
         opts[:direction] = value
       when "tidy"
         opts[:tidy] = value
-      when "tidy_nest"
-        opts[:tidy_nest] = value
       when "tidy_spacing"
         opts[:tidy_spacing] = value
-      when "tidy_slope"
-        opts[:tidy_slope] = value
       when "mirror"
         opts[:mirror] = value
       when "font"

@@ -30,9 +30,7 @@ DEFAULT_OPTS = {
   hide_default_connectors: "off",
   mirror: "off",
   tidy: "off",
-  tidy_nest: "off",
   tidy_spacing: 1.0,
-  tidy_slope: 0.3,
   direction: "ttb"
 }.freeze
 
@@ -76,7 +74,21 @@ module RSyntaxTree
                      .gsub(/(?<!\\)¥/, "\\")
           new_params[key] = data
 
-        when :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror, :tidy, :tidy_nest
+        when :tidy
+          # Three levels: "off", "on" (strict leaf order), "compact"
+          # (branches may tuck across rows). Legacy tidy_nest: "on" from
+          # older configs upgrades "on" to "compact" below.
+          new_params[key] = case value.to_s
+                            when "compact"
+                              "compact"
+                            when "on", "true"
+                              "on"
+                            else
+                              "off"
+                            end
+        when :tidy_nest
+          new_params[key] = value && (value != "off" && value != "false") ? true : false
+        when :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror
           new_params[key] = value && (value != "off" && value != "false") ? true : false
         when :color
           new_params[key] = case value
@@ -91,7 +103,7 @@ module RSyntaxTree
           new_params[key] = value.to_i
         when :linewidth
           new_params[key] = value.to_i
-        when :vheight, :tidy_spacing, :tidy_slope
+        when :vheight, :tidy_spacing
           new_params[key] = value.to_f
         when :fontstyle
           case value

@@ -55,10 +55,13 @@ module RSyntaxTree
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
       @mirror = params[:mirror] == true
-      @tidy = params[:tidy] == true
-      @tidy_nest = params[:tidy_nest] == true
+      # tidy has three levels: "off" | "on" (strict leaf order) | "compact"
+      # (cross-row nesting allowed). Legacy tidy_nest: on upgrades "on".
+      tidy_mode = params[:tidy].to_s
+      tidy_mode = "compact" if tidy_mode == "on" && params[:tidy_nest] == true
+      @tidy = %w[on compact].include?(tidy_mode)
+      @tidy_nest = tidy_mode == "compact"
       @tidy_spacing = params[:tidy_spacing] || 1.0
-      @tidy_slope = params[:tidy_slope] || 0.3
       # Tidy mode bundles the dynamic connector height: contour compression
       # pulls sibling subtrees together, and the dynamic drop keeps branch
       # angles even as the horizontal spread shrinks.
@@ -71,43 +74,57 @@ module RSyntaxTree
 
     # Vertical drop for the connectors descending from +parent+.
     #
+    # Fraction of the tree's baseline height that tidy mode may spend on
+    # taller connectors. The budget goes to the levels whose branches are
+    # spread widest, evening out branch angles without making the figure
+    # noticeably taller.
+    TIDY_HEIGHT_BUDGET = 0.05
+
+    # No single level's extra drop may exceed this multiple of the base
+    # connector height, so one very wide level cannot consume the whole
+    # budget and tower over the rest.
+    TIDY_EXTRA_CAP = 1.5
+
     # With a fixed drop, branch angles differ sharply between nodes whose
     # children sit close together (deep in a binary tree) and nodes whose
-    # children are far apart (near the root, where the branches flatten out).
-    # When tidy mode is on, the drop grows with the horizontal spread of the
-    # children (slope: tidy_slope) so the branches keep a similar slope
-    # throughout the tree. The growth is capped; the cap scales with the
-    # slope (2.5x at the default slope) so that lowering the slope also
-    # lowers the maximum drop — one knob controls "too tall" trees.
+    # children are far apart (near the root, where the branches flatten
+    # out). In tidy mode each level's drop is the base height plus a share
+    # of a small height budget (TIDY_HEIGHT_BUDGET x baseline height),
+    # allocated in proportion to how widely that level's branches spread —
+    # the widest (flattest) levels get the most relief. All parents on a
+    # level share one drop so same-depth cousins stay vertically aligned.
     def connector_height_for(parent)
       base = @global[:height_connector]
       return base unless @dynamic_connector
 
-      # Use the same drop for every parent on a level (the level's widest
-      # spread). Per-parent drops leave same-depth cousins at slightly
-      # different heights, which reads as misaligned rows.
       level_connector_heights[parent.level] || base
     end
 
-    def raw_connector_height_for(parent)
-      base = @global[:height_connector]
-      children = parent.children.map { |c| @element_list.get_id(c) }.compact
-      return base if children.size < 2
-
-      centers = children.map { |c| c.horizontal_indent + c.content_width / 2.0 }
-      spread = centers.max - centers.min
-      return base if spread <= 0
-
-      cap = base * [1.0, 2.5 * @tidy_slope / 0.3].max
-      [[spread * @tidy_slope, base].max, cap].min
-    end
-
     def level_connector_heights
-      @level_connector_heights ||= @element_list.get_elements.each_with_object({}) do |e, drops|
-        next if e.children.empty?
+      @level_connector_heights ||= begin
+        base = @global[:height_connector]
+        spreads = {}
+        row_heights = {}
+        @element_list.get_elements.each do |e|
+          row_heights[e.level] = [row_heights[e.level] || 0, e.content_height || 0].max
+          next if e.children.size < 2
 
-        h = raw_connector_height_for(e)
-        drops[e.level] = [drops[e.level] || 0, h].max
+          kids = e.children.map { |c| @element_list.get_id(c) }.compact
+          centers = kids.map { |k| k.horizontal_indent + k.content_width / 2.0 }
+          spread = centers.max - centers.min
+          spreads[e.level] = [spreads[e.level] || 0, spread].max if spread.positive?
+        end
+
+        levels_with_children = @element_list.get_elements.reject { |e| e.children.empty? }
+                                            .map(&:level).uniq.size
+        baseline = levels_with_children * base + row_heights.values.sum
+        budget = baseline * TIDY_HEIGHT_BUDGET
+        total_spread = spreads.values.sum
+
+        spreads.each_with_object({}) do |(lv, spread), drops|
+          extra = total_spread.positive? ? budget * spread / total_spread : 0.0
+          drops[lv] = base + [extra, base * TIDY_EXTRA_CAP].min
+        end
       end
     end
 

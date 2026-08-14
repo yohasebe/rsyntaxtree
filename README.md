@@ -159,9 +159,8 @@ Usage:
 | `-y, --symmetrize` | Symmetrical tree: on, off | `off` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
 | `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |
-| `--tidy` | Tidy layout (subtree compaction + dynamic connector height): on, off | `off` |
+| `--tidy` | Tidy layout: off, on (strict leaf order), compact (may tuck across rows) | `off` |
 | `--tidy-spacing` | Tidy: minimum label spacing factor (0.5-3.0) | `1.0` |
-| `--tidy-slope` | Tidy: connector slope; also scales the height cap (0.1-1.0) | `0.3` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
 
 Run `rsyntaxtree -h` for the full list of options.
