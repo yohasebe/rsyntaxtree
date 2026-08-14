@@ -62,7 +62,7 @@ Syntax trees for right-to-left scripts such as Arabic and Hebrew are conventiona
 
 ### Fonts Used to Generate PNG
 
-Currently, you can choose among the font styles `Noto Sans`, `Noto Serif`, `Noto Sans Mono` and `WQY Zen Hei`.
+Currently, you can choose among the font styles `Noto Sans`, `Noto Serif` and `Noto Sans Mono`. Each of them falls back to Noto CJK for Han, Hangul and kana, so any of the three renders CJK text.
 
 - `Noto Sans` can display basic Unicode characters (including Japanese hiragana/katakana/kanji).
 - `Noto Serif` can display basic Unicode characters (including Japanese hiragana/katakana/kanji).
