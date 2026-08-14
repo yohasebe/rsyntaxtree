@@ -54,8 +54,18 @@ module RSyntaxTree
       @leafstyle = params[:leafstyle]
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
-      @dynamic_connector = params[:dynamic_connector] == true
       @mirror = params[:mirror] == true
+      @tidy = params[:tidy] == true
+      @tidy_spacing = params[:tidy_spacing] || 1.0
+      @tidy_slope = params[:tidy_slope] || 0.3
+      # Tidy mode bundles the dynamic connector height: contour compression
+      # pulls sibling subtrees together, and the dynamic drop keeps branch
+      # angles even as the horizontal spread shrinks.
+      @dynamic_connector = @tidy
+      # Symmetrize (uniform sibling slots) and tidy (contour packing) pursue
+      # contradictory layouts; combining them is meaningless, so tidy wins
+      # and symmetrize is silently ignored when both are on.
+      @symmetrize = false if @tidy
     end
 
     # Vertical drop for the connectors descending from +parent+.
@@ -63,12 +73,11 @@ module RSyntaxTree
     # With a fixed drop, branch angles differ sharply between nodes whose
     # children sit close together (deep in a binary tree) and nodes whose
     # children are far apart (near the root, where the branches flatten out).
-    # When the dynamic option is on, the drop grows with the horizontal spread
-    # of the children so the branches keep a similar slope throughout the tree.
-    # The growth is capped so that wide trees do not become excessively tall.
-    DYNAMIC_CONNECTOR_SLOPE = 0.3   # drop per unit of horizontal spread
-    DYNAMIC_CONNECTOR_MAX = 2.5     # ceiling, as a multiple of the base height
-
+    # When tidy mode is on, the drop grows with the horizontal spread of the
+    # children (slope: tidy_slope) so the branches keep a similar slope
+    # throughout the tree. The growth is capped; the cap scales with the
+    # slope (2.5x at the default slope) so that lowering the slope also
+    # lowers the maximum drop — one knob controls "too tall" trees.
     def connector_height_for(parent)
       base = @global[:height_connector]
       return base unless @dynamic_connector
@@ -80,7 +89,8 @@ module RSyntaxTree
       spread = centers.max - centers.min
       return base if spread <= 0
 
-      [[spread * DYNAMIC_CONNECTOR_SLOPE, base].max, base * DYNAMIC_CONNECTOR_MAX].min
+      cap = base * [1.0, 2.5 * @tidy_slope / 0.3].max
+      [[spread * @tidy_slope, base].max, cap].min
     end
 
     def calculate_level
@@ -304,6 +314,174 @@ module RSyntaxTree
       @element_list.get_elements.each { |e| e.horizontal_indent += offset }
     end
 
+    # --- Tidy mode: Reingold-Tilford-style contour compression ---
+
+    # Compression passes alternate with height recalculation until the
+    # layout stops moving (the dynamic connector height couples y to the
+    # horizontal spread, so the two must settle together). The cap only
+    # guards against pathological oscillation.
+    TIDY_MAX_ITERATIONS = 10
+    TIDY_CONVERGENCE = 0.5 # px; a pass shifting less than this is stable
+
+    # Minimum horizontal clearance kept between adjacent subtrees.
+    # tidy_spacing scales the base gap (user feedback: labels could sit too
+    # close at the prototype's fixed gap).
+    def tidy_gap
+      @global[:h_gap_between_nodes] * @tidy_spacing
+    end
+
+    # Effective visual rectangle of +node+ as [y0, y1, x0, x1], widening the
+    # content rect where the drawing extends beyond it. Mirrors the geometry
+    # of SVGGraph#element_visual_box: enclosures (#/##/###) paint brackets or
+    # a rectangle outside the label, so the contour must reserve that space.
+    # Triangles need no widening (their base spans exactly the child's
+    # content width). Vertically the full content box is kept — a
+    # conservative superset of the glyph box, which is what the horizontal
+    # contour comparison needs.
+    def effective_rect(node)
+      x0 = node.horizontal_indent
+      x1 = node.horizontal_indent + node.content_width
+      if [:brackets, :rectangle, :brectangle].include?(node.enclosure)
+        ext = @global[:h_gap_between_nodes] / 2 + ((@linewidth || 1) + BLINE_SCALING)
+        x0 -= ext
+        x1 += ext
+      end
+      [node.vertical_indent, node.vertical_indent + node.content_height, x0, x1]
+    end
+
+    # Effective-rect list of the subtree rooted at +id+, as [y0, y1, x0, x1].
+    # A region-shaded (%) node additionally contributes the shade's padded
+    # bounding rect so that neighboring subtrees keep clear of the plane.
+    def subtree_rects(id)
+      node = @element_list.get_id(id)
+      rects = [effective_rect(node)]
+      node.children.each { |c| rects.concat(subtree_rects(c)) }
+      if node.region
+        pad = @global[:h_gap_between_nodes]
+        rects << [rects.map { |r| r[0] }.min - pad / 2.0,
+                  rects.map { |r| r[1] }.max + pad,
+                  rects.map { |r| r[2] }.min - pad,
+                  rects.map { |r| r[3] }.max + pad]
+      end
+      rects
+    end
+
+    # [left edge of the leftmost leaf, right edge of the rightmost leaf] of
+    # the subtree rooted at +id+ (effective extents), or nil when the
+    # subtree has no leaf (cannot happen in practice — every subtree ends
+    # in leaves).
+    def subtree_leaf_span(id)
+      leaves = []
+      stack = [@element_list.get_id(id)]
+      until stack.empty?
+        node = stack.pop
+        if node.children.empty?
+          leaves << node
+        else
+          node.children.each { |c| stack << @element_list.get_id(c) }
+        end
+      end
+      return nil if leaves.empty?
+
+      rects = leaves.map { |e| effective_rect(e) }
+      [rects.map { |r| r[2] }.min, rects.map { |r| r[3] }.max]
+    end
+
+    # Minimum horizontal clearance between two sets of rects over the y
+    # intervals where both sets have coverage; nil when they never co-occur
+    # in y. Exact: within an elementary y interval the covering rects are
+    # constant, so comparing the max right edge against the min left edge
+    # gives the worst point of that interval.
+    def contour_clearance(left_rects, right_rects)
+      boundaries = (left_rects + right_rects).flat_map { |r| [r[0], r[1]] }.uniq.sort
+      clearance = Float::INFINITY
+      boundaries.each_cons(2) do |y0, y1|
+        left = left_rects.select { |r| r[0] < y1 && r[1] > y0 }
+        right = right_rects.select { |r| r[0] < y1 && r[1] > y0 }
+        next if left.empty? || right.empty?
+
+        gap = right.map { |r| r[2] }.min - left.map { |r| r[3] }.max
+        clearance = gap if gap < clearance
+      end
+      clearance.infinite? ? nil : clearance
+    end
+
+    def shift_subtree(id, delta)
+      node = @element_list.get_id(id)
+      node.horizontal_indent += delta
+      node.children.each { |c| shift_subtree(c, delta) }
+    end
+
+    # One compression pass. For each internal node (deepest first), adjacent
+    # child subtrees are pulled together until (a) their contours clear each
+    # other by tidy_gap and (b) the leftmost leaf of the right subtree stays
+    # right of the rightmost leaf of the left subtree — (b) keeps the global
+    # leaf order intact even where the two subtrees never share a y band
+    # (contours alone cannot see that case). A negative clearance (possible
+    # when the previous height recalculation raised nodes into a shared y
+    # band) pushes the right subtree back out — the dynamic connector height
+    # couples y to the horizontal spread, so passes must run in both
+    # directions to reach a fixpoint. Moving the right subtree only ever
+    # drives the gap to its left neighbor toward the constraints and grows
+    # the gap to its right neighbor, so a single left-to-right sweep per
+    # parent cannot create new collisions; non-adjacent subtrees stay
+    # separated transitively. The parent is then re-centered over its
+    # children (node_centering rule).
+    #
+    # Returns the largest absolute shift applied (for convergence testing).
+    def tidy_compress
+      max_shift = 0.0
+      parents = @element_list.get_elements.reject { |e| e.children.empty? }
+      parents.sort_by { |p| [-p.level, -p.id] }.each do |parent|
+        children = parent.children.map { |c| @element_list.get_id(c) }
+        children.each_cons(2) do |left_child, right_child|
+          clearance = contour_clearance(subtree_rects(left_child.id), subtree_rects(right_child.id))
+          delta = clearance.nil? ? 0.0 : tidy_gap - clearance
+
+          left_span = subtree_leaf_span(left_child.id)
+          right_span = subtree_leaf_span(right_child.id)
+          if left_span && right_span
+            leaf_delta = left_span[1] + tidy_gap - right_span[0]
+            delta = leaf_delta if leaf_delta > delta
+          end
+          next if delta.abs < 0.01
+
+          shift_subtree(right_child.id, delta)
+          max_shift = delta.abs if delta.abs > max_shift
+        end
+        centers = children.map { |c| c.horizontal_indent + c.content_width / 2.0 }
+        parent.horizontal_indent = centers.min + (centers.max - centers.min - parent.content_width) / 2
+      end
+      max_shift
+    end
+
+    # Shift the whole tree so the leftmost node lands one gap from the edge.
+    def normalize_horizontal
+      offset = @global[:h_gap_between_nodes] - get_leftmost
+      @element_list.get_elements.each { |e| e.horizontal_indent += offset }
+    end
+
+    # Snapshot / restore of everything the tidy passes mutate.
+    def layout_snapshot
+      @element_list.get_elements.map { |e| [e.horizontal_indent, e.vertical_indent, e.height] }
+    end
+
+    def restore_layout(snapshot)
+      @element_list.get_elements.zip(snapshot) do |e, (h, v, ht)|
+        e.horizontal_indent = h
+        e.vertical_indent = v
+        e.height = ht
+      end
+    end
+
+    # Pairwise intersection over the effective (decoration-aware) rects.
+    def layout_overlaps?
+      rects = @element_list.get_elements.map { |e| effective_rect(e) }
+      rects.combination(2).any? do |a, b|
+        a[2] < b[3] - 0.01 && b[2] < a[3] - 0.01 && a[0] < b[1] - 0.01 && b[0] < a[1] - 0.01
+      end
+    end
+
     # LTR layout: two-phase coordinate transformation.
     #
     # Phase 1 (before layout): swap content dimensions so the layout
@@ -384,6 +562,33 @@ module RSyntaxTree
       end
 
       calculate_height
+
+      # Tidy mode: compress sibling subtrees by their contours, then let the
+      # dynamic connector height settle. Each pass compresses against the
+      # current vertical layout and recomputes heights for the next one;
+      # repeat until neither moves (see tidy_compress for why passes must
+      # also be able to push subtrees back apart). For LTR this runs in the
+      # swapped coordinate system, where the same logic applies.
+      #
+      # Safety net: convergence is not proven, and a height recalculation
+      # can transiently move nodes into a shared y band (which the NEXT
+      # pass repairs by pushing subtrees apart). So passes are allowed to
+      # continue through transient overlaps, but the last overlap-free
+      # state is always remembered, and any overlapping final state is
+      # rolled back to it — tidy never emits an overlapping tree.
+      if @tidy && @element_list.elements.size > 1
+        snapshot = layout_snapshot # the pre-tidy layout is overlap-free
+        TIDY_MAX_ITERATIONS.times do
+          max_shift = tidy_compress
+          normalize_horizontal
+          calculate_height
+          next if layout_overlaps?
+
+          snapshot = layout_snapshot
+          break if max_shift < TIDY_CONVERGENCE
+        end
+        restore_layout(snapshot) if layout_overlaps?
+      end
 
       # Phase 2: swap axes and restore content dimensions for LTR
       finalize_ltr if @direction == "ltr"

@@ -24,8 +24,10 @@ CONFIG_VALIDATORS = {
   transparent: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   polyline: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   hide_default_connectors: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
-  dynamic_connector: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   mirror: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
+  tidy: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
+  tidy_spacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
+  tidy_slope: ->(v) { v.is_a?(Numeric) && v >= 0.1 && v <= 1.0 ? nil : "must be in the range of 0.1-1.0" },
   direction: ->(v) { /\A(ttb|ltr)\z/ =~ v.to_s ? nil : "must be ttb or ltr" }
 }.freeze
 
@@ -112,8 +114,10 @@ opts = Optimist.options do
   opt :transparent, "Make background transparent: on or off", default: "off"
   opt :polyline, "draw polyline connectors: on or off", default: "off"
   opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off"
-  opt :dynamic_connector, "scale connector height with branch width for even branch angles: on or off", default: "off"
   opt :mirror, "flip the tree horizontally (RTL linguistics convention: first word at the right edge): on or off", default: "off"
+  opt :tidy, "tidy tree layout (contour-based subtree compression + dynamic connector height): on or off", default: "off"
+  opt :tidy_spacing, "tidy mode: minimum label spacing factor: 0.5-3.0", default: 1.0
+  opt :tidy_slope, "tidy mode: connector slope (also scales the height cap): 0.1-1.0", default: 0.3
   opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb"
   opt :help, "This is a custom help message", short: :h
 end
@@ -132,8 +136,10 @@ Optimist.die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5
 Optimist.die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]
 Optimist.die :polyline, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:polyline]
 Optimist.die :hide_default_connectors, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:hide_default_connectors]
-Optimist.die :dynamic_connector, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:dynamic_connector]
 Optimist.die :mirror, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:mirror]
+Optimist.die :tidy, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:tidy]
+Optimist.die :tidy_spacing, "must be in the range of 0.5-3.0" if opts[:tidy_spacing] < 0.5 || opts[:tidy_spacing] > 3.0
+Optimist.die :tidy_slope, "must be in the range of 0.1-1.0" if opts[:tidy_slope] < 0.1 || opts[:tidy_slope] > 1.0
 
 # Merge config file options with CLI options (CLI takes precedence)
 string_opts = {}
