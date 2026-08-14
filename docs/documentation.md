@@ -38,6 +38,26 @@ The `Direction` option controls the orientation of the tree layout:
 
 In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `Connector Height` option controls the horizontal depth between tree levels in LTR mode.
 
+### Tidy Layout
+
+The `Tidy` option (`tidy: on`, CLI `--tidy`) enables a space-efficient layout mode that combines two mechanisms:
+
+- **Contour-based compaction**: adjacent subtrees are pulled toward each other wherever their outlines leave unused space, typically reducing overall width by about 30% while keeping a minimum clearance between labels.
+- **Dynamic connector height**: the vertical drop from a node to its children grows with how far apart the children on that level are spread, so branch angles remain similar throughout the tree — instead of wide, flat branches near the root and steep ones near the leaves. All nodes of the same depth stay vertically aligned.
+
+Two optional knobs adjust the degree (both take effect only when `Tidy` is on):
+
+- `Tidy spacing` (`tidy_spacing`, default 1.0, useful range 0.5–3.0): scales the minimum clearance kept between neighboring subtrees. Larger values put more air between labels; smaller values compress harder.
+- `Tidy slope` (`tidy_slope`, default 0.3, useful range 0.1–1.0): controls how strongly the connector height grows with branch spread. The maximum connector height scales with the slope as well, so lowering this one value also bounds the overall height of the tree. A value of `0.15` is a good choice when you want the compaction with hardly any extra height.
+
+Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. When `Tidy` is on, the `Radical symmetrization` option is ignored. The [Multilingual examples](https://yohasebe.github.io/rsyntaxtree/examples) in the gallery are all drawn with `Tidy` enabled.
+
+### Mirrored Layout for RTL Scripts
+
+Syntax trees for right-to-left scripts such as Arabic and Hebrew are conventionally drawn expanding from right to left, with the first word of the sentence at the right edge. The `Mirror` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally to follow this convention: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
+
+`Mirror` composes with `Direction`: `ttb` + mirror gives the standard RTL tree, and `ltr` + mirror places the root at the right with leaves expanding leftward. Connectors, triangles, movement paths, and region shades all follow the mirrored positions automatically. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
+
 ### Fonts Used to Generate PNG
 
 Currently, you can choose among the font styles `Noto Sans`, `Noto Serif`, `Noto Sans Mono` and `WQY Zen Hei`.

@@ -113,12 +113,12 @@ opts = Optimist.options do
   opt :symmetrize, "Generate radically symmetrical, balanced tree: on or off", default: "off"
   opt :transparent, "Make background transparent: on or off", default: "off"
   opt :polyline, "draw polyline connectors: on or off", default: "off"
-  opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off"
+  opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off", short: :none
   opt :mirror, "flip the tree horizontally (RTL linguistics convention: first word at the right edge): on or off", default: "off"
-  opt :tidy, "tidy tree layout (contour-based subtree compression + dynamic connector height): on or off", default: "off"
-  opt :tidy_spacing, "tidy mode: minimum label spacing factor: 0.5-3.0", default: 1.0
-  opt :tidy_slope, "tidy mode: connector slope (also scales the height cap): 0.1-1.0", default: 0.3
-  opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb"
+  opt :tidy, "tidy tree layout (contour-based subtree compression + dynamic connector height): on or off", default: "off", short: :none
+  opt :tidy_spacing, "tidy mode: minimum label spacing factor: 0.5-3.0", default: 1.0, short: :none
+  opt :tidy_slope, "tidy mode: connector slope (also scales the height cap): 0.1-1.0", default: 0.3, short: :none
+  opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb", short: :d
   opt :help, "This is a custom help message", short: :h
 end
 
