@@ -66,7 +66,7 @@ Currently, you can choose among the font styles `Noto Sans`, `Noto Serif`, `Noto
 
 - `Noto Sans` can display basic Unicode characters (including Japanese hiragana/katakana/kanji).
 - `Noto Serif` can display basic Unicode characters (including Japanese hiragana/katakana/kanji).
-- `WQY Zen Hei` can display a wide range of Chinese/Japanese/Korean (CJK) characters.
+- `Noto Sans CJK` covers the full CJK range (Han, Hangul, kana) and is used automatically as a fallback by every style.
 - `Noto Sans Mono` can display basic Unicode characters in a mono-spaced typeface.
 
 ### Install Fonts for SVG
@@ -77,7 +77,7 @@ SVG images are dependent on the fonts installed locally on your computer. In ord
 - [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP): for Japanese characters in sans serif
 - [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif): for latin and other basic Unicode characters in serif
 - [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP): for Japanese characters in serif
-- [WQY Zen Hei](https://packages.ubuntu.com/bionic/fonts/fonts-wqy-zenhei): for CJK characters
+- [Noto Sans CJK](https://fonts.google.com/noto/specimen/Noto+Sans+JP) / [Noto Serif CJK](https://fonts.google.com/noto/specimen/Noto+Serif+JP): for the full CJK range, including Hangul and simplified Han
 - [Noto Sans Mono](https://fonts.google.com/noto/specimen/Noto+Sans+Mono): for latin and other basic Unicode characters in sans serif mono (semi-condensed)
 - [OpenMoji](https://openmoji.org/): for emoji characters.
 

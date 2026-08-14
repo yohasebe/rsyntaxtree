@@ -66,7 +66,7 @@ PNG形式の場合，`Noto Sans`，`Noto Serif`，`WQY Zen Hei` のいずれか�
 
 - `Noto Sans` は基本的なUnicode文字をゴシック体に近い書体で表示します（日本語のひらがな／カタカナ／漢字を含む）．
 - `Noto Serif` は基本的なUnicode文字を明朝体に近い書体で表示します（日本語のひらがな／カタカナ／漢字を含む）．
-- `WQY Zen Hei` は中国語／日本語／コリア語（CJK）の幅広い文字を表示可能です．
+- `Noto Sans CJK` は CJK（漢字・ハングル・かな）の全域をカバーし，どの書体を選んでもフォールバックとして自動的に使われます．
 
 ### SVG形式を用いる場合
 
@@ -76,7 +76,7 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 - [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP): 日本語のひらがな／カタカナ／漢字（サンセリフ）の表示
 - [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif): ラテン文字と基本的なUnicode文字（セリフ） の表示
 - [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP):日本語のひらがな／カタカナ／漢字（セリフ）の表示
-- [WQY Zen Hei](https://packages.ubuntu.com/bionic/fonts/fonts-wqy-zenhei): 中国語／日本語／コリア語（CJK）の文字の表示
+- [Noto Sans CJK](https://fonts.google.com/noto/specimen/Noto+Sans+JP) / [Noto Serif CJK](https://fonts.google.com/noto/specimen/Noto+Serif+JP): ハングルや簡体字を含む CJK 全域の表示
 - [OpenMoji](https://openmoji.org/): 様々な絵文字の表示
 
 ### テキストの描画

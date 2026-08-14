@@ -8,7 +8,8 @@ RUN apk update && \
     apk add --no-cache librsvg librsvg-dev pango-dev imagemagick imagemagick-dev xz-dev libbz2 && \
     apk add --no-cache gobject-introspection gobject-introspection-dev && \
     apk add --no-cache -t .build-packages --no-cache build-base curl-dev wget gcompat && \
-    apk add --no-cache font-noto-arabic font-noto-devanagari font-noto-thai
+    apk add --no-cache font-noto font-noto-cjk font-noto-cjk-extra font-noto-emoji \
+        font-noto-arabic font-noto-devanagari font-noto-thai
 
 
 ADD Gemfile $WORKSPACE

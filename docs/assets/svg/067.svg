@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="616.3" height="652.5120000000001" viewBox="-15.200000000000001, 0, 631.5, 663.7120000000001" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="720.8" height="652.5120000000001" viewBox="-15.200000000000001, 0, 736.0, 663.7120000000001" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="15.200000000000001" markerHeight="15.200000000000001" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
@@ -24,46 +24,46 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-15.200000000000001" y="0" width="631.5" height="663.7120000000001" stroke="none" fill="white" />"
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='275.2' y='67.19999999999999'><tspan x='275.2' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">S</tspan>
+<rect x="-15.200000000000001" y="0" width="736.0" height="663.7120000000001" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='342.575' y='67.19999999999999'><tspan x='342.575' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">S</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='421.69999999999993' y='217.1304269662921'><tspan x='421.69999999999993' y='217.1304269662921' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">VP</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='507.19999999999993' y='217.51745816439364'><tspan x='507.19999999999993' y='217.51745816439364' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">VP</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='492.69999999999993' y='360.5608988764045'><tspan x='492.69999999999993' y='360.5608988764045' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">VERB</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='587.6999999999999' y='361.0782572797641'><tspan x='587.6999999999999' y='361.0782572797641' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">VERB</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='498.69999999999993' y='501.312'><tspan x='498.69999999999993' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">تكمن</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='578.6999999999999' y='501.312'><tspan x='578.6999999999999' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">تكمن</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='328.7' y='360.5608988764045'><tspan x='328.7' y='360.5608988764045' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NP</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='404.7' y='361.0782572797641'><tspan x='404.7' y='361.0782572797641' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NP</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='367.69999999999993' y='501.312'><tspan x='367.69999999999993' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NOUN</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='443.69999999999993' y='501.312'><tspan x='443.69999999999993' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NOUN</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='368.69999999999993' y='635.712'><tspan x='368.69999999999993' y='635.712' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">أهميت</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='439.69999999999993' y='635.712'><tspan x='439.69999999999993' y='635.712' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">أهميت</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='242.7' y='501.312'><tspan x='242.7' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">PRON</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='318.7' y='501.312'><tspan x='318.7' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">PRON</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='274.7' y='635.712'><tspan x='274.7' y='635.712' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">ه</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='350.7' y='635.712'><tspan x='350.7' y='635.712' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">ه</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='107.69999999999999' y='217.1304269662921'><tspan x='107.69999999999999' y='217.1304269662921' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">PP</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='156.95' y='217.51745816439364'><tspan x='156.95' y='217.51745816439364' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">PP</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='155.2' y='360.5608988764045'><tspan x='155.2' y='360.5608988764045' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">ADP</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='222.7' y='361.0782572797641'><tspan x='222.7' y='361.0782572797641' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">ADP</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='166.2' y='501.312'><tspan x='166.2' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">في</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='225.7' y='501.312'><tspan x='225.7' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">في</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='24.200000000000003' y='360.5608988764045'><tspan x='24.200000000000003' y='360.5608988764045' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NOUN</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='55.19999999999999' y='361.0782572797641'><tspan x='55.19999999999999' y='361.0782572797641' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NOUN</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='15.200000000000003' y='501.312'><tspan x='15.200000000000003' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">حقيقتين</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='15.200000000000003' y='501.312'><tspan x='15.200000000000003' y='501.312' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">حقيقتين</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='440.69999999999993' y1='161.1304269662921' x2='283.7' y2='95.19999999999999' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='127.7' y1='161.1304269662921' x2='283.7' y2='95.19999999999999' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='531.6999999999999' y1='304.56089887640445' x2='440.69999999999993' y2='245.13042696629213' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='349.2' y1='304.56089887640445' x2='440.69999999999993' y2='245.13042696629213' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='531.1999999999999' y1='445.31199999999995' x2='531.6999999999999' y2='388.5608988764045' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='413.19999999999993' y1='445.31199999999995' x2='349.2' y2='388.5608988764045' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='285.2' y1='445.31199999999995' x2='349.2' y2='388.5608988764045' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='413.19999999999993' y1='579.712' x2='413.19999999999993' y2='529.312' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='285.7' y1='579.712' x2='285.2' y2='529.312' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='184.7' y1='304.56089887640445' x2='127.7' y2='245.13042696629213' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='69.7' y1='304.56089887640445' x2='127.7' y2='245.13042696629213' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='185.2' y1='445.31199999999995' x2='184.7' y2='388.5608988764045' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='70.2' y1='445.31199999999995' x2='69.7' y2='388.5608988764045' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='526.1999999999999' y1='161.51745816439364' x2='351.075' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='176.95' y1='161.51745816439364' x2='351.075' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='626.6999999999999' y1='305.07825727976405' x2='526.1999999999999' y2='245.51745816439364' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='425.2' y1='305.07825727976405' x2='526.1999999999999' y2='245.51745816439364' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='626.1999999999999' y1='445.31199999999995' x2='626.6999999999999' y2='389.0782572797641' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='489.19999999999993' y1='445.31199999999995' x2='425.2' y2='389.0782572797641' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='361.2' y1='445.31199999999995' x2='425.2' y2='389.0782572797641' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='489.19999999999993' y1='579.712' x2='489.19999999999993' y2='529.312' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='361.7' y1='579.712' x2='361.2' y2='529.312' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='252.2' y1='305.07825727976405' x2='176.95' y2='245.51745816439364' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='100.7' y1='305.07825727976405' x2='176.95' y2='245.51745816439364' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='252.2' y1='445.31199999999995' x2='252.2' y2='389.0782572797641' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='101.2' y1='445.31199999999995' x2='100.7' y2='389.0782572797641' />
 </svg>

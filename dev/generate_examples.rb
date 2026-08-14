@@ -72,7 +72,7 @@ Dir.glob("*.md", base: examples_dir).map do |md|
                            "sans"
                          when /serif/i
                            "serif"
-                         when /wqy/i
+                         when /wqy|cjk/i
                            "cjk"
                          else
                            "sans"

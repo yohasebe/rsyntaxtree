@@ -65,7 +65,7 @@ class LsifGeneratorTest < Minitest::Test
                              "sans"
                            when /serif/i
                              "serif"
-                           when /wqy/i
+                           when /wqy|cjk/i
                              "cjk"
                            else
                              "sans"

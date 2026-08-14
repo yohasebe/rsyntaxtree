@@ -16,10 +16,13 @@ require 'pango'
 # (unquoted). Keeping a single source guarantees that measurement and
 # rendering resolve through the same fallback chain.
 FONT_FAMILIES = {
-  sans:  ["Noto Sans", "Noto Sans JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "sans-serif"].freeze,
-  serif: ["Noto Serif", "Noto Serif JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "serif"].freeze,
-  mono:  ["Noto Sans Mono SemiCondensed", "Noto Sans JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "sans-serif"].freeze,
-  cjk:   ["WenQuanYi Zen Hei", "Noto Sans", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "sans-serif"].freeze
+  sans:  ["Noto Sans", "Noto Sans JP", "Noto Sans CJK JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "sans-serif"].freeze,
+  serif: ["Noto Serif", "Noto Serif JP", "Noto Serif CJK JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "serif"].freeze,
+  mono:  ["Noto Sans Mono SemiCondensed", "Noto Sans JP", "Noto Sans Mono CJK JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "monospace"].freeze,
+  # The cjk style puts a full-coverage CJK family first, for text that mixes
+  # Han, Hangul and kana. Latin falls back to the same Noto faces the sans
+  # style uses. (Before 1.8.0 this was WQY Zen Hei.)
+  cjk:   ["Noto Sans CJK JP", "Noto Sans", "Noto Sans JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "sans-serif"].freeze
 }.freeze
 
 module FontFamily
