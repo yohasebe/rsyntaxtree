@@ -14,7 +14,7 @@ module RSyntaxTree
     def initialize(element_list, params, global)
       @global = global
       @element_list = element_list
-      @symmetrize = params[:symmetrize]
+      @symmetrize = params[:symmetrize] == true
       @direction = params[:direction] || "ttb"
 
       case params[:color]

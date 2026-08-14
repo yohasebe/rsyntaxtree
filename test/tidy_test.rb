@@ -209,4 +209,13 @@ class TidyTest < Minitest::Test
     assert_equal generator(SIMPLE, tidy: "symmetric").draw_svg,
                  generator(SIMPLE, symmetrize: "on").draw_svg
   end
+  # Regression: partial params (defaults not passing through normalization)
+  # must not turn string defaults like symmetrize: "off" into truthy flags.
+  def test_partial_params_off_is_really_off
+    minimal = RSyntaxTree::RSGenerator.new({ data: SIMPLE, fontstyle: "sans" }).draw_svg
+    explicit = generator(SIMPLE).draw_svg
+    symmetric = generator(SIMPLE, tidy: "symmetric").draw_svg
+    assert_equal explicit, minimal, "partial params must render like explicit defaults"
+    refute_equal symmetric, minimal, "off must differ from symmetric"
+  end
 end

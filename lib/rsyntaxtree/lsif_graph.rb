@@ -25,7 +25,7 @@ module RSyntaxTree
       @params = params
       @fontsize = params[:fontsize]
       @color = params[:color]
-      @polyline = params[:polyline]
+      @polyline = params[:polyline] == true
       @visited_x = {}
       @global = global
     end

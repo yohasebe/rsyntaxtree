@@ -36,10 +36,10 @@ module RSyntaxTree
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
       @linewidth = params[:linewidth]
-      @transparent = params[:transparent]
+      @transparent = params[:transparent] == true
       @color = params[:color]
       @fontstyle = params[:fontstyle]
-      @polyline = params[:polyline]
+      @polyline = params[:polyline] == true
       @direction = params[:direction] || "ttb"
       @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
