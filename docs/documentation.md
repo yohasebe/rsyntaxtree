@@ -44,14 +44,15 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) enables a space-efficient layout
 
 - **Symmetric** (`symmetric`): radical symmetrization — every subtree is centered in a uniform slot, giving a wide, fully balanced figure. (Formerly the separate `Radical symmetrization` option, which remains as a legacy alias.)
 - **Off** (`off`): the traditional layout.
-- **Medium** (`medium`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space, typically reducing overall width by about 30%. Every leaf keeps its strict left-to-right position, so the terminal string still reads in surface (word) order across the whole figure — choose this for figures whose point is word order, such as cross-linguistic comparisons.
-- **High** (`high`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Leaf order is then guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
+- **Low** (`low`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space, typically reducing overall width by about 30%. Every leaf keeps its strict left-to-right position, so the terminal string still reads in surface (word) order across the whole figure — choose this for figures whose point is word order, such as cross-linguistic comparisons.
+- **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head) — but never so far that two leaves swap their left-right order. Leaf boxes may overlap across rows while the words still read in surface order.
+- **High** (`high`): free tucking. Leaf order is guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
 
 Connector heights adjust automatically: tidy mode spends a small height budget (about 5% of the tree's height) on the levels whose branches spread widest, evening out branch angles without making the figure noticeably taller. There is nothing to tune.
 
-Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. The scale runs from the most spacious (`symmetric`) to the most dense (`high`). Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `medium`; the X-bar and Morphology examples use `high`.
+Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. The scale runs from the most spacious (`symmetric`) to the most dense (`high`). Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `low`; the X-bar and Morphology examples use `high`.
 
-For fine control from the CLI or a config file, `tidy_spacing` (default 1.0, range 0.5–3.0) scales the minimum clearance kept between neighboring subtrees.
+`Horizontal spacing` (`hspacing`, default 1.0, range 0.5–3.0) scales every horizontal gap in the figure the way `Connector height` scales the vertical rhythm. It applies in every layout mode, tidy or not. (`tidy_spacing` remains as a legacy alias.)
 
 ### Mirrored Layout for RTL Scripts
 

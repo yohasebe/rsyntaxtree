@@ -51,6 +51,8 @@ class LsifGeneratorTest < Minitest::Test
         opts[:direction] = value
       when "tidy"
         opts[:tidy] = value
+      when "hspacing"
+        opts[:hspacing] = value
       when "tidy_spacing"
         opts[:tidy_spacing] = value
       when "mirror"

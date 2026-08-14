@@ -72,26 +72,57 @@ class TidyTest < Minitest::Test
   # tidy: on never produces overlapping labels (9 languages, ttb and ltr)
   def test_tidy_on_no_overlaps_nine_languages
     UD_TREES.each do |lang, (bracket, fontstyle)|
-      assert_no_overlaps lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "medium")["nodes"], "#{lang}/ttb"
-      assert_no_overlaps lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "medium", direction: "ltr")["nodes"], "#{lang}/ltr"
+      assert_no_overlaps lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["nodes"], "#{lang}/ttb"
+      assert_no_overlaps lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", direction: "ltr")["nodes"], "#{lang}/ltr"
     end
   end
 
   # tidy: on preserves the global leaf order (left to right)
   def test_tidy_preserves_leaf_order
     UD_TREES.each do |lang, (bracket, fontstyle)|
-      centers = leaf_centers(lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "medium")["nodes"])
+      centers = leaf_centers(lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["nodes"])
       assert centers.each_cons(2).all? { |x, y| x <= y + 0.01 }, "#{lang}: leaf order changed"
     end
   end
 
-  # tidy_spacing: larger spacing => wider minimum label gap
-  def test_tidy_spacing_monotonic
+  # hspacing: larger spacing => wider minimum label gap (tidy mode)
+  def test_hspacing_monotonic_tidy
     bracket, fontstyle = UD_TREES["Chinese"]
     gaps = [0.5, 1.0, 2.0].map do |sp|
-      min_label_gap(lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "medium", tidy_spacing: sp)["nodes"])
+      min_label_gap(lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", hspacing: sp)["nodes"])
     end
-    assert gaps[0] < gaps[1] && gaps[1] < gaps[2], "min label gap should grow with spacing: #{gaps.inspect}"
+    assert gaps[0] < gaps[1] && gaps[1] < gaps[2], "min label gap should grow with hspacing: #{gaps.inspect}"
+  end
+
+  # hspacing also widens the traditional (tidy: off) layout
+  def test_hspacing_monotonic_off
+    bracket, fontstyle = UD_TREES["Chinese"]
+    widths = [0.5, 1.0, 2.0].map do |sp|
+      lsif(bracket, fontstyle: fontstyle, vheight: 1.2, hspacing: sp)["geometry"]["width"]
+    end
+    assert widths[0] < widths[1] && widths[1] < widths[2], "off-layout width should grow with hspacing: #{widths.inspect}"
+  end
+
+  # legacy tidy_spacing acts as an hspacing alias
+  def test_tidy_spacing_alias
+    bracket, fontstyle = UD_TREES["Chinese"]
+    a = lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", hspacing: 2.0)["geometry"]["width"]
+    b = lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", tidy_spacing: 2.0)["geometry"]["width"]
+    assert_equal a, b
+  end
+
+  # medium: leaf centers keep global order while width shrinks below low
+  def test_tidy_medium_ordered_nesting
+    data = "[CP [John] [TP [T [V [V cause] [V fall]] [T]] [VP [V t] [CP [books] [t]]]]]"
+    w_low = lsif(data, tidy: "low")["geometry"]["width"]
+    w_medium = lsif(data, tidy: "medium")["geometry"]["width"]
+    w_high = lsif(data, tidy: "high")["geometry"]["width"]
+    assert w_medium <= w_low, "medium (#{w_medium}) should be no wider than low (#{w_low})"
+    assert w_high <= w_medium, "high (#{w_high}) should be no wider than medium (#{w_medium})"
+    centers = leaf_centers(lsif(data, tidy: "medium")["nodes"])
+    assert centers.each_cons(2).all? { |x, y| x <= y + 0.01 },
+           "medium must keep global leaf-center order: #{centers.inspect}"
+    assert_no_overlaps lsif(data, tidy: "medium")["nodes"], "medium"
   end
 
   # tidy height budget: the tidy tree is never much taller than off
@@ -99,30 +130,30 @@ class TidyTest < Minitest::Test
   def test_tidy_height_budget
     bracket, fontstyle = UD_TREES["Chinese"]
     h_off = lsif(bracket, fontstyle: fontstyle, vheight: 1.2)["geometry"]["height"]
-    h_on = lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "medium")["geometry"]["height"]
+    h_on = lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["geometry"]["height"]
     assert h_on <= h_off * 1.10, "tidy height #{h_on} should stay within 10% of off height #{h_off}"
   end
 
   # tidy: compact nests across rows => at least as narrow as plain tidy
   def test_tidy_high_no_wider
     data = "[CP [John] [TP [T [V [V cause] [V fall]] [T]] [VP [V t] [CP [books] [t]]]]]"
-    w_on = lsif(data, tidy: "medium")["geometry"]["width"]
+    w_on = lsif(data, tidy: "low")["geometry"]["width"]
     w_high = lsif(data, tidy: "high")["geometry"]["width"]
     assert w_high <= w_on, "compact (#{w_high}) should not be wider than on (#{w_on})"
     assert_no_overlaps lsif(data, tidy: "high")["nodes"], "compact"
   end
 
-  # Knobs are inert when tidy is off (backward compatibility)
-  def test_knobs_inert_when_tidy_off
+  # hspacing 1.0 is the identity (backward compatibility)
+  def test_hspacing_default_identity
     plain = generator(SIMPLE).draw_svg
-    with_knobs = generator(SIMPLE, tidy_spacing: 2.0).draw_svg
-    assert_equal plain, with_knobs
+    with_default = generator(SIMPLE, hspacing: 1.0).draw_svg
+    assert_equal plain, with_default
   end
 
   # tidy + mirror: no overlaps, leaf order reversed relative to tidy alone
   def test_tidy_plus_mirror
-    tidy_nodes = lsif(SIMPLE, tidy: "medium")["nodes"]
-    mirror_nodes = lsif(SIMPLE, tidy: "medium", mirror: "on")["nodes"]
+    tidy_nodes = lsif(SIMPLE, tidy: "low")["nodes"]
+    mirror_nodes = lsif(SIMPLE, tidy: "low", mirror: "on")["nodes"]
     assert_no_overlaps mirror_nodes, "tidy+mirror"
 
     tidy_leaves = leaf_centers(tidy_nodes)
@@ -133,7 +164,7 @@ class TidyTest < Minitest::Test
 
   # tidy + ltr: no crash, no overlaps, root stays at the left edge
   def test_tidy_plus_ltr
-    nodes = lsif(SIMPLE, tidy: "medium", direction: "ltr")["nodes"]
+    nodes = lsif(SIMPLE, tidy: "low", direction: "ltr")["nodes"]
     assert_no_overlaps nodes, "tidy+ltr"
     root = nodes.find { |n| n["parent"].nil? }
     leaves = nodes.select { |n| n["type"] == "leaf" }
@@ -142,7 +173,7 @@ class TidyTest < Minitest::Test
 
   # tidy + region shade: the shade rect still contains the shaded subtree
   def test_tidy_plus_region_shade
-    svg = generator(SHADED, tidy: "medium", fontstyle: "serif").draw_svg
+    svg = generator(SHADED, tidy: "low", fontstyle: "serif").draw_svg
     shade = svg.scan(/<rect [^>]*>/).map do |tag|
       { x: tag[/x='(-?[\d.]+)'/, 1].to_f,
         w: tag[/width='(-?[\d.]+)'/, 1].to_f,
@@ -161,13 +192,13 @@ class TidyTest < Minitest::Test
 
   # tidy + symmetrize: meaningless combination; tidy wins (no crash)
   def test_tidy_plus_symmetrize_does_not_crash
-    svg = generator(SIMPLE, tidy: "medium", symmetrize: "on").draw_svg
+    svg = generator(SIMPLE, tidy: "low", symmetrize: "on").draw_svg
     assert svg.include?("<svg")
-    assert_no_overlaps lsif(SIMPLE, tidy: "medium", symmetrize: "on")["nodes"], "tidy+symmetrize"
+    assert_no_overlaps lsif(SIMPLE, tidy: "low", symmetrize: "on")["nodes"], "tidy+symmetrize"
   end
   # Legacy values keep working: on == medium, compact == high
   def test_tidy_legacy_value_aliases
-    assert_equal generator(SIMPLE, tidy: "medium").draw_svg, generator(SIMPLE, tidy: "on").draw_svg
+    assert_equal generator(SIMPLE, tidy: "low").draw_svg, generator(SIMPLE, tidy: "on").draw_svg
     assert_equal generator(SIMPLE, tidy: "high").draw_svg, generator(SIMPLE, tidy: "compact").draw_svg
   end
   # symmetric level == the legacy standalone symmetrize option

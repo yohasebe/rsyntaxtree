@@ -30,7 +30,7 @@ DEFAULT_OPTS = {
   hide_default_connectors: "off",
   mirror: "off",
   tidy: "off",
-  tidy_spacing: 1.0,
+  hspacing: 1.0,
   direction: "ttb"
 }.freeze
 
@@ -77,17 +77,21 @@ module RSyntaxTree
         when :tidy
           # One layout scale from the most spacious to the most dense:
           # "symmetric" (radical symmetrization, uniform sibling slots),
-          # "off" (the traditional layout), "medium" (contour packing with
-          # strict leaf order), "high" (packing that may also tuck branches
-          # across rows; leaf order kept per row). "on"/"compact" are
-          # accepted as legacy aliases of medium/high, legacy tidy_nest:
-          # "on" upgrades medium to high, and legacy symmetrize: "on"
-          # upgrades "off" to "symmetric" (both below, in BaseGraph).
+          # "off" (the traditional layout), "low" (contour packing with
+          # strict leaf positions), "medium" (packing that may tuck
+          # branches across rows as long as no two leaves swap their
+          # left-right order), "high" (free tucking; leaf order kept per
+          # row only). "on"/"compact" are accepted as legacy aliases of
+          # low/high, legacy tidy_nest: "on" upgrades low to high, and
+          # legacy symmetrize: "on" upgrades "off" to "symmetric" (both
+          # below, in BaseGraph).
           new_params[key] = case value.to_s
                             when "high", "compact"
                               "high"
-                            when "medium", "on", "true"
+                            when "medium"
                               "medium"
+                            when "low", "on", "true"
+                              "low"
                             when "symmetric"
                               "symmetric"
                             else
@@ -110,7 +114,7 @@ module RSyntaxTree
           new_params[key] = value.to_i
         when :linewidth
           new_params[key] = value.to_i
-        when :vheight, :tidy_spacing
+        when :vheight, :hspacing, :tidy_spacing
           new_params[key] = value.to_f
         when :fontstyle
           case value
@@ -164,6 +168,13 @@ module RSyntaxTree
         end
       end
 
+      # Legacy alias: tidy_spacing was the tidy-only horizontal gap factor
+      # before it was generalized to hspacing (all layout modes).
+      if (new_params[:hspacing].nil? || new_params[:hspacing] == 1.0) &&
+         new_params[:tidy_spacing] && new_params[:tidy_spacing] != 1.0
+        new_params[:hspacing] = new_params[:tidy_spacing]
+      end
+
       # defaults to the following
       @params = DEFAULT_OPTS.dup
       @params.merge! new_params
@@ -182,7 +193,10 @@ module RSyntaxTree
       @global[:single_line_height] = single_x_metrics.height * 2.0
       @global[:width_half_x] = single_x_metrics.width / 2.0
       @global[:height_connector] = single_x_metrics.height * @params[:vheight]
-      @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8
+      # Horizontal counterpart of vheight: hspacing scales every horizontal
+      # gap (sibling clearance in all layout modes, tidy minimum gap,
+      # margins) the way vheight scales the vertical rhythm.
+      @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8 * (@params[:hspacing] || 1.0).to_f
       @global[:box_vertical_margin] = single_x_metrics.height * 0.8
     end
 

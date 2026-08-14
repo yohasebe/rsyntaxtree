@@ -56,18 +56,25 @@ module RSyntaxTree
       @fontsize = params[:fontsize]
       @mirror = params[:mirror] == true
       # tidy is one layout scale: "symmetric" (radical symmetrization) |
-      # "off" | "medium" (strict leaf order) | "high" (cross-row nesting
-      # allowed). Legacy inputs upgrade into the scale: tidy_nest: on
-      # lifts "medium" to "high", and the old standalone symmetrize: on
-      # lifts "off" to "symmetric". When tidy packing is active the
-      # symmetric layout is meaningless, so medium/high win over a legacy
-      # symmetrize flag.
+      # "off" | "low" (packing, strict leaf positions) | "medium" (packing
+      # with cross-row tucking as long as no two leaves swap left-right
+      # order) | "high" (free tucking; leaf order kept per row only).
+      # Legacy inputs upgrade into the scale: tidy_nest: on lifts "low" to
+      # "high", and the old standalone symmetrize: on lifts "off" to
+      # "symmetric". When tidy packing is active the symmetric layout is
+      # meaningless, so packing wins over a legacy symmetrize flag.
       tidy_mode = params[:tidy].to_s
-      tidy_mode = "high" if tidy_mode == "medium" && params[:tidy_nest] == true
+      tidy_mode = "high" if tidy_mode == "low" && params[:tidy_nest] == true
       tidy_mode = "symmetric" if tidy_mode == "off" && @symmetrize
-      @tidy = %w[medium high].include?(tidy_mode)
-      @tidy_nest = tidy_mode == "high"
-      @tidy_spacing = params[:tidy_spacing] || 1.0
+      @tidy = %w[low medium high].include?(tidy_mode)
+      # :none — leaf spans may not overlap at all (strict positions)
+      # :ordered — spans may overlap, but leaf centers keep their order
+      # :free — no cross-row constraint (contours guard within rows)
+      @tidy_nest = case tidy_mode
+                   when "high" then :free
+                   when "medium" then :ordered
+                   else :none
+                   end
       # Tidy packing bundles the dynamic connector height: contour
       # compression pulls sibling subtrees together, and the dynamic drop
       # keeps branch angles even as the horizontal spread shrinks.
@@ -378,10 +385,10 @@ module RSyntaxTree
     # while keeping a good part of the compression.
     TIDY_BASE_SPACING = 2.5
 
-    # Minimum horizontal clearance kept between adjacent subtrees.
-    # tidy_spacing scales the default gap (1.0 = default).
+    # Minimum horizontal clearance kept between adjacent subtrees. The
+    # global hspacing factor is already baked into h_gap_between_nodes.
     def tidy_gap
-      @global[:h_gap_between_nodes] * TIDY_BASE_SPACING * @tidy_spacing
+      @global[:h_gap_between_nodes] * TIDY_BASE_SPACING
     end
 
     # Effective visual rectangle of +node+ as [y0, y1, x0, x1], widening the
@@ -418,6 +425,25 @@ module RSyntaxTree
                   rects.map { |r| r[3] }.max + pad]
       end
       rects
+    end
+
+    # [leftmost leaf center, rightmost leaf center] of the subtree rooted
+    # at +id+, or nil when the subtree has no leaf.
+    def subtree_leaf_center_span(id)
+      leaves = []
+      stack = [@element_list.get_id(id)]
+      until stack.empty?
+        node = stack.pop
+        if node.children.empty?
+          leaves << node
+        else
+          node.children.each { |c| stack << @element_list.get_id(c) }
+        end
+      end
+      return nil if leaves.empty?
+
+      centers = leaves.map { |e| e.horizontal_indent + e.content_width / 2.0 }
+      [centers.min, centers.max]
     end
 
     # [left edge of the leftmost leaf, right edge of the rightmost leaf] of
@@ -506,12 +532,25 @@ module RSyntaxTree
           clearance = contour_clearance(subtree_rects(left_child.id), subtree_rects(right_child.id))
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 
-          unless @tidy_nest
+          case @tidy_nest
+          when :none
+            # Strict leaf positions: the right subtree's leaves stay a full
+            # gap right of the left subtree's leaves.
             left_span = subtree_leaf_span(left_child.id)
             right_span = subtree_leaf_span(right_child.id)
             if left_span && right_span
               leaf_delta = left_span[1] + tidy_gap - right_span[0]
               delta = leaf_delta if leaf_delta > delta
+            end
+          when :ordered
+            # Leaf boxes may overlap across rows, but no leaf of the right
+            # subtree may move left past a leaf of the left subtree: leaf
+            # centers keep their left-to-right (word) order.
+            left_centers = subtree_leaf_center_span(left_child.id)
+            right_centers = subtree_leaf_center_span(right_child.id)
+            if left_centers && right_centers
+              order_delta = left_centers[1] + 1.0 - right_centers[0]
+              delta = order_delta if order_delta > delta
             end
           end
 
@@ -524,7 +563,7 @@ module RSyntaxTree
           # the floor there would only forfeit legitimate compression.
           # Compression is a negative delta (the right subtree moves left),
           # so the floor bounds delta from below.
-          if @tidy_nest && delta.negative?
+          if @tidy_nest != :none && delta.negative?
             dist = (right_child.horizontal_indent + right_child.content_width / 2.0) -
                    (left_child.horizontal_indent + left_child.content_width / 2.0)
             below = [left_child, right_child].map { |c| child_spread(c) }.compact.max

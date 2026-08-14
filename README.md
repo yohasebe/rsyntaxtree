@@ -158,8 +158,8 @@ Usage:
 | `-c, --color` | Color mode: modern, traditional, off | `modern` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
 | `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |
-| `--tidy` | Layout scale: off, symmetric, medium (strict leaf order), high (may tuck across rows) | `off` |
-| `--tidy-spacing` | Tidy: minimum label spacing factor (0.5-3.0) | `1.0` |
+| `--tidy` | Layout scale: off, symmetric, low, medium, high | `off` |
+| `--hspacing` | Horizontal spacing factor, all layout modes (0.5-3.0) | `1.0` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
 
 Run `rsyntaxtree -h` for the full list of options.
