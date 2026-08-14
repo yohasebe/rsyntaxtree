@@ -82,6 +82,14 @@ module RSyntaxTree
       base = @global[:height_connector]
       return base unless @dynamic_connector
 
+      # Use the same drop for every parent on a level (the level's widest
+      # spread). Per-parent drops leave same-depth cousins at slightly
+      # different heights, which reads as misaligned rows.
+      level_connector_heights[parent.level] || base
+    end
+
+    def raw_connector_height_for(parent)
+      base = @global[:height_connector]
       children = parent.children.map { |c| @element_list.get_id(c) }.compact
       return base if children.size < 2
 
@@ -91,6 +99,15 @@ module RSyntaxTree
 
       cap = base * [1.0, 2.5 * @tidy_slope / 0.3].max
       [[spread * @tidy_slope, base].max, cap].min
+    end
+
+    def level_connector_heights
+      @level_connector_heights ||= @element_list.get_elements.each_with_object({}) do |e, drops|
+        next if e.children.empty?
+
+        h = raw_connector_height_for(e)
+        drops[e.level] = [drops[e.level] || 0, h].max
+      end
     end
 
     def calculate_level
@@ -145,6 +162,9 @@ module RSyntaxTree
     def calculate_height(id = 1)
       target = @element_list.get_id(id)
       if id == 1
+        # Drops depend on the current horizontal layout, which changes
+        # between tidy passes — recompute them for each full pass.
+        @level_connector_heights = nil
         target.vertical_indent = 0
       else
         parent = @element_list.get_id(target.parent)
@@ -323,11 +343,16 @@ module RSyntaxTree
     TIDY_MAX_ITERATIONS = 10
     TIDY_CONVERGENCE = 0.5 # px; a pass shifting less than this is stable
 
+    # Base multiplier for the minimum clearance between adjacent subtrees.
+    # At 1.0 (= raw h_gap_between_nodes) leaf labels sit closer than in the
+    # standard layout, which reads as crowded; 2.5 restores comparable air
+    # while keeping a good part of the compression.
+    TIDY_BASE_SPACING = 2.5
+
     # Minimum horizontal clearance kept between adjacent subtrees.
-    # tidy_spacing scales the base gap (user feedback: labels could sit too
-    # close at the prototype's fixed gap).
+    # tidy_spacing scales the default gap (1.0 = default).
     def tidy_gap
-      @global[:h_gap_between_nodes] * @tidy_spacing
+      @global[:h_gap_between_nodes] * TIDY_BASE_SPACING * @tidy_spacing
     end
 
     # Effective visual rectangle of +node+ as [y0, y1, x0, x1], widening the
