@@ -24,6 +24,7 @@ CONFIG_VALIDATORS = {
   transparent: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   polyline: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   hide_default_connectors: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
+  dynamic_connector: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   direction: ->(v) { /\A(ttb|ltr)\z/ =~ v.to_s ? nil : "must be ttb or ltr" }
 }.freeze
 
@@ -110,6 +111,7 @@ opts = Optimist.options do
   opt :transparent, "Make background transparent: on or off", default: "off"
   opt :polyline, "draw polyline connectors: on or off", default: "off"
   opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off"
+  opt :dynamic_connector, "scale connector height with branch width for even branch angles: on or off", default: "off"
   opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb"
   opt :help, "This is a custom help message", short: :h
 end
@@ -128,6 +130,7 @@ Optimist.die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5
 Optimist.die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]
 Optimist.die :polyline, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:polyline]
 Optimist.die :hide_default_connectors, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:hide_default_connectors]
+Optimist.die :dynamic_connector, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:dynamic_connector]
 
 # Merge config file options with CLI options (CLI takes precedence)
 string_opts = {}

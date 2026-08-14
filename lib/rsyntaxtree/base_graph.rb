@@ -54,6 +54,32 @@ module RSyntaxTree
       @leafstyle = params[:leafstyle]
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
+      @dynamic_connector = params[:dynamic_connector] == true
+    end
+
+    # Vertical drop for the connectors descending from +parent+.
+    #
+    # With a fixed drop, branch angles differ sharply between nodes whose
+    # children sit close together (deep in a binary tree) and nodes whose
+    # children are far apart (near the root, where the branches flatten out).
+    # When the dynamic option is on, the drop grows with the horizontal spread
+    # of the children so the branches keep a similar slope throughout the tree.
+    # The growth is capped so that wide trees do not become excessively tall.
+    DYNAMIC_CONNECTOR_SLOPE = 0.3   # drop per unit of horizontal spread
+    DYNAMIC_CONNECTOR_MAX = 2.5     # ceiling, as a multiple of the base height
+
+    def connector_height_for(parent)
+      base = @global[:height_connector]
+      return base unless @dynamic_connector
+
+      children = parent.children.map { |c| @element_list.get_id(c) }.compact
+      return base if children.size < 2
+
+      centers = children.map { |c| c.horizontal_indent + c.content_width / 2.0 }
+      spread = centers.max - centers.min
+      return base if spread <= 0
+
+      [[spread * DYNAMIC_CONNECTOR_SLOPE, base].max, base * DYNAMIC_CONNECTOR_MAX].min
     end
 
     def calculate_level
@@ -122,7 +148,7 @@ module RSyntaxTree
                               parent.vertical_indent + parent.content_height
                             end
                           else
-                            parent.vertical_indent + parent.content_height + @global[:height_connector]
+                            parent.vertical_indent + parent.content_height + connector_height_for(parent)
                           end
         target.vertical_indent = vertical_indent
       end
