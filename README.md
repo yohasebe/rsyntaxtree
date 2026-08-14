@@ -159,7 +159,7 @@ Usage:
 | `-y, --symmetrize` | Symmetrical tree: on, off | `off` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
 | `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |
-| `--tidy` | Tidy layout: off, on (strict leaf order), compact (may tuck across rows) | `off` |
+| `--tidy` | Tidy layout: off, medium (strict leaf order), high (may tuck across rows) | `off` |
 | `--tidy-spacing` | Tidy: minimum label spacing factor (0.5-3.0) | `1.0` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
 

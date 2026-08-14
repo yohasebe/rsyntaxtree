@@ -75,14 +75,15 @@ module RSyntaxTree
           new_params[key] = data
 
         when :tidy
-          # Three levels: "off", "on" (strict leaf order), "compact"
-          # (branches may tuck across rows). Legacy tidy_nest: "on" from
-          # older configs upgrades "on" to "compact" below.
+          # Three levels: "off", "medium" (strict leaf order), "high"
+          # (branches may tuck across rows; leaf order kept per row).
+          # "on"/"compact" are accepted as legacy aliases, and legacy
+          # tidy_nest: "on" upgrades "medium" to "high" below.
           new_params[key] = case value.to_s
-                            when "compact"
-                              "compact"
-                            when "on", "true"
-                              "on"
+                            when "high", "compact"
+                              "high"
+                            when "medium", "on", "true"
+                              "medium"
                             else
                               "off"
                             end

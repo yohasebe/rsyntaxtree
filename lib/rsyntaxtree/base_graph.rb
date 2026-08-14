@@ -55,12 +55,13 @@ module RSyntaxTree
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
       @mirror = params[:mirror] == true
-      # tidy has three levels: "off" | "on" (strict leaf order) | "compact"
-      # (cross-row nesting allowed). Legacy tidy_nest: on upgrades "on".
+      # tidy has three levels: "off" | "medium" (strict leaf order) |
+      # "high" (cross-row nesting allowed). Legacy tidy_nest: on upgrades
+      # "medium" to "high".
       tidy_mode = params[:tidy].to_s
-      tidy_mode = "compact" if tidy_mode == "on" && params[:tidy_nest] == true
-      @tidy = %w[on compact].include?(tidy_mode)
-      @tidy_nest = tidy_mode == "compact"
+      tidy_mode = "high" if tidy_mode == "medium" && params[:tidy_nest] == true
+      @tidy = %w[medium high].include?(tidy_mode)
+      @tidy_nest = tidy_mode == "high"
       @tidy_spacing = params[:tidy_spacing] || 1.0
       # Tidy mode bundles the dynamic connector height: contour compression
       # pulls sibling subtrees together, and the dynamic drop keeps branch

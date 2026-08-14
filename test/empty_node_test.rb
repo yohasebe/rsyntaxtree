@@ -57,7 +57,7 @@ class EmptyNodeTest < Minitest::Test
   end
 
   def test_empty_node_with_tidy
-    lines = svg_lines("[S [the [<> ði]] [NP [N noun]]]", tidy: "on")
+    lines = svg_lines("[S [the [<> ði]] [NP [N noun]]]", tidy: "medium")
     refute_empty lines
   end
 end

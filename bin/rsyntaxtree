@@ -25,7 +25,7 @@ CONFIG_VALIDATORS = {
   polyline: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   hide_default_connectors: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   mirror: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
-  tidy: ->(v) { /\A(on|off|compact|true|false)\z/ =~ v.to_s ? nil : "must be off, on, or compact" },
+  tidy: ->(v) { /\A(off|medium|high|on|compact|true|false)\z/ =~ v.to_s ? nil : "must be off, medium, or high" },
   tidy_spacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
   direction: ->(v) { /\A(ttb|ltr)\z/ =~ v.to_s ? nil : "must be ttb or ltr" }
 }.freeze
@@ -114,7 +114,7 @@ opts = Optimist.options do
   opt :polyline, "draw polyline connectors: on or off", default: "off"
   opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off", short: :none
   opt :mirror, "flip the tree horizontally (RTL linguistics convention: first word at the right edge): on or off", default: "off"
-  opt :tidy, "tidy tree layout: off, on (strict leaf order), or compact (branches may also tuck across rows; leaf order kept per row)", default: "off", short: :none
+  opt :tidy, "tidy tree layout: off, medium (strict leaf order), or high (branches may also tuck across rows; leaf order kept per row)", default: "off", short: :none
   opt :tidy_spacing, "tidy mode: minimum label spacing factor: 0.5-3.0", default: 1.0, short: :none
   opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb", short: :d
   opt :help, "This is a custom help message", short: :h
@@ -135,7 +135,7 @@ Optimist.die :transparent, "must be either on or off" unless /\A(on|off|true|fal
 Optimist.die :polyline, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:polyline]
 Optimist.die :hide_default_connectors, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:hide_default_connectors]
 Optimist.die :mirror, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:mirror]
-Optimist.die :tidy, "must be off, on, or compact" unless /\A(on|off|compact|true|false)\z/ =~ opts[:tidy]
+Optimist.die :tidy, "must be off, medium, or high" unless /\A(off|medium|high|on|compact|true|false)\z/ =~ opts[:tidy]
 Optimist.die :tidy_spacing, "must be in the range of 0.5-3.0" if opts[:tidy_spacing] < 0.5 || opts[:tidy_spacing] > 3.0
 
 # Merge config file options with CLI options (CLI takes precedence)
