@@ -1,0 +1,105 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="932.4" height="1200.4762499999997" viewBox="-13.600000000000001, 0, 946.0, 1211.6762499999998" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="13.600000000000001" markerHeight="13.600000000000001" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.600000000000001" markerHeight="13.600000000000001" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="13.600000000000001" markerHeight="13.600000000000001" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="40.800000000000004" markerHeight="13.600000000000001" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
+    </marker>
+    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    </pattern>
+    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="#0072B2" stroke-width="4"></line>
+    </pattern>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
+    </pattern>
+  </defs>
+<rect x="-13.600000000000001" y="0" width="946.0" height="1211.6762499999998" stroke="none" fill="white" />"
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='345.6468749999999' y='67.19999999999999'><tspan x='345.6468749999999' y='67.19999999999999' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">S</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='86.6' y='282.24'><tspan x='86.6' y='282.24' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">AP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='13.600000000000001' y='478.02374999999995'><tspan x='13.600000000000001' y='478.02374999999995' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">PRON</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='36.599999999999994' y='646.0762499999998'><tspan x='36.599999999999994' y='646.0762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">其</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='129.6' y='478.02374999999995'><tspan x='129.6' y='478.02374999999995' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">ADJ</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='104.6' y='646.0762499999998'><tspan x='104.6' y='646.0762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">重要性</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='588.6937499999999' y='282.24'><tspan x='588.6937499999999' y='282.24' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">VP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='396.78749999999997' y='478.02374999999995'><tspan x='396.78749999999997' y='478.02374999999995' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">PP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='241.10000000000002' y='646.0762499999998'><tspan x='241.10000000000002' y='646.0762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">ADP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='252.10000000000002' y='780.4762499999998'><tspan x='252.10000000000002' y='780.4762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">在</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='542.4749999999999' y='646.0762499999998'><tspan x='542.4749999999999' y='646.0762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">PP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='454.34999999999997' y='780.4762499999998'><tspan x='454.34999999999997' y='780.4762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='372.6' y='914.8762499999998'><tspan x='372.6' y='914.8762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='304.1' y='1049.2762499999997'><tspan x='304.1' y='1049.2762499999997' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NUM</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='320.1' y='1183.6762499999995'><tspan x='320.1' y='1183.6762499999995' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">兩</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='405.09999999999997' y='1049.2762499999997'><tspan x='405.09999999999997' y='1049.2762499999997' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NOUN</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='429.09999999999997' y='1183.6762499999995'><tspan x='429.09999999999997' y='1183.6762499999995' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">個</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='514.0999999999999' y='914.8762499999998'><tspan x='514.0999999999999' y='914.8762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">NOUN</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='522.0999999999999' y='1049.2762499999997'><tspan x='522.0999999999999' y='1049.2762499999997' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">事實</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='619.5999999999999' y='780.4762499999998'><tspan x='619.5999999999999' y='780.4762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">ADP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='630.5999999999999' y='914.8762499999998'><tspan x='630.5999999999999' y='914.8762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">中</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='780.5999999999999' y='478.02374999999995'><tspan x='780.5999999999999' y='478.02374999999995' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">VP</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='705.5999999999999' y='646.0762499999998'><tspan x='705.5999999999999' y='646.0762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">VERB</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='710.5999999999999' y='780.4762499999998'><tspan x='710.5999999999999' y='780.4762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">反應</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='815.5999999999999' y='646.0762499999998'><tspan x='815.5999999999999' y='646.0762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">VERB</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='819.5999999999999' y='780.4762499999998'><tspan x='819.5999999999999' y='780.4762499999998' style="" text-decoration="" font-family="'WenQuanYi Zen Hei', 'Noto Sans', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', sans-serif">出來</tspan>
+</text>
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='104.6' y1='226.23999999999998' x2='355.6468749999999' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='606.6937499999999' y1='226.23999999999998' x2='355.6468749999999' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='53.6' y1='422.0237499999999' x2='104.6' y2='310.24' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='155.6' y1='422.0237499999999' x2='104.6' y2='310.24' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='53.6' y1='590.0762499999998' x2='53.6' y2='506.02374999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='155.6' y1='590.0762499999998' x2='155.6' y2='506.02374999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='414.78749999999997' y1='422.0237499999999' x2='606.6937499999999' y2='310.24' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='798.5999999999999' y1='422.0237499999999' x2='606.6937499999999' y2='310.24' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='268.6' y1='590.0762499999998' x2='414.78749999999997' y2='506.02374999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='560.4749999999999' y1='590.0762499999998' x2='414.78749999999997' y2='506.02374999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='269.1' y1='724.4762499999998' x2='268.6' y2='674.0762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='472.84999999999997' y1='724.4762499999998' x2='560.4749999999999' y2='674.0762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='647.0999999999999' y1='724.4762499999998' x2='560.4749999999999' y2='674.0762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='391.1' y1='858.8762499999998' x2='472.84999999999997' y2='808.4762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='554.5999999999999' y1='858.8762499999998' x2='472.84999999999997' y2='808.4762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='336.6' y1='993.2762499999998' x2='391.1' y2='942.8762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='445.59999999999997' y1='993.2762499999998' x2='391.1' y2='942.8762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='337.1' y1='1127.6762499999998' x2='336.6' y2='1077.27625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='446.09999999999997' y1='1127.6762499999998' x2='445.59999999999997' y2='1077.27625' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='554.5999999999999' y1='993.2762499999998' x2='554.5999999999999' y2='942.8762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='647.5999999999999' y1='858.8762499999998' x2='647.0999999999999' y2='808.4762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='743.5999999999999' y1='590.0762499999998' x2='798.5999999999999' y2='506.02374999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='853.5999999999999' y1='590.0762499999998' x2='798.5999999999999' y2='506.02374999999995' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='743.0999999999999' y1='724.4762499999998' x2='743.5999999999999' y2='674.0762499999998' />
+<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='853.5999999999999' y1='724.4762499999998' x2='853.5999999999999' y2='674.0762499999998' />
+</svg>

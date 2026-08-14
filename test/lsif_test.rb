@@ -49,6 +49,14 @@ class LsifGeneratorTest < Minitest::Test
         opts[:leafstyle] = value
       when "direction"
         opts[:direction] = value
+      when "tidy"
+        opts[:tidy] = value
+      when "tidy_spacing"
+        opts[:tidy_spacing] = value
+      when "tidy_slope"
+        opts[:tidy_slope] = value
+      when "mirror"
+        opts[:mirror] = value
       when "font"
         opts[:fontstyle] = case value
                            when /mono/i
