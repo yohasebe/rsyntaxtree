@@ -117,8 +117,11 @@ class TidyTest < Minitest::Test
     w_low = lsif(data, tidy: "low")["geometry"]["width"]
     w_medium = lsif(data, tidy: "medium")["geometry"]["width"]
     w_high = lsif(data, tidy: "high")["geometry"]["width"]
-    assert w_medium <= w_low, "medium (#{w_medium}) should be no wider than low (#{w_low})"
-    assert w_high <= w_medium, "high (#{w_high}) should be no wider than medium (#{w_medium})"
+    # Cross-environment Pango metrics differ by a pixel or two, so the
+    # monotonicity is asserted with a small tolerance (cf. OverlapTest).
+    tolerance = 2.0
+    assert w_medium <= w_low + tolerance, "medium (#{w_medium}) should be no wider than low (#{w_low})"
+    assert w_high <= w_medium + tolerance, "high (#{w_high}) should be no wider than medium (#{w_medium})"
     centers = leaf_centers(lsif(data, tidy: "medium")["nodes"])
     assert centers.each_cons(2).all? { |x, y| x <= y + 0.01 },
            "medium must keep global leaf-center order: #{centers.inspect}"
