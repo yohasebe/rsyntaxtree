@@ -15,7 +15,6 @@ CONFIG_VALIDATORS = {
   format: ->(v) { /\A(png|jpg|gif|pdf|svg|lsif)\z/ =~ v.to_s ? nil : "must be png, jpg, gif, pdf, svg, or lsif" },
   leafstyle: ->(v) { /\A(auto|triangle|bar|nothing)\z/ =~ v.to_s ? nil : "must be auto, triangle, bar, or nothing" },
   fontstyle: ->(v) { /\A(sans|serif|cjk|mono)\z/ =~ v.to_s ? nil : "must be sans, serif, cjk, or mono" },
-  font: ->(v) { v.nil? || File.exist?(v) ? nil : "must be path to an existing ttf font" },
   fontsize: ->(v) { v.is_a?(Integer) && v >= 8 && v <= 26 ? nil : "must be in the range of 8-26" },
   linewidth: ->(v) { v.is_a?(Integer) && v >= 1 && v <= 5 ? nil : "must be in the range of 1-5" },
   vheight: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 5.0 ? nil : "must be in the range of 0.5-5.0" },
@@ -104,8 +103,7 @@ opts = Optimist.options do
   opt :outfilename, "Output file base name", default: "syntree"
   opt :format, "Output format: png, jpg, gif, pdf, svg, or lsif", default: "png"
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto"
-  opt :fontstyle, "Font style (available when ttf font is specified): sans, serif, cjk, mono", default: "sans"
-  opt :font, "Path to a ttf font used to generate tree (optional)", type: String
+  opt :fontstyle, "Font style: sans, serif, cjk, mono", default: "sans"
   opt :fontsize, "Size: 8-26", default: 16
   opt :linewidth, "Size: 1-5", default: 1
   opt :vheight, "Connector Height: 0.5-5.0", default: 2.0
@@ -127,7 +125,6 @@ Optimist.die :direction, "must be ttb or ltr" unless /\A(ttb|ltr)\z/ =~ opts[:di
 Optimist.die :format, "must be png, pdf, svg, or lsif" unless /\A(png|jpg|gif|pdf|svg|lsif)\z/ =~ opts[:format]
 Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless /\A(sans|serif|cjk|mono)\z/ =~ opts[:fontstyle]
-Optimist.die :font, "must be path to an existing ttf font" if opts[:font] && !File.exist?(opts[:font])
 Optimist.die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
 Optimist.die :linewidth, "must be in the range of 1-5" unless opts[:linewidth] >= 1 && opts[:linewidth] <= 5
 Optimist.die :color, "must be either modern, traditional, or off" unless /\A(modern|traditional|on|off|true|false)\z/ =~ opts[:color]
@@ -152,8 +149,8 @@ end
 # Then, apply CLI options (overrides config file)
 opts.each do |key, value|
   key_sym = key.to_sym
-  # Skip internal optimist keys and nil font
-  next if key.to_s.start_with?('_') || (key == :font && !value)
+  # Skip internal optimist keys
+  next if key.to_s.start_with?('_')
   # Only override if explicitly given on CLI or not in config
   if opts[:"#{key}_given"] || !file_config.key?(key_sym)
     string_opts[key_sym] = value

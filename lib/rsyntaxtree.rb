@@ -8,7 +8,6 @@
 # the necessary 'require' to use the library.
 # Copyright (c) 2007-2026 Yoichiro Hasebe <yohasebe@gmail.com>
 
-FONT_DIR = File.expand_path(File.join(__dir__, "/../fonts"))
 ETYPE_NODE = 1
 ETYPE_LEAF = 2
 SUBSCRIPT_CONST = 0.7
@@ -117,52 +116,18 @@ module RSyntaxTree
         when :vheight, :hspacing, :tidy_spacing
           new_params[key] = value.to_f
         when :fontstyle
-          case value
-          when "noto-sans-mono", "mono"
-            fontset[:normal] = FONT_DIR + "/NotoSansMono_SemiCondensed-Regular.ttf"
-            fontset[:italic] = FONT_DIR + "/NotoSansMono_SemiCondensed-Regular.ttf"
-            fontset[:bold] = FONT_DIR + "/NotoSansMono_SemiCondensed-Bold.ttf"
-            fontset[:bolditalic] = FONT_DIR + "/NotoSansMono_SemiCondensed-Bold.ttf"
-            fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
-            fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
-            fontset[:family] = FontFamily.for_pango(:mono)
-            fontset[:family_cjk] = FontFamily.for_pango(:mono, cjk_priority: true)
-            new_params[:fontstyle] = "mono"
-          when "noto-sans", "sans"
-            fontset[:normal] = FONT_DIR + "/NotoSans-Regular.ttf"
-            fontset[:italic] = FONT_DIR + "/NotoSans-Italic.ttf"
-            fontset[:bold] = FONT_DIR + "/NotoSans-Bold.ttf"
-            fontset[:bolditalic] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
-            fontset[:math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
-            fontset[:cjk] = FONT_DIR + "/NotoSansJP-Regular.otf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
-            fontset[:family] = FontFamily.for_pango(:sans)
-            fontset[:family_cjk] = FontFamily.for_pango(:sans, cjk_priority: true)
-            new_params[:fontstyle] = "sans"
-          when "noto-serif", "serif"
-            fontset[:normal] = FONT_DIR + "/NotoSerif-Regular.ttf"
-            fontset[:italic] = FONT_DIR + "/NotoSerif-Italic.ttf"
-            fontset[:bold] = FONT_DIR + "/NotoSerif-Bold.ttf"
-            fontset[:bolditalic] = FONT_DIR + "/NotoSerif-BoldItalic.ttf"
-            fontset[:math] = FONT_DIR + "/latinmodern-math.otf"
-            fontset[:cjk] = FONT_DIR + "/NotoSerifJP-Regular.otf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
-            fontset[:family] = FontFamily.for_pango(:serif)
-            fontset[:family_cjk] = FontFamily.for_pango(:serif, cjk_priority: true)
-            new_params[:fontstyle] = "serif"
-          when "cjk zenhei", "cjk"
-            fontset[:normal] = FONT_DIR + "/wqy-zenhei.ttf"
-            fontset[:italic] = FONT_DIR + "/NotoSans-Italic.ttf"
-            fontset[:bold] = FONT_DIR + "/NotoSans-Bold.ttf"
-            fontset[:bolditalic] = FONT_DIR + "/NotoSans-BoldItalic.ttf"
-            fontset[:math] = FONT_DIR + "/NotoSansMath-Regular.ttf"
-            fontset[:cjk] = FONT_DIR + "/wqy-zenhei.ttf"
-            fontset[:emoji] = FONT_DIR + "/OpenMoji-black-glyf.ttf"
-            fontset[:family] = FontFamily.for_pango(:cjk)
-            fontset[:family_cjk] = FontFamily.for_pango(:cjk)
-            new_params[:fontstyle] = "cjk"
-          end
+          # Fonts are resolved by name through fontconfig (measurement via
+          # Pango, rendering via the SVG font-family attribute), so all a
+          # style needs is its family fallback chain.
+          style = case value
+                  when "noto-sans-mono", "mono" then :mono
+                  when "noto-serif", "serif" then :serif
+                  when "cjk zenhei", "cjk" then :cjk
+                  else :sans
+                  end
+          fontset[:family] = FontFamily.for_pango(style)
+          fontset[:family_cjk] = FontFamily.for_pango(style, cjk_priority: style != :cjk)
+          new_params[:fontstyle] = style.to_s
         else
           new_params[key] = value
         end

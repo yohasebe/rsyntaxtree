@@ -16,9 +16,6 @@ ADD Gemfile $WORKSPACE
 ADD rsyntaxtree.gemspec $WORKSPACE
 RUN bundle install -j4
 
-ADD fonts $WORKSPACE
-RUN mkdir -p /usr/share/fonts/yh
-COPY ./fonts/* /usr/share/fonts/yh/
 RUN fc-cache -fv
 
 ADD . $WORKSPACE

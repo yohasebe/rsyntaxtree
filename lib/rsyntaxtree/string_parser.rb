@@ -41,10 +41,7 @@ module RSyntaxTree
       end
 
       @data = string # Store it for later...
-      if @data.contains_cjk?
-        fontset[:normal] = fontset[:cjk]
-        fontset[:family] = fontset[:family_cjk]
-      end
+      fontset[:family] = fontset[:family_cjk] if @data.contains_cjk?
       @elist = ElementList.new # Initialize internal element list
       @pos = 0 # Position in the sentence
       @id = 1 # ID for the next element
