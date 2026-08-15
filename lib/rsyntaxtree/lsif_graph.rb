@@ -276,8 +276,14 @@ module RSyntaxTree
               color: @params[:color],
               connector: @params[:leafstyle],
               connector_height: @params[:vheight],
+              horizontal_spacing: @params[:hspacing] || 1.0,
               line_width: @params[:linewidth],
+              # The layout scale the figure was drawn on. symmetrize is kept
+              # for readers of older files; tidy: "symmetric" supersedes it.
+              tidy: @params[:tidy] || "off",
               symmetrize: @params[:symmetrize],
+              mirror: @params[:mirror] == true,
+              direction: @params[:direction] || "ttb",
               polyline: @params[:polyline],
               hide_default_connectors: @params[:hide_default_connectors],
               transparent: @params[:transparent]

@@ -98,6 +98,12 @@ class LsifGeneratorTest < Minitest::Test
       assert %w[ttb ltr].include?(data["geometry"]["direction"]), "Direction must be ttb or ltr"
       assert [true, false].include?(data["geometry"]["mirror"]), "Mirror must be a boolean"
 
+      # The layout settings that the coordinates alone cannot reveal
+      params = data["meta"]["source"]["params"]
+      %w[tidy mirror direction horizontal_spacing].each do |key|
+        assert params.key?(key), "meta.source.params must record #{key}"
+      end
+
       # Verify nodes
       nodes = data["nodes"]
       refute_empty nodes, "Nodes array must not be empty"

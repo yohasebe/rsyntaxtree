@@ -40,7 +40,7 @@ In left-to-right mode, connectors, triangles, movement paths, and line-type conn
 
 ### Tidy Layout
 
-The `Tidy layout` option (`tidy`, CLI `--tidy`) enables a space-efficient layout mode with three levels:
+The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one scale from the most spacious to the most dense:
 
 - **Symmetric** (`symmetric`): radical symmetrization — every subtree is centered in a uniform slot, giving a wide, fully balanced figure. (Formerly the separate `Radical symmetrization` option, which remains as a legacy alias.)
 - **Off** (`off`): the traditional layout.

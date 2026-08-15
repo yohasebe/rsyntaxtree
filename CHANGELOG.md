@@ -29,13 +29,16 @@
 - CI on GitHub Actions (Ruby 3.2/3.4).
 
 ### Changed
-- LSIF output records whether the layout is mirrored (`geometry.mirror`);
-  node positions alone cannot tell a consumer which way the tree reads.
+- LSIF output records the layout settings a reader cannot recover from the
+  coordinates: `geometry.mirror`, and `tidy`, `mirror`, `direction` and
+  `horizontal_spacing` under `meta.source.params`.
 - The standalone `symmetrize` option and `-y` flag are deprecated aliases of
   `tidy: symmetric`; `tidy_spacing` is a deprecated alias of `hspacing`.
 - `--direction` now owns the `-d` short flag (it had been auto-assigned to
   `--hide-default-connectors`, so the documented `-d ltr` silently did
-  nothing).
+  nothing). Every published short flag is now declared explicitly rather
+  than derived from the option set. One undocumented auto-assignment moved
+  as a result: `-e` was `--direction` in 1.7.0 and is `--version` here.
 - The gem no longer bundles font files (38MB that were never opened at
   runtime since the Pango migration): fonts resolve by family name through
   fontconfig. See README for the system font packages. The dead `--font`

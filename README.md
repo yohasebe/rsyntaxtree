@@ -115,7 +115,7 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 RSyntaxTree resolves fonts by family name through fontconfig (measurement via Pango, rendering via librsvg), so the fonts must be installed on the system that generates the images. Recommended:
 
 - Debian/Ubuntu: `apt install fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji`
-- Alpine: `apk add font-noto font-noto-cjk font-noto-emoji`
+- Alpine: `apk add font-noto font-noto-cjk font-noto-cjk-extra font-noto-emoji` (the `-extra` package carries Noto Serif CJK)
 - macOS: install [Noto Sans/Serif](https://fonts.google.com/noto) (and Noto Sans/Serif JP for CJK); otherwise the system falls back to available fonts
 
 Any script supported by an installed font renders correctly — the family chains fall back from Noto Sans/Serif to the JP and CJK variants, so Japanese, Chinese (simplified and traditional) and Korean are covered by the Noto CJK package. As of v1.8.0 the gem no longer bundles font files (they were not used at runtime).
