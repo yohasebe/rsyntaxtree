@@ -248,6 +248,25 @@ class CLITest < Minitest::Test
     assert File.exist?(outfile), "Output file should be created"
   end
 
+# Optimist assigns short flags automatically from the option set, so adding
+# or removing an option silently reshuffles them (removing --font once moved
+# -s from fontsize to symmetrize). The published flags are pinned; this
+# locks them.
+def test_short_flags_are_stable
+  help = run_cli("-h")
+  text = help[:stdout] + help[:stderr]
+  {
+    "-o" => "--outdir", "-u" => "--outfilename", "-f" => "--format",
+    "-l" => "--leafstyle", "-n" => "--fontstyle", "-s" => "--fontsize",
+    "-i" => "--linewidth", "-v" => "--vheight", "-c" => "--color",
+    "-y" => "--symmetrize", "-r" => "--transparent", "-p" => "--polyline",
+    "-m" => "--mirror", "-d" => "--direction"
+  }.each do |short, long|
+    assert_match(/#{Regexp.escape(short)},\s*#{Regexp.escape(long)}/, text,
+                 "#{short} must stay bound to #{long}")
+  end
+end
+
   private
 
   # Updated helper to support chdir

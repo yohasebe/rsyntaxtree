@@ -99,18 +99,18 @@ opts = Optimist.options do
     where [options] are:
   BANNER
 
-  opt :outdir, "Output directory", default: "./"
-  opt :outfilename, "Output file base name", default: "syntree"
-  opt :format, "Output format: png, jpg, gif, pdf, svg, or lsif", default: "png"
-  opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto"
-  opt :fontstyle, "Font style: sans, serif, cjk, mono", default: "sans"
-  opt :fontsize, "Size: 8-26", default: 16
-  opt :linewidth, "Size: 1-5", default: 1
-  opt :vheight, "Connector Height: 0.5-5.0", default: 2.0
-  opt :color, "Color text and bars: modern, traditional, or off", default: "modern"
-  opt :symmetrize, "DEPRECATED alias of --tidy symmetric: on or off", default: "off"
-  opt :transparent, "Make background transparent: on or off", default: "off"
-  opt :polyline, "draw polyline connectors: on or off", default: "off"
+  opt :outdir, "Output directory", default: "./", short: :o
+  opt :outfilename, "Output file base name", default: "syntree", short: :u
+  opt :format, "Output format: png, jpg, gif, pdf, svg, or lsif", default: "png", short: :f
+  opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto", short: :l
+  opt :fontstyle, "Font style: sans, serif, cjk, mono", default: "sans", short: :n
+  opt :fontsize, "Size: 8-26", default: 16, short: :s
+  opt :linewidth, "Size: 1-5", default: 1, short: :i
+  opt :vheight, "Connector Height: 0.5-5.0", default: 2.0, short: :v
+  opt :color, "Color text and bars: modern, traditional, or off", default: "modern", short: :c
+  opt :symmetrize, "DEPRECATED alias of --tidy symmetric: on or off", default: "off", short: :y
+  opt :transparent, "Make background transparent: on or off", default: "off", short: :r
+  opt :polyline, "draw polyline connectors: on or off", default: "off", short: :p
   opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off", short: :none
   opt :mirror, "flip the tree horizontally (RTL linguistics convention: first word at the right edge): on or off", default: "off"
   opt :tidy, "tidy tree layout: off, symmetric (radical symmetrization), low (packed, strict leaf positions), medium (packed; leaves may overlap but never swap order), or high (packed; leaf order kept per row only)", default: "off", short: :none

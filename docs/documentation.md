@@ -50,7 +50,7 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) enables a space-efficient layout
 
 Connector heights adjust automatically: tidy mode spends a small height budget (about 5% of the tree's height) on the levels whose branches spread widest, evening out branch angles without making the figure noticeably taller. There is nothing to tune.
 
-Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. The scale runs from the most spacious (`symmetric`) to the most dense (`high`). Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `low`; the X-bar and Morphology examples use `high`.
+Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. The scale runs from the most spacious (`symmetric`) to the most dense (`high`). Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `low`. The X-bar and morphology examples use `high`, and one (a Japanese causative-passive tree) uses `medium`.
 
 `Horizontal spacing` (`hspacing`, default 1.0, range 0.5–3.0) scales every horizontal gap in the figure the way `Connector height` scales the vertical rhythm. It applies in every layout mode, tidy or not. (`tidy_spacing` remains as a legacy alias.)
 
