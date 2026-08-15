@@ -34,15 +34,18 @@ layout: default
             <table style='line-height: 110%; font-size: 0.85em; margin-bottom: 20px;'>
               <thead></thead>
               <tbody>
-                <tr><td>Category</td><td>{{ example.category}}</td></tr>
-                <tr><td>Connector</td><td>{{ example.connector }}</td></tr>
-                <tr><td>Connector Height</td><td>{{ example.connector_height }}</td></tr>
-                <tr><td>Line Width</td><td>{{ example.linewidth }}</td></tr>
-                <tr><td>Hide Default Connectors</td><td>{{ example.hide_default_connectors }}</td></tr>
-                <tr><td>Polyline</td><td>{{ example.polyline }}</td></tr>
-                <tr><td>Color</td><td>{{ example.color }}</td></tr>
-                <tr><td>Radical Symmetirization</td><td>{{ example.symmetrization }}</td></tr>
+                <tr><td>Category</td><td>{{ example.category }}</td></tr>
+                <tr><td>Tidy layout</td><td>{{ example.tidy | default: "off" }}</td></tr>
+                <tr><td>Horizontal spacing</td><td>{{ example.hspacing | default: "1.0" }}</td></tr>
+                <tr><td>Vertical spacing</td><td>{{ example.connector_height }}</td></tr>
+                <tr><td>Direction</td><td>{{ example.direction | default: "ttb" }}</td></tr>
+                <tr><td>Mirror (RTL)</td><td>{{ example.mirror | default: "off" }}</td></tr>
                 <tr><td>Font</td><td>{{ example.font }}</td></tr>
+                <tr><td>Color</td><td>{{ example.color }}</td></tr>
+                <tr><td>Connector shape</td><td>{{ example.connector }}</td></tr>
+                <tr><td>Line width</td><td>{{ example.linewidth }}</td></tr>
+                <tr><td>Polyline</td><td>{{ example.polyline }}</td></tr>
+                <tr><td>Hide connectors</td><td>{{ example.hide_default_connectors }}</td></tr>
                 {% if example.reference %}
                   <tr><td>Reference</td><td>{{ example.reference }}</td></tr>
                 {% endif %}
