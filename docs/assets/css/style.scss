@@ -10,7 +10,27 @@
 
 div.grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; 
+  /* minmax(0, 1fr) rather than 1fr: a bracket notation written on one long
+     line would otherwise stretch its column and squeeze the figure out. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Long input lines scroll inside their own column. */
+div.grid pre,
+div.grid code {
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Fit a figure to its column, but never blow a small tree up past the size
+   it was rendered at — upscaled trees look blurred and badly spaced. */
+div.grid img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 600px;
 }
 
 @media only screen and (max-width: 768px) {
