@@ -79,7 +79,26 @@ SVG images are dependent on the fonts installed locally on your computer. In ord
 - [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP): for Japanese characters in serif
 - [Noto Sans CJK](https://fonts.google.com/noto/specimen/Noto+Sans+JP) / [Noto Serif CJK](https://fonts.google.com/noto/specimen/Noto+Serif+JP): for the full CJK range, including Hangul and simplified Han
 - [Noto Sans Mono](https://fonts.google.com/noto/specimen/Noto+Sans+Mono): for latin and other basic Unicode characters in sans serif mono (semi-condensed)
-- [OpenMoji](https://openmoji.org/): for emoji characters.
+- [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): for emoji characters (the monochrome build; colour emoji fonts are not rendered by the PNG/PDF pipeline)
+
+Since 1.8.1, the scripts the gallery covers are named explicitly rather than left to the system's generic fallback, so the same input renders the same way on every machine: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif.
+
+### Using a Font of Your Own
+
+The family chains above take precedence over whatever your system would pick by itself, which also means an Arabic or Devanagari font you prefer will lose to Noto. You can override any entry with a fontconfig alias — no change to RSyntaxTree is needed. For example, to render Arabic with Amiri, put this in `~/.config/fontconfig/fonts.conf` and run `fc-cache -f`:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig>
+  <alias binding="strong">
+    <family>Noto Sans Arabic</family>
+    <prefer><family>Amiri</family></prefer>
+  </alias>
+</fontconfig>
+```
+
+Because measurement and rendering both resolve through fontconfig, the substituted font is measured as well as drawn, so the layout stays correct.
 
 
 ### Font Styles, Text Decoration, and Sub/Superscripts

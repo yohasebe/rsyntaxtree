@@ -77,7 +77,26 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 - [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif): ラテン文字と基本的なUnicode文字（セリフ） の表示
 - [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP):日本語のひらがな／カタカナ／漢字（セリフ）の表示
 - [Noto Sans CJK](https://fonts.google.com/noto/specimen/Noto+Sans+JP) / [Noto Serif CJK](https://fonts.google.com/noto/specimen/Noto+Serif+JP): ハングルや簡体字を含む CJK 全域の表示
-- [OpenMoji](https://openmoji.org/): 様々な絵文字の表示
+- [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): 絵文字の表示（モノクロ版．カラー絵文字フォントは PNG／PDF の描画経路では出力されません）
+
+1.8.1 以降，ギャラリーで扱うスクリプトはシステム任せのフォールバックではなくフォント名を明示して解決します（`Noto Sans Arabic` ／ `Noto Naskh Arabic`，`Noto Sans Hebrew` ／ `Noto Serif Hebrew`，およびデーヴァナーガリー・タイ・クメールの Noto Sans／Noto Serif）．同じ入力がどの環境でも同じ字形で描画されます．
+
+### 好みのフォントを使う
+
+上記のフォント指定はシステムの既定より優先されるため，お使いのアラビア語フォントなどがあっても Noto が優先されます．RSyntaxTree 側を変更しなくても，fontconfig の alias で上書きできます．たとえばアラビア語を Amiri で描画するには，`~/.config/fontconfig/fonts.conf` に次を書いて `fc-cache -f` を実行します．
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig>
+  <alias binding="strong">
+    <family>Noto Sans Arabic</family>
+    <prefer><family>Amiri</family></prefer>
+  </alias>
+</fontconfig>
+```
+
+計測も描画も同じ fontconfig を経由するので，置き換えたフォントで計測されレイアウトも崩れません．
 
 ### テキストの描画
 

@@ -15,14 +15,32 @@ require 'pango'
 # helpers format it for SVG (quoted) or for Pango::FontDescription#family
 # (unquoted). Keeping a single source guarantees that measurement and
 # rendering resolve through the same fallback chain.
+#
+# Scripts beyond Latin and CJK are named explicitly rather than left to the
+# generic fallback, because the generic fallback is not the same font on every
+# machine: on Alpine the Arabic block was picked up by Noto Sans Math, which
+# has the glyphs but no joining rules and so rendered Arabic as isolated
+# letters, while on Debian the same text fell to DejaVu Sans. A family is
+# listed here when (i) the gallery has an example in that script, or (ii) a
+# concrete environment-dependent failure has been reported for it. Anything
+# else stays with the generic fallback — an unbounded list is unmaintainable.
+SCRIPT_FAMILIES_SANS = ["Noto Sans Arabic", "Noto Sans Hebrew", "Noto Sans Devanagari", "Noto Sans Thai", "Noto Sans Khmer"].freeze
+# Noto has no serif Arabic; Naskh is its serif-like counterpart, with Noto Sans
+# Arabic behind it for systems that ship one but not the other.
+SCRIPT_FAMILIES_SERIF = ["Noto Naskh Arabic", "Noto Sans Arabic", "Noto Serif Hebrew", "Noto Serif Devanagari", "Noto Serif Thai", "Noto Serif Khmer"].freeze
+
+EMOJI_FAMILIES = ["OpenMoji", "OpenMoji Color", "OpenMoji Black", "Noto Emoji"].freeze
+
 FONT_FAMILIES = {
-  sans:  ["Noto Sans", "Noto Sans JP", "Noto Sans CJK JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "Noto Emoji", "sans-serif"].freeze,
-  serif: ["Noto Serif", "Noto Serif JP", "Noto Serif CJK JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "Noto Emoji", "serif"].freeze,
-  mono:  ["Noto Sans Mono SemiCondensed", "Noto Sans Mono", "Noto Sans JP", "Noto Sans Mono CJK JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "Noto Emoji", "monospace"].freeze,
+  sans:  (["Noto Sans", "Noto Sans JP", "Noto Sans CJK JP"] + SCRIPT_FAMILIES_SANS + EMOJI_FAMILIES + ["sans-serif"]).freeze,
+  serif: (["Noto Serif", "Noto Serif JP", "Noto Serif CJK JP"] + SCRIPT_FAMILIES_SERIF + EMOJI_FAMILIES + ["serif"]).freeze,
+  # Noto ships no monospaced faces for these scripts, so the mono style borrows
+  # the proportional ones rather than dropping to the generic fallback.
+  mono:  (["Noto Sans Mono SemiCondensed", "Noto Sans Mono", "Noto Sans JP", "Noto Sans Mono CJK JP"] + SCRIPT_FAMILIES_SANS + EMOJI_FAMILIES + ["monospace"]).freeze,
   # The cjk style puts a full-coverage CJK family first, for text that mixes
   # Han, Hangul and kana. Latin falls back to the same Noto faces the sans
   # style uses. (Before 1.8.0 this was WQY Zen Hei.)
-  cjk:   ["Noto Sans CJK JP", "Noto Sans", "Noto Sans JP", "OpenMoji", "OpenMoji Color", "OpenMoji Black", "Noto Emoji", "sans-serif"].freeze
+  cjk:   (["Noto Sans CJK JP", "Noto Sans", "Noto Sans JP"] + SCRIPT_FAMILIES_SANS + EMOJI_FAMILIES + ["sans-serif"]).freeze
 }.freeze
 
 module FontFamily

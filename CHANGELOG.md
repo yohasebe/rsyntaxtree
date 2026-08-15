@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.8.1] - 2026-08
+
+### Fixed
+- Arabic rendered as isolated, unjoined letterforms in some environments.
+  Scripts outside Latin and CJK were left to the system's generic font
+  fallback, which is not the same font on every machine: on Alpine the Arabic
+  block was claimed by Noto Sans Math, which has the glyphs but no joining
+  rules, while on Debian the same text fell to DejaVu Sans. The family chains
+  now name the scripts the gallery covers — Arabic (`Noto Sans Arabic`, with
+  `Noto Naskh Arabic` for the serif style), Hebrew, Devanagari, Thai and
+  Khmer — so the same input renders the same way everywhere. Gallery example
+  067 (Arabic) was affected and has been regenerated.
+- Emoji were measured with one font and drawn with another where a colour
+  emoji font was installed: Pango selects `Noto Color Emoji`, but the
+  librsvg/Cairo pipeline does not rasterise its bitmap glyphs, so the drawing
+  fell back to whatever outline font happened to cover the codepoint. The
+  project's Docker images now install the monochrome Noto Emoji and leave the
+  colour build out.
+
+### Changed
+- The Docker images install the Noto packages for Arabic (including Naskh),
+  Hebrew, Devanagari, Thai and Khmer, and carry a fontconfig rule that removes
+  the Arabic ranges from Noto Sans Math while keeping its mathematical
+  alphanumerics (used for the little *v* of *v*P).
+- Documentation records how to override any of the named families with a
+  fontconfig alias, for users who prefer their own script fonts.
+
 ## [1.8.0] - 2026-08
 
 ### Added
