@@ -9,7 +9,13 @@ RUN apk update && \
     apk add --no-cache gobject-introspection gobject-introspection-dev && \
     apk add --no-cache -t .build-packages --no-cache build-base curl-dev wget gcompat && \
     apk add --no-cache font-noto font-noto-cjk font-noto-cjk-extra \
-        font-noto-math font-noto-arabic font-noto-hebrew font-noto-devanagari font-noto-thai
+        font-noto-arabic font-noto-hebrew font-noto-devanagari font-noto-thai
+
+# Noto Sans Math (pulled in by font-noto) claims the Arabic block but carries no
+# joining rules, and fontconfig ranks it above Noto Sans Arabic — Arabic then
+# renders as isolated letterforms. Keep the font, since trees use its
+# mathematical alphanumerics (the little v of vP), but drop Arabic from it.
+COPY dev/fontconfig/99-noto-math-no-arabic.conf /etc/fonts/conf.d/99-noto-math-no-arabic.conf
 
 # Emoji: the monochrome Noto Emoji, not Alpine's font-noto-emoji (which is the
 # colour NotoColorEmoji). Cairo does not rasterise its bitmap glyphs in this
