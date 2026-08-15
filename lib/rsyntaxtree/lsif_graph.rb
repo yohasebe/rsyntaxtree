@@ -287,7 +287,11 @@ module RSyntaxTree
         geometry: {
           width: @width.round(1),
           height: @height.round(1),
-          direction: @params[:direction] || "ttb"
+          direction: @params[:direction] || "ttb",
+          # Node positions are already mirrored, so a consumer cannot tell
+          # from them alone whether reading order runs left-to-right or
+          # right-to-left. Record the flag so it can.
+          mirror: @params[:mirror] == true
         },
         nodes: @nodes,
         edges: @edges,

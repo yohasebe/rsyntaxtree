@@ -29,6 +29,8 @@
 - CI on GitHub Actions (Ruby 3.2/3.4).
 
 ### Changed
+- LSIF output records whether the layout is mirrored (`geometry.mirror`);
+  node positions alone cannot tell a consumer which way the tree reads.
 - The standalone `symmetrize` option and `-y` flag are deprecated aliases of
   `tidy: symmetric`; `tidy_spacing` is a deprecated alias of `hspacing`.
 - `--direction` now owns the `-d` short flag (it had been auto-assigned to

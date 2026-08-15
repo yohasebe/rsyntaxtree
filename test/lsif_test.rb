@@ -96,6 +96,7 @@ class LsifGeneratorTest < Minitest::Test
       assert data["geometry"]["width"] > 0, "Width must be positive"
       assert data["geometry"]["height"] > 0, "Height must be positive"
       assert %w[ttb ltr].include?(data["geometry"]["direction"]), "Direction must be ttb or ltr"
+      assert [true, false].include?(data["geometry"]["mirror"]), "Mirror must be a boolean"
 
       # Verify nodes
       nodes = data["nodes"]

@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = "RSyntaxTree is a graphical syntax tree generator written in Ruby"
   s.description = "Syntax tree generator made with Ruby"
   s.licenses    = ["MIT"]
-  s.required_ruby_version = Gem::Requirement.new(">= 2.6")
+  s.required_ruby_version = ">= 3.2.0"
   # Exclude the documentation site (gallery assets), development tools and
   # tests from the installed gem; they live in the repository.
   s.files         = `git ls-files`.split("\n").reject do |path|
