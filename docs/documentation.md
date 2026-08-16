@@ -48,9 +48,9 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 - **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head) — but never so far that two leaves swap their left-right order. Leaf boxes may overlap across rows while the words still read in surface order.
 - **High** (`high`): free tucking. Leaf order is guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
 
-Connector heights adjust automatically: tidy mode spends a small height budget (about 5% of the tree's height) on the levels whose branches spread widest, evening out branch angles without making the figure noticeably taller. There is nothing to tune.
+Connector heights adjust automatically: tidy mode spends a small height budget (about 5% of the tree's height) on the levels whose branches spread widest, evening out branch angles without making the figure noticeably taller. Connector height needs no manual adjustment in tidy mode.
 
-Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. The scale runs from the most spacious (`symmetric`) to the most dense (`high`). Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `low`. The X-bar and morphology examples use `high`, and one (a Japanese causative-passive tree) uses `medium`.
+Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `low`. The X-bar and morphology examples use `high`, and one (a Japanese causative-passive tree) uses `medium`.
 
 `Horizontal spacing` (`hspacing`, default 1.0, range 0.5–3.0) scales every horizontal gap in the figure the way `Connector height` scales the vertical rhythm. It applies in every layout mode, tidy or not. (`tidy_spacing` remains as a legacy alias.)
 
@@ -58,16 +58,17 @@ Tidy layout never produces overlapping labels: if a compaction step would cause 
 
 Syntax trees for right-to-left scripts such as Arabic and Hebrew are conventionally drawn expanding from right to left, with the first word of the sentence at the right edge. The `Mirror` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally to follow this convention: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
 
-`Mirror` composes with `Direction`: `ttb` + mirror gives the standard RTL tree, and `ltr` + mirror places the root at the right with leaves expanding leftward. Connectors, triangles, movement paths, and region shades all follow the mirrored positions automatically. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
+`Mirror` composes with `Direction`: `ttb` + mirror gives the standard RTL tree, and `ltr` + mirror places the root at the right with leaves expanding leftward. Every drawn element follows the mirrored positions automatically. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
 
 ### Fonts Used to Generate PNG
 
-Currently, you can choose among the font styles `Noto Sans`, `Noto Serif` and `Noto Sans Mono`. Each of them falls back to Noto CJK for Han, Hangul and kana, so any of the three renders CJK text.
+The web interface offers three font styles:
 
-- `Noto Sans` can display basic Unicode characters (including Japanese hiragana/katakana/kanji).
-- `Noto Serif` can display basic Unicode characters (including Japanese hiragana/katakana/kanji).
-- `Noto Sans CJK` covers the full CJK range (Han, Hangul, kana) and is used automatically as a fallback by every style.
-- `Noto Sans Mono` can display basic Unicode characters in a mono-spaced typeface.
+- `Noto Sans` (`sans`): latin and other basic Unicode characters in a sans serif face.
+- `Noto Serif` (`serif`): the same range in a serif face.
+- `Noto Sans Mono` (`mono`): the same range in a mono-spaced face.
+
+All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders CJK text. A fourth style, `cjk`, puts Noto Sans CJK first instead; it is available from the command line and the library (`-n cjk`) but not from the web interface.
 
 ### Install Fonts for SVG
 
@@ -77,11 +78,11 @@ SVG images are dependent on the fonts installed locally on your computer. In ord
 - [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP): for Japanese characters in sans serif
 - [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif): for latin and other basic Unicode characters in serif
 - [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP): for Japanese characters in serif
-- [Noto Sans CJK](https://fonts.google.com/noto/specimen/Noto+Sans+JP) / [Noto Serif CJK](https://fonts.google.com/noto/specimen/Noto+Serif+JP): for the full CJK range, including Hangul and simplified Han
+- [Noto Sans CJK / Noto Serif CJK](https://github.com/notofonts/noto-cjk): for the full CJK range, including Hangul and simplified Han (the JP families above cover Japanese only)
 - [Noto Sans Mono](https://fonts.google.com/noto/specimen/Noto+Sans+Mono): for latin and other basic Unicode characters in sans serif mono (semi-condensed)
 - [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): for emoji characters (the monochrome build; colour emoji fonts are not rendered by the PNG/PDF pipeline)
 
-Since 1.8.1, the scripts the gallery covers are named explicitly rather than left to the system's generic fallback, so the same input renders the same way on every machine: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif.
+Since 1.8.1, the scripts the gallery covers are named explicitly rather than left to the system's generic fallback: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif. Where those fonts are installed, the same input renders the same way from one machine to the next. Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named yet and still depend on what the system offers.
 
 ### Using a Font of Your Own
 

@@ -7,11 +7,13 @@
   Scripts outside Latin and CJK were left to the system's generic font
   fallback, which is not the same font on every machine: on Alpine the Arabic
   block was claimed by Noto Sans Math, which has the glyphs but no joining
-  rules, while on Debian the same text fell to DejaVu Sans. The family chains
-  now name the scripts the gallery covers — Arabic (`Noto Sans Arabic`, with
-  `Noto Naskh Arabic` for the serif style), Hebrew, Devanagari, Thai and
-  Khmer — so the same input renders the same way everywhere. Gallery example
-  067 (Arabic) was affected and has been regenerated.
+  rules, while on Debian/Ubuntu the same text fell to DejaVu Sans. The family
+  chains now name the scripts the gallery covers — Arabic (`Noto Sans Arabic`,
+  with `Noto Naskh Arabic` for the serif style), Hebrew, Devanagari, Thai and
+  Khmer — so machines that have those fonts installed produce the same shapes.
+  Mathematical alphanumerics (U+1D400–) are not named yet and still vary by
+  environment. Gallery example 067 (Arabic) was affected and has been
+  regenerated.
 - Emoji were measured with one font and drawn with another where a colour
   emoji font was installed: Pango selects `Noto Color Emoji`, but the
   librsvg/Cairo pipeline does not rasterise its bitmap glyphs, so the drawing

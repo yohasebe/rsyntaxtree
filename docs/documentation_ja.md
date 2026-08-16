@@ -44,13 +44,13 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 
 - **Symmetric**（`symmetric`）：radical symmetrization．すべての部分木を均等なスロットの中央に配置し，幅は広いものの完全に左右対称な図になります（従来の独立オプション `Radical symmetrization` を統合したもの．旧指定も互換エイリアスとして機能します）．
 - **オフ**（`off`）：従来のレイアウトです．
-- **Low**（`low`）：隣り合う部分木の輪郭の間に余白がある場合，互いに引き寄せて幅を詰めます（全体の幅は平均して3割ほど減少）．すべてのリーフの左右位置＝語順は図全体で厳密に保たれるので，語順を見せることが目的の図（言語間比較など）にはこちらを選んでください．
+- **Low**（`low`）：隣り合う部分木の輪郭の間に余白がある場合，互いに引き寄せて幅を詰めます（全体の幅はおおむね3割ほど減少）．すべてのリーフの左右位置＝語順は図全体で厳密に保たれるので，語順を見せることが目的の図（言語間比較など）にはこちらを選んでください．
 - **Medium**（`medium`）：浅い部分木を隣の深い部分木の上の空白に入れ込んで，さらに圧縮します（例：指定部の NP が主要部側に寄る）．ただし**2つのリーフの左右順序が入れ替わる手前で必ず停止**します．ボックスの重なりは許容しつつ，語は表層の語順どおりに読めます．
 - **High**（`high`）：入れ込みを制限なく行う最も密な段階です．リーフの順序保証は同じ段の中のみになるので，構造を見せることが目的の図（X-bar，形態論の派生など）に向いています．
 
-コネクタの高さは自動調整されます．Tidy モードは小さな高さ予算（樹全体の高さの5%程度）を枝の広がりが最も大きいレベルに配分し，図をほとんど縦長にすることなく枝の角度を揃えます．調整すべきパラメータはありません．
+コネクタの高さは自動調整されます．Tidy モードは小さな高さ予算（樹全体の高さの5%程度）を枝の広がりが最も大きいレベルに配分し，図をほとんど縦長にすることなく枝の角度を揃えます．Tidy モードではコネクタ高さを手動で調整する必要はありません．
 
-Tidy レイアウトがラベルの重なった図を出力することはありません（圧縮によって衝突が生じる場合は，直前の安全な配置に戻します）．上から下・左から右のどちらのレイアウトでも機能し，`Mirror` とも併用できます．スケールは最も広い `symmetric` から最も密な `high` まで一列に並びます．[ギャラリー](https://yohasebe.github.io/rsyntaxtree/examples)の大半の図は `low` で描画しています．X-bar 系と形態論の例は `high`，日本語の使役受身の図は `medium` を使っています．
+Tidy レイアウトがラベルの重なった図を出力することはありません（圧縮によって衝突が生じる場合は，直前の安全な配置に戻します）．上から下・左から右のどちらのレイアウトでも機能し，`Mirror` とも併用できます．[ギャラリー](https://yohasebe.github.io/rsyntaxtree/examples)の大半の図は `low` で描画しています．X-bar 系と形態論の例は `high`，日本語の使役受身の図は `medium` を使っています．
 
 `Horizontal spacing`（`hspacing`，デフォルト 1.0，目安 0.5〜3.0）は，`Connector height` が縦のリズムを調整するのと対になる横方向の間隔倍率で，tidy の有無に関わらずすべてのレイアウトモードで有効です（旧 `tidy_spacing` は互換エイリアス）．
 
@@ -58,15 +58,17 @@ Tidy レイアウトがラベルの重なった図を出力することはあり
 
 アラビア語やヘブライ語など右から左に書く文字体系では，樹形図も右から左に展開させ，文頭の語を右端に置く形で描くのが慣習です．`Mirror` オプション（`mirror: on`，CLI では `--mirror`）は，レイアウト確定後の樹全体を水平方向に反転してこの慣習に従います．構造は変わらず，リーフの並び順だけが逆転して，文が自然な方向に読めるようになります．
 
-`Mirror` は `Direction` と組み合わせられます：`ttb` + mirror が RTL の標準的な樹形図，`ltr` + mirror はルートが右・リーフが左に展開する配置になります．コネクタ，三角形，移動パス，領域シェードはすべて反転後の位置に自動的に追従します．実例は[ギャラリーの Multilingual カテゴリ](https://yohasebe.github.io/rsyntaxtree/examples)のアラビア語の例をご覧ください．
+`Mirror` は `Direction` と組み合わせられます：`ttb` + mirror が RTL の標準的な樹形図，`ltr` + mirror はルートが右・リーフが左に展開する配置になります．描画される要素はすべて反転後の位置に自動的に追従します．実例は[ギャラリーの Multilingual カテゴリ](https://yohasebe.github.io/rsyntaxtree/examples)のアラビア語の例をご覧ください．
 
 ### PNG形式を用いる場合
 
-PNG形式の場合，`Noto Sans`，`Noto Serif`，`Noto Sans Mono` のいずれかを選ぶと，そのフォントを使って樹形図が描画されます．いずれの書体も漢字・ハングル・かなは Noto CJK にフォールバックするため，どれを選んでも CJK のテキストを描画できます．
+Web インターフェイスでは次の3種類の書体を選べます．
 
-- `Noto Sans` は基本的なUnicode文字をゴシック体に近い書体で表示します（日本語のひらがな／カタカナ／漢字を含む）．
-- `Noto Serif` は基本的なUnicode文字を明朝体に近い書体で表示します（日本語のひらがな／カタカナ／漢字を含む）．
-- `Noto Sans CJK` は CJK（漢字・ハングル・かな）の全域をカバーし，どの書体を選んでもフォールバックとして自動的に使われます．
+- `Noto Sans`（`sans`）：ラテン文字と基本的なUnicode文字をゴシック体に近い書体で表示します．
+- `Noto Serif`（`serif`）：同じ範囲を明朝体に近い書体で表示します．
+- `Noto Sans Mono`（`mono`）：同じ範囲を等幅の書体で表示します．
+
+いずれも漢字・ハングル・かなは Noto CJK にフォールバックするため，どれを選んでも CJK のテキストを描画できます．なお `cjk` という第4の書体（Noto Sans CJK を先頭に置くもの）もありますが，これはコマンドライン（`-n cjk`）とライブラリからのみ指定でき，Web インターフェイスには出していません．
 
 ### SVG形式を用いる場合
 
@@ -76,10 +78,10 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 - [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP): 日本語のひらがな／カタカナ／漢字（サンセリフ）の表示
 - [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif): ラテン文字と基本的なUnicode文字（セリフ） の表示
 - [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP):日本語のひらがな／カタカナ／漢字（セリフ）の表示
-- [Noto Sans CJK](https://fonts.google.com/noto/specimen/Noto+Sans+JP) / [Noto Serif CJK](https://fonts.google.com/noto/specimen/Noto+Serif+JP): ハングルや簡体字を含む CJK 全域の表示
+- [Noto Sans CJK / Noto Serif CJK](https://github.com/notofonts/noto-cjk): ハングルや簡体字を含む CJK 全域の表示（上記の JP のフォントは日本語のみ）
 - [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): 絵文字の表示（モノクロ版．カラー絵文字フォントは PNG／PDF の描画経路では出力されません）
 
-1.8.1 以降，ギャラリーで扱うスクリプトはシステム任せのフォールバックではなくフォント名を明示して解決します（`Noto Sans Arabic` ／ `Noto Naskh Arabic`，`Noto Sans Hebrew` ／ `Noto Serif Hebrew`，およびデーヴァナーガリー・タイ・クメールの Noto Sans／Noto Serif）．同じ入力がどの環境でも同じ字形で描画されます．
+1.8.1 以降，ギャラリーで扱うスクリプトはシステム任せのフォールバックではなくフォント名を明示して解決します（`Noto Sans Arabic` ／ `Noto Naskh Arabic`，`Noto Sans Hebrew` ／ `Noto Serif Hebrew`，およびデーヴァナーガリー・タイ・クメールの Noto Sans／Noto Serif）．これらのフォントが導入されている環境どうしであれば，同じ入力が同じ字形で描画されます．数学用英数字（U+1D400 以降．例えば *v*P のイタリック体の *v*）はまだ明示していないため，環境によって字形が変わります．
 
 ### 好みのフォントを使う
 

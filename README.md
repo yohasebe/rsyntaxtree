@@ -112,20 +112,20 @@ See [RSyntaxTree Example Gallery](https://yohasebe.github.io/rsyntaxtree/example
 
 ## System Fonts
 
-RSyntaxTree resolves fonts by family name through fontconfig (measurement via Pango, rendering via librsvg), so the fonts must be installed on the system that generates the images. Recommended:
+RSyntaxTree resolves fonts by family name through fontconfig (measurement via Pango, rendering via librsvg), so the fonts must be installed on the machine that generates the images. As of v1.8.0 the gem no longer bundles font files; they were not used at runtime.
 
-- Debian/Ubuntu: `apt install fonts-noto-core fonts-noto-cjk fonts-noto-color-emoji`
-- Alpine: `apk add font-noto font-noto-cjk font-noto-cjk-extra font-noto-emoji` (the `-extra` package carries Noto Serif CJK)
-- macOS: install [Noto Sans/Serif](https://fonts.google.com/noto) (and Noto Sans/Serif JP for CJK); otherwise the system falls back to available fonts
+- Debian/Ubuntu: `apt install fonts-noto-core fonts-noto-cjk`
+- Alpine: `apk add font-noto font-noto-cjk font-noto-cjk-extra` (the `-extra` package carries Noto Serif CJK)
+- macOS: install [Noto Sans/Serif](https://fonts.google.com/noto), plus Noto Sans/Serif JP for Japanese and Noto Sans CJK for Hangul and simplified Han
 
-Any script supported by an installed font renders correctly — the family chains fall back from Noto Sans/Serif to the JP and CJK variants, so Japanese, Chinese (simplified and traditional) and Korean are covered by the Noto CJK package. As of v1.8.0 the gem no longer bundles font files (they were not used at runtime).
+The family chains name the Latin and CJK families, and since v1.8.1 also Arabic (`Noto Sans Arabic`, and `Noto Naskh Arabic` for the serif style), Hebrew, Devanagari, Thai and Khmer. A script whose family is missing does not turn into tofu — fontconfig falls back to anything else that covers the codepoints, which is where machines start to disagree. On Alpine, Arabic was picked up that way by Noto Sans Math, which has the glyphs but no joining rules, so the letters came out unjoined. Install the packages for the scripts you use:
 
-Scripts outside Latin and CJK need their own Noto package, or they render as tofu boxes. Since v1.8.0 the gem names these families explicitly (`Noto Sans Arabic`, `Noto Naskh Arabic`, `Noto Sans/Serif Hebrew`, `Devanagari`, `Thai`, `Khmer`) instead of leaving them to the system fallback, so install them to get the intended shapes:
-
-- Debian/Ubuntu: `apt install fonts-noto-core` already covers them; on minimal images add `fonts-noto` for the full set
+- Debian/Ubuntu: `fonts-noto-core` covers them; on minimal images add `fonts-noto` for the full set
 - Alpine: `apk add font-noto-arabic font-noto-naskh-arabic font-noto-hebrew font-noto-devanagari font-noto-thai font-noto-khmer`
 
-Emoji need the **monochrome** [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji); colour emoji fonts (`NotoColorEmoji`, shipped by Alpine's `font-noto-emoji` and Debian's `fonts-noto-color-emoji`) are measured but not drawn by the librsvg/Cairo pipeline, so emoji then fall back to whatever outline font happens to cover them.
+Emoji need the **monochrome** [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji). Colour emoji fonts (`NotoColorEmoji`, from Alpine's `font-noto-emoji` or Debian's `fonts-noto-color-emoji`) are measured by Pango but not drawn by librsvg, so emoji fall back to whatever outline font covers them.
+
+Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named in the chains yet, so they still resolve differently from one machine to the next.
 
 ## Installation
 
