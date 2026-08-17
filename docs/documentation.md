@@ -46,7 +46,9 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 - **Off** (`off`): the traditional layout.
 - **Low** (`low`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space, typically reducing overall width by about 30%. Every leaf keeps its strict left-to-right position, so the terminal string still reads in surface (word) order across the whole figure — choose this for figures whose point is word order, such as cross-linguistic comparisons.
 - **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head) — but never so far that two leaves swap their left-right order. Leaf boxes may overlap across rows while the words still read in surface order.
-- **High** (`high`): free tucking. Leaf order is guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
+- **High** (`high`): free tucking, and the only mode that lets branch angles differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
+
+The two ends of the scale are for figures that ask for them. `symmetric` gives a balanced diagram wider than any linguistic tree needs, and `high` gives the densest one at the cost of even branch angles; deeply lopsided trees gain the most from it, and on a well-balanced tree it often lands close to `medium`. `off`, `low` and `medium` cover ordinary work.
 
 Connector heights adjust automatically: tidy mode spends a small height budget (about 5% of the tree's height) on the levels whose branches spread widest, evening out branch angles without making the figure noticeably taller. Connector height needs no manual adjustment in tidy mode.
 

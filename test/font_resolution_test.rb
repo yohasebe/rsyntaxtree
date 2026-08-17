@@ -81,6 +81,32 @@ class FontResolutionTest < Minitest::Test
     assert_equal 0, unknown, "mathematical italic small v produced tofu"
   end
 
+  def test_mathematical_alphanumerics_use_the_named_family
+    skip "Noto Sans Math not installed" unless installed?("Noto Sans Math")
+
+    families, = resolved_families("\u{1D463}", :sans)
+    assert_includes families, "Noto Sans Math"
+  end
+
+  def test_serif_mathematical_alphanumerics_prefer_a_serif_face
+    skip "DejaVu Serif not installed" unless installed?("DejaVu Serif")
+
+    families, = resolved_families("\u{1D463}", :serif)
+    assert_includes families, "DejaVu Serif",
+                    "the serif style must not fall to the sans Noto Sans Math"
+  end
+
+  def test_arabic_still_wins_over_the_maths_font
+    skip "Noto Sans Arabic not installed" unless installed?("Noto Sans Arabic")
+
+    # Noto Sans Math covers the Arabic block without joining rules, so it must
+    # stay behind the script families in every chain.
+    %i[sans serif mono cjk].each do |style|
+      families, = resolved_families("الطالب", style)
+      refute_includes families, "Noto Sans Math", "#{style} reached the maths font for Arabic"
+    end
+  end
+
   def test_emoji_resolve_to_an_outline_font
     skip "Noto Emoji not installed" unless installed?("Noto Emoji") || installed?("OpenMoji Black")
 

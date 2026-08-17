@@ -376,7 +376,8 @@ module RSyntaxTree
     # being compressed narrower than the level right below it (an inversion
     # that reads as a needle-thin top over flat lower branches); branch
     # angles then stay comparable between adjacent levels. 1.0 = a pair is
-    # never tighter than the widest pair among its own children.
+    # never tighter than the widest pair among its own children. Applied in
+    # the :ordered nest mode only; see tidy_compress.
     TIDY_LEVEL_BALANCE = 1.0
 
     # Base multiplier for the minimum clearance between adjacent subtrees.
@@ -554,16 +555,21 @@ module RSyntaxTree
             end
           end
 
-          # Level-balance floor (nest mode only): keep the pair at least a
+          # Level-balance floor (:ordered only): keep the pair at least a
           # fraction of the widest child-level spread found inside its own
           # two subtrees. Nesting can tuck an upper pair far narrower than
           # the level right below it — an inversion that reads as a
-          # needle-thin top over flat lower branches. Without nesting the
-          # leaf-span guard already prevents such inversions, and applying
-          # the floor there would only forfeit legitimate compression.
+          # needle-thin top over flat lower branches.
+          #
+          # :none does not need it, since the leaf-span guard already
+          # prevents such inversions. :free deliberately goes without: it is
+          # the end of the scale where density outranks even branch angles,
+          # and with the floor in place it compressed no further than
+          # :ordered on all but a handful of trees.
+          #
           # Compression is a negative delta (the right subtree moves left),
           # so the floor bounds delta from below.
-          if @tidy_nest != :none && delta.negative?
+          if @tidy_nest == :ordered && delta.negative?
             dist = (right_child.horizontal_indent + right_child.content_width / 2.0) -
                    (left_child.horizontal_indent + left_child.content_width / 2.0)
             below = [left_child, right_child].map { |c| child_spread(c) }.compact.max

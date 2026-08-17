@@ -38,16 +38,27 @@ SCRIPT_FAMILIES_SERIF = ["Noto Naskh Arabic", "Noto Sans Arabic", "Noto Serif He
 # whatever the chain asks for; emoji figures have to be generated elsewhere.
 EMOJI_FAMILIES = ["OpenMoji", "OpenMoji Color", "OpenMoji Black", "Noto Emoji"].freeze
 
+# Mathematical alphanumerics (U+1D400–) label heads such as the little v of vP.
+# Neither Noto Sans nor Noto Serif covers the block, so without these entries
+# the glyphs came from whatever the machine happened to offer — Noto Sans Math
+# on Alpine, DejaVu Serif on Debian/Ubuntu, STIX Two Math on macOS. Noto Sans
+# Math is the only Noto face that covers the block and it is a sans design, so
+# the serif style asks for a serif source first. Listed after the script
+# families: Noto Sans Math also claims the Arabic block without joining rules,
+# and must never be reached before Noto Sans Arabic.
+MATH_FAMILIES_SANS = ["Noto Sans Math"].freeze
+MATH_FAMILIES_SERIF = ["DejaVu Serif", "Noto Sans Math"].freeze
+
 FONT_FAMILIES = {
-  sans:  (["Noto Sans", "Noto Sans JP", "Noto Sans CJK JP"] + SCRIPT_FAMILIES_SANS + EMOJI_FAMILIES + ["sans-serif"]).freeze,
-  serif: (["Noto Serif", "Noto Serif JP", "Noto Serif CJK JP"] + SCRIPT_FAMILIES_SERIF + EMOJI_FAMILIES + ["serif"]).freeze,
+  sans:  (["Noto Sans", "Noto Sans JP", "Noto Sans CJK JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + EMOJI_FAMILIES + ["sans-serif"]).freeze,
+  serif: (["Noto Serif", "Noto Serif JP", "Noto Serif CJK JP"] + SCRIPT_FAMILIES_SERIF + MATH_FAMILIES_SERIF + EMOJI_FAMILIES + ["serif"]).freeze,
   # Noto ships no monospaced faces for these scripts, so the mono style borrows
   # the proportional ones rather than dropping to the generic fallback.
-  mono:  (["Noto Sans Mono SemiCondensed", "Noto Sans Mono", "Noto Sans JP", "Noto Sans Mono CJK JP"] + SCRIPT_FAMILIES_SANS + EMOJI_FAMILIES + ["monospace"]).freeze,
+  mono:  (["Noto Sans Mono", "Noto Sans JP", "Noto Sans Mono CJK JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + EMOJI_FAMILIES + ["monospace"]).freeze,
   # The cjk style puts a full-coverage CJK family first, for text that mixes
   # Han, Hangul and kana. Latin falls back to the same Noto faces the sans
   # style uses. (Before 1.8.0 this was WQY Zen Hei.)
-  cjk:   (["Noto Sans CJK JP", "Noto Sans", "Noto Sans JP"] + SCRIPT_FAMILIES_SANS + EMOJI_FAMILIES + ["sans-serif"]).freeze
+  cjk:   (["Noto Sans CJK JP", "Noto Sans", "Noto Sans JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + EMOJI_FAMILIES + ["sans-serif"]).freeze
 }.freeze
 
 module FontFamily

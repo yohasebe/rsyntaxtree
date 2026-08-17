@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.8.2] - 2026-08
+
+### Changed
+- `tidy: high` now compresses as far as its name promises. The level-balance
+  floor added in 1.8.0, which keeps a pair of siblings from being tucked
+  narrower than the level below it, applied to `medium` and `high` alike and
+  bound first in nearly every tree: across the 75 gallery examples the two
+  modes produced identical figures 70 times. The floor now applies to `medium`
+  only, leaving `high` free to trade even branch angles for width — 29 of the
+  75 examples now differ, by up to 19%. `off`, `low` and `medium` are
+  unchanged; `high`, like `symmetric` at the other end of the scale, is for
+  figures that ask for it.
+- Mathematical alphanumerics (U+1D400–, such as the little *v* of *v*P) are
+  named in the family chains. Neither Noto Sans nor Noto Serif covers the
+  block, so the glyphs came from whatever the machine offered: Noto Sans Math
+  on Alpine, DejaVu Serif on Debian/Ubuntu, STIX Two Math on macOS. The serif
+  style now asks for a serif source first, so a serif tree no longer shows a
+  sans *v*. The Docker images install `font-dejavu` for it.
+
+### Fixed
+- The CLI printed parse errors to stdout and exited 0, so a script generating
+  figures in bulk could not tell a rejected input from a drawn one. Errors go
+  to stderr and the exit status is 1.
+- Dropped `Noto Sans Mono SemiCondensed` from the mono chain. It is a width
+  style of the variable Noto Sans Mono rather than a family of its own, and
+  resolved nowhere on macOS, Debian/Ubuntu or Alpine; the chain fell through
+  to `Noto Sans Mono`, which it now names directly.
+
 ## [1.8.1] - 2026-08
 
 ### Fixed
