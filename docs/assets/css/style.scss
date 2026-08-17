@@ -24,7 +24,7 @@ div.grid code {
   overflow-x: auto;
 }
 
-/* The template asks for 60% of each figure's rendered size (see the width
+/* The template asks for 75% of each figure's rendered size (see the width
    attribute it writes from _data/figure_sizes.yml), which keeps the apparent
    scale comparable from one figure to the next. These rules cap the ones that
    are still too wide or too tall for the column; height: auto keeps the aspect
