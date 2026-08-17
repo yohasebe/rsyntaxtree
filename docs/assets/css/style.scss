@@ -24,10 +24,12 @@ div.grid code {
   overflow-x: auto;
 }
 
-/* Fit a figure to its column, but never blow a small tree up past the size
-   it was rendered at — upscaled trees look blurred and badly spaced. */
+/* The template asks for 60% of each figure's rendered size (see the width
+   attribute it writes from _data/figure_sizes.yml), which keeps the apparent
+   scale comparable from one figure to the next. These rules cap the ones that
+   are still too wide or too tall for the column; height: auto keeps the aspect
+   ratio when max-width takes over. */
 div.grid img {
-  width: auto;
   height: auto;
   max-width: 100%;
   max-height: 600px;

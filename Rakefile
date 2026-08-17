@@ -37,6 +37,11 @@ task :generate do
     require_relative "dev/generate_examples"
 end
 
+desc "Record the pixel size of each gallery figure for the examples page"
+task :figure_sizes do
+    ruby "dev/stamp_figure_sizes.rb"
+end
+
 desc "Docker image Build"
 task :docker_build do
     `docker build ./ -t rsyntaxtree_devel`
@@ -48,6 +53,12 @@ task :docker_generate do
     `docker build ./ -t rsyntaxtree_devel`
     `docker run --rm -v #{docpath}:/rsyntaxtree/hostdocs rsyntaxtree_devel ruby /rsyntaxtree/dev/generate_examples.rb /rsyntaxtree/hostdocs`
     `cat #{docpath}/generate_examples.log`
+end
+
+# The examples page scales every figure by the size recorded here, so the
+# record has to be refreshed whenever the figures are.
+["generate", "docker_generate"].each do |name|
+    Rake::Task[name].enhance { Rake::Task["figure_sizes"].invoke }
 end
 
 # Add new task for macOS environment configuration

@@ -53,8 +53,16 @@ layout: default
             </table>
           </div>
           <div style='margin-top: 0; padding: 10px; margin-bottom: auto;'>
+            {%- comment -%}
+              Every figure is drawn at 60% of the size it was rendered at, so a
+              short tree does not appear at full size beside a wide one that the
+              column has shrunk to a third. Wider figures are still capped by
+              max-width in the stylesheet. Click through for the full size.
+            {%- endcomment -%}
+            {%- assign figure = site.data.figure_sizes[example.name] -%}
             <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}'>
-              <img src='assets/img/{{ example.name}}.png' />
+              <img src='assets/img/{{ example.name}}.png'
+                   {%- if figure %} width='{{ figure.width | times: 0.6 | round }}' height='{{ figure.height | times: 0.6 | round }}'{% endif %} />
             </a>
           </div>
         </div>
