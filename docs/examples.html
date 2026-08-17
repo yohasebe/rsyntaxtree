@@ -54,15 +54,15 @@ layout: default
           </div>
           <div style='margin-top: 0; padding: 10px; margin-bottom: auto;'>
             {%- comment -%}
-              Every figure is drawn at 75% of the size it was rendered at, so a
-              short tree does not appear at full size beside a wide one that the
-              column has shrunk to a third. Wider figures are still capped by
-              max-width in the stylesheet. Click through for the full size.
+              Display sizes come from dev/stamp_figure_sizes.rb, which eases each
+              figure down by a factor that grows with its width, so a short tree
+              does not appear at full size beside a wide one the column has
+              shrunk to a third. Click through for the full size.
             {%- endcomment -%}
             {%- assign figure = site.data.figure_sizes[example.name] -%}
             <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}'>
               <img src='assets/img/{{ example.name}}.png'
-                   {%- if figure %} width='{{ figure.width | times: 0.75 | round }}' height='{{ figure.height | times: 0.75 | round }}'{% endif %} />
+                   {%- if figure %} width='{{ figure.width }}' height='{{ figure.height }}'{% endif %} />
             </a>
           </div>
         </div>
