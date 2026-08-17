@@ -86,7 +86,10 @@ class FontResolutionTest < Minitest::Test
 
     families, unknown = resolved_families("😀", :sans)
     assert_equal 0, unknown, "emoji produced tofu"
-    refute_includes families, "Noto Color Emoji",
-                    "colour emoji are measured but not rendered by librsvg in this pipeline"
+    # Colour emoji are measured but not rendered by librsvg in this pipeline.
+    # Only the fontconfig side is asserted: on macOS Pango resolves through
+    # CoreText, which returns Apple Color Emoji for every emoji codepoint no
+    # matter what the chain asks for, and nothing in the gem can change that.
+    refute_includes families, "Noto Color Emoji"
   end
 end

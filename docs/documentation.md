@@ -101,6 +101,8 @@ The family chains above take precedence over whatever your system would pick by 
 
 Because measurement and rendering both resolve through fontconfig, the substituted font is measured as well as drawn, so the layout stays correct.
 
+This applies to systems where Pango resolves fonts through fontconfig, which means Linux and the Docker image. On macOS, Pango goes through CoreText instead and ignores fontconfig, so an alias has no effect there; name the font you want in the input's font style instead. CoreText also answers every emoji codepoint with Apple Color Emoji, whose colour glyphs librsvg does not draw, so trees containing emoji are best generated on Linux or in the Docker image.
+
 
 ### Font Styles, Text Decoration, and Sub/Superscripts
 

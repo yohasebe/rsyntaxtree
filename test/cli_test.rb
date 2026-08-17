@@ -270,6 +270,31 @@ end
   private
 
   # Updated helper to support chdir
+  public
+
+  # ===================
+  # Exit status
+  # ===================
+
+  # A parse error used to print to stdout and exit 0, so a script generating
+  # figures in bulk could not tell a rejected input from a drawn one.
+  def test_invalid_input_exits_nonzero
+    result = run_cli("-o", @tmpdir, "[X [*t *_f_]]")
+
+    refute result[:status].success?, "CLI should fail on unparsable input"
+    assert_includes result[:stderr], "invalid string"
+    assert_empty Dir.glob(File.join(@tmpdir, "*.svg")), "no file should be written"
+  end
+
+  def test_valid_input_exits_zero
+    result = run_cli("-o", @tmpdir, "-f", "svg", "[X [*t*<>_f_]]")
+
+    assert result[:status].success?, "CLI should succeed: #{result[:stderr]}"
+    refute_empty Dir.glob(File.join(@tmpdir, "*.svg"))
+  end
+
+  private
+
   def run_cli(*args, stdin_data: nil, chdir: nil)
     cmd = [RUBY, BIN_PATH] + args
     opts = {}
