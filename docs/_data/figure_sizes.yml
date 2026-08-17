@@ -98,20 +98,20 @@
   layout: grid-stack
   scroll: false
 '019':
-  width: 967
-  height: 853
+  width: 940
+  height: 829
   layout: grid-stack
-  scroll: true
+  scroll: false
 '020':
   width: 558
   height: 554
   layout: grid-wide
   scroll: false
 '021':
-  width: 977
-  height: 460
+  width: 940
+  height: 442
   layout: grid-stack
-  scroll: true
+  scroll: false
 '022':
   width: 711
   height: 727
@@ -148,10 +148,10 @@
   layout: ''
   scroll: false
 '029':
-  width: 1013
-  height: 720
+  width: 940
+  height: 668
   layout: grid-stack
-  scroll: true
+  scroll: false
 '030':
   width: 878
   height: 614
@@ -178,10 +178,10 @@
   layout: grid-stack
   scroll: false
 '035':
-  width: 1016
-  height: 564
+  width: 940
+  height: 522
   layout: grid-stack
-  scroll: true
+  scroll: false
 '036':
   width: 346
   height: 206
@@ -293,25 +293,25 @@
   layout: grid-wide
   scroll: false
 '058':
-  width: 1008
-  height: 525
+  width: 940
+  height: 489
   layout: grid-stack
-  scroll: true
+  scroll: false
 '059':
   width: 1337
   height: 557
   layout: grid-stack
   scroll: true
 '060':
-  width: 1024
-  height: 1049
+  width: 940
+  height: 963
   layout: grid-stack
-  scroll: true
+  scroll: false
 '061':
-  width: 948
-  height: 1200
+  width: 940
+  height: 1189
   layout: grid-stack
-  scroll: true
+  scroll: false
 '062':
   width: 1084
   height: 1200

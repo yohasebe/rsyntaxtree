@@ -61,8 +61,8 @@ layout: default
               shrunk to a third. Click through for the full size.
             {%- endcomment -%}
             {%- if figure.scroll -%}<div class='figure-scroll'>{%- endif -%}
-            <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}' data-title='{{ example.caption }}'>
-              <img src='assets/img/{{ example.name}}.png' alt='{{ example.caption }}' loading='lazy' decoding='async'
+            <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}' data-title='{{ example.caption | escape }}'>
+              <img src='assets/img/{{ example.name}}.png' alt='{{ example.caption | escape }}' loading='lazy' decoding='async'
                    {%- if figure %} width='{{ figure.width }}' height='{{ figure.height }}'{% endif %} />
             </a>
             {%- if figure.scroll -%}</div>{%- endif -%}

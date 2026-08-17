@@ -62,8 +62,21 @@ div.grid img {
 /* A figure too wide to shrink into anything readable is shown at the scale the
    easing gives it and scrolled sideways, which is how one reads a wide tree in
    any case. max-width has to be released or the box would shrink it again. */
+/* The shadows at the edges say there is more figure than the box shows. Two
+   layers are painted with the content (background-attachment: local) and cover
+   the shadows when scrolled to that end; two are fixed to the box and show the
+   shadow the rest of the time. No script involved. */
 div.grid .figure-scroll {
   overflow-x: auto;
+  background-image:
+    linear-gradient(to right, white, rgba(255, 255, 255, 0)),
+    linear-gradient(to left, white, rgba(255, 255, 255, 0)),
+    linear-gradient(to right, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0)),
+    linear-gradient(to left, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0));
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-size: 32px 100%, 32px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
 }
 
 div.grid .figure-scroll img {

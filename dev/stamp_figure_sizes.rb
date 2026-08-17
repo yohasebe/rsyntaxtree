@@ -9,19 +9,17 @@
 # in one figure as in the next.
 #
 # A single scale factor for every figure is no better: it either leaves the
-# small figures too large or shrinks them past the point of being readable,
-# while the wide ones are governed by the column regardless. So the factor
-# varies with the figure's own width, easing from full size for a tiny tree
-# down to the column limit for a wide one:
+# small figures too large or shrinks them past the point of being readable.
+# So the factor varies with the figure's own width:
 #
-#   displayed width = min(column, k * width ** EXPONENT)
+#   displayed width = k * width ** EXPONENT
 #
 # An exponent below 1 makes the displayed width grow more slowly than the
 # figure itself, which is exactly the compression the eye is asking for; k is
 # set so that a 280px figure lands at about 90%. The result runs roughly 100%
-# for a tiny tree, 90% at 280px, 77% at 520px, 65% at 690px, and meets the
-# column cap from there on — a gradient rather than the step a fixed factor
-# produces. Nothing is ever scaled up.
+# for a tiny tree, 90% at 280px, 77% at 520px and 65% at 690px — a gradient
+# rather than the step a fixed factor produces. Nothing is ever scaled up, and
+# a figure too tall or too wide for the page is brought back below.
 #
 # Jekyll cannot measure images on GitHub Pages, hence this file. Run from the
 # repository root, after generating the examples:
@@ -34,12 +32,11 @@ require "fileutils"
 IMG_DIR = File.expand_path("../docs/assets/img", __dir__)
 DATA_FILE = File.expand_path("../docs/_data/figure_sizes.yml", __dir__)
 
-# How much room the figure gets, measured on the built page. A figure narrow
-# enough to sit beside the bracket notation keeps the even two-column split; a
-# wider one takes two thirds of the row, and one wider still gets a row of its
-# own below the notation. Each tier is a class on the grid in
-# docs/assets/css/style.scss, and the stylesheet caps anything that still
-# overflows, so approximate numbers here cost nothing.
+# How much of the row a figure gets, as a class on the grid in
+# docs/assets/css/style.scss: a figure narrow enough to sit beside the bracket
+# notation keeps the even split, a wider one takes two thirds of the row, and
+# one wider still gets a row of its own below the notation.
+#
 # The tier is chosen by the width the easing asks for, not by the figure's own
 # width. Picking by the latter meant the column then clipped what the easing had
 # asked for, and the scale stopped being monotonic across a boundary: a 1366px
@@ -61,8 +58,12 @@ LAYOUTS = [
   { max_eased: nil,   css_class: "grid-stack", max_height: 1200.0 }
 ].freeze
 
-# Width of the widest row. A figure drawn wider than this scrolls in place.
+# Width of the widest row. A figure drawn wider than this scrolls in place —
+# but only if it overflows by enough to be worth a scrollbar. One that spills a
+# few dozen pixels is better shrunk the last few percent to fit: a scrollbar
+# under a figure that looks complete is a worse trade than 8% less scale.
 CONTAINER_WIDTH = 940.0
+SCROLL_TOLERANCE = 1.1
 
 EXPONENT = 0.75
 # Chosen so that a 280px-wide figure is shown at ~90% of its rendered size.
@@ -94,12 +95,13 @@ sizes = Dir.glob(File.join(IMG_DIR, "*.png")).sort.each_with_object({}) do |path
   eased = eased_width(width)
   layout = layout_for(eased)
   scale = display_scale(width, height, eased, layout[:max_height])
-  display_width = (width * scale).round
+  scroll = width * scale > CONTAINER_WIDTH * SCROLL_TOLERANCE
+  scale = [scale, CONTAINER_WIDTH / width].min unless scroll
   acc[name] = {
-    "width" => display_width,
+    "width" => (width * scale).round,
     "height" => (height * scale).round,
     "layout" => layout[:css_class],
-    "scroll" => display_width > CONTAINER_WIDTH
+    "scroll" => scroll
   }
 end
 
