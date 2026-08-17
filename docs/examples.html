@@ -20,7 +20,7 @@ layout: default
     <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b></h2>
     {%- for example in all_examples -%}
       {%- if example.category contains category.name -%}
-        <h3>{{ example.caption }}</h3>
+        <h3 id="example-{{ example.name }}">{{ example.caption }}</h3>
         <div style='text-align:left;'>
           <button onclick="copyToClipBoard('text-{{ example.name }}')" style='margin: 20px 0; font-size: 0.85em;'>
             Copy to Clipboard
@@ -61,8 +61,8 @@ layout: default
               shrunk to a third. Click through for the full size.
             {%- endcomment -%}
             {%- if figure.scroll -%}<div class='figure-scroll'>{%- endif -%}
-            <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}'>
-              <img src='assets/img/{{ example.name}}.png'
+            <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}' data-title='{{ example.caption }}'>
+              <img src='assets/img/{{ example.name}}.png' alt='{{ example.caption }}' loading='lazy' decoding='async'
                    {%- if figure %} width='{{ figure.width }}' height='{{ figure.height }}'{% endif %} />
             </a>
             {%- if figure.scroll -%}</div>{%- endif -%}
@@ -74,7 +74,7 @@ layout: default
   {%- endif -%}
 {%- endfor -%}
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
 <script>
   function copyToClipBoard(id){

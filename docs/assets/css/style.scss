@@ -37,11 +37,6 @@ div.grid code {
   overflow-x: auto;
 }
 
-/* The template writes each figure's display size from _data/figure_sizes.yml,
-   easing it down by a factor that grows with the figure's width so the apparent
-   scale stays comparable from one figure to the next. These rules cap what is
-   still too wide or too tall for the column; height: auto keeps the aspect
-   ratio when max-width takes over. */
 /* height: auto keeps the aspect ratio when max-width takes over on a narrow
    screen. There is deliberately no max-height: capping the height while the
    width attribute holds stretches the figure, so the height limit is applied
