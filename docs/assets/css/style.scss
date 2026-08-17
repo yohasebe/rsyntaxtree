@@ -17,6 +17,19 @@ div.grid {
   align-items: start;
 }
 
+/* A figure too wide for an even split takes two thirds of the row; the bracket
+   notation loses width it does not need, since long lines scroll anyway. One
+   wider still gets a row of its own under the notation. Which class an example
+   carries is decided in dev/stamp_figure_sizes.rb, together with the display
+   size that goes with the extra room. */
+div.grid.grid-wide {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+}
+
+div.grid.grid-stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 /* Long input lines scroll inside their own column. */
 div.grid pre,
 div.grid code {
