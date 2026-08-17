@@ -44,26 +44,19 @@ DATA_FILE = File.expand_path("../docs/_data/figure_sizes.yml", __dir__)
 # this way the requested width never exceeds the row it lands in, so every
 # figure sits on the easing curve and the scale falls smoothly with size.
 #
-# A figure in the last tier keeps whatever the easing gives it — about 50%,
-# falling to 30% for the extreme cases — and the page scrolls it sideways
-# rather than shrinking a 3000px tree into something neither readable nor
-# informative. A tree reads left to right in any case.
-#
-# The height limit is looser there too: a stacked figure has the full width of
-# the page and no notation beside it, and vertical space is what a scrolling
-# page has most of.
+# The height limit is looser in the last tier: a stacked figure has the full
+# width of the page and no notation beside it, and vertical space is what a
+# scrolling page has most of.
 LAYOUTS = [
   { max_eased: 448.0, css_class: "",           max_height: 900.0 },
   { max_eased: 604.0, css_class: "grid-wide",  max_height: 900.0 },
   { max_eased: nil,   css_class: "grid-stack", max_height: 1200.0 }
 ].freeze
 
-# Width of the widest row. A figure drawn wider than this scrolls in place —
-# but only if it overflows by enough to be worth a scrollbar. One that spills a
-# few dozen pixels is better shrunk the last few percent to fit: a scrollbar
-# under a figure that looks complete is a worse trade than 8% less scale.
+# Width of the widest row. Nothing is drawn wider: a figure that runs off the
+# side has to be scrolled to be read whole, and the gallery already has a
+# better answer for that — clicking opens it at full size.
 CONTAINER_WIDTH = 940.0
-SCROLL_TOLERANCE = 1.1
 
 EXPONENT = 0.75
 # Chosen so that a 280px-wide figure is shown at ~90% of its rendered size.
@@ -94,14 +87,11 @@ sizes = Dir.glob(File.join(IMG_DIR, "*.png")).sort.each_with_object({}) do |path
   width, height = png_size(path)
   eased = eased_width(width)
   layout = layout_for(eased)
-  scale = display_scale(width, height, eased, layout[:max_height])
-  scroll = width * scale > CONTAINER_WIDTH * SCROLL_TOLERANCE
-  scale = [scale, CONTAINER_WIDTH / width].min unless scroll
+  scale = [display_scale(width, height, eased, layout[:max_height]), CONTAINER_WIDTH / width].min
   acc[name] = {
     "width" => (width * scale).round,
     "height" => (height * scale).round,
-    "layout" => layout[:css_class],
-    "scroll" => scroll
+    "layout" => layout[:css_class]
   }
 end
 
