@@ -43,8 +43,15 @@ DATA_FILE = File.expand_path("../docs/_data/figure_sizes.yml", __dir__)
 LAYOUTS = [
   { max_width: 600,   column: 448.0, css_class: "" },
   { max_width: 1400,  column: 604.0, css_class: "grid-wide" },
-  { max_width: nil,   column: 940.0, css_class: "grid-stack" }
+  # No cap on the widest tier. Shrinking a 3000px tree to fit the page leaves a
+  # figure that is neither readable nor informative, so it keeps the scale the
+  # easing gives it — around 50%, falling to 30% for the extreme cases — and
+  # the page scrolls it sideways instead. A tree reads left to right anyway.
+  { max_width: nil,   column: nil,   css_class: "grid-stack" }
 ].freeze
+
+# Width of the widest row. A figure drawn wider than this scrolls in place.
+CONTAINER_WIDTH = 940.0
 
 EXPONENT = 0.75
 # Chosen so that a 280px-wide figure is shown at ~90% of its rendered size.
@@ -64,7 +71,8 @@ end
 
 def display_scale(width, column)
   eased = COEFFICIENT * (width**EXPONENT)
-  [[eased, column].min / width, 1.0].min
+  eased = [eased, column].min if column
+  [eased / width, 1.0].min
 end
 
 sizes = Dir.glob(File.join(IMG_DIR, "*.png")).sort.each_with_object({}) do |path, acc|
@@ -72,10 +80,12 @@ sizes = Dir.glob(File.join(IMG_DIR, "*.png")).sort.each_with_object({}) do |path
   width, height = png_size(path)
   layout = layout_for(width)
   scale = display_scale(width, layout[:column])
+  display_width = (width * scale).round
   acc[name] = {
-    "width" => (width * scale).round,
+    "width" => display_width,
     "height" => (height * scale).round,
-    "layout" => layout[:css_class]
+    "layout" => layout[:css_class],
+    "scroll" => display_width > CONTAINER_WIDTH
   }
 end
 

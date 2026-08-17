@@ -60,10 +60,12 @@ layout: default
               does not appear at full size beside a wide one the column has
               shrunk to a third. Click through for the full size.
             {%- endcomment -%}
+            {%- if figure.scroll -%}<div class='figure-scroll'>{%- endif -%}
             <a href='assets/img/{{ example.name }}.png' data-lightbox='{{ example.name }}'>
               <img src='assets/img/{{ example.name}}.png'
                    {%- if figure %} width='{{ figure.width }}' height='{{ figure.height }}'{% endif %} />
             </a>
+            {%- if figure.scroll -%}</div>{%- endif -%}
           </div>
         </div>
         <div><a href="#examples">🔝</a></div>
