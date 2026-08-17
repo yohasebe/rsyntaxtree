@@ -29,6 +29,13 @@ SCRIPT_FAMILIES_SANS = ["Noto Sans Arabic", "Noto Sans Hebrew", "Noto Sans Devan
 # Arabic behind it for systems that ship one but not the other.
 SCRIPT_FAMILIES_SERIF = ["Noto Naskh Arabic", "Noto Sans Arabic", "Noto Serif Hebrew", "Noto Serif Devanagari", "Noto Serif Thai", "Noto Serif Khmer"].freeze
 
+# Monochrome emoji faces only. Colour emoji fonts carry their glyphs as bitmap
+# or COLR tables, which Pango happily measures but librsvg does not draw, so a
+# colour font in this list would give a figure whose emoji are blank or blobbed.
+#
+# This holds only where Pango resolves through fontconfig. On macOS it goes
+# through CoreText, which answers every emoji codepoint with Apple Color Emoji
+# whatever the chain asks for; emoji figures have to be generated elsewhere.
 EMOJI_FAMILIES = ["OpenMoji", "OpenMoji Color", "OpenMoji Black", "Noto Emoji"].freeze
 
 FONT_FAMILIES = {

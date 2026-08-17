@@ -116,17 +116,15 @@ RSyntaxTree resolves fonts by family name through fontconfig (measurement via Pa
 
 - Debian/Ubuntu: `apt install fonts-noto-core fonts-noto-cjk`
 - Alpine: `apk add font-noto font-noto-cjk font-noto-cjk-extra` (the `-extra` package carries Noto Serif CJK)
-- macOS: `brew install --cask font-noto-sans font-noto-serif font-noto-sans-mono font-noto-sans-jp font-noto-serif-jp font-noto-sans-cjk font-noto-serif-cjk font-noto-sans-mono-cjk-jp` — macOS ships only a handful of Noto faces for rare scripts, so without these the trees are drawn in whatever the system substitutes
+- macOS: `brew install --cask font-noto-sans font-noto-serif font-noto-sans-mono font-noto-sans-jp font-noto-serif-jp font-noto-sans-cjk font-noto-serif-cjk font-noto-sans-mono-cjk-jp` (macOS itself ships Noto only for a few rare scripts)
 
-The family chains name the Latin and CJK families, and since v1.8.1 also Arabic (`Noto Sans Arabic`, and `Noto Naskh Arabic` for the serif style), Hebrew, Devanagari, Thai and Khmer. A script whose family is missing does not turn into tofu — fontconfig falls back to anything else that covers the codepoints, which is where machines start to disagree. On Alpine, Arabic was picked up that way by Noto Sans Math, which has the glyphs but no joining rules, so the letters came out unjoined. Install the packages for the scripts you use:
+Arabic, Hebrew, Devanagari, Thai and Khmer need their own packages, and emoji need the **monochrome** [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji) — colour emoji fonts are not drawn by this pipeline:
 
-- Debian/Ubuntu: `fonts-noto-core` covers them; on minimal images add `fonts-noto` for the full set
+- Debian/Ubuntu: `fonts-noto-core` covers the scripts; on minimal images add `fonts-noto` for the full set
 - Alpine: `apk add font-noto-arabic font-noto-naskh-arabic font-noto-hebrew font-noto-devanagari font-noto-thai font-noto-khmer`
-- macOS: `brew install --cask font-noto-sans-arabic font-noto-naskh-arabic font-noto-sans-hebrew font-noto-serif-hebrew font-noto-sans-devanagari font-noto-serif-devanagari font-noto-sans-thai font-noto-serif-thai font-noto-sans-khmer font-noto-serif-khmer`
+- macOS: the same families are available as `font-noto-*` casks
 
-Emoji need the **monochrome** [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji). Colour emoji fonts (`NotoColorEmoji`, from Alpine's `font-noto-emoji` or Debian's `fonts-noto-color-emoji`) are measured by Pango but not drawn by librsvg, so emoji fall back to whatever outline font covers them. On macOS this cannot be worked around: Pango resolves fonts through CoreText there, which answers every emoji codepoint with Apple Color Emoji even when the family chain asks for Noto Emoji by name, so emoji come out as blobs. Generate figures with emoji on Linux or in the Docker image.
-
-Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named in the chains yet, so they still resolve differently from one machine to the next.
+See [Fonts](https://yohasebe.github.io/rsyntaxtree/documentation#install-fonts-for-svg) in the documentation for which family is used for what, how to substitute your own, and the macOS caveats.
 
 ## Installation
 
