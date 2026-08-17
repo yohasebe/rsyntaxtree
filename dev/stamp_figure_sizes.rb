@@ -40,23 +40,29 @@ DATA_FILE = File.expand_path("../docs/_data/figure_sizes.yml", __dir__)
 # own below the notation. Each tier is a class on the grid in
 # docs/assets/css/style.scss, and the stylesheet caps anything that still
 # overflows, so approximate numbers here cost nothing.
+# The tier is chosen by the width the easing asks for, not by the figure's own
+# width. Picking by the latter meant the column then clipped what the easing had
+# asked for, and the scale stopped being monotonic across a boundary: a 1366px
+# figure was shown at 44% while one 6% wider, in the next tier, got 60%. Chosen
+# this way the requested width never exceeds the row it lands in, so every
+# figure sits on the easing curve and the scale falls smoothly with size.
+#
+# A figure in the last tier keeps whatever the easing gives it — about 50%,
+# falling to 30% for the extreme cases — and the page scrolls it sideways
+# rather than shrinking a 3000px tree into something neither readable nor
+# informative. A tree reads left to right in any case.
+#
+# The height limit is looser there too: a stacked figure has the full width of
+# the page and no notation beside it, and vertical space is what a scrolling
+# page has most of.
 LAYOUTS = [
-  { max_width: 600,   column: 448.0, css_class: "" },
-  { max_width: 1400,  column: 604.0, css_class: "grid-wide" },
-  # No cap on the widest tier. Shrinking a 3000px tree to fit the page leaves a
-  # figure that is neither readable nor informative, so it keeps the scale the
-  # easing gives it — around 50%, falling to 30% for the extreme cases — and
-  # the page scrolls it sideways instead. A tree reads left to right anyway.
-  { max_width: nil,   column: nil,   css_class: "grid-stack" }
+  { max_eased: 448.0, css_class: "",           max_height: 900.0 },
+  { max_eased: 604.0, css_class: "grid-wide",  max_height: 900.0 },
+  { max_eased: nil,   css_class: "grid-stack", max_height: 1200.0 }
 ].freeze
 
 # Width of the widest row. A figure drawn wider than this scrolls in place.
 CONTAINER_WIDTH = 940.0
-
-# A figure taller than this is scaled down further rather than dominating the
-# page. The limit lives here and not in the stylesheet: a CSS max-height caps
-# the height while the width attribute holds, which stretches the figure.
-MAX_HEIGHT = 900.0
 
 EXPONENT = 0.75
 # Chosen so that a 280px-wide figure is shown at ~90% of its rendered size.
@@ -70,21 +76,24 @@ def png_size(path)
   header[16, 8].unpack("N2")
 end
 
-def layout_for(width)
-  LAYOUTS.find { |l| l[:max_width].nil? || width <= l[:max_width] }
+def eased_width(width)
+  COEFFICIENT * (width**EXPONENT)
 end
 
-def display_scale(width, height, column)
-  eased = COEFFICIENT * (width**EXPONENT)
-  eased = [eased, column].min if column
-  [eased / width, MAX_HEIGHT / height, 1.0].min
+def layout_for(eased)
+  LAYOUTS.find { |l| l[:max_eased].nil? || eased <= l[:max_eased] }
+end
+
+def display_scale(width, height, eased, max_height)
+  [eased / width, max_height / height, 1.0].min
 end
 
 sizes = Dir.glob(File.join(IMG_DIR, "*.png")).sort.each_with_object({}) do |path, acc|
   name = File.basename(path, ".png")
   width, height = png_size(path)
-  layout = layout_for(width)
-  scale = display_scale(width, height, layout[:column])
+  eased = eased_width(width)
+  layout = layout_for(eased)
+  scale = display_scale(width, height, eased, layout[:max_height])
   display_width = (width * scale).round
   acc[name] = {
     "width" => display_width,

@@ -29,7 +29,7 @@ layout: default
         {%- assign figure = site.data.figure_sizes[example.name] -%}
         <div class='grid {{ figure.layout }}'>
           <div style='margin-top: 0; margin-bottom: auto; '>
-            <div id="text-{{example.name}}" style='max-height: 600px; overflow-x: auto; overflow-y: auto; margin-bottom: 20px;'>
+            <div id="text-{{example.name}}" class='notation'>
               {{ example.content | markdownify }}
             </div>
             <table style='line-height: 110%; font-size: 0.85em; margin-bottom: 20px;'>

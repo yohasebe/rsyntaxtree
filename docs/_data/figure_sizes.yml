@@ -53,9 +53,9 @@
   layout: ''
   scroll: false
 '010':
-  width: 604
-  height: 675
-  layout: grid-wide
+  width: 694
+  height: 775
+  layout: grid-stack
   scroll: false
 '011':
   width: 398
@@ -68,9 +68,9 @@
   layout: ''
   scroll: false
 '013':
-  width: 604
-  height: 877
-  layout: grid-wide
+  width: 675
+  height: 980
+  layout: grid-stack
   scroll: false
 '014':
   width: 603
@@ -78,14 +78,14 @@
   layout: grid-wide
   scroll: false
 '015':
-  width: 604
-  height: 355
-  layout: grid-wide
+  width: 660
+  height: 388
+  layout: grid-stack
   scroll: false
 '016':
-  width: 604
-  height: 531
-  layout: grid-wide
+  width: 682
+  height: 600
+  layout: grid-stack
   scroll: false
 '017':
   width: 406
@@ -93,9 +93,9 @@
   layout: ''
   scroll: false
 '018':
-  width: 604
-  height: 466
-  layout: grid-wide
+  width: 639
+  height: 493
+  layout: grid-stack
   scroll: false
 '019':
   width: 967
@@ -113,9 +113,9 @@
   layout: grid-stack
   scroll: true
 '022':
-  width: 604
-  height: 618
-  layout: grid-wide
+  width: 711
+  height: 727
+  layout: grid-stack
   scroll: false
 '023':
   width: 440
@@ -168,14 +168,14 @@
   layout: ''
   scroll: false
 '033':
-  width: 604
-  height: 399
-  layout: grid-wide
+  width: 632
+  height: 418
+  layout: grid-stack
   scroll: false
 '034':
-  width: 604
-  height: 293
-  layout: grid-wide
+  width: 827
+  height: 401
+  layout: grid-stack
   scroll: false
 '035':
   width: 1016
@@ -193,9 +193,9 @@
   layout: grid-wide
   scroll: false
 '038':
-  width: 604
-  height: 401
-  layout: grid-wide
+  width: 728
+  height: 483
+  layout: grid-stack
   scroll: false
 '039':
   width: 88
@@ -208,9 +208,9 @@
   layout: grid-stack
   scroll: false
 '041':
-  width: 604
-  height: 565
-  layout: grid-wide
+  width: 659
+  height: 616
+  layout: grid-stack
   scroll: false
 '042':
   width: 200
@@ -218,9 +218,9 @@
   layout: ''
   scroll: false
 '043':
-  width: 604
-  height: 401
-  layout: grid-wide
+  width: 625
+  height: 415
+  layout: grid-stack
   scroll: false
 '044':
   width: 115
@@ -228,9 +228,9 @@
   layout: ''
   scroll: false
 '045':
-  width: 604
-  height: 720
-  layout: grid-wide
+  width: 802
+  height: 955
+  layout: grid-stack
   scroll: false
 '046':
   width: 5917
@@ -303,20 +303,20 @@
   layout: grid-stack
   scroll: true
 '060':
-  width: 879
-  height: 900
+  width: 1024
+  height: 1049
   layout: grid-stack
-  scroll: false
+  scroll: true
 '061':
-  width: 711
-  height: 900
+  width: 948
+  height: 1200
   layout: grid-stack
-  scroll: false
+  scroll: true
 '062':
-  width: 813
-  height: 900
+  width: 1084
+  height: 1200
   layout: grid-stack
-  scroll: false
+  scroll: true
 '063':
   width: 910
   height: 502
@@ -353,9 +353,9 @@
   layout: grid-wide
   scroll: false
 '070':
-  width: 604
-  height: 481
-  layout: grid-wide
+  width: 653
+  height: 520
+  layout: grid-stack
   scroll: false
 '071':
   width: 560
@@ -373,9 +373,9 @@
   layout: grid-wide
   scroll: false
 '074':
-  width: 604
-  height: 650
-  layout: grid-wide
+  width: 654
+  height: 704
+  layout: grid-stack
   scroll: false
 '075':
   width: 382

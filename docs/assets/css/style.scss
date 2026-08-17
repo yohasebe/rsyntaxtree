@@ -30,6 +30,19 @@ div.grid.grid-stack {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.notation {
+  max-height: 600px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+/* Stacked, the notation is above the figure rather than beside it, so its
+   height adds to the page instead of filling space the figure had left over.
+   It gets a shorter box and scrolls. */
+div.grid.grid-stack .notation {
+  max-height: 300px;
+}
+
 /* Long input lines scroll inside their own column. */
 div.grid pre,
 div.grid code {
