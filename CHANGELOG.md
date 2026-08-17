@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- `color: gray`, a scheme that keeps node and leaf labels black and draws the
+  connectors, triangles and movement paths in grey. It is for diagrams whose
+  links outnumber their labels — an ontology, a network of constructions —
+  where a page of black lines buries the text. `grey` is accepted too.
+
 ## [1.8.2] - 2026-08
 
 ### Changed

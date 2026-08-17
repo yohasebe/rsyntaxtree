@@ -18,7 +18,7 @@ CONFIG_VALIDATORS = {
   fontsize: ->(v) { v.is_a?(Integer) && v >= 8 && v <= 26 ? nil : "must be in the range of 8-26" },
   linewidth: ->(v) { v.is_a?(Integer) && v >= 1 && v <= 5 ? nil : "must be in the range of 1-5" },
   vheight: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 5.0 ? nil : "must be in the range of 0.5-5.0" },
-  color: ->(v) { /\A(modern|traditional|on|off|true|false)\z/ =~ v.to_s ? nil : "must be modern, traditional, or off" },
+  color: ->(v) { /\A(modern|traditional|gray|grey|on|off|true|false)\z/ =~ v.to_s ? nil : "must be modern, traditional, gray, or off" },
   symmetrize: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   transparent: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   polyline: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
@@ -107,7 +107,7 @@ opts = Optimist.options do
   opt :fontsize, "Size: 8-26", default: 16, short: :s
   opt :linewidth, "Size: 1-5", default: 1, short: :i
   opt :vheight, "Connector Height: 0.5-5.0", default: 2.0, short: :v
-  opt :color, "Color text and bars: modern, traditional, or off", default: "modern", short: :c
+  opt :color, "Color text and bars: modern, traditional, gray, or off", default: "modern", short: :c
   opt :symmetrize, "DEPRECATED alias of --tidy symmetric: on or off", default: "off", short: :y
   opt :transparent, "Make background transparent: on or off", default: "off", short: :r
   opt :polyline, "draw polyline connectors: on or off", default: "off", short: :p
@@ -127,7 +127,7 @@ Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(au
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless /\A(sans|serif|cjk|mono)\z/ =~ opts[:fontstyle]
 Optimist.die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
 Optimist.die :linewidth, "must be in the range of 1-5" unless opts[:linewidth] >= 1 && opts[:linewidth] <= 5
-Optimist.die :color, "must be either modern, traditional, or off" unless /\A(modern|traditional|on|off|true|false)\z/ =~ opts[:color]
+Optimist.die :color, "must be either modern, traditional, gray, or off" unless /\A(modern|traditional|gray|grey|on|off|true|false)\z/ =~ opts[:color]
 Optimist.die :symmetrize, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:symmetrize]
 Optimist.die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0
 Optimist.die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]

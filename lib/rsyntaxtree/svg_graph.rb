@@ -44,7 +44,7 @@ module RSyntaxTree
       @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
-      @polygon_styles = "<polygon style='fill: none; stroke: black; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round;stroke-linecap:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
+      @polygon_styles = "<polygon style='fill: none; stroke: #{@col_connector}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round;stroke-linecap:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
       @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; storoke-width: 0; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
       @tree_data = String.new
       @visited_x = {}

@@ -35,6 +35,17 @@ module RSyntaxTree
         @col_path = "purple"
         @col_extra = "purple"
         @col_emph = "red"
+      # Text stays black; the lines that hold the diagram together are drawn
+      # lighter. A figure whose links outnumber its labels — an ontology, a
+      # construction network — reads as a black thicket in the monochrome
+      # scheme, and grey scaffolding lets the labels come forward again.
+      when "gray"
+        @col_node = "black"
+        @col_leaf = "black"
+        @col_path = "#666666"
+        @col_extra = "#666666"
+        @col_emph = "black"
+        @col_connector = "#666666"
       else
         @col_node  = "black"
         @col_leaf  = "black"
@@ -44,11 +55,12 @@ module RSyntaxTree
 
       @col_bg   = "none"
       @col_fg   = "black"
+      @col_connector ||= "black"
 
       @col_line = if params[:hide_default_connectors] == true
                     "none"
                   else
-                    "black"
+                    @col_connector
                   end
 
       @leafstyle = params[:leafstyle]

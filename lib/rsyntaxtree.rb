@@ -106,6 +106,8 @@ module RSyntaxTree
                               "modern"
                             when "traditional"
                               "traditional"
+                            when "gray", "grey"
+                              "gray"
                             else
                               "off"
                             end

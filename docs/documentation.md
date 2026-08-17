@@ -29,6 +29,8 @@ RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vecto
 
 The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
+`Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and movement paths in grey. The last is for diagrams whose links outnumber their labels — an ontology, a network of constructions — where a page of black lines buries the text.
+
 ### Tree Direction
 
 The `Direction` option controls the orientation of the tree layout:

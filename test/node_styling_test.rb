@@ -10,6 +10,46 @@ class NodeStylingTest < Minitest::Test
   end
 
   # ===================
+  # Colour schemes
+  # ===================
+
+  # The gray scheme exists for figures whose links outnumber their labels: the
+  # text stays black and the lines that hold the diagram together go grey.
+  def test_gray_scheme_draws_lines_grey_and_text_black
+    opts = @base_opts.merge(data: "[S [NP hello] [VP world]]", color: "gray")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    lines = svg.scan(/<line style=[^>]*>/)
+    refute_empty lines
+    assert lines.all? { |l| l.include?("stroke:#666666") }, "connectors should be grey"
+    assert svg.include?("fill: black"), "labels should stay black"
+  end
+
+  def test_gray_scheme_colours_movement_paths
+    opts = @base_opts.merge(data: "[S [NP+1 hello] [VP [V+>1 world]]]", color: "gray")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    assert svg.include?("#666666"), "movement paths should be grey"
+  end
+
+  def test_grey_spelling_is_accepted
+    a = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: "[S [NP a] [VP b]]", color: "gray")).draw_svg
+    b = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: "[S [NP a] [VP b]]", color: "grey")).draw_svg
+
+    assert_equal a, b
+  end
+
+  def test_other_schemes_keep_black_connectors
+    %w[modern traditional off].each do |scheme|
+      opts = @base_opts.merge(data: "[S [NP hello] [VP world]]", color: scheme)
+      svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+      assert svg.scan(/<line style=[^>]*>/).all? { |l| l.include?("stroke:black") },
+             "#{scheme} should leave connectors black"
+    end
+  end
+
+  # ===================
   # Named color tests
   # ===================
 

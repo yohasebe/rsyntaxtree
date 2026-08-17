@@ -39,6 +39,8 @@ Dir.glob("*.md", base: examples_dir).map do |md|
                        "modern"
                      when "traditional"
                        "traditional"
+                     when "gray", "grey"
+                       "gray"
                      else
                        "off"
                      end
