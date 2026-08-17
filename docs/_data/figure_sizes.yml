@@ -303,20 +303,20 @@
   layout: grid-stack
   scroll: true
 '060':
-  width: 1024
-  height: 1049
+  width: 879
+  height: 900
   layout: grid-stack
-  scroll: true
+  scroll: false
 '061':
-  width: 1138
-  height: 1440
+  width: 711
+  height: 900
   layout: grid-stack
-  scroll: true
+  scroll: false
 '062':
-  width: 1205
-  height: 1335
+  width: 813
+  height: 900
   layout: grid-stack
-  scroll: true
+  scroll: false
 '063':
   width: 910
   height: 502

@@ -42,12 +42,13 @@ div.grid code {
    scale stays comparable from one figure to the next. These rules cap what is
    still too wide or too tall for the column; height: auto keeps the aspect
    ratio when max-width takes over. */
+/* height: auto keeps the aspect ratio when max-width takes over on a narrow
+   screen. There is deliberately no max-height: capping the height while the
+   width attribute holds stretches the figure, so the height limit is applied
+   to both dimensions in dev/stamp_figure_sizes.rb instead. */
 div.grid img {
   height: auto;
   max-width: 100%;
-  /* Tall figures used to be cut to 600px, which cost the tallest of them two
-     thirds of their scale to save vertical space the page has in abundance. */
-  max-height: 900px;
 }
 
 /* A figure too wide to shrink into anything readable is shown at the scale the

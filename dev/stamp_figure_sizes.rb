@@ -53,6 +53,11 @@ LAYOUTS = [
 # Width of the widest row. A figure drawn wider than this scrolls in place.
 CONTAINER_WIDTH = 940.0
 
+# A figure taller than this is scaled down further rather than dominating the
+# page. The limit lives here and not in the stylesheet: a CSS max-height caps
+# the height while the width attribute holds, which stretches the figure.
+MAX_HEIGHT = 900.0
+
 EXPONENT = 0.75
 # Chosen so that a 280px-wide figure is shown at ~90% of its rendered size.
 COEFFICIENT = 3.68
@@ -69,17 +74,17 @@ def layout_for(width)
   LAYOUTS.find { |l| l[:max_width].nil? || width <= l[:max_width] }
 end
 
-def display_scale(width, column)
+def display_scale(width, height, column)
   eased = COEFFICIENT * (width**EXPONENT)
   eased = [eased, column].min if column
-  [eased / width, 1.0].min
+  [eased / width, MAX_HEIGHT / height, 1.0].min
 end
 
 sizes = Dir.glob(File.join(IMG_DIR, "*.png")).sort.each_with_object({}) do |path, acc|
   name = File.basename(path, ".png")
   width, height = png_size(path)
   layout = layout_for(width)
-  scale = display_scale(width, layout[:column])
+  scale = display_scale(width, height, layout[:column])
   display_width = (width * scale).round
   acc[name] = {
     "width" => display_width,
