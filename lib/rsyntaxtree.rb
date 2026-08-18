@@ -19,6 +19,11 @@ ENCLOSURE_SIZE = 1.3
 # Breathing room kept between the marks and a shape that had to grow past
 # ENCLOSURE_SIZE, as a fraction of the font size.
 ENCLOSURE_PADDING = 0.12
+# Room on each side of a matrix nested in a label, as a multiple of half an
+# 'X'. It sets the distance between a matrix and its own brackets, and so also
+# the distance between the brackets of adjacent or nested matrices — the
+# closing brackets of a deep feature path stack up otherwise.
+MATRIX_BRACKET_ROOM = 2.5
 FONT_SCALING = 2
 LINE_SCALING = 1
 BLINE_SCALING = 2

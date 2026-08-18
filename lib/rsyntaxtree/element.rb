@@ -235,7 +235,7 @@ module RSyntaxTree
     # Horizontal room a nested matrix needs on each side for its bracket and
     # the air around it.
     def matrix_bracket_room
-      @global[:width_half_x] * 1.5
+      @global[:width_half_x] * MATRIX_BRACKET_ROOM
     end
 
     private

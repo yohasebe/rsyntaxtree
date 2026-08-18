@@ -548,7 +548,7 @@ new_text << markup
     # the sizes Element#measure_lines worked out, inside its own brackets.
     def render_matrix(e, this_x, text_y, element, col)
       out = +""
-      inner_x = this_x + @global[:width_half_x] * 1.5
+      inner_x = this_x + @global[:width_half_x] * MATRIX_BRACKET_ROOM
       baseline = text_y
       prev_height = nil
 
