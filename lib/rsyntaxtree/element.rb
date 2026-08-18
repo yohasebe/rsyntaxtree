@@ -104,10 +104,12 @@ module RSyntaxTree
               e[:matrix_width] = inner[:width]
               e[:matrix_height] = inner[:height]
               e[:width] = inner[:width] + matrix_bracket_room * 2
-              # Only the room below is part of the row's own height. The room
-              # above has to widen the gap the row is entered on, or the
-              # bracket is simply drawn over the line before it.
-              e[:height] = inner[:height] + matrix_vertical_room
+              # Two separate allowances. The block is padded inside its own
+              # brackets, above and below, and that padding is part of the row.
+              # The gap that keeps the block clear of the rows either side is
+              # not: it widens the space the row is entered on, so the bracket
+              # is not simply drawn over the line before it.
+              e[:height] = inner[:height] + matrix_vertical_room * 2
               content[:top_room] = matrix_vertical_room
               elements_height << e[:height]
               row_width += e[:width]

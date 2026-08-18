@@ -561,6 +561,7 @@ new_text << markup
         next unless line[:type] == :text
 
         baseline += prev_height if idx.positive? && prev_height
+        baseline += line[:top_room].to_f
         prev_height = line[:elements].map { |x| x[:height] }.max
         pen = inner_x
         line[:elements].each do |cell|
@@ -573,11 +574,13 @@ new_text << markup
         end
       end
 
-      # The bracket takes in the room kept above and below the matrix, so it
-      # does not sit hard against the rows either side of it.
-      room = @global[:single_x_metrics].height * MATRIX_VERTICAL_ROOM
-      top = text_y - @global[:single_x_metrics].height * 0.8 - room
-      draw_bracket(this_x, top, e[:width], e[:matrix_height] + room * 2, col)
+      # The bracket encloses the matrix and its own padding. The separation
+      # from the rows either side is already in the baseline this was called
+      # with, so taking it off here again would cancel it out and leave two
+      # stacked blocks touching.
+      padding = @global[:single_x_metrics].height * MATRIX_VERTICAL_ROOM
+      top = text_y - @global[:single_x_metrics].height * 0.8 - padding
+      draw_bracket(this_x, top, e[:width], e[:matrix_height] + padding * 2, col)
       [out, this_x + e[:width]]
     end
 
