@@ -153,7 +153,17 @@ module RSyntaxTree
               if ink.ink_height.to_f.positive?
                 above = [ink.ink_above, standard_metrics.ink_above].max
                 below = [ink.ink_height - ink.ink_above, standard_metrics.ink_height - standard_metrics.ink_above].max
-                e[:enc_height] = above + below + padding * 2
+                span = above + below
+                # A circle around a single character has to clear the corners of
+                # the glyph, not just its height: a letter that fits a square of
+                # this side pokes out of the circle drawn inside it. Take the
+                # diagonal. Longer text sits in a stadium, whose rounded ends
+                # already leave the corners room, so height alone will do.
+                if e[:decoration].include?(:circle) && e[:text].size == 1
+                  span = Math.sqrt(span**2 + width**2)
+                  above += (span - (above + below)) / 2
+                end
+                e[:enc_height] = span + padding * 2
                 e[:enc_above] = above + padding
               else
                 # Bars and other blank-texted shapes have no ink to measure.
