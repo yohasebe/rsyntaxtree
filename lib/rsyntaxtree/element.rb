@@ -77,7 +77,20 @@ module RSyntaxTree
     # in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and
     # escaping every one of them is a poor trade for a rule nobody there uses.
     # Swapping the two before parsing leaves the grammar untouched.
+    # Two uses of the hyphen are structure rather than markup, and are left
+    # alone: a line of nothing but hyphens is the horizontal rule, and the dash
+    # in a path suffix (+-1, +->2) is what makes that path dashed. Swapping
+    # those turned a rule into the text "---" without a word of complaint.
     def swap_hyphen_markup(text)
+      path = text[/\^?(?:\+-?>?<?\d+)+\^?\z/]
+      body = path ? text[0...-path.length] : text
+      swapped = body.split('\n', -1).map do |line|
+        /\A-{3,}\z/.match?(line) ? line : swap_hyphens(line)
+      end.join('\n')
+      swapped + path.to_s
+    end
+
+    def swap_hyphens(text)
       # A character no label can contain, so the two swaps cannot see each
       # other's output. Written as an escape: a literal NUL in the source
       # makes git and grep treat this file as binary.

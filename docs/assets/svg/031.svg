@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="706.0500000000001" height="398.4959999999999" viewBox="-15.200000000000001, 0, 721.2500000000001, 409.6959999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="721.2500000000001" height="409.6959999999999" viewBox="-15.200000000000001, 0, 721.2500000000001, 409.6959999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="15.200000000000001" markerHeight="15.200000000000001" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-15.200000000000001" y="0" width="721.2500000000001" height="409.6959999999999" stroke="none" fill="white" />"
+<rect x="-15.200000000000001" y="0" width="721.2500000000001" height="409.6959999999999" stroke="none" fill="white" />
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='305.95000000000005' y='67.19999999999999'><tspan x='305.95000000000005' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Sans Mono', 'Noto Sans JP', 'Noto Sans Mono CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', monospace">chase(mouse)(cat)</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='102.95000000000005' y='224.920472246696'><tspan x='102.95000000000005' y='224.920472246696' style="" text-decoration="" font-family="'Noto Sans Mono', 'Noto Sans JP', 'Noto Sans Mono CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', monospace"><tspan style='fill:none;'>￭</tspan>λx.λy.chase(mouse)(y)<tspan style='fill:none;'>￭</tspan></tspan>

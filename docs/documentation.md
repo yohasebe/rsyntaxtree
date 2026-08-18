@@ -184,7 +184,7 @@ Matrices nest to any depth, which is what a feature path such as SYNSEM | LOCAL 
 
 #### Hyphens
 
-A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and escaping each one is a poor trade for a rule that work never uses. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead.
+A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and escaping each one is a poor trade for a rule that work never uses. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead. Two hyphens are structure rather than markup and are left alone either way: a line of nothing but hyphens is still the horizontal rule, and the one in a path suffix (`+-1`) still marks that path dashed.
 
 #### Newline
 

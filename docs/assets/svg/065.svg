@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="503.6" height="606.9199999999998" viewBox="-17.79999999999999, 0, 520.4, 618.1199999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="520.4" height="618.1199999999999" viewBox="-17.79999999999999, 0, 520.4, 618.1199999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-17.79999999999999" y="0" width="520.4" height="618.1199999999999" stroke="none" fill="white" />"
+<rect x="-17.79999999999999" y="0" width="520.4" height="618.1199999999999" stroke="none" fill="white" />
 <rect x='1.0658141036401503e-14' y='22.399999999999995' width='469.0' height='577.92' rx='11.2' ry='11.2' fill='#888888' fill-opacity='0.2' stroke='#888888' stroke-opacity='0.55' stroke-width='2' />
 <rect x='209.2' y='192.64' width='259.8' height='407.67999999999995' rx='11.2' ry='11.2' fill='#888888' fill-opacity='0.2' stroke='#888888' stroke-opacity='0.55' stroke-width='2' />
 <rect x='354.4' y='362.87999999999994' width='114.60000000000002' height='237.44' rx='11.2' ry='11.2' fill='#888888' fill-opacity='0.2' stroke='#888888' stroke-opacity='0.55' stroke-width='2' />

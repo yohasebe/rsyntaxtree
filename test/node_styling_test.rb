@@ -3,6 +3,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "nokogiri"
+require "json"
 require_relative "../lib/rsyntaxtree"
 
 class NodeStylingTest < Minitest::Test
@@ -522,5 +523,114 @@ end
     svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
 
     assert_nil svg[/<rect[^>]*fill-opacity[^>]*>/], "Tree without '%' should have no region shade"
+  end
+  # ===================
+  # Geometry invariants
+  # ===================
+
+  # Each of the three faults this batch shipped and took back was a pair of
+  # things that stopped agreeing, and none of them broke a single element badly
+  # enough for a test that looks at one thing at a time to notice.
+
+  # A grid is drawn by putting nothing but shapes on a line. Consecutive rows
+  # have to meet, or the grid shows a seam.
+  def test_rows_of_shapes_only_meet
+    opts = @base_opts.merge(data: '[|a||b|\n|c||d|]')
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    rows = svg.scan(/<rect style='stroke[^>]*y='([\-\d.]+)'[^>]*height='([\d.]+)'/m)
+              .map { |y, h| [y.to_f, h.to_f] }.sort_by(&:first)
+    assert_equal 4, rows.size, "four boxes in two rows of two"
+    assert_in_delta rows[0][0] + rows[0][1], rows[2][0], 0.001,
+                    "the second row should sit on the first, not below a gap"
+  end
+
+  # A level is placed by the height of the nodes above it, so a node whose
+  # label is only a shape must not measure short of one holding plain text.
+  def test_circled_and_plain_leaves_share_a_baseline
+    opts = @base_opts.merge(data: "[S [{D} [a] [b]] [G [c] [d]]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    baselines = svg.scan(/<tspan[^>]*y='([\d.]+)'[^>]*>([^<]*)/)
+                   .select { |_y, t| ["a", "b", "c", "d"].include?(t.strip) }
+                   .map { |y, _t| y.to_f.round(3) }
+    assert_equal 4, baselines.size
+    assert_equal 1, baselines.uniq.size,
+                 "leaves at one depth share a baseline, circled ancestor or not"
+  end
+
+# The enclosure is drawn on the node's own edge, so the node has to be laid
+# out at the width the enclosure needs. Drawn any wider, it reaches past
+# where the tree thinks the node ends, and everything attached to the node —
+# connectors, movement arrows, the neighbour beside it — is left pointing at
+# a boundary that is no longer there.
+def test_an_enclosure_stays_inside_the_node_it_encloses
+  opts = @base_opts.merge(data: "[S [##Alpha [b]] [##Beta [c]]]")
+  generator = RSyntaxTree::RSGenerator.new(opts)
+  svg = generator.draw_svg
+  nodes = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_lsif)["nodes"]
+
+  boxed = nodes.select { |n| n.dig("style", "enclosure") == "rectangle" }
+               .map { |n| [n["position"]["x"], n["position"]["x"] + n["position"]["content_width"]] }
+               .sort_by(&:first)
+  spans = svg.scan(/<polygon[^>]*points='([^']*)'/m).flatten.map do |points|
+    xs = points.split(/\s+/).map { |p| p.split(",").first.to_f }
+    [xs.min, xs.max]
+  end.sort_by(&:first)
+
+  assert_equal 2, boxed.size
+  assert_equal 2, spans.size
+  boxed.zip(spans).each do |node, drawn|
+    assert drawn[0] >= node[0] - 0.001 && drawn[1] <= node[1] + 0.001,
+           "the rectangle #{drawn.inspect} should stay inside the node #{node.inspect}"
+  end
+end
+
+  # The declared size and the viewBox have to agree, or the whole figure is
+  # scaled down and letterboxed inside its own canvas.
+  def test_declared_size_matches_the_view_box
+    opts = @base_opts.merge(data: "[S [NP a] [VP b]]")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+    width = svg[/<svg width="([\d.]+)"/, 1].to_f
+    height = svg[/<svg width="[\d.]+" height="([\d.]+)"/, 1].to_f
+    box = svg[/viewBox="[\-\d.]+, [\-\d.]+, ([\d.]+), ([\d.]+)"/, 0]
+    refute_nil box
+    assert_in_delta ::Regexp.last_match(1).to_f, width, 0.001
+    assert_in_delta ::Regexp.last_match(2).to_f, height, 0.001
+  end
+
+  # ===================
+  # Hyphen readings
+  # ===================
+
+  # Two uses of the hyphen are structure, not markup: a line of them is the
+  # horizontal rule, and the one in a path suffix makes that path dashed.
+  # Trading the readings must leave both alone, and a label with no plain
+  # hyphen in it must come out the same under either reading.
+  def test_literal_hyphen_leaves_the_horizontal_rule_alone
+    data = '[A x\n---\ny]'
+    markup = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: data)).draw_svg
+    literal = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: data, hyphen: "literal")).draw_svg
+
+    refute_includes literal.scan(/<tspan[^>]*>([^<]*)/).flatten.map(&:strip), "---",
+                    "the rule should be drawn, not printed"
+    assert_equal markup, literal
+  end
+
+  def test_literal_hyphen_leaves_a_dashed_path_alone
+    data = "[A [B x+-1] [C y+-1]]"
+    markup = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: data)).draw_svg
+    literal = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: data, hyphen: "literal")).draw_svg
+
+    assert_equal markup, literal
+  end
+
+  # A line-type connection takes two ends, like a path. One end used to walk
+  # off the end of a pool that was never filled.
+  def test_a_line_with_one_end_is_rejected
+    opts = @base_opts.merge(data: "[A [B x+-2] [C y]]")
+    error = assert_raises(RSTError) { RSyntaxTree::RSGenerator.new(opts).draw_svg }
+    assert_match(/only one end/, error.message)
   end
 end

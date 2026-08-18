@@ -26,6 +26,18 @@
   the f-structure it maps to, after Kaplan & Bresnan 1982 and Bresnan 2001)
   and DRT (a discourse representation structure, after Kamp 1981).
 
+### Changed
+- Every box and circle in a figure is drawn at one size and on one centre
+  line. The size used to come from the line's height, which left a box
+  standing a head taller than the numeral inside it, and each shape was
+  centred on its own glyph, so the box around `s` sat lower than the one
+  around `G`. A shape is now drawn at a fixed fraction of the font size,
+  centred on a capital, and grows only for content that will not fit. Every
+  figure with a boxed or circled label is redrawn.
+- The SVG's declared width and height agree with its viewBox. They did not,
+  so every figure was scaled down by a few percent and letterboxed inside
+  its own canvas.
+
 ### Fixed
 - A nested matrix was drawn about half a line taller than its contents. The
   margin that holds the first line of a label clear of the connector above it
@@ -51,6 +63,12 @@
   level is placed by the height of the nodes above it, such a node pulled its
   own children off the row its cousins sat on. The tournament figure had its
   leaves on three different baselines.
+- `hyphen: literal` traded away two hyphens that are structure rather than
+  markup: a line of them is the horizontal rule and the one in a path suffix
+  makes that path dashed. The rule came out as the text "---" with no
+  complaint, and a dashed path was rejected outright.
+- A line-type connection with only one end raised a NoMethodError from inside
+  the drawing instead of being reported as the input error it is.
 
 ## [1.8.2] - 2026-08
 

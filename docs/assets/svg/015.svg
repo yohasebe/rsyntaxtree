@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="1011.4333333333335" height="594.72" viewBox="-15.200000000000001, 0, 1026.6333333333334, 605.9200000000001" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="1026.6333333333334" height="605.9200000000001" viewBox="-15.200000000000001, 0, 1026.6333333333334, 605.9200000000001" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="15.200000000000001" markerHeight="15.200000000000001" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-15.200000000000001" y="0" width="1026.6333333333334" height="605.9200000000001" stroke="none" fill="white" />"
+<rect x="-15.200000000000001" y="0" width="1026.6333333333334" height="605.9200000000001" stroke="none" fill="white" />
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='494.2083333333335' y='67.19999999999999'><tspan x='494.2083333333335' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', sans-serif">σ</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='97.73333333333335' y='237.43999999999997'><tspan x='97.73333333333335' y='237.43999999999997' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', sans-serif">Onset</tspan>

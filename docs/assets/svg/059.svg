@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="2593.36" height="1079.68" viewBox="-16.8, 0, 2610.1600000000003, 1090.88" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="2610.1600000000003" height="1090.88" viewBox="-16.8, 0, 2610.1600000000003, 1090.88" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-16.8" y="0" width="2610.1600000000003" height="1090.88" stroke="none" fill="white" />"
+<rect x="-16.8" y="0" width="2610.1600000000003" height="1090.88" stroke="none" fill="white" />
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='0' y='537.8799999999999'><tspan x='0' y='537.8799999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">Major<tspan style='fill:none;'>￭</tspan>clause<tspan style='fill:none;'>￭</tspan>construction</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='650.5983970177074' y='100.79999999999998'><tspan x='650.5983970177074' y='100.79999999999998' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">Declarative<tspan style='fill:none;'>￭</tspan>clause<tspan style='fill:none;'>￭</tspan>cxn</tspan>

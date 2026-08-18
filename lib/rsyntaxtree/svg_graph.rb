@@ -98,7 +98,7 @@ module RSyntaxTree
       header = <<~HDR
         <?xml version="1.0" standalone="no"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-          <svg width="#{@width}" height="#{@height}" viewBox="#{x1}, #{y1}, #{x2}, #{y2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <svg width="#{x2}" height="#{y2}" viewBox="#{x1}, #{y1}, #{x2}, #{y2}" version="1.1" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
               <path d="M 0 0 L 10 5 L 0 10" fill="#{@col_extra}"/>
@@ -125,7 +125,7 @@ module RSyntaxTree
       HDR
 
       rect = <<~RCT
-        <rect x="#{x1}" y="#{y1}" width="#{x2}" height="#{y2}" stroke="none" fill="white" />"
+        <rect x="#{x1}" y="#{y1}" width="#{x2}" height="#{y2}" stroke="none" fill="white" />
       RCT
 
       footer = "</svg>"
@@ -674,6 +674,12 @@ module RSyntaxTree
 
       path_flags.tally.each do |k, v|
         raise RSTError, +"Error: input text contains a path having only one end:\n > #{k}" if v == 1
+      end
+
+      # A line-type connection is subject to the same rule as a path: it takes
+      # two ends. Without this the drawing walked off a nil pool below.
+      line_flags.tally.each do |k, v|
+        raise RSTError, +"Error: input text contains a line having only one end:\n > #{k}" if v == 1
       end
 
       path_pool_source.each do |k, v|

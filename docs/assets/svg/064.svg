@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="667.0" height="815.2399999999999" viewBox="-16.8, 0, 683.8, 826.4399999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="683.8" height="826.4399999999999" viewBox="-16.8, 0, 683.8, 826.4399999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
@@ -24,7 +24,7 @@
       <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
     </pattern>
   </defs>
-<rect x="-16.8" y="0" width="683.8" height="826.4399999999999" stroke="none" fill="white" />"
+<rect x="-16.8" y="0" width="683.8" height="826.4399999999999" stroke="none" fill="white" />
 <rect x='200.8' y='208.2811003670521' width='432.59999999999997' height='600.3588996329479' rx='11.2' ry='11.2' fill='lightblue' fill-opacity='0.2' stroke='lightblue' stroke-opacity='0.55' stroke-width='2' />
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; storoke-width: 0; font-size: 32px;' x='198.8875' y='67.19999999999999'><tspan x='198.8875' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">TP</tspan>
 </text>
