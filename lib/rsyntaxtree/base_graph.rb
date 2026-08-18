@@ -645,6 +645,58 @@ module RSyntaxTree
       ids
     end
 
+    # For every parent with an odd number of children, the offset of the
+    # middle child's centre from the centre of the children's span. In a
+    # balanced tree that offset is zero and the parent's edge to the middle
+    # child is vertical. The spread below moves the right side of a linked
+    # pair rightward, so re-centring the parents afterwards puts the span
+    # centre — and the parent — off the middle child. Recorded before the
+    # spread so the pass can hand the alignment back; see
+    # restore_middle_child_alignment.
+    def middle_child_alignment
+      @element_list.get_elements
+                   .reject { |e| e.children.empty? || e.children.size.even? }
+                   .to_h do |p|
+        kids = p.children.map { |c| @element_list.get_id(c) }
+        centers = kids.map { |k| k.horizontal_indent + k.content_width / 2.0 }
+        mid = kids[kids.size / 2]
+        [p.id, (mid.horizontal_indent + mid.content_width / 2.0) - (centers.min + centers.max) / 2.0]
+      end
+    end
+
+    # Undo whatever the spread did to the middle-child alignment of every
+    # odd-child parent, deepest first. The drift is cancelled by shifting
+    # the whole side the drift points away from: when the span centre ran
+    # right of the middle child, everything right of the middle child's
+    # subtree moves right by twice the drift (moving the span centre back
+    # by exactly the drift). The side moves rigidly, so no gap inside it
+    # changes, and the gap across the middle only widens — no overlaps.
+    def restore_middle_child_alignment(before)
+      parents = @element_list.get_elements
+                             .reject { |e| e.children.empty? || e.children.size.even? }
+      parents.sort_by { |p| -p.level }.each do |p|
+        kids = p.children.map { |c| @element_list.get_id(c) }
+        mid = kids[kids.size / 2]
+        centers = kids.map { |k| k.horizontal_indent + k.content_width / 2.0 }
+        dx = (mid.horizontal_indent + mid.content_width / 2.0) - (centers.min + centers.max) / 2.0
+        drift = dx - before[p.id]
+        next if drift.abs < 0.01
+
+        if drift.positive?
+          split = get_rightmost(mid.id)
+          @element_list.get_elements.each do |e|
+            e.horizontal_indent += drift * 2 if e.horizontal_indent >= split - 0.001
+          end
+        else
+          split = get_leftmost(mid.id)
+          @element_list.get_elements.each do |e|
+            e.horizontal_indent += drift * 2 if e.horizontal_indent + e.content_width <= split + 0.001
+          end
+        end
+        node_centering
+      end
+    end
+
     # Push linked pairs apart until the gap between their boxes holds a
     # full-size arrow. Runs after the tidy passes: a compression pass would
     # simply undo any room reserved in the width calculation, while shifting
@@ -664,6 +716,7 @@ module RSyntaxTree
 
       hct = @global[:height_connector_to_text]
       required = @global[:h_gap_between_nodes] * LINK_ARROW_CLEARANCE
+      alignment_before = middle_child_alignment
       spread = false
       pairs.map { |a, b| [a, b].sort_by(&:horizontal_indent) }
            .sort_by { |a, _b| a.horizontal_indent }
@@ -690,6 +743,10 @@ module RSyntaxTree
       return unless spread
 
       node_centering
+      # The spread pushed the right side of each linked pair rightward, which
+      # pulls an odd-child parent's span centre off its middle child (the
+      # middle edge slants). Give the alignment back before settling.
+      restore_middle_child_alignment(alignment_before)
       normalize_horizontal
       # The dynamic connector height couples level spacing to the horizontal
       # spread, so let it settle against the widened layout.

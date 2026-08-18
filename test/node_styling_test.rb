@@ -801,6 +801,56 @@ end
     end
   end
 
+  # In a balanced tree the edge from an odd-child parent to its middle child
+  # is vertical. The link spread pushes the right side of a pair rightward,
+  # which can pull the parent's span centre off that middle child — the edge
+  # comes out a few pixels off vertical. Assert the offset stays below a
+  # pixel, for a plain balanced tree and for one whose wings are linked.
+  def connector_dxs(doc)
+    doc.css("line").filter_map do |l|
+      next unless l["style"].to_s.include?("stroke:black")
+
+      dx = (l["x1"].to_f - l["x2"].to_f).abs
+      dy = (l["y1"].to_f - l["y2"].to_f).abs
+      dx if dy > 30
+    end
+  end
+
+  def test_middle_edge_stays_vertical_without_links
+    opts = @base_opts.merge(data: "[S [A [B u] [C v] [D w]] [E x]]")
+    doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
+
+    assert connector_dxs(doc).min < 1.0, "no vertical connector found at all"
+    connector_dxs(doc).each do |dx|
+      assert dx < 1.0 || dx > 10, "a slightly slanted connector: dx=#{dx.round(2)}"
+    end
+  end
+
+  def test_middle_edge_stays_vertical_when_wings_are_linked
+    # Three children, the outer two linked: spreading the pair must not
+    # slant the parent's edge to the middle child.
+    opts = @base_opts.merge(data: "[S [A [##1+-1] [##2] [##3+-1]] [B x]]")
+    doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
+
+    connector_dxs(doc).each do |dx|
+      assert dx < 1.0 || dx > 10, "a slightly slanted connector: dx=#{dx.round(2)}"
+    end
+  end
+
+  def test_043_middle_edges_are_vertical
+    # The quicksort figure is three nested three-way splits; its middle
+    # edges measured vertical before the link spread and slanted after it.
+    require_relative "../dev/example_options"
+    _name, opts = ExampleOptions.load(File.expand_path("../docs/_examples/043.md", __dir__))
+    doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
+
+    near_vertical = connector_dxs(doc).select { |dx| dx < 10 }
+    assert_operator near_vertical.size, :>=, 3, "the three middle edges should be near-vertical"
+    near_vertical.each do |dx|
+      assert_operator dx, :<, 1.0, "a middle edge off vertical: dx=#{dx.round(2)}"
+    end
+  end
+
   # ===================
   # Hyphen readings
   # ===================
