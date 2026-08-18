@@ -8,6 +8,7 @@ require "nokogiri"
 
 require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
+require_relative '../dev/example_options'
 
 class LsifGeneratorTest < Minitest::Test
   examples_dir = File.expand_path(File.join(__dir__, "..", "docs", "_examples"))
@@ -21,60 +22,7 @@ class LsifGeneratorTest < Minitest::Test
 
     next if excluded_categories.include?(config["category"])
 
-    rst = File.read(md_path).scan(/```([^`]+)```/m).last.first
-    name = config["name"]
-
-    opts = DEFAULT_OPTS.dup
-    config.each do |key, value|
-      next if value.to_s == ""
-
-      case key
-      when "color"
-        opts[:color] = case value
-                       when "modern", "on", "true"
-                         "modern"
-                       when "traditional"
-                         "traditional"
-                       else
-                         "off"
-                       end
-      when "polyline"
-        opts[:polyline] = value
-      when "hide_default_connectors"
-        opts[:hide_default_connectors] = value
-      when "connector_height"
-        opts[:vheight] = value
-      when "symmetrization"
-        opts[:symmetrize] = value
-      when "connector"
-        opts[:leafstyle] = value
-      when "direction"
-        opts[:direction] = value
-      when "tidy"
-        opts[:tidy] = value
-      when "hspacing"
-        opts[:hspacing] = value
-      when "tidy_spacing"
-        opts[:tidy_spacing] = value
-      when "mirror"
-        opts[:mirror] = value
-      when "font"
-        opts[:fontstyle] = case value
-                           when /mono/i
-                             "mono"
-                           when /sans/i
-                             "sans"
-                           when /serif/i
-                             "serif"
-                           when /wqy|cjk/i
-                             "cjk"
-                           else
-                             "sans"
-                           end
-      end
-    end
-
-    opts[:data] = rst
+    name, opts = ExampleOptions.load(md_path)
 
     define_method "test_lsif_#{name}" do
       rsg = RSyntaxTree::RSGenerator.new(opts)

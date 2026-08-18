@@ -4,6 +4,7 @@
 require "yaml"
 require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
+require_relative 'example_options'
 
 directory = nil
 directory = ARGV[0] if File.exist? ARGV[0]
@@ -16,72 +17,14 @@ logfile = File.open(File.join(doc_dir, "generate_examples.log"), "w")
 
 Dir.glob("*.md", base: examples_dir).map do |md|
   md = File.join(examples_dir, md)
-  config = YAML.load_file(md)
-  rst = File.read(md).scan(/```([^`]+)```/m).last.first
+  name, opts = ExampleOptions.load(md)
+  rst = opts[:data]
   begin
     RSyntaxTree::RSGenerator.check_data(rst)
   rescue StandardError
     logfile.puts "Error detected in #{md}"
   end
 
-  opts = DEFAULT_OPTS.dup
-  name = nil
-  config.each do |key, value|
-    next if value.to_s == ""
-
-    case key
-    when "name"
-      name = value
-      opts[:name] = name
-    when "color"
-      opts[:color] = case value
-                     when "modern", "on", "true"
-                       "modern"
-                     when "traditional"
-                       "traditional"
-                     when "gray", "grey"
-                       "gray"
-                     else
-                       "off"
-                     end
-    when "linewidth", "line_width"
-      opts[:linewidth] = value
-    when "polyline"
-      opts[:polyline] = value
-    when "hide_default_connectors"
-      opts[:hide_default_connectors] = value
-    when "connector_height"
-      opts[:vheight] = value
-    when "symmetrization"
-      opts[:symmetrize] = value
-    when "connector"
-      opts[:leafstyle] = value
-    when "direction"
-      opts[:direction] = value
-    when "tidy"
-      opts[:tidy] = value
-    when "hspacing"
-      opts[:hspacing] = value
-    when "tidy_spacing"
-      opts[:tidy_spacing] = value
-    when "mirror"
-      opts[:mirror] = value
-    when "font"
-      opts[:fontstyle] = case value
-                         when /mono/i
-                           "mono"
-                         when /sans/i
-                           "sans"
-                         when /serif/i
-                           "serif"
-                         when /wqy|cjk/i
-                           "cjk"
-                         else
-                           "sans"
-                         end
-    end
-  end
-  opts[:data] = rst
   rsg = RSyntaxTree::RSGenerator.new(opts)
 
   File.open(File.join(svg_dir, "#{name}.svg"), "w") do |f|

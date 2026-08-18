@@ -176,6 +176,7 @@ Usage:
 | `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |
 | `--tidy` | Layout scale: off, symmetric, low, medium, high | `off` |
 | `--hspacing` | Horizontal spacing factor, all layout modes (0.5-3.0) | `1.0` |
+| `--hyphen` | How a hyphen reads: markup (`-underline-`) or literal | `markup` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
 
 Run `rsyntaxtree -h` for the full list of options.

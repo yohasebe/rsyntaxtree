@@ -27,7 +27,8 @@ CONFIG_VALIDATORS = {
   tidy: ->(v) { /\A(off|symmetric|low|medium|high|on|compact|true|false)\z/ =~ v.to_s ? nil : "must be off, symmetric, low, medium, or high" },
   hspacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
   tidy_spacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
-  direction: ->(v) { /\A(ttb|ltr)\z/ =~ v.to_s ? nil : "must be ttb or ltr" }
+  direction: ->(v) { /\A(ttb|ltr)\z/ =~ v.to_s ? nil : "must be ttb or ltr" },
+  hyphen: ->(v) { /\A(markup|literal)\z/ =~ v.to_s ? nil : "must be markup or literal" }
 }.freeze
 
 # Validate configuration and return errors/warnings
@@ -117,11 +118,13 @@ opts = Optimist.options do
   opt :hspacing, "Horizontal spacing factor (counterpart of vheight): 0.5-3.0", default: 1.0, short: :none
   opt :tidy_spacing, "DEPRECATED alias of --hspacing: 0.5-3.0", default: 1.0, short: :none
   opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb", short: :d
+  opt :hyphen, "How a hyphen in a label reads: markup (-underline-) or literal (a hyphen; \-underline\- then underlines)", default: "markup", short: :none
   opt :help, "This is a custom help message", short: :h
 end
 
 Optimist.die :outdir, "must be an exsting directory path" unless FileTest.directory?(opts[:outdir])
 Optimist.die :direction, "must be ttb or ltr" unless /\A(ttb|ltr)\z/ =~ opts[:direction]
+Optimist.die :hyphen, "must be markup or literal" unless /\A(markup|literal)\z/ =~ opts[:hyphen]
 Optimist.die :format, "must be png, pdf, svg, or lsif" unless /\A(png|jpg|gif|pdf|svg|lsif)\z/ =~ opts[:format]
 Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless /\A(sans|serif|cjk|mono)\z/ =~ opts[:fontstyle]

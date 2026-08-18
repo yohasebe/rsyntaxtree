@@ -47,7 +47,8 @@ DEFAULT_OPTS = {
   mirror: "off",
   tidy: "off",
   hspacing: 1.0,
-  direction: "ttb"
+  direction: "ttb",
+  hyphen: "markup"
 }.freeze
 
 class RSTError < StandardError
@@ -128,6 +129,8 @@ module RSyntaxTree
                             else
                               "off"
                             end
+        when :hyphen
+          new_params[key] = value.to_s == "literal" ? "literal" : "markup"
         when :fontsize
           new_params[key] = value.to_i
         when :linewidth
@@ -182,6 +185,8 @@ module RSyntaxTree
       # margins) the way vheight scales the vertical rhythm.
       @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8 * (@params[:hspacing] || 1.0).to_f
       @global[:box_vertical_margin] = single_x_metrics.height * 0.8
+      # hyphen: literal swaps the two readings of - when a label is parsed.
+      @global[:literal_hyphen] = @params[:hyphen] == "literal"
     end
 
     def self.check_data(text)

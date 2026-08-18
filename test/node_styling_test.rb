@@ -50,6 +50,38 @@ class NodeStylingTest < Minitest::Test
     end
   end
 
+# ===================
+# Hyphens
+# ===================
+
+# Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR,
+# RELIED-ON — and by default each one has to be escaped, since a hyphen
+# opens an underline. hyphen: literal trades the two readings.
+def test_literal_hyphen_mode_writes_hyphens_plainly
+  opts = @base_opts.merge(data: "[S [N RELIED-ON]]", hyphen: "literal")
+  svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+  assert_includes Nokogiri::XML(svg).css("text").map(&:text).join, "RELIED-ON"
+end
+
+def test_markup_mode_still_rejects_a_lone_hyphen
+  assert_raises(RSTError) do
+    RSyntaxTree::RSGenerator.new(@base_opts.merge(data: "[S [N RELIED-ON]]")).draw_svg
+  end
+end
+
+def test_literal_hyphen_mode_underlines_with_the_escape
+  opts = @base_opts.merge(data: '[S [N \-under\-]]', hyphen: "literal")
+  svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+
+  assert_includes svg, "underline"
+end
+
+def test_markup_mode_is_the_default
+  plain = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: "[S [N -under-]]")).draw_svg
+  assert_includes plain, "underline"
+end
+
   # ===================
   # Nested matrices
   # ===================

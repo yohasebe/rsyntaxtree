@@ -3,6 +3,10 @@
 ## [Unreleased]
 
 ### Added
+- `hyphen: literal`, which trades the two readings of a hyphen: a bare one is
+  a hyphen and `\-underlined\-` underlines. Feature names in HPSG and its
+  relatives are full of hyphens, and escaping each one is a poor trade for a
+  rule that work never uses.
 - A matrix nested in a label, written between `#(` and `#)`. The value of an
   attribute can be another attribute-value matrix, to any depth, which is what
   a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs and what HPSG,

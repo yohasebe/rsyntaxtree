@@ -55,8 +55,8 @@
   height: 766
   layout: ''
 '013':
-  width: 669
-  height: 983
+  width: 703
+  height: 865
   layout: grid-stack
 '014':
   width: 600
@@ -306,3 +306,7 @@
   width: 382
   height: 622
   layout: ''
+'076':
+  width: 629
+  height: 507
+  layout: grid-stack

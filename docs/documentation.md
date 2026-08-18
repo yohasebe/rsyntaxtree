@@ -137,6 +137,10 @@ Note: Currently, overline is displayed in SVG, but not in PNG.
 |`normal_subscript_`    |normal<sub>subscript</sub>  |
 |`normal__superscript__`|normal<sup>superscript</sup>|
 
+#### Small Capitals
+
+There is no small-caps markup. CSS `font-variant` is honoured by the SVG renderer but ignored by the measurement engine, so a label would be measured at one width and drawn at another — off-centre by up to a third of its width. Attribute names in an attribute-value matrix are conventionally set in small caps; plain capitals read the same way and are what the gallery's HPSG examples use. Where the distinction matters, `___` gives a passable imitation: `H___EAD___` draws a full-size H followed by a smaller EAD.
+
 #### Box, Circle, Bar, and Arrow
 
 {% include box_and_circle_table.html %}
@@ -177,6 +181,10 @@ The value of an attribute can be another matrix, written between `#(` and `#)`. 
 ```
 
 Matrices nest to any depth, which is what a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
+
+#### Hyphens
+
+A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and escaping each one is a poor trade for a rule that work never uses. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead.
 
 #### Newline
 
