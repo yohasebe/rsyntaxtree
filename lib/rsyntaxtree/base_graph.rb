@@ -607,6 +607,95 @@ module RSyntaxTree
       @element_list.get_elements.each { |e| e.horizontal_indent += offset }
     end
 
+    # --- Line-type connections: room for the arrow ---
+
+    # The clearance a horizontally linked pair of boxes needs, in units of
+    # h_gap_between_nodes. SvgGraph#bothways_arrows draws the two heads at a
+    # span of 3 gaps whenever the link is long enough, shrinking only when it
+    # is not (span = link length × 0.8 then). The full span therefore wants a
+    # link of 3 / 0.8 gaps, and the link itself stops a 0.25-gap margin short
+    # of each box. Layout side of the same contract: spread the pair so the
+    # full-size arrow fits, and let the clamp cover what cannot be spread.
+    LINK_ARROW_CLEARANCE = 3.0 / 0.8 + 0.25 * 2
+
+    # Pairs of elements joined by a line-type connection (path entries of the
+    # -N / ->N / -<N form), mirroring the pool in SvgGraph#draw_paths.
+    def link_connection_pairs
+      pool = {}
+      @element_list.get_elements.each do |e|
+        e.path.each do |tr|
+          next unless /\A-(>|<)?(\d+)\z/ =~ tr
+
+          (pool[$2] ||= []) << e
+        end
+      end
+      pool.values.select { |ends| ends.size == 2 }
+    end
+
+    # Ids of the strict ancestors of +element+ (not including the element
+    # itself): the nodes that must stay put while a linked pair is spread,
+    # so they can be re-centred over their children afterwards.
+    def ancestor_ids(element)
+      ids = []
+      current = element
+      until current.parent.to_i.zero?
+        current = @element_list.get_id(current.parent)
+        ids << current.id
+      end
+      ids
+    end
+
+    # Push linked pairs apart until the gap between their boxes holds a
+    # full-size arrow. Runs after the tidy passes: a compression pass would
+    # simply undo any room reserved in the width calculation, while shifting
+    # the right-hand side rightward here can never create an overlap, so
+    # tidy's guarantee survives. Only links drawn horizontally need room —
+    # the two y ranges must overlap, the same test draw_paths applies. The
+    # pair's own ancestors stay put and are re-centred over their children
+    # afterwards; everything else right of the split moves by the deficit.
+    # LTR is excluded: its sibling links are vertical, and sizing them to the
+    # same span would stretch every stacked pair far beyond what the compact
+    # stacking justifies — the clamp covers those.
+    def spread_linked_pairs
+      return if @direction == "ltr"
+
+      pairs = link_connection_pairs
+      return if pairs.empty?
+
+      hct = @global[:height_connector_to_text]
+      required = @global[:h_gap_between_nodes] * LINK_ARROW_CLEARANCE
+      spread = false
+      pairs.map { |a, b| [a, b].sort_by(&:horizontal_indent) }
+           .sort_by { |a, _b| a.horizontal_indent }
+           .each do |a, b|
+        a_top = a.vertical_indent + hct / 2
+        b_top = b.vertical_indent + hct / 2
+        a_bottom = a.vertical_indent + a.content_height + hct
+        b_bottom = b.vertical_indent + b.content_height + hct
+        next if a_top > b_bottom || b_top > a_bottom
+
+        gap = b.horizontal_indent - (a.horizontal_indent + a.content_width)
+        deficit = required - gap
+        next if deficit <= 0.01
+
+        ancestors = ancestor_ids(a) + ancestor_ids(b)
+        split = a.horizontal_indent + a.content_width
+        @element_list.get_elements.each do |e|
+          e.horizontal_indent += deficit if e.horizontal_indent >= split - 0.001 && !ancestors.include?(e.id)
+        end
+        spread = true
+      end
+      # A figure whose links already had their room is left exactly as tidy
+      # left it: re-centring it would move nothing but the last decimal.
+      return unless spread
+
+      node_centering
+      normalize_horizontal
+      # The dynamic connector height couples level spacing to the horizontal
+      # spread, so let it settle against the widened layout.
+      calculate_height
+    end
+
     # Snapshot / restore of everything the tidy passes mutate.
     def layout_snapshot
       @element_list.get_elements.map { |e| [e.horizontal_indent, e.vertical_indent, e.height] }
@@ -733,6 +822,15 @@ module RSyntaxTree
           snapshot = layout_snapshot
           break if max_shift < TIDY_CONVERGENCE
         end
+        restore_layout(snapshot) if layout_overlaps?
+      end
+
+      # Give line-linked pairs room for a full-size arrow (no-op without
+      # links). Guarded the same way tidy is: if spreading ever produced an
+      # overlap, roll back and let the arrow clamp instead.
+      if @element_list.elements.size > 1
+        snapshot = layout_snapshot
+        spread_linked_pairs
         restore_layout(snapshot) if layout_overlaps?
       end
 

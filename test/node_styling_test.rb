@@ -710,6 +710,98 @@ end
   end
 
   # ===================
+  # Room for the arrow
+  # ===================
+
+  # A full-size bothways arrow spans three inter-node gaps; the layout
+  # spreads a linked pair until the gap between their boxes holds it
+  # (4.25 gaps: 3 / 0.8 for the span plus the link's end margins). The
+  # unlinked pair beside it calibrates the gap unit: four of them in the
+  # default layout.
+  def test_linked_siblings_get_room_for_a_full_size_arrow
+    opts = @base_opts.merge(data: "[S [A [##1+-1] [##2+-1] [##3] [##4]]]")
+    doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
+    boxes = doc.css("polygon").select { |p| p["points"].split.size == 4 }.map do |p|
+      xs = p["points"].split.map { |pt| pt.split(",").first.to_f }
+      [xs.min, xs.max]
+    end.sort_by(&:first)
+    assert_equal 4, boxes.size
+
+    linked_gap = boxes[1][0] - boxes[0][1]
+    unlinked_gap = boxes[3][0] - boxes[2][1]
+    h_gap = unlinked_gap / 4.0
+    assert_operator linked_gap, :>=, h_gap * 4.2,
+                    "linked pair too close for a full-size arrow: #{linked_gap} vs #{h_gap * 4.25}"
+  end
+
+  def test_link_spreading_leaves_unlinked_pairs_alone
+    opts = @base_opts.merge(data: "[S [A [##1+-1] [##2+-1] [##3] [##4]]]")
+    doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
+    boxes = doc.css("polygon").select { |p| p["points"].split.size == 4 }.map do |p|
+      xs = p["points"].split.map { |pt| pt.split(",").first.to_f }
+      [xs.min, xs.max]
+    end.sort_by(&:first)
+
+    unlinked_gap = boxes[3][0] - boxes[2][1]
+    linked_gap = boxes[1][0] - boxes[0][1]
+    assert_in_delta unlinked_gap * (4.25 / 4.0), linked_gap, 1.0,
+                    "only the linked pair should have been spread"
+  end
+
+  def test_043_bottom_pairs_hold_a_full_size_arrow
+    # The bottom linked pairs of the quicksort figure sat one tidy_gap
+    # (2.5 inter-node gaps) apart and the arrow shrank to fit. The unlinked
+    # pairs on the same row calibrate the unit.
+    require_relative "../dev/example_options"
+    _name, opts = ExampleOptions.load(File.expand_path("../docs/_examples/043.md", __dir__))
+    doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
+
+    boxes = doc.css("rect").reject { |r| r.key?("rx") || r["fill"] == "white" }.map do |r|
+      x = r["x"].to_f
+      y = r["y"].to_f
+      [x, x + r["width"].to_f, y, y + r["height"].to_f]
+    end
+    bottom_y = boxes.map { |b| b[3] }.max
+    bottom = boxes.select { |b| (b[3] - bottom_y).abs < 2 }.sort_by(&:first)
+    gaps = bottom.each_cons(2).map { |a, b| [a, b, b[0] - a[1]] }
+    tightest = gaps.map { |g| g[2] }.min
+    h_gap = tightest / 2.5 # the unlinked pairs sit one tidy_gap apart
+    linked = gaps.select { |_, _, g| g > tightest + 1 }
+    refute_empty linked, "no spread pair found on the bottom row"
+    linked.each do |_, _, g|
+      assert_operator g, :>=, h_gap * 4.2, "linked pair too close for a full-size arrow"
+    end
+
+    heads = doc.css("polygon").select { |p| p["points"].split.size == 3 && p["style"].to_s.include?("fill:#CC79A7") }
+    refute_empty heads
+    spans = heads.map do |h|
+      xs = h["points"].split.map { |pt| pt.split(",").first.to_f }
+      [xs.min, xs.max]
+    end.sort_by(&:first)
+    spans.each_slice(2) do |left_head, right_head|
+      assert_operator right_head[1] - left_head[0], :>=, h_gap * 3 * 0.9,
+                      "bothways arrow smaller than full size"
+    end
+  end
+
+  def test_link_spreading_keeps_every_tidy_mode_overlap_free
+    data = "[S [A [##1+-1] [##2+-1] [##3] [##4]] [B [##5] [##6]]]"
+    %w[off low medium high symmetric].each do |mode|
+      opts = @base_opts.merge(data: data, tidy: mode)
+      doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
+      boxes = doc.css("polygon").select { |p| p["points"].split.size == 4 }.map do |p|
+        xs = p["points"].split.map { |pt| pt.split(",").first.to_f }
+        ys = p["points"].split.map { |pt| pt.split(",").last.to_f }
+        [xs.min, xs.max, ys.min, ys.max]
+      end
+      overlap = boxes.combination(2).any? do |a, b|
+        a[0] < b[1] - 0.01 && b[0] < a[1] - 0.01 && a[2] < b[3] - 0.01 && b[2] < a[3] - 0.01
+      end
+      refute overlap, "tidy=#{mode}: boxes overlap after link spreading"
+    end
+  end
+
+  # ===================
   # Hyphen readings
   # ===================
 

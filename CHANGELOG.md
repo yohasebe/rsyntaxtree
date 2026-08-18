@@ -78,6 +78,11 @@
   left-to-right layout, where a link between siblings had been drawn diagonally
   from the movement-path anchors and now runs straight between the facing
   edges.
+- Two nodes joined by a line-type connection are laid out far enough apart for
+  a full-size arrowhead between them. Where the layout had packed them closer
+  than the arrow is wide — the two leaves at the foot of the quicksort figure —
+  the arrow was drawn small to fit; now the pair is spread and the arrow keeps
+  its size. Only pairs that carry a link move, and only when they need to.
 
 ## [1.8.2] - 2026-08
 
