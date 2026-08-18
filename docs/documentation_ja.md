@@ -378,12 +378,15 @@ RSyntaxTreeは`-f tikz`オプションを使用してLaTeXドキュメント用�
 | 下付き・上付き文字（`_x_`，`__x__`） | 非対応 |
 | パス描画（`+1`，`+>1`） | 非対応 |
 | 領域シェード（`%`） | 対応（`forest` の `fit to=tree` を使用） |
+| 桁揃え（`\t`） | セルは1行に連結されます |
+| 入れ子行列（`#(` … `#)`） | 中身は残りますが，ブラケットは描かれません |
+| 灰色の線の配色（`color: gray`） | 非対応 |
 
 LaTeXに精通しているユーザーは，標準的なLaTeXコマンド（例：`\textcolor{red}{NP}`，`\textbf{...}`）を使用して，生成されたTikZコードにこれらの機能を手動で追加できます．
 
 **領域シェードに関する注意：** 生成される `forest` コードは各領域の面を TikZ の背景レイヤーに描画します．standalone でない出力を独自のドキュメントに埋め込む場合は，`\usetikzlibrary{backgrounds,fit}` で必要なライブラリを読み込んでください（standalone 出力では自動的に追加されます）．領域色（色名・HEX）は明示的な RGB 値として出力されるため，xcolor が未定義の SVG/CSS 色名（例：`lightblue`）でもコンパイルできます．
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
 
 ---

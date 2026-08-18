@@ -367,12 +367,15 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 | Subscript/superscript (`_x_`, `__x__`) | Not supported |
 | Path drawing (`+1`, `+>1`) | Not supported |
 | Region shade (`%`) | Supported (via `forest` `fit to=tree`) |
+| Column alignment (`\t`) | Cells run together on one line |
+| Nested matrix (`#(` … `#)`) | Contents kept, brackets not drawn |
+| Grey line scheme (`color: gray`) | Not supported |
 
 Users familiar with LaTeX can manually add these features to the generated TikZ code using standard LaTeX commands (e.g., `\textcolor{red}{NP}`, `\textbf{...}`).
 
 **Note on region shade:** The generated `forest` code draws each region plane on the TikZ background layer. When you embed non-standalone output in your own document, load the required libraries with `\usetikzlibrary{backgrounds,fit}` (the standalone output adds this automatically). Region colors (named or hex) are emitted as explicit RGB values, so SVG/CSS color names that xcolor does not define (e.g. `lightblue`) still compile.
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
 
 ---

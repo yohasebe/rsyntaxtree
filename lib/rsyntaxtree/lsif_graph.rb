@@ -284,6 +284,11 @@ module RSyntaxTree
               symmetrize: @params[:symmetrize],
               mirror: @params[:mirror] == true,
               direction: @params[:direction] || "ttb",
+              # Which of the two readings of a hyphen the input was parsed
+              # under. The input is recorded verbatim above, and the same
+              # string means different things under the two, so a reader
+              # cannot re-parse it without knowing this.
+              hyphen: @params[:hyphen] || "markup",
               polyline: @params[:polyline],
               hide_default_connectors: @params[:hide_default_connectors],
               transparent: @params[:transparent]

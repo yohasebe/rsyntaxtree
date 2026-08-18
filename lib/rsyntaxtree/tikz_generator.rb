@@ -224,18 +224,30 @@ module RSyntaxTree
       return "" if content.nil? || content.empty?
 
       # content is an array of hashes with :type and :elements
+      collect_label_text(content).join(" ")
+    end
+
+    # Text of every run in a list of label lines, flattened. A matrix nested
+    # in the label holds its own lines and is walked the same way: the export
+    # cannot draw the brackets, but dropping what is inside them would lose a
+    # feature structure's entire contents without a word.
+    def collect_label_text(lines)
       texts = []
-      content.each do |line|
+      lines.each do |line|
         next unless line[:type] == :text
 
         line[:elements].each do |el|
-          text = el[:text].to_s
+          if el[:decoration].to_a.include?(:matrix)
+            texts.concat(collect_label_text(el[:matrix].to_a))
+            next
+          end
+
           # Remove RSyntaxTree-specific whitespace block
-          text = text.gsub("￭", " ")
+          text = el[:text].to_s.gsub("￭", " ")
           texts << text unless text.strip.empty?
         end
       end
-      texts.join(" ")
+      texts
     end
 
     # Escape LaTeX special characters

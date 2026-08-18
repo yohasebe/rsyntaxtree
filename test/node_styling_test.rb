@@ -884,4 +884,18 @@ end
     error = assert_raises(RSTError) { RSyntaxTree::RSGenerator.new(opts).draw_svg }
     assert_match(/only one end/, error.message)
   end
+  # ===================
+  # TikZ export
+  # ===================
+
+  # The export cannot draw the brackets of a nested matrix, but it must not
+  # drop what is inside them: a feature structure's entire contents used to
+  # vanish from the TikZ output without a word.
+  def test_tikz_keeps_the_contents_of_a_nested_matrix
+    opts = @base_opts.merge(data: "[#PHON\tKim\nSYNSEM\t#(CASE\tnom#)]")
+    tikz = RSyntaxTree::RSGenerator.new(opts).draw_tikz
+
+    assert_includes tikz, "CASE"
+    assert_includes tikz, "nom"
+  end
 end

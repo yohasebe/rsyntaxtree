@@ -104,6 +104,18 @@ class LsifGeneratorTest < Minitest::Test
       end
     end
   end
+
+  # The input is recorded verbatim, and the same string means different things
+  # under the two readings of a hyphen, so the reading has to travel with it.
+  def test_params_record_the_hyphen_reading
+    %w[markup literal].each do |mode|
+      opts = DEFAULT_OPTS.dup
+      opts[:data] = "[S [NP a] [VP b]]"
+      opts[:hyphen] = mode
+      data = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_lsif)
+      assert_equal mode, data.dig("meta", "source", "params", "hyphen")
+    end
+  end
 end
 
 class LsifDirectionTest < Minitest::Test

@@ -25,6 +25,10 @@
 - Gallery examples for two more frameworks: LFG (an annotated c-structure and
   the f-structure it maps to, after Kaplan & Bresnan 1982 and Bresnan 2001)
   and DRT (a discourse representation structure, after Kamp 1981).
+- The example gallery scales each figure by its own width rather than by one
+  factor for all of them, so a small tree and a wide one are read at a similar
+  apparent size; a figure now fits its row instead of scrolling, loads lazily,
+  and carries an anchor of its own.
 
 ### Changed
 - Every box and circle in a figure is drawn at one size and on one centre
@@ -39,34 +43,14 @@
   its own canvas.
 
 ### Fixed
-- A nested matrix was drawn about half a line taller than its contents. The
-  margin that holds the first line of a label clear of the connector above it
-  was counted again for every nested block, which already sits inside it.
-- A label enclosure was drawn far wider than the gap the layout keeps around
-  a node, so every connector and movement arrow attached to an enclosed node
-  landed short of the box actually drawn around it — visible across the
-  Cognitive Grammar and Construction Grammar figures. The enclosure is drawn
-  inside that gap again.
-- A shape on a line of its own no longer carries the clearance meant for a
-  shape sharing a line with text, so a grid of boxes closes up again (the
-  tic-tac-toe figure had grown a seam between its rows) and a circled label
-  sits on the same baseline as a plain one beside it.
-- A bracketed value cleared the descenders of the line above it by a pixel.
-  The gap that separates it was cancelled by the padding drawn inside its own
-  brackets; the two are now counted separately.
-- The room a label's own bracket or rectangle needs is part of the width the
-  tree lays the node out at. It used to be drawn beyond that width, so the
-  outermost pair of brackets in a feature structure stood closer to its
-  contents than every pair within, and whatever was measured against the node
-  disagreed with the box drawn around it.
-- A node holding nothing but a shape measured short of a line, and since a
-  level is placed by the height of the nodes above it, such a node pulled its
-  own children off the row its cousins sat on. The tournament figure had its
-  leaves on three different baselines.
-- `hyphen: literal` traded away two hyphens that are structure rather than
-  markup: a line of them is the horizontal rule and the one in a path suffix
-  makes that path dashed. The rule came out as the text "---" with no
-  complaint, and a dashed path was rejected outright.
+- TikZ export dropped everything inside a nested matrix: a feature structure
+  came out as its outermost attribute names and nothing else. The export still
+  cannot draw the brackets, but it keeps what they hold. The documented list of
+  what TikZ does not carry now names column alignment, nested matrices and the
+  grey line scheme.
+- LSIF records which of the two readings of a hyphen the input was parsed
+  under. It records the input verbatim, and the same string means different
+  things under the two, so a reader could not re-parse it.
 - A line-type connection with only one end raised a NoMethodError from inside
   the drawing instead of being reported as the input error it is.
 - A line-type connection between two nodes was anchored a full inter-node gap
