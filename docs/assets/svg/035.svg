@@ -52,23 +52,23 @@
 <line style='fill: none; stroke:none; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='903.0' y1='530.88' x2='903.0' y2='341.04' />
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="615.75" y1="100.79999999999998" x2="1189.75" y2="100.79999999999998"></line>
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='607.35,16.799999999999997 1198.15,16.799999999999997 1198.15,179.2 607.35,179.2' />
+                            points='589.5,16.799999999999997 1216.0,16.799999999999997 1216.0,179.2 589.5,179.2' />
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="72.79999999999995" y1="405.44000000000005" x2="507.79999999999995" y2="405.44000000000005"></line>
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='64.39999999999995,321.44 516.1999999999999,321.44 516.1999999999999,483.84000000000003 64.39999999999995,483.84000000000003' />
+                            points='46.549999999999955,321.44 534.05,321.44 534.05,483.84000000000003 46.549999999999955,483.84000000000003' />
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="16.799999999999955" y1="925.1199999999999" x2="562.8" y2="925.1199999999999"></line>
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='8.399999999999954,841.1199999999999 571.1999999999999,841.1199999999999 571.1999999999999,1003.5199999999999 8.399999999999954,1003.5199999999999' />
+                            points='-9.450000000000045,841.1199999999999 589.05,841.1199999999999 589.05,1003.5199999999999 -9.450000000000045,1003.5199999999999' />
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="752.0" y1="620.4799999999999" x2="1054.0" y2="620.4799999999999"></line>
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='743.6,536.4799999999999 1062.4,536.4799999999999 1062.4,698.8799999999999 743.6,698.8799999999999' />
+                            points='725.75,536.4799999999999 1080.25,536.4799999999999 1080.25,698.8799999999999 725.75,698.8799999999999' />
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="1285.2" y1="405.44000000000005" x2="1747.2" y2="405.44000000000005"></line>
 <polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1276.8,321.44 1755.6,321.44 1755.6,483.84000000000003 1276.8,483.84000000000003' />
+                            points='1258.95,321.44 1773.45,321.44 1773.45,483.84000000000003 1258.95,483.84000000000003' />
 
 <line x1='903.0' y1='530.88' x2='902.75' y2='184.8' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  />
 <line x1='289.29999999999995' y1='315.84' x2='902.75' y2='184.8' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  />

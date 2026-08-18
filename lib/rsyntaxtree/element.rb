@@ -104,8 +104,8 @@ module RSyntaxTree
               e[:matrix_width] = inner[:width]
               e[:matrix_height] = inner[:height]
               e[:width] = inner[:width] + matrix_bracket_room * 2
-              e[:height] = inner[:height]
-              elements_height << inner[:height]
+              e[:height] = inner[:height] + matrix_vertical_room * 2
+              elements_height << e[:height]
               row_width += e[:width]
               next
             end
@@ -236,6 +236,12 @@ module RSyntaxTree
     # the air around it.
     def matrix_bracket_room
       @global[:width_half_x] * MATRIX_BRACKET_ROOM
+    end
+
+    # Vertical room a nested matrix keeps between itself and the rows above and
+    # below it.
+    def matrix_vertical_room
+      @global[:single_x_metrics].height * MATRIX_VERTICAL_ROOM
     end
 
     private

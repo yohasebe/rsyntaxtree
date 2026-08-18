@@ -91,7 +91,7 @@
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="272.0" y1="145.6" x2="550.0" y2="145.6"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='263.6,16.799999999999997 558.4000000000001,16.799999999999997 558.4000000000001,223.99999999999994 263.6,223.99999999999994' />
+                            points='245.75,16.799999999999997 576.25,16.799999999999997 576.25,223.99999999999994 245.75,223.99999999999994' />
 
 <rect style='stroke: black; stroke-width:3;'
                     x='167.43999999999994' y='294.23999999999995' rx='20.8' ry='20.8'
@@ -105,7 +105,7 @@
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="113.67999999999995" y1="405.44" x2="262.79999999999995" y2="405.44"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='105.27999999999994,276.64 271.19999999999993,276.64 271.19999999999993,483.84000000000003 105.27999999999994,483.84000000000003' />
+                            points='87.42999999999995,276.64 289.04999999999995,276.64 289.04999999999995,483.84000000000003 87.42999999999995,483.84000000000003' />
 
 <rect style='stroke: black; stroke-width:3;'
                     x='70.55999999999999' y='554.08' rx='20.8' ry='20.8'
@@ -119,7 +119,7 @@
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="16.799999999999983" y1="665.2799999999999" x2="165.92" y2="665.2799999999999"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='8.399999999999983,536.4799999999999 174.32,536.4799999999999 174.32,743.6799999999998 8.399999999999983,743.6799999999998' />
+                            points='-9.450000000000017,536.4799999999999 192.17,536.4799999999999 192.17,743.6799999999998 -9.450000000000017,743.6799999999998' />
 
 <rect style='stroke: black; stroke-width:3;'
                     x='264.31999999999994' y='554.08' rx='20.8' ry='20.8'
@@ -128,7 +128,7 @@
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="233.11999999999995" y1="665.2799999999999" x2="337.11999999999995" y2="665.2799999999999"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='224.71999999999994,536.4799999999999 345.5199999999999,536.4799999999999 345.5199999999999,743.6799999999998 224.71999999999994,743.6799999999998' />
+                            points='206.86999999999995,536.4799999999999 363.36999999999995,536.4799999999999 363.36999999999995,743.6799999999998 206.86999999999995,743.6799999999998' />
 
 <rect style='stroke: black; stroke-width:2;'
                     x='571.3599999999998' y='294.23999999999995' rx='20.8' ry='20.8'
@@ -149,7 +149,7 @@
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="530.1999999999998" y1="405.44" x2="737.3199999999998" y2="405.44"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='521.7999999999998,276.64 745.7199999999998,276.64 745.7199999999998,483.84000000000003 521.7999999999998,483.84000000000003' />
+                            points='503.9499999999998,276.64 763.5699999999998,276.64 763.5699999999998,483.84000000000003 503.9499999999998,483.84000000000003' />
 
 <rect style='stroke: black; stroke-width:2;'
                     x='445.4799999999999' y='554.08' rx='20.8' ry='20.8'
@@ -170,7 +170,7 @@
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="404.31999999999994" y1="665.2799999999999" x2="611.4399999999999" y2="665.2799999999999"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='395.91999999999996,536.4799999999999 619.8399999999999,536.4799999999999 619.8399999999999,743.6799999999998 395.91999999999996,743.6799999999998' />
+                            points='378.06999999999994,536.4799999999999 637.6899999999999,536.4799999999999 637.6899999999999,743.6799999999998 378.06999999999994,743.6799999999998' />
 
 <rect style='stroke: black; stroke-width:2;'
                     x='697.2399999999999' y='554.08' rx='20.8' ry='20.8'
@@ -186,5 +186,5 @@
 
 <line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="678.6399999999999" y1="665.2799999999999" x2="840.6399999999999" y2="665.2799999999999"></line>
 <polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='670.2399999999999,536.4799999999999 849.04,536.4799999999999 849.04,743.6799999999998 670.2399999999999,743.6799999999998' />
+                            points='652.3899999999999,536.4799999999999 866.8899999999999,536.4799999999999 866.8899999999999,743.6799999999998 652.3899999999999,743.6799999999998' />
 </svg>

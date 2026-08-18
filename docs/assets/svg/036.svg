@@ -34,13 +34,13 @@
 <line style='fill: none; stroke:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='89.80000000000001' y1='181.43999999999997' x2='196.9' y2='95.19999999999999' />
 <line style='fill: none; stroke:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='304.0' y1='181.43999999999997' x2='196.9' y2='95.19999999999999' />
 <polygon style='stroke:#0072B2; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='129.5,16.799999999999997 264.3,16.799999999999997 264.3,89.59999999999998 129.5,89.59999999999998' />
+                            points='111.65,16.799999999999997 282.15,16.799999999999997 282.15,89.59999999999998 111.65,89.59999999999998' />
 
 <polygon style='stroke:#009E73; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='8.900000000000011,187.03999999999996 172.70000000000002,187.03999999999996 172.70000000000002,259.84 8.900000000000011,259.84' />
+                            points='-8.949999999999989,187.03999999999996 190.55,187.03999999999996 190.55,259.84 -8.949999999999989,259.84' />
 
 <polygon style='stroke:#009E73; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='223.1,187.03999999999996 386.9,187.03999999999996 386.9,259.84 223.1,259.84' />
+                            points='205.25,187.03999999999996 404.75,187.03999999999996 404.75,259.84 205.25,259.84' />
 
 <path d='M89.80000000000001,181.43999999999997 L143.35000000000002,138.32 L196.9, 95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
 <path d='M304.0,181.43999999999997 L250.45,138.32 L196.9, 95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />

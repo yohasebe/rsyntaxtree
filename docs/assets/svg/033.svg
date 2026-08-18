@@ -71,10 +71,10 @@
                     fill='none' />
 
 <polyline style='stroke:#009E73; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='529.3,518.56 520.9,518.56 520.9,636.16 529.3,636.16' />
+                            points='511.44999999999993,518.56 503.04999999999995,518.56 503.04999999999995,636.16 511.44999999999993,636.16' />
 
 <polyline style='stroke:#009E73; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='734.3000000000001,518.56 742.7,518.56 742.7,636.16 734.3000000000001,636.16' />
+                            points='752.15,518.56 760.55,518.56 760.55,636.16 752.15,636.16' />
 
 <line x1='388.6' y1='262.08' x2='347.7375' y2='95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  />
 <path d='M176.15000000000003,178.64 L351.61250000000007,178.64 L527.075, 178.64' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />

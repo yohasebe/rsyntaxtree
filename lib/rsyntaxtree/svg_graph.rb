@@ -351,7 +351,11 @@ module RSyntaxTree
       this_x = 0
       this_y = 0
       prev_line_height = nil
-      bc = { x: text_x - @global[:h_gap_between_nodes] / 2, y: top, width: element.content_width + @global[:h_gap_between_nodes], height: nil }
+      # A label's own enclosure keeps the same clearance as a matrix nested
+      # inside it; drawn tighter, the outermost pair of brackets in a feature
+      # structure sat closer together than every pair within.
+      enclosure_room = @global[:width_half_x] * MATRIX_BRACKET_ROOM
+      bc = { x: text_x - enclosure_room, y: top, width: element.content_width + enclosure_room * 2, height: nil }
       element.content.each_with_index do |l, idx|
         case l[:type]
         when :border, :bborder
@@ -568,8 +572,11 @@ new_text << markup
         end
       end
 
-      top = text_y - @global[:single_x_metrics].height * 0.8
-      draw_bracket(this_x, top, e[:width], e[:matrix_height], col)
+      # The bracket takes in the room kept above and below the matrix, so it
+      # does not sit hard against the rows either side of it.
+      room = @global[:single_x_metrics].height * MATRIX_VERTICAL_ROOM
+      top = text_y - @global[:single_x_metrics].height * 0.8 - room
+      draw_bracket(this_x, top, e[:width], e[:matrix_height] + room * 2, col)
       [out, this_x + e[:width]]
     end
 
