@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.9.0] - 2026-08
 
 ### Added
 - `hyphen: literal`, which trades the two readings of a hyphen: a bare one is
