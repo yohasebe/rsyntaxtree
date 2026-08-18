@@ -149,6 +149,20 @@ Note: Currently, overline is displayed in SVG, but not in PNG.
 
 A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes (e.g. `[the [<> ði]]`) pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
 
+#### Columns
+
+`\t` cuts a line into cells. Every line of the label is cut at the same points, and each column is drawn at the width of its widest cell, so the parts line up down the label instead of starting wherever the text before them happened to end. This is what an attribute-value matrix asks for — the attributes in one column, their values in the next:
+
+```text
+[#HEAD\tnoun\
+  SPR\t〈<>〉\
+  COMPS\t〈<>NP<>〉
+  Kim
+]
+```
+
+A label with more than two columns works the same way; each is as wide as it needs to be. Combined with `#` for the enclosing brackets and `---` for a horizontal rule, this covers the feature structures of HPSG, SBCG and LFG — see the [Head-Driven Phrase Structure Grammar example](https://yohasebe.github.io/rsyntaxtree/examples#example-013) in the gallery.
+
 #### Newline
 
 |Sample Input                   |Output              |

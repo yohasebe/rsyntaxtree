@@ -171,12 +171,58 @@ module RSyntaxTree
         end
         total_width = content_width if total_width < content_width
       end
+      total_width = align_columns(total_width)
       @content_width = total_width
       @content_height = total_height
     end
 
     def add_child(child_id)
       @children << child_id
+    end
+
+    private
+
+    # Lines cut at \t are laid out in columns: every column is as wide as its
+    # widest cell, so attributes line up down the left and their values down
+    # the right, which is what an attribute-value matrix is. The separator
+    # element carries the padding that takes its cell out to the column width,
+    # and the widest line decides the label's width.
+    #
+    # Returns the label width, unchanged when no line has a separator.
+    def align_columns(fallback_width)
+      rows = @content.select { |c| c[:type] == :text }
+                     .map { |c| split_into_cells(c[:elements]) }
+      return fallback_width unless rows.any? { |cells| cells.size > 1 }
+
+      columns = rows.map(&:size).max
+      widths = Array.new(columns) do |i|
+        rows.filter_map { |cells| cells[i]&.sum { |e| e[:width] } }.max || 0
+      end
+      gutter = @global[:width_half_x]
+
+      rows.each do |cells|
+        cells.each_with_index do |cell, i|
+          separator = cell.find { |e| e[:decoration].include?(:tabstop) }
+          next unless separator
+
+          used = cell.sum { |e| e[:width] }
+          separator[:width] = widths[i] - used + gutter
+        end
+      end
+
+      widths.sum + gutter * (columns - 1)
+    end
+
+    # Each cell keeps the separator that closes it, so the padding has
+    # something to sit on.
+    def split_into_cells(elements)
+      cells = [[]]
+      elements.each do |e|
+        cells.last << e
+        cells << [] if e[:decoration].include?(:tabstop)
+      end
+      cells.pop if cells.last.empty?
+      cells
     end
   end
 end

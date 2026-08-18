@@ -28,8 +28,13 @@ class MarkupParser < Parslet::Parser
   rule(:path) { (str('+') >> str('-').maybe >> (str('>') | str('<')).maybe >> match('\d').repeat(1)).as(:path) }
   # rule(:escaped) { str('\\') >> match('[#<>{}\\^+*_=~\|\n\-]').as(:chr) }
   rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]%]').as(:chr) }
-  rule(:non_escaped) { ((match('[#<>{}\\^+*_=~\|\-]') | str('\\n')).absent? >> any).as(:chr) }
+  rule(:non_escaped) { ((match('[#<>{}\\^+*_=~\|\-]') | str('\\n') | str('\\t')).absent? >> any).as(:chr) }
   rule(:text) { (escaped | non_escaped).repeat(1).as(:text) }
+
+  # Column separator. Every line of a label is cut at these into cells, and
+  # each column is laid out at the width of its widest cell, which is what an
+  # attribute-value matrix needs: attributes in one column, values in the next.
+  rule(:tabstop) { str('\\t').as(:tabstop) }
 
   rule(:horizontal_bar) { str('--').as(:horizontal_bar) }
   rule(:arrow_both) { str('<->').as(:arrow_both) }
@@ -60,7 +65,7 @@ class MarkupParser < Parslet::Parser
 
   rule(:shape) { (hatched_circle | hatched_box | empty_circle | empty_box | horizontal_bar | arrow_both | arrow_to_l | arrow_to_r | circle | box) }
 
-  rule(:markup) { (text | decoration | shape | bstroke) }
+  rule(:markup) { (tabstop | text | decoration | shape | bstroke) }
 
   rule(:line) { (cr.as(:extracr) | border | bborder | markup.repeat(1).as(:line) >> (cr | eof | str('+').present?)) }
   rule(:lines) { triangle.maybe.as(:triangle) >> (brectangle | rectangle | brackets).maybe.as(:enclosure) >> region.maybe.as(:region) >> color_spec.maybe.as(:color) >> line.repeat(1) >> path.repeat(0).as(:paths) >> (cr | eof) }
@@ -73,6 +78,10 @@ module Markup
   @evaluator = Parslet::Transform.new do
     rule(chr: simple(:chr)) { chr.to_s }
     rule(text: sequence(:text)) { { text: text.join(""), decoration: [] } }
+
+    rule(tabstop: subtree(:empty)) {
+      { text: +"", decoration: [:tabstop] }
+    }
 
     rule(horizontal_bar: subtree(:empty)) {
       { text: +"　", decoration: [:bar] }

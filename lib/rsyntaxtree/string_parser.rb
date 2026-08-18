@@ -145,7 +145,7 @@ module RSyntaxTree
           else
             token += ch
           end
-        when /[n{}<>^+*_=~|%-]/
+        when /[nt{}<>^+*_=~|%-]/
           if escape
             token += '\\' + ch
             escape = false

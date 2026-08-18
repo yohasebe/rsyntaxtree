@@ -2,6 +2,7 @@
 
 require "minitest/autorun"
 require "minitest/pride"
+require "nokogiri"
 require_relative "../lib/rsyntaxtree"
 
 class NodeStylingTest < Minitest::Test
@@ -47,6 +48,42 @@ class NodeStylingTest < Minitest::Test
       assert svg.scan(/<line style=[^>]*>/).all? { |l| l.include?("stroke:black") },
              "#{scheme} should leave connectors black"
     end
+  end
+
+  # ===================
+  # Column alignment (\t)
+  # ===================
+
+  # An attribute-value matrix is a two-column table: without alignment the
+  # values start wherever the attribute name happens to end.
+  def test_tabstop_aligns_values_across_lines
+    data = '[#HEAD\tnoun\nSPR\tempty\nCOMPS\tlist]'
+    svg = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: data)).draw_svg
+    doc = Nokogiri::XML(svg)
+
+    # All three rows live in one <text>; a value cell is the span that follows
+    # the empty span the separator leaves behind.
+    spans = doc.css("text").flat_map { |t| t.css("tspan").to_a }
+    starts = spans.each_cons(2).filter_map do |separator, value|
+      value["x"].to_f.round(1) if separator.text.strip.empty?
+    end
+
+    assert_equal 3, starts.size, "every row should have a value cell"
+    assert_equal 1, starts.uniq.size, "values should start at one column: #{starts.inspect}"
+  end
+
+  def test_tabstop_widens_the_label_to_the_widest_cell
+    narrow = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: '[#A\tb]')).draw_svg
+    wide = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: '[#A\tb\nAAAAAAAA\tb]')).draw_svg
+
+    assert wide[/width="([\d.]+)"/, 1].to_f > narrow[/width="([\d.]+)"/, 1].to_f,
+           "the widest attribute should set the column width"
+  end
+
+  def test_label_without_tabstop_is_unchanged
+    before = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: "[S [NP hello] [VP world]]")).draw_svg
+    assert_includes before, "hello"
+    refute_includes before, "\t"
   end
 
   # ===================

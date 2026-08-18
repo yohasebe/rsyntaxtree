@@ -3,6 +3,12 @@
 ## [Unreleased]
 
 ### Added
+- `\t` in a label cuts the line into cells. Every line is cut at the same
+  points and each column is drawn at the width of its widest cell, so the
+  parts line up down the label. Together with the bracket enclosure and the
+  horizontal rule this gives attribute-value matrices — the feature structures
+  of HPSG, SBCG and LFG — without spacing each row by hand, which is how the
+  gallery's HPSG example used to do it.
 - `color: gray`, a scheme that keeps node and leaf labels black and draws the
   connectors, triangles and movement paths in grey. It is for diagrams whose
   links outnumber their labels — an ontology, a network of constructions —
