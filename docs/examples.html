@@ -19,7 +19,12 @@ layout: default
     <hr />
     <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b></h2>
     {%- for example in all_examples -%}
-      {%- if example.category contains category.name -%}
+      {%- comment -%}
+        Match the whole name, not a substring: "Lexical-Functional Grammar"
+        ends with "Functional Grammar", so `contains` listed the LFG examples
+        under Functional Grammar as well.
+      {%- endcomment -%}
+      {%- if example.category == category.name -%}
         <h3 id="example-{{ example.name }}">{{ example.caption }}</h3>
         <div style='text-align:left;'>
           <button onclick="copyToClipBoard('text-{{ example.name }}')" style='margin: 20px 0; font-size: 0.85em;'>

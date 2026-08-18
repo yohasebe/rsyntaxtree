@@ -351,10 +351,12 @@ module RSyntaxTree
       this_x = 0
       this_y = 0
       prev_line_height = nil
-      # A label's own enclosure keeps the same clearance as a matrix nested
-      # inside it; drawn tighter, the outermost pair of brackets in a feature
-      # structure sat closer together than every pair within.
-      enclosure_room = @global[:width_half_x] * MATRIX_BRACKET_ROOM
+      # The label's own enclosure is drawn inside the gap kept between nodes,
+      # which is why it is this wide and no wider: the layout sizes a node by
+      # its content, so a bracket drawn past the gap would reach into the
+      # neighbour and leave every connector and movement arrow attached to the
+      # node landing short of the line that is actually drawn around it.
+      enclosure_room = @global[:h_gap_between_nodes] / 2
       bc = { x: text_x - enclosure_room, y: top, width: element.content_width + enclosure_room * 2, height: nil }
       element.content.each_with_index do |l, idx|
         case l[:type]
@@ -396,14 +398,14 @@ module RSyntaxTree
           prev_line_height = l[:elements].map { |e| e[:height] }.max
 
           l[:elements].each do |e|
-if e[:decoration].include?(:matrix)
-  markup, this_x = render_matrix(e, this_x, text_y, element, col)
-  new_text << markup
-  next
-end
+            if e[:decoration].include?(:matrix)
+              markup, this_x = render_matrix(e, this_x, text_y, element, col)
+              new_text << markup
+              next
+            end
 
-markup, this_x = render_run(e, this_x, text_y, element, col)
-new_text << markup
+            markup, this_x = render_run(e, this_x, text_y, element, col)
+            new_text << markup
           end
         end
         @height = text_y if text_y > @height

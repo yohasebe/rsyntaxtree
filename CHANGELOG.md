@@ -22,7 +22,6 @@
   connectors, triangles and movement paths in grey. It is for diagrams whose
   links outnumber their labels — an ontology, a network of constructions —
   where a page of black lines buries the text. `grey` is accepted too.
-
 - Gallery examples for two more frameworks: LFG (an annotated c-structure and
   the f-structure it maps to, after Kaplan & Bresnan 1982 and Bresnan 2001)
   and DRT (a discourse representation structure, after Kamp 1981).
@@ -31,6 +30,18 @@
 - A nested matrix was drawn about half a line taller than its contents. The
   margin that holds the first line of a label clear of the connector above it
   was counted again for every nested block, which already sits inside it.
+- A label enclosure was drawn far wider than the gap the layout keeps around
+  a node, so every connector and movement arrow attached to an enclosed node
+  landed short of the box actually drawn around it — visible across the
+  Cognitive Grammar and Construction Grammar figures. The enclosure is drawn
+  inside that gap again.
+- A shape on a line of its own no longer carries the clearance meant for a
+  shape sharing a line with text, so a grid of boxes closes up again (the
+  tic-tac-toe figure had grown a seam between its rows) and a circled label
+  sits on the same baseline as a plain one beside it.
+- A bracketed value cleared the descenders of the line above it by a pixel.
+  The gap that separates it was cancelled by the padding drawn inside its own
+  brackets; the two are now counted separately.
 
 ## [1.8.2] - 2026-08
 
