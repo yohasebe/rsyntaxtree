@@ -4,6 +4,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "yaml"
 require "json"
+require "nokogiri"
 
 require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
