@@ -75,8 +75,10 @@
 <path d='M616.5,181.43999999999997 L616.875,138.32 L617.25, 95.19999999999999' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
 <path d='M195.2,351.67999999999995 L195.2,308.55999999999995 L195.2, 265.44' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
 <path d='M195.7,521.92 L195.45,478.79999999999995 L195.2, 435.67999999999995' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M391.4,393.67999999999995 L465.72499999999997,393.67999999999995 L540.05, 393.67999999999995' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
+<path d='M380.0,393.67999999999995 L465.725,393.67999999999995 L551.45, 393.67999999999995' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
 <path d='M617.0,351.67999999999995 L616.75,308.55999999999995 L616.5, 265.44' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<path d='M693.95,393.67999999999995 L813.9,393.67999999999995 L933.8499999999999, 393.67999999999995' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
+<line x1='682.55' y1='393.67999999999995' x2='945.25' y2='393.67999999999995' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;' />
+<polygon points='836.6999999999999,393.67999999999995 821.5,401.28 821.5,386.0799999999999' style='fill:black; stroke:none;' />
+<polygon points='791.1,393.67999999999995 806.3,401.28 806.3,386.0799999999999' style='fill:black; stroke:none;' />
 <path d='M617.0,521.92 L617.0,478.79999999999995 L617.0, 435.67999999999995' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
 <path d='M617.5,692.16 L617.25,649.04 L617.0, 605.92' style='fill: none; stroke: black; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowForward)' /></svg>

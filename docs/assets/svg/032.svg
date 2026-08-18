@@ -78,8 +78,16 @@
 <line x1='175.75' y1='628.3199999999999' x2='350.55' y2='628.3199999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;' stroke-dasharray='8 8' />
 <line x1='350.55' y1='628.3199999999999' x2='350.55' y2='605.92' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;' stroke-dasharray='8 8' />
 <line x1='43.19999999999999' y1='271.03999999999996' x2='279.52500000000003' y2='184.8' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  />
-<path d='M185.25,271.03999999999996 L232.38750000000002,227.92 L279.52500000000003, 184.8' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
-<path d='M87.39999999999999,313.03999999999996 L102.6,313.03999999999996 L117.8, 313.03999999999996' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M350.55,521.92 L267.9,483.28 L185.25, 444.64' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
-<path d='M418.0,313.03999999999996 L433.20000000000005,313.03999999999996 L448.40000000000003, 313.03999999999996' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
-<path d='M350.55,441.2799999999999 L350.55,398.15999999999997 L350.55, 355.03999999999996' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' /></svg>
+<line x1='185.25' y1='271.03999999999996' x2='279.52500000000003' y2='184.8' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;' />
+<polygon points='249.21049388428156,212.53081948999798 243.12489146476122,228.3979377914265 232.86543779142653,217.18260853523878' style='fill:#CC79A7; stroke:none;' />
+<polygon points='215.56450611571847,243.309180510002 231.9095622085735,238.6573914647612 221.65010853523881,227.44206220857347' style='fill:#CC79A7; stroke:none;' />
+<path d='M75.99999999999999,313.03999999999996 L102.6,313.03999999999996 L129.2, 313.03999999999996' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
+<line x1='350.55' y1='521.92' x2='185.25' y2='444.64' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;' />
+<polygon points='247.24573293400536,473.62384900871103 264.2339613084314,473.1765273142388 257.7965273142388,486.94603869156856' style='fill:#CC79A7; stroke:none;' />
+<polygon points='288.55426706599457,492.9361509912889 278.00347268576115,479.6139613084314 271.56603869156856,493.38347268576115' style='fill:#CC79A7; stroke:none;' />
+<line x1='406.6' y1='313.03999999999996' x2='459.8' y2='313.03999999999996' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;' />
+<polygon points='454.48,313.03999999999996 440.29333333333335,320.13333333333327 440.29333333333335,305.94666666666666' style='fill:#CC79A7; stroke:none;' />
+<polygon points='411.9200000000001,313.03999999999996 426.10666666666674,320.13333333333327 426.10666666666674,305.94666666666666' style='fill:#CC79A7; stroke:none;' />
+<line x1='350.55' y1='441.2799999999999' x2='350.55' y2='355.03999999999996' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;' />
+<polygon points='350.55,375.35999999999996 358.15000000000003,390.55999999999995 342.95,390.55999999999995' style='fill:#CC79A7; stroke:none;' />
+<polygon points='350.55,420.96 358.15000000000003,405.76 342.95,405.76' style='fill:#CC79A7; stroke:none;' /></svg>

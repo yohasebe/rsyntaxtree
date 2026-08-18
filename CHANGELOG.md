@@ -69,6 +69,15 @@
   complaint, and a dashed path was rejected outright.
 - A line-type connection with only one end raised a NoMethodError from inside
   the drawing instead of being reported as the input error it is.
+- A line-type connection between two nodes was anchored a full inter-node gap
+  outside each of them, so the link fell short of both boxes where the gap was
+  wide and reached inside them where it was narrow. It now runs between the
+  boxes' own edges, a quarter of a gap short of each. The double arrowhead
+  keeps the shape it had but is sized to the link, instead of one fixed size
+  that spilled over both boxes on a short link. The same anchors are used in
+  left-to-right layout, where a link between siblings had been drawn diagonally
+  from the movement-path anchors and now runs straight between the facing
+  edges.
 
 ## [1.8.2] - 2026-08
 

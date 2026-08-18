@@ -601,6 +601,115 @@ end
   end
 
   # ===================
+  # Line-type connections
+  # ===================
+
+  # A link between two boxes runs from just off one edge to just off the
+  # other. It used to be anchored a full inter-node gap outside each box, so
+  # a wide gap left the link floating short of both boxes and a narrow gap
+  # pushed it into them.
+  def link_geometry(data, opts_extra = {})
+    opts = @base_opts.merge({ data: data }.merge(opts_extra))
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+    doc = Nokogiri::XML(svg)
+
+    # Enclosure boxes are the 4-cornered polygons; arrowheads are triangles.
+    boxes = doc.css("polygon").select { |p| p["points"].split.size == 4 }.map do |p|
+      xs = p["points"].split.map { |pt| pt.split(",").first.to_f }
+      [xs.min, xs.max]
+    end.sort_by(&:first)
+    link = doc.css("line").find { |l| l["style"].to_s =~ /#CC79A7|#666666|purple/ }
+    [boxes, link, doc]
+  end
+
+  def test_a_link_between_wide_spaced_boxes_reaches_both
+    # Two boxed nodes far apart, mirroring the Schema network figure (036):
+    # the link must close most of the gap, not float in the middle of it.
+    # The old anchor sat a full inter-node gap off each box; with hspacing
+    # pushed up that is ~16px a side, while the new margin is a quarter of it.
+    boxes, link, = link_geometry("[S [##Prototype+-1] [##Extention+-1]]", hspacing: 2.0)
+    refute_nil link, "no link drawn"
+
+    left, right = boxes
+    x1 = link["x1"].to_f
+    x2 = link["x2"].to_f
+    assert_operator x1, :>=, left[1], "link starts inside the left box"
+    assert_operator x2, :<=, right[0], "link ends inside the right box"
+    assert_operator x1 - left[1], :<=, 8, "link falls too short of the left box"
+    assert_operator right[0] - x2, :<=, 8, "link falls too short of the right box"
+  end
+
+  def test_a_link_between_narrow_spaced_boxes_stays_out_of_them
+    # The quicksort figure (043) packs its bottom leaves a few pixels apart:
+    # with the old fixed offset the link between them shrank to a stub a few
+    # pixels long in a 34px gap. Drawn from the gallery example itself so the
+    # test tracks the layout that actually broke.
+    require_relative "../dev/example_options"
+    _name, opts = ExampleOptions.load(File.expand_path("../docs/_examples/043.md", __dir__))
+    doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
+
+    # Boxes come in two forms: |x| decorations are <rect> (circles carry rx,
+    # so exclude those), ## enclosures are 4-cornered <polygon>s.
+    rects = doc.css("rect").reject { |r| r.key?("rx") || r["fill"] == "white" }.map do |r|
+      x = r["x"].to_f
+      y = r["y"].to_f
+      [x, x + r["width"].to_f, y, y + r["height"].to_f]
+    end
+    polys = doc.css("polygon").select { |p| p["points"].split.size == 4 }.map do |p|
+      xs = p["points"].split.map { |pt| pt.split(",").first.to_f }
+      ys = p["points"].split.map { |pt| pt.split(",").last.to_f }
+      [xs.min, xs.max, ys.min, ys.max]
+    end
+    boxes = rects + polys
+    bottom_y = boxes.map { |b| b[3] }.max
+    bottom = boxes.select { |b| (b[3] - bottom_y).abs < 2 }.sort_by(&:first)
+    links = doc.css("line").select { |l| l["style"].to_s =~ /#CC79A7|purple/ }
+    bottom_links = links.select { |l| (l["y1"].to_f - bottom_y).abs < 40 }
+    assert_operator bottom_links.size, :>=, 2, "the bottom row should carry links"
+
+    bottom_links.each do |link|
+      left = bottom.select { |b| b[1] <= link["x1"].to_f + 0.001 }.max_by { |b| b[1] }
+      right = bottom.select { |b| b[0] >= link["x2"].to_f - 0.001 }.min_by { |b| b[0] }
+      refute_nil left, "link starts inside a box"
+      refute_nil right, "link ends inside a box"
+      gap = right[0] - left[1]
+      assert_operator link["x2"].to_f - link["x1"].to_f, :>=, gap * 0.5,
+                      "link covers too little of the gap between #{left.inspect} and #{right.inspect}"
+    end
+  end
+
+  def test_bothways_arrowheads_stay_between_the_boxes
+    # The bothways arrow is drawn at the midpoint of the link. The fixed-size
+    # marker it used to be was wider than a narrow gap, spilling over both
+    # boxes; the arrowheads are now sized to the link itself.
+    boxes, link, doc = link_geometry("[S [NP [A [##1+->1] [##2+-<1]]] [VP x]]", tidy: "high")
+    refute_nil link, "no link drawn"
+
+    left, right = boxes
+    heads = doc.css("polygon").select { |p| p["style"].include?("fill:#CC79A7") || p["style"].include?("fill: #CC79A7") }
+    assert_equal 2, heads.size, "a bothways link should draw two arrowheads"
+    heads.each do |h|
+      xs = h["points"].split.map { |pt| pt.split(",").first.to_f }
+      assert_operator xs.min, :>=, left[1], "arrowhead reaches into the left box"
+      assert_operator xs.max, :<=, right[0], "arrowhead reaches into the right box"
+    end
+  end
+
+  def test_an_ltr_link_between_siblings_is_vertical_and_clear
+    # In LTR, siblings stack vertically. The link used to be anchored with
+    # the movement-path offsets, coming out diagonal and floating off both
+    # boxes; it should be vertical and run between the facing edges.
+    opts = @base_opts.merge(data: "[S [NP [Det the] [N cat+-1]] [VP [V chased+-1] [NP mice]]]", direction: "ltr")
+    svg = RSyntaxTree::RSGenerator.new(opts).draw_svg
+    doc = Nokogiri::XML(svg)
+
+    link = doc.css("line").find { |l| l["style"] =~ /#CC79A7|purple/ }
+    refute_nil link, "no link drawn"
+    assert_in_delta link["x1"].to_f, link["x2"].to_f, 0.001, "the link should be vertical"
+    assert_operator (link["y2"].to_f - link["y1"].to_f).abs, :>, 0, "the link has no length"
+  end
+
+  # ===================
   # Hyphen readings
   # ===================
 

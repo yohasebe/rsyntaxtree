@@ -42,6 +42,10 @@
 <polygon style='stroke:#009E73; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='283.5,187.03999999999996 483.0,187.03999999999996 483.0,259.84 283.5,259.84' />
 
-<path d='M116.55000000000001,181.43999999999997 L183.22500000000002,138.32 L249.9, 95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
-<path d='M383.25,181.43999999999997 L316.575,138.32 L249.9, 95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBothways)' />
-<path d='M233.10000000000002,223.44 L249.9,223.44 L266.7, 223.44' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' /></svg>
+<line x1='116.55000000000001' y1='181.43999999999997' x2='249.9' y2='95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;' />
+<polygon points='204.3854455226687,124.63513444413239 194.84010369284545,140.8118599889337 185.71685998893372,126.70489630715457' style='fill:#CC79A7; stroke:none;' />
+<polygon points='162.06455447733134,152.0048655558676 180.73314001106633,149.93510369284542 171.6098963071546,135.8281400110663' style='fill:#CC79A7; stroke:none;' />
+<line x1='383.25' y1='181.43999999999997' x2='249.9' y2='95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;' />
+<polygon points='295.4145544773313,124.63513444413239 314.0831400110663,126.70489630715457 304.95989630715457,140.8118599889337' style='fill:#CC79A7; stroke:none;' />
+<polygon points='337.73544552266867,152.0048655558676 328.1901036928454,135.8281400110663 319.0668599889337,149.93510369284542' style='fill:#CC79A7; stroke:none;' />
+<path d='M220.5,223.44 L249.9,223.44 L279.3, 223.44' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' /></svg>

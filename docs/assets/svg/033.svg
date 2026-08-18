@@ -77,5 +77,5 @@
                             points='777.9,518.56 786.3,518.56 786.3,636.16 777.9,636.16' />
 
 <line x1='388.6' y1='262.08' x2='357.64375' y2='95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  />
-<path d='M176.15000000000003,178.64 L361.51875000000007,178.64 L546.8875, 178.64' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
+<path d='M163.55,178.64 L361.51874999999995,178.64 L559.4875, 178.64' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
 <path d='M657.55,387.52 L523.075,366.8 L388.6, 346.08000000000004' style='fill: none; stroke: #CC79A7; stroke-width:2; stroke-linecap:round;'  marker-mid='url(#arrowForward)' /></svg>
