@@ -414,8 +414,10 @@ module RSyntaxTree
             fontstyle = FontFamily.for_svg(@fontstyle, cjk_priority: e[:cjk])
 
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
-              enc_height = e[:height]
-              enc_y = this_y - e[:height] * 0.8
+              # Measured around the enclosed marks in Element#setup; the line
+              # height would draw the shape taller than what it encloses.
+              enc_height = e[:enc_height] || e[:height]
+              enc_y = this_y - (e[:enc_above] || e[:height] * 0.8)
               enc_width = e[:width]
               enc_x = this_x
 

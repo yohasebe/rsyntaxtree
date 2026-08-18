@@ -3,8 +3,8 @@
 # the figure's width so the apparent scale stays comparable from one figure to
 # the next, plus the grid class that decides how much of the row it gets.
 '000':
-  width: 591
-  height: 576
+  width: 585
+  height: 577
   layout: grid-wide
 '001':
   width: 251
@@ -55,20 +55,20 @@
   height: 766
   layout: ''
 '013':
-  width: 671
-  height: 982
+  width: 665
+  height: 985
   layout: grid-stack
 '014':
-  width: 603
-  height: 496
+  width: 594
+  height: 499
   layout: grid-wide
 '015':
   width: 660
   height: 388
   layout: grid-stack
 '016':
-  width: 682
-  height: 600
+  width: 642
+  height: 613
   layout: grid-stack
 '017':
   width: 406
@@ -91,12 +91,12 @@
   height: 442
   layout: grid-stack
 '022':
-  width: 711
-  height: 727
+  width: 690
+  height: 734
   layout: grid-stack
 '023':
-  width: 440
-  height: 361
+  width: 415
+  height: 368
   layout: ''
 '024':
   width: 406
@@ -135,8 +135,8 @@
   height: 506
   layout: ''
 '033':
-  width: 632
-  height: 418
+  width: 627
+  height: 419
   layout: grid-stack
 '034':
   width: 827
@@ -175,8 +175,8 @@
   height: 341
   layout: ''
 '043':
-  width: 625
-  height: 415
+  width: 614
+  height: 417
   layout: grid-stack
 '044':
   width: 115

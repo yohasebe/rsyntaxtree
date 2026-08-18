@@ -11,6 +11,9 @@
 ETYPE_NODE = 1
 ETYPE_LEAF = 2
 SUBSCRIPT_CONST = 0.7
+# Breathing room between the marks a box or circle encloses and the shape
+# itself, as a fraction of the line height.
+ENCLOSURE_PADDING = 0.11
 FONT_SCALING = 2
 LINE_SCALING = 1
 BLINE_SCALING = 2

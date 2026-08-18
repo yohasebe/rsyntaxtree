@@ -111,7 +111,12 @@ class String
 end
 
 module FontMetrics
-  Metrics = Struct.new(:width, :height)
+  # height is the vertical rhythm (see LINE_HEIGHT_FACTOR), which is what the
+  # layout advances by. ink_height and ink_above describe where the glyphs
+  # actually are: how tall the marks are, and how far the tallest reaches above
+  # the baseline. A box or circle drawn around text needs the latter — sized by
+  # the rhythm it would stand a head taller than the letters it encloses.
+  Metrics = Struct.new(:width, :height, :ink_height, :ink_above)
 
   # Vertical rhythm is defined deterministically from the font size rather
   # than taken from Pango's font-dependent logical extents. The 1.4 factor
@@ -139,7 +144,9 @@ module FontMetrics
     layout.font_description = desc
     layout.text = text
     width, = layout.pixel_size
-    Metrics.new(width, fontsize * LINE_HEIGHT_FACTOR)
+    ink, = layout.pixel_extents
+    baseline = layout.baseline / Pango::SCALE.to_f
+    Metrics.new(width, fontsize * LINE_HEIGHT_FACTOR, ink.height, baseline - ink.y)
   end
 
   def pango_layout

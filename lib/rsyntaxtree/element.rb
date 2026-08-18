@@ -140,9 +140,30 @@ module RSyntaxTree
 
             # The following is unchanged
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
+              # Size the enclosure to the marks it encloses, not to the line's
+              # rhythm: the rhythm leaves room for ascenders and descenders no
+              # digit uses, so a box drawn to it stands a head taller than the
+              # tag inside. Measuring the ink keeps a tag snug and still lets a
+              # full-height glyph — kana, an emoji — have the room it needs.
+              # A capital sets the floor, so boxes around 's' and around 'G' come
+              # out the same height and a row of tags reads as a row; a taller
+              # glyph than that — kana, an emoji — pushes the shape open.
+              ink = FontMetrics.get_metrics(text, font, fontsize, style, weight)
+              padding = height * ENCLOSURE_PADDING
+              if ink.ink_height.to_f.positive?
+                above = [ink.ink_above, standard_metrics.ink_above].max
+                below = [ink.ink_height - ink.ink_above, standard_metrics.ink_height - standard_metrics.ink_above].max
+                e[:enc_height] = above + below + padding * 2
+                e[:enc_above] = above + padding
+              else
+                # Bars and other blank-texted shapes have no ink to measure.
+                e[:enc_height] = height
+                e[:enc_above] = height * 0.8
+              end
+
               e[:content_width] = width
               width += if e[:text].size == 1
-                        height - width
+                        [e[:enc_height] - width, 0].max
                       else
                         @global[:width_half_x]
                       end
