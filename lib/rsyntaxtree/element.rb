@@ -104,7 +104,11 @@ module RSyntaxTree
               e[:matrix_width] = inner[:width]
               e[:matrix_height] = inner[:height]
               e[:width] = inner[:width] + matrix_bracket_room * 2
-              e[:height] = inner[:height] + matrix_vertical_room * 2
+              # Only the room below is part of the row's own height. The room
+              # above has to widen the gap the row is entered on, or the
+              # bracket is simply drawn over the line before it.
+              e[:height] = inner[:height] + matrix_vertical_room
+              content[:top_room] = matrix_vertical_room
               elements_height << e[:height]
               row_width += e[:width]
               next
@@ -194,6 +198,11 @@ module RSyntaxTree
               e[:enc_height] = half * 2
               e[:enc_above] = centre + half
 
+              # A row holding a shape has to be taller than the shape, or two of
+              # them on consecutive rows come out edge to edge: the rhythm is
+              # set for lines of text, and a box is nearly as tall as one.
+              height = [height, e[:enc_height] + fontsize * ENCLOSURE_PADDING * 2].max
+
               e[:content_width] = width
               width += if e[:text].size == 1
                         [e[:enc_height] - width, 0].max
@@ -220,7 +229,8 @@ module RSyntaxTree
             row_width += width
           end
 
-          total_height += elements_height.max
+          content[:height] = elements_height.max
+          total_height += elements_height.max + content[:top_room].to_f
           content_width += row_width
         end
         total_width = content_width if total_width < content_width

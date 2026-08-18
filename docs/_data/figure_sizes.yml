@@ -60,7 +60,7 @@
   layout: grid-stack
 '014':
   width: 600
-  height: 497
+  height: 507
   layout: grid-wide
 '015':
   width: 660
@@ -68,7 +68,7 @@
   layout: grid-stack
 '016':
   width: 654
-  height: 609
+  height: 645
   layout: grid-stack
 '017':
   width: 406
@@ -92,11 +92,11 @@
   layout: grid-stack
 '022':
   width: 704
-  height: 729
+  height: 733
   layout: grid-stack
 '023':
   width: 433
-  height: 363
+  height: 377
   layout: ''
 '024':
   width: 406
@@ -152,7 +152,7 @@
   layout: ''
 '037':
   width: 466
-  height: 193
+  height: 196
   layout: grid-wide
 '038':
   width: 728
@@ -176,7 +176,7 @@
   layout: ''
 '043':
   width: 622
-  height: 415
+  height: 428
   layout: grid-stack
 '044':
   width: 115
@@ -192,7 +192,7 @@
   layout: grid-stack
 '047':
   width: 109
-  height: 308
+  height: 335
   layout: ''
 '048':
   width: 940

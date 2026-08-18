@@ -392,6 +392,7 @@ module RSyntaxTree
           # row holding a nested matrix is as tall as the matrix, and the row
           # after it has to clear all of it.
           text_y += prev_line_height if idx != 0 && prev_line_height
+          text_y += l[:top_room].to_f
           prev_line_height = l[:elements].map { |e| e[:height] }.max
 
           l[:elements].each do |e|
