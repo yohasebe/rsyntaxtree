@@ -220,7 +220,9 @@ module RSyntaxTree
       left = el.horizontal_indent
       right = el.horizontal_indent + el.content_width
       if [:brackets, :rectangle, :brectangle].include?(el.enclosure)
-        ext = @global[:h_gap_between_nodes] / 2 + (@linewidth + BLINE_SCALING)
+        # The room the enclosure needs is already part of content_width; only
+        # the stroke straddling the edge reaches beyond it.
+        ext = @linewidth + BLINE_SCALING
         left -= ext
         right += ext
         sw = @linewidth + BLINE_SCALING
@@ -343,7 +345,11 @@ module RSyntaxTree
 
       text_data = @text_styles.sub(/COLOR/, col)
       text_data = text_data.sub(/fontsize/, @fontsize.to_s + "px;")
-      text_x = txt_pos - element.content_width / 2
+      # The node is laid out at the width of its label plus the room its own
+      # enclosure needs, so the text starts that far inside the node's left
+      # edge and the enclosure is drawn on the edge itself.
+      enclosure_room = element.label_enclosure_room
+      text_x = txt_pos - element.content_width / 2 + enclosure_room
       text_y = top + @global[:single_line_height] - @global[:height_connector_to_text]
       text_data  = text_data.sub(/X_VALUE/, text_x.to_s)
       text_data  = text_data.sub(/Y_VALUE/, text_y.to_s)
@@ -351,13 +357,7 @@ module RSyntaxTree
       this_x = 0
       this_y = 0
       prev_line_height = nil
-      # The label's own enclosure is drawn inside the gap kept between nodes,
-      # which is why it is this wide and no wider: the layout sizes a node by
-      # its content, so a bracket drawn past the gap would reach into the
-      # neighbour and leave every connector and movement arrow attached to the
-      # node landing short of the line that is actually drawn around it.
-      enclosure_room = @global[:h_gap_between_nodes] / 2
-      bc = { x: text_x - enclosure_room, y: top, width: element.content_width + enclosure_room * 2, height: nil }
+      bc = { x: text_x - enclosure_room, y: top, width: element.content_width, height: nil }
       element.content.each_with_index do |l, idx|
         case l[:type]
         when :border, :bborder
@@ -368,7 +368,7 @@ module RSyntaxTree
             text_y += l[:height]
           end
           y1 = text_y - @global[:single_line_height] / 8
-          x2 = text_x + element.content_width
+          x2 = text_x + element.text_width
           y2 = y1
           case l[:type]
           when :border
@@ -382,7 +382,7 @@ module RSyntaxTree
             # LTR leaves: left-align text at the node's left edge
             this_x = left
           elsif element.enclosure == :brackets
-            this_x = txt_pos - element.content_width / 2
+            this_x = text_x
           else
             ewidth = 0
             l[:elements].each do |e|

@@ -3,9 +3,9 @@
 # the figure's width so the apparent scale stays comparable from one figure to
 # the next, plus the grid class that decides how much of the row it gets.
 '000':
-  width: 589
-  height: 576
-  layout: grid-wide
+  width: 613
+  height: 569
+  layout: grid-stack
 '001':
   width: 251
   height: 316
@@ -55,20 +55,20 @@
   height: 766
   layout: ''
 '013':
-  width: 703
-  height: 865
+  width: 777
+  height: 837
   layout: grid-stack
 '014':
-  width: 600
-  height: 490
-  layout: grid-wide
+  width: 703
+  height: 470
+  layout: grid-stack
 '015':
   width: 660
   height: 388
   layout: grid-stack
 '016':
   width: 654
-  height: 584
+  height: 605
   layout: grid-stack
 '017':
   width: 406
@@ -80,7 +80,7 @@
   layout: grid-stack
 '019':
   width: 940
-  height: 829
+  height: 607
   layout: grid-stack
 '020':
   width: 558
@@ -96,7 +96,7 @@
   layout: grid-stack
 '023':
   width: 433
-  height: 361
+  height: 363
   layout: ''
 '024':
   width: 406
@@ -104,7 +104,7 @@
   layout: ''
 '025':
   width: 940
-  height: 414
+  height: 367
   layout: grid-stack
 '026':
   width: 495
@@ -120,43 +120,43 @@
   layout: ''
 '029':
   width: 940
-  height: 668
+  height: 604
   layout: grid-stack
 '030':
-  width: 878
-  height: 614
+  width: 940
+  height: 594
   layout: grid-stack
 '031':
   width: 504
   height: 284
   layout: grid-wide
 '032':
-  width: 372
-  height: 506
-  layout: ''
+  width: 454
+  height: 473
+  layout: grid-wide
 '033':
-  width: 630
-  height: 418
+  width: 656
+  height: 413
   layout: grid-stack
 '034':
-  width: 827
-  height: 401
+  width: 940
+  height: 382
   layout: grid-stack
 '035':
   width: 940
-  height: 522
+  height: 480
   layout: grid-stack
 '036':
-  width: 346
-  height: 206
+  width: 408
+  height: 195
   layout: ''
 '037':
-  width: 466
-  height: 191
+  width: 494
+  height: 187
   layout: grid-wide
 '038':
-  width: 728
-  height: 483
+  width: 739
+  height: 481
   layout: grid-stack
 '039':
   width: 88
@@ -167,8 +167,8 @@
   height: 577
   layout: grid-stack
 '041':
-  width: 629
-  height: 448
+  width: 706
+  height: 431
   layout: grid-stack
 '042':
   width: 200
@@ -176,15 +176,15 @@
   layout: ''
 '043':
   width: 622
-  height: 409
+  height: 415
   layout: grid-stack
 '044':
-  width: 115
+  width: 162
   height: 84
   layout: ''
 '045':
-  width: 802
-  height: 955
+  width: 920
+  height: 913
   layout: grid-stack
 '046':
   width: 940
@@ -307,18 +307,18 @@
   height: 622
   layout: ''
 '076':
-  width: 629
-  height: 483
+  width: 655
+  height: 477
   layout: grid-stack
 '077':
   width: 532
   height: 454
   layout: grid-wide
 '078':
-  width: 414
-  height: 337
+  width: 443
+  height: 329
   layout: ''
 '079':
-  width: 209
-  height: 252
+  width: 246
+  height: 238
   layout: ''

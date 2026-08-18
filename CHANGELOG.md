@@ -42,6 +42,15 @@
 - A bracketed value cleared the descenders of the line above it by a pixel.
   The gap that separates it was cancelled by the padding drawn inside its own
   brackets; the two are now counted separately.
+- The room a label's own bracket or rectangle needs is part of the width the
+  tree lays the node out at. It used to be drawn beyond that width, so the
+  outermost pair of brackets in a feature structure stood closer to its
+  contents than every pair within, and whatever was measured against the node
+  disagreed with the box drawn around it.
+- A node holding nothing but a shape measured short of a line, and since a
+  level is placed by the height of the nodes above it, such a node pulled its
+  own children off the row its cousins sat on. The tournament figure had its
+  leaves on three different baselines.
 
 ## [1.8.2] - 2026-08
 

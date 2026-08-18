@@ -12,7 +12,7 @@ require_relative "utils"
 
 module RSyntaxTree
   class Element
-    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
+    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
 
     def initialize(id, parent, content, level, fontset, fontsize, global)
       @global = global
@@ -87,8 +87,21 @@ module RSyntaxTree
 
     def setup
       layout = measure_lines(@content)
-      @content_width = layout[:width]
+      @text_width = layout[:width]
+      @content_width = layout[:width] + label_enclosure_room * 2
       @content_height = layout[:height]
+    end
+
+    # Room on each side of a label for its own bracket or rectangle. It is part
+    # of the width the tree lays the node out at, so that whatever attaches to
+    # the node — a connector, a movement arrow, the neighbour beside it —
+    # meets the line actually drawn around it. A matrix nested in the label
+    # keeps the same room, so the outermost pair of brackets in a feature
+    # structure stands as far from its contents as every pair within.
+    def label_enclosure_room
+      return 0 unless [:brackets, :rectangle, :brectangle].include?(@enclosure)
+
+      @global[:width_half_x] * MATRIX_BRACKET_ROOM
     end
 
     # Measures a list of label lines, filling in the width and height of every
@@ -171,6 +184,7 @@ module RSyntaxTree
             standard_metrics = FontMetrics.get_metrics('X', font, fontsize, :normal, :normal)
 
             height = standard_metrics.height
+            line_height = height
             if /\A[<>]+\z/ =~ text
               width = standard_metrics.width * text.size / 2
             elsif text.contains_emoji?
@@ -250,11 +264,19 @@ module RSyntaxTree
 
             e[:height] = height
 
+            # What the label measures is not what its rows advance by. A line
+            # of nothing but shapes advances by the shapes, so a grid closes
+            # up, but it still measures a full line: the tree places a level by
+            # the height of the nodes above it, so a node measured short of the
+            # rhythm pulls its own children up and off the row its cousins sit
+            # on.
+            measured = [height, line_height].max
+
             if one_bvm_given
-              elements_height << height
+              elements_height << measured
             else
               one_bvm_given = true
-              elements_height << height + @global[:box_vertical_margin]
+              elements_height << measured + @global[:box_vertical_margin]
             end
 
             e[:width] = width
