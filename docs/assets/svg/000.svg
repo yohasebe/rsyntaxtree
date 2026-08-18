@@ -62,9 +62,9 @@
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='577.4' y1='732.48' x2='577.4' y2='646.24' />
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='774.0' y1='732.48' x2='773.5' y2='646.24' />
 <rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:2;'
-                        x='15.200000000000003' y='406.36778607242337'
-                        width='41.6' height='41.6'
-                        fill='none' />
+                    x='15.200000000000003' y='406.36778607242337'
+                    width='41.6' height='41.6'
+                    fill='none' />
 
 <polyline style='stroke:#009E73; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='478.4,738.0799999999999 470.79999999999995,738.0799999999999 470.79999999999995,855.68 478.4,855.68' />

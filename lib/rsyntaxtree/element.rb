@@ -73,10 +73,19 @@ module RSyntaxTree
     end
 
     def setup
+      layout = measure_lines(@content)
+      @content_width = layout[:width]
+      @content_height = layout[:height]
+    end
+
+    # Measures a list of label lines, filling in the width and height of every
+    # element and aligning the columns that \t marks. A nested matrix runs
+    # through here again, which is what lets a feature structure hold another.
+    def measure_lines(lines)
       total_width = 0
       total_height = 0
       one_bvm_given = false
-      @content.each do |content|
+      lines.each do |content|
         content_width = 0
         case content[:type]
         when :border, :bborder
@@ -87,6 +96,20 @@ module RSyntaxTree
           row_width = 0
           elements_height = []
           content[:elements].each do |e|
+            # A nested matrix is measured by the same code one level down, and
+            # reports the size of the block it will occupy in this row: its own
+            # content plus the brackets drawn around it.
+            if e[:decoration].include?(:matrix)
+              inner = measure_lines(e[:matrix])
+              e[:matrix_width] = inner[:width]
+              e[:matrix_height] = inner[:height]
+              e[:width] = inner[:width] + matrix_bracket_room * 2
+              e[:height] = inner[:height]
+              elements_height << inner[:height]
+              row_width += e[:width]
+              next
+            end
+
             text = e[:text]
             # Handle escaped square brackets
             text = text.gsub('\\[', '[')
@@ -202,13 +225,17 @@ module RSyntaxTree
         end
         total_width = content_width if total_width < content_width
       end
-      total_width = align_columns(total_width)
-      @content_width = total_width
-      @content_height = total_height
+      { width: align_columns(lines, total_width), height: total_height }
     end
 
     def add_child(child_id)
       @children << child_id
+    end
+
+    # Horizontal room a nested matrix needs on each side for its bracket and
+    # the air around it.
+    def matrix_bracket_room
+      @global[:width_half_x] * 1.5
     end
 
     private
@@ -220,9 +247,9 @@ module RSyntaxTree
     # and the widest line decides the label's width.
     #
     # Returns the label width, unchanged when no line has a separator.
-    def align_columns(fallback_width)
-      rows = @content.select { |c| c[:type] == :text }
-                     .map { |c| split_into_cells(c[:elements]) }
+    def align_columns(lines, fallback_width)
+      rows = lines.select { |c| c[:type] == :text }
+                  .map { |c| split_into_cells(c[:elements]) }
       return fallback_width unless rows.any? { |cells| cells.size > 1 }
 
       columns = rows.map(&:size).max

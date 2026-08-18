@@ -51,6 +51,46 @@ class NodeStylingTest < Minitest::Test
   end
 
   # ===================
+  # Nested matrices
+  # ===================
+
+  # A feature structure holds another feature structure as the value of an
+  # attribute. Without that, HEAD and CASE have to be written as siblings,
+  # which is not what the theory says.
+  def test_nested_matrix_draws_its_own_brackets
+    plain = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: '[#HEAD\tnoun]')).draw_svg
+    nested = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: '[#HEAD\t#(noun\nCASE\tnom#)]')).draw_svg
+
+    assert_operator nested.scan(/<polyline/).size, :>, plain.scan(/<polyline/).size,
+                    "the nested matrix should add a pair of brackets"
+    assert_includes nested, "CASE"
+  end
+
+  def test_nested_matrix_makes_the_label_taller
+    flat = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: '[#HEAD\tnoun]')).draw_svg
+    nested = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: '[#HEAD\t#(noun\nCASE\tnom#)]')).draw_svg
+
+    assert_operator nested[/height="([\d.]+)"/, 1].to_f, :>, flat[/height="([\d.]+)"/, 1].to_f
+  end
+
+  def test_rows_after_a_nested_matrix_clear_it
+    svg = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: '[#HEAD\t#(a\nb\nc#)\nSPR\tx]')).draw_svg
+    ys = Nokogiri::XML(svg).css("tspan").map { |s| [s.text, s["y"].to_f] }
+    matrix_bottom = ys.select { |t, _| t == "c" }.map(&:last).max
+    spr = ys.select { |t, _| t == "SPR" }.map(&:last).max
+
+    refute_nil matrix_bottom
+    refute_nil spr
+    assert_operator spr, :>, matrix_bottom, "SPR should sit below the matrix it follows"
+  end
+
+  def test_matrices_nest_to_any_depth
+    svg = RSyntaxTree::RSGenerator.new(@base_opts.merge(data: '[#A\t#(B\t#(C\t#(D\tvalue#)#)#)]')).draw_svg
+
+    %w[A B C D value].each { |t| assert_includes svg, t }
+  end
+
+  # ===================
   # Column alignment (\t)
   # ===================
 

@@ -65,7 +65,19 @@ class MarkupParser < Parslet::Parser
 
   rule(:shape) { (hatched_circle | hatched_box | empty_circle | empty_box | horizontal_bar | arrow_both | arrow_to_l | arrow_to_r | circle | box) }
 
-  rule(:markup) { (tabstop | text | decoration | shape | bstroke) }
+  # A matrix inside a label: the value of an attribute can be another
+  # attribute-value matrix, which is what a feature structure of any depth
+  # needs. Rows are separated by \n and cells by \t, exactly as at the top
+  # level, and the group draws its own brackets. '#(' and '#)' delimit it —
+  # bare brackets would be read as tree structure and bare parentheses appear
+  # in labels too often to claim.
+  rule(:matrix) { str('#(') >> matrix_line.repeat(1).as(:matrix) >> str('#)') }
+  rule(:matrix_line) { matrix_markup.repeat(1).as(:line) >> (cr | str('#)').present?) }
+  rule(:matrix_markup) { (matrix | tabstop | matrix_text | decoration | shape | bstroke) }
+  # Text inside a matrix stops at the closing delimiter as well.
+  rule(:matrix_text) { (escaped | (str('#)').absent? >> non_escaped)).repeat(1).as(:text) }
+
+  rule(:markup) { (matrix | tabstop | text | decoration | shape | bstroke) }
 
   rule(:line) { (cr.as(:extracr) | border | bborder | markup.repeat(1).as(:line) >> (cr | eof | str('+').present?)) }
   rule(:lines) { triangle.maybe.as(:triangle) >> (brectangle | rectangle | brackets).maybe.as(:enclosure) >> region.maybe.as(:region) >> color_spec.maybe.as(:color) >> line.repeat(1) >> path.repeat(0).as(:paths) >> (cr | eof) }
@@ -173,6 +185,11 @@ module Markup
     }
     rule(bborder: simple(:bborder)) {
       { type: :bborder }
+    }
+    # A nested matrix reaches the element list as one element carrying its own
+    # lines, so the measuring and drawing code can recurse into it.
+    rule(matrix: subtree(:matrix)) {
+      { text: +"", decoration: [:matrix], matrix: matrix }
     }
     rule(line: subtree(:line)) {
       { type: :text, elements: line }

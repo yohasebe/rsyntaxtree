@@ -3,6 +3,11 @@
 ## [Unreleased]
 
 ### Added
+- A matrix nested in a label, written between `#(` and `#)`. The value of an
+  attribute can be another attribute-value matrix, to any depth, which is what
+  a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs and what HPSG,
+  SBCG and LFG are written in. The nested matrix draws its own brackets and
+  lays out its own columns, and the rows after it clear its full height.
 - `\t` in a label cuts the line into cells. Every line is cut at the same
   points and each column is drawn at the width of its widest cell, so the
   parts line up down the label. Together with the bracket enclosure and the

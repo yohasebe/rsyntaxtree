@@ -350,6 +350,7 @@ module RSyntaxTree
       new_text = +""
       this_x = 0
       this_y = 0
+      prev_line_height = nil
       bc = { x: text_x - @global[:h_gap_between_nodes] / 2, y: top, width: element.content_width + @global[:h_gap_between_nodes], height: nil }
       element.content.each_with_index do |l, idx|
         case l[:type]
@@ -383,127 +384,32 @@ module RSyntaxTree
             end
             this_x = txt_pos - (ewidth / 2)
           end
-          text_y += l[:elements].map { |e| e[:height] }.max if idx != 0
+          # Advance by the height of the line just drawn, not of this one: a
+          # row holding a nested matrix is as tall as the matrix, and the row
+          # after it has to clear all of it.
+          text_y += prev_line_height if idx != 0 && prev_line_height
+          prev_line_height = l[:elements].map { |e| e[:height] }.max
 
           l[:elements].each do |e|
-            escaped_text = e[:text].gsub('>', '&gt;').gsub('<', '&lt;');
-            decorations = []
-            decorations << "overline" if e[:decoration].include?(:overline)
-            decorations << "underline" if e[:decoration].include?(:underline)
-            decorations << "line-through" if e[:decoration].include?(:linethrough)
-            decoration = "text-decoration=\"" + decorations.join(" ") + "\""
+if e[:decoration].include?(:matrix)
+  markup, this_x = render_matrix(e, this_x, text_y, element, col)
+  new_text << markup
+  next
+end
 
-            style = "style=\""
-            if e[:decoration].include?(:small)
-              style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-              this_y = text_y - ((@global[:single_x_metrics].height - @global[:single_x_metrics].height * SUBSCRIPT_CONST) / 4) + 2
-            elsif e[:decoration].include?(:superscript)
-              style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-              this_y = text_y - (@global[:single_x_metrics].height / 4) + 1
-            elsif e[:decoration].include?(:subscript)
-              style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-              this_y = text_y + 4
-            else
-              this_y = text_y
-            end
-
-            style += "font-weight: bold; fill: #{@col_emph}; " if e[:decoration].include?(:bold) || e[:decoration].include?(:bolditalic)
-            style += "font-style: italic; " if e[:decoration].include?(:italic) || e[:decoration].include?(:bolditalic)
-            style += "\""
-
-            fontstyle = FontFamily.for_svg(@fontstyle, cjk_priority: e[:cjk])
-
-            if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
-              # Measured around the enclosed marks in Element#setup; the line
-              # height would draw the shape taller than what it encloses.
-              enc_height = e[:enc_height] || e[:height]
-              enc_y = this_y - (e[:enc_above] || e[:height] * 0.8)
-              enc_width = e[:width]
-              enc_x = this_x
-
-              if e[:decoration].include?(:hatched)
-                case element.type
-                when ETYPE_LEAF
-                  fill = if @color
-                           "url(#hatchForLeaf)"
-                         else
-                           "url(#hatchBlack)"
-                         end
-                when ETYPE_NODE
-                  fill = if @color
-                           "url(#hatchForNode)"
-                         else
-                           "url(#hatchBlack)"
-                         end
-                end
-              else
-                fill = "none"
-              end
-
-              enc = nil
-
-              stroke_width = if e[:decoration].include?(:bstroke)
-                               @linewidth + BLINE_SCALING
-                             else
-                               @linewidth + LINE_SCALING
-                             end
-
-              if e[:decoration].include?(:box)
-                enc = "<rect style='stroke: #{col}; stroke-linejoin:round; stroke-width:#{stroke_width};'
-                        x='#{enc_x}' y='#{enc_y}'
-                        width='#{enc_width}' height='#{enc_height}'
-                        fill='#{fill}' />\n"
-              elsif e[:decoration].include?(:circle)
-                enc = "<rect style='stroke: #{col}; stroke-width:#{stroke_width};'
-                        x='#{enc_x}' y='#{enc_y}' rx='#{enc_height / 2}' ry='#{enc_height / 2}'
-                        width='#{enc_width}' height='#{enc_height}'
-                        fill='#{fill}' />\n"
-              elsif e[:decoration].include?(:bar)
-                x1 = enc_x
-                y1 = enc_y + enc_height / 2
-                x2 = enc_x + enc_width
-                y2 = y1
-                ar_hwidth = e[:width] / 4.0
-                bar = "<line style='fill:none; stroke:#{col}; stroke-linejoin:round; stroke-linecap:round; stroke-width:#{stroke_width};' x1='#{x1 + stroke_width / 2}' y1='#{y1}' x2='#{x2 - stroke_width / 2}' y2='#{y2}'></line>\n"
-                @extra_lines << bar
-
-                if e[:decoration].include?(:arrow_to_l)
-                  l_arrowhead = "<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x1 + ar_hwidth},#{y1 + ar_hwidth / 2} #{x1 + stroke_width / 2},#{y1} #{x1 + ar_hwidth},#{y1 - ar_hwidth / 2}' />\n"
-                  @extra_lines << l_arrowhead
-                end
-
-                if e[:decoration].include?(:arrow_to_r)
-                  r_arrowhead = "<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x2 - ar_hwidth},#{y2 - ar_hwidth / 2} #{x2 - stroke_width / 2},#{y2} #{x2 - ar_hwidth},#{y2 + ar_hwidth / 2}' />\n"
-                  @extra_lines << r_arrowhead
-                end
-              end
-
-              @extra_lines << enc if enc
-
-              # Centre the marks in the shape. e[:width] is the shape's width,
-              # e[:content_width] the marks' own, so half the difference is the
-              # left inset — the line height used to stand in for the shape's
-              # width here, which left the glyph off-centre once the shape was
-              # measured from its content instead.
-              inset = (e[:width] - e[:content_width]) / 2
-              this_x += inset
-              new_text << set_tspan(this_x, this_y, style, decoration, fontstyle, escaped_text)
-              this_x += e[:content_width] + inset
-
-            elsif e[:decoration].include?(:whitespace)
-              this_x += e[:width]
-              next
-            else
-              new_text << set_tspan(this_x, this_y, style, decoration, fontstyle, escaped_text)
-              this_x += e[:width]
-            end
+markup, this_x = render_run(e, this_x, text_y, element, col)
+new_text << markup
           end
         end
         @height = text_y if text_y > @height
       end
 
       bc[:y] = bc[:y] + @global[:height_connector_to_text] * 3 / 4
-      bc[:height] = text_y - bc[:y] + @global[:height_connector_to_text]
+      # text_y is the baseline of the last line. A line holding a nested matrix
+      # reaches further down than a line of text, so the label has to be given
+      # the rest of it.
+      overhang = prev_line_height.to_f - @global[:single_x_metrics].height
+      bc[:height] = text_y - bc[:y] + @global[:height_connector_to_text] + [overhang, 0].max
       case element.enclosure
       when :brackets
         draw_bracket(bc[:x], bc[:y], bc[:width], bc[:height], col)
@@ -515,6 +421,156 @@ module RSyntaxTree
 
       element.content_height = bc[:height]
       @tree_data += text_data.sub(/CONTENT/, new_text)
+    end
+
+    # Draws one run of a label — a stretch of text with its decorations, or the
+    # box, circle or bar drawn around it — at the given pen position, and
+    # reports where the pen ends up. A nested matrix draws its own runs through
+    # here, so this could no longer live inside the drawing loop.
+    def render_run(e, this_x, text_y, element, col)
+      out = +""
+      this_y = text_y
+        escaped_text = e[:text].gsub('>', '&gt;').gsub('<', '&lt;');
+        decorations = []
+        decorations << "overline" if e[:decoration].include?(:overline)
+        decorations << "underline" if e[:decoration].include?(:underline)
+        decorations << "line-through" if e[:decoration].include?(:linethrough)
+        decoration = "text-decoration=\"" + decorations.join(" ") + "\""
+
+        style = "style=\""
+        if e[:decoration].include?(:small)
+          style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
+          this_y = text_y - ((@global[:single_x_metrics].height - @global[:single_x_metrics].height * SUBSCRIPT_CONST) / 4) + 2
+        elsif e[:decoration].include?(:superscript)
+          style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
+          this_y = text_y - (@global[:single_x_metrics].height / 4) + 1
+        elsif e[:decoration].include?(:subscript)
+          style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
+          this_y = text_y + 4
+        else
+          this_y = text_y
+        end
+
+        style += "font-weight: bold; fill: #{@col_emph}; " if e[:decoration].include?(:bold) || e[:decoration].include?(:bolditalic)
+        style += "font-style: italic; " if e[:decoration].include?(:italic) || e[:decoration].include?(:bolditalic)
+        style += "\""
+
+        fontstyle = FontFamily.for_svg(@fontstyle, cjk_priority: e[:cjk])
+
+        if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
+          # Measured around the enclosed marks in Element#setup; the line
+          # height would draw the shape taller than what it encloses.
+          enc_height = e[:enc_height] || e[:height]
+          enc_y = this_y - (e[:enc_above] || e[:height] * 0.8)
+          enc_width = e[:width]
+          enc_x = this_x
+
+          if e[:decoration].include?(:hatched)
+            case element.type
+            when ETYPE_LEAF
+              fill = if @color
+                       "url(#hatchForLeaf)"
+                     else
+                       "url(#hatchBlack)"
+                     end
+            when ETYPE_NODE
+              fill = if @color
+                       "url(#hatchForNode)"
+                     else
+                       "url(#hatchBlack)"
+                     end
+            end
+          else
+            fill = "none"
+          end
+
+          enc = nil
+
+          stroke_width = if e[:decoration].include?(:bstroke)
+                           @linewidth + BLINE_SCALING
+                         else
+                           @linewidth + LINE_SCALING
+                         end
+
+          if e[:decoration].include?(:box)
+            enc = "<rect style='stroke: #{col}; stroke-linejoin:round; stroke-width:#{stroke_width};'
+                    x='#{enc_x}' y='#{enc_y}'
+                    width='#{enc_width}' height='#{enc_height}'
+                    fill='#{fill}' />\n"
+          elsif e[:decoration].include?(:circle)
+            enc = "<rect style='stroke: #{col}; stroke-width:#{stroke_width};'
+                    x='#{enc_x}' y='#{enc_y}' rx='#{enc_height / 2}' ry='#{enc_height / 2}'
+                    width='#{enc_width}' height='#{enc_height}'
+                    fill='#{fill}' />\n"
+          elsif e[:decoration].include?(:bar)
+            x1 = enc_x
+            y1 = enc_y + enc_height / 2
+            x2 = enc_x + enc_width
+            y2 = y1
+            ar_hwidth = e[:width] / 4.0
+            bar = "<line style='fill:none; stroke:#{col}; stroke-linejoin:round; stroke-linecap:round; stroke-width:#{stroke_width};' x1='#{x1 + stroke_width / 2}' y1='#{y1}' x2='#{x2 - stroke_width / 2}' y2='#{y2}'></line>\n"
+            @extra_lines << bar
+
+            if e[:decoration].include?(:arrow_to_l)
+              l_arrowhead = "<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x1 + ar_hwidth},#{y1 + ar_hwidth / 2} #{x1 + stroke_width / 2},#{y1} #{x1 + ar_hwidth},#{y1 - ar_hwidth / 2}' />\n"
+              @extra_lines << l_arrowhead
+            end
+
+            if e[:decoration].include?(:arrow_to_r)
+              r_arrowhead = "<polyline stroke-linejoin='round' stroke-linecap='round' fill='none' stroke='#{col}' stroke-width='#{stroke_width}' points='#{x2 - ar_hwidth},#{y2 - ar_hwidth / 2} #{x2 - stroke_width / 2},#{y2} #{x2 - ar_hwidth},#{y2 + ar_hwidth / 2}' />\n"
+              @extra_lines << r_arrowhead
+            end
+          end
+
+          @extra_lines << enc if enc
+
+          # Centre the marks in the shape. e[:width] is the shape's width,
+          # e[:content_width] the marks' own, so half the difference is the
+          # left inset — the line height used to stand in for the shape's
+          # width here, which left the glyph off-centre once the shape was
+          # measured from its content instead.
+          inset = (e[:width] - e[:content_width]) / 2
+          this_x += inset
+          out << set_tspan(this_x, this_y, style, decoration, fontstyle, escaped_text)
+          this_x += e[:content_width] + inset
+
+        elsif e[:decoration].include?(:whitespace)
+          return [out, this_x + e[:width]]
+        else
+          out << set_tspan(this_x, this_y, style, decoration, fontstyle, escaped_text)
+          this_x += e[:width]
+        end
+
+      [out, this_x]
+    end
+
+    # Draws a matrix nested in a label: its own rows and columns, laid out from
+    # the sizes Element#measure_lines worked out, inside its own brackets.
+    def render_matrix(e, this_x, text_y, element, col)
+      out = +""
+      inner_x = this_x + @global[:width_half_x] * 1.5
+      baseline = text_y
+      prev_height = nil
+
+      e[:matrix].each_with_index do |line, idx|
+        next unless line[:type] == :text
+
+        baseline += prev_height if idx.positive? && prev_height
+        prev_height = line[:elements].map { |x| x[:height] }.max
+        pen = inner_x
+        line[:elements].each do |cell|
+          markup, pen = if cell[:decoration].include?(:matrix)
+                          render_matrix(cell, pen, baseline, element, col)
+                        else
+                          render_run(cell, pen, baseline, element, col)
+                        end
+          out << markup
+        end
+      end
+
+      top = text_y - @global[:single_x_metrics].height * 0.8
+      draw_bracket(this_x, top, e[:width], e[:matrix_height], col)
+      [out, this_x + e[:width]]
     end
 
     def draw_rectangle(x1, y1, width, height, col, bline = false)

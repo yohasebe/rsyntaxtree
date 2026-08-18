@@ -61,14 +61,14 @@
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='630.8' y1='512.96' x2='630.8' y2='471.52' />
 <line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='851.0' y1='512.96' x2='850.5' y2='471.52' />
 <rect style='stroke: #0072B2; stroke-width:2;'
-                        x='105.85000000000002' y='159.83999999999997' rx='20.8' ry='20.8'
-                        width='53.5' height='41.6'
-                        fill='none' />
+                    x='105.85000000000002' y='159.83999999999997' rx='20.8' ry='20.8'
+                    width='53.5' height='41.6'
+                    fill='none' />
 
 <rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:2;'
-                        x='16.800000000000026' y='285.28000000000003'
-                        width='41.6' height='41.6'
-                        fill='none' />
+                    x='16.800000000000026' y='285.28000000000003'
+                    width='41.6' height='41.6'
+                    fill='none' />
 
 <polyline style='stroke:#009E73; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='529.3,518.56 520.9,518.56 520.9,636.16 529.3,636.16' />

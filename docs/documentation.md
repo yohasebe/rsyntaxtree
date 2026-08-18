@@ -161,7 +161,22 @@ A node whose label is *only* `<>` renders as an invisible pass-through joint: th
 ]
 ```
 
-A label with more than two columns works the same way; each is as wide as it needs to be. Combined with `#` for the enclosing brackets and `---` for a horizontal rule, this covers the feature structures of HPSG, SBCG and LFG — see the [Head-Driven Phrase Structure Grammar example](https://yohasebe.github.io/rsyntaxtree/examples#example-013) in the gallery.
+A label with more than two columns works the same way; each is as wide as it needs to be. See the [Head-Driven Phrase Structure Grammar example](https://yohasebe.github.io/rsyntaxtree/examples#example-013) in the gallery.
+
+#### Nested matrices
+
+The value of an attribute can be another matrix, written between `#(` and `#)`. It draws its own brackets and lays out its own columns, and the rows that follow it clear its full height:
+
+```text
+[#*word*\
+  PHON\t〈<>*Kim*<>〉\
+  SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
+    CASE\t*nom*#)\
+    SPR\t〈<>〉#)#)#)
+]
+```
+
+Matrices nest to any depth, which is what a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
 
 #### Newline
 
