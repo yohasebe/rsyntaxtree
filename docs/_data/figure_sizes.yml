@@ -308,5 +308,17 @@
   layout: ''
 '076':
   width: 629
-  height: 507
+  height: 439
   layout: grid-stack
+'077':
+  width: 532
+  height: 454
+  layout: grid-wide
+'078':
+  width: 414
+  height: 312
+  layout: ''
+'079':
+  width: 209
+  height: 252
+  layout: ''

@@ -23,6 +23,15 @@
   links outnumber their labels — an ontology, a network of constructions —
   where a page of black lines buries the text. `grey` is accepted too.
 
+- Gallery examples for two more frameworks: LFG (an annotated c-structure and
+  the f-structure it maps to, after Kaplan & Bresnan 1982 and Bresnan 2001)
+  and DRT (a discourse representation structure, after Kamp 1981).
+
+### Fixed
+- A nested matrix was drawn about half a line taller than its contents. The
+  margin that holds the first line of a label clear of the connector above it
+  was counted again for every nested block, which already sits inside it.
+
 ## [1.8.2] - 2026-08
 
 ### Changed
