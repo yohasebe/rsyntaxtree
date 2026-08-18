@@ -480,18 +480,15 @@ module RSyntaxTree
 
               @extra_lines << enc if enc
 
-              this_x += if e[:text].size == 1
-                          (e[:height] - e[:content_width]) / 2
-                        else
-                          @global[:width_half_x] / 2
-                        end
-
+              # Centre the marks in the shape. e[:width] is the shape's width,
+              # e[:content_width] the marks' own, so half the difference is the
+              # left inset — the line height used to stand in for the shape's
+              # width here, which left the glyph off-centre once the shape was
+              # measured from its content instead.
+              inset = (e[:width] - e[:content_width]) / 2
+              this_x += inset
               new_text << set_tspan(this_x, this_y, style, decoration, fontstyle, escaped_text)
-              this_x += if e[:text].size == 1
-                          e[:content_width] + (e[:height] - e[:content_width]) / 2
-                        else
-                          e[:content_width] + @global[:width_half_x] / 2
-                        end
+              this_x += e[:content_width] + inset
 
             elsif e[:decoration].include?(:whitespace)
               this_x += e[:width]

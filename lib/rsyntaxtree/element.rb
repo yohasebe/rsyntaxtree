@@ -145,30 +145,31 @@ module RSyntaxTree
               # digit uses, so a box drawn to it stands a head taller than the
               # tag inside. Measuring the ink keeps a tag snug and still lets a
               # full-height glyph — kana, an emoji — have the room it needs.
-              # A capital sets the floor, so boxes around 's' and around 'G' come
-              # out the same height and a row of tags reads as a row; a taller
-              # glyph than that — kana, an emoji — pushes the shape open.
+              # One size for every enclosure in a figure, so a hatched circle,
+              # an empty box and a lettered tag share a diameter — the line's
+              # rhythm used to set it, which left a box standing a head taller
+              # than the numeral inside. It grows only for content that would
+              # not fit at that size: kana, an emoji, or a circle, which has to
+              # clear the corners of the glyph rather than just its height.
               ink = FontMetrics.get_metrics(text, font, fontsize, style, weight)
-              padding = height * ENCLOSURE_PADDING
-              if ink.ink_height.to_f.positive?
-                above = [ink.ink_above, standard_metrics.ink_above].max
-                below = [ink.ink_height - ink.ink_above, standard_metrics.ink_height - standard_metrics.ink_above].max
-                span = above + below
-                # A circle around a single character has to clear the corners of
-                # the glyph, not just its height: a letter that fits a square of
-                # this side pokes out of the circle drawn inside it. Take the
-                # diagonal. Longer text sits in a stadium, whose rounded ends
-                # already leave the corners room, so height alone will do.
-                if e[:decoration].include?(:circle) && e[:text].size == 1
-                  span = Math.sqrt(span**2 + width**2)
-                  above += (span - (above + below)) / 2
-                end
-                e[:enc_height] = span + padding * 2
-                e[:enc_above] = above + padding
+              base = fontsize * ENCLOSURE_SIZE
+              padding = fontsize * ENCLOSURE_PADDING
+              ink_height = ink.ink_height.to_f
+
+              if ink_height.positive?
+                needed = if e[:decoration].include?(:circle) && e[:text].size == 1
+                           Math.sqrt(ink_height**2 + width**2)
+                         else
+                           ink_height + padding * 2
+                         end
+                e[:enc_height] = [base, needed].max
+                e[:enc_above] = ink.ink_above + (e[:enc_height] - ink_height) / 2
               else
-                # Bars and other blank-texted shapes have no ink to measure.
-                e[:enc_height] = height
-                e[:enc_above] = height * 0.8
+                # Bars and other blank-texted shapes have no ink to measure;
+                # centre them on the band a capital occupies.
+                e[:enc_height] = base
+                e[:enc_above] = standard_metrics.ink_above +
+                                (base - standard_metrics.ink_height) / 2
               end
 
               e[:content_width] = width

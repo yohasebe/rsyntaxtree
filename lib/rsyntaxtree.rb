@@ -11,9 +11,14 @@
 ETYPE_NODE = 1
 ETYPE_LEAF = 2
 SUBSCRIPT_CONST = 0.7
-# Breathing room between the marks a box or circle encloses and the shape
-# itself, as a fraction of the line height.
-ENCLOSURE_PADDING = 0.11
+# A box or circle is drawn at this size — a fraction of the font size —
+# whatever it encloses, so that hatched, empty and lettered shapes in one
+# figure share a diameter. It only grows for content that would not fit:
+# see ENCLOSURE_PADDING and Element#setup.
+ENCLOSURE_SIZE = 1.2
+# Breathing room kept between the marks and a shape that had to grow past
+# ENCLOSURE_SIZE, as a fraction of the font size.
+ENCLOSURE_PADDING = 0.12
 FONT_SCALING = 2
 LINE_SCALING = 1
 BLINE_SCALING = 2
