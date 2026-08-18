@@ -15,7 +15,7 @@ SUBSCRIPT_CONST = 0.7
 # whatever it encloses, so that hatched, empty and lettered shapes in one
 # figure share a diameter. It only grows for content that would not fit:
 # see ENCLOSURE_PADDING and Element#setup.
-ENCLOSURE_SIZE = 1.2
+ENCLOSURE_SIZE = 1.3
 # Breathing room kept between the marks and a shape that had to grow past
 # ENCLOSURE_SIZE, as a fraction of the font size.
 ENCLOSURE_PADDING = 0.12

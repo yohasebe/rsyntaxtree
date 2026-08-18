@@ -138,39 +138,38 @@ module RSyntaxTree
               width = metrics.width
             end
 
-            # The following is unchanged
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
-              # Size the enclosure to the marks it encloses, not to the line's
-              # rhythm: the rhythm leaves room for ascenders and descenders no
-              # digit uses, so a box drawn to it stands a head taller than the
-              # tag inside. Measuring the ink keeps a tag snug and still lets a
-              # full-height glyph — kana, an emoji — have the room it needs.
-              # One size for every enclosure in a figure, so a hatched circle,
-              # an empty box and a lettered tag share a diameter — the line's
-              # rhythm used to set it, which left a box standing a head taller
-              # than the numeral inside. It grows only for content that would
-              # not fit at that size: kana, an emoji, or a circle, which has to
-              # clear the corners of the glyph rather than just its height.
+              # One size and one height for every enclosure in a figure, so a
+              # hatched circle, an empty box and a lettered tag line up and
+              # share a diameter. The line's rhythm used to set the size, which
+              # left a box standing a head taller than the numeral inside;
+              # centring each shape on its own glyph instead made the box
+              # around 's' sit lower than the one around 'G'.
+              #
+              # The shape is centred on a capital — the half-way point of the
+              # letters it will usually hold — and drawn at ENCLOSURE_SIZE,
+              # which is wide enough that a descender still clears the bottom.
+              # Centring on the whole cap-to-descender band instead would sit
+              # the shape low around the digits and capitals that fill most
+              # tags, since those never reach below the baseline. It grows past
+              # ENCLOSURE_SIZE only for content that will not fit.
+              band = FontMetrics.get_metrics("Xg", font, fontsize, :normal, :normal)
+              descender = band.ink_height - band.ink_above
+              centre = standard_metrics.ink_above / 2.0
+
               ink = FontMetrics.get_metrics(text, font, fontsize, style, weight)
-              base = fontsize * ENCLOSURE_SIZE
-              padding = fontsize * ENCLOSURE_PADDING
               ink_height = ink.ink_height.to_f
+              # Deep enough for a descender, so the one letter in a hundred that
+              # has one does not get a taller box than its neighbours.
+              half = [fontsize * ENCLOSURE_SIZE / 2.0, centre + descender].max
 
               if ink_height.positive?
-                needed = if e[:decoration].include?(:circle) && e[:text].size == 1
-                           Math.sqrt(ink_height**2 + width**2)
-                         else
-                           ink_height + padding * 2
-                         end
-                e[:enc_height] = [base, needed].max
-                e[:enc_above] = ink.ink_above + (e[:enc_height] - ink_height) / 2
-              else
-                # Bars and other blank-texted shapes have no ink to measure;
-                # centre them on the band a capital occupies.
-                e[:enc_height] = base
-                e[:enc_above] = standard_metrics.ink_above +
-                                (base - standard_metrics.ink_height) / 2
+                reach = [ink.ink_above - centre, centre - (ink.ink_above - ink_height)].max
+                half = reach + fontsize * ENCLOSURE_PADDING if reach > half
               end
+
+              e[:enc_height] = half * 2
+              e[:enc_above] = centre + half
 
               e[:content_width] = width
               width += if e[:text].size == 1
