@@ -4,6 +4,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "tempfile"
 require "open3"
+require "json"
 
 class CLITest < Minitest::Test
   BIN_PATH = File.expand_path("../bin/rsyntaxtree", __dir__)
@@ -320,6 +321,54 @@ end
 
     assert result[:status].success?, "PNG should succeed: #{result[:stderr]}"
     refute_includes result[:stderr], "deprecated"
+  end
+
+  # ===================
+  # --validate / --notation
+  # ===================
+
+  def test_validate_reports_ok_for_valid_input
+    result = run_cli("--validate", "[S [NP a] [VP b]]")
+
+    assert result[:status].success?
+    diagnosis = JSON.parse(result[:stdout])
+    assert_equal true, diagnosis["ok"]
+    assert_equal "rsyntaxtree.error/1", diagnosis["schema"]
+  end
+
+  def test_validate_reports_a_structured_error
+    result = run_cli("--validate", "[X V-bar]")
+
+    refute result[:status].success?
+    diagnosis = JSON.parse(result[:stdout])
+    assert_equal false, diagnosis["ok"]
+    error = diagnosis["errors"].first
+    assert_equal "bare_hyphen", error["code"]
+    assert_equal "V-bar", error["label"]
+    assert_equal 1, error["position"]
+    assert error["retryable"]
+  end
+
+  def test_validate_writes_no_file
+    result = run_cli("--validate", "-o", @tmpdir, "[S [NP a] [VP b]]")
+
+    assert result[:status].success?
+    assert_empty Dir.glob(File.join(@tmpdir, "*")), "validate should write nothing"
+  end
+
+  def test_validate_respects_the_hyphen_option
+    result = run_cli("--validate", "--hyphen", "literal", "[X V-bar]")
+
+    assert result[:status].success?
+    assert_equal true, JSON.parse(result[:stdout])["ok"]
+  end
+
+  def test_notation_prints_the_reference
+    result = run_cli("--notation")
+
+    assert result[:status].success?
+    assert_includes result[:stdout], "RSyntaxTree notation, in brief"
+    assert_includes result[:stdout], "〈"
   end
 
   private

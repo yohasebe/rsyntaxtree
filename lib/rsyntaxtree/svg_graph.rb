@@ -686,18 +686,18 @@ module RSyntaxTree
             path_pool_source[tr] = [x1, y1]
             path_flags << tr
           end
-          raise RSTError, +"Error: input text contains a path having more than two ends:\n > #{tr}" if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
+          raise RSTError.new(+"Error: input text contains a path having more than two ends:\n > #{tr}", code: :path_multiple_ends, hint: "A path or line takes exactly two ends; check the numbers.", retryable: true) if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
         end
       end
 
       path_flags.tally.each do |k, v|
-        raise RSTError, +"Error: input text contains a path having only one end:\n > #{k}" if v == 1
+        raise RSTError.new(+"Error: input text contains a path having only one end:\n > #{k}", code: :path_single_end, hint: "A path takes two ends: one '+N' on each of two nodes.", retryable: true) if v == 1
       end
 
       # A line-type connection is subject to the same rule as a path: it takes
       # two ends. Without this the drawing walked off a nil pool below.
       line_flags.tally.each do |k, v|
-        raise RSTError, +"Error: input text contains a line having only one end:\n > #{k}" if v == 1
+        raise RSTError.new(+"Error: input text contains a line having only one end:\n > #{k}", code: :path_single_end, hint: "A line connection takes two ends: '+-N' on each of two nodes.", retryable: true) if v == 1
       end
 
       path_pool_source.each do |k, v|

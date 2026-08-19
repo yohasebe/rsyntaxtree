@@ -51,10 +51,12 @@ module RSyntaxTree
     end
 
     def self.valid?(data)
-      raise RSTError, +"Error: input text is empty" if data.empty?
+      raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if data.empty?
 
       if /\[\s*\]/m =~ data
-        raise RSTError, +"Error: inside the brackets is empty"
+        raise RSTError.new(+"Error: inside the brackets is empty", code: :empty_brackets,
+                           hint: "A pair of brackets has no label between them. Give the node a label, or remove the pair.",
+                           retryable: true)
       end
 
       text = data.strip
@@ -89,7 +91,9 @@ module RSyntaxTree
       if open_br.length == close_br.length
         true
       else
-        raise RSTError, +"Error: open and close brackets do not match"
+        raise RSTError.new(+"Error: open and close brackets do not match", code: :unbalanced_brackets,
+                           hint: "Count the brackets: every '[' needs one ']'. A bracket meant as text is written \\[ or \\].",
+                           retryable: true)
       end
     end
 
@@ -197,7 +201,24 @@ module RSyntaxTree
               tl = token_r.length
               parts[1] = token_r[spaceat, tl - spaceat].join
 
-              element = Element.new(@id, parent, parts[0], @level, @fontset, @fontsize, @global)
+              element = begin
+                Element.new(@id, parent, parts[0], @level, @fontset, @fontsize, @global)
+              rescue RSTError => e
+                # The first raw space splits a token into the node's label
+                # and its children (that split is the notation's core rule,
+                # so it stays). When the part before the space will not
+                # parse, the likeliest story is that the space belongs
+                # inside the label and cut a construct in two — say so,
+                # unless a more specific cause is already known.
+                raise e if e.code == :bare_hyphen
+
+                raise RSTError.new(e.message,
+                                   code: :label_split,
+                                   label: e.label,
+                                   position: e.position,
+                                   hint: "A raw space split this into a label and its children. If the space belongs inside the label, write it as <> (e.g. 'a<>toy').",
+                                   retryable: true)
+              end
               @id += 1
               @elist.add(element)
               newparent = element.id

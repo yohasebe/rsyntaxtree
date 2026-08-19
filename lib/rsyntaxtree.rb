@@ -51,12 +51,36 @@ DEFAULT_OPTS = {
   hyphen: "markup"
 }.freeze
 
+# A parse or generation failure. `message` is the human-readable text the
+# CLI and the web UI display and must stay stable; the structured attributes
+# ride alongside for machine callers (`--validate`, an MCP server, a repair
+# loop). `code` is a Symbol; `label`/`position` locate the failure inside
+# the offending label when one is known; `hint` is a one-line fix; and
+# `retryable` tells a caller whether applying the hint could plausibly fix
+# the input (false means retrying would be guessing).
 class RSTError < StandardError
-  def initialize(msg = "Error: something unexpected occurred")
+  attr_reader :code, :label, :position, :hint, :retryable
+
+  def initialize(msg = "Error: something unexpected occurred", code: :invalid, label: nil, position: nil, hint: nil, retryable: false)
     # Non-destructive: every file here carries frozen_string_literal, so
     # mutating the message in place turned a raise with a plain literal into
     # a FrozenError from inside the error class itself.
+    @code = code
+    @label = label
+    @position = position
+    @hint = hint
+    @retryable = retryable
     super(msg.gsub(WHITESPACE_BLOCK, "<>"))
+  end
+
+  def to_h
+    { "ok" => false,
+      "errors" => [{ "code" => code.to_s,
+                     "message" => message,
+                     "label" => label,
+                     "position" => position,
+                     "hint" => hint,
+                     "retryable" => retryable }.compact] }
   end
 end
 
@@ -212,7 +236,7 @@ module RSyntaxTree
     # a hyphen is an underline, so validating without the caller's options
     # rejects input that draws.
     def self.check_data(text, params = {})
-      raise RSTError, +"Error: input text is empty" if text.to_s == ""
+      raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if text.to_s == ""
 
       StringParser.valid?(text)
       new(params.merge(data: text)).validate!
@@ -238,7 +262,7 @@ module RSyntaxTree
       surface.write_to_png(b)
       binary ? b : b.string
     rescue Cairo::InvalidSize
-      raise RSTError, +"Error: the result syntree is too big"
+      raise RSTError.new(+"Error: the result syntree is too big", code: :result_too_big, retryable: false)
     ensure
       b&.close unless binary
       surface&.finish
@@ -259,7 +283,7 @@ module RSyntaxTree
       surface.finish
       binary ? b : b.string
     rescue Cairo::InvalidSize
-      raise RSTError, +"Error: the result syntree is too big"
+      raise RSTError.new(+"Error: the result syntree is too big", code: :result_too_big, retryable: false)
     ensure
       b&.close unless binary
       context&.destroy
@@ -280,9 +304,10 @@ module RSyntaxTree
       require 'rmagick'
       yield
     rescue LoadError
-      raise RSTError, +"Error: JPG/GIF output requires ImageMagick and the rmagick gem, " \
-                      "which is not installed. Use PNG instead — JPG and GIF support " \
-                      "is deprecated and will be removed in 2.0."
+      raise RSTError.new(+"Error: JPG/GIF output requires ImageMagick and the rmagick gem, " \
+                         "which is not installed. Use PNG instead — JPG and GIF support " \
+                         "is deprecated and will be removed in 2.0.",
+                         code: :missing_dependency, retryable: false)
     end
 
     def draw_jpg

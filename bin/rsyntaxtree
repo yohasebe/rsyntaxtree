@@ -3,6 +3,7 @@
 
 require 'optimist'
 require 'yaml'
+require 'json'
 
 require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
@@ -119,6 +120,8 @@ opts = Optimist.options do
   opt :tidy_spacing, "DEPRECATED alias of --hspacing: 0.5-3.0", default: 1.0, short: :none
   opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb", short: :d
   opt :hyphen, "How a hyphen in a label reads: markup (-underline-) or literal (a hyphen; \-underline\- then underlines)", default: "markup", short: :none
+  opt :validate, "Validate the input without drawing or writing a file: print a machine-readable diagnosis (JSON) to stdout and report the result in the exit code", short: :none
+  opt :notation, "Print the notation reference to stdout and exit", short: :none
   opt :help, "This is a custom help message", short: :h
 end
 
@@ -176,6 +179,24 @@ data = if ARGV[0] && File.exist?(File.expand_path(ARGV[0]))
 
 # Auto-convert Penn TreeBank format to bracket notation
 data = RSyntaxTree::FormatConverter.to_bracket(data) if data
+
+if opts[:notation]
+  puts File.read(File.expand_path("../lib/rsyntaxtree/notation_core.md", __dir__))
+  exit 0
+end
+
+# Validate without drawing or writing anything: the diagnosis goes to stdout
+# as JSON and the exit code carries the verdict.
+if opts[:validate]
+  diagnosis = begin
+    RSyntaxTree::RSGenerator.check_data(data, string_opts)
+    { "schema" => "rsyntaxtree.error/1", "ok" => true }
+  rescue RSTError => e
+    { "schema" => "rsyntaxtree.error/1" }.merge(e.to_h)
+  end
+  puts JSON.pretty_generate(diagnosis)
+  exit(diagnosis["ok"] ? 0 : 1)
+end
 
 begin
   RSyntaxTree::RSGenerator.check_data(data, string_opts)

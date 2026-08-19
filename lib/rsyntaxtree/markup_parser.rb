@@ -199,12 +199,22 @@ module Markup
     }
   end
 
+  # Largest charpos anywhere in a parse-failure cause tree: the position
+  # the parser actually reached before giving up.
+  def deepest_charpos(cause, best = 0)
+    pos = cause.respond_to?(:pos) && cause.pos ? cause.pos.charpos : 0
+    best = [best, pos].max
+    cause.children&.each { |child| best = deepest_charpos(child, best) }
+    best
+  end
+
   def parse(txt)
     begin
       parsed = @parser.parse(txt)
-    rescue Parslet::ParseFailed
-      # puts e.parse_failure_cause.ascii_tree
-      return { status: :error, text: txt }
+    rescue Parslet::ParseFailed => e
+      # The cause is kept: the deepest node of the failure tree is where the
+      # parse actually got stuck, which is what structured errors report.
+      return { status: :error, text: txt, charpos: deepest_charpos(e.parse_failure_cause) }
     end
 
     applied = @evaluator.apply(parsed)
@@ -243,6 +253,6 @@ module Markup
     { status: :success, results: results }
   end
 
-  module_function :parse
+  module_function :parse, :deepest_charpos
 end
 

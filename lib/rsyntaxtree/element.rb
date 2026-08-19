@@ -44,7 +44,7 @@ module RSyntaxTree
       else
         error_text = +"Error: input text contains an invalid string"
         error_text += "\n > " + content
-        raise RSTError, error_text
+        raise RSTError.new(error_text, **markup_failure_details(content, parsed[:charpos]))
       end
       @content = results[:contents]
       @paths = results[:paths]
@@ -96,6 +96,84 @@ module RSyntaxTree
       # makes git and grep treat this file as binary.
       placeholder = "\u0000"
       text.gsub('\\-', placeholder).gsub("-", '\\-').gsub(placeholder, "-")
+    end
+
+    # Turn a Markup.parse failure into structured error attributes: a code
+    # for machines, the label and the offset inside it for people, a one-line
+    # fix, and whether applying that fix could plausibly help.
+    def markup_failure_details(label, charpos)
+      details = { label: label, position: charpos }
+
+      # Nothing left to parse: the raw spaces around it took the whole label
+      # away, one of them starting the split and the next ending it.
+      if label.strip.empty?
+        return details.merge(code: :label_split,
+                             hint: "Raw spaces left this label empty. Write a space inside a label as <> (e.g. 〈<>NP<>〉).",
+                             retryable: true)
+      end
+
+      # A nested matrix left open is structural; check it before characters.
+      if label.scan("#(").size > label.scan("#)").size
+        return details.merge(code: :unclosed_matrix,
+                             hint: "Close the nested matrix with '#)', or write the space inside it as <>.",
+                             retryable: true)
+      end
+
+      # The parser stalled exactly on a hyphen: it opened an underline.
+      if label[charpos] == "-"
+        return details.merge(code: :bare_hyphen,
+                             hint: "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal.",
+                             retryable: true)
+      end
+
+      # A delimiter that never closes. Counts are on unescaped characters.
+      if label.scan(/(?<!\\)\*/).size.odd?
+        return details.merge(code: :unclosed_markup,
+                             hint: "A '*' decoration (italic or bold) is never closed.",
+                             retryable: true)
+      end
+      if label.scan(/(?<!\\)_/).size.odd?
+        return details.merge(code: :unclosed_markup,
+                             hint: "A '_' decoration (subscript or superscript) is never closed.",
+                             retryable: true)
+      end
+      if label.scan(/(?<!\\)=/).size.odd?
+        return details.merge(code: :unclosed_markup,
+                             hint: "An '=' overline is never closed.",
+                             retryable: true)
+      end
+      if label.scan(/(?<!\\)~/).size.odd?
+        return details.merge(code: :unclosed_markup,
+                             hint: "A '~' strikethrough is never closed.",
+                             retryable: true)
+      end
+      if label.scan(/(?<!\\)\|/).size.odd?
+        return details.merge(code: :unclosed_markup,
+                             hint: "A '|' box is never closed.",
+                             retryable: true)
+      end
+      if label.scan(/(?<!\\)\{/).size != label.scan(/(?<!\\)\}/).size
+        return details.merge(code: :unclosed_markup,
+                             hint: "A '{...}' circle is never closed.",
+                             retryable: true)
+      end
+
+      # `<` and `>` are the whitespace block, so writing a list or an
+      # argument structure with ASCII angle brackets fails here rather than
+      # where it was typed. It is the first trap the notation reference
+      # names, and by far the most common one, so it is worth saying plainly.
+      if /(?<!\\)<[^<>]*[^<>\d][^<>]*>/.match?(label)
+        return details.merge(code: :angle_brackets,
+                             hint: "'<' and '>' mark whitespace here, not a list. Write the angle bracket characters themselves: 〈NP〉, 'hand〈SUBJ,OBJ〉'.",
+                             retryable: true)
+      end
+
+      # No cause named. Still an input mistake rather than a limit of the
+      # tool, so a caller may rewrite and try again — retryable: false is
+      # reserved for failures no rewriting can fix.
+      details.merge(code: :invalid_markup,
+                    hint: "Check that *, _, =, ~, |, { and #(...#) are paired, and escape a literal markup character with a backslash.",
+                    retryable: true)
     end
 
     def setup
