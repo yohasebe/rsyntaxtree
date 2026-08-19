@@ -347,6 +347,30 @@ with it:
 rsyntaxtree --validate --hyphen literal "[X V-bar]"
 ```
 
+The same input without the option is rejected, with the diagnosis naming
+what is wrong and where:
+
+```bash
+$ rsyntaxtree --validate "[X V-bar]"
+{
+  "schema": "rsyntaxtree.error/1",
+  "ok": false,
+  "errors": [
+    {
+      "code": "bare_hyphen",
+      "message": "Error: input text contains an invalid string\n > V-bar",
+      "label": "V-bar",
+      "position": 1,
+      "hint": "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal.",
+      "retryable": true
+    }
+  ]
+}
+```
+
+This is one observed answer, not a contract: the fields may change between
+releases, and the exit code is the stable part of the answer.
+
 #### Notation Reference
 
 `--notation` prints a short reference for the notation to standard output.

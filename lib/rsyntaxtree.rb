@@ -263,9 +263,12 @@ module RSyntaxTree
     # Which generation depends on the format asked for, because the formats
     # can refuse different things: a tree can be too wide for a raster
     # surface while remaining a perfectly good SVG, and JPG and GIF need a
-    # gem that may not be installed. Everything up to the point where a
-    # format could still say no is done; painting the tree onto a surface,
-    # which is most of the cost and can no longer fail, is not.
+    # gem that may not be installed. Everything up to the last point where
+    # a format is known to say no is done; painting the tree onto the
+    # surface, which is most of the cost and refuses nothing this knows of,
+    # is not. A surface inside Cairo's limits but large enough to exhaust
+    # memory would still fail at that painting, so this is where validation
+    # is a strong guess rather than a guarantee.
     def validate!
       case @params[:format]
       when "png" then raster_surface_for(draw_svg, &:finish)

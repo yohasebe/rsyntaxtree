@@ -358,6 +358,30 @@ rsyntaxtree --validate "[S [NP the cat] [VP sat]]"
 rsyntaxtree --validate --hyphen literal "[X V-bar]"
 ```
 
+同じ入力をオプションなしで検査すると拒否され，何がどこで誤っているかが
+診断に示されます：
+
+```bash
+$ rsyntaxtree --validate "[X V-bar]"
+{
+  "schema": "rsyntaxtree.error/1",
+  "ok": false,
+  "errors": [
+    {
+      "code": "bare_hyphen",
+      "message": "Error: input text contains an invalid string\n > V-bar",
+      "label": "V-bar",
+      "position": 1,
+      "hint": "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal.",
+      "retryable": true
+    }
+  ]
+}
+```
+
+これは一例であり，JSON のフィールド構成はリリース間で変わりうるものです．
+安定した約束は終了コードです．
+
 #### 記法リファレンス
 
 `--notation` は，記法の簡潔なリファレンスを標準出力に出力します．
