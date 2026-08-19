@@ -178,7 +178,7 @@ data = if ARGV[0] && File.exist?(File.expand_path(ARGV[0]))
 data = RSyntaxTree::FormatConverter.to_bracket(data) if data
 
 begin
-  RSyntaxTree::RSGenerator.check_data(data)
+  RSyntaxTree::RSGenerator.check_data(data, string_opts)
 rescue RSTError => e
   warn e
   exit 1

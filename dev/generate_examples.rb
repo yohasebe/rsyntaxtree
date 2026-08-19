@@ -20,7 +20,7 @@ Dir.glob("*.md", base: examples_dir).map do |md|
   name, opts = ExampleOptions.load(md)
   rst = opts[:data]
   begin
-    RSyntaxTree::RSGenerator.check_data(rst)
+    RSyntaxTree::RSGenerator.check_data(rst, opts)
   rescue StandardError
     logfile.puts "Error detected in #{md}"
   end

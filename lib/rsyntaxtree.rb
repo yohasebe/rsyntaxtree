@@ -190,10 +190,33 @@ module RSyntaxTree
       @global[:literal_hyphen] = @params[:hyphen] == "literal"
     end
 
-    def self.check_data(text)
+    # Two gates, because neither one alone tells the truth.
+    #
+    # Bracket balance catches what the drawing path silently repairs: it
+    # closes an unclosed bracket and drops a stray one, so a typo would
+    # otherwise draw a tree the writer never asked for.
+    #
+    # Parsing catches what balance cannot see: label markup — an unpaired
+    # underline in a word, a matrix left open where a raw space split a
+    # value — passes the bracket count and then fails at draw time, which
+    # is how a caller came to be told "OK" and still get an error.
+    #
+    # Passing both means the input is well-formed and really does draw.
+    #
+    # Options matter to the second gate: `hyphen: "literal"` decides whether
+    # a hyphen is an underline, so validating without the caller's options
+    # rejects input that draws.
+    def self.check_data(text, params = {})
       raise RSTError, +"Error: input text is empty" if text.to_s == ""
 
       StringParser.valid?(text)
+      new(params.merge(data: text)).validate!
+    end
+
+    def validate!
+      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
+      sp.parse
+      true
     end
 
     def draw_png(binary = false)

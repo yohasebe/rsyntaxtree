@@ -84,9 +84,9 @@ module RSyntaxTree
         escape = false
       end
 
-      if open_br.empty? && close_br.empty?
-        raise RSTError, +"Error: input text does not contain paired brackets"
-      elsif open_br.length == close_br.length
+      # No brackets at all is a label on its own, which draws as a single
+      # leaf; only a count that does not match is a mistake.
+      if open_br.length == close_br.length
         true
       else
         raise RSTError, +"Error: open and close brackets do not match"
