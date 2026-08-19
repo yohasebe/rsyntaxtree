@@ -246,4 +246,3 @@ module Markup
   module_function :parse
 end
 
-# pp results = Markup.parse('^#\_\#\+あり\-がとう**_X_**\\n----\\n933\\n__|Y|__+>3+2+1343+>5464')

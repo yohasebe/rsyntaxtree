@@ -8,8 +8,8 @@ require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
 
 class TidyTest < Minitest::Test
-  # The 9-language PUD brackets (identical to /tmp/ud_bin.json at the time of
-  # writing; embedded so the test suite is self-contained).
+  # The 9-language PUD brackets, embedded so the test suite is
+  # self-contained.
   UD_TREES = {
     "English" => ["[S [NP [PRON Its] [NOUN importance]] [VP [VERB resides] [PP [ADP in] [NP [NUM two] [NOUN facts]]]]]", "sans"],
     "Arabic" => ["[S [VP [VERB تكمن] [NP [NOUN أهميت] [PRON ه]]] [PP [ADP في] [NOUN حقيقتين]]]", "sans"],
