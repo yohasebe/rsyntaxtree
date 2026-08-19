@@ -273,7 +273,7 @@ module RSyntaxTree
       case @params[:format]
       when "png" then raster_surface_for(draw_svg, &:finish)
       when "jpg", "gif" then with_rmagick { raster_surface_for(draw_svg, &:finish) }
-      when "pdf" then draw_pdf
+      when "pdf" then pdf_surface_for(draw_svg, StringIO.new, &:finish)
       when "lsif" then draw_lsif
       when "tikz" then draw_tikz
       else draw_svg
@@ -289,6 +289,21 @@ module RSyntaxTree
       rsvg = RSVG::Handle.new_from_data(svg)
       dim = rsvg.dimensions
       surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, dim.width, dim.height)
+      yield surface if block_given?
+      [rsvg, surface]
+    rescue Cairo::InvalidSize
+      raise RSTError.new(+"Error: the result syntree is too big", code: :result_too_big, retryable: false)
+    end
+
+    # The same for PDF, which in practice refuses nothing: a page 400,000
+    # points wide is made without complaint where a raster surface stops at
+    # 32,767. Kept in the same shape as the raster path so that validation
+    # asks the same question of both, and so a future Cairo that does refuse
+    # a page size is heard.
+    def pdf_surface_for(svg, target)
+      rsvg = RSVG::Handle.new_from_data(svg)
+      dim = rsvg.dimensions
+      surface = Cairo::PDFSurface.new(target, dim.width, dim.height)
       yield surface if block_given?
       [rsvg, surface]
     rescue Cairo::InvalidSize
@@ -316,16 +331,11 @@ module RSyntaxTree
       context = nil
       b = nil
       b = StringIO.new
-      svg = draw_svg
-      rsvg = RSVG::Handle.new_from_data(svg)
-      dim = rsvg.dimensions
-      surface = Cairo::PDFSurface.new(b, dim.width, dim.height)
+      rsvg, surface = pdf_surface_for(draw_svg, b)
       context = Cairo::Context.new(surface)
       context.render_rsvg_handle(rsvg)
       surface.finish
       binary ? b : b.string
-    rescue Cairo::InvalidSize
-      raise RSTError.new(+"Error: the result syntree is too big", code: :result_too_big, retryable: false)
     ensure
       b&.close unless binary
       context&.destroy
