@@ -79,6 +79,25 @@ class StructuredErrorTest < Minitest::Test
     refute e.retryable
   end
 
+  def test_an_unnamed_cause_does_not_mean_an_unfixable_input
+    # No single repair fits, so no cause is named. That is not a reason to
+    # stop: what lands here is usually two mistakes at once, each of them
+    # one that would have been named on its own.
+    e = failure("[X 1+1=2]")
+    assert_equal :invalid_markup, e.code
+    assert e.retryable
+  end
+
+  def test_compound_mistakes_fall_to_invalid_markup_and_are_still_fixable
+    # A bare hyphen and ASCII angle brackets together are beyond any single
+    # repair, so the catch-all is the honest answer rather than one of the
+    # two causes — but correcting both does make the label parse.
+    e = failure("[X\nHEAD-DTR\t〈ok〉\nSPR\t<NP>]")
+    assert_equal :invalid_markup, e.code
+    assert e.retryable
+    assert RSyntaxTree::RSGenerator.check_data("[X\nHEAD\\-DTR\t〈ok〉\nSPR\t〈NP〉]")
+  end
+
   def test_message_string_is_unchanged
     e = failure("[X V-bar]")
     assert_equal "Error: input text contains an invalid string\n > V-bar", e.message

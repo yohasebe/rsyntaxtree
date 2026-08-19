@@ -81,13 +81,19 @@ module RSyntaxTree
     # alone: a line of nothing but hyphens is the horizontal rule, and the dash
     # in a path suffix (+-1, +->2) is what makes that path dashed. Swapping
     # those turned a rule into the text "---" without a word of complaint.
-    def swap_hyphen_markup(text)
+    # Split a label into lines with the trailing path markers detached, so
+    # hyphen handling can spare the two places a run of hyphens means
+    # something else: a `---` rule line of its own, and the `+-2` markers
+    # at the end. Shared by swap_hyphen_markup and escape_hyphens.
+    def self.hyphen_safe_lines(text)
       path = text[/\^?(?:\+-?>?<?\d+)+\^?\z/]
       body = path ? text[0...-path.length] : text
-      swapped = body.split('\n', -1).map do |line|
-        /\A-{3,}\z/.match?(line) ? line : swap_hyphens(line)
-      end.join('\n')
-      swapped + path.to_s
+      [body.split('\n', -1), path.to_s]
+    end
+
+    def swap_hyphen_markup(text)
+      lines, path = Element.hyphen_safe_lines(text)
+      lines.map { |line| /\A-{3,}\z/.match?(line) ? line : swap_hyphens(line) }.join('\n') + path
     end
 
     def swap_hyphens(text)
@@ -98,17 +104,11 @@ module RSyntaxTree
       text.gsub('\\-', placeholder).gsub("-", '\\-').gsub(placeholder, "-")
     end
 
-    # Escape the hyphens that open an underline, sparing the two places a
-    # run of them means something else: a `---` rule line of its own, and
-    # the `+-2` path markers at the end. Same exemptions as
-    # swap_hyphen_markup, for the same reason.
+    # Escape the hyphens that open an underline. Shares its exemptions with
+    # swap_hyphen_markup through hyphen_safe_lines.
     def self.escape_hyphens(text)
-      path = text[/\^?(?:\+-?>?<?\d+)+\^?\z/]
-      body = path ? text[0...-path.length] : text
-      escaped = body.split('\n', -1).map do |line|
-        /\A-{3,}\z/.match?(line) ? line : line.gsub(/(?<!\\)-/, '\\-')
-      end.join('\n')
-      escaped + path.to_s
+      lines, path = hyphen_safe_lines(text)
+      lines.map { |line| /\A-{3,}\z/.match?(line) ? line : line.gsub(/(?<!\\)-/, '\\-') }.join('\n') + path
     end
 
     # What the markup parser is actually handed: under hyphen: literal a
@@ -130,9 +130,6 @@ module RSyntaxTree
       [:bare_hyphen,
        ->(s) { Element.escape_hyphens(s) },
        "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal."],
-      [:raw_space,
-       ->(s) { s.gsub(" ", WHITESPACE_BLOCK) },
-       "A raw space cut this label short. Write a space inside a label as <> (e.g. 'a<>toy')."],
       [:unclosed_matrix,
        ->(s) { s + "#)" },
        "A matrix opened with '#(' is never closed with '#)'."],
@@ -179,11 +176,13 @@ module RSyntaxTree
         return details.merge(code: code, hint: hint, retryable: true)
       end
 
-      # No repair worked, so the cause is not one this knows. Still a mistake
-      # in the input rather than a limit of the tool, so a caller may rewrite
-      # and try again — retryable: false is for failures no rewrite can fix.
+      # No single repair worked. In practice this is where two mistakes in
+      # one label land — each of them one this could have named alone — so
+      # it is the most fixable bucket, not the least: still retryable, with
+      # a hint that admits no one cause was found rather than naming a wrong
+      # one. retryable: false is for what no rewriting reaches.
       details.merge(code: :invalid_markup,
-                    hint: "Check that *, _, =, ~, |, { and #(...#) are paired, and escape a literal markup character with a backslash.",
+                    hint: "No single cause fits, which usually means more than one mistake in this label. Check that *, _, =, ~, |, { and #(...#) are paired, that hyphens are escaped, and that 〈 〉 are the angle bracket characters.",
                     retryable: true)
     end
 
