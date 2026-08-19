@@ -301,11 +301,7 @@ Each additional connectors is distinguished by an ID number. The ID is specified
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the additional connector is rendered. The same ID number cannot appear in more than two places.
 
-### Command Line Interface Features
-
-The following features are available only in the command-line interface.
-
-#### Penn Treebank Format
+### Penn Treebank Format
 
 RSyntaxTree automatically detects and converts Penn Treebank format to bracket notation:
 
@@ -329,6 +325,10 @@ Example:
 (S (NP hello\(world\)) (VP test))
 → [S [NP hello(world)] [VP test]]
 ```
+
+### Command Line Interface Features
+
+The following features are available only in the command-line interface.
 
 #### Standard Input Support
 

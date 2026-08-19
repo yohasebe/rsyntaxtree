@@ -126,4 +126,49 @@ class FormatConverterTest < Minitest::Test
     expected = '[S [NP (a) and \[b\]] [VP test]]'
     assert_equal expected, RSyntaxTree::FormatConverter.penn_to_bracket(penn)
   end
+
+  # ===================
+  # Library-level conversion
+  # ===================
+
+  # Conversion lives in the library, not only in the CLI: every caller —
+  # the web UI, an MCP server, any direct user of RSGenerator — gets the
+  # documented automatic conversion.
+  def test_generator_converts_penn_input
+    require_relative "../lib/rsyntaxtree"
+
+    svg = RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(data: "(S (NP the dog) (VP runs))")).draw_svg
+
+    assert_includes svg, "the"
+    assert_includes svg, "dog"
+    assert_includes svg, "runs"
+    texts = svg.scan(/<tspan[^>]*>([^<]*)</).flatten
+    assert_includes texts, "NP", "NP should be a node label, not part of a single leaf"
+  end
+
+  def test_bracket_input_passes_through_unchanged
+    # Conversion runs on every input now, so what it leaves alone matters as
+    # much as what it rewrites: a matrix carries parentheses of its own in
+    # `#( ... #)`, and collapsing whitespace would flatten its rows.
+    matrix = '[#PRED\t(x)\nOBJ\t#(PRED\tY#)]'
+    [
+      "[S [NP a] [VP b]]",
+      matrix,
+      "([ this starts with a paren but is not Penn ])"
+    ].each do |data|
+      assert_equal data, RSyntaxTree::FormatConverter.to_bracket(data)
+    end
+  end
+
+  def test_a_lone_parenthesised_label_is_read_as_penn
+    # Nothing distinguishes `(hello)` from a one-node Penn tree, so it
+    # converts. Pinned because the parentheses disappear from the figure.
+    assert_equal "[hello]", RSyntaxTree::FormatConverter.to_bracket("(hello)")
+  end
+
+  def test_check_data_accepts_penn_input
+    require_relative "../lib/rsyntaxtree"
+
+    assert RSyntaxTree::RSGenerator.check_data("(S (NP the dog) (VP runs))")
+  end
 end

@@ -68,6 +68,7 @@ require_relative 'rsyntaxtree/lsif_graph'
 require_relative 'rsyntaxtree/tikz_generator'
 require_relative 'rsyntaxtree/version'
 require_relative 'rsyntaxtree/string_parser'
+require_relative 'rsyntaxtree/format_converter'
 
 require 'cgi'
 require 'rsvg2'
@@ -90,7 +91,11 @@ module RSyntaxTree
                      .gsub('-CABRACKET-', '>')
                      .gsub('¥¥', '\¥')
                      .gsub(/(?<!\\)¥/, "\\")
-          new_params[key] = data
+          # Penn Treebank input converts to bracket notation here, in the
+          # library, so every path — CLI, web UI, any other caller — sees
+          # the documented automatic conversion. Only '('-leading input is
+          # affected; bracket notation passes through unchanged.
+          new_params[key] = FormatConverter.to_bracket(data)
 
         when :tidy
           # One layout scale from the most spacious to the most dense:
