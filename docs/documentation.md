@@ -330,6 +330,31 @@ Example:
 
 The following features are available only in the command-line interface.
 
+#### Checking Input Without Drawing
+
+`--validate` reports whether the input would draw. Nothing is drawn and no
+file is written: the diagnosis goes to standard output as JSON, and the exit
+code is 0 when the input is accepted and 1 when it is not.
+
+```bash
+rsyntaxtree --validate "[S [NP the cat] [VP sat]]"
+```
+
+Options are taken into account, so an input that depends on one is judged
+with it:
+
+```bash
+rsyntaxtree --validate --hyphen literal "[X V-bar]"
+```
+
+#### Notation Reference
+
+`--notation` prints a short reference for the notation to standard output.
+
+```bash
+rsyntaxtree --notation
+```
+
 #### Standard Input Support
 
 You can pipe tree data via standard input:

@@ -178,6 +178,8 @@ Usage:
 | `--hspacing` | Horizontal spacing factor, all layout modes (0.5-3.0) | `1.0` |
 | `--hyphen` | How a hyphen reads: markup (`-underline-`) or literal | `markup` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
+| `--validate` | Check the input without drawing: a JSON diagnosis on stdout, the verdict in the exit code | |
+| `--notation` | Print a short reference for the notation | |
 
 Run `rsyntaxtree -h` for the full list of options.
 
