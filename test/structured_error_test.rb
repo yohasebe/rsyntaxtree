@@ -119,15 +119,35 @@ class StructuredErrorTest < Minitest::Test
     assert RSyntaxTree::RSGenerator.check_data("[X V-bar]", hyphen: "literal")
   end
 
-  def test_path_with_one_end_is_classified
-    e = begin
-      RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(data: "[A [B x+-2] [C y]]")).draw_svg
-      flunk "expected an RSTError"
-    rescue RSTError => err
-      err
-    end
+  # Checks that only happen once the tree is laid out have to be part of
+  # validation too, or "this input is fine" is a promise it cannot keep.
+  def test_path_with_one_end_is_rejected_by_validation_as_well_as_drawing
+    e = failure("[A [B x+-2] [C y]]")
     assert_equal :path_single_end, e.code
     assert e.retryable
+
+    drawn = assert_raises(RSTError) do
+      RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(data: "[A [B x+-2] [C y]]")).draw_svg
+    end
+    assert_equal e.code, drawn.code
+  end
+
+  # Text pasted in front of a tree makes a second root. Symmetrization used
+  # to look for that root's parent and find nothing.
+  def test_text_in_front_of_a_tree_draws_in_every_layout
+    %w[off symmetric low medium high].each do |tidy|
+      svg = RSyntaxTree::RSGenerator.new(
+        DEFAULT_OPTS.merge(data: "Example 3: [S [NP the cat] [VP sat]]", tidy: tidy)
+      ).draw_svg
+      assert_includes svg, "<svg", tidy
+    end
+  end
+
+  # Whatever goes wrong, callers are promised a verdict they can read.
+  def test_a_failure_inside_the_drawing_code_still_comes_back_as_a_verdict
+    assert_equal :internal_error,
+                 RSTError.new("Error: input could not be processed (NoMethodError)",
+                              code: :internal_error).code
   end
 
   # The angle-bracket trap is the first one the notation reference names and

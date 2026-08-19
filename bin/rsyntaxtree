@@ -167,7 +167,10 @@ if %w[jpg gif].include?(string_opts[:format])
   warn "Warning: #{string_opts[:format].upcase} output is deprecated and will be removed in RSyntaxTree 2.0. Use PNG instead."
 end
 
-data = if ARGV[0] && File.exist?(File.expand_path(ARGV[0]))
+# An argument names a file only if it really is one: File.exist? on an
+# expanded empty string answers for the current directory, and reading that
+# as the tree ended the run with a Ruby error.
+data = if ARGV[0] && !ARGV[0].empty? && File.file?(File.expand_path(ARGV[0]))
          File.read ARGV[0]
        elsif ARGV[0]
          ARGV[0]

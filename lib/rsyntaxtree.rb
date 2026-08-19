@@ -239,12 +239,30 @@ module RSyntaxTree
       raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if text.to_s == ""
 
       StringParser.valid?(text)
-      new(params.merge(data: text)).validate!
+      begin
+        new(params.merge(data: text)).validate!
+      rescue RSTError
+        raise
+      rescue StandardError => e
+        # Callers of this are told they get a verdict, and machine callers
+        # are told they get one in JSON. A defect in the drawing code is
+        # still a verdict of "no", so it goes back in the same shape rather
+        # than as a Ruby backtrace — named so it is not mistaken for a
+        # mistake in the input.
+        raise RSTError.new(+"Error: input could not be processed (#{e.class})",
+                           code: :internal_error, retryable: false)
+      end
     end
 
+    # Generate and throw the drawing away. Parsing alone leaves out the
+    # checks that only happen once the tree is laid out — a movement path
+    # with one end, a line with three — so validation that stopped at the
+    # parser passed input the drawing then rejected, which is the failure
+    # this validation exists to prevent. Doing the whole thing costs about
+    # what parsing costs, and it cannot fall out of step with drawing
+    # because it is drawing.
     def validate!
-      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
-      sp.parse
+      draw_svg
       true
     end
 

@@ -241,6 +241,11 @@ module RSyntaxTree
       target = @element_list.get_id(id)
       if target.children.empty?
         parent = @element_list.get_id(target.parent)
+        # A childless element with no parent is a root standing alone —
+        # text in front of the tree makes one. It has no siblings to match
+        # widths with, so its own width is already the answer.
+        return target.width if parent.nil?
+
         accum_array = []
         parent.children.each do |c|
           accum_array << @element_list.get_id(c).width

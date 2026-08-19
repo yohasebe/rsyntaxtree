@@ -371,6 +371,18 @@ end
     assert_includes result[:stdout], "〈"
   end
 
+  # A machine reading the exit code needs the diagnosis to be there in every
+  # case, including the ones that never reach the generator. An empty
+  # argument used to be taken for a path to the current directory.
+  def test_validate_always_answers_in_json
+    ["[S [NP a] [VP b]]", "[S V-bar]", "[A [B x+-2] [C y]]", "[S [NP a", "", "   "].each do |data|
+      result = run_cli("--validate", data)
+      parsed = JSON.parse(result[:stdout])
+      assert_equal result[:status].success?, parsed["ok"], data.inspect
+      assert_empty result[:stderr], data.inspect
+    end
+  end
+
   private
 
   def run_cli(*args, stdin_data: nil, chdir: nil)
