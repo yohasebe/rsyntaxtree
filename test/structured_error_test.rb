@@ -123,6 +123,32 @@ class StructuredErrorTest < Minitest::Test
     end
   end
 
+  # One malformed input per construct the notation documents. A construct
+  # added to the grammar without a repair to go with it lands in the
+  # catch-all, and this is what says so — the diagnosis is a separate list
+  # from the grammar, so nothing but a test keeps the two together.
+  def test_every_construct_can_name_its_own_failure
+    {
+      "triangle" => "[S ^^text]",
+      "enclosure" => "[S ###]",
+      "path" => "[S x+]",
+      "whitespace block" => "[S a<b]",
+      "subscript" => "[S x_]",
+      "italic" => "[S *x]",
+      "box" => "[S |x]",
+      "circle" => "[S {x]",
+      "overline" => "[S =x]",
+      "strikethrough" => "[S ~x]",
+      "nested matrix" => '[#A\tB\nC\t#(D\tE]',
+      "angle brackets" => '[#SPR\t<NP>]',
+      "hyphen" => "[S V-bar]"
+    }.each do |construct, data|
+      e = assert_raises(RSTError) { RSyntaxTree::RSGenerator.check_data(data) }
+      refute_equal :invalid_markup, e.code,
+                   "#{construct} (#{data}) has no diagnosis of its own"
+    end
+  end
+
   # The point of the classification is that a caller can act on it. Every
   # way of getting the notation wrong must come back named, with a fix, and
   # marked worth another try.

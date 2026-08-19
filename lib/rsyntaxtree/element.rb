@@ -37,7 +37,7 @@ module RSyntaxTree
       @fontsize = fontsize
       @raw_content = content.sub(/\^?(?:\+-?>?<?\d+)+\^?\z/, '')
 
-      parsed = Markup.parse(@global[:literal_hyphen] ? swap_hyphen_markup(content) : content)
+      parsed = Markup.parse(prepare_markup(content))
 
       if parsed[:status] == :success
         results = parsed[:results]
@@ -98,9 +98,66 @@ module RSyntaxTree
       text.gsub('\\-', placeholder).gsub("-", '\\-').gsub(placeholder, "-")
     end
 
+    # Escape the hyphens that open an underline, sparing the two places a
+    # run of them means something else: a `---` rule line of its own, and
+    # the `+-2` path markers at the end. Same exemptions as
+    # swap_hyphen_markup, for the same reason.
+    def self.escape_hyphens(text)
+      path = text[/\^?(?:\+-?>?<?\d+)+\^?\z/]
+      body = path ? text[0...-path.length] : text
+      escaped = body.split('\n', -1).map do |line|
+        /\A-{3,}\z/.match?(line) ? line : line.gsub(/(?<!\\)-/, '\\-')
+      end.join('\n')
+      escaped + path.to_s
+    end
+
+    # What the markup parser is actually handed: under hyphen: literal a
+    # hyphen and its escape swap roles before parsing.
+    def prepare_markup(text)
+      @global[:literal_hyphen] ? swap_hyphen_markup(text) : text
+    end
+
+    # One candidate repair per way of getting the notation wrong, tried in
+    # order. Each is a whole edit of the label, not a pattern to recognise:
+    # the diagnosis below applies one and asks the parser whether the label
+    # now parses, so a cause is only ever reported when its fix is known to
+    # work. That keeps the list from drifting away from the grammar the way
+    # a set of hand-written patterns would — the grammar is the judge.
+    MARKUP_REPAIRS = [
+      [:angle_brackets,
+       ->(s) { s.gsub(/(?<!\\)<([^<>]*[^<>\d][^<>]*)>/) { "〈#{$1}〉" } },
+       "'<' and '>' mark whitespace here, not a list. Write the angle bracket characters themselves: 〈NP〉, 'hand〈SUBJ,OBJ〉'."],
+      [:bare_hyphen,
+       ->(s) { Element.escape_hyphens(s) },
+       "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal."],
+      [:raw_space,
+       ->(s) { s.gsub(" ", WHITESPACE_BLOCK) },
+       "A raw space cut this label short. Write a space inside a label as <> (e.g. 'a<>toy')."],
+      [:unclosed_matrix,
+       ->(s) { s + "#)" },
+       "A matrix opened with '#(' is never closed with '#)'."],
+      # Neutralising every occurrence of one character, rather than adding a
+      # closing one, locates the culprit wherever it sits in the label — an
+      # opener left unclosed halfway down a matrix is not fixed by appending.
+      *{ "*" => "A '*' decoration (italic or bold) is never closed.",
+         "|" => "A '|' box is never closed.",
+         "_" => "A '_' subscript or superscript is never closed.",
+         "{" => "A '{...}' circle is never closed.",
+         "=" => "An '=' overline is never closed.",
+         "~" => "A '~' strikethrough is never closed.",
+         "#" => "A '#' enclosure is not one of #, ## or ###, or a matrix is left open.",
+         "<" => "'<' and '>' mark whitespace: <> is one space, <3> is three." }
+        .map { |ch, hint| [:unclosed_markup, ->(s) { s.gsub(/(?<!\\)#{Regexp.escape(ch)}/) { "\\#{ch}" } }, hint] },
+      [:stray_triangle,
+       ->(s) { s.sub(/\A\^+/, "^") }, "Only one '^' may prefix a label."],
+      [:incomplete_path,
+       ->(s) { s.sub(/(?<!\\)\+>?<?\z/, "") },
+       "A path marker needs a number: write +1, or +>1 for the arrowhead."]
+    ].freeze
+
     # Turn a Markup.parse failure into structured error attributes: a code
-    # for machines, the label and the offset inside it for people, a one-line
-    # fix, and whether applying that fix could plausibly help.
+    # for machines, the label and the offset inside it for people, a fix
+    # that has been checked to work, and whether rewriting could help.
     def markup_failure_details(label, charpos)
       details = { label: label, position: charpos }
 
@@ -112,65 +169,19 @@ module RSyntaxTree
                              retryable: true)
       end
 
-      # A nested matrix left open is structural; check it before characters.
-      if label.scan("#(").size > label.scan("#)").size
-        return details.merge(code: :unclosed_matrix,
-                             hint: "Close the nested matrix with '#)', or write the space inside it as <>.",
-                             retryable: true)
+      MARKUP_REPAIRS.each do |code, repair, hint|
+        repaired = repair.call(label)
+        next if repaired == label
+        # Through the same preprocessing the real parse uses, or a label
+        # under hyphen: literal would be judged against a different string.
+        next unless Markup.parse(prepare_markup(repaired))[:status] == :success
+
+        return details.merge(code: code, hint: hint, retryable: true)
       end
 
-      # The parser stalled exactly on a hyphen: it opened an underline.
-      if label[charpos] == "-"
-        return details.merge(code: :bare_hyphen,
-                             hint: "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal.",
-                             retryable: true)
-      end
-
-      # A delimiter that never closes. Counts are on unescaped characters.
-      if label.scan(/(?<!\\)\*/).size.odd?
-        return details.merge(code: :unclosed_markup,
-                             hint: "A '*' decoration (italic or bold) is never closed.",
-                             retryable: true)
-      end
-      if label.scan(/(?<!\\)_/).size.odd?
-        return details.merge(code: :unclosed_markup,
-                             hint: "A '_' decoration (subscript or superscript) is never closed.",
-                             retryable: true)
-      end
-      if label.scan(/(?<!\\)=/).size.odd?
-        return details.merge(code: :unclosed_markup,
-                             hint: "An '=' overline is never closed.",
-                             retryable: true)
-      end
-      if label.scan(/(?<!\\)~/).size.odd?
-        return details.merge(code: :unclosed_markup,
-                             hint: "A '~' strikethrough is never closed.",
-                             retryable: true)
-      end
-      if label.scan(/(?<!\\)\|/).size.odd?
-        return details.merge(code: :unclosed_markup,
-                             hint: "A '|' box is never closed.",
-                             retryable: true)
-      end
-      if label.scan(/(?<!\\)\{/).size != label.scan(/(?<!\\)\}/).size
-        return details.merge(code: :unclosed_markup,
-                             hint: "A '{...}' circle is never closed.",
-                             retryable: true)
-      end
-
-      # `<` and `>` are the whitespace block, so writing a list or an
-      # argument structure with ASCII angle brackets fails here rather than
-      # where it was typed. It is the first trap the notation reference
-      # names, and by far the most common one, so it is worth saying plainly.
-      if /(?<!\\)<[^<>]*[^<>\d][^<>]*>/.match?(label)
-        return details.merge(code: :angle_brackets,
-                             hint: "'<' and '>' mark whitespace here, not a list. Write the angle bracket characters themselves: 〈NP〉, 'hand〈SUBJ,OBJ〉'.",
-                             retryable: true)
-      end
-
-      # No cause named. Still an input mistake rather than a limit of the
-      # tool, so a caller may rewrite and try again — retryable: false is
-      # reserved for failures no rewriting can fix.
+      # No repair worked, so the cause is not one this knows. Still a mistake
+      # in the input rather than a limit of the tool, so a caller may rewrite
+      # and try again — retryable: false is for failures no rewrite can fix.
       details.merge(code: :invalid_markup,
                     hint: "Check that *, _, =, ~, |, { and #(...#) are paired, and escape a literal markup character with a backslash.",
                     retryable: true)
