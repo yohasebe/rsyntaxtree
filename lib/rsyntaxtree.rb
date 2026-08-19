@@ -238,8 +238,8 @@ module RSyntaxTree
     def self.check_data(text, params = {})
       raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if text.to_s == ""
 
-      StringParser.valid?(text)
       begin
+        StringParser.valid?(text)
         new(params.merge(data: text)).validate!
       rescue RSTError
         raise
@@ -254,33 +254,54 @@ module RSyntaxTree
       end
     end
 
-    # Generate and throw the drawing away. Parsing alone leaves out the
+    # Generate, and throw the result away. Parsing alone leaves out the
     # checks that only happen once the tree is laid out — a movement path
     # with one end, a line with three — so validation that stopped at the
     # parser passed input the drawing then rejected, which is the failure
-    # this validation exists to prevent. Doing the whole thing costs about
-    # what parsing costs, and it cannot fall out of step with drawing
-    # because it is drawing.
+    # this validation exists to prevent.
+    #
+    # Which generation depends on the format asked for, because the formats
+    # can refuse different things: a tree can be too wide for a raster
+    # surface while remaining a perfectly good SVG, and JPG and GIF need a
+    # gem that may not be installed. Everything up to the point where a
+    # format could still say no is done; painting the tree onto a surface,
+    # which is most of the cost and can no longer fail, is not.
     def validate!
-      draw_svg
+      case @params[:format]
+      when "png" then raster_surface_for(draw_svg, &:finish)
+      when "jpg", "gif" then with_rmagick { raster_surface_for(draw_svg, &:finish) }
+      when "pdf" then draw_pdf
+      when "lsif" then draw_lsif
+      when "tikz" then draw_tikz
+      else draw_svg
+      end
       true
+    end
+
+    # The surface a raster format needs. Making it is where a tree too big
+    # to draw is found out — Cairo says so, nothing here knows the limit —
+    # and it is cheap next to painting the tree onto it, which is why
+    # validation makes one and stops there.
+    def raster_surface_for(svg)
+      rsvg = RSVG::Handle.new_from_data(svg)
+      dim = rsvg.dimensions
+      surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, dim.width, dim.height)
+      yield surface if block_given?
+      [rsvg, surface]
+    rescue Cairo::InvalidSize
+      raise RSTError.new(+"Error: the result syntree is too big", code: :result_too_big, retryable: false)
     end
 
     def draw_png(binary = false)
       surface = nil
       context = nil
       b = nil
-      svg = draw_svg
-      rsvg = RSVG::Handle.new_from_data(svg)
-      dim = rsvg.dimensions
-      surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, dim.width, dim.height)
+      rsvg, surface = raster_surface_for(draw_svg)
       context = Cairo::Context.new(surface)
       context.render_rsvg_handle(rsvg)
       b = StringIO.new
       surface.write_to_png(b)
       binary ? b : b.string
-    rescue Cairo::InvalidSize
-      raise RSTError.new(+"Error: the result syntree is too big", code: :result_too_big, retryable: false)
     ensure
       b&.close unless binary
       surface&.finish

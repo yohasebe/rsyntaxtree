@@ -70,4 +70,29 @@ class CheckDataTest < Minitest::Test
   def test_valid_matrix_passes
     assert RSyntaxTree::RSGenerator.check_data('[#HEAD\tnoun\nSPR\t〈<>〉\nCOMPS\t〈<>NP<>〉]')
   end
+
+  def test_invalid_utf8_becomes_internal_error_not_a_raw_exception
+    # Bytes that are not valid UTF-8 break the bracket-count gate itself;
+    # the answer must come back in the error shape, not as an ArgumentError.
+    bad = "[S [NP \xC3\x28] [VP b]]".dup.force_encoding("UTF-8")
+    error = assert_raises(RSTError) { RSyntaxTree::RSGenerator.check_data(bad) }
+    assert_equal :internal_error, error.code
+  end
+
+  def test_a_tree_too_big_for_a_raster_surface_fails_when_png_is_asked_for
+    # A surface SVG does not have: a flat tree thousands of leaves wide
+    # draws as SVG but exceeds Cairo's limit on raster surfaces.
+    data = "[R #{(1..3000).map { |i| "[L#{i} x]" }.join(" ")}]"
+
+    error = assert_raises(RSTError) { RSyntaxTree::RSGenerator.check_data(data) }
+    assert_equal :result_too_big, error.code
+    assert RSyntaxTree::RSGenerator.check_data(data, format: "svg")
+  end
+
+  def test_valid_tree_passes_in_every_format
+    %w[svg png pdf lsif tikz].each do |format|
+      assert RSyntaxTree::RSGenerator.check_data("[S [NP a] [VP b]]", format: format),
+             "should validate as #{format}"
+    end
+  end
 end

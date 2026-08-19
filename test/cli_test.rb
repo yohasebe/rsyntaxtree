@@ -371,6 +371,16 @@ end
     assert_includes result[:stdout], "〈"
   end
 
+  # The documentation offers -f tikz; the format gate used to reject it.
+  def test_tikz_format_is_accepted_and_written_as_tex
+    result = run_cli("-f", "tikz", "-o", @tmpdir, "[S [NP the cat] [VP sat]]")
+
+    assert result[:status].success?, result[:stderr]
+    outfile = File.join(@tmpdir, "syntree.tex")
+    assert File.exist?(outfile), "tikz output should be written as .tex"
+    assert_includes File.read(outfile), "\\begin{forest}"
+  end
+
   # A machine reading the exit code needs the diagnosis to be there in every
   # case, including the ones that never reach the generator. An empty
   # argument used to be taken for a path to the current directory.

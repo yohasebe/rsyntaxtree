@@ -13,7 +13,7 @@ require_relative '../lib/rsyntaxtree/format_converter'
 CONFIG_VALIDATORS = {
   outdir: ->(v) { FileTest.directory?(v) ? nil : "must be an existing directory path" },
   outfilename: ->(v) { v.is_a?(String) ? nil : "must be a string" },
-  format: ->(v) { /\A(png|jpg|gif|pdf|svg|lsif)\z/ =~ v.to_s ? nil : "must be png, jpg, gif, pdf, svg, or lsif" },
+  format: ->(v) { /\A(png|jpg|gif|pdf|svg|lsif|tikz)\z/ =~ v.to_s ? nil : "must be png, jpg, gif, pdf, svg, lsif, or tikz" },
   leafstyle: ->(v) { /\A(auto|triangle|bar|nothing)\z/ =~ v.to_s ? nil : "must be auto, triangle, bar, or nothing" },
   fontstyle: ->(v) { /\A(sans|serif|cjk|mono)\z/ =~ v.to_s ? nil : "must be sans, serif, cjk, or mono" },
   fontsize: ->(v) { v.is_a?(Integer) && v >= 8 && v <= 26 ? nil : "must be in the range of 8-26" },
@@ -103,7 +103,7 @@ opts = Optimist.options do
 
   opt :outdir, "Output directory", default: "./", short: :o
   opt :outfilename, "Output file base name", default: "syntree", short: :u
-  opt :format, "Output format: png, jpg, gif, pdf, svg, or lsif", default: "png", short: :f
+  opt :format, "Output format: png, jpg, gif, pdf, svg, lsif, or tikz", default: "png", short: :f
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto", short: :l
   opt :fontstyle, "Font style: sans, serif, cjk, mono", default: "sans", short: :n
   opt :fontsize, "Size: 8-26", default: 16, short: :s
@@ -128,7 +128,7 @@ end
 Optimist.die :outdir, "must be an exsting directory path" unless FileTest.directory?(opts[:outdir])
 Optimist.die :direction, "must be ttb or ltr" unless /\A(ttb|ltr)\z/ =~ opts[:direction]
 Optimist.die :hyphen, "must be markup or literal" unless /\A(markup|literal)\z/ =~ opts[:hyphen]
-Optimist.die :format, "must be png, pdf, svg, or lsif" unless /\A(png|jpg|gif|pdf|svg|lsif)\z/ =~ opts[:format]
+Optimist.die :format, "must be png, jpg, gif, pdf, svg, lsif, or tikz" unless /\A(png|jpg|gif|pdf|svg|lsif|tikz)\z/ =~ opts[:format]
 Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless /\A(auto|triangle|bar|nothing)\z/ =~ opts[:leafstyle]
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless /\A(sans|serif|cjk|mono)\z/ =~ opts[:fontstyle]
 Optimist.die :fontsize, "must be in the range of 8-26" unless opts[:fontsize] >= 8 && opts[:fontsize] <= 26
@@ -213,7 +213,11 @@ begin
   rsg = RSyntaxTree::RSGenerator.new(string_opts)
   ext = string_opts[:format]
   outfilename = string_opts[:outfilename] || "syntree"
-  file_ext = ext == "lsif" ? "lsif.json" : ext
+  file_ext = case ext
+             when "lsif" then "lsif.json"
+             when "tikz" then "tex" # forest code, to be included in a LaTeX document
+             else ext
+             end
   filepath = File.expand_path(string_opts[:outdir]) + "/#{outfilename}.#{file_ext}"
   draw_method = "draw_#{ext}"
   output = rsg.send(draw_method)
