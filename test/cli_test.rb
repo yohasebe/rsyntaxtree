@@ -293,6 +293,35 @@ end
     refute_empty Dir.glob(File.join(@tmpdir, "*.svg"))
   end
 
+  # ===================
+  # JPG/GIF deprecation
+  # ===================
+
+  # Both formats are removed in 2.0. Until then a request must still work —
+  # the warning goes to stderr and the exit status stays 0.
+  def test_jpg_warns_about_deprecation_but_succeeds
+    result = run_cli("-o", @tmpdir, "-f", "jpg", "[S [NP a] [VP b]]")
+
+    assert result[:status].success?, "JPG should still succeed: #{result[:stderr]}"
+    assert_includes result[:stderr], "deprecated"
+    refute_empty Dir.glob(File.join(@tmpdir, "*.jpg")), "JPG file should be written"
+  end
+
+  def test_gif_warns_about_deprecation_but_succeeds
+    result = run_cli("-o", @tmpdir, "-f", "gif", "[S [NP a] [VP b]]")
+
+    assert result[:status].success?, "GIF should still succeed: #{result[:stderr]}"
+    assert_includes result[:stderr], "deprecated"
+    refute_empty Dir.glob(File.join(@tmpdir, "*.gif")), "GIF file should be written"
+  end
+
+  def test_png_does_not_warn
+    result = run_cli("-o", @tmpdir, "-f", "png", "[S [NP a] [VP b]]")
+
+    assert result[:status].success?, "PNG should succeed: #{result[:stderr]}"
+    refute_includes result[:stderr], "deprecated"
+  end
+
   private
 
   def run_cli(*args, stdin_data: nil, chdir: nil)

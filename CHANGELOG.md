@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.10.0] - 2026-08
+
+A transitional release ahead of 2.0, which drops JPG/GIF output and the
+RMagick dependency.
+
+### Deprecated
+- JPG and GIF output: the CLI prints a warning to stderr when either is
+  requested, and the documentation marks both as deprecated. JPEG blurs
+  line art and GIF has no use case here — use PNG. Both formats are
+  removed in 2.0.
+
+### Changed
+- The library no longer loads RMagick at require time. SVG, PNG, PDF,
+  TikZ and LSIF work without ImageMagick installed; only a JPG or GIF
+  request needs RMagick, and a request without it reports the missing
+  dependency as a regular input error instead of a bare `LoadError`.
+
+### Fixed
+- `RSTError` mutated the message it was given, so raising one with a plain
+  string literal crashed inside the error class with a `FrozenError`. Every
+  file here carries `frozen_string_literal`, which made the working form the
+  unobvious one.
+
 ## [1.9.0] - 2026-08
 
 ### Added

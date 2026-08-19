@@ -160,6 +160,10 @@ opts.each do |key, value|
   end
 end
 
+if %w[jpg gif].include?(string_opts[:format])
+  warn "Warning: #{string_opts[:format].upcase} output is deprecated and will be removed in RSyntaxTree 2.0. Use PNG instead."
+end
+
 data = if ARGV[0] && File.exist?(File.expand_path(ARGV[0]))
          File.read ARGV[0]
        elsif ARGV[0]

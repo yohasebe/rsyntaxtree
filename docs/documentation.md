@@ -27,6 +27,8 @@ The newline character `\n` can be used within the text of both node lables and l
 
 RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vector graphics software such as Adobe Illustrator, Microsoft Visio, [BOXY SVG](https://boxy-svg.com/), etc. It is very useful if you want to modify the output image.
 
+The command line tool also outputs `PDF`, `JPG`, and `GIF`. **JPG and GIF are deprecated and will be removed in 2.0** — JPEG blurs line art and GIF has no use case here; use `PNG` instead.
+
 The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
 `Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and movement paths in grey. The last is for diagrams whose links outnumber their labels — an ontology, a network of constructions — where a page of black lines buries the text.

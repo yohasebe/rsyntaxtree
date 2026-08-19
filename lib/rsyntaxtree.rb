@@ -53,8 +53,10 @@ DEFAULT_OPTS = {
 
 class RSTError < StandardError
   def initialize(msg = "Error: something unexpected occurred")
-    msg.gsub!(WHITESPACE_BLOCK, "<>")
-    super msg
+    # Non-destructive: every file here carries frozen_string_literal, so
+    # mutating the message in place turned a raise with a plain literal into
+    # a FrozenError from inside the error class itself.
+    super(msg.gsub(WHITESPACE_BLOCK, "<>"))
   end
 end
 
@@ -69,7 +71,6 @@ require_relative 'rsyntaxtree/string_parser'
 
 require 'cgi'
 require 'rsvg2'
-require 'rmagick'
 
 module RSyntaxTree
   class RSGenerator
@@ -243,24 +244,41 @@ module RSyntaxTree
       graph.svg_data
     end
 
+    # JPG and GIF output converts the PNG through RMagick. The require is
+    # lazy: both formats are deprecated and will be removed in 2.0, and the
+    # library must load without RMagick for every other format. A missing
+    # RMagick is reported as an input-level error, not a bare LoadError.
+    def with_rmagick
+      require 'rmagick'
+      yield
+    rescue LoadError
+      raise RSTError, +"Error: JPG/GIF output requires ImageMagick and the rmagick gem, " \
+                      "which is not installed. Use PNG instead — JPG and GIF support " \
+                      "is deprecated and will be removed in 2.0."
+    end
+
     def draw_jpg
-      png_data = draw_png
-      images = Magick::Image.from_blob(png_data)
-      image = images.first
-      image.format = 'JPEG'
-      blob = image.to_blob
-      images.each(&:destroy!)
-      blob
+      with_rmagick do
+        png_data = draw_png
+        images = Magick::Image.from_blob(png_data)
+        image = images.first
+        image.format = 'JPEG'
+        blob = image.to_blob
+        images.each(&:destroy!)
+        blob
+      end
     end
 
     def draw_gif
-      png_data = draw_png
-      images = Magick::Image.from_blob(png_data)
-      image = images.first
-      image.format = 'GIF'
-      blob = image.to_blob
-      images.each(&:destroy!)
-      blob
+      with_rmagick do
+        png_data = draw_png
+        images = Magick::Image.from_blob(png_data)
+        image = images.first
+        image.format = 'GIF'
+        blob = image.to_blob
+        images.each(&:destroy!)
+        blob
+      end
     end
 
     def draw_lsif

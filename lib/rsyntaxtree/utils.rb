@@ -7,7 +7,6 @@
 # Image utility functions to inspect text font metrics
 # Copyright (c) 2007-2026 Yoichiro Hasebe <yohasebe@gmail.com>
 
-require 'rmagick'
 require 'pango'
 
 # Font family lists shared by the SVG output and the Pango-based text
