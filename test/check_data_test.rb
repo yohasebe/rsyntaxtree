@@ -95,4 +95,21 @@ class CheckDataTest < Minitest::Test
              "should validate as #{format}"
     end
   end
+
+  def test_an_option_switched_off_stays_off_however_it_is_written
+    # Anything but "off"/"false" used to switch an option on, so mirror: "no"
+    # reversed the tree and transparent: "0" cut the background away.
+    %i[mirror polyline transparent hide_default_connectors symmetrize].each do |option|
+      ["no", "No", "0", "off", "Off", "FALSE", "none", "", nil, false].each do |value|
+        params = RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(option => value, data: "[S [NP a]]"))
+                                         .instance_variable_get(:@params)
+        assert_equal false, params[option], "#{option}: #{value.inspect}"
+      end
+      ["on", "yes", "true", "1", true].each do |value|
+        params = RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(option => value, data: "[S [NP a]]"))
+                                         .instance_variable_get(:@params)
+        assert_equal true, params[option], "#{option}: #{value.inspect}"
+      end
+    end
+  end
 end

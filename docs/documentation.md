@@ -130,8 +130,6 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 |Underline   |`-TEXT-`|`-underline-`  |<span style='text-decoration:underline'>underline</span>     |
 |Line-through|`~TEXT~`|`~linethrough~`|<span style='text-decoration:line-through'>linethrough</span>|
 
-Note: Currently, overline is displayed in SVG, but not in PNG.
-
 #### Subscript and Superscript
 
 |Sample Input           |Output                      |

@@ -177,9 +177,6 @@ module Markup
     rule(circle: subtree(:text)) {
       text[:decoration] << :circle; text
     }
-    rule(math: subtree(:text)) {
-      text[:decoration] << :math; text
-    }
     rule(border: simple(:border)) {
       { type: :border }
     }

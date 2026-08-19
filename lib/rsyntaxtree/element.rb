@@ -47,7 +47,6 @@ module RSyntaxTree
         raise RSTError.new(error_text, **markup_failure_details(content, parsed[:charpos]))
       end
       @content = results[:contents]
-      @paths = results[:paths]
       @enclosure = results[:enclosure]
       @triangle = results[:triangle]
       @color = results[:color]
@@ -130,8 +129,13 @@ module RSyntaxTree
       [:bare_hyphen,
        ->(s) { Element.escape_hyphens(s) },
        "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal."],
+      # Every other repair leaves a label it has nothing to do with exactly
+      # as it was, and an unchanged label is not tried. Appending always
+      # changes one, so this one asks first whether there is an unclosed
+      # matrix at all: without that, a label of "^" parses once "#)" is
+      # stuck on the end, and would be reported as a matrix left open.
       [:unclosed_matrix,
-       ->(s) { s + "#)" },
+       ->(s) { s.scan("#(").size > s.scan("#)").size ? s + "#)" : s },
        "A matrix opened with '#(' is never closed with '#)'."],
       # Neutralising every occurrence of one character, rather than adding a
       # closing one, locates the culprit wherever it sits in the label — an

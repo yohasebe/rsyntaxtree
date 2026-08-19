@@ -144,10 +144,8 @@ module RSyntaxTree
                             else
                               "off"
                             end
-        when :tidy_nest
-          new_params[key] = value && (value != "off" && value != "false") ? true : false
-        when :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror
-          new_params[key] = value && (value != "off" && value != "false") ? true : false
+        when :tidy_nest, :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror
+          new_params[key] = switched_on?(value)
         when :color
           new_params[key] = case value
                             when "modern", "on", "true"
@@ -235,6 +233,19 @@ module RSyntaxTree
     # Options matter to the second gate: `hyphen: "literal"` decides whether
     # a hyphen is an underline, so validating without the caller's options
     # rejects input that draws.
+    # An on/off option, read the way someone writing one would mean it.
+    # This used to compare against "off" and "false" alone, so every other
+    # way of saying no switched the option on: `mirror: "no"` reversed the
+    # tree, `transparent: "0"` cut the background out, and a capital in
+    # "Off" was enough on its own.
+    OFF = ["off", "false", "no", "none", "0", ""].freeze
+
+    def switched_on?(value)
+      return false if value.nil? || value == false
+
+      !OFF.include?(value.to_s.strip.downcase)
+    end
+
     def self.check_data(text, params = {})
       raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if text.to_s == ""
 

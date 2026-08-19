@@ -128,8 +128,6 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 |Underline   |`-TEXT-`|`-underline-`  |<span style='text-decoration:underline'>underline</span>     |
 |Line-through|`~TEXT~`|`~linethrough~`|<span style='text-decoration:line-through'>linethrough</span>|
 
-**注意：** 上線はSVGでは使用できますがPNG形式の画像では表示されません.
-
 #### 上付き文字と下付き文字
 
 |Sample Input           |Output                      |
