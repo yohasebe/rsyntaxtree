@@ -162,7 +162,7 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
     [PP [P [<> on]] [NP [D the] [N mat]]]]]
 ```
 
-中継点がなければ，*the*・*cat*・*sat* は *the*・*mat* より2段上に，*on* は1段上に浮きます．各リーフは最も深い段に届くだけの中継点を重ねるので，終端の並びが図の一番下を一列に読めるようになります．ギャラリーの[Animal ontologyの例](https://yohasebe.github.io/rsyntaxtree/examples#example-029)でも同じ仕組みが使われています．
+中継点がなければ，*the*・*cat*・*sat* は *the*・*mat* より2段上に，*on* は1段上に浮きます．各リーフは最も深い段に届くのに必要な数だけ中継点を重ねるので，6語すべてが最下段に並びます．ギャラリーの[Animal ontologyの例](https://yohasebe.github.io/rsyntaxtree/examples#example-029)でも同じ仕組みが使われています．
 
 #### 桁揃え
 

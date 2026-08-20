@@ -167,11 +167,7 @@ A node whose label is *only* `<>` renders as an invisible pass-through joint: th
     [PP [P [<> on]] [NP [D the] [N mat]]]]]
 ```
 
-Without the joints, *the*, *cat* and *sat* sit two rows above *the* and
-*mat*, and *on* one row above. Each leaf takes as many joints as it needs to
-reach the deepest row, so the terminal string reads across the bottom of the
-figure. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029)
-in the gallery uses `<>`-only joints the same way.
+Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, and *on* one row above. Each leaf takes as many joints as it needs to reach the deepest row, so all six words end up on the bottom row. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029) in the gallery uses `<>`-only joints the same way.
 
 #### Columns
 
