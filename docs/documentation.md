@@ -359,7 +359,7 @@ $ rsyntaxtree --validate "[X V-bar]"
       "message": "Error: input text contains an invalid string\n > V-bar",
       "label": "V-bar",
       "position": 1,
-      "hint": "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal.",
+      "hint": "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or set the hyphen option to literal.",
       "retryable": true
     }
   ]

@@ -384,8 +384,10 @@ module RSyntaxTree
           @extra_lines << "<line style=\"stroke:#{col}; fill:none; stroke-linecap:round; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
         else
           if @direction == "ltr" && element.type == ETYPE_LEAF
-            # LTR leaves: left-align text at the node's left edge
-            this_x = left
+            # LTR leaves: left-align text at the node's left edge. A leaf
+            # with its own enclosure starts one enclosure room inside, the
+            # same as in TTB, or the bracket would sit on the glyphs.
+            this_x = left + enclosure_room
           elsif element.enclosure == :brackets
             this_x = text_x
           else

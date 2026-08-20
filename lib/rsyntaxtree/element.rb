@@ -137,7 +137,7 @@ module RSyntaxTree
        "'<' and '>' mark whitespace here, not a list. Write the angle bracket characters themselves: 〈NP〉, 'hand〈SUBJ,OBJ〉'."],
       [:bare_hyphen,
        ->(s) { Element.escape_hyphens(s) },
-       "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or pass hyphen: literal."],
+       "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or set the hyphen option to literal."],
       # Every other repair leaves a label it has nothing to do with exactly
       # as it was, and an unchanged label is not tried. Appending always
       # changes one, so this one asks first whether there is an unclosed
