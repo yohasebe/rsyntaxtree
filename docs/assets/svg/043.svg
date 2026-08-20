@@ -14,14 +14,14 @@
     <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="45.6" markerHeight="15.200000000000001" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
     </marker>
-    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="#0072B2" stroke-width="4"></line>
+    <pattern id="hatchForNode" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="#0072B2" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="#009E73" stroke-width="4"></line>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="#009E73" stroke-width="4.0"></line>
     </pattern>
   </defs>
 <rect x="-15.200000000000001" y="0" width="1072.2000000000005" height="635.4880000000002" stroke="none" fill="white" />
@@ -82,227 +82,227 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; storoke-width: 0; font-size: 32px;' x='965.9000000000003' y='607.488'><tspan x='970.6500000000003' y='607.488' style="" text-decoration="" font-family="'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', sans-serif">19</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='220.0' y1='198.73995525081196' x2='503.72500000000014' y2='95.19999999999999' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='502.75000000000006' y1='198.73995525081196' x2='503.72500000000014' y2='95.19999999999999' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='787.4500000000003' y1='198.73995525081196' x2='503.72500000000014' y2='95.19999999999999' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='75.8' y1='377.89136051966796' x2='220.0' y2='282.73995525081193' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='218.05' y1='377.89136051966796' x2='220.0' y2='282.73995525081193' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='364.20000000000005' y1='377.89136051966796' x2='220.0' y2='282.73995525081193' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='36.0' y1='551.488' x2='75.8' y2='461.89136051966796' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='115.6' y1='551.488' x2='75.8' y2='461.89136051966796' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='309.15000000000003' y1='551.488' x2='364.20000000000005' y2='461.89136051966796' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='419.25000000000006' y1='551.488' x2='364.20000000000005' y2='461.89136051966796' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='641.3000000000002' y1='377.89136051966796' x2='787.4500000000003' y2='282.73995525081193' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='787.4500000000003' y1='377.89136051966796' x2='787.4500000000003' y2='282.73995525081193' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='933.6000000000001' y1='377.89136051966796' x2='787.4500000000003' y2='282.73995525081193' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='599.5500000000002' y1='551.488' x2='641.3000000000002' y2='461.89136051966796' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='683.0500000000002' y1='551.488' x2='641.3000000000002' y2='461.89136051966796' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='878.5500000000002' y1='551.488' x2='933.6000000000001' y2='461.89136051966796' />
-<line style='fill: none; stroke:black; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='988.6500000000003' y1='551.488' x2='933.6000000000001' y2='461.89136051966796' />
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='220.0' y1='198.73995525081196' x2='503.72500000000014' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='502.75000000000006' y1='198.73995525081196' x2='503.72500000000014' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='787.4500000000003' y1='198.73995525081196' x2='503.72500000000014' y2='95.19999999999999' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='75.8' y1='377.89136051966796' x2='220.0' y2='282.73995525081193' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='218.05' y1='377.89136051966796' x2='220.0' y2='282.73995525081193' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='364.20000000000005' y1='377.89136051966796' x2='220.0' y2='282.73995525081193' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='36.0' y1='551.488' x2='75.8' y2='461.89136051966796' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='115.6' y1='551.488' x2='75.8' y2='461.89136051966796' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='309.15000000000003' y1='551.488' x2='364.20000000000005' y2='461.89136051966796' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='419.25000000000006' y1='551.488' x2='364.20000000000005' y2='461.89136051966796' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='641.3000000000002' y1='377.89136051966796' x2='787.4500000000003' y2='282.73995525081193' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='787.4500000000003' y1='377.89136051966796' x2='787.4500000000003' y2='282.73995525081193' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='933.6000000000001' y1='377.89136051966796' x2='787.4500000000003' y2='282.73995525081193' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='599.5500000000002' y1='551.488' x2='641.3000000000002' y2='461.89136051966796' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='683.0500000000002' y1='551.488' x2='641.3000000000002' y2='461.89136051966796' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='878.5500000000002' y1='551.488' x2='933.6000000000001' y2='461.89136051966796' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='988.6500000000003' y1='551.488' x2='933.6000000000001' y2='461.89136051966796' />
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='280.1250000000001' y='34.39999999999999'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='325.6250000000001' y='34.39999999999999'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='367.22500000000014' y='34.39999999999999'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='412.72500000000014' y='34.39999999999999'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='454.32500000000016' y='34.39999999999999'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='499.82500000000016' y='34.39999999999999'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='545.3250000000002' y='34.39999999999999'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='590.8250000000002' y='34.39999999999999'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='636.3250000000002' y='34.39999999999999'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='681.8250000000002' y='34.39999999999999'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='110.15' y='221.93995525081198'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='151.75' y='221.93995525081198'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='193.35000000000002' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='238.85000000000002' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='284.35' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='34.20000000000001' y='401.09136051966794'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='75.80000000000001' y='401.09136051966794'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='15.2' y='574.6880000000001'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='94.8' y='574.6880000000001'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='195.3' y='401.09136051966794'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='318.70000000000005' y='401.09136051966794'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='364.20000000000005' y='401.09136051966794'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='286.40000000000003' y='574.6880000000001'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='396.50000000000006' y='574.6880000000001'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='480.0' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='673.7000000000003' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='719.2000000000003' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='764.7000000000003' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='810.2000000000003' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='855.7000000000003' y='221.93995525081198'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='595.8000000000002' y='401.09136051966794'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='641.3000000000002' y='401.09136051966794'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='576.8000000000002' y='574.6880000000001'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='660.3000000000002' y='574.6880000000001'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='764.7000000000003' y='401.09136051966794'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='888.1000000000001' y='401.09136051966794'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #0072B2; stroke-linejoin:round; stroke-width:1.6;'
                     x='933.6000000000001' y='401.09136051966794'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='855.8000000000002' y='574.6880000000001'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: #009E73; stroke-linejoin:round; stroke-width:1.6;'
                     x='965.9000000000003' y='574.6880000000001'
                     width='45.5' height='41.6'
                     fill='none' />
 
-<path d='M333.65000000000003,240.73995525081193 L404.92500000000007,240.73995525081193 L476.20000000000005, 240.73995525081193' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M121.2,419.89136051966796 L156.35,419.89136051966796 L191.5, 419.89136051966796' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M244.60000000000002,419.89136051966796 L279.75,419.89136051966796 L314.90000000000003, 419.89136051966796' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<line x1='335.70000000000005' y1='593.488' x2='392.70000000000005' y2='593.488' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;' />
+<path d='M333.65000000000003,240.73995525081193 L404.92500000000007,240.73995525081193 L476.20000000000005, 240.73995525081193' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
+<path d='M121.2,419.89136051966796 L156.35,419.89136051966796 L191.5, 419.89136051966796' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
+<path d='M244.60000000000002,419.89136051966796 L279.75,419.89136051966796 L314.90000000000003, 419.89136051966796' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
+<line x1='335.70000000000005' y1='593.488' x2='392.70000000000005' y2='593.488' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
 <polygon points='387.00000000000006,593.488 371.80000000000007,601.0880000000001 371.80000000000007,585.888' style='fill:#CC79A7; stroke:none;' />
 <polygon points='341.40000000000003,593.488 356.6,601.0880000000001 356.6,585.888' style='fill:#CC79A7; stroke:none;' />
-<path d='M529.3,240.73995525081193 L599.6000000000001,240.73995525081193 L669.9000000000003, 240.73995525081193' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<path d='M690.6000000000001,419.89136051966796 L725.7500000000002,419.89136051966796 L760.9000000000003, 419.89136051966796' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M814.0000000000002,419.89136051966796 L849.1500000000002,419.89136051966796 L884.3000000000002, 419.89136051966796' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<line x1='905.1000000000001' y1='593.488' x2='962.1000000000004' y2='593.488' style='fill: none; stroke: #CC79A7; stroke-width:3; stroke-linecap:round;' />
+<path d='M529.3,240.73995525081193 L599.6000000000001,240.73995525081193 L669.9000000000003, 240.73995525081193' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
+<path d='M690.6000000000001,419.89136051966796 L725.7500000000002,419.89136051966796 L760.9000000000003, 419.89136051966796' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
+<path d='M814.0000000000002,419.89136051966796 L849.1500000000002,419.89136051966796 L884.3000000000002, 419.89136051966796' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
+<line x1='905.1000000000001' y1='593.488' x2='962.1000000000004' y2='593.488' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
 <polygon points='956.4000000000002,593.488 941.2000000000003,601.0880000000001 941.2000000000003,585.888' style='fill:#CC79A7; stroke:none;' />
 <polygon points='910.8000000000003,593.488 926.0000000000002,601.0880000000001 926.0000000000002,585.888' style='fill:#CC79A7; stroke:none;' /></svg>

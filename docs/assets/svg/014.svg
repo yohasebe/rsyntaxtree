@@ -14,14 +14,14 @@
     <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
-    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchForNode" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
   </defs>
 <rect x="-16.8" y="0" width="1117.8399999999997" height="746.08" stroke="none" fill="white" />
@@ -66,125 +66,125 @@
 <tspan x='862.3899999999999' y='628.48' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">RELATION</tspan>
 <tspan x='898.3899999999999' y='718.0799999999999' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">smart</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='240.74' y1='271.03999999999996' x2='516.0' y2='226.39999999999998' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='791.26' y1='271.03999999999996' x2='516.0' y2='226.39999999999998' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='117.61000000000001' y1='530.88' x2='240.74' y2='486.24' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='363.87' y1='530.88' x2='240.74' y2='486.24' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='639.1299999999999' y1='530.88' x2='791.26' y2='486.24' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='943.3899999999999' y1='530.88' x2='791.26' y2='486.24' />
-<rect style='stroke: black; stroke-width:3;'
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='240.74' y1='271.03999999999996' x2='516.0' y2='226.39999999999998' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='791.26' y1='271.03999999999996' x2='516.0' y2='226.39999999999998' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='117.61000000000001' y1='530.88' x2='240.74' y2='486.24' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='363.87' y1='530.88' x2='240.74' y2='486.24' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='639.1299999999999' y1='530.88' x2='791.26' y2='486.24' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='943.3899999999999' y1='530.88' x2='791.26' y2='486.24' />
+<rect style='stroke: black; stroke-width:3.2;'
                     x='453.6' y='34.39999999999999' rx='20.8' ry='20.8'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='496.20000000000005' y1='55.19999999999999' x2='535.8000000000001' y2='55.19999999999999'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3.2;' x1='496.80000000000007' y1='55.19999999999999' x2='535.2' y2='55.19999999999999'></line>
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:3.2;'
                     x='536.8000000000001' y='34.39999999999999'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:1.6;'
                     x='412.44' y='76.03999999999998'
                     width='29.119999999999997' height='29.119999999999997'
                     fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="377.0" y1="142.39999999999998" x2="655.0" y2="142.39999999999998"></line>
-<polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="377.0" y1="142.39999999999998" x2="655.0" y2="142.39999999999998"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='350.75,16.799999999999997 681.25,16.799999999999997 681.25,220.79999999999995 350.75,220.79999999999995' />
 
-<rect style='stroke: black; stroke-width:3;'
+<rect style='stroke: black; stroke-width:3.2;'
                     x='219.94' y='294.23999999999995' rx='20.8' ry='20.8'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:1.6;'
                     x='166.18' y='335.88'
                     width='29.119999999999997' height='29.119999999999997'
                     fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="166.18" y1="402.24" x2="315.3" y2="402.24"></line>
-<polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="166.18" y1="402.24" x2="315.3" y2="402.24"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='139.93,276.64 341.55,276.64 341.55,480.64 139.93,480.64' />
 
-<rect style='stroke: black; stroke-width:3;'
+<rect style='stroke: black; stroke-width:3.2;'
                     x='96.81000000000002' y='554.08' rx='20.8' ry='20.8'
                     width='41.6' height='41.6'
                     fill='url(#hatchForLeaf)' />
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:1.6;'
                     x='43.05000000000001' y='595.72'
                     width='29.119999999999997' height='29.119999999999997'
                     fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="43.05000000000001" y1="662.0799999999999" x2="192.17000000000002" y2="662.0799999999999"></line>
-<polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="43.05000000000001" y1="662.0799999999999" x2="192.17000000000002" y2="662.0799999999999"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='16.80000000000001,536.4799999999999 218.42000000000002,536.4799999999999 218.42000000000002,740.4799999999999 16.80000000000001,740.4799999999999' />
 
-<rect style='stroke: black; stroke-width:3;'
+<rect style='stroke: black; stroke-width:3.2;'
                     x='343.07' y='554.08' rx='20.8' ry='20.8'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="311.87" y1="662.0799999999999" x2="415.87" y2="662.0799999999999"></line>
-<polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="311.87" y1="662.0799999999999" x2="415.87" y2="662.0799999999999"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='285.62,536.4799999999999 442.12,536.4799999999999 442.12,740.4799999999999 285.62,740.4799999999999' />
 
-<rect style='stroke: black; stroke-width:2;'
+<rect style='stroke: black; stroke-width:1.6;'
                     x='728.86' y='294.23999999999995' rx='20.8' ry='20.8'
                     width='41.6' height='41.6'
                     fill='url(#hatchForNode)' />
 
-<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='771.4599999999999' y1='315.03999999999996' x2='811.06' y2='315.03999999999996'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3.2;' x1='772.06' y1='315.03999999999996' x2='810.4599999999999' y2='315.03999999999996'></line>
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:3.2;'
                     x='812.0599999999998' y='294.23999999999995'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:1.6;'
                     x='687.7' y='335.88'
                     width='29.119999999999997' height='29.119999999999997'
                     fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="687.7" y1="402.24" x2="894.82" y2="402.24"></line>
-<polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="687.7" y1="402.24" x2="894.82" y2="402.24"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='661.45,276.64 921.07,276.64 921.07,480.64 661.45,480.64' />
 
-<rect style='stroke: black; stroke-width:2;'
+<rect style='stroke: black; stroke-width:1.6;'
                     x='576.7299999999999' y='554.08' rx='20.8' ry='20.8'
                     width='41.6' height='41.6'
                     fill='url(#hatchForLeaf)' />
 
-<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3;' x1='619.3299999999998' y1='574.88' x2='658.9299999999998' y2='574.88'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:3.2;' x1='619.9299999999998' y1='574.88' x2='658.3299999999998' y2='574.88'></line>
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:1.6;'
                     x='659.9299999999997' y='554.08'
                     width='41.6' height='41.6'
                     fill='url(#hatchForLeaf)' />
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:2;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:1.6;'
                     x='535.5699999999999' y='595.72'
                     width='29.119999999999997' height='29.119999999999997'
                     fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="535.5699999999999" y1="662.0799999999999" x2="742.6899999999999" y2="662.0799999999999"></line>
-<polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="535.5699999999999" y1="662.0799999999999" x2="742.6899999999999" y2="662.0799999999999"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='509.31999999999994,536.4799999999999 768.9399999999999,536.4799999999999 768.9399999999999,740.4799999999999 509.31999999999994,740.4799999999999' />
 
-<rect style='stroke: black; stroke-width:2;'
+<rect style='stroke: black; stroke-width:1.6;'
                     x='880.9899999999999' y='554.08' rx='20.8' ry='20.8'
                     width='41.6' height='41.6'
                     fill='url(#hatchForLeaf)' />
 
-<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:2;' x1='923.5899999999998' y1='574.88' x2='963.1899999999998' y2='574.88'></line>
+<line style='fill:none; stroke:black; stroke-linejoin:round; stroke-linecap:round; stroke-width:1.6;' x1='923.3899999999998' y1='574.88' x2='963.3899999999999' y2='574.88'></line>
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:3;'
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:3.2;'
                     x='964.1899999999997' y='554.08'
                     width='41.6' height='41.6'
                     fill='none' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="862.3899999999999" y1="662.0799999999999" x2="1024.3899999999999" y2="662.0799999999999"></line>
-<polygon style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="862.3899999999999" y1="662.0799999999999" x2="1024.3899999999999" y2="662.0799999999999"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='836.1399999999999,536.4799999999999 1050.6399999999999,536.4799999999999 1050.6399999999999,740.4799999999999 836.1399999999999,740.4799999999999' />
 </svg>

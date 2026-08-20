@@ -14,14 +14,14 @@
     <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
-    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchForNode" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
   </defs>
 <rect x="-16.8" y="0" width="3280.7000000000003" height="1286.8799999999997" stroke="none" fill="white" />
@@ -80,100 +80,100 @@
 <tspan x='2889.25' y='775.0399999999997' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">May<tspan style='fill:none;'>￭</tspan>a<tspan style='fill:none;'>￭</tspan>million<tspan style='fill:none;'>￭</tspan>flies</tspan>
 <tspan x='2889.25' y='819.8399999999997' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">infest<tspan style='fill:none;'>￭</tspan>his<tspan style='fill:none;'>￭</tspan>armpits!</tspan>
 </text>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='387.1500000000001 495.03999999999996 387.1500000000001 429.52 1712.7 429.52 1712.7 363.99999999999994' />
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1068.95 495.03999999999996 1068.95 429.52 1712.7 429.52 1712.7 363.99999999999994' />
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1612.15 495.03999999999996 1612.15 429.52 1712.7 429.52 1712.7 363.99999999999994' />
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='2128.8500000000004 495.03999999999996 2128.8500000000004 429.52 1712.7 429.52 1712.7 363.99999999999994' />
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='2616.55 495.03999999999996 2616.55 429.52 1712.7 429.52 1712.7 363.99999999999994' />
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='3038.25 495.03999999999996 3038.25 429.52 1712.7 429.52 1712.7 363.99999999999994' />
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='191.04999999999995 934.08 191.04999999999995 868.5599999999998 387.1500000000001 868.5599999999998 387.1500000000001 803.0399999999996' />
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='583.2500000000002 934.08 583.2500000000002 868.5599999999998 387.1500000000001 868.5599999999998 387.1500000000001 803.0399999999996' />
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='2128.8500000000004 978.88 2128.8500000000004 913.3599999999998 2128.8500000000004 913.3599999999998 2128.8500000000004 847.8399999999996' />
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1495.2" y1="100.79999999999998" x2="1930.2" y2="100.79999999999998"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1495.2" y1="100.79999999999998" x2="1930.2" y2="100.79999999999998"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1477.3500000000001,16.799999999999997 1468.95,16.799999999999997 1468.95,358.4 1477.3500000000001,358.4' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1948.05,16.799999999999997 1956.45,16.799999999999997 1956.45,358.4 1948.05,358.4' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="267.1500000000001" y1="584.6399999999999" x2="507.1500000000001" y2="584.6399999999999"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="267.1500000000001" y1="719.0399999999997" x2="507.1500000000001" y2="719.0399999999997"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="267.1500000000001" y1="584.6399999999999" x2="507.1500000000001" y2="584.6399999999999"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="267.1500000000001" y1="719.0399999999997" x2="507.1500000000001" y2="719.0399999999997"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='249.3000000000001,500.64 240.9000000000001,500.64 240.9000000000001,797.4399999999997 249.3000000000001,797.4399999999997' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='525.0000000000001,500.64 533.4000000000001,500.64 533.4000000000001,797.4399999999997 525.0000000000001,797.4399999999997' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="43.049999999999955" y1="1023.6800000000001" x2="339.04999999999995" y2="1023.6800000000001"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="43.049999999999955" y1="1113.28" x2="339.04999999999995" y2="1113.28"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="43.049999999999955" y1="1023.6800000000001" x2="339.04999999999995" y2="1023.6800000000001"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="43.049999999999955" y1="1113.28" x2="339.04999999999995" y2="1113.28"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='25.199999999999953,939.68 16.799999999999955,939.68 16.799999999999955,1191.68 25.199999999999953,1191.68' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='356.9,939.68 365.29999999999995,939.68 365.29999999999995,1191.68 356.9,1191.68' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="458.7500000000002" y1="1023.6800000000001" x2="707.7500000000002" y2="1023.6800000000001"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="458.7500000000002" y1="1113.28" x2="707.7500000000002" y2="1113.28"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="458.7500000000002" y1="1023.6800000000001" x2="707.7500000000002" y2="1023.6800000000001"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="458.7500000000002" y1="1113.28" x2="707.7500000000002" y2="1113.28"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='440.9000000000002,939.68 432.5000000000002,939.68 432.5000000000002,1191.68 440.9000000000002,1191.68' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='725.6000000000003,939.68 734.0000000000002,939.68 734.0000000000002,1191.68 725.6000000000003,1191.68' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="827.45" y1="584.6399999999999" x2="1310.45" y2="584.6399999999999"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="827.45" y1="719.0399999999997" x2="1310.45" y2="719.0399999999997"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="827.45" y1="584.6399999999999" x2="1310.45" y2="584.6399999999999"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="827.45" y1="719.0399999999997" x2="1310.45" y2="719.0399999999997"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='809.6,500.64 801.2,500.64 801.2,842.2399999999997 809.6,842.2399999999997' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1328.3,500.64 1336.7,500.64 1336.7,842.2399999999997 1328.3,842.2399999999997' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1430.15" y1="629.4399999999998" x2="1794.15" y2="629.4399999999998"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1430.15" y1="719.0399999999997" x2="1794.15" y2="719.0399999999997"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1430.15" y1="629.4399999999998" x2="1794.15" y2="629.4399999999998"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1430.15" y1="719.0399999999997" x2="1794.15" y2="719.0399999999997"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1412.3000000000002,500.64 1403.9,500.64 1403.9,842.2399999999997 1412.3000000000002,842.2399999999997' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1812.0,500.64 1820.4,500.64 1820.4,842.2399999999997 1812.0,842.2399999999997' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1913.8500000000004" y1="584.6399999999999" x2="2343.8500000000004" y2="584.6399999999999"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1913.8500000000004" y1="719.0399999999997" x2="2343.8500000000004" y2="719.0399999999997"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1913.8500000000004" y1="584.6399999999999" x2="2343.8500000000004" y2="584.6399999999999"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1913.8500000000004" y1="719.0399999999997" x2="2343.8500000000004" y2="719.0399999999997"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1896.0000000000005,500.64 1887.6000000000004,500.64 1887.6000000000004,842.2399999999997 1896.0000000000005,842.2399999999997' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='2361.7000000000003,500.64 2370.1000000000004,500.64 2370.1000000000004,842.2399999999997 2361.7000000000003,842.2399999999997' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1920.8500000000004" y1="1068.4799999999998" x2="2336.8500000000004" y2="1068.4799999999998"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="1920.8500000000004" y1="1202.8799999999997" x2="2336.8500000000004" y2="1202.8799999999997"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1920.8500000000004" y1="1068.4799999999998" x2="2336.8500000000004" y2="1068.4799999999998"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1920.8500000000004" y1="1202.8799999999997" x2="2336.8500000000004" y2="1202.8799999999997"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1903.0000000000005,984.4799999999999 1894.6000000000004,984.4799999999999 1894.6000000000004,1281.2799999999997 1903.0000000000005,1281.2799999999997' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='2354.7000000000003,984.4799999999999 2363.1000000000004,984.4799999999999 2363.1000000000004,1281.2799999999997 2354.7000000000003,1281.2799999999997' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="2463.55" y1="584.6399999999999" x2="2769.55" y2="584.6399999999999"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="2463.55" y1="719.0399999999997" x2="2769.55" y2="719.0399999999997"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="2463.55" y1="584.6399999999999" x2="2769.55" y2="584.6399999999999"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="2463.55" y1="719.0399999999997" x2="2769.55" y2="719.0399999999997"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='2445.7000000000003,500.64 2437.3,500.64 2437.3,842.2399999999997 2445.7000000000003,842.2399999999997' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='2787.4,500.64 2795.8,500.64 2795.8,842.2399999999997 2787.4,842.2399999999997' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="2889.25" y1="584.6399999999999" x2="3187.25" y2="584.6399999999999"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="2889.25" y1="719.0399999999997" x2="3187.25" y2="719.0399999999997"></line>
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="2889.25" y1="584.6399999999999" x2="3187.25" y2="584.6399999999999"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="2889.25" y1="719.0399999999997" x2="3187.25" y2="719.0399999999997"></line>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='2871.4,500.64 2863.0,500.64 2863.0,842.2399999999997 2871.4,842.2399999999997' />
 
-<polyline style='stroke:black; stroke-width:2; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='3205.1,500.64 3213.5,500.64 3213.5,842.2399999999997 3205.1,842.2399999999997' />
 </svg>

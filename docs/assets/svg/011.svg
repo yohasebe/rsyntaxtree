@@ -14,14 +14,14 @@
     <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
-    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchForNode" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
   </defs>
 <rect x="-16.8" y="0" width="532.9999999999999" height="644.896" stroke="none" fill="white" />
@@ -46,13 +46,13 @@
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='399.29999999999995' y='527.2959999999999'><tspan x='411.29999999999995' y='527.2959999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">NP</tspan>
 <tspan x='399.29999999999995' y='616.8959999999998' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">John</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='108.05000000000001' y1='245.70932145130487' x2='235.42499999999998' y2='140.0' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='363.29999999999995' y1='245.70932145130487' x2='235.42499999999998' y2='140.0' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='54.8' y1='471.29599999999994' x2='108.05000000000001' y2='374.5093214513049' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='161.8' y1='471.29599999999994' x2='108.05000000000001' y2='374.5093214513049' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='293.8' y1='471.29599999999994' x2='363.29999999999995' y2='374.5093214513049' />
-<line style='fill: none; stroke:black; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;' x1='431.79999999999995' y1='471.29599999999994' x2='363.29999999999995' y2='374.5093214513049' />
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="16.799999999999997" y1="560.8959999999998" x2="92.8" y2="560.8959999999998"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="135.3" y1="560.8959999999998" x2="190.3" y2="560.8959999999998"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="232.3" y1="560.8959999999998" x2="357.3" y2="560.8959999999998"></line>
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:2; " x1="399.29999999999995" y1="560.8959999999998" x2="466.29999999999995" y2="560.8959999999998"></line></svg>
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='108.05000000000001' y1='245.70932145130487' x2='235.42499999999998' y2='140.0' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='363.29999999999995' y1='245.70932145130487' x2='235.42499999999998' y2='140.0' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='54.8' y1='471.29599999999994' x2='108.05000000000001' y2='374.5093214513049' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='161.8' y1='471.29599999999994' x2='108.05000000000001' y2='374.5093214513049' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='293.8' y1='471.29599999999994' x2='363.29999999999995' y2='374.5093214513049' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='431.79999999999995' y1='471.29599999999994' x2='363.29999999999995' y2='374.5093214513049' />
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="16.799999999999997" y1="560.8959999999998" x2="92.8" y2="560.8959999999998"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="135.3" y1="560.8959999999998" x2="190.3" y2="560.8959999999998"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="232.3" y1="560.8959999999998" x2="357.3" y2="560.8959999999998"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="399.29999999999995" y1="560.8959999999998" x2="466.29999999999995" y2="560.8959999999998"></line></svg>

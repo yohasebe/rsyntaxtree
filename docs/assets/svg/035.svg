@@ -14,14 +14,14 @@
     <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
       <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
-    <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchForNode" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
-    <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
   </defs>
 <rect x="-16.8" y="0" width="1971.8999999999999" height="1009.12" stroke="none" fill="white" />
@@ -44,34 +44,34 @@
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='1416.45' y='371.84000000000003'><tspan x='1582.45' y='371.84000000000003' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">Transfer</tspan>
 <tspan x='1416.45' y='461.44000000000005' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">Sally<tspan style='fill:none;'>￭</tspan>threw<tspan style='fill:none;'>￭</tspan>a<tspan style='fill:none;'>￭</tspan>football<tspan style='fill:none;'>￭</tspan>to<tspan style='fill:none;'>￭</tspan>him</tspan>
 </text>
-<line style='fill: none; stroke:none; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='315.84' x2='981.75' y2='184.8' />
-<line style='fill: none; stroke:none; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='981.75' y1='341.04' x2='981.75' y2='184.8' />
-<line style='fill: none; stroke:none; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='1647.45' y1='315.84' x2='981.75' y2='184.8' />
-<line style='fill: none; stroke:none; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='645.6800000000001' x2='316.04999999999995' y2='489.44000000000005' />
-<line style='fill: none; stroke:none; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='835.52' x2='316.04999999999995' y2='645.6800000000001' />
-<line style='fill: none; stroke:none; stroke-width:3; stroke-linejoin:round; stroke-linecap:round;' x1='981.75' y1='530.88' x2='981.75' y2='341.04' />
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="694.75" y1="100.79999999999998" x2="1268.75" y2="100.79999999999998"></line>
-<polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='315.84' x2='981.75' y2='184.8' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='981.75' y1='341.04' x2='981.75' y2='184.8' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='1647.45' y1='315.84' x2='981.75' y2='184.8' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='645.6800000000001' x2='316.04999999999995' y2='489.44000000000005' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='835.52' x2='316.04999999999995' y2='645.6800000000001' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='981.75' y1='530.88' x2='981.75' y2='341.04' />
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="694.75" y1="100.79999999999998" x2="1268.75" y2="100.79999999999998"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='668.5,16.799999999999997 1295.0,16.799999999999997 1295.0,179.2 668.5,179.2' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="98.54999999999995" y1="405.44000000000005" x2="533.55" y2="405.44000000000005"></line>
-<polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="98.54999999999995" y1="405.44000000000005" x2="533.55" y2="405.44000000000005"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='72.29999999999995,321.44 559.8,321.44 559.8,483.84000000000003 72.29999999999995,483.84000000000003' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="43.049999999999955" y1="925.1199999999999" x2="589.05" y2="925.1199999999999"></line>
-<polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="43.049999999999955" y1="925.1199999999999" x2="589.05" y2="925.1199999999999"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='16.799999999999955,841.1199999999999 615.3,841.1199999999999 615.3,1003.5199999999999 16.799999999999955,1003.5199999999999' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="830.75" y1="620.4799999999999" x2="1132.75" y2="620.4799999999999"></line>
-<polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="830.75" y1="620.4799999999999" x2="1132.75" y2="620.4799999999999"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='804.5,536.4799999999999 1159.0,536.4799999999999 1159.0,698.8799999999999 804.5,698.8799999999999' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:3; " x1="1416.45" y1="405.44000000000005" x2="1878.45" y2="405.44000000000005"></line>
-<polygon style='stroke:black; stroke-width:3; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1416.45" y1="405.44000000000005" x2="1878.45" y2="405.44000000000005"></line>
+<polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='1390.2,321.44 1904.7,321.44 1904.7,483.84000000000003 1390.2,483.84000000000003' />
 
-<line x1='981.75' y1='530.88' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  />
-<line x1='316.04999999999995' y1='315.84' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  />
-<line x1='1647.45' y1='315.84' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  />
-<line x1='316.04999999999995' y1='835.52' x2='316.04999999999995' y2='489.44000000000005' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  />
-<line x1='316.04999999999995' y1='835.52' x2='981.75' y2='704.4799999999999' style='fill: none; stroke: black; stroke-width:3; stroke-linecap:round;'  /></svg>
+<line x1='981.75' y1='530.88' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
+<line x1='316.04999999999995' y1='315.84' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
+<line x1='1647.45' y1='315.84' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
+<line x1='316.04999999999995' y1='835.52' x2='316.04999999999995' y2='489.44000000000005' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
+<line x1='316.04999999999995' y1='835.52' x2='981.75' y2='704.4799999999999' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  /></svg>
