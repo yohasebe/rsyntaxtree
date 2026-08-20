@@ -79,8 +79,18 @@ class MarkupParser < Parslet::Parser
 
   rule(:markup) { (matrix | tabstop | text | decoration | shape | bstroke) }
 
+  # A label that is one whole matrix. The enclosure rules in :lines would
+  # eat the '#' of '#(' before the matrix rule could see it, so a matrix
+  # could only live inside a label, never be one. Trying this first is
+  # safe: a label starting '#(' that contains the closing '#)' could never
+  # parse before (a bare '#' is not consumable outside a matrix), so the
+  # only inputs this newly reaches are ones that used to fail. A matrix
+  # followed by anything but a path or the end does not match here and
+  # falls through to the enclosure reading, exactly as before.
+  rule(:whole_label_matrix) { matrix >> (str('+') | cr | eof).present? }
+
   rule(:line) { (cr.as(:extracr) | border | bborder | markup.repeat(1).as(:line) >> (cr | eof | str('+').present?)) }
-  rule(:lines) { triangle.maybe.as(:triangle) >> (brectangle | rectangle | brackets).maybe.as(:enclosure) >> region.maybe.as(:region) >> color_spec.maybe.as(:color) >> line.repeat(1) >> path.repeat(0).as(:paths) >> (cr | eof) }
+  rule(:lines) { triangle.maybe.as(:triangle) >> (whole_label_matrix.as(:whole_label_matrix) | ((brectangle | rectangle | brackets).maybe.as(:enclosure) >> region.maybe.as(:region) >> color_spec.maybe.as(:color) >> line.repeat(1))) >> path.repeat(0).as(:paths) >> (cr | eof) }
   root :lines
 end
 
@@ -215,6 +225,9 @@ module Markup
     end
 
     applied = @evaluator.apply(parsed)
+    # A label holding a single named part (a whole-label matrix, nothing
+    # else) comes back as one hash, not a one-element array.
+    applied = [applied] unless applied.is_a?(Array)
 
     results = { enclosure: :none, triangle: false, paths: [], contents: [], color: nil, region: false, region_color: nil }
     applied.each do |h|
@@ -246,6 +259,9 @@ module Markup
         results[:color] = color_value
       end
       results[:contents] << h if h[:type] == :text || h[:type] == :border || h[:type] == :bborder
+      # A label that is one whole matrix arrives under its own key in the
+      # top-level hash; the matrix element becomes the label's only line.
+      results[:contents] << { type: :text, elements: [h[:whole_label_matrix]] } if h[:whole_label_matrix]
     end
     { status: :success, results: results }
   end
