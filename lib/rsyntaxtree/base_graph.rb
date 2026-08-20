@@ -421,7 +421,7 @@ module RSyntaxTree
       x0 = node.horizontal_indent
       x1 = node.horizontal_indent + node.content_width
       if [:brackets, :rectangle, :brectangle].include?(node.enclosure)
-        ext = @global[:h_gap_between_nodes] / 2 + ((@linewidth || 1) + BLINE_SCALING)
+        ext = @global[:h_gap_between_nodes] / 2 + @global[:stroke_bold]
         x0 -= ext
         x1 += ext
       end

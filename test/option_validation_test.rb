@@ -66,7 +66,7 @@ class OptionValidationTest < Minitest::Test
       { color: "modern" }, { color: "traditional" }, { color: "gray" }, { color: "none" },
       { hyphen: "markup" }, { hyphen: "literal" },
       { leafstyle: "auto" }, { leafstyle: "bar" }, { leafstyle: "nothing" },
-      { linewidth: "1" }, { linewidth: "5" },
+      { linewidth: "0.5" }, { linewidth: "1" }, { linewidth: "1.5" }, { linewidth: "2" }, { linewidth: "2.5" }, { linewidth: "3" },
       { mirror: "on" }, { transparent: "off" }, { polyline: "on" }, { hide_default_connectors: "off" }
     ].each do |opts|
       assert_nil build(opts), "web UI value #{opts} should pass"

@@ -29,8 +29,6 @@ MATRIX_BRACKET_ROOM = 2.5
 # of it, since the rows are spaced for text rather than for a block.
 MATRIX_VERTICAL_ROOM = 0.25
 FONT_SCALING = 2
-LINE_SCALING = 1
-BLINE_SCALING = 2
 WHITESPACE_BLOCK = "￭"
 
 # Every format the library can produce, and the file extension each one
@@ -66,7 +64,7 @@ OPTION_VALUES = {
 
 NUMERIC_RANGES = {
   fontsize: 6..26,
-  linewidth: 1..5,
+  linewidth: 0.5..3.0,
   vheight: 0.5..5.0,
   hspacing: 0.5..3.0,
   tidy_spacing: 0.5..3.0
@@ -215,7 +213,7 @@ module RSyntaxTree
         when :fontsize
           new_params[key] = value.to_i
         when :linewidth
-          new_params[key] = value.to_i
+          new_params[key] = value.to_f
         when :vheight, :hspacing, :tidy_spacing
           new_params[key] = value.to_f
         when :fontstyle
@@ -266,6 +264,17 @@ module RSyntaxTree
       # margins) the way vheight scales the vertical rhythm.
       @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8 * (@params[:hspacing] || 1.0).to_f
       @global[:box_vertical_margin] = single_x_metrics.height * 0.8
+      # Every stroke follows the type size: linewidth 1 is 5% of it (the
+      # ratio of an ordinary text rule, booktabs' \lightrulewidth), each
+      # 0.5 step of the option adds another 2.5%, and a bold stroke adds
+      # five percentage points. The old formula added absolute units
+      # (linewidth + 1), so "1" actually meant 2 and small type got
+      # disproportionately heavy lines.
+      # Rounded, because these are written into the SVG as text and the
+      # file is something people open and edit. Binary floating point turns
+      # a line width of 1.5 into "2.4000000000000004" otherwise.
+      @global[:stroke_normal] = (@params[:fontsize] * 0.05 * @params[:linewidth]).round(3)
+      @global[:stroke_bold] = (@params[:fontsize] * (0.05 * @params[:linewidth] + 0.05)).round(3)
       # hyphen: literal swaps the two readings of - when a label is parsed.
       @global[:literal_hyphen] = @params[:hyphen] == "literal"
     end

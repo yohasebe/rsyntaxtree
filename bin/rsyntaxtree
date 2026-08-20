@@ -21,7 +21,7 @@ CONFIG_VALIDATORS = {
   leafstyle: ->(v) { OPTION_VALUES[:leafstyle].include?(v.to_s) ? nil : "must be auto, triangle, bar, or nothing" },
   fontstyle: ->(v) { OPTION_VALUES[:fontstyle].include?(v.to_s) ? nil : "must be sans, serif, cjk, or mono" },
   fontsize: ->(v) { v.is_a?(Integer) && v >= 6 && v <= 26 ? nil : "must be in the range of 6-26" },
-  linewidth: ->(v) { v.is_a?(Integer) && v >= 1 && v <= 5 ? nil : "must be in the range of 1-5" },
+  linewidth: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
   vheight: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 5.0 ? nil : "must be in the range of 0.5-5.0" },
   color: ->(v) { OPTION_VALUES[:color].include?(v.to_s) ? nil : "must be modern, traditional, gray, or off" },
   symmetrize: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
@@ -111,7 +111,7 @@ opts = Optimist.options do
   opt :leafstyle, "visual style of tree leaves: auto, triangle, bar, or nothing", default: "auto", short: :l
   opt :fontstyle, "Font style: sans, serif, cjk, mono", default: "sans", short: :n
   opt :fontsize, "Size: 6-26", default: 16, short: :s
-  opt :linewidth, "Size: 1-5", default: 1, short: :i
+  opt :linewidth, "Size: 0.5-3.0", default: 1.0, short: :i
   opt :vheight, "Connector Height: 0.5-5.0", default: 2.0, short: :v
   opt :color, "Color text and bars: modern, traditional, gray, or off", default: "modern", short: :c
   opt :symmetrize, "DEPRECATED alias of --tidy symmetric: on or off", default: "off", short: :y
@@ -136,7 +136,7 @@ Optimist.die :format, "must be #{FORMAT_LIST_MESSAGE}" unless FORMATS.include?(o
 Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless OPTION_VALUES[:leafstyle].include?(opts[:leafstyle])
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless OPTION_VALUES[:fontstyle].include?(opts[:fontstyle])
 Optimist.die :fontsize, "must be in the range of 6-26" unless opts[:fontsize] >= 6 && opts[:fontsize] <= 26
-Optimist.die :linewidth, "must be in the range of 1-5" unless opts[:linewidth] >= 1 && opts[:linewidth] <= 5
+Optimist.die :linewidth, "must be in the range of 0.5-3.0" unless opts[:linewidth] >= 0.5 && opts[:linewidth] <= 3.0
 Optimist.die :color, "must be either modern, traditional, gray, or off" unless OPTION_VALUES[:color].include?(opts[:color])
 Optimist.die :symmetrize, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:symmetrize]
 Optimist.die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0

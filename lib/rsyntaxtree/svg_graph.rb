@@ -41,10 +41,10 @@ module RSyntaxTree
       @fontstyle = params[:fontstyle]
       @polyline = params[:polyline] == true
       @direction = params[:direction] || "ttb"
-      @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
-      @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@linewidth + LINE_SCALING}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+      @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
+      @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
-      @polygon_styles = "<polygon style='fill: none; stroke: #{@col_connector}; stroke-width:#{@linewidth + LINE_SCALING}; stroke-linejoin:round;stroke-linecap:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
+      @polygon_styles = "<polygon style='fill: none; stroke: #{@col_connector}; stroke-width:#{@global[:stroke_normal]}; stroke-linejoin:round;stroke-linecap:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
       @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; storoke-width: 0; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
       @tree_data = String.new
       @visited_x = {}
@@ -94,6 +94,11 @@ module RSyntaxTree
 
       as2 = @global[:h_gap_between_nodes] * 1.0
       as4 = as2 * 3
+      # The hatch density follows the type size the way the enclosure it
+      # fills does: the cell is 10/32 of the font size, the line 4/32 —
+      # the ratios the absolute 10 and 4 had at the default size.
+      hatch_cell = @fontsize * 0.3125
+      hatch_stroke = @fontsize * 0.125
 
       header = <<~HDR
         <?xml version="1.0" standalone="no"?>
@@ -112,14 +117,14 @@ module RSyntaxTree
             <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="#{as4}" markerHeight="#{as2}" orient="auto">
               <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#{@col_extra}"/>
             </marker>
-            <pattern id="hatchBlack" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <line x1="0" y="0" x2="0" y2="10" stroke="black" stroke-width="4"></line>
+            <pattern id="hatchBlack" x="10" y="10" width="#{hatch_cell}" height="#{hatch_cell}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y="0" x2="0" y2="#{hatch_cell}" stroke="black" stroke-width="#{hatch_stroke}"></line>
             </pattern>
-            <pattern id="hatchForNode" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <line x1="0" y="0" x2="0" y2="10" stroke="#{@col_node}" stroke-width="4"></line>
+            <pattern id="hatchForNode" x="10" y="10" width="#{hatch_cell}" height="#{hatch_cell}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y="0" x2="0" y2="#{hatch_cell}" stroke="#{@col_node}" stroke-width="#{hatch_stroke}"></line>
             </pattern>
-            <pattern id="hatchForLeaf" x="10" y="10" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <line x1="0" y="0" x2="0" y2="10" stroke="#{@col_leaf}" stroke-width="4"></line>
+            <pattern id="hatchForLeaf" x="10" y="10" width="#{hatch_cell}" height="#{hatch_cell}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y="0" x2="0" y2="#{hatch_cell}" stroke="#{@col_leaf}" stroke-width="#{hatch_stroke}"></line>
             </pattern>
           </defs>
       HDR
@@ -149,7 +154,7 @@ module RSyntaxTree
       pad = @global[:h_gap_between_nodes]  # generous padding for the non-parent-facing edges
       pad_parent = hctt / 2.0              # tighter margin on the parent-facing edge of the root
       radius = hctt / 2.0
-      stroke_width = @linewidth + LINE_SCALING
+      stroke_width = @global[:stroke_normal]
       half = stroke_width / 2.0
       @element_list.get_elements.each do |element|
         next unless element.region
@@ -222,10 +227,10 @@ module RSyntaxTree
       if [:brackets, :rectangle, :brectangle].include?(el.enclosure)
         # The room the enclosure needs is already part of content_width; only
         # the stroke straddling the edge reaches beyond it.
-        ext = @linewidth + BLINE_SCALING
+        ext = @global[:stroke_bold]
         left -= ext
         right += ext
-        sw = @linewidth + BLINE_SCALING
+        sw = @global[:stroke_bold]
         top = box_top - sw
         bottom = box_bottom + sw
       else
@@ -372,9 +377,9 @@ module RSyntaxTree
           y2 = y1
           case l[:type]
           when :border
-            stroke_width = @linewidth + LINE_SCALING
+            stroke_width = @global[:stroke_normal]
           when :bborder
-            stroke_width = @linewidth + BLINE_SCALING
+            stroke_width = @global[:stroke_bold]
           end
           @extra_lines << "<line style=\"stroke:#{col}; fill:none; stroke-linecap:round; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
         else
@@ -447,13 +452,13 @@ module RSyntaxTree
         style = "style=\""
         if e[:decoration].include?(:small)
           style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-          this_y = text_y - ((@global[:single_x_metrics].height - @global[:single_x_metrics].height * SUBSCRIPT_CONST) / 4) + 2
+          this_y = text_y - ((@global[:single_x_metrics].height - @global[:single_x_metrics].height * SUBSCRIPT_CONST) / 4) + @fontsize / 16.0
         elsif e[:decoration].include?(:superscript)
           style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-          this_y = text_y - (@global[:single_x_metrics].height / 4) + 1
+          this_y = text_y - (@global[:single_x_metrics].height / 4) + @fontsize / 32.0
         elsif e[:decoration].include?(:subscript)
           style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-          this_y = text_y + 4
+          this_y = text_y + @fontsize / 8.0
         else
           this_y = text_y
         end
@@ -494,9 +499,9 @@ module RSyntaxTree
           enc = nil
 
           stroke_width = if e[:decoration].include?(:bstroke)
-                           @linewidth + BLINE_SCALING
+                           @global[:stroke_bold]
                          else
-                           @linewidth + LINE_SCALING
+                           @global[:stroke_normal]
                          end
 
           if e[:decoration].include?(:box)
@@ -587,13 +592,13 @@ module RSyntaxTree
     end
 
     def draw_rectangle(x1, y1, width, height, col, bline = false)
-      swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
+      swidth = bline ? @global[:stroke_bold] : @global[:stroke_normal]
       @extra_lines << "<polygon style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='#{x1},#{y1} #{x1 + width},#{y1} #{x1 + width},#{y1 + height} #{x1},#{y1 + height}' />\n"
     end
 
     def draw_bracket(x1, y1, width, height, col, bline = false)
-      swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
+      swidth = bline ? @global[:stroke_bold] : @global[:stroke_normal]
       slwidth = @global[:h_gap_between_nodes] / 2
       @extra_lines << "<polyline style='stroke:#{col}; stroke-width:#{swidth}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='#{x1 + slwidth},#{y1} #{x1},#{y1} #{x1},#{y1 + height} #{x1 + slwidth},#{y1 + height}' />\n"
@@ -794,8 +799,9 @@ module RSyntaxTree
                else
                  ""
                end
-      dasharray = dashed ? "stroke-dasharray='8 8'" : ""
-      swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
+      dash = @fontsize / 4.0
+      dasharray = dashed ? "stroke-dasharray='#{dash} #{dash}'" : ""
+      swidth = bline ? @global[:stroke_bold] : @global[:stroke_normal]
 
       if s_arrow && t_arrow
         @extra_lines << "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray}/>"
@@ -859,8 +865,9 @@ module RSyntaxTree
                else
                  ""
                end
-      dasharray = dashed ? "stroke-dasharray='8 8'" : ""
-      swidth = bline ? @linewidth + BLINE_SCALING : @linewidth + LINE_SCALING
+      dash = @fontsize / 4.0
+      dasharray = dashed ? "stroke-dasharray='#{dash} #{dash}'" : ""
+      swidth = bline ? @global[:stroke_bold] : @global[:stroke_normal]
 
       "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray} #{string}/>"
     end

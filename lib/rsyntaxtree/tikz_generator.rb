@@ -139,13 +139,18 @@ module RSyntaxTree
     end
 
     def generate_forest_only(tree_code)
+      # The SVG backend computes strokes as 5% of the type size per
+      # linewidth 1; in LaTeX the document font is the type size, so the
+      # same ratio is written in em and follows it.
+      edge_width = format("%.3f", 0.05 * @params[:linewidth]).sub(/0+\z/, "")
       <<~LATEX
         \\begin{forest}
         for tree={
           parent anchor=south,
           child anchor=north,
           align=center,
-          base=top
+          base=top,
+          edge={line width=#{edge_width}em}
         }
         #{tree_code}
         \\end{forest}
