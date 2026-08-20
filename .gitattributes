@@ -1,0 +1,10 @@
+# Text files are stored with LF and checked out with LF, whatever the
+# editor on the machine does. Two of the documentation pages had drifted
+# to CRLF, which turned a three-line edit into a whole-file diff.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.gif binary
+*.pdf binary
+*.gem binary
