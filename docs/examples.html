@@ -52,6 +52,8 @@ layout: default
                 <tr><td>Line width</td><td>{{ example.linewidth }}</td></tr>
                 <tr><td>Polyline</td><td>{{ example.polyline }}</td></tr>
                 <tr><td>Hide connectors</td><td>{{ example.hide_default_connectors }}</td></tr>
+                <tr><td>Hyphen</td><td>{{ example.hyphen | default: "markup" }}</td></tr>
+                <tr><td>Mirror</td><td>{{ example.mirror | default: "off" }}</td></tr>
                 {% if example.reference %}
                   <tr><td>Reference</td><td>{{ example.reference }}</td></tr>
                 {% endif %}
