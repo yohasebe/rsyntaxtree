@@ -1,5 +1,64 @@
 # Changelog
 
+## [1.11.0] - 2026-08
+
+Every input the tool accepts now draws, and every input it refuses says why.
+Line thickness follows the type size, so figures drawn at any font size keep
+the same balance between text and rules — existing figures come out about a
+fifth lighter than before.
+
+### Added
+- `--validate` checks input without drawing or writing a file, reporting a
+  machine-readable diagnosis on stdout and the verdict in the exit code.
+- `--notation` prints a short reference for the notation, which now ships
+  with the gem.
+- Errors carry a code, the offending label and an offset inside it, a
+  one-line fix, and whether rewriting the input could help. The message text
+  is unchanged. Each cause is confirmed by applying its fix and parsing
+  again, so a named cause is one whose fix is known to work.
+- A label may be nothing but a matrix: `[#(HEAD\tnoun#)]` had no spelling
+  before, since the enclosure rule took the `#` first.
+- `-f tikz` on the command line, which the documentation had offered while
+  the CLI rejected it. TikZ output also carries the line width, which it
+  had been accepting and dropping.
+- A gallery figure and a heading of its own for levelling the terminals with
+  `<>` joints.
+
+### Changed
+- Line width is a fraction of the font size rather than an absolute number.
+  `1` is five per cent of the type size at any size, and the scale runs from
+  `0.5` to `3.0` in halves where it ran `1` to `5` and meant `2` to `6`.
+  Lines were two units wide whatever the type size, which read as heavily as
+  a serif stem at 16 point and heavier still below that, and nothing thinner
+  was available.
+- On/off options accept every spelling of off. `mirror: "no"` reversed the
+  tree and `transparent: "0"` cut the background away, because anything but
+  `"off"` and `"false"` was read as on.
+- Option values are checked against the values the option takes. A value
+  nobody defines was taken and read as something else — `direction:
+  "left-to-right"` laid the tree out top to bottom. The CLI has always
+  refused these; the library did not, which left the web interface and other
+  programmatic callers unguarded.
+- Colour names are checked against the CSS colour names. A name nobody
+  defines passed validation and drew black.
+- Penn Treebank input converts in the library, not only in the CLI. Other
+  callers got no conversion and no error: `(S (NP the dog))` drew as one
+  leaf containing that text.
+- Font sizes go down to 6, which the web interface has always offered while
+  the documentation said 8.
+
+### Fixed
+- Validation accepted input that drawing then refused: a movement path with
+  one end, a tree too wide for a raster surface, a colour spec that fails
+  only when the label is parsed. It now generates the drawing and discards
+  it, going as far as the requested format can still refuse.
+- A malformed colour was reported as an unclosed enclosure, sending the
+  writer to fix a `#` that was never the problem.
+- A left-to-right matrix drew its brackets on top of the attribute names.
+- Text in front of a tree crashed symmetrization, and an empty argument was
+  read as a path to the current directory.
+- Overline was documented as missing from PNG output. It has been there.
+
 ## [1.10.0] - 2026-08
 
 A transitional release ahead of 2.0, which drops JPG/GIF output and the

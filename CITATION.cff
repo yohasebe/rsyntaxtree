@@ -11,8 +11,8 @@ repository-code: "https://github.com/yohasebe/rsyntaxtree"
 # Concept DOI: always resolves to the latest archived version on Zenodo
 doi: "10.5281/zenodo.21916150"
 license: MIT
-version: 1.10.0
-date-released: 2026-08-19
+version: 1.11.0
+date-released: 2026-08-20
 keywords:
   - linguistics
   - syntax tree
