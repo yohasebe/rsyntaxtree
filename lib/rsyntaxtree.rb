@@ -32,6 +32,46 @@ FONT_SCALING = 2
 LINE_SCALING = 1
 BLINE_SCALING = 2
 WHITESPACE_BLOCK = "￭"
+
+# Every format the library can produce, and the file extension each one
+# writes. The CLI builds its --format validation, help text, and output
+# filename from these, so a new format is added here and nowhere else.
+FORMATS = %w[png jpg gif pdf svg lsif tikz].freeze
+FORMAT_EXTENSIONS = {
+  "png" => "png",
+  "jpg" => "jpg",
+  "gif" => "gif",
+  "pdf" => "pdf",
+  "svg" => "svg",
+  "lsif" => "lsif.json",
+  "tikz" => "tex" # forest code, to be included in a LaTeX document
+}.freeze
+
+# The values an option may carry, checked as given — before normalization —
+# so an alias the normalization already accepts keeps passing, and anything
+# else fails loudly instead of being silently read as something else. The
+# CLI has always rejected these; the library did not, which left the web UI
+# and any other programmatic caller unguarded. Booleans stay lenient on
+# purpose (see switched_on?); unknown keys are not rejected, because callers
+# pass their own extra parameters through.
+OPTION_VALUES = {
+  format: FORMATS,
+  leafstyle: %w[auto triangle bar nothing none],
+  fontstyle: ["sans", "serif", "cjk", "mono", "noto-sans", "noto-serif", "noto-sans-mono", "cjk zenhei"],
+  color: %w[modern traditional gray grey off none on true false],
+  tidy: %w[off symmetric low medium high on compact true false],
+  direction: %w[ttb ltr],
+  hyphen: %w[markup literal]
+}.freeze
+
+NUMERIC_RANGES = {
+  fontsize: 6..26,
+  linewidth: 1..5,
+  vheight: 0.5..5.0,
+  hspacing: 0.5..3.0,
+  tidy_spacing: 0.5..3.0
+}.freeze
+
 DEFAULT_OPTS = {
   format: "png",
   leafstyle: "auto",
@@ -104,6 +144,19 @@ module RSyntaxTree
       fontset = {}
       params.each do |keystr, value|
         key = keystr.to_sym
+        if OPTION_VALUES.key?(key) && !OPTION_VALUES[key].include?(value.to_s)
+          raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
+                             code: :invalid_option,
+                             hint: "'#{key}' must be one of: #{OPTION_VALUES[key].join(', ')}.",
+                             retryable: false)
+        end
+        if NUMERIC_RANGES.key?(key) && !NUMERIC_RANGES[key].cover?(value.to_f)
+          range = NUMERIC_RANGES[key]
+          raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
+                             code: :invalid_option,
+                             hint: "'#{key}' must be in the range of #{range.begin}-#{range.end}.",
+                             retryable: false)
+        end
         case key
         when :data
           data = value
@@ -147,7 +200,7 @@ module RSyntaxTree
         when :tidy_nest, :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror
           new_params[key] = switched_on?(value)
         when :color
-          new_params[key] = case value
+          new_params[key] = case value.to_s
                             when "modern", "on", "true"
                               "modern"
                             when "traditional"
@@ -169,7 +222,7 @@ module RSyntaxTree
           # Fonts are resolved by name through fontconfig (measurement via
           # Pango, rendering via the SVG font-family attribute), so all a
           # style needs is its family fallback chain.
-          style = case value
+          style = case value.to_s
                   when "noto-sans-mono", "mono" then :mono
                   when "noto-serif", "serif" then :serif
                   when "cjk zenhei", "cjk" then :cjk

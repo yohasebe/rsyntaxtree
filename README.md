@@ -170,7 +170,7 @@ Usage:
 | `-f, --format` | Output format: png, svg, pdf, lsif, tikz (jpg and gif are deprecated) | `png` |
 | `-l, --leafstyle` | Leaf style: auto, triangle, bar, nothing | `auto` |
 | `-n, --fontstyle` | Font style: sans, serif, cjk, mono | `sans` |
-| `-s, --fontsize` | Font size: 8-26 | `16` |
+| `-s, --fontsize` | Font size: 6-26 | `16` |
 | `-c, --color` | Color mode: modern, traditional, gray (black text, grey lines), off | `modern` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
 | `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |

@@ -9,6 +9,7 @@
 
 require_relative "markup_parser"
 require_relative "utils"
+require_relative "color_names"
 
 module RSyntaxTree
   class Element
@@ -52,6 +53,8 @@ module RSyntaxTree
       @color = results[:color]
       @region = results[:region]
       @region_color = results[:region_color]
+      validate_color!(@color, content)
+      validate_color!(@region_color, content)
 
       @contains_phrase = false
       setup
@@ -123,6 +126,12 @@ module RSyntaxTree
     # work. That keeps the list from drifting away from the grammar the way
     # a set of hand-written patterns would — the grammar is the judge.
     MARKUP_REPAIRS = [
+      # A malformed color spec ('@' then a bad name or a bad hex) leaves a
+      # bare '#' or '@' behind that the enclosure repair below would happily
+      # blame itself for. Tried first, so a color mistake is named as one.
+      [:invalid_color,
+       ->(s) { s.sub(/\A%?@(?:#[0-9a-zA-Z]+|[a-zA-Z]+)?:/, "") },
+       "A color is @name: with a CSS color name, or @#rgb: / @#rrggbb: with 3 or 6 hex digits (e.g. @blue:VP, @#3af:VP)."],
       [:angle_brackets,
        ->(s) { s.gsub(/(?<!\\)<([^<>]*[^<>\d][^<>]*)>/) { "〈#{$1}〉" } },
        "'<' and '>' mark whitespace here, not a list. Write the angle bracket characters themselves: 〈NP〉, 'hand〈SUBJ,OBJ〉'."],
@@ -188,6 +197,21 @@ module RSyntaxTree
       details.merge(code: :invalid_markup,
                     hint: "No single cause fits, which usually means more than one mistake in this label. Check that *, _, =, ~, |, { and #(...#) are paired, that hyphens are escaped, and that 〈 〉 are the angle bracket characters.",
                     retryable: true)
+    end
+
+    # A hex color is already constrained by the grammar; a named color is
+    # checked against the names librsvg can paint, because an unknown name
+    # does not fail downstream — it silently comes out black.
+    def validate_color!(color, content)
+      return if color.nil? || color.start_with?("#")
+      return if COLOR_NAMES.include?(color.downcase)
+
+      raise RSTError.new(+"Error: input text contains an unknown color '#{color}'" \
+                         "\n > #{content}",
+                         code: :unknown_color,
+                         label: content,
+                         hint: "Use a CSS color name or a hex code: @blue:VP, @#3af:VP, @#33aaff:VP.",
+                         retryable: true)
     end
 
     def setup
