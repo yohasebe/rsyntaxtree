@@ -171,6 +171,7 @@ Usage:
 | `-l, --leafstyle` | Leaf style: auto, triangle, bar, nothing | `auto` |
 | `-n, --fontstyle` | Font style: sans, serif, cjk, mono | `sans` |
 | `-s, --fontsize` | Font size: 6-26 | `16` |
+| `-i, --linewidth` | Line width relative to the font size: 0.5-3.0 (`1` = 5% of the font size) | `1.0` |
 | `-c, --color` | Color mode: modern, traditional, gray (black text, grey lines), off | `modern` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
 | `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |

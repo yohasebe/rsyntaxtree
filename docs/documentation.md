@@ -33,6 +33,8 @@ The options `Font style`, `Font size`, `Connector height`, and `Color` need no e
 
 `Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and movement paths in grey. The last is for diagrams whose links outnumber their labels — an ontology, a network of constructions — where a page of black lines buries the text.
 
+`Line width` sets the thickness of every line in the figure — connectors, brackets, enclosures — as a ratio of the font size. `1` is 5% of it (the weight of an ordinary text rule), each 0.5 step adds another 2.5%, and the scale runs from `0.5` (a hairline) to `3.0` (15%, the heaviest). Because the lines follow the font size, text and lines keep the same balance at any font size.
+
 ### Tree Direction
 
 The `Direction` option controls the orientation of the tree layout:
@@ -151,7 +153,25 @@ There is no small-caps markup. CSS `font-variant` is honoured by the SVG rendere
 |------------|--------|
 |`X<>Y`      |X&nbsp;Y|
 
-A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes (e.g. `[the [<> ði]]`) pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
+A label that is *only* `<>` is a special case with its own use: see [Levelling the Terminals](#levelling-the-terminals) below.
+
+#### Levelling the Terminals
+
+A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
+
+```text
+[S
+  [NP [D [<> [<> the]]] [N [<> [<> cat]]]]
+  [VP
+    [V [<> [<> sat]]]
+    [PP [P [<> on]] [NP [D the] [N mat]]]]]
+```
+
+Without the joints, *the*, *cat* and *sat* sit two rows above *the* and
+*mat*, and *on* one row above. Each leaf takes as many joints as it needs to
+reach the deepest row, so the terminal string reads across the bottom of the
+figure. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029)
+in the gallery uses `<>`-only joints the same way.
 
 #### Columns
 
