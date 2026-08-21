@@ -21,7 +21,7 @@ Type your text in the editor area using labeled bracket notation and click the D
 
 Every branch or leaf of the syntax tree must belong to a node. To create a node, place the label text right next to the start bracket. Any number of branches may follow, separated by a whitespace. (Node labels containing whitespaces can be created using the `<>` symbol. For example, `Modal<>Aux` will be rendered as `Modal Aux`).
 
-There are three different types of `connector` drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases).  If the leaf does not contain any spaces (= single word), a straight bar is drawn instead (unless the leaf contains a `^` symbol at the beginning, which specifies the leaf to be a phrase). The connectors can be made transparent using the `Hide default connectors` option.
+The `connector` option chooses what is drawn between a terminal node and its leaves; the three settings are described under [Connectors](#connectors). Whichever is chosen, the connectors can be made transparent with the `Hide default connectors` option.
 
 The newline character `\n` can be used within the text of both node labels and leaves (a backslash followed by a space or a line break works too).
 
@@ -86,26 +86,6 @@ SVG images are dependent on the fonts installed locally on your computer. In ord
 - [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): for emoji characters (the monochrome build; colour emoji fonts are not rendered by the PNG/PDF pipeline)
 
 The scripts the gallery covers are named explicitly rather than left to the system's generic fallback: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif. Where those fonts are installed, the same input renders the same way from one machine to the next. Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named yet and still depend on what the system offers.
-
-### Using a Font of Your Own (advanced, command line)
-
-The family chains above take precedence over whatever your system would pick by itself, which also means an Arabic or Devanagari font you prefer will lose to Noto. You can override any entry with a fontconfig alias — no change to RSyntaxTree is needed. For example, to render Arabic with Amiri, put this in `~/.config/fontconfig/fonts.conf` and run `fc-cache -f`:
-
-```xml
-<?xml version="1.0"?>
-<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-<fontconfig>
-  <alias binding="strong">
-    <family>Noto Sans Arabic</family>
-    <prefer><family>Amiri</family></prefer>
-  </alias>
-</fontconfig>
-```
-
-Because measurement and rendering both resolve through fontconfig, the substituted font is measured as well as drawn, so the layout stays correct.
-
-This applies to systems where Pango resolves fonts through fontconfig, which means Linux and the Docker image. On macOS, Pango goes through CoreText instead and ignores fontconfig, so an alias has no effect there; name the font you want in the input's font style instead. CoreText also answers every emoji codepoint with Apple Color Emoji, whose colour glyphs librsvg does not draw, so trees containing emoji are best generated on Linux or in the Docker image.
-
 
 ### Drawing Text
 
@@ -348,6 +328,25 @@ Example:
 ### Command Line Interface Features
 
 The following features are available only in the command-line interface.
+
+#### Using a Font of Your Own
+
+The family chains above take precedence over whatever your system would pick by itself, which also means an Arabic or Devanagari font you prefer will lose to Noto. You can override any entry with a fontconfig alias — no change to RSyntaxTree is needed. For example, to render Arabic with Amiri, put this in `~/.config/fontconfig/fonts.conf` and run `fc-cache -f`:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig>
+  <alias binding="strong">
+    <family>Noto Sans Arabic</family>
+    <prefer><family>Amiri</family></prefer>
+  </alias>
+</fontconfig>
+```
+
+Because measurement and rendering both resolve through fontconfig, the substituted font is measured as well as drawn, so the layout stays correct.
+
+This applies to systems where Pango resolves fonts through fontconfig, which means Linux and the Docker image. On macOS, Pango goes through CoreText instead and ignores fontconfig, so an alias has no effect there; name the font you want in the input's font style instead. CoreText also answers every emoji codepoint with Apple Color Emoji, whose colour glyphs librsvg does not draw, so trees containing emoji are best generated on Linux or in the Docker image.
 
 #### Checking Input Without Drawing
 
