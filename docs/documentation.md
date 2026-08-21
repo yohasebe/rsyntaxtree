@@ -325,9 +325,9 @@ Example:
 → [S [NP hello(world)] [VP test]]
 ```
 
-### Command Line Interface Features
+### Running RSyntaxTree Yourself (advanced)
 
-The following features are available only in the command-line interface.
+The following are not offered by the web app. They are available when you run RSyntaxTree on your own machine, as the gem or as the Docker image.
 
 #### Using a Font of Your Own
 
