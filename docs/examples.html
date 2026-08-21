@@ -37,6 +37,15 @@ layout: default
             <div id="text-{{example.name}}" class='notation'>
               {{ example.content | markdownify }}
             </div>
+            {%- comment -%}
+              The table lists every setting that changes the drawing, so a
+              reader can reproduce the figure from it. That is why Size is
+              here although no example departs from the default: line width
+              is a ratio of the font size, so the weight of the lines cannot
+              be reproduced without it. Settings that leave the drawing
+              untouched stay out — Transparent bg changes only what is behind
+              the tree, and Auto-close brackets is an editor aid.
+            {%- endcomment -%}
             <table style='line-height: 110%; font-size: 0.85em; margin-bottom: 20px;'>
               <thead></thead>
               <tbody>

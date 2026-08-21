@@ -8,72 +8,49 @@ require "yaml"
 module ExampleOptions
   module_function
 
+  # Front matter key to generator option. The names differ because the front
+  # matter keeps the names the gallery has always used; the values do not,
+  # and are passed through untouched. RSGenerator resolves aliases such as
+  # colour "on" and leaf style "none" itself, so normalising them here would
+  # be a second copy of a rule that already exists, free to drift from it.
+  KEYS = {
+    "name" => :name,
+    "color" => :color,
+    "hyphen" => :hyphen,
+    "linewidth" => :linewidth,
+    "line_width" => :linewidth,
+    "polyline" => :polyline,
+    "hide_default_connectors" => :hide_default_connectors,
+    "connector_height" => :vheight,
+    "symmetrization" => :symmetrize,
+    "connector" => :leafstyle,
+    "direction" => :direction,
+    "tidy" => :tidy,
+    "hspacing" => :hspacing,
+    "tidy_spacing" => :tidy_spacing,
+    "mirror" => :mirror,
+    "font" => :fontstyle
+  }.freeze
+
   # Returns [name, opts] for an example file.
   def load(path)
     config = YAML.load_file(path)
     data = File.read(path).scan(/```([^`]+)```/m).last.first
 
     opts = DEFAULT_OPTS.dup
-    name = nil
     config.each do |key, value|
       next if value.to_s == ""
 
-      case key
-      when "name"
-        name = value
-        opts[:name] = value
-      when "color"
-        opts[:color] = case value
-                       when "modern", "on", "true"
-                         "modern"
-                       when "traditional"
-                         "traditional"
-                       when "gray", "grey"
-                         "gray"
-                       else
-                         "off"
-                       end
-      when "hyphen"
-        opts[:hyphen] = value
-      when "linewidth", "line_width"
-        opts[:linewidth] = value
-      when "polyline"
-        opts[:polyline] = value
-      when "hide_default_connectors"
-        opts[:hide_default_connectors] = value
-      when "connector_height"
-        opts[:vheight] = value
-      when "symmetrization"
-        opts[:symmetrize] = value
-      when "connector"
-        opts[:leafstyle] = value
-      when "direction"
-        opts[:direction] = value
-      when "tidy"
-        opts[:tidy] = value
-      when "hspacing"
-        opts[:hspacing] = value
-      when "tidy_spacing"
-        opts[:tidy_spacing] = value
-      when "mirror"
-        opts[:mirror] = value
-      when "font"
-        opts[:fontstyle] = case value
-                           when /mono/i
-                             "mono"
-                           when /sans/i
-                             "sans"
-                           when /serif/i
-                             "serif"
-                           when /wqy|cjk/i
-                             "cjk"
-                           else
-                             "sans"
-                           end
-      end
+      option = KEYS[key]
+      next unless option
+
+      # The gallery names a font the way the interface lists it, "Noto Sans
+      # Mono"; the option takes the same name as an identifier.
+      value = value.downcase.tr(" ", "-") if option == :fontstyle
+      opts[option] = value
     end
 
     opts[:data] = data
-    [name, opts]
+    [opts[:name], opts]
   end
 end
