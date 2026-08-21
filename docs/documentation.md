@@ -107,7 +107,7 @@ Because measurement and rendering both resolve through fontconfig, the substitut
 This applies to systems where Pango resolves fonts through fontconfig, which means Linux and the Docker image. On macOS, Pango goes through CoreText instead and ignores fontconfig, so an alias has no effect there; name the font you want in the input's font style instead. CoreText also answers every emoji codepoint with Apple Color Emoji, whose colour glyphs librsvg does not draw, so trees containing emoji are best generated on Linux or in the Docker image.
 
 
-### Font Styles, Text Decoration, and Sub/Superscripts
+### Drawing Text
 
 You can apply font styles (italic/bold/bold-italic), text decoration (overline/underline/line-through), subscript/superscript font rendering, and more. These markups can be nested within each other.
 
@@ -134,15 +134,9 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 |`normal_subscript_`    |normal<sub>subscript</sub>  |
 |`normal__superscript__`|normal<sup>superscript</sup>|
 
-#### Small Capitals
+### Whitespace and Line Breaks
 
-Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD.
-
-#### Box, Circle, Bar, and Arrow
-
-{% include box_and_circle_table.html %}
-
-#### Whitespace inside Label
+#### Whitespace inside a Label
 
 |Sample Input|Output  |
 |------------|--------|
@@ -208,6 +202,18 @@ A hyphen opens and closes an underline, so a literal one is written `\-`. Featur
 |`str1\nstr2`                   |str1<br />str2      |
 |`str1\n\nstr2`                 |str1<br /><br />str2|
 
+### Drawing Non-Text Elements
+
+Circles, boxes and rules can be drawn around or alongside the text.
+
+#### Small Capitals
+
+Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD.
+
+#### Box, Circle, Bar, and Arrow
+
+{% include box_and_circle_table.html %}
+
 #### Horizontal Line
 
 |Sample Input                   |Output                |
@@ -218,7 +224,11 @@ A hyphen opens and closes an underline, so a literal one is written `\-`. Featur
 
 Here, `---` represents `-` repeated three times or more consecutively.
 
-### Triangle, Square Brackets, Rectangle
+### Connectors
+
+There are three different types of `connector` drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
+
+### Brackets and Rectangles around a Leaf
 
 In `auto` mode, the triangle connector shape is applied when the terminal node contains words separated by whitespace. In `bar` and `none` modes, triangles are drawn for the nodes with `^` at the beginning of the leaf text, lie `[NP ^syntax-trees]`.
 
