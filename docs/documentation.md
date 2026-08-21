@@ -21,14 +21,14 @@ Type your text in the editor area using labeled bracket notation and click the D
 
 Every branch or leaf of the syntax tree must belong to a node. To create a node, place the label text right next to the start bracket. Any number of branches may follow, separated by a whitespace. (Node labels containing whitespaces can be created using the `<>` symbol. For example, `Modal<>Aux` will be rendered as `Modal Aux`).
 
-The `connector` option chooses what is drawn between a terminal node and its leaves; the three settings are described under [Connectors](#connectors). Whichever is chosen, the connectors can be made transparent with the `Hide default connectors` option.
+The `Connector shape` option (`leafstyle`, CLI `--leafstyle`) chooses what is drawn between a terminal node and its leaves; the three settings are described under [Connectors](#connectors). Whichever is chosen, the connectors can be made transparent with the `Hide connectors` option.
 
 The newline character `\n` can be used within the text of both node labels and leaves (a backslash followed by a space or a line break works too).
 
 RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vector graphics software such as Adobe Illustrator, Microsoft Visio, [BOXY SVG](https://boxy-svg.com/), etc. It is very useful if you want to modify the output image.
 
 
-The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
+The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
 `Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and movement paths in grey.
 
@@ -41,7 +41,7 @@ The `Direction` option controls the orientation of the tree layout:
 - **Top to Bottom** (`ttb`): The default. Root node at the top, leaves at the bottom.
 - **Left to Right** (`ltr`): Root node at the left, leaves expand to the right. Useful for classification trees, taxonomies, and other hierarchical structures where horizontal layout is preferred.
 
-In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `Connector Height` option controls the horizontal depth between tree levels in LTR mode.
+In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
 
 ### Tidy Layout
 
@@ -55,11 +55,11 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 
 `high` pays off on deeply lopsided trees; on a well-balanced one it often lands close to `medium`. `off`, `low` and `medium` cover ordinary work.
 
-Connector heights adjust automatically in tidy mode. `Horizontal spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `Connector height` scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
+Connector heights adjust automatically in tidy mode. `H spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `V spacing` (`vheight`) scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
 
 ### Mirrored Layout for RTL Scripts
 
-Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding from right to left. The `Mirror` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
+Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding from right to left. The `Mirror (RTL)` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
 
 `Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
 
@@ -206,7 +206,7 @@ Here, `---` represents `-` repeated three times or more consecutively.
 
 ### Connectors
 
-There are three different types of `connector` drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
+`Connector shape` offers three settings for what is drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
 
 ### Brackets and Rectangles around a Leaf
 
@@ -290,7 +290,7 @@ A node can have any number of IDs. The same ID must appear in the text of the *t
 
 ### Draw Extra Connectors between Nodes (experimental)
 
-You can also add extra connector between nodes in the same fasion as you draw paths between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s). You may enable the `Hide default connectors` option when drawing extra connectors.
+You can also add extra connector between nodes in the same fasion as you draw paths between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s). You may enable the `Hide connectors` option when drawing extra connectors.
 
 - Non-directional (rendered as solid line `-----`)
 - Directional (rendered as solid line `--▶--`)
