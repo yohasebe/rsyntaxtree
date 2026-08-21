@@ -5,7 +5,7 @@ layout: default
 
 <h1 id="examples">Example Gallery</h1>
 {% assign all_examples = site.examples %}
-{% assign categories =  all_examples | map: 'category' | join: ','  | split: ','  | group_by: category %}
+{% assign categories = all_examples | group_by: 'category' %}
 <ul>
   {%- for category in categories -%}
     {%- if category.name != "Test" and category.name != "Error" -%}
@@ -53,7 +53,6 @@ layout: default
                 <tr><td>Polyline</td><td>{{ example.polyline }}</td></tr>
                 <tr><td>Hide connectors</td><td>{{ example.hide_default_connectors }}</td></tr>
                 <tr><td>Hyphen</td><td>{{ example.hyphen | default: "markup" }}</td></tr>
-                <tr><td>Mirror</td><td>{{ example.mirror | default: "off" }}</td></tr>
                 {% if example.reference %}
                   <tr><td>Reference</td><td>{{ example.reference }}</td></tr>
                 {% endif %}
@@ -83,13 +82,25 @@ layout: default
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
 <script>
+  // Copy the notation for one example. This used to add a `copy` listener to
+  // the document and leave it there, so every later Cmd+C on the page
+  // returned that same notation however much the reader had selected by
+  // hand. The clipboard is written directly instead, and nothing is left
+  // behind to intercept a selection.
   function copyToClipBoard(id){
-      var copyText =  document.getElementById(id).innerText;
-      document.addEventListener('copy', function(e) {
-          e.clipboardData.setData('text/plain', copyText);
-          e.preventDefault();
-        }, true);
-      document.execCommand('copy');  
-      alert('copied'); 
+    var text = document.getElementById(id).innerText;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text);
+      return;
     }
+    var area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.top = '-1000px';
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    document.body.removeChild(area);
+  }
 </script>

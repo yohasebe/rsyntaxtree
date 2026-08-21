@@ -23,15 +23,14 @@ Every branch or leaf of the syntax tree must belong to a node. To create a node,
 
 There are three different types of `connector` drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases).  If the leaf does not contain any spaces (= single word), a straight bar is drawn instead (unless the leaf contains a `^` symbol at the beginning, which specifies the leaf to be a phrase). The connectors can be made transparent using the `Hide default connectors` option.
 
-The newline character `\n` can be used within the text of both node lables and leaves.
+The newline character `\n` can be used within the text of both node labels and leaves (a backslash followed by a space or a line break works too).
 
 RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vector graphics software such as Adobe Illustrator, Microsoft Visio, [BOXY SVG](https://boxy-svg.com/), etc. It is very useful if you want to modify the output image.
 
-The command line tool also outputs `PDF`, `JPG`, and `GIF`. **JPG and GIF are deprecated and will be removed in 2.0** — JPEG blurs line art and GIF has no use case here; use `PNG` instead.
 
 The options `Font style`, `Font size`, `Connector height`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
-`Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and movement paths in grey. The last is for diagrams whose links outnumber their labels — an ontology, a network of constructions — where a page of black lines buries the text.
+`Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and movement paths in grey.
 
 `Line width` sets the thickness of every line in the figure — connectors, brackets, enclosures — as a ratio of the font size. `1` is 5% of it (the weight of an ordinary text rule), each 0.5 step adds another 2.5%, and the scale runs from `0.5` (a hairline) to `3.0` (15%, the heaviest). Because the lines follow the font size, text and lines keep the same balance at any font size.
 
@@ -48,25 +47,21 @@ In left-to-right mode, connectors, triangles, movement paths, and line-type conn
 
 The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one scale from the most spacious to the most dense:
 
-- **Symmetric** (`symmetric`): radical symmetrization — every subtree is centered in a uniform slot, giving a wide, fully balanced figure. (Formerly the separate `Radical symmetrization` option, which remains as a legacy alias.)
-- **Off** (`off`): the traditional layout.
-- **Low** (`low`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space, typically reducing overall width by about 30%. Every leaf keeps its strict left-to-right position, so the terminal string still reads in surface (word) order across the whole figure — choose this for figures whose point is word order, such as cross-linguistic comparisons.
-- **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head) — but never so far that two leaves swap their left-right order. Leaf boxes may overlap across rows while the words still read in surface order.
-- **High** (`high`): free tucking, and the only mode that lets branch angles differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row — choose this for figures whose point is constituent structure, such as X-bar trees or morphological derivations.
+- **Symmetric** (`symmetric`): radical symmetrization — every subtree is centered in a uniform slot, giving a wide, fully balanced figure. Linguistic trees do not normally call for it.
+- **Off** (`off`): the plainest layout. If it looks unbalanced, try one of the tidy modes.
+- **Low** (`low`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space. Every leaf keeps its strict left-to-right position, so word order is preserved across the whole figure.
+- **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Two leaves never swap their left-right order.
+- **High** (`high`): the densest mode, tucking without limit and allowing branch angles to differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
 
-The two ends of the scale are for figures that ask for them. `symmetric` gives a balanced diagram wider than any linguistic tree needs, and `high` gives the densest one at the cost of even branch angles; deeply lopsided trees gain the most from it, and on a well-balanced tree it often lands close to `medium`. `off`, `low` and `medium` cover ordinary work.
+`high` pays off on deeply lopsided trees; on a well-balanced one it often lands close to `medium`. `off`, `low` and `medium` cover ordinary work.
 
-Connector heights adjust automatically: tidy mode spends a small height budget (about 5% of the tree's height) on the levels whose branches spread widest, evening out branch angles without making the figure noticeably taller. Connector height needs no manual adjustment in tidy mode.
-
-Tidy layout never produces overlapping labels: if a compaction step would cause a collision, it is rolled back to the last safe arrangement. It works in both top-to-bottom and left-to-right layouts and can be combined with `Mirror`. Most figures in the [example gallery](https://yohasebe.github.io/rsyntaxtree/examples) are drawn with `low`. The X-bar and morphology examples use `high`, and one (a Japanese causative-passive tree) uses `medium`.
-
-`Horizontal spacing` (`hspacing`, default 1.0, range 0.5–3.0) scales every horizontal gap in the figure the way `Connector height` scales the vertical rhythm. It applies in every layout mode, tidy or not. (`tidy_spacing` remains as a legacy alias.)
+Connector heights adjust automatically in tidy mode. `Horizontal spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `Connector height` scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
 
 ### Mirrored Layout for RTL Scripts
 
-Syntax trees for right-to-left scripts such as Arabic and Hebrew are conventionally drawn expanding from right to left, with the first word of the sentence at the right edge. The `Mirror` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally to follow this convention: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
+Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding from right to left. The `Mirror` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
 
-`Mirror` composes with `Direction`: `ttb` + mirror gives the standard RTL tree, and `ltr` + mirror places the root at the right with leaves expanding leftward. Every drawn element follows the mirrored positions automatically. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
+`Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
 
 ### Fonts Used to Generate PNG
 
@@ -76,7 +71,7 @@ The web interface offers three font styles:
 - `Noto Serif` (`serif`): the same range in a serif face.
 - `Noto Sans Mono` (`mono`): the same range in a mono-spaced face.
 
-All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders CJK text. A fourth style, `cjk`, puts Noto Sans CJK first instead; it is available from the command line and the library (`-n cjk`) but not from the web interface.
+All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders CJK text.
 
 ### Install Fonts for SVG
 
@@ -90,9 +85,9 @@ SVG images are dependent on the fonts installed locally on your computer. In ord
 - [Noto Sans Mono](https://fonts.google.com/noto/specimen/Noto+Sans+Mono): for latin and other basic Unicode characters in sans serif mono (semi-condensed)
 - [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): for emoji characters (the monochrome build; colour emoji fonts are not rendered by the PNG/PDF pipeline)
 
-Since 1.8.1, the scripts the gallery covers are named explicitly rather than left to the system's generic fallback: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif. Where those fonts are installed, the same input renders the same way from one machine to the next. Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named yet and still depend on what the system offers.
+The scripts the gallery covers are named explicitly rather than left to the system's generic fallback: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif. Where those fonts are installed, the same input renders the same way from one machine to the next. Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named yet and still depend on what the system offers.
 
-### Using a Font of Your Own
+### Using a Font of Your Own (advanced, command line)
 
 The family chains above take precedence over whatever your system would pick by itself, which also means an Arabic or Devanagari font you prefer will lose to Noto. You can override any entry with a fontconfig alias — no change to RSyntaxTree is needed. For example, to render Arabic with Amiri, put this in `~/.config/fontconfig/fonts.conf` and run `fc-cache -f`:
 
@@ -141,7 +136,7 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 
 #### Small Capitals
 
-There is no small-caps markup. CSS `font-variant` is honoured by the SVG renderer but ignored by the measurement engine, so a label would be measured at one width and drawn at another — off-centre by up to a third of its width. Attribute names in an attribute-value matrix are conventionally set in small caps; plain capitals read the same way and are what the gallery's HPSG examples use. Where the distinction matters, `___` gives a passable imitation: `H___EAD___` draws a full-size H followed by a smaller EAD.
+Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD.
 
 #### Box, Circle, Bar, and Arrow
 
@@ -423,22 +418,15 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 
 **Limitations:** The TikZ output focuses on tree structure and does not support the following visual features:
 
-| Feature | TikZ Support |
-|---------|--------------|
-| Per-node coloring (`@color:`) | Not supported |
-| Enclosures (`#`, `##`) | Not supported |
-| Triangle connectors (`^`) | Not supported |
-| Text decoration (bold, italic) | Not supported |
-| Subscript/superscript (`_x_`, `__x__`) | Not supported |
-| Path drawing (`+1`, `+>1`) | Not supported |
-| Region shade (`%`) | Supported (via `forest` `fit to=tree`) |
-| Column alignment (`\t`) | Cells run together on one line |
-| Nested matrix (`#(` … `#)`) | Contents kept, brackets not drawn |
-| Grey line scheme (`color: gray`) | Not supported |
-
-Users familiar with LaTeX can manually add these features to the generated TikZ code using standard LaTeX commands (e.g., `\textcolor{red}{NP}`, `\textbf{...}`).
-
-**Note on region shade:** The generated `forest` code draws each region plane on the TikZ background layer. When you embed non-standalone output in your own document, load the required libraries with `\usetikzlibrary{backgrounds,fit}` (the standalone output adds this automatically). Region colors (named or hex) are emitted as explicit RGB values, so SVG/CSS color names that xcolor does not define (e.g. `lightblue`) still compile.
+- Per-node coloring (`@color:`)
+- Enclosures (`#`, `##`)
+- Triangle connectors (`^`)
+- Text decoration (bold, italic)
+- Subscript/superscript (`_x_`, `__x__`)
+- Path drawing (`+1`, `+>1`)
+- Column alignment (`\t`) — cells run together on one line
+- Nested matrix (`#(` … `#)`)
+- Grey line scheme (`color: gray`)
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
@@ -446,13 +434,25 @@ Users familiar with LaTeX can manually add these features to the generated TikZ 
 ---
 
 <script>
+  // Copy the notation for one example. This used to add a `copy` listener to
+  // the document and leave it there, so every later Cmd+C on the page
+  // returned that same notation however much the reader had selected by
+  // hand. The clipboard is written directly instead, and nothing is left
+  // behind to intercept a selection.
   function copyToClipBoard(id){
-    var copyText =  document.getElementById(id).innerText;
-    document.addEventListener('copy', function(e) {
-        e.clipboardData.setData('text/plain', copyText);
-        e.preventDefault();
-      }, true);
+    var text = document.getElementById(id).innerText;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text);
+      return;
+    }
+    var area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.top = '-1000px';
+    document.body.appendChild(area);
+    area.select();
     document.execCommand('copy');
-    alert('copied');
+    document.body.removeChild(area);
   }
 </script>
