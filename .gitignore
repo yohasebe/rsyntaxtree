@@ -20,3 +20,6 @@ tags
 .solargraph.yml
 
 CLAUDE.md
+
+# git filter-branch leaves this behind; it is machinery, not source.
+.git-rewrite/
