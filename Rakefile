@@ -32,7 +32,12 @@ end
 
 Rake::Task["build"].enhance([:normalize_permissions])
 
-desc "Generate SVG and PNG example images locally"
+# For trying something out. It does NOT reproduce the committed gallery:
+# fontconfig resolves a family to whatever this machine has, so the same input
+# measures differently here than in the image the figures were drawn with. Run
+# over docs/assets it rewrites every PNG and about half the SVGs, none of it an
+# intended change. Use docker_generate to update the gallery.
+desc "Generate SVG and PNG example images locally (not for updating the gallery)"
 task :generate do
     require_relative "dev/generate_examples"
 end
@@ -47,7 +52,9 @@ task :docker_build do
     `docker build ./ -t rsyntaxtree_devel`
 end
 
-desc "Generate SVG and PNG example images using Docker image"
+# The gallery is drawn here and nowhere else, so that a figure depends on the
+# input and the options rather than on the fonts of whoever regenerated it.
+desc "Generate SVG and PNG example images using Docker image (the gallery)"
 task :docker_generate do
     docpath = File.expand_path(File.join(__dir__, "docs"))
     `docker build ./ -t rsyntaxtree_devel`
