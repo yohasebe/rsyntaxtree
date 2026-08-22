@@ -144,8 +144,8 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 ```text
 [#HEAD\tnoun\
-  SPR\t〈<>〉\
-  COMPS\t〈<>NP<>〉
+  SPR\t⟨<>⟩\
+  COMPS\t⟨<>NP<>⟩
   Kim
 ]
 ```
@@ -158,10 +158,10 @@ The value of an attribute can be another matrix, written between `#(` and `#)`. 
 
 ```text
 [#*word*\
-  PHON\t〈<>*Kim*<>〉\
+  PHON\t⟨<>*Kim*<>⟩\
   SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
     CASE\t*nom*#)\
-    SPR\t〈<>〉#)#)#)
+    SPR\t⟨<>⟩#)#)#)
 ]
 ```
 

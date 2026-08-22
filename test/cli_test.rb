@@ -368,7 +368,11 @@ end
 
     assert result[:status].success?
     assert_includes result[:stdout], "RSyntaxTree notation, in brief"
-    assert_includes result[:stdout], "〈"
+    # The angle bracket it names is the one it writes with. It used to name
+    # U+27E8 and write U+3008, which draws a full em wide.
+    assert_includes result[:stdout], "U+27E8"
+    assert_includes result[:stdout], "⟨"
+    refute_includes result[:stdout], "〈"
   end
 
   # The documentation offers -f tikz; the format gate used to reject it.

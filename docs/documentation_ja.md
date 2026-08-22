@@ -145,8 +145,8 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 
 ```text
 [#HEAD\tnoun\
-  SPR\t〈<>〉\
-  COMPS\t〈<>NP<>〉
+  SPR\t⟨<>⟩\
+  COMPS\t⟨<>NP<>⟩
   Kim
 ]
 ```
@@ -159,10 +159,10 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 
 ```text
 [#*word*\
-  PHON\t〈<>*Kim*<>〉\
+  PHON\t⟨<>*Kim*<>⟩\
   SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
     CASE\t*nom*#)\
-    SPR\t〈<>〉#)#)#)
+    SPR\t⟨<>⟩#)#)#)
 ]
 ```
 

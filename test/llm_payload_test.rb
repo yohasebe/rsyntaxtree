@@ -64,4 +64,27 @@ class LlmPayloadTest < Minitest::Test
   def test_notation_holding_a_pipe_survives
     assert_includes LlmPayload.manual, "`|abc|` →"
   end
+
+  # The reference names the code points to write an angle bracket with, and
+  # then shows them being written. It named U+27E8 while its own examples used
+  # U+3008, the East Asian one, which draws a full em wide — wider than a
+  # capital — and had spread through the gallery. A reader following the words
+  # and a reader copying the examples got different characters, and only one
+  # of them got the narrow bracket linguistics is set with.
+  def test_the_reference_uses_the_code_points_it_names
+    [File.join(ROOT, "lib", "rsyntaxtree", "notation_core.md"),
+     File.join(ROOT, "lib", "rsyntaxtree", "notation_examples.md"),
+     File.join(ROOT, "docs", "documentation.md")].each do |path|
+      text = File.read(path)
+      refute_includes text, "〈", "#{File.basename(path)} uses the East Asian angle bracket"
+      refute_includes text, "〉", "#{File.basename(path)} uses the East Asian angle bracket"
+    end
+  end
+
+  def test_the_examples_use_the_code_points_the_reference_names
+    Dir.glob("*.md", base: File.join(ROOT, "docs", "_examples")).each do |md|
+      text = File.read(File.join(ROOT, "docs", "_examples", md))
+      refute_includes text, "〈", "example #{md} uses the East Asian angle bracket"
+    end
+  end
 end

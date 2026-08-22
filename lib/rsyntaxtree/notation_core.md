@@ -16,10 +16,10 @@ Within a label:
 
 Four traps, because these characters already mean something:
 - `<` and `>` are never angle brackets in this notation: `<>` is one space,
-  `<3>` is three. Wherever linguistics uses angle brackets — a list 〈NP〉,
-  an argument structure like 'hand〈SUBJ,OBJ〉', anything — write the
-  characters 〈 and 〉 themselves (U+27E8 and U+27E9):
-  SPR\t〈<>NP<>〉    PRED\t'hand〈SUBJ,OBJ〉'
+  `<3>` is three. Wherever linguistics uses angle brackets — a list ⟨NP⟩,
+  an argument structure like 'hand⟨SUBJ,OBJ⟩', anything — write the
+  characters ⟨ and ⟩ themselves (U+27E8 and U+27E9):
+  SPR\t⟨<>NP<>⟩    PRED\t'hand⟨SUBJ,OBJ⟩'
 - `-` opens and closes an underline, so a bare hyphen in ANY word is an
   error: V-bar, f-structure, HEAD-DTR. Write `V'`, or escape the hyphen:
   `V\-bar`, `f\-structure`, `HEAD\-DTR`.
@@ -35,14 +35,14 @@ An attribute-value matrix is columns plus an enclosure:
 
     [#*word*\
       HEAD\t*verb*\
-      SPR\t〈<>NP<>〉\
-      COMPS\t〈<>〉
+      SPR\t⟨<>NP<>⟩\
+      COMPS\t⟨<>⟩
     ]
 
 A value can be another matrix. Nest it with `#( ... #)`, never with square
 brackets — those are read as tree structure:
 
-    [#PRED\t'hand〈SUBJ,OBJ〉'\
+    [#PRED\t'hand⟨SUBJ,OBJ⟩'\
       TENSE\tpast\
       SUBJ\t#(PRED\t'David'#)
     ]

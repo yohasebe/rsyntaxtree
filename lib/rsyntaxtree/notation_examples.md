@@ -353,39 +353,39 @@ Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low v
 ```
 [#*phrase*\
   HEAD\t|1|\
-  SPR\t〈<>〉\
-  COMPS\t〈<>〉
+  SPR\t⟨<>⟩\
+  COMPS\t⟨<>⟩
   [#*word*\
     HEAD\t|2|<>*noun*\
-    SPR\t〈<>〉\
-    COMPS\t〈<>〉
+    SPR\t⟨<>⟩\
+    COMPS\t⟨<>⟩
     Kim
   ]
   [#*phrase*\
     HEAD\t|1|\
-    SPR\t〈<>|2|<>〉\
-    COMPS\t〈<>〉
+    SPR\t⟨<>|2|<>⟩\
+    COMPS\t⟨<>⟩
     [#*word*\
       HEAD\t|1|<>*verb*\
-      SPR\t〈<>|2|<>NP〉\
-      COMPS\t〈<>|3|<>PP\[*on*\]〉
+      SPR\t⟨<>|2|<>NP⟩\
+      COMPS\t⟨<>|3|<>PP\[*on*\]⟩
       relies
     ]
     [#|3|<>*phrase*\
       HEAD\t|4|\
-      SPR\t〈<>〉\
-      COMPS\t〈<>〉
+      SPR\t⟨<>⟩\
+      COMPS\t⟨<>⟩
       [#*word*\
         HEAD\t|4|<>*prep*\
         FORM\t*on*\
-        SPR\t〈<>〉\
-        COMPS\t〈<>|5|<>〉
+        SPR\t⟨<>⟩\
+        COMPS\t⟨<>|5|<>⟩
         on
       ]
       [#|5|<>*word*\
         HEAD\t*noun*\
-        SPR\t〈<>〉\
-        COMPS\t〈<>〉
+        SPR\t⟨<>⟩\
+        COMPS\t⟨<>⟩
         Sandy
       ]
     ]
@@ -2450,11 +2450,11 @@ Source: cf. Sag, Wasow and Bender 2003
 
 ```
 [#*word*\
-  PHON\t〈<>*relies*<>〉\
+  PHON\t⟨<>*relies*<>⟩\
   SYNSEM\t#(LOC\t#(CAT\t#(HEAD\t#(*verb*\
     VFORM\t*fin*#)\
-    VAL\t#(SPR\t〈<>|1|<>〉\
-    COMPS\t〈<>|2|<>〉#)#)\
+    VAL\t#(SPR\t⟨<>|1|<>⟩\
+    COMPS\t⟨<>|2|<>⟩#)#)\
     CONT\t#(*rely-rel*\
     RELIER\t|1|\
     RELIED-ON\t|2|#)#)#)

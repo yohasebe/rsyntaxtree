@@ -28,10 +28,10 @@ Within a label:
 
 Four traps, because these characters already mean something:
 - `<` and `>` are never angle brackets in this notation: `<>` is one space,
-  `<3>` is three. Wherever linguistics uses angle brackets — a list 〈NP〉,
-  an argument structure like 'hand〈SUBJ,OBJ〉', anything — write the
-  characters 〈 and 〉 themselves (U+27E8 and U+27E9):
-  SPR\t〈<>NP<>〉    PRED\t'hand〈SUBJ,OBJ〉'
+  `<3>` is three. Wherever linguistics uses angle brackets — a list ⟨NP⟩,
+  an argument structure like 'hand⟨SUBJ,OBJ⟩', anything — write the
+  characters ⟨ and ⟩ themselves (U+27E8 and U+27E9):
+  SPR\t⟨<>NP<>⟩    PRED\t'hand⟨SUBJ,OBJ⟩'
 - `-` opens and closes an underline, so a bare hyphen in ANY word is an
   error: V-bar, f-structure, HEAD-DTR. Write `V'`, or escape the hyphen:
   `V\-bar`, `f\-structure`, `HEAD\-DTR`.
@@ -47,14 +47,14 @@ An attribute-value matrix is columns plus an enclosure:
 
     [#*word*\
       HEAD\t*verb*\
-      SPR\t〈<>NP<>〉\
-      COMPS\t〈<>〉
+      SPR\t⟨<>NP<>⟩\
+      COMPS\t⟨<>⟩
     ]
 
 A value can be another matrix. Nest it with `#( ... #)`, never with square
 brackets — those are read as tree structure:
 
-    [#PRED\t'hand〈SUBJ,OBJ〉'\
+    [#PRED\t'hand⟨SUBJ,OBJ⟩'\
       TENSE\tpast\
       SUBJ\t#(PRED\t'David'#)
     ]
@@ -195,8 +195,8 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 ```text
 [#HEAD\tnoun\
-  SPR\t〈<>〉\
-  COMPS\t〈<>NP<>〉
+  SPR\t⟨<>⟩\
+  COMPS\t⟨<>NP<>⟩
   Kim
 ]
 ```
@@ -209,10 +209,10 @@ The value of an attribute can be another matrix, written between `#(` and `#)`. 
 
 ```text
 [#*word*\
-  PHON\t〈<>*Kim*<>〉\
+  PHON\t⟨<>*Kim*<>⟩\
   SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
     CASE\t*nom*#)\
-    SPR\t〈<>〉#)#)#)
+    SPR\t⟨<>⟩#)#)#)
 ]
 ```
 
@@ -919,39 +919,39 @@ Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low v
 ```
 [#*phrase*\
   HEAD\t|1|\
-  SPR\t〈<>〉\
-  COMPS\t〈<>〉
+  SPR\t⟨<>⟩\
+  COMPS\t⟨<>⟩
   [#*word*\
     HEAD\t|2|<>*noun*\
-    SPR\t〈<>〉\
-    COMPS\t〈<>〉
+    SPR\t⟨<>⟩\
+    COMPS\t⟨<>⟩
     Kim
   ]
   [#*phrase*\
     HEAD\t|1|\
-    SPR\t〈<>|2|<>〉\
-    COMPS\t〈<>〉
+    SPR\t⟨<>|2|<>⟩\
+    COMPS\t⟨<>⟩
     [#*word*\
       HEAD\t|1|<>*verb*\
-      SPR\t〈<>|2|<>NP〉\
-      COMPS\t〈<>|3|<>PP\[*on*\]〉
+      SPR\t⟨<>|2|<>NP⟩\
+      COMPS\t⟨<>|3|<>PP\[*on*\]⟩
       relies
     ]
     [#|3|<>*phrase*\
       HEAD\t|4|\
-      SPR\t〈<>〉\
-      COMPS\t〈<>〉
+      SPR\t⟨<>⟩\
+      COMPS\t⟨<>⟩
       [#*word*\
         HEAD\t|4|<>*prep*\
         FORM\t*on*\
-        SPR\t〈<>〉\
-        COMPS\t〈<>|5|<>〉
+        SPR\t⟨<>⟩\
+        COMPS\t⟨<>|5|<>⟩
         on
       ]
       [#|5|<>*word*\
         HEAD\t*noun*\
-        SPR\t〈<>〉\
-        COMPS\t〈<>〉
+        SPR\t⟨<>⟩\
+        COMPS\t⟨<>⟩
         Sandy
       ]
     ]
@@ -3016,11 +3016,11 @@ Source: cf. Sag, Wasow and Bender 2003
 
 ```
 [#*word*\
-  PHON\t〈<>*relies*<>〉\
+  PHON\t⟨<>*relies*<>⟩\
   SYNSEM\t#(LOC\t#(CAT\t#(HEAD\t#(*verb*\
     VFORM\t*fin*#)\
-    VAL\t#(SPR\t〈<>|1|<>〉\
-    COMPS\t〈<>|2|<>〉#)#)\
+    VAL\t#(SPR\t⟨<>|1|<>⟩\
+    COMPS\t⟨<>|2|<>⟩#)#)\
     CONT\t#(*rely-rel*\
     RELIER\t|1|\
     RELIED-ON\t|2|#)#)#)
