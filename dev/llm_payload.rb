@@ -67,9 +67,16 @@ module LlmPayload
     text.gsub(/\s+/, " ").strip
   end
 
-  # Every gallery example, with the options it needs. The names are the ones
-  # the library takes, not the ones the front matter uses, and an option at
-  # its default is left out: what is listed is what the figure depends on.
+  # Every gallery example, with the options the gallery records for it. The
+  # names are the ones the library takes, not the ones the front matter uses,
+  # and a value equal to the default is left out.
+  #
+  # Left out by value, not by effect: `fontstyle=noto-sans` resolves to the
+  # default `sans` and so changes nothing, but it is a different string and is
+  # listed. Resolving it here would mean a second copy of the alias rules that
+  # lib/rsyntaxtree.rb applies, which is the thing this file exists to avoid.
+  # A setting that changes nothing is harmless to pass on; a rule written twice
+  # is not.
   def examples
     dir = File.join(ROOT, "docs", "_examples")
     Dir.glob("*.md", base: dir).sort.filter_map do |md|
@@ -109,6 +116,11 @@ module LlmPayload
 
       Notation reference: rsyntaxtree --notation
       Check an input without drawing: rsyntaxtree --validate "[S [NP a] [VP b]]"
+
+      What the option names on a settings line mean is not in this file, nor in
+      the reference, which leaves the options out on purpose. For those, see
+      `rsyntaxtree --help` or the manual: #{SITE}/documentation. Everything at
+      once, this file and the manual together: #{SITE}/llms-full.txt
     HEAD
     ex.each do |e|
       out << "\n\n## #{e[:name]} — #{e[:caption]}\n\n"
@@ -127,10 +139,10 @@ module LlmPayload
       > A generator for linguistic syntax trees. The input is labeled bracket
       > notation; the output is PNG, SVG, PDF, TikZ or LSIF. Version #{version}.
 
-      The notation is small, but four characters already mean something in it —
-      `<`, `>`, `-` and a raw space inside a multi-line label — and parentheses
-      are read as text rather than as brackets. Read the brief before writing
-      any, and check what you write instead of guessing.
+      The notation is small, and several characters in it already mean
+      something. The brief leads with those traps, which is why it is worth
+      reading before writing any, and why what you write is worth checking
+      rather than guessing.
 
       ## Start here
 

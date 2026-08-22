@@ -3,10 +3,10 @@
 > A generator for linguistic syntax trees. The input is labeled bracket
 > notation; the output is PNG, SVG, PDF, TikZ or LSIF. Version 1.11.0.
 
-The notation is small, but four characters already mean something in it —
-`<`, `>`, `-` and a raw space inside a multi-line label — and parentheses
-are read as text rather than as brackets. Read the brief before writing
-any, and check what you write instead of guessing.
+The notation is small, and several characters in it already mean
+something. The brief leads with those traps, which is why it is worth
+reading before writing any, and why what you write is worth checking
+rather than guessing.
 
 ## Start here
 

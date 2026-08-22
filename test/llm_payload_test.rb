@@ -43,6 +43,23 @@ class LlmPayloadTest < Minitest::Test
     assert_includes manual, "`\\<` →", "the escape table is missing"
   end
 
+  # Both sides of every row, not just the notation. What each one draws lives
+  # in the name of an image file, and what each escape produces is a character
+  # the table holds raw. Either can be lost while the notation survives — an
+  # image the pattern stops matching is dropped whole, and an entity left
+  # undecoded is not the character it stands for — and half of the reason for
+  # resolving the includes goes with it.
+  def test_the_tables_keep_what_each_row_produces
+    manual = LlmPayload.manual
+    assert_includes manual, "`|/|` → square hatched"
+    assert_includes manual, "`{abc}` → circle abc"
+    assert_includes manual, "`<->` → arrow both"
+    assert_includes manual, "`\\<` → <"
+    assert_includes manual, "`\\&` → &" if manual.include?("`\\&`")
+    assert_includes manual, "`<>` → whitespace"
+    refute_match(/^- `[^`]*` →\s*$/, manual, "a row lost what it produces")
+  end
+
   # Some of that notation contains the character a markdown table splits on.
   def test_notation_holding_a_pipe_survives
     assert_includes LlmPayload.manual, "`|abc|` →"

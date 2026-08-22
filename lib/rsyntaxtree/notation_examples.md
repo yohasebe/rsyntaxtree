@@ -8,6 +8,11 @@ here through the same parser that draws it, so each one is accepted.
 Notation reference: rsyntaxtree --notation
 Check an input without drawing: rsyntaxtree --validate "[S [NP a] [VP b]]"
 
+What the option names on a settings line mean is not in this file, nor in
+the reference, which leaves the options out on purpose. For those, see
+`rsyntaxtree --help` or the manual: https://yohasebe.github.io/rsyntaxtree/documentation. Everything at
+once, this file and the manual together: https://yohasebe.github.io/rsyntaxtree/llms-full.txt
+
 
 ## 000 — RSyntaxTree basic example
 
