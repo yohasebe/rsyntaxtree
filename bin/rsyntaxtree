@@ -126,6 +126,7 @@ opts = Optimist.options do
   opt :hyphen, "How a hyphen in a label reads: markup (-underline-) or literal (a hyphen; \-underline\- then underlines)", default: "markup", short: :none
   opt :validate, "Validate the input without drawing or writing a file: print a machine-readable diagnosis (JSON) to stdout and report the result in the exit code", short: :none
   opt :notation, "Print the notation reference to stdout and exit", short: :none
+  opt :examples, "Print every gallery example, with the options each needs, to stdout and exit", short: :none
   opt :help, "This is a custom help message", short: :h
 end
 
@@ -171,6 +172,21 @@ if %w[jpg gif].include?(string_opts[:format])
   warn "Warning: #{string_opts[:format].upcase} output is deprecated and will be removed in RSyntaxTree 2.0. Use PNG instead."
 end
 
+# These print and exit, so they answer before the input is read. Reading
+# first meant waiting on a pipe that never closes when stdin is not a
+# terminal, which is how they are reached from a script.
+if opts[:notation]
+  puts File.read(File.expand_path("../lib/rsyntaxtree/notation_core.md", __dir__))
+  exit 0
+end
+
+# The examples are the reference's counterpart: the rules in brief there, and
+# here every published tree with the options it was drawn with.
+if opts[:examples]
+  puts File.read(File.expand_path("../lib/rsyntaxtree/notation_examples.md", __dir__))
+  exit 0
+end
+
 # An argument names a file only if it really is one: File.exist? on an
 # expanded empty string answers for the current directory, and reading that
 # as the tree ended the run with a Ruby error.
@@ -186,11 +202,6 @@ data = if ARGV[0] && !ARGV[0].empty? && File.file?(File.expand_path(ARGV[0]))
 
 # Auto-convert Penn TreeBank format to bracket notation
 data = RSyntaxTree::FormatConverter.to_bracket(data) if data
-
-if opts[:notation]
-  puts File.read(File.expand_path("../lib/rsyntaxtree/notation_core.md", __dir__))
-  exit 0
-end
 
 # Validate without drawing or writing anything: the diagnosis goes to stdout
 # as JSON and the exit code carries the verdict.

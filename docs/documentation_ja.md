@@ -385,11 +385,14 @@ $ rsyntaxtree --validate "[X V-bar]"
 
 #### 記法リファレンス
 
-`--notation` は，記法の簡潔なリファレンスを標準出力に出力します．LLMなどに作図を依頼する時などに使える機能として想定しています。
+`--notation` は，記法の簡潔なリファレンスを標準出力に出力します．LLMなどに作図を依頼する時などに使える機能として想定しています。`--examples` は，公開されている全事例を，それぞれが描画された際のオプションとともに出力します．どちらも入力を読まずに出力して終了します．
 
 ```bash
 rsyntaxtree --notation
+rsyntaxtree --examples
 ```
+
+同じ内容はプレーンテキストとしてサイトにも置いてあります．コマンドを実行できないがURLは取得できる読み手のためのものです．[llms.txt](https://yohasebe.github.io/rsyntaxtree/llms.txt) が目次で，[llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt) にはリファレンス・本マニュアル・全事例が一つのファイルに入っています．どちらも元の資料から生成されます．
 
 #### 標準入力のサポート
 

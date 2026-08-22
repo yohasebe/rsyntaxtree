@@ -1,0 +1,26 @@
+# RSyntaxTree
+
+> A generator for linguistic syntax trees. The input is labeled bracket
+> notation; the output is PNG, SVG, PDF, TikZ or LSIF. Version 1.11.0.
+
+The notation is small, but four characters already mean something in it —
+`<`, `>`, `-` and a raw space inside a multi-line label — and parentheses
+are read as text rather than as brackets. Read the brief before writing
+any, and check what you write instead of guessing.
+
+## Start here
+
+- [llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt): one file, and the only one needed.
+  It opens with the rules and the four traps in about fifty lines, then
+  the manual, then all 75 examples with the options each was drawn with.
+
+## The same material as pages
+
+- [Manual](https://yohasebe.github.io/rsyntaxtree/documentation): every construction, with figures
+- [Gallery](https://yohasebe.github.io/rsyntaxtree/examples): 75 trees across linguistic frameworks, each verified to draw
+
+## Checking your work
+
+`rsyntaxtree --validate "[S [NP the cat] [VP sat]]"` answers with JSON and
+an exit code, drawing nothing. A refusal names the cause, the label it is
+in, and a one-line fix that was confirmed by applying it and parsing again.

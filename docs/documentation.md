@@ -392,10 +392,19 @@ releases, and the exit code is the stable part of the answer.
 #### Notation Reference
 
 `--notation` prints a short reference for the notation to standard output.
+`--examples` prints every published example with the options it was drawn
+with. Both write and exit without reading any input.
 
 ```bash
 rsyntaxtree --notation
+rsyntaxtree --examples
 ```
+
+The same material is on the site as plain text, for a reader that can fetch a
+URL but cannot run a command: [llms.txt](https://yohasebe.github.io/rsyntaxtree/llms.txt)
+is an index, and [llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt)
+holds the reference, this manual and every example in one file. Both are
+generated from the sources they describe.
 
 #### Standard Input Support
 

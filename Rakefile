@@ -42,6 +42,14 @@ task :generate do
     require_relative "dev/generate_examples"
 end
 
+# What a language model is given: the reference, the manual and every example,
+# built from the files those already live in. Run it after changing any of
+# them; llm_payload_test.rb fails if the built files are out of date.
+desc "Build the notation payload for language models (gem and site)"
+task :llm_payload do
+    ruby "dev/generate_llm_payload.rb"
+end
+
 desc "Record the pixel size of each gallery figure for the examples page"
 task :figure_sizes do
     ruby "dev/stamp_figure_sizes.rb"

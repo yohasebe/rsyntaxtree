@@ -1,0 +1,3097 @@
+# RSyntaxTree 1.11.0 — notation, manual and examples
+
+Everything a language model needs in order to write this notation, in one
+file: the brief that leads with the traps, the manual as the site
+publishes it, and every gallery example with the options it needs.
+
+Generated from the sources the tool itself reads. Check what you write
+with `rsyntaxtree --validate`, which draws nothing and reports the cause
+of a refusal along with a fix known to work.
+
+# Notation, in brief
+
+RSyntaxTree notation, in brief.
+
+A tree is labeled brackets: [S [NP the cat] [VP sat]]. The label follows the
+opening bracket; children follow the label.
+
+Within a label:
+- `\n` breaks a line; `\t` separates columns, and every line is cut at the
+  same points, so the columns line up down the label. (`\t` is the two
+  characters backslash and t, not a real tab.)
+- `#label` draws square brackets around the whole label; `##label` a
+  rectangle. `#( ... #)` nests a matrix inside a label, to any depth.
+- `*italic*`, `**bold**`, `x_sub_`, `x__super__`, `|x|` in a box, `{x}` in a
+  circle, `---` a horizontal rule.
+- `+n` on two nodes links them with a movement arrow; `+>n` puts the
+  arrowhead on that end.
+
+Four traps, because these characters already mean something:
+- `<` and `>` are never angle brackets in this notation: `<>` is one space,
+  `<3>` is three. Wherever linguistics uses angle brackets — a list 〈NP〉,
+  an argument structure like 'hand〈SUBJ,OBJ〉', anything — write the
+  characters 〈 and 〉 themselves (U+27E8 and U+27E9):
+  SPR\t〈<>NP<>〉    PRED\t'hand〈SUBJ,OBJ〉'
+- `-` opens and closes an underline, so a bare hyphen in ANY word is an
+  error: V-bar, f-structure, HEAD-DTR. Write `V'`, or escape the hyphen:
+  `V\-bar`, `f\-structure`, `HEAD\-DTR`.
+- A raw space is safe in a one-line label, and unreliable in a label that
+  has `\n` or `\t` in it: there it splits a value that carries markup, and
+  it breaks a matrix nested with `#( ... #)`. Since matrices are exactly the
+  multi-line case, write a space as `<>` inside any label with columns:
+  'a<>toy', not 'a toy'.
+- Parentheses are not brackets, and this is silent: `(S (NP ...))` raises no
+  error and draws one leaf with that text in it. Convert it first.
+
+An attribute-value matrix is columns plus an enclosure:
+
+    [#*word*\
+      HEAD\t*verb*\
+      SPR\t〈<>NP<>〉\
+      COMPS\t〈<>〉
+    ]
+
+A value can be another matrix. Nest it with `#( ... #)`, never with square
+brackets — those are read as tree structure:
+
+    [#PRED\t'hand〈SUBJ,OBJ〉'\
+      TENSE\tpast\
+      SUBJ\t#(PRED\t'David'#)
+    ]
+
+A movement arrow links the two nodes that carry the same number:
+
+    [S [NP what+>1] [VP [V see] [NP+1 t]]]
+
+
+# Manual
+
+### Basic Usage
+
+Type your text in the editor area using labeled bracket notation and click the Draw PNG or Draw SVG button. 
+
+Every branch or leaf of the syntax tree must belong to a node. To create a node, place the label text right next to the start bracket. Any number of branches may follow, separated by a whitespace. (Node labels containing whitespaces can be created using the `<>` symbol. For example, `Modal<>Aux` will be rendered as `Modal Aux`).
+
+The `Connector shape` option (`leafstyle`, CLI `--leafstyle`) chooses what is drawn between a terminal node and its leaves; the three settings are described under [Connectors](#connectors). Whichever is chosen, the connectors can be made transparent with the `Hide connectors` option.
+
+The newline character `\n` can be used within the text of both node labels and leaves (a backslash followed by a space or a line break works too).
+
+RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vector graphics software such as Adobe Illustrator, Microsoft Visio, [BOXY SVG](https://boxy-svg.com/), etc. It is very useful if you want to modify the output image.
+
+
+The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
+
+`Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and movement paths in grey.
+
+`Line width` sets the thickness of every line in the figure — connectors, brackets, enclosures — as a ratio of the font size. `1` is 5% of it (the weight of an ordinary text rule), each 0.5 step adds another 2.5%, and the scale runs from `0.5` (a hairline) to `3.0` (15%, the heaviest). Because the lines follow the font size, text and lines keep the same balance at any font size.
+
+### Tree Direction
+
+The `Direction` option controls the orientation of the tree layout:
+
+- **Top to Bottom** (`ttb`): The default. Root node at the top, leaves at the bottom.
+- **Left to Right** (`ltr`): Root node at the left, leaves expand to the right. Useful for classification trees, taxonomies, and other hierarchical structures where horizontal layout is preferred.
+
+In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
+
+### Tidy Layout
+
+The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one scale from the most spacious to the most dense:
+
+- **Symmetric** (`symmetric`): radical symmetrization — every subtree is centered in a uniform slot, giving a wide, fully balanced figure. Linguistic trees do not normally call for it.
+- **Off** (`off`): the plainest layout. If it looks unbalanced, try one of the tidy modes.
+- **Low** (`low`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space. Every leaf keeps its strict left-to-right position, so word order is preserved across the whole figure.
+- **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Two leaves never swap their left-right order.
+- **High** (`high`): the densest mode, tucking without limit and allowing branch angles to differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
+
+`high` pays off on deeply lopsided trees; on a well-balanced one it often lands close to `medium`. `off`, `low` and `medium` cover ordinary work.
+
+Connector heights adjust automatically in tidy mode. `H spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `V spacing` (`vheight`) scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
+
+### Mirrored Layout for RTL Scripts
+
+Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding from right to left. The `Mirror (RTL)` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
+
+`Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
+
+### Fonts Used to Generate PNG
+
+The web interface offers three font styles:
+
+- `Noto Sans` (`sans`): latin and other basic Unicode characters in a sans serif face.
+- `Noto Serif` (`serif`): the same range in a serif face.
+- `Noto Sans Mono` (`mono`): the same range in a mono-spaced face.
+
+All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders CJK text.
+
+### Install Fonts for SVG
+
+SVG images are dependent on the fonts installed locally on your computer. In order for the images to display as intended, the following fonts should be installed beforehand (click on the links). If these fonts are not installed, other available fonts will be used, resulting in a somewhat unbalanced display of the text.
+
+- [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans): for latin and other basic Unicode characters in sans serif
+- [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP): for Japanese characters in sans serif
+- [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif): for latin and other basic Unicode characters in serif
+- [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP): for Japanese characters in serif
+- [Noto Sans CJK / Noto Serif CJK](https://github.com/notofonts/noto-cjk): for the full CJK range, including Hangul and simplified Han (the JP families above cover Japanese only)
+- [Noto Sans Mono](https://fonts.google.com/noto/specimen/Noto+Sans+Mono): for latin and other basic Unicode characters in sans serif mono (semi-condensed)
+- [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): for emoji characters (the monochrome build; colour emoji fonts are not rendered by the PNG/PDF pipeline)
+
+The scripts the gallery covers are named explicitly rather than left to the system's generic fallback: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif. Where those fonts are installed, the same input renders the same way from one machine to the next. Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named yet and still depend on what the system offers.
+
+### Drawing Text
+
+You can apply font styles (italic/bold/bold-italic), text decoration (overline/underline/line-through), subscript/superscript font rendering, and more. These markups can be nested within each other.
+
+#### Font Styles
+
+|Style      |Symbol      |Sample Input       |Output           |
+|-----------|------------|-------------------|-----------------|
+|Italic     |`*TEXT*`    |`*italic*`         |*italic*         |
+|Bold       |`**TEXT**`  |`**bold**`         |**bold**         |
+|Italic+bold|`***TEXT***`|`***italic bold***`|***italic bold***|
+
+#### Text Decoration
+
+|Decoration  |Symbol  |Sample Input   |Output                                                       |
+|------------|--------|---------------|-------------------------------------------------------------|
+|Overline    |`=TEXT=`|`=overline=`   |<span style='text-decoration:overline'>overline</span>       |
+|Underline   |`-TEXT-`|`-underline-`  |<span style='text-decoration:underline'>underline</span>     |
+|Line-through|`~TEXT~`|`~linethrough~`|<span style='text-decoration:line-through'>linethrough</span>|
+
+#### Subscript and Superscript
+
+|Sample Input           |Output                      |
+|-----------------------|----------------------------|
+|`normal_subscript_`    |normal<sub>subscript</sub>  |
+|`normal__superscript__`|normal<sup>superscript</sup>|
+
+### Whitespace and Line Breaks
+
+#### Whitespace inside a Label
+
+|Sample Input|Output  |
+|------------|--------|
+|`X<>Y`      |X&nbsp;Y|
+
+A label that is *only* `<>` is a special case with its own use: see [Levelling the Terminals](#levelling-the-terminals) below.
+
+#### Levelling the Terminals
+
+A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
+
+```text
+[S
+  [NP [D [<> [<> the]]] [N [<> [<> cat]]]]
+  [VP
+    [V [<> [<> sat]]]
+    [PP [P [<> on]] [NP [D the] [N mat]]]]]
+```
+
+Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, and *on* one row above. Each leaf takes as many joints as it needs to reach the deepest row, so all six words end up on the bottom row. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029) in the gallery uses `<>`-only joints the same way.
+
+#### Columns
+
+`\t` cuts a line into cells. Every line of the label is cut at the same points, and each column is drawn at the width of its widest cell, so the parts line up down the label instead of starting wherever the text before them happened to end. This is what an attribute-value matrix asks for — the attributes in one column, their values in the next:
+
+```text
+[#HEAD\tnoun\
+  SPR\t〈<>〉\
+  COMPS\t〈<>NP<>〉
+  Kim
+]
+```
+
+A label with more than two columns works the same way; each is as wide as it needs to be. See the [Head-Driven Phrase Structure Grammar example](https://yohasebe.github.io/rsyntaxtree/examples#example-013) in the gallery.
+
+#### Nested matrices
+
+The value of an attribute can be another matrix, written between `#(` and `#)`. It draws its own brackets and lays out its own columns, and the rows that follow it clear its full height:
+
+```text
+[#*word*\
+  PHON\t〈<>*Kim*<>〉\
+  SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
+    CASE\t*nom*#)\
+    SPR\t〈<>〉#)#)#)
+]
+```
+
+Matrices nest to any depth, which is what a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
+
+#### Hyphens
+
+A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and escaping each one is a poor trade for a rule that work never uses. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead. Two hyphens are structure rather than markup and are left alone either way: a line of nothing but hyphens is still the horizontal rule, and the one in a path suffix (`+-1`) still marks that path dashed.
+
+#### Newline
+
+|Sample Input                   |Output              |
+|-------------------------------|--------------------|
+|`str1\`<br />`str2`            |str1<br />str2      |
+|`str1\`<br />`   \`<br />`str2`|str1<br /><br />str2|
+|`str1\ str2`                   |str1<br />str2      |
+|`str1\ \ str2`                 |str1<br /><br />str2|
+|`str1\nstr2`                   |str1<br />str2      |
+|`str1\n\nstr2`                 |str1<br /><br />str2|
+
+### Drawing Non-Text Elements
+
+Circles, boxes and rules can be drawn around or alongside the text.
+
+#### Small Capitals
+
+Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD.
+
+#### Box, Circle, Bar, and Arrow
+
+- `||` → square
+- `{}` → circle
+- `*||*` → square bold
+- `*{}*` → circle bold
+- `|/|` → square hatched
+- `{/}` → circle hatched
+- `|1|` → square one
+- `{1}` → circle one
+- `|abc|` → square abc
+- `{abc}` → circle abc
+- `--` → connector
+- `*--*` → connector bold
+- `->` → arrow right
+- `*->*` → arrow right bold
+- `<-` → arrow left
+- `*<-*` → arrow left bold
+- `<->` → arrow both
+- `*<->*` → arrow both bold
+
+#### Horizontal Line
+
+|Sample Input                   |Output                |
+|-------------------------------|----------------------|
+|`str1\`<br />`---\`<br />`str2`|str1<br />——<br />str2|
+|`str1\ ---\ str2`              |str1<br />——<br />str2|
+|`str1\n---\nstr2`              |str1<br />——<br />str2|
+
+Here, `---` represents `-` repeated three times or more consecutively.
+
+### Connectors
+
+`Connector shape` offers three settings for what is drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
+
+### Brackets and Rectangles around a Leaf
+
+In `auto` mode, the triangle connector shape is applied when the terminal node contains words separated by whitespace. In `bar` and `none` modes, triangles are drawn for the nodes with `^` at the beginning of the leaf text, lie `[NP ^syntax-trees]`.
+
+If a `#` character is placed at the beginning of a label or leaf text (right after `^` if there is one), the text is enclosed in a pair of square brackets (e.g. `[#NP text]`, `[NP #text]`, `[NP ^#text]`).
+
+If `##` is placed at the beginning of the leaf text, a rectangle is drawn instead of brackets.
+
+If `###` is placed at the beginning of the leaf text, a rectangle with thicker lines is drawn.
+
+### Per-Node Styling (Color)
+
+You can specify a custom color for individual nodes using the `@color:` prefix. Both named colors and hex color codes are supported.
+
+|Sample Input|Description|
+|------------|-----------|
+|`@red:NP`|Named color (red)|
+|`@blue:VP`|Named color (blue)|
+|`@#FF5500:NP`|Hex color code|
+|`@#0A0:VP`|Short hex color code|
+
+**Markup Order**: When combining with other prefixes, use this order: `^` (triangle) → `#` (enclosure) → `%` (region shade) → `@color:` (color)
+
+|Sample Input|Description|
+|------------|-----------|
+|`^@blue:NP`|Triangle connector + blue color|
+|`#@red:NP`|Square brackets + red color|
+|`^#@green:NP`|Triangle + brackets + green color|
+
+### Region Shade
+
+While `#`, `##`, and `###` enclose a single node label, a region shade paints a
+semi-transparent plane behind the **whole subtree** that a node governs. This is
+useful for marking spans such as c-command domains, binding domains, or the
+dominion of a reference point in cognitive grammar.
+
+Put a `%` at the beginning of a node label (after `^`/`#` if present). The plane
+covers the bounding box of that node together with all of its descendants and is
+drawn behind the tree lines and labels. The shade color reuses the same
+`@color:` syntax; `%` on its own uses a light gray.
+
+|Sample Input|Description|
+|------------|-----------|
+|`%VP`|Region shade in the default light gray|
+|`%@yellow:VP`|Region shade in yellow (named color)|
+|`%@#ffcc00:VP`|Region shade with a hex color|
+|`%@yellow:@blue:VP`|Yellow shade plane **and** blue node label (the two colors are independent)|
+
+Each plane is drawn with a border in a darker shade of its own fill color, so
+the region stays clearly bounded even on a white background. An explicit shade
+color is always honored (just like the `@color:` node-text color), so for a
+black-and-white figure use bare `%` (gray) rather than a colored shade.
+
+Overlapping or nested regions blend naturally because the planes are
+semi-transparent. Region shade works in both top-to-bottom and left-to-right
+(`-d ltr`) layouts, and applies to all raster/vector outputs (SVG, PNG, PDF,
+JPG, GIF).
+
+### Escape Special Characters
+
+The backslash character `\` must be used to print certain characters used in the markup. If you do not have the `\` key on your keyboard, you can also use the yen/yuan character `¥` to escape.
+
+- `\[` → [
+- `\]` → ]
+- `\<` → <
+- `\>` → >
+- `\^` → ^
+- `\+` → +
+- `\*` → *
+- `\-` → -
+- `\_` → _
+- `\=` → =
+- `\~` → ~
+- `\|` → |
+- `\%` → %
+- `\\` → \
+- `\¥` → ¥
+- `<>` → whitespace
+- `\n` → ↩️
+- `\↩️` → ↩️
+- `\ + whitespace` → ↩️
+
+**Note:** A newline character `↩️` is treated just as a whitespace. Thus 1) `\n`, 2) `\↩️`, and 3) `\` followed by a whitespace character are all rendered as a newline `↩️` in the resulting image. Note also that a `↩️` or a whitespace repeated more than once is reduced to a single whitespace.
+
+**Note:** A straight ASCII apostrophe (`'`) in a label is automatically rendered as a typographic (curly) apostrophe `’`, which looks smarter in serif fonts and suits X-bar primes such as `T'`. This also applies to apostrophes in ordinary words (e.g. *John's*).
+
+### Draw Paths between Nodes (experimental)
+
+You can draw any number of paths of three different types:
+
+- Non-directional (rendered as dashed line `- - -`)
+- Directional (rendered as solid line `----▶`)
+- Bidirectional (rendered as solid line `◀----▶`)
+
+Each path is distinguished by a unique ID number. The ID is specified by putting a plus sign and a number (e.g. `+7`) at the end of the node text. If a greater-than `>` or less-than `<` symbol is placed between the plus sign and the number (e.g. `+>7` or `+<7`), an arrowhead will appear at the end of the path. Note that it makes no difference whether `+>` or `+<` is used. The arrow is always directed to the element with one of these ID symbols.
+
+A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
+
+### Draw Extra Connectors between Nodes (experimental)
+
+You can also add extra connector between nodes in the same fasion as you draw paths between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s). You may enable the `Hide connectors` option when drawing extra connectors.
+
+- Non-directional (rendered as solid line `-----`)
+- Directional (rendered as solid line `--▶--`)
+- Bidirectional (rendered as solid line `-◀-▶-`)
+
+Each additional connectors is distinguished by an ID number. The ID is specified by putting a a number after a sequence of a plus and a minus symbols (e.g. `+-8`) at the end of the node text. If a greater-than `>` or less-than `<` symbol is placed between the minus sign and the number (e.g. `+->8`), an arrowhead will appear at the end of the connector. Note that it makes no difference whether `+->` or `+-<` is used. The arrow is always directed to the element with one of these ID symbols.
+
+A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the additional connector is rendered. The same ID number cannot appear in more than two places.
+
+### Penn Treebank Format
+
+RSyntaxTree automatically detects and converts Penn Treebank format to bracket notation:
+
+```
+# Penn Treebank format
+(S (NP the dog) (VP runs))
+
+# Equivalent bracket notation
+[S [NP the dog] [VP runs]]
+```
+
+**Escaping special characters in Penn Treebank format:**
+
+| Input | Displayed as |
+|-------|--------------|
+| `\(` `\)` | Parentheses `()` as literal text |
+| `\[` `\]` | Square brackets `[]` as literal text |
+
+Example:
+```
+(S (NP hello\(world\)) (VP test))
+→ [S [NP hello(world)] [VP test]]
+```
+
+### Running RSyntaxTree Yourself (advanced)
+
+The following are not offered by the web app. They are available when you run RSyntaxTree on your own machine, as the gem or as the Docker image.
+
+#### Using a Font of Your Own
+
+The family chains above take precedence over whatever your system would pick by itself, which also means an Arabic or Devanagari font you prefer will lose to Noto. You can override any entry with a fontconfig alias — no change to RSyntaxTree is needed. For example, to render Arabic with Amiri, put this in `~/.config/fontconfig/fonts.conf` and run `fc-cache -f`:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+<fontconfig>
+  <alias binding="strong">
+    <family>Noto Sans Arabic</family>
+    <prefer><family>Amiri</family></prefer>
+  </alias>
+</fontconfig>
+```
+
+Because measurement and rendering both resolve through fontconfig, the substituted font is measured as well as drawn, so the layout stays correct.
+
+This applies to systems where Pango resolves fonts through fontconfig, which means Linux and the Docker image. On macOS, Pango goes through CoreText instead and ignores fontconfig, so an alias has no effect there; name the font you want in the input's font style instead. CoreText also answers every emoji codepoint with Apple Color Emoji, whose colour glyphs librsvg does not draw, so trees containing emoji are best generated on Linux or in the Docker image.
+
+#### Checking Input Without Drawing
+
+`--validate` reports whether the input would draw. Nothing is drawn and no
+file is written: the diagnosis goes to standard output as JSON, and the exit
+code is 0 when the input is accepted and 1 when it is not.
+
+```bash
+rsyntaxtree --validate "[S [NP the cat] [VP sat]]"
+```
+
+Options are taken into account, so an input that depends on one is judged
+with it:
+
+```bash
+rsyntaxtree --validate --hyphen literal "[X V-bar]"
+```
+
+The same input without the option is rejected, with the diagnosis naming
+what is wrong and where:
+
+```bash
+$ rsyntaxtree --validate "[X V-bar]"
+{
+  "schema": "rsyntaxtree.error/1",
+  "ok": false,
+  "errors": [
+    {
+      "code": "bare_hyphen",
+      "message": "Error: input text contains an invalid string\n > V-bar",
+      "label": "V-bar",
+      "position": 1,
+      "hint": "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or set the hyphen option to literal.",
+      "retryable": true
+    }
+  ]
+}
+```
+
+This is one observed answer, not a contract: the fields may change between
+releases, and the exit code is the stable part of the answer.
+
+#### Notation Reference
+
+`--notation` prints a short reference for the notation to standard output.
+`--examples` prints every published example with the options it was drawn
+with. Both write and exit without reading any input.
+
+```bash
+rsyntaxtree --notation
+rsyntaxtree --examples
+```
+
+The same material is on the site as plain text, for a reader that can fetch a
+URL but cannot run a command: [llms.txt](https://yohasebe.github.io/rsyntaxtree/llms.txt)
+is an index, and [llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt)
+holds the reference, this manual and every example in one file. Both are
+generated from the sources they describe.
+
+#### Standard Input Support
+
+You can pipe tree data via standard input:
+
+```bash
+echo "[S [NP hello] [VP world]]" | rsyntaxtree -f svg -o ./
+cat tree.txt | rsyntaxtree -f png -o ./
+```
+
+#### Configuration File
+
+Create a `.rsyntaxtreerc` file in your home directory or current directory to set default options:
+
+```yaml
+# ~/.rsyntaxtreerc
+format: svg
+color: modern
+fontsize: 18
+leafstyle: auto
+symmetrize: off
+```
+
+CLI arguments override configuration file settings. Unknown options in the config file will generate warnings, and invalid values will cause errors with helpful messages.
+
+#### TikZ Output
+
+RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz` option. The output can be used directly in LaTeX with the `forest` package.
+
+**Limitations:** The TikZ output focuses on tree structure and does not support the following visual features:
+
+- Per-node coloring (`@color:`)
+- Enclosures (`#`, `##`)
+- Triangle connectors (`^`)
+- Text decoration (bold, italic)
+- Subscript/superscript (`_x_`, `__x__`)
+- Path drawing (`+1`, `+>1`)
+- Column alignment (`\t`) — cells run together on one line
+- Nested matrix (`#(` … `#)`)
+- Grey line scheme (`color: gray`)
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
+
+---
+
+<script>
+  // Copy the notation for one example. This used to add a `copy` listener to
+  // the document and leave it there, so every later Cmd+C on the page
+  // returned that same notation however much the reader had selected by
+  // hand. The clipboard is written directly instead, and nothing is left
+  // behind to intercept a selection.
+  function copyToClipBoard(id){
+    var text = document.getElementById(id).innerText;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text);
+      return;
+    }
+    var area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.top = '-1000px';
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    document.body.removeChild(area);
+  }
+</script>
+
+
+# Examples
+
+RSyntaxTree examples: 75 trees, every one verified to draw.
+
+Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
+The settings line names the options the gallery records for that figure;
+anything not named is at its default. The test suite runs every input
+here through the same parser that draws it, so each one is accepted.
+
+Notation reference: rsyntaxtree --notation
+Check an input without drawing: rsyntaxtree --validate "[S [NP a] [VP b]]"
+
+
+## 000 — RSyntaxTree basic example
+
+Category: General
+Settings: fontstyle=noto-sans tidy=low
+
+```
+[S
+  [NP |R| **SyntaxTree**]
+  [VP
+    [V *generates*]
+    [NP
+      [Adj #\+multilingual\
+            \+beautiful]
+      [NP ^syntax\
+           trees]
+    ]
+  ]
+]
+```
+
+## 001 — Basic binary tree
+
+Category: General
+Settings: fontstyle=noto-serif tidy=low vheight=1.0
+
+```
+[A
+  [B
+    [D]
+    [E]
+  ]
+  [C
+    [F]
+    [G]
+  ]
+]
+```
+
+## 002 — Minimalistic syntree
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif tidy=medium vheight=1.5
+Source: Chomsky 1995: 50
+
+```
+[CP
+  [John]
+  [TP
+    [T
+      [V
+        [cause]
+        [V fall]
+      ]
+      [T]
+    ]
+    [VP
+      [V *t*_c_]
+      [CP
+        [books]
+        [*t*_f_]
+      ]
+    ]
+  ]
+]
+```
+
+## 003 — Minimalistic syntree
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif tidy=low vheight=1.5
+Source: Chomsky 1995: 62
+
+```
+[VP
+  [John]
+  [V'
+    [V *e*]
+    [VP
+      [NP a book]
+      [V'
+        [V gave]
+        [to\-Bill]
+      ]
+    ]
+  ]
+]
+```
+
+## 004 — Minimalistic syntree
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif tidy=low vheight=1.5
+Source: Chomsky 1995: 180
+
+```
+[VP_1_
+  [NP_1_ John]
+  [V'_1_
+    [V_1_ *e*]
+    [VP_2_
+      [NP_2_ the book]
+      [V'_2_
+        [V_2_ put]
+        [ZP on the shelf]
+      ]
+    ]
+  ]
+]
+```
+
+## 005 — Minimalistic syntree
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.5
+Source: Chomsky 1995: 355
+
+```
+[X__max__
+  [\[Y\−X\]]
+  [YP
+    [Spec_1_]
+    [Y'
+      [*t*]
+      [ZP]
+    ]
+  ]
+]
+```
+
+## 006 — Minimalistic syntree
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.5
+Source: Chomsky 1995: 369
+
+```
+[𝑣P
+  [Spec_2_]
+  [𝑣'
+    [Subj]
+    [𝑣'
+      [Vb]
+      [VP
+        [*t*_v_]
+        [Obj]
+      ]
+    ]
+  ]
+]
+```
+
+## 007 — X-bar model (with Japanese labels)
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=bar tidy=low
+
+```
+[XP
+  [W Specifier\
+     指定部]
+  [X'
+    [X'
+      [X Head\
+         主要部]
+      [Y Complement\
+         補部]
+    ]
+    [Z Modifier\
+       付加部]
+  ]
+]
+```
+
+## 008 — vP-shell (Japanese)
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif hspacing=1.5 tidy=medium vheight=1.2
+
+```
+[𝑣P
+  [NP 太郎が]
+  [𝑣'
+    [VP
+      [𝑣P
+        [NP ^泥棒に]
+        [𝑣'
+          [VP ^財布を盗む]
+          [𝑣]
+        ]
+      ]
+      [V られ]
+    ]
+    [𝑣]
+  ]
+]
+```
+
+## 009 — Non-binary tree sample
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif tidy=low
+
+```
+[S__＊__
+  [NP α_1_]
+  [INFL (AGR)]
+  [VP
+    [V]
+    [NP α_2_]
+    [PP
+      [P]
+      [NP α_3_]
+    ]
+  ]
+]
+```
+
+## 010 — vP-shell with movement paths
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.2
+Source: Radford 2004
+
+```
+[CP
+  [C
+   ø]
+  [TP
+    [PRN
+    **They**+>2
+    ]
+    [T'
+      [T
+       Will
+      ]
+      [vP
+        [PRN
+         ~**they**~+2
+        ] 
+        [v'
+          [v
+           ø<>\+<>*get*+>1
+          ]
+          [VP
+            [DP
+             the<>teacher]
+            [V'
+              [V
+               ~*get*~+1
+              ]
+              [QP
+               a<>present
+              ]
+            ]
+          ]
+        ]  
+      ]
+    ]
+  ]
+]
+```
+
+## 011 — CCG sample
+
+Category: Combinatory Categorial Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low
+
+```
+[S\
+ \<
+  [NP\
+   \>
+    [NP/N\
+    ---\
+     *the*
+    ]
+    [N\
+    ---\
+     *dog*
+    ]
+  ]
+  [S\\NP\
+    \>
+    [(S\\NP)\\NP\
+    ---\
+     *bit*
+    ]
+    [NP\
+    ---\
+     *John*
+    ]
+  ]
+]
+```
+
+## 012 — CCG sample
+
+Category: Combinatory Categorial Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.5
+
+```
+[S\
+    \>
+  [S/NP\
+   B_\>_
+    [S/(S\\NP)\
+     T_\>_
+      [NP\
+         \>
+        [NP/N\
+         ---\
+         *the*
+        ]
+        [N\
+         ---\
+         *dog*
+        ]
+      ]
+    ]
+    [(S\\NP)/NP\
+     ---\
+     *bit*
+    ]    
+  ]
+  [NP\
+   ---\
+   *John*
+  ]
+]
+```
+
+## 013 — HPSG sample
+
+Category: Head-Driven Phrase Structure Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low vheight=1.5
+
+```
+[#*phrase*\
+  HEAD\t|1|\
+  SPR\t〈<>〉\
+  COMPS\t〈<>〉
+  [#*word*\
+    HEAD\t|2|<>*noun*\
+    SPR\t〈<>〉\
+    COMPS\t〈<>〉
+    Kim
+  ]
+  [#*phrase*\
+    HEAD\t|1|\
+    SPR\t〈<>|2|<>〉\
+    COMPS\t〈<>〉
+    [#*word*\
+      HEAD\t|1|<>*verb*\
+      SPR\t〈<>|2|<>NP〉\
+      COMPS\t〈<>|3|<>PP\[*on*\]〉
+      relies
+    ]
+    [#|3|<>*phrase*\
+      HEAD\t|4|\
+      SPR\t〈<>〉\
+      COMPS\t〈<>〉
+      [#*word*\
+        HEAD\t|4|<>*prep*\
+        FORM\t*on*\
+        SPR\t〈<>〉\
+        COMPS\t〈<>|5|<>〉
+        on
+      ]
+      [#|5|<>*word*\
+        HEAD\t*noun*\
+        SPR\t〈<>〉\
+        COMPS\t〈<>〉
+        Sandy
+      ]
+    ]
+  ]
+]
+```
+
+## 014 — Cognitive Grammar sample
+
+Category: Cognitive Grammar
+Settings: color=none fontstyle=noto-serif vheight=1.0
+
+```
+[##*{👧}**--**|s|*\
+  __|G|__<>RELATION\
+  ---\
+  *that<>girl<>is<>smart*
+  [##*{👧}*\
+    __|G|__<>THING\
+    ---\
+    *that<>girl*
+    [##*{/}*\
+     __|G|__<>THING\
+     ----\
+     *that*
+    ]
+    [##*{👧}*\
+     THING\
+     ----\
+     *girl*
+    ]
+  ]
+  [##{/}*--**|s|*\
+   __|G|__<>RELATION\
+   ---\
+   *is<>smart*
+    [##{/}*--*|/|\
+      __|G|__<>RELATION\
+      ---\
+      *is*
+    ]
+    [##{/}--*|s|*\
+      RELATION\
+      ---\
+      *smart*
+    ]
+  ]
+]
+```
+
+## 015 — Phonology sample
+
+Category: Phonology
+Settings: fontstyle=noto-sans tidy=symmetric
+
+```
+[σ
+  [Onset
+    [s]
+    [t]
+    [r]
+  ]
+  [Rhyme
+    [Nucleus ɛ]
+    [Coda
+      [ŋ]
+      [k]
+    ]
+  ]
+  [Appendix
+    [θ]
+    [S]
+  ]
+]
+```
+
+## 016 — Tic-tac-toe
+
+Category: Miscellaneous
+Settings: color=none fontstyle=noto-sans leafstyle=bar tidy=low vheight=1.5
+
+```
+[
+  |○|||||\
+  |×||×||○|\
+  |×||○|||
+  [
+    |○|*|○|*||\
+    |×||×||○|\
+    |×||○|||
+    [
+      |○||○|*|×|*\
+      |×||×||○|\
+      |×||○|||
+    ]
+    [
+      |○||○|||\
+      |×||×||○|\
+      |×||○|*|×|*
+      [
+        |○||○|*|○|*\
+        |×||×||○|\
+        |×||○||×|
+      ]
+    ]
+  ]
+  [
+    |○|||*|○|*\
+    |×||×||○|\
+    |×||○|||
+    [
+      |○|*|×|*|○|\
+      |×||×||○|\
+      |×||○|||
+      [
+        |○||×||○|\
+        |×||×||○|\
+        |×||○|*|○|*
+      ]
+    ]
+    [
+      |○||||○|\
+      |×||×||○|\
+      |×||○|*|×|*
+      [
+        |○|*|○|*|○|\
+        |×||×||○|\
+        |×||○||×|
+      ]
+    ]
+  ]
+  [
+    |○|||||\
+    |×||×||○|\
+    |×||○|*|○|*
+    [
+      |○|*|×|*||\
+      |×||×||○|\
+      |×||○||○|
+      [
+        |○||×|*|○|*\
+        |×||×||○|\
+        |×||○||○|
+      ]
+    ]
+    [
+      |○|||*|×|*\
+      |×||×||○|\
+      |×||○||○|
+    ]
+  ]
+]
+```
+
+## 017 — Basic polyline sample
+
+Category: General
+Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.0
+
+```
+[A
+  [B
+    [D [H] [I]]
+    [E [J] [K]]
+  ]
+  [C
+    [F [L] [M]]
+    [G [N] [O]]
+  ]
+]
+```
+
+## 018 — Tree with text labels in bold
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif tidy=low vheight=1.0
+Source: Langacker 1969: 175
+
+```
+[S
+  [NP I]
+  [PdP
+    [VP
+      [V knew]
+      [NP **Harvey**]      
+    ]
+    [Adv
+      [when]
+      [S
+        [NP **Harvey**]
+        [PdP was a little boy]
+      ]
+    ]
+  ]
+]
+```
+
+## 019 — Programming language parser
+
+Category: Computer Science
+Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=low vheight=1.5
+Source: Stuart 2014
+
+```
+[##\<statement\>
+  [##\<while\>
+    [##<>w<>]
+    [##<>(<>]
+    [##\<expression\>
+      [##\<less\-than\>
+        [##\<multiply\>
+          [##\<term\>
+            [##<>v<>]
+          ]       
+        ]
+        [##<>\<<>]
+        [##\<less\-than\>
+          [##\<multiply\>
+            [##\<term\>
+              [##<>n<>]
+            ]            
+          ]
+        ]        
+      ]
+    ]
+    [##<>)<>]
+    [##<>\{<>]
+    [##\<statement\>
+      [##\<assign\>
+        [##<>v<>]
+        [##<>\=<>]
+        [##\<\expression\>
+          [##\<less\-than\>
+            [##\<multiply\>
+              [##\<term\>
+                [##<>v<>]
+              ]
+              [##<>\*<>]
+              [##\<multiply\>
+                [##\<term\>
+                  [##<>n<>]
+                ]
+              ]  
+            ]
+          ]
+        ]
+      ]
+    ]
+    [##<>\}<>]
+  ]
+]
+```
+
+## 020 — From phoneme to sentence
+
+Category: General
+Settings: fontstyle=noto-sans leafstyle=bar tidy=low
+
+```
+[The<>umpires<>talked<>to<>the<>players
+  [the<>umpires
+    [the
+      [<> ði]
+    ]
+    [umpires
+      [umpire ʌ́mpaɪər]
+      [s z]
+    ]
+  ]
+  [talked<>to<>the<>players
+    [talked
+      [talk tɔːk]
+      [ed t]
+    ]
+    [to
+      [<> tə]
+    ]
+    [the
+      [<> ðə]
+    ]
+    [players
+      [player pléɪər]
+      [s z]
+    ]
+  ]
+]
+```
+
+## 021 — Types of meaning
+
+Category: Pragmatics
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=low vheight=1.5
+Source: Zufferey, Moeschler, and Reboul 2014
+
+```
+[Types<>of<>meaning
+  [conventional
+    [semantic
+      [entailment]
+      [presupposition]
+    ]
+    [pragmatic
+      [conventional\
+       implicature]
+    ]
+  ]
+  [non\-conventional
+    [explicit
+      [explicature]
+    ]
+    [implicit
+      [conventional
+        [generalized\
+         implicature]
+        [particularized\
+         implicature]
+      ]
+      [non\-\
+       conventional
+        [pragmatic\
+         presupposition]
+      ]
+    ]
+  ]
+]
+```
+
+## 022 — Arithmetic parser
+
+Category: Computer Science
+Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=low vheight=1.0
+
+```
+[\<expression\>
+  [\<term\>
+    [\<term\>
+      [\<factor\>
+        \(
+        [\<expression\>
+          [\<expression\>
+            [\<term\>
+              [\<factor\>
+                {A}
+              ]
+            ]
+          ]
+          [{＋}]
+          [\<term\>
+            [\<factor\>
+              {B}
+            ]
+          ]
+        ]
+        \)
+      ]
+    ]
+    [{＊}]
+    [\<factor\>
+      \(
+      [\<expression\>
+        [\<expression\>
+          [\<term\>
+            [\<factor\>
+              {C}
+            ]
+          ]
+        ]
+        [{＋}]
+        [\<term\>
+          [\<factor\>
+            {D}
+          ]
+        ]
+      ]
+      \)
+    ]
+  ]
+]
+```
+
+## 023 — Tournament
+
+Category: Miscellaneous
+Settings: color=none fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vheight=1.0
+
+```
+[{**D**}
+  [{**D**}
+    [A [{A}] [B]]
+    [{**D**} [C] [{**D**}]]
+  ]
+  [G
+    [F [E] [{F}]]
+    [{G} [{G}] [H]]
+  ]
+]
+```
+
+## 024 — X-bar model
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=high vheight=1.5
+
+```
+[XP
+  [W Specifier]
+  [X'
+    [X'
+      [X Head]
+      [Y Complement]
+    ]
+    [Z Modifier]
+  ]
+]
+```
+
+## 025 — Network of non-prototypical sentence constructions
+
+Category: Construction Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on vheight=3.0
+Source: Goldberg 2006: 177
+
+```
+[#**Non\-prototypical<>sentence**\
+  ---\
+  NON\-POSITIVE,\
+  non\-predicate<>focus,\
+  non\-assertive,\
+  dependent,\
+  non\-declarative
+  [#**Y/N<>questions**\
+    ---\
+    NON\-POSITIVE,\
+    non\-declarative\
+    ---\
+    *Did<>she<>go?*
+    [#**Wh\-Questions**\
+      ---\
+      non\-declarative\
+      ---\
+      *Where<>did<>she<>go?*
+    ]
+    [#**Exclamatives**\
+      ---\
+      non\-assertive\
+      ---\
+      *Boy<>did<>she<>go!*
+    ]
+  ]
+  [#**Counterfactual<>conditionals**\
+    ---\
+    NON\-POSITIVE\
+    dependent,<>non\-asserted\
+    ---\
+    *Had<>he<>found<>a<>solution,<>he*\
+    *would<>take<>time<>off<>and<>relax.*
+  ]
+  [#**Initial<>negative**\
+    **adverb<>clauses**\
+    ---\
+    NON\-POSITIVE\
+    ---\
+    *Not<>until<>yesterday<>did*\
+    *he<>take<>a<>break.*\
+  ]
+  [#**Negative<>rejoinder**\
+    ---\
+    NON\-POSITIVE,\
+    dependent\
+    ---\
+    *Neither<>is<>this<>construction*\
+    *unexpected.*
+    [#**Positive<>conjunct<>clauses**\
+      ---\
+      non\-predicate<>focus,\
+      dependent\
+      ---\
+      *So<>was<>I.*
+    ]
+  ]
+  [#**Comparatives**\
+    ---\
+    non\-topic\-comment,\
+    dependent\
+    ---\
+    *He<>was<>faster<>at<>it*\
+    *than<>was<>she.*
+  ]
+  [#**Wishes,<>curses**\
+    ---\
+    NON\-POSITIVE,\
+    non\-declarative\
+    ---\
+    *May<>a<>million<>flies*\
+    *infest<>his<>armpits!*
+  ]
+]
+```
+
+## 026 — Types of reference
+
+Category: Functional Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=high vheight=1.5
+Source: Halliday and Hasan 1976: 33
+
+```
+[Reference:
+  [\[situational\]\
+     exophora
+  ]
+  [\[textual\]\
+     endophora
+    [\[to<>preceding<>text\]\
+     anaphora
+    ]
+    [\[to<>following<>text\]\
+     cataphora
+    ]
+  ]
+]
+```
+
+## 027 — Types of rejoinder
+
+Category: Functional Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=low vheight=3.0
+Source: Halliday and Hasan 1976: 207
+
+```
+[REJOINDER\
+ (any<>cohesive<>sequel<>by<>different<>speaker)
+  [(following<>a<>question)\
+    RESPONSE
+    [(answering)\
+     DIRECT\
+     RESPONSE
+    ]
+    [(not<>answering)\
+     INDIRECT<>RESPONSE
+      [(attitude<>to<>answer)\
+       COMMENTARY
+      ]
+      [(evading<>answer)\
+       DISCLAIMER
+      ]
+      [(implying<>answer)\
+       SUPPLEMENTARY\
+       RESPONSE
+      ]
+    ]
+  ]
+  [(not<>following<>a<>question)\
+   \[other<>rejoinders\]
+    [(following<>a<>statement)
+      [ASSENT]
+      [CONTRADICTION]
+    ]
+    [(following<>a\
+     statement<>or\
+     command)\
+     QUESTION\
+     REJOINDER
+    ]
+    [(following<>\
+     a<>command)
+      [CONSENT]
+      [REFUSAL]
+    ]
+  ]
+]
+```
+
+## 028 — Basic tree with triangles
+
+Category: General
+Settings: fontstyle=noto-serif tidy=low vheight=1.0
+
+```
+[NP
+  [NP a picture]
+  [PP
+    [P of]
+    [NP ^cats]
+  ]
+]
+```
+
+## 029 — Animal ontology
+
+Category: Formal Concept Analysis
+Settings: color=none fontstyle=noto-sans-mono tidy=low
+
+```
+[##Human,<>Bonobo,<>Lion,<>Eagle,<>Sparrow,<>Ostrich\
+ ---\
+ <>
+  [##Human\
+   ---\
+   talking,<>ape,<>mammal
+     [##Bonobo\
+      ---\
+      ape,<>mammal+-1]
+  ]
+  [##Lion\
+   ---\
+   mammal,<>preying+-4+-6
+     [<>\ <>\ <>
+       [##<>\
+        ---\
+        mammal+-1+-2+-4
+      ]
+    ]
+  ]
+  [##Eagle\
+   ---\
+   preying,<>flying,<>bird
+     [##<>\
+      ---\
+      preying+-5+-6
+      [<>\ <>\ <>
+        [##<>\
+         ---\
+         talking,<>ape,<>mammal,<>preying,<>flying,<>bird+-2+-3+-5
+        ]
+      ]
+    ]
+    [##Sparrow\
+     ---\
+     flying,<>bird
+      [##Ostrich\
+       ---\
+       bird<>+-3
+      ]
+    ]
+  ]
+]
+```
+
+## 030 — Construction network
+
+Category: Construction Grammar
+Settings: color=none fontstyle=noto-serif vheight=3.0
+Source: Goldberg 1995: 109
+
+```
+[##Subject\-Predicate<>Construction
+  [##Intransitive+-1
+    [<>
+      [<>
+          [##Intransitive<>Motion\
+           ---\
+           *The<>boy<>ran<>home.*+-1+-2]
+      ]
+    ]
+  ]
+  [##Transitive
+   [##Caused\-Motion\
+    ---\
+    *Pat<>sneezed<>the<>napkin<>off<>the<>table.*+-2]
+    [##Ditransitive\
+     ---\
+     *Pat<>threw<>Chris<>the<>ball.*
+    ]
+  ]
+]
+```
+
+## 031 — Lambda calculus
+
+Category: Formal Semantics
+Settings: color=none fontstyle=noto-sans-mono tidy=low vheight=1.5
+
+```
+[chase(mouse)(cat)
+  [<>λx.λy.chase(mouse)(y)<>
+    [<>λxλy.chase(x)(y)<>]
+    [<>mouse<>]
+  ]
+  [<>cat<>]
+]
+```
+
+## 034 — Taxonomic Hierarchy of clauses
+
+Category: Construction Grammar
+Settings: color=none fontstyle=noto-serif vheight=2.5
+Source: Croft and Cruse 2004: 264
+
+```
+[##Clause
+  [##Sbj<>IntrVerb
+    [##Sbj<>*sleep*]
+    [##Sbj<>*run*]
+  ]
+  [##Sbj<>TrVerb<>Obj
+    [##Sbj<>*kick*<>Obj
+      [##Sbj<>*kick<>the<>bucket*]
+      [##Sbj<>*kick<>the<>habit*]
+    ]
+    [##Sbj<>*kiss*<>Obj]
+  ]
+]
+```
+
+## 035 — Construction network
+
+Category: Construction Grammar
+Settings: color=none fontstyle=noto-serif hide_default_connectors=on tidy=symmetric vheight=3.0
+Source: Goldberg 1995: 109
+
+```
+[##Caused\-Motion\
+ ---\
+ *Pat<>sneezed<>the<>napkin<>off<>the<>table*+-2+-4+-5
+  [##Resultative\
+   ---\
+   *She<>kissed<>him<>unconsicous*+-1+-4
+    [<>
+      [##Intransitive<>Resultative\
+      ---\
+      *The<>jello<>went<>from<>liquid<>to<>solid*+-1+-3]
+    ]
+  ]
+  [<>
+    [##Intransitive<>Motion\
+    ---\
+    *The<>boy<>ran<>home*+-2+-3]
+  ]
+  [##Transfer\
+  ---\
+  *Sally<>threw<>a<>football<>to<>him*+-5]
+]
+```
+
+## 036 — Schema network
+
+Category: Cognitive Grammar
+Settings: fontstyle=noto-serif hide_default_connectors=on tidy=symmetric
+
+```
+[##Schema+->0+->1
+  [##Prototype+->0+-2]
+  [##Extention+->1+->2]
+]
+```
+
+## 037 — Action chain
+
+Category: Cognitive Grammar
+Settings: fontstyle=noto-serif hide_default_connectors=on tidy=symmetric vheight=1.0
+
+```
+[###John<>opened<>the<>door<>with<>the<>key\
+    <>\
+    {}->{}->{}->\
+    <>\
+    AGT<>\><>INST<>\><>PAT
+]
+```
+
+## 038 — Relations between WordNet senses
+
+Category: Natural Language Processing
+Settings: color=none fontstyle=noto-sans-mono hide_default_connectors=on tidy=symmetric
+Source: Jurafsky and Martin 2018
+
+```
+[##hypernym+-<1
+  [##meronym+-<2
+    [meronymy/part\-whole+-2+-3+-<4
+      [##holonym+-<3]
+    ]
+  ]
+  [superordinate+-1+-<7
+    [###word+-4+-<6+-7+-8
+      [subordinate+-5+-<8
+        [##hyponym+-<5]
+      ]
+    ]
+  ]
+  [<>
+    [##synonym+-<6]
+  ]
+]
+```
+
+## 040 — Sound feature geometry
+
+Category: Phonology
+Settings: color=none fontstyle=noto-sans-mono polyline=on tidy=low vheight=1.5
+Source: Halle 1992
+
+```
+[root\
+ \[cons\]\<>\[sonor\]\
+ stricture\
+ \[later\]\<>\[strid\]\<>\[contin\]
+  [cavity\ Oral
+    [articulator\ Labial
+      terminal\
+      features\
+      \[round\]
+    ]
+    [articulator\ Coronal
+      terminal\
+      features\
+      \[anter\]\
+      \[distrib\]
+    ]
+    [articulator\ Dorsal
+      terminal\
+      features\
+      \[back\]\
+      \[high\]\
+      \[low\]
+    ]
+  ]
+  [cavity\ Nasal
+    [articulator\ Soft<>Palate
+      terminal\
+      features\
+      \[nasal\]
+    ]
+  ]
+  [cavity\ Pharyngeal
+    [articulator\ Radical
+      terminal\
+      features\
+      \[ATR\]\
+      \[RTR\]
+    ]
+    [articulator\ Glottal
+      terminal\
+      features\
+      \[spread<>gl\]\
+      \[constr<>gl\]\
+      \[voiced\]
+    ]
+  ]
+]
+```
+
+## 041 — Cognitive science linkages
+
+Category: Miscellaneous
+Settings: color=gray fontstyle=noto-serif hide_default_connectors=on hspacing=0.75 tidy=symmetric vheight=1.5
+Source: Miller et al. 1978
+
+```
+[##Philosophy+-1+-2+-3+-4+-5
+  [##Psychology+-1+-6+-7+-8+-9+-10
+    [<>
+      [##Computer<>Science+-2+-6+-7+-11+-12+-13]
+    ]
+  ]
+  [<>
+    [<>
+      [<>
+        [##Neuroscience+-3+-8+-11+-14+-15]
+      ]  
+    ]
+  ]
+  [##Linguistics+-4+-9+-12+-14+-16
+    [<>
+      [##Anthropology+-5+-10+-13+-15+-16]
+    ]
+  ]
+]
+```
+
+## 042 — Merge
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.0
+
+```
+[γ
+  γ
+  [α
+    [α]
+    [β]
+  ]
+]
+```
+
+## 043 — Quick sort
+
+Category: Computer Science
+Settings: fontstyle=noto-sans tidy=low
+
+```
+[|20||2||14||9||15||16||11||19||10||**13**|
+  [|2||9||12||11||**10**|+->0
+    [|2||9|+->2
+      [|2|]
+      [|9|]
+    ] 
+    [|10|+-2+-3]
+    [|12||11|+->3
+      [|12|+->6]
+      [|11|+->6]
+    ] 
+  ]
+ [|13|+-0+-1]
+ [|20||14||15||19||**16**|+->1
+    [|14||15|+->4
+      [|14|]
+      [|15|]
+    ]  
+    [|16|+-4+-5]
+    [|20||19|+->5
+      [|20|+->7]
+      [|19|+->7]
+    ]  
+  ]  
+]
+```
+
+## 045 — Prototypical organization of English nominals
+
+Category: Cognitive Grammar
+Settings: fontstyle=noto-serif
+Source: Langacker 1991: 147
+
+```
+[##Nominal
+  [##Grounding\
+     Predication+-1]
+  [##Quantified\
+     Instance+->1
+    [##Absolute\
+       Quantifier+-2]
+    [###Higher\-Order\
+        Instantiated\
+        Type+->2
+      [###Higher\-Order\
+          Instantiated\
+          Type+->3
+        [##Modifier+-4]
+        [###Head<>Noun\
+            ---\
+            Basic\
+            Instantiated\
+            Type+->4+->5
+            [##Basic<>Type<>Specification\
+               ---\
+               Underived<>Stem\
+               Plural<>Stem\
+               Derived<>Stem\
+               Compound<>Stem+-5
+            ]
+        ]
+      ] 
+      [###Modifier+-3]
+    ]
+  ]
+]
+```
+
+## 048 — Conjunctive adjuncts [elaboration]
+
+Category: Functional Grammar
+Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.5
+Source: Halliday 2014: 612-614
+
+```
+[conjunctive<>adjuncts
+  [elaboration
+    [apposition
+      [expository
+        in<>other<>words\
+        that<>is<>(to<>say)\
+        I<>mean<>(to<>say)\
+        to<>put<>it<>another<>way
+      ]
+      [exemplifying
+        for<>example\
+        for<>insntance\
+        thus\
+        to<>illustrate
+      ]
+    ]
+    [clarification
+      [corrective
+        or<>rather\
+        at<>least\
+        to<>be<>more<>precise
+      ]
+      [distractive
+        by<>the<>way\
+        incidentally
+      ]
+      [dismissive
+        in<>any<>case\
+        anyway\
+        leaving<>that<>aside
+      ]
+      [particularizing
+        in<>particular\
+        more<>especially
+      ]
+      [resumptive
+        as<>I<>wasy<>saying\
+        to<>resume\
+        to<>get<>back<>to<>the<>point
+      ]
+      [summative
+        in<>short\
+        to<>sum<>up\
+        in<>conclusion\
+        briefly
+      ]
+      [verifactive
+        actually\
+        as<>a<>matter<>of<>fact\
+        in<>fact\
+        indeed
+      ]
+    ]
+  ]
+]
+```
+
+## 049 — Conjunctive adjuncts [extension]
+
+Category: Functional Grammar
+Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.5
+Source: Halliday 2014: 612-614
+
+```
+[conjunctive<>adjuncts
+  [extension
+    [addition
+      [positive
+        and\
+        also\
+        moreover\
+        in<>addition
+      ]
+      [negative
+        nor
+      ]
+      [adversative
+        but\
+        yet\
+        on<>the<>other<>hand\
+        however
+      ]
+    ]
+    [variation
+      [replacive
+        on<>the<>contrary\
+        instead
+      ]
+      [subtractive
+        alternatively
+      ]
+      [alternative
+        alternatively
+      ]
+    ]
+  ]
+]
+```
+
+## 050 — Conjunctive adjuncts [enhancement (1)]
+
+Category: Functional Grammar
+Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.5
+Source: Halliday 2014: 612-614
+
+```
+[conjunctive<>adjuncts
+  [enhancement<>(1)
+    [temporal
+      [simple
+        [following
+          then\
+          next\
+          afterwords\
+          first<>...<>then
+        ]
+        [simultaneous
+          just<>then\
+          at<>the<>same<>time
+        ]
+        [preceding
+          before<>that\
+          hitherto\
+          previously
+        ]
+        [conclusive
+          in<>the<>end\
+          finally
+        ]
+      ]
+      [complex
+        [immediate
+          at<>once\
+          thereupon\
+          straightaway
+        ]
+        [interrupted
+          soon\
+          after<>a<>while
+        ]
+        [repetitive
+          next<>time\
+          on<>another<>occasion
+        ]
+        [specific
+          next<>day\
+          an<>hour<>later\
+          that<>morning
+        ]
+        [durative
+          meanwhile\
+          all<>that<>time
+        ]
+        [terminal
+          until<>then\
+          up<>to<>that<>point
+        ]
+        [punctiliar
+          at<>this<>point
+        ]
+      ]
+      [simple<>internal
+        [following
+          next\
+          secondly\
+          my<>next<>pooint<>is\
+          first<>...<>next
+        ]
+        [simultaneous
+          at<>this<>point\
+          here\
+          now
+        ]
+        [preceding
+          hitherto\
+          up<>to<>now
+        ]
+        [conclusive
+          lastly\
+          last<>of<>all\
+          finally
+        ]
+      ]
+    ]
+  ]
+]
+```
+
+## 051 — Conjunctive adjuncts [enhancement (2)]
+
+Category: Functional Grammar
+Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.5
+Source: Halliday 2014: 612-614
+
+```
+[conjunctive<>adjuncts
+  [enhancement<>(2)
+    [manner
+      [comparison
+        [positive
+          likewise\
+          similarly
+        ]
+        [negative
+          in<>a<>different<>way
+        ]
+      ]
+      [means
+        thus\
+        thereby\
+        by<>such<>means
+      ]
+    ]
+    [causal\-conditional
+      [general
+        so\
+        then\
+        therefore\
+        consequently\
+        hense\
+        because<>of<>that\
+        for
+      ]
+      [specific
+        [result
+          in<>consequence\
+          as<>a<>result
+        ]
+        [reason
+          on<>account<>of<>this\
+          for<>that<>reason
+        ]
+        [purpose
+          for<>that<>purpose\
+          with<>this<>in<>view
+        ]
+        [conditional:\
+         positive
+          then\
+          in<>that<>case\
+          in<>that<>event\
+          under<>the<>circumstances
+        ]
+        [conditional:\
+         negative
+          otherwise\
+          if<>not
+        ]
+        [concessive
+          yet\
+          still\
+          though\
+          despite<>this\
+          however\
+          even<>so\
+          all<>the<>same\
+          nevertheless
+        ]
+      ]
+    ]
+    [matter
+      [positive
+        here\
+        there\
+        as<>to<>that\
+        in<>that<>respect
+      ]
+      [negative
+        in<>other<>respects\
+        elsewhere
+      ]
+    ]
+  ]
+]
+```
+
+## 052 — Major clause constructions of English
+
+Category: Construction Grammar
+Settings: color=none fontstyle=noto-serif polyline=on vheight=3.0
+Source: Hoffmann 2022: 220
+
+```
+[ Major<>clause<>construction
+  [Declarative<>clause<>cxn\
+   ---\
+   *He<>was<>tired.*\
+   *He<>made<>mistakes.*
+  ]
+  [Interrogative<>cxn\
+   [Yes/No interrogative<>cxn\
+    ---\
+    *Was<>he<>tired?*\
+    *Did<>he<>make<>mistakes?*
+   ]
+   [WH\-interrogative<>cxn
+    [WH\-subject<>interrogative<>cxn\
+     ---\
+     *Who<>was<>tired?*
+    ]
+    [WH\-nonsubject<>interrogative<>cxn\
+     ---\
+     *What<>was<>he?*\
+     *What<>did<>he<>make?*
+    ]
+   ]
+  ]
+  [WH\-exclamative<>cxn\
+   ---\
+   *How<>tired<>he<>was!*\
+   *What<>mistakes<>he<>made!*
+  ]
+  Imperative<>cxn
+  [Relative<>clause<>cxn\
+   [WH\-subject<>relative<>clause<>cxn\
+    ---\
+    The<>emails,<>which<>arrived<>overnight<>...
+   ]
+   [WH\-nonsubject<>relative<>clause<>cxn\
+    ---\
+    A<>pilot<>shouldn't<>be<>tired,<>which<>Ben<>was.\
+    The<>mistalkes<>that<>he<>made<>...
+   ]
+  ]
+]
+```
+
+## 053 — Escaping square brackets
+
+Category: Miscellaneous
+Settings: fontstyle=noto-serif tidy=low
+
+```
+[expr
+  [expr
+    [expr
+      [id x]
+      [suffix \[2\]]
+    ]
+    [suffix \[3\]]
+  ]
+  [suffix \[4\]]
+]
+```
+
+## 054 — Per-node coloring (named colors)
+
+Category: Miscellaneous
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+
+```
+[S
+  [@red:NP the dog]
+  [@blue:VP
+    [@green:V runs]
+    [@orange:Adv quickly]
+  ]
+]
+```
+
+## 055 — Per-leaf coloring (hex colors)
+
+Category: Miscellaneous
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+
+```
+[S
+  [NP
+    [Det @#E63946:the]
+    [N @#457B9D:cat]
+  ]
+  [VP
+    [V @#2A9D8F:sleeps]
+  ]
+]
+```
+
+## 056 — Per-node coloring with enclosure and triangle
+
+Category: Miscellaneous
+Settings: fontstyle=noto-sans tidy=low
+
+```
+[S
+  [#@red:NP the quick brown fox]
+  [#@green:VP
+    [V jumps]
+    [PP
+      [P over]
+      [^@purple:NP the lazy dog]
+    ]
+  ]
+]
+```
+
+## 057 — Subscript and superscript
+
+Category: Miscellaneous
+Settings: fontstyle=noto-serif tidy=low vheight=1.5
+
+```
+[TP
+  [DP_i_ John]
+  [T'
+    [T__0__ pres]
+    [VP
+      [V believes]
+      [TP
+        [DP_i_ himself]
+        [T'
+          [T__0__ to]
+          [VP
+            [V be]
+            [AP smart]
+          ]
+        ]
+      ]
+    ]
+  ]
+]
+```
+
+## 058 — Types of meaning (left-to-right)
+
+Category: Pragmatics
+Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on tidy=low vheight=1.5
+Source: Zufferey, Moeschler, and Reboul 2014
+
+```
+[Types<>of<>meaning
+  [conventional
+    [semantic
+      [entailment]
+      [presupposition]
+    ]
+    [pragmatic
+      [conventional\
+       implicature]
+    ]
+  ]
+  [non\-conventional
+    [explicit
+      [explicature]
+    ]
+    [implicit
+      [conventional
+        [generalized\
+         implicature]
+        [particularized\
+         implicature]
+      ]
+      [non\-\
+       conventional
+        [pragmatic\
+         presupposition]
+      ]
+    ]
+  ]
+]
+```
+
+## 059 — Major clause constructions of English (left-to-right)
+
+Category: Construction Grammar
+Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on tidy=low vheight=1.5
+Source: Hoffmann 2022: 220
+
+```
+[Major<>clause<>construction
+  [Declarative<>clause<>cxn
+    [*He<>was<>tired.*\
+     *He<>made<>mistakes.*]
+  ]
+  [Interrogative<>cxn
+    [Yes/No
+      [interrogative<>cxn
+        [*Was<>he<>tired?*\
+         *Did<>he<>make<>mistakes?*]
+      ]
+    ]
+    [WH\-interrogative<>cxn
+      [WH\-subject<>interrogative<>cxn
+        [*Who<>was<>tired?*]
+      ]
+      [WH\-nonsubject<>interrogative<>cxn
+        [*What<>was<>he?*\
+         *What<>did<>he<>make?*]
+      ]
+    ]
+  ]
+  [WH\-exclamative<>cxn
+    [*How<>tired<>he<>was!*\
+     *What<>mistakes<>he<>made!*]
+  ]
+  [Imperative<>cxn]
+  [Relative<>clause<>cxn
+    [WH\-subject<>relative<>clause<>cxn
+      [*The<>emails,<>which<>arrived<>overnight<>...*]
+    ]
+    [WH\-nonsubject<>relative<>clause<>cxn
+      [*A<>pilot<>shouldn't<>be<>tired,<>which<>Ben<>was.*\
+       *The<>mistakes<>that<>he<>made<>...*]
+    ]
+  ]
+]
+```
+
+## 060 — Conjunctive adjuncts: elaboration (left-to-right)
+
+Category: Functional Grammar
+Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vheight=1.0
+Source: Halliday 2014: 612-614
+
+```
+[conjunctive<>adjuncts
+  [elaboration
+    [apposition
+      [expository
+        [in<>other<>words\
+         that<>is<>(to<>say)\
+         I<>mean<>(to<>say)\
+         to<>put<>it<>another<>way]
+      ]
+      [exemplifying
+        [for<>example\
+         for<>instanace\
+         thus\
+         to<>illustrate]
+      ]
+    ]
+    [clarification
+      [corrective
+        [or<>rather\
+         at<>least\
+         to<>be<>more<>precise]
+      ]
+      [distractive
+        [by<>the<>way\
+         incidentally]
+      ]
+      [dismissive
+        [in<>any<>case\
+         anyway\
+         leaving<>that<>aside]
+      ]
+      [particularizing
+        [in<>particular\
+         more<>especially]
+      ]
+      [resumptive
+        [as<>I<>wasy<>saying\
+         to<>resume\
+         to<>get<>back<>to<>the<>point]
+      ]
+      [summative
+        [in<>short\
+         to<>sum<>up\
+         in<>conclusion\
+         briefly]
+      ]
+      [verifactive
+        [actually\
+         as<>a<>matter<>of<>fact\
+         in<>fact\
+         indeed]
+      ]
+    ]
+  ]
+]
+```
+
+## 061 — Conjunctive adjuncts: enhancement 1 (left-to-right)
+
+Category: Functional Grammar
+Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vheight=1.0
+Source: Halliday 2014: 612-614
+
+```
+[conjunctive<>adjuncts
+  [enhancement<>(1)
+    [temporal
+      [simple
+        [following
+          [then\
+           next\
+           afterwards\
+           first<>...<>then]
+        ]
+        [simultaneous
+          [just<>then\
+           at<>the<>same<>time]
+        ]
+        [preceding
+          [before<>that\
+           hitherto\
+           previously]
+        ]
+        [conclusive
+          [in<>the<>end\
+           finally]
+        ]
+      ]
+      [complex
+        [immediate
+          [at<>once\
+           thereupon\
+           straightaway]
+        ]
+        [interrupted
+          [soon\
+           after<>a<>while]
+        ]
+        [repetitive
+          [next<>time\
+           on<>another<>occasion]
+        ]
+        [specific
+          [next<>day\
+           an<>hour<>later\
+           that<>morning]
+        ]
+        [durative
+          [meanwhile\
+           all<>that<>time]
+        ]
+        [terminal
+          [until<>then\
+           up<>to<>that<>point]
+        ]
+        [punctiliar
+          [at<>this<>point]
+        ]
+      ]
+      [simple<>internal
+        [following
+          [next\
+           secondly\
+           my<>next<>pooitn<>is\
+           first<>...<>next]
+        ]
+        [simultaneous
+          [at<>this<>point\
+           here\
+           now]
+        ]
+        [preceding
+          [hitherto\
+           up<>to<>now]
+        ]
+        [conclusive
+          [lastly\
+           last<>of<>all\
+           finally]
+        ]
+      ]
+    ]
+  ]
+]
+```
+
+## 062 — Conjunctive adjuncts: enhancement 2 (left-to-right)
+
+Category: Functional Grammar
+Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vheight=1.0
+Source: Halliday 2014: 612-614
+
+```
+[conjunctive<>adjuncts
+  [enhancement<>(2)
+    [manner
+      [comparison
+        [positive
+          [likewise\
+           similarly]
+        ]
+        [negative
+          [in<>a<>different<>way]
+        ]
+      ]
+      [means
+        [thus\
+         thereby\
+         by<>such<>means]
+      ]
+    ]
+    [causal\-conditional
+      [general
+        [so\
+         then\
+         therefore\
+         consequently\
+         hence\
+         because<>of<>that\
+         for]
+      ]
+      [specific
+        [result
+          [in<>consequence\
+           as<>a<>result]
+        ]
+        [reason
+          [on<>account<>of<>this\
+           for<>that<>reason]
+        ]
+        [purpose
+          [for<>that<>purpose\
+           with<>this<>in<>view]
+        ]
+        [conditional:\
+         positive
+          [then\
+           in<>that<>case\
+           in<>that<>event\
+           under<>the<>circumstances]
+        ]
+        [conditional:\
+         negative
+          [otherwise\
+           if<>not]
+        ]
+        [concessive
+          [yet\
+           still\
+           though\
+           despite<>this\
+           however\
+           even<>so\
+           all<>the<>same\
+           nevertheless]
+        ]
+      ]
+    ]
+    [matter
+      [positive
+        [here\
+         there\
+         as<>to<>that\
+         in<>that<>respect]
+      ]
+      [negative
+        [in<>other<>respects\
+         elsewhere]
+      ]
+    ]
+  ]
+]
+```
+
+## 063 — vP-shell with movement paths (left-to-right)
+
+Category: Generative Grammar
+Settings: direction=ltr fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.5
+Source: Radford 2004
+
+```
+[CP
+  [C
+   ø]
+  [TP
+    [PRN
+    **They**+>2
+    ]
+    [T'
+      [T
+       Will
+      ]
+      [vP
+        [PRN
+         ~**they**~+2
+        ] 
+        [v'
+          [v
+           ø<>\+<>*get*+>1
+          ]
+          [VP
+            [DP
+             the<>teacher]
+            [V'
+              [V
+               ~*get*~+1
+              ]
+              [QP
+               a<>present
+              ]
+            ]
+          ]
+        ]  
+      ]
+    ]
+  ]
+]
+```
+
+## 064 — Region shade for a c-command domain
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif tidy=low
+
+```
+[TP
+  [DP everyone]
+  [%@lightblue:T'
+    [T will]
+    [VP
+      [V praise]
+      [DP his_i_ friend]
+    ]
+  ]
+]
+```
+
+## 065 — Nested region shades (overlapping domains)
+
+Category: Generative Grammar
+Settings: color=none fontstyle=noto-serif
+
+```
+[%S
+  [DP everyone]
+  [%VP
+    [V loves]
+    [%NP Mary]
+  ]
+]
+```
+
+## 066 — Parallel example — English (Latin script)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[S
+  [NP
+    [PRON Its]
+    [NOUN importance]
+  ]
+  [VP
+    [VERB resides]
+    [PP
+      [ADP in]
+      [NP
+        [NUM two]
+        [NOUN facts]
+      ]
+    ]
+  ]
+]
+```
+
+## 067 — Parallel example — Arabic (right-to-left tree via the mirror option)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans mirror=on tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[S
+  [VP
+    [VERB تكمن]
+    [NP
+      [NOUN أهميت]
+      [PRON ه]
+    ]
+  ]
+  [PP
+    [ADP في]
+    [NOUN حقيقتين]
+  ]
+]
+```
+
+## 068 — Parallel example — Hindi (Devanagari: reordering and conjuncts)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[AP
+  [NP
+    [PRON इसका]
+    [NOUN महत्व]
+  ]
+  [AP
+    [PP
+      [NP
+        [NUM दो]
+        [NOUN तथ्यों]
+      ]
+      [ADP में]
+    ]
+    [AP
+      [ADJ निहित]
+      [AUX है]
+    ]
+  ]
+]
+```
+
+## 069 — Parallel example — Thai (stacked marks, no word spacing)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[S
+  [ADJ ความสำคัญ]
+  [VP
+    [VERB อยู่]
+    [NP
+      [NP
+        [PP
+          [ADP ใน]
+          [NOUN ข้อ]
+        ]
+        [ADJ เท็จจริง]
+      ]
+      [NumP
+        [NUM สอง]
+        [NOUN ประการ]
+      ]
+    ]
+  ]
+]
+```
+
+## 070 — Parallel example — Japanese (kanji and kana)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[S
+  [NP
+    [PP
+      [NP
+        [NUM 2]
+        [NOUN つ]
+      ]
+      [ADP の]
+    ]
+    [PP
+      [NOUN 事実]
+      [ADP が]
+    ]
+  ]
+  [VP
+    [AP
+      [ADJ 重要]
+      [AUX に]
+    ]
+    [VP
+      [VERB なり]
+      [AUX ます]
+    ]
+  ]
+]
+```
+
+## 071 — Parallel example — Korean (Hangul)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[S
+  [NP
+    [DET 그]
+    [NOUN 중요성이]
+  ]
+  [VP
+    [VP
+      [NP
+        [NP
+          [DET 두]
+          [NOUN 가지]
+        ]
+        [NOUN 사실에]
+      ]
+      [VERB 숨어]
+    ]
+    [AUX 있다]
+  ]
+]
+```
+
+## 072 — Parallel example — Russian (Cyrillic)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[S
+  [NOUN Важность]
+  [VP
+    [VERB заключается]
+    [PP
+      [ADP в]
+      [NP
+        [NUM двух]
+        [NOUN фактах]
+      ]
+    ]
+  ]
+]
+```
+
+## 073 — Parallel example — Turkish (Latin with diacritics)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[AP
+  [AP
+    [NP
+      [NP
+        [NUM İki]
+        [NOUN olgu]
+      ]
+      [NOUN bakımından]
+    ]
+    [ADJ önemli]
+  ]
+  [AUX dir]
+]
+```
+
+## 074 — Parallel example — Chinese (logographic han characters)
+
+Category: Multilingual
+Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
+
+```
+[S
+  [AP
+    [PRON 其]
+    [ADJ 重要性]
+  ]
+  [VP
+    [PP
+      [ADP 在]
+      [PP
+        [NP
+          [NP
+            [NUM 兩]
+            [NOUN 個]
+          ]
+          [NOUN 事實]
+        ]
+        [ADP 中]
+      ]
+    ]
+    [VP
+      [VERB 反應]
+      [VERB 出來]
+    ]
+  ]
+]
+```
+
+## 075 — Morphological derivation of <i>internationalization</i>
+
+Category: Morphology
+Settings: fontstyle=noto-serif tidy=high vheight=1.2
+
+```
+[N
+  [V
+    [A
+      [Af inter\-]
+      [A
+        [N nation]
+        [Af \-al]
+      ]
+    ]
+    [Af \-ize]
+  ]
+  [Af \-ation]
+]
+```
+
+## 076 — Nested feature structure
+
+Category: Head-Driven Phrase Structure Grammar
+Settings: color=none fontstyle=noto-serif hyphen=literal leafstyle=bar linewidth=0.5 tidy=low vheight=1.0
+Source: cf. Sag, Wasow and Bender 2003
+
+```
+[#*word*\
+  PHON\t〈<>*relies*<>〉\
+  SYNSEM\t#(LOC\t#(CAT\t#(HEAD\t#(*verb*\
+    VFORM\t*fin*#)\
+    VAL\t#(SPR\t〈<>|1|<>〉\
+    COMPS\t〈<>|2|<>〉#)#)\
+    CONT\t#(*rely-rel*\
+    RELIER\t|1|\
+    RELIED-ON\t|2|#)#)#)
+]
+```
+
+## 077 — Annotated c-structure
+
+Category: Lexical-Functional Grammar
+Settings: color=none fontstyle=noto-serif tidy=low vheight=1.5
+Source: Bresnan 2001
+
+```
+[S
+  [NP\
+   (↑SUBJ)\=↓
+    David
+  ]
+  [VP\
+   ↑\=↓
+    [V\
+     ↑\=↓
+      handed
+    ]
+    [NP\
+     (↑OBJ)\=↓
+      Chris
+    ]
+    [NP\
+     (↑OBJ_θ_)\=↓
+      a toy
+    ]
+  ]
+]
+```
+
+## 078 — F-structure
+
+Category: Lexical-Functional Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low vheight=1.0
+Source: Bresnan 2001
+
+```
+[#PRED\t‘hand⟨SUBJ,<>OBJ,<>OBJ_θ_⟩’\
+  TENSE\t*past*\
+  SUBJ\t#(PRED\t‘David’#)\
+  OBJ\t#(PRED\t‘Chris’#)\
+  OBJ_θ_\t#(SPEC\t*a*\
+  PRED\t‘toy’#)
+]
+```
+
+## 079 — Discourse representation structure
+
+Category: Formal Semantics
+Settings: color=none fontstyle=noto-serif leafstyle=bar tidy=low vheight=1.0
+Source: Kamp and Reyle 1993
+
+```
+[##x<>y\
+---\
+farmer(x)\
+donkey(y)\
+own(x,<>y)
+]
+```
+
+## 080 — Terminals levelled with pass-through joints
+
+Category: General
+Settings: fontstyle=noto-serif tidy=low vheight=1.0
+
+```
+[S
+  [NP [D [<> [<> the]]] [N [<> [<> cat]]]]
+  [VP
+    [V [<> [<> sat]]]
+    [PP [P [<> on]] [NP [D the] [N mat]]]]]
+```
