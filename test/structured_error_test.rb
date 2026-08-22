@@ -152,14 +152,33 @@ class StructuredErrorTest < Minitest::Test
 
   # The angle-bracket trap is the first one the notation reference names and
   # the most common one measured, so it must not fall through to the
-  # catch-all: a caller needs to be told to write 〈 〉.
+  # catch-all: a caller needs to be told to write ⟨ ⟩, and told it in the
+  # narrow pair the reference names rather than the East Asian one, which
+  # draws a full em wide. The hint is where a model reads it, so the wrong
+  # character here teaches itself.
   def test_ascii_angle_brackets_are_classified
     ['[#SPR\t<NP>]', "[#PRED\t'hand<SUBJ,OBJ>']"].each do |data|
       e = assert_raises(RSTError) { RSyntaxTree::RSGenerator.check_data(data) }
       assert_equal :angle_brackets, e.code, data
       assert e.retryable, data
-      assert_includes e.hint, "〈"
+      assert_includes e.hint, "⟨"
+      refute_includes e.hint, "〈", "the hint teaches the East Asian bracket"
     end
+  end
+
+  # Both pairs still parse: documents written before the reference settled on
+  # one of them are not broken by settling on it.
+  def test_both_angle_bracket_pairs_are_accepted
+    assert RSyntaxTree::RSGenerator.check_data('[#SPR\t〈<>NP<>〉]')
+    assert RSyntaxTree::RSGenerator.check_data('[#SPR\t⟨<>NP<>⟩]')
+  end
+
+  # A hint repairs what is in front of it. A caller that was guessing at the
+  # notation needs to be told where the notation is.
+  def test_the_diagnosis_says_where_the_notation_is
+    e = assert_raises(RSTError) { RSyntaxTree::RSGenerator.check_data('[#SPR\t<NP>]') }
+    assert_includes e.to_h["reference"], "--notation"
+    assert_includes e.to_h["reference"], "llms-full.txt"
   end
 
   # One malformed input per construct the notation documents. A construct

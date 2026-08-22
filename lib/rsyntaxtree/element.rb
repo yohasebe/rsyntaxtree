@@ -133,8 +133,8 @@ module RSyntaxTree
        ->(s) { s.sub(/\A%?@(?:#[0-9a-zA-Z]+|[a-zA-Z]+)?:/, "") },
        "A color is @name: with a CSS color name, or @#rgb: / @#rrggbb: with 3 or 6 hex digits (e.g. @blue:VP, @#3af:VP)."],
       [:angle_brackets,
-       ->(s) { s.gsub(/(?<!\\)<([^<>]*[^<>\d][^<>]*)>/) { "〈#{$1}〉" } },
-       "'<' and '>' mark whitespace here, not a list. Write the angle bracket characters themselves: 〈NP〉, 'hand〈SUBJ,OBJ〉'."],
+       ->(s) { s.gsub(/(?<!\\)<([^<>]*[^<>\d][^<>]*)>/) { "⟨#{$1}⟩" } },
+       "'<' and '>' mark whitespace here, not a list. Write the angle bracket characters themselves: ⟨NP⟩, 'hand⟨SUBJ,OBJ⟩'."],
       [:bare_hyphen,
        ->(s) { Element.escape_hyphens(s) },
        "A hyphen opens an underline. Escape it (e.g. f\\-structure, V\\-bar) or set the hyphen option to literal."],
@@ -175,7 +175,7 @@ module RSyntaxTree
       # away, one of them starting the split and the next ending it.
       if label.strip.empty?
         return details.merge(code: :label_split,
-                             hint: "Raw spaces left this label empty. Write a space inside a label as <> (e.g. 〈<>NP<>〉).",
+                             hint: "Raw spaces left this label empty. Write a space inside a label as <> (e.g. ⟨<>NP<>⟩).",
                              retryable: true)
       end
 
@@ -195,7 +195,7 @@ module RSyntaxTree
       # a hint that admits no one cause was found rather than naming a wrong
       # one. retryable: false is for what no rewriting reaches.
       details.merge(code: :invalid_markup,
-                    hint: "No single cause fits, which usually means more than one mistake in this label. Check that *, _, =, ~, |, { and #(...#) are paired, that hyphens are escaped, and that 〈 〉 are the angle bracket characters.",
+                    hint: "No single cause fits, which usually means more than one mistake in this label. Check that *, _, =, ~, |, { and #(...#) are paired, that hyphens are escaped, and that ⟨ ⟩ are the angle bracket characters.",
                     retryable: true)
     end
 

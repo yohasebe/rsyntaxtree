@@ -111,6 +111,12 @@ class RSTError < StandardError
     super(msg.gsub(WHITESPACE_BLOCK, "<>"))
   end
 
+  # Where the notation is written down. A hint repairs the mistake in front of
+  # it and says nothing about the rest, which is enough for a reader who knows
+  # the notation and not enough for one who was guessing at it. Given once, at
+  # the top, rather than repeated on every error.
+  REFERENCE = "rsyntaxtree --notation, or https://yohasebe.github.io/rsyntaxtree/llms-full.txt"
+
   def to_h
     { "ok" => false,
       "errors" => [{ "code" => code.to_s,
@@ -118,7 +124,8 @@ class RSTError < StandardError
                      "label" => label,
                      "position" => position,
                      "hint" => hint,
-                     "retryable" => retryable }.compact] }
+                     "retryable" => retryable }.compact],
+      "reference" => REFERENCE }
   end
 end
 
