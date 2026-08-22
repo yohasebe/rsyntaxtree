@@ -1,18 +1,21 @@
 # RSyntaxTree
 
 > A generator for linguistic syntax trees. The input is labeled bracket
-> notation; the output is PNG, SVG, PDF, TikZ or LSIF. Version 1.11.0.
+> notation; the output is PNG, SVG, PDF, TikZ or LSIF. Version 1.12.0.
 
 The notation is small, and several characters in it already mean
 something. The brief leads with those traps, which is why it is worth
 reading before writing any, and why what you write is worth checking
 rather than guessing.
 
-## Start here
+## Everything in one file
 
-- [llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt): one file, and the only one needed.
-  It opens with the rules and the four traps in about fifty lines, then
-  the manual, then all 75 examples with the options each was drawn with.
+- [llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt): the brief in about fifty lines,
+  then the manual, then all 75 examples with the options each was
+  drawn with. Roughly 70 KB.
+
+The brief alone is a tenth of that and covers the traps. Which of the two
+to send is not a question this project has an answer to.
 
 ## The same material as pages
 

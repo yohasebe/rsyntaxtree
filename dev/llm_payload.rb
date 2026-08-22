@@ -144,11 +144,14 @@ module LlmPayload
       reading before writing any, and why what you write is worth checking
       rather than guessing.
 
-      ## Start here
+      ## Everything in one file
 
-      - [llms-full.txt](#{SITE}/llms-full.txt): one file, and the only one needed.
-        It opens with the rules and the four traps in about fifty lines, then
-        the manual, then all #{examples.size} examples with the options each was drawn with.
+      - [llms-full.txt](#{SITE}/llms-full.txt): the brief in about fifty lines,
+        then the manual, then all #{examples.size} examples with the options each was
+        drawn with. Roughly 70 KB.
+
+      The brief alone is a tenth of that and covers the traps. Which of the two
+      to send is not a question this project has an answer to.
 
       ## The same material as pages
 

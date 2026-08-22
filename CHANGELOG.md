@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.12.0] - 2026-08
+
+Everything needed to write this notation is now available as text, built from
+the files the tool itself reads, and a refusal says where that text is.
+
+### Added
+- `--examples` prints every published example with the options it was drawn
+  with. The gallery examples are checked against the parser that draws them,
+  so each one is known to be accepted.
+- The site carries the same material as plain text for a reader that can fetch
+  a URL but cannot run a command: `llms.txt` and `llms-full.txt`, the second
+  holding the reference, the manual and every example in one file. Both are
+  generated from their sources, and a test fails if they fall behind.
+- A refusal names where the notation is written down, once, alongside the
+  cause and the fix. A hint repairs the mistake in front of it and says
+  nothing about the rest, which is not enough for a caller that was guessing.
+
+### Changed
+- The angle bracket the reference recommends is U+27E8 and U+27E9, which it
+  had always named while writing U+3008 and U+3009 in its own examples. The
+  East Asian pair draws a full em wide, wider than a capital, and had spread
+  through the gallery and into the repair that corrects ASCII brackets. Both
+  pairs still parse; documents written before this are unaffected.
+- Two feature-structure figures are redrawn at the narrower bracket.
+
+### Fixed
+- `--notation` and `--examples` answer before the input is read. Reading first
+  meant waiting on a pipe that never closes when stdin is not a terminal,
+  which is how a script reaches them.
+
 ## [1.11.0] - 2026-08
 
 Every input the tool accepts now draws, and every input it refuses says why.
