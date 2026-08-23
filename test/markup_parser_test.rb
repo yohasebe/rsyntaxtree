@@ -3,6 +3,10 @@
 require "minitest/autorun"
 require "minitest/pride"
 require_relative "../lib/rsyntaxtree/markup_parser"
+# The escape check below runs a label through the whole of it: what a backslash
+# may take is decided on both sides of the parser, and only a drawing shows
+# whether the two agree.
+require_relative "../lib/rsyntaxtree"
 
 class MarkupParserTest < Minitest::Test
   def setup
@@ -257,4 +261,27 @@ class MarkupParserTest < Minitest::Test
     assert_equal true, r[:triangle]
     assert_equal :rectangle, r[:enclosure]
   end
+  # What a backslash may take is written down twice: once in the grammar, as
+  # Markup's `escaped` rule, and once in the tokenizer that cuts the input into
+  # labels, which decides which backslashes to keep. The two drifted — '#' was
+  # in the grammar and not in the tokenizer, so `\#` reached the grammar as a
+  # bare '#', which opens an enclosure: a label written with a hash in it lost
+  # the hash, and what followed went inside brackets instead.
+  #
+  # Asked of the drawing rather than of either list, so a character that falls
+  # out of one of them says so here.
+  ESCAPABLE = "#<>{}^+*_=~|-[]%"
+
+  ESCAPABLE.each_char do |character|
+    define_method("test_a_backslash_makes_#{character.ord}_literal") do
+      svg = RSyntaxTree::RSGenerator.new(
+        DEFAULT_OPTS.merge(data: "[X \\#{character}a]")
+      ).draw_svg
+      drawn = svg.scan(%r{<tspan[^>]*>([^<]*)</tspan>}).flatten
+                 .map { |t| CGI.unescapeHTML(t) }.reject { |t| t.strip.empty? }
+      assert_equal "#{character}a", drawn.last,
+                   "a backslash did not make '#{character}' literal"
+    end
+  end
+
 end

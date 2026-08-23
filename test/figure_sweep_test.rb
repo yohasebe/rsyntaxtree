@@ -40,7 +40,13 @@ class FigureSweepTest < Minitest::Test
     # which the drawing runs the connectors straight through.
     joint: ['[S\t< [NP\t> [<> [N deep]]] [VP sat]]', 2],
     # Six premises under one rule, which is what the rule has to reach across.
-    wide: ['[S\t<Φ> [A a] [B b] [C c] [D d] [E e] [F f]]', 6]
+    wide: ['[S\t<Φ> [A a] [B b] [C c] [D d] [E e] [F f]]', 6],
+    # Categories written as feature structures, which is where the rows, the
+    # bands the rules are placed from, the packing and the turn all meet: a
+    # matrix is taller than the categories beside it, so it is the label that
+    # finds out whether a row is a row.
+    with_matrices: ['[S\t< [#(CAT\tNP\nNUM\tsg#)\t> [NP/N the] [N dog]] ' \
+                    '[S\\\\NP\t> [(S\\\\NP)/NP bit] [NP John]]]', 4]
   }.freeze
 
   # The two deepest matrices in the gallery, read from the gallery itself so
@@ -108,7 +114,8 @@ class FigureSweepTest < Minitest::Test
     DERIVATIONS.each do |name, (data, words)|
       SETTINGS.each do |label, opts|
         where = "#{name} at #{label}"
-        svg = draw(data, derivation: "on", direction: "btt", leafstyle: "nothing", **opts)
+        svg = draw(data, derivation: "on", direction: "btt", leafstyle: "nothing",
+                   **MATRIX_BASE, **opts)
         assert_well_formed svg, where
         assert_everything_inside_the_image svg, where
         assert_the_premises_are_in_one_row svg, words, where
@@ -121,7 +128,8 @@ class FigureSweepTest < Minitest::Test
   def test_derivations_survive_every_setting_the_other_way_up
     DERIVATIONS.each do |name, (data, _words)|
       SETTINGS.each do |label, opts|
-        svg = draw(data, derivation: "on", direction: "ttb", leafstyle: "nothing", **opts)
+        svg = draw(data, derivation: "on", direction: "ttb", leafstyle: "nothing",
+                   **MATRIX_BASE, **opts)
         assert_everything_inside_the_image svg, "#{name} ttb at #{label}"
       end
     end
@@ -158,7 +166,8 @@ class FigureSweepTest < Minitest::Test
       %w[sans serif mono cjk].each do |face|
         opts = { fontsize: size, fontstyle: face }
         DERIVATIONS.each do |name, (data, words)|
-          svg = draw(data, derivation: "on", direction: "btt", leafstyle: "nothing", **opts)
+          svg = draw(data, derivation: "on", direction: "btt", leafstyle: "nothing",
+                     **MATRIX_BASE, **opts)
           assert_everything_inside_the_image svg, "#{name} at #{size}px #{face}"
           assert_the_premises_are_in_one_row svg, words, "#{name} at #{size}px #{face}"
         end
@@ -372,7 +381,7 @@ class FigureSweepTest < Minitest::Test
     doc.css("tspan").reject { |t| t.ancestors("defs").any? }.each do |t|
       next unless t["x"] && t["y"] && inked?(t.text)
 
-      metrics = FontMetrics.get_metrics(t.text, text_family(t), font_size(t), :normal, :normal)
+      metrics = run_metrics(t)
       left = t["x"].to_f
       right = left + metrics.width
       top = t["y"].to_f - metrics.ink_above
@@ -399,7 +408,7 @@ class FigureSweepTest < Minitest::Test
     doc.css("tspan").reject { |t| t.ancestors("defs").any? }.filter_map do |t|
       next unless t["x"] && t["y"] && inked?(t.text)
 
-      metrics = FontMetrics.get_metrics(t.text, text_family(t), font_size(t), :normal, :normal)
+      metrics = run_metrics(t)
       t["y"].to_f - metrics.ink_above + metrics.ink_height
     end.max
   end
@@ -534,12 +543,19 @@ class FigureSweepTest < Minitest::Test
     found.empty? ? FontFamily.for_pango(:sans) : found
   end
 
-  def text_width(el)
+  # Every measurement of a run goes through here, in the face, size, weight and
+  # slant it is drawn in. Three places used to measure, and only one of them
+  # read the weight and the slant — one rule, three implementations, two of
+  # them quietly narrower than what is on the page.
+  def run_metrics(el)
     style = [el["style"], el.parent && el.parent["style"]].compact.join(";")
-    family = text_family(el)
-    weight = style.include?("font-weight: bold") ? :bold : :normal
-    slant = style.include?("font-style: italic") ? :italic : :normal
-    FontMetrics.get_metrics(el.text, family, font_size(el), weight, slant).width
+    FontMetrics.get_metrics(el.text, text_family(el), font_size(el),
+                            style.include?("font-weight: bold") ? :bold : :normal,
+                            style.include?("font-style: italic") ? :italic : :normal)
+  end
+
+  def text_width(el)
+    run_metrics(el).width
   end
 
   # A connector joins one label to another and belongs in the space between

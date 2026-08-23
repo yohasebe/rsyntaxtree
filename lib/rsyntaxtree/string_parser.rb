@@ -148,7 +148,13 @@ module RSyntaxTree
           else
             token += ch
           end
-        when /[nt{}<>^+*_=~|%-]/
+        # The characters a backslash may take, which is the grammar's own list
+        # (Markup's `escaped` rule) plus the two letters that name a break. A
+        # backslash before anything else is dropped here, and '#' was missing:
+        # `\#` arrived at the grammar as a bare '#', which opens an enclosure,
+        # so a label written with a hash in it lost the hash and everything
+        # after it went inside brackets instead.
+        when /[nt{}<>^+*_=~|%\-#]/
           if escape
             token += '\\' + ch
             escape = false

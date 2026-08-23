@@ -84,10 +84,6 @@ module FontFamily
 end
 
 class String
-  def contains_cjk?
-    !!(gsub(WHITESPACE_BLOCK, "") =~ /\p{Han}|\p{Katakana}|\p{Hiragana}|\p{Hangul}|[^\x01-\x7E]/)
-  end
-
   def contains_emoji?
     !!(gsub(WHITESPACE_BLOCK, "").gsub(/\d/, "") =~ /\p{Emoji}/)
   end

@@ -483,15 +483,18 @@ module RSyntaxTree
       lined = false
       index = 0
       while index < content.length
-        pair = content[index, 2]
-        case pair
-        when "#(" then depth += 1
-        when "#)" then depth -= 1
-        when "\\\\" then nil # an escaped backslash owns the character after it
+        case content[index, 2]
         when '\\t' then breaks << index if depth.zero?
         when '\\n' then lined = true if depth.zero?
+        when "#(" then depth += 1
+        when "#)" then depth -= 1
         else
-          index += 1
+          # A backslash takes the character after it, whatever that character
+          # is. Only the two breaks above are read here; every other escape is
+          # the notation's, and `\#` is a hash that opens no matrix — counted as
+          # one it left the depth wrong and the break that names the rule was
+          # looked for in the wrong place.
+          index += content[index] == "\\" ? 2 : 1
           next
         end
         index += 2
