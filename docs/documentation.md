@@ -40,8 +40,52 @@ The `Direction` option controls the orientation of the tree layout:
 
 - **Top to Bottom** (`ttb`): The default. Root node at the top, leaves at the bottom.
 - **Left to Right** (`ltr`): Root node at the left, leaves expand to the right. Useful for classification trees, taxonomies, and other hierarchical structures where horizontal layout is preferred.
+- **Bottom to Top** (`btt`): Leaves at the top, root at the bottom. This is how a derivation is written, with the words first and the result last: see [Derivations](#derivations).
 
 In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
+
+### Derivations
+
+A derivation is written differently from a tree. The words come first, at the
+top; each step draws a rule across everything it combines and writes the result
+under it; and what the whole thing arrives at stands at the bottom. Categorial
+grammar is written this way, and so are diagrams of constituent spans.
+
+Turn `Derivation` on and every node is joined to its daughters by one rule
+across all of them, instead of by a line to each. Set `Direction` to `btt` as
+well and the tree is turned over, so the words come first:
+
+```text
+[S\t< [NP\t> [NP/N the] [N dog]] [S\\NP\t> [(S\\NP)/NP bit] [NP John]]]
+```
+
+The structure is the ordinary bracket notation; nothing about it is special to
+derivations. Two things are worth knowing.
+
+**The name of each step goes after a column break.** `[S\t<` means the label is
+`S` and the step that produced it is `<`. The name is set beside the end of its
+own rule, small, where a derivation puts it. Anything can go there — `>`, `<`,
+`>B`, `>T`, `<Φ>` — and none of it needs escaping, because the name is taken out
+of the label before the label is read as markup.
+
+**A backslash in a category is written `\\`.** `S\\NP` draws as `S\NP`. A single
+backslash starts a line break, which is why the doubling is needed.
+
+Leave `Direction` at `ttb` and the same option draws the spans of a tree from
+the top instead, each constituent's extent marked by a rule:
+
+```text
+[S [NP [D the] [N dog]] [VP [V bit] [NP John]]]
+```
+
+Set `Connector shape` to `none` so that no bar is drawn between a word and its
+category, and use a small `V spacing`: a derivation is set tight.
+
+Two things a derivation cannot be. `Direction: ltr` is refused, because a rule
+across the premises needs them side by side. TikZ output is refused as well:
+`forest` joins each daughter to its mother with an edge of its own and puts the
+root at the top, so what it would produce is a correct tree of the same
+structure rather than this figure. Use PNG, SVG or PDF.
 
 ### Tidy Layout
 

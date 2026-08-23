@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.13.0] - 2026-08
+
+### Added
+- Derivations. A derivation puts the words first and the result last, and
+  joins what each step combines with one rule drawn across all of it rather
+  than with a line to each daughter. `derivation` draws the rules and
+  `direction: btt` turns the tree over; together they give the format
+  categorial grammar is written in, and `derivation` on its own marks the
+  spans of an ordinary tree. The name of each step rides in the label after a
+  column break and is set beside the end of its rule.
+- `direction: btt`, the layout turned over, leaves first.
+
+### Fixed
+- Connectors follow the tree when it is turned over. They kept the ends they
+  have when the root is at the top, so every line ran from above the daughter,
+  through its label and the mother's, to below the mother.
+
 ## [1.12.0] - 2026-08
 
 Everything needed to write this notation is now available as text, built from
