@@ -85,12 +85,21 @@ module RSyntaxTree
     # enclosure. Such nodes act as pass-through joints: connectors run
     # continuously through them, which lets a `<>` chain push a leaf down
     # to align with deeper leaves while the line stays unbroken.
+    #
+    # A label that is one whole feature matrix keeps its text inside the
+    # matrix and leaves none of it here, and the matrix is a decoration on the
+    # run rather than the element's own enclosure. Counted as empty, such a
+    # node was joined as a pass-through joint and the connectors were run to
+    # the middle of it — through the matrix and the rows written in it.
     def empty_label?
       return false if @enclosure && @enclosure != :none
 
       @content.all? do |c|
         c[:type] == :text &&
-          c[:elements].all? { |e| e[:text].gsub(WHITESPACE_BLOCK, "").strip.empty? }
+          c[:elements].all? do |e|
+            !e[:decoration].to_a.include?(:matrix) &&
+              e[:text].gsub(WHITESPACE_BLOCK, "").strip.empty?
+          end
       end
     end
 
