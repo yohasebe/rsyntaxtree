@@ -58,8 +58,9 @@ OPTION_VALUES = {
   fontstyle: ["sans", "serif", "cjk", "mono", "noto-sans", "noto-serif", "noto-sans-mono", "cjk zenhei"],
   color: %w[modern traditional gray grey off none on true false],
   tidy: %w[off symmetric low medium high on compact true false],
-  direction: %w[ttb ltr],
-  hyphen: %w[markup literal]
+  direction: %w[ttb ltr btt],
+  hyphen: %w[markup literal],
+  derivation: %w[on off true false yes no 0 1 none]
 }.freeze
 
 NUMERIC_RANGES = {
@@ -86,7 +87,8 @@ DEFAULT_OPTS = {
   tidy: "off",
   hspacing: 1.0,
   direction: "ttb",
-  hyphen: "markup"
+  hyphen: "markup",
+  derivation: "off"
 }.freeze
 
 # A parse or generation failure. `message` is the human-readable text the
@@ -202,7 +204,7 @@ module RSyntaxTree
                             else
                               "off"
                             end
-        when :tidy_nest, :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror
+        when :tidy_nest, :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror, :derivation
           new_params[key] = switched_on?(value)
         when :color
           new_params[key] = case value.to_s
@@ -261,7 +263,25 @@ module RSyntaxTree
       @params[:fontset] = fontset
       single_x_metrics = FontMetrics.get_metrics("X", fontset[:family], @params[:fontsize], :normal, :normal)
       @global = {}
+      # A derivation is written down the page: the rule that joins the
+      # premises is a horizontal line across them, and the result sits under
+      # it. Laid out left to right there is nothing for that line to span, and
+      # the drawing came out with rules struck through the categories. There
+      # is no left-to-right convention for a derivation to fall back on, so
+      # the combination is refused rather than approximated.
+      if @params[:derivation] == true && @params[:direction] == "ltr"
+        raise RSTError.new(+"Error: a derivation cannot be drawn left to right",
+                           code: :invalid_option,
+                           hint: "A derivation runs down the page. Use direction ttb or btt, " \
+                                 "or turn derivation off.",
+                           retryable: false)
+      end
+
       @global[:single_x_metrics] = single_x_metrics
+      # A derivation labels each step with the rule it applied, written at the
+      # right end of the line. Elements need to know, because the name is taken
+      # out of the label before it is measured.
+      @global[:derivation] = @params[:derivation] == true
       @global[:height_connector_to_text] = single_x_metrics.height / 2.0
       @global[:single_line_height] = single_x_metrics.height * 2.0
       @global[:width_half_x] = single_x_metrics.width / 2.0

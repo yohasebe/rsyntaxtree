@@ -13,7 +13,7 @@ require_relative "color_names"
 
 module RSyntaxTree
   class Element
-    attr_accessor :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
+    attr_accessor :rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
 
     def initialize(id, parent, content, level, fontset, fontsize, global)
       @global = global
@@ -36,6 +36,21 @@ module RSyntaxTree
 
       @fontset = fontset
       @fontsize = fontsize
+      # In a derivation the label may carry the name of the rule that produced
+      # it, written after a column break: `S/NP\t\>B`. The name belongs beside
+      # the rule rather than beside the result, so it comes out of the label
+      # here, before the label is measured, and BaseGraph draws it at the end
+      # of the rule. Only a single-line label with exactly one break is read
+      # this way, which leaves a feature matrix — many lines, many columns —
+      # alone.
+      if global && global[:derivation]
+        parts = content.split('\\t', -1)
+        if parts.size == 2 && !content.include?('\\n') && !parts[1].strip.empty?
+          @rule_name = parts[1].strip
+          content = parts[0]
+        end
+      end
+
       @raw_content = content.sub(/\^?(?:\+-?>?<?\d+)+\^?\z/, '')
 
       parsed = Markup.parse(prepare_markup(content))

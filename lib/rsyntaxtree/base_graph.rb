@@ -67,6 +67,7 @@ module RSyntaxTree
       @fontset = params[:fontset]
       @fontsize = params[:fontsize]
       @mirror = params[:mirror] == true
+      @derivation = params[:derivation] == true
       # tidy is one layout scale: "symmetric" (radical symmetrization) |
       # "off" | "low" (packing, strict leaf positions) | "medium" (packing
       # with cross-row tucking as long as no two leaves swap left-right
@@ -305,6 +306,15 @@ module RSyntaxTree
       parent = @element_list.get_id(id)
       children = parent.children.map { |c| @element_list.get_id(c) }
 
+      # A derivation joins its premises with one rule drawn across all of them,
+      # not with a line to each. The rule replaces the lines, so a tree is drawn
+      # this way throughout or not at all.
+      if @derivation && !children.empty?
+        rule_to_parent(parent, children)
+        parent.children.each { |c| draw_connector(c) }
+        return
+      end
+
       if children.size == 1
         child = children[0]
         case @leafstyle
@@ -360,6 +370,19 @@ module RSyntaxTree
         parent = @element_list.get_id(k)
         child_positions = v.map { |child| child.horizontal_indent + child.content_width / 2 }
         parent.horizontal_indent = child_positions.min + (child_positions.max - child_positions.min - parent.content_width) / 2
+      end
+    end
+
+    # Flip the laid-out tree vertically: the root ends up at the bottom and the
+    # leaves at the top, which is how a derivation is written — the words at the
+    # top, each step below the material it combines. Done after the layout is
+    # final, like the horizontal flip, so connectors, triangles, paths and
+    # region shades follow from the coordinates without knowing about it.
+    def flip_vertical
+      elements = @element_list.get_elements
+      max_bottom = elements.map { |e| e.vertical_indent + e.content_height }.max
+      elements.each do |e|
+        e.vertical_indent = max_bottom - (e.vertical_indent + e.content_height)
       end
     end
 
@@ -900,6 +923,9 @@ module RSyntaxTree
       finalize_ltr if @direction == "ltr"
 
       # RTL flip (mirror option): after the layout is final, before drawing
+      # btt is the top-to-bottom layout turned over, so the layout runs as
+      # usual and the flip comes after it.
+      flip_vertical if @direction == "btt"
       mirror_layout if @mirror
 
       draw_elements

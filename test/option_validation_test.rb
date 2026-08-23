@@ -35,7 +35,12 @@ class OptionValidationTest < Minitest::Test
   def test_every_enum_rejects_a_bad_value
     {
       format: "bmp", leafstyle: "squiggle", fontstyle: "comic-sans",
-      color: "blue", tidy: "dense", direction: "btt", hyphen: "raw"
+      color: "blue", tidy: "dense", hyphen: "raw",
+      # Right to left is not a direction. It is the mirror option, which
+      # composes with either direction, and naming it here as well would make
+      # two spellings for one layout.
+      direction: "rtl",
+      derivation: "sometimes"
     }.each do |key, value|
       e = build(key => value)
       assert_equal :invalid_option, e.code, "#{key}: #{value} should be rejected"

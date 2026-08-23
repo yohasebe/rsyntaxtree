@@ -24,6 +24,22 @@ module RSyntaxTree
     def initialize(element_list, params)
       @element_list = element_list
       @params = params
+
+      # forest draws a tree: a parent joined to each daughter by an edge of
+      # its own, the root at the top. A derivation is neither — one rule
+      # across all the daughters at once, the root last — so the code this
+      # backend would emit is a correct tree of the same structure, which is
+      # a different figure rather than this one with something missing. What
+      # it drops elsewhere (colour, enclosures, decoration) leaves a figure
+      # that still says what the tree is. These two do not.
+      if params[:derivation] == true || params[:direction] == "btt"
+        what = params[:derivation] == true ? "a derivation" : "a tree drawn bottom to top"
+        raise RSTError.new(+"Error: TikZ output cannot draw #{what}",
+                           code: :invalid_option,
+                           hint: "forest joins each daughter with its own edge and puts the root " \
+                                 "at the top. Use png, svg or pdf for this figure.",
+                           retryable: false)
+      end
     end
 
     # Generate TikZ forest code

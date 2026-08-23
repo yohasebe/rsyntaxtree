@@ -32,7 +32,7 @@ CONFIG_VALIDATORS = {
   tidy: ->(v) { OPTION_VALUES[:tidy].include?(v.to_s) ? nil : "must be off, symmetric, low, medium, or high" },
   hspacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
   tidy_spacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
-  direction: ->(v) { OPTION_VALUES[:direction].include?(v.to_s) ? nil : "must be ttb or ltr" },
+  direction: ->(v) { OPTION_VALUES[:direction].include?(v.to_s) ? nil : "must be one of: #{OPTION_VALUES[:direction].join(', ')}" },
   hyphen: ->(v) { OPTION_VALUES[:hyphen].include?(v.to_s) ? nil : "must be markup or literal" }
 }.freeze
 
@@ -122,7 +122,8 @@ opts = Optimist.options do
   opt :tidy, "tidy tree layout: off, symmetric (radical symmetrization), low (packed, strict leaf positions), medium (packed; leaves may overlap but never swap order), or high (packed; leaf order kept per row only)", default: "off", short: :none
   opt :hspacing, "Horizontal spacing factor (counterpart of vheight): 0.5-3.0", default: 1.0, short: :none
   opt :tidy_spacing, "DEPRECATED alias of --hspacing: 0.5-3.0", default: 1.0, short: :none
-  opt :direction, "Tree layout direction: ttb (top-to-bottom) or ltr (left-to-right)", default: "ttb", short: :d
+  opt :direction, "Tree layout direction: ttb (top-to-bottom), ltr (left-to-right) or btt (bottom-to-top, the root last)", default: "ttb", short: :d
+  opt :derivation, "Join each node to its daughters with one rule drawn across them, as a derivation is written, rather than with a line to each: on, off", default: "off", short: :none
   opt :hyphen, "How a hyphen in a label reads: markup (-underline-) or literal (a hyphen; \-underline\- then underlines)", default: "markup", short: :none
   opt :validate, "Validate the input without drawing or writing a file: print a machine-readable diagnosis (JSON) to stdout and report the result in the exit code", short: :none
   opt :notation, "Print the notation reference to stdout and exit", short: :none
@@ -131,7 +132,8 @@ opts = Optimist.options do
 end
 
 Optimist.die :outdir, "must be an exsting directory path" unless FileTest.directory?(opts[:outdir])
-Optimist.die :direction, "must be ttb or ltr" unless OPTION_VALUES[:direction].include?(opts[:direction])
+Optimist.die :direction, "must be one of: #{OPTION_VALUES[:direction].join(', ')}" unless OPTION_VALUES[:direction].include?(opts[:direction])
+Optimist.die :derivation, "must be one of: #{OPTION_VALUES[:derivation].join(', ')}" unless OPTION_VALUES[:derivation].include?(opts[:derivation])
 Optimist.die :hyphen, "must be markup or literal" unless OPTION_VALUES[:hyphen].include?(opts[:hyphen])
 Optimist.die :format, "must be #{FORMAT_LIST_MESSAGE}" unless FORMATS.include?(opts[:format])
 Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless OPTION_VALUES[:leafstyle].include?(opts[:leafstyle])

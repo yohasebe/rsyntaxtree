@@ -878,6 +878,64 @@ module RSyntaxTree
     # (see Element#empty_label?) is a pass-through joint: the line runs to
     # its center instead of stopping at its (invisible) text box, so the
     # segments on both sides connect without a gap.
+    # One rule across all the premises, in place of a line to each. The rule
+    # runs the width of what it combines — the span from the leftmost child's
+    # left edge to the rightmost child's right edge — because that span is what
+    # the step applies to, and reading it off the children is what keeps it
+    # right when the layout moves.
+    #
+    # Drawn at the parent's edge facing the children, so it sits between the
+    # material above it and the result below in a derivation, and between a
+    # node and its daughters in an ordinary tree.
+    def rule_to_parent(parent, children)
+      return if children.empty?
+
+      # The whole of what the step combines, not the labels of its premises:
+      # a premise stands over a derivation of its own, and the rule is drawn
+      # across all of it. Taken from the subtree extents, which is what the
+      # layout already computes for the same purpose.
+      left = children.map { |c| get_leftmost(c.id) }.min
+      right = children.map { |c| get_rightmost(c.id) }.max
+      # The parent may be wider than everything it combines, which happens when
+      # a category is longer than the words under it. The rule covers both, so
+      # that the label it belongs to is never wider than its own rule.
+      left = [left, parent.horizontal_indent].min
+      right = [right, parent.horizontal_indent + parent.content_width].max
+
+      hctt = @global[:height_connector_to_text]
+      child_edge = children.map { |c| c.vertical_indent + c.content_height }.max
+      parent_top = parent.vertical_indent
+      y = if parent_top >= child_edge
+            # The parent sits below: the rule goes between the two.
+            (child_edge + hctt + parent_top) / 2.0
+          else
+            # The parent sits above (an ordinary top-to-bottom tree).
+            (parent.vertical_indent + parent.content_height + hctt +
+             children.map(&:vertical_indent).min) / 2.0
+          end
+
+      @tree_data += @line_styles.sub(/X1/, left.to_s).sub(/Y1/, y.to_s)
+                                .sub(/X2/, right.to_s).sub(/Y2/, y.to_s)
+
+      draw_rule_name(parent, right, y)
+    end
+
+    # The name of the rule, set beside the end of its own line and smaller than
+    # the categories, which is where a derivation puts it and how it keeps the
+    # name from reading as part of either row.
+    def draw_rule_name(parent, right, y)
+      name = parent.rule_name
+      return if name.nil? || name.empty?
+
+      size = (@fontsize * 0.8).round(2)
+      metrics = FontMetrics.get_metrics(name, @fontset[:family], size, :normal, :normal)
+      @tree_data += @text_styles.sub(/COLOR/, @col_line)
+                                .sub(/fontsize/, size.to_s + "px;")
+                                .sub(/X_VALUE/, (right + @global[:width_half_x]).to_s)
+                                .sub(/Y_VALUE/, (y + metrics.height / 3.0).to_s)
+                                .sub(/CONTENT/) { CGI.escapeHTML(name) }
+    end
+
     def line_to_parent(parent, child)
       return if child.horizontal_indent.zero?
 

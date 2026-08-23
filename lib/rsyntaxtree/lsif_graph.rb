@@ -69,6 +69,17 @@ module RSyntaxTree
       parent = @element_list.get_id(id)
       children = parent.children.map { |c| @element_list.get_id(c) }
 
+      # A derivation joins a node to its daughters with one rule across all of
+      # them. Recorded as what it is: this format states that it carries how
+      # the figure was drawn, so calling these lines would be a false record.
+      if @derivation && !children.empty?
+        children.each do |child|
+          @edges << { from: parent.id, to: child.id, type: "dominance", connector: "rule" }
+        end
+        parent.children.each { |c| draw_connector(c) }
+        return
+      end
+
       if children.size == 1
         child = children[0]
         case @leafstyle
@@ -275,6 +286,7 @@ module RSyntaxTree
               font_size: (@params[:fontsize] / FONT_SCALING).round,
               color: @params[:color],
               connector: @params[:leafstyle],
+              derivation: @params[:derivation] == true,
               connector_height: @params[:vheight],
               horizontal_spacing: @params[:hspacing] || 1.0,
               line_width: @params[:linewidth],
