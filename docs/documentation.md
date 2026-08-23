@@ -209,7 +209,7 @@ The value of an attribute can be another matrix, written between `#(` and `#)`. 
 ]
 ```
 
-Matrices nest to any depth, which is what a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
+Matrices nest to any depth, which is what a feature path such as `SYNSEM | LOCAL | CATEGORY | HEAD` needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
 
 #### Hyphens
 

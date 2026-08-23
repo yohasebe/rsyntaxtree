@@ -11,6 +11,12 @@ require_relative "../lib/rsyntaxtree"
 # composition, a relative clause, and coordination — and they are what the
 # drawing was built against.
 class DerivationTest < Minitest::Test
+  # The rule names are set smaller than the categories.
+  def initialize(*)
+    super
+    @fontsize_guard = DEFAULT_OPTS[:fontsize] * FONT_SCALING
+  end
+
   def draw(data, **opts)
     RSyntaxTree::RSGenerator.new(
       DEFAULT_OPTS.merge(fontstyle: "serif", color: "off", leafstyle: "nothing",
@@ -118,6 +124,28 @@ class DerivationTest < Minitest::Test
     with_name = draw('[S\t>B [NP a] [VP b]]')
     assert_includes with_name, "&gt;B"
     assert_equal 1, with_name.scan(/&gt;B/).size
+  end
+
+  # The name sits on its rule. Text is placed by its baseline and what rises
+  # above that differs with what is written, so the offset is measured from the
+  # ink; taken as a fraction of the line height instead, every name sat low.
+  def test_the_rule_name_is_centred_on_its_rule
+    svg = draw('[S\t>B [NP\t<Φ> [D a] [N b]] [VP c]]')
+    rules = svg.scan(/<line[^>]*x2='([\d.]+)' y1='([\d.]+)' [^>]*y2='([\d.]+)'/)
+    rules = svg.scan(/<line[^>]*x1='[\d.]+' y1='([\d.]+)' x2='([\d.]+)' y2='([\d.]+)'/)
+               .select { |y1, _, y2| (y1.to_f - y2.to_f).abs < 0.01 }
+               .map { |y1, x2, _| [x2.to_f, y1.to_f] }
+    names = svg.scan(/font-size:\s*([\d.]+)px[^>]*x='([\d.]+)' y='([\d.]+)'/)
+               .select { |size,| size.to_f < @fontsize_guard }
+    refute_empty names
+    names.each do |_, x, y|
+      rule_y = rules.min_by { |rx, _| (rx - x.to_f).abs }&.last
+      refute_nil rule_y
+      # The marks straddle the rule: the baseline sits a little below it, by
+      # less than the height of the marks themselves.
+      assert_operator y.to_f, :>, rule_y
+      assert_operator y.to_f - rule_y, :<, 14.0
+    end
   end
 
   # A feature matrix is many lines and many columns. Reading its last column as

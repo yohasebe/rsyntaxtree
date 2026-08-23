@@ -205,7 +205,7 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 ]
 ```
 
-入れ子は何段でも可能です．SYNSEM | LOCAL | CATEGORY | HEAD のような素性パスを書くために必要な機能です．素の角括弧は樹形図の構造として解釈され，素の丸括弧はラベル本文でよく使われるため，区切りには `#(` と `#)` を用いています．ギャラリーの [Nested feature structure](https://yohasebe.github.io/rsyntaxtree/examples#example-076) の例などをご覧ください。
+入れ子は何段でも可能です．`SYNSEM | LOCAL | CATEGORY | HEAD` のような素性パスを書くために必要な機能です．素の角括弧は樹形図の構造として解釈され，素の丸括弧はラベル本文でよく使われるため，区切りには `#(` と `#)` を用いています．ギャラリーの [Nested feature structure](https://yohasebe.github.io/rsyntaxtree/examples#example-076) の例などをご覧ください。
 
 #### ハイフン
 
