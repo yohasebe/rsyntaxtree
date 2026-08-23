@@ -25,6 +25,7 @@ module ExampleOptions
     "symmetrization" => :symmetrize,
     "connector" => :leafstyle,
     "direction" => :direction,
+    "derivation" => :derivation,
     "tidy" => :tidy,
     "hspacing" => :hspacing,
     "tidy_spacing" => :tidy_spacing,

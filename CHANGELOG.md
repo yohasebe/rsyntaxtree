@@ -9,7 +9,9 @@
   `direction: btt` turns the tree over; together they give the format
   categorial grammar is written in, and `derivation` on its own marks the
   spans of an ordinary tree. The name of each step rides in the label after a
-  column break and is set beside the end of its rule.
+  column break and is set beside the end of its rule. A derivation runs down
+  the page and is drawn with its rules, so `direction: ltr` and hiding the
+  default connectors are refused rather than approximated.
 - `direction: btt`, the layout turned over, leaves first.
 
 ### Fixed

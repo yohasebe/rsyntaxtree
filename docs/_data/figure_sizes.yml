@@ -47,13 +47,13 @@
   height: 779
   layout: grid-stack
 '011':
-  width: 408
-  height: 494
+  width: 413
+  height: 329
   layout: ''
 '012':
-  width: 413
-  height: 768
-  layout: ''
+  width: 549
+  height: 532
+  layout: grid-wide
 '013':
   width: 766
   height: 848

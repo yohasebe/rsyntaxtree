@@ -931,9 +931,15 @@ module RSyntaxTree
       # Level with the rule, by the same reckoning an enclosure uses to sit
       # level with what it encloses.
       baseline = y + FontMetrics.visual_centre(@fontset[:family], size)
+      x = right + @global[:width_half_x]
+      # The name is the one thing drawn outside every element's own box, so the
+      # canvas has to be told where it ends or the last step's name is cut off
+      # at the edge of the image.
+      edge = x + FontMetrics.get_metrics(name, @fontset[:family], size, :normal, :normal).width
+      @rule_name_edge = edge if edge > @rule_name_edge.to_f
       @tree_data += @text_styles.sub(/COLOR/, @col_line)
                                 .sub(/fontsize/, size.to_s + "px;")
-                                .sub(/X_VALUE/, (right + @global[:width_half_x]).to_s)
+                                .sub(/X_VALUE/, x.to_s)
                                 .sub(/Y_VALUE/, baseline.round(2).to_s)
                                 .sub(/CONTENT/) { CGI.escapeHTML(name) }
     end

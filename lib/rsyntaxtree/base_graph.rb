@@ -183,6 +183,17 @@ module RSyntaxTree
                         accum_array.sum
                       end
 
+        # The name of the step hangs past the right end of its rule, and the
+        # rule reaches the full width of what the step combines. With no room
+        # kept for it the name lands on the next subtree's rule and two steps
+        # read as one, so the node claims that much more width. The label is
+        # drawn from the left edge and does not move.
+        #
+        # Doubled: the children sit centred in the width their mother claims,
+        # so half of whatever is added lands on the left where nothing needs
+        # it, and only the other half reaches the side the name is on.
+        accum_width += rule_name_room(target) * 2
+
         if target.content_width > accum_width
           # Parent label is wider than children's total width.
           # Distribute the excess equally among children to prevent
@@ -235,7 +246,45 @@ module RSyntaxTree
         end
         target.height = accum_array.max - target.vertical_indent
         accum_array.max
+      end.tap { level_derivation_rows if id == 1 && @derivation }
+    end
+
+    # In a derivation every premise is given at the start, so the words stand in
+    # one row and each step sits below everything it draws on. A node's row is
+    # therefore its distance from the words rather than its distance from the
+    # root: a step joining a category to a derivation three deep goes below
+    # both. Placed by depth from the root instead, the words come out in a
+    # staircase, each at the depth of its own branch.
+    #
+    # Run after the ordinary placement, so the row heights and the drop between
+    # them are the ones that pass settled on.
+    def level_derivation_rows
+      root_height = subtree_height(1)
+      rows = {}
+      tallest = Hash.new(0.0)
+      @element_list.get_elements.each do |e|
+        row = root_height - subtree_height(e.id)
+        rows[e.id] = row
+        tallest[row] = [tallest[row], e.content_height].max
       end
+
+      drop = @global[:height_connector].to_f
+      top = {}
+      y = 0.0
+      tallest.keys.sort.each do |row|
+        top[row] = y
+        y += tallest[row] + drop
+      end
+
+      @element_list.get_elements.each { |e| e.vertical_indent = top[rows[e.id]] }
+    end
+
+    # Steps from +id+ down to the furthest word under it. A word is zero.
+    def subtree_height(id)
+      node = @element_list.get_id(id)
+      return 0 if node.children.empty?
+
+      1 + node.children.map { |c| subtree_height(c) }.max
     end
 
     def make_balance(id = 1)
@@ -355,6 +404,20 @@ module RSyntaxTree
       (children_indent << target_indent).min
     end
 
+    # Width to keep clear to the right of a step's rule for the name beside it,
+    # with a gap between the name and whatever follows. Zero unless the tree is
+    # drawn as a derivation and the step has a name.
+    def rule_name_room(element)
+      return 0 unless @derivation
+
+      name = element.rule_name
+      return 0 if name.nil? || name.empty?
+
+      size = (@fontsize * 0.8).round(2)
+      width = FontMetrics.get_metrics(name, @fontset[:family], size, :normal, :normal).width
+      width + @global[:width_half_x]
+    end
+
     def get_rightmost(id = 1)
       target = @element_list.get_id(id)
       target_right_end = target.horizontal_indent + target.content_width
@@ -448,7 +511,21 @@ module RSyntaxTree
         x0 -= ext
         x1 += ext
       end
+      # A step's name is drawn past the right end of its rule, and the rule
+      # reaches the full width of what the step combines. Packing sees only the
+      # labels, so without this the neighbour is pulled up against the name and
+      # two steps read as one long rule.
+      x1 = [x1, subtree_right(node.id) + rule_name_room(node)].max if @derivation
       [node.vertical_indent, node.vertical_indent + node.content_height, x0, x1]
+    end
+
+    # Right edge of the subtree rooted at +id+, from wherever the layout has
+    # put things so far.
+    def subtree_right(id)
+      node = @element_list.get_id(id)
+      right = node.horizontal_indent + node.content_width
+      node.children.each { |c| right = [right, subtree_right(c)].max }
+      right
     end
 
     # Effective-rect list of the subtree rooted at +id+, as [y0, y1, x0, x1].
@@ -941,6 +1018,9 @@ module RSyntaxTree
         max_x = r if r > max_x
         max_y = b if b > max_y
       end
+      # A rule's name is set beside the rule, past the right edge of every box
+      # the loop above measured.
+      max_x = @rule_name_edge if @rule_name_edge.to_f > max_x
       width = max_x + @global[:h_gap_between_nodes]
       height = max_y
       height = @height if @height > height

@@ -202,7 +202,7 @@ module RSyntaxTree
               parts[1] = token_r[spaceat, tl - spaceat].join
 
               element = begin
-                Element.new(@id, parent, parts[0], @level, @fontset, @fontsize, @global)
+                Element.new(@id, parent, parts[0], @level, @fontset, @fontsize, @global, true)
               rescue RSTError => e
                 # The first raw space splits a token into the node's label
                 # and its children (that split is the notation's core rule,
@@ -227,7 +227,7 @@ module RSyntaxTree
               @id += 1
             else
               joined = token_r.join
-              element = Element.new(@id, parent, joined, @level, @fontset, @fontsize, @global)
+              element = Element.new(@id, parent, joined, @level, @fontset, @fontsize, @global, true)
               @id += 1
               newparent = element.id
             end

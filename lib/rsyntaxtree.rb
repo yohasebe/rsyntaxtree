@@ -277,6 +277,20 @@ module RSyntaxTree
                            retryable: false)
       end
 
+      # Hiding the default connectors draws them in the background colour
+      # rather than skipping them. A derivation's rules are drawn as connectors
+      # but they are the figure itself, not a default the drawing adds, so
+      # hiding them leaves rows of categories floating with nothing joining
+      # them. Refused for the same reason as left to right.
+      if @params[:derivation] == true && @params[:hide_default_connectors] == true
+        raise RSTError.new(+"Error: a derivation's rules cannot be hidden",
+                           code: :invalid_option,
+                           hint: "The rules are what a derivation is drawn with, not a " \
+                                 "connector added to it. Turn off hide default connectors, " \
+                                 "or turn derivation off.",
+                           retryable: false)
+      end
+
       @global[:single_x_metrics] = single_x_metrics
       # A derivation labels each step with the rule it applied, written at the
       # right end of the line. Elements need to know, because the name is taken

@@ -44,7 +44,8 @@ class LsifGeneratorTest < Minitest::Test
       # Verify geometry
       assert data["geometry"]["width"] > 0, "Width must be positive"
       assert data["geometry"]["height"] > 0, "Height must be positive"
-      assert %w[ttb ltr].include?(data["geometry"]["direction"]), "Direction must be ttb or ltr"
+      assert OPTION_VALUES[:direction].include?(data["geometry"]["direction"]),
+               "Direction must be one of: #{OPTION_VALUES[:direction].join(", ")}"
       assert [true, false].include?(data["geometry"]["mirror"]), "Mirror must be a boolean"
 
       # The layout settings that the coordinates alone cannot reveal
@@ -93,7 +94,8 @@ class LsifGeneratorTest < Minitest::Test
         assert node_ids.include?(edge["from"]), "Edge 'from' ID #{edge["from"]} not found"
         assert node_ids.include?(edge["to"]), "Edge 'to' ID #{edge["to"]} not found"
         assert %w[dominance].include?(edge["type"]), "Edge type must be 'dominance'"
-        assert %w[line triangle none].include?(edge["connector"]), "Invalid connector type: #{edge["connector"]}"
+        # A derivation joins a node to its daughters with one rule across them.
+          assert %w[line triangle none rule].include?(edge["connector"]), "Invalid connector type: #{edge["connector"]}"
       end
 
       # Verify paths reference valid node IDs

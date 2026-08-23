@@ -15,7 +15,12 @@ module RSyntaxTree
   class Element
     attr_accessor :rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
 
-    def initialize(id, parent, content, level, fontset, fontsize, global)
+    # names_a_rule says the content is a mother's label rather than a leaf's
+    # text. Only a mother has a step under it for a name to sit beside, and a
+    # leaf's `a\tb` is a row of two columns, so the name is read out of the one
+    # and left alone in the other.
+    def initialize(id, parent, content, level, fontset, fontsize, global,
+                   names_a_rule = false)
       @global = global
       @type = ETYPE_LEAF
       @id = id                 # Unique element id
@@ -42,9 +47,9 @@ module RSyntaxTree
       # here, before the label is measured, and BaseGraph draws it at the end
       # of the rule. Only a single-line label with exactly one break is read
       # this way, which leaves a feature matrix — many lines, many columns —
-      # alone.
-      if global && global[:derivation]
-        parts = content.split('\\t', -1)
+      # alone. A break the writer escaped is theirs and is not a break here.
+      if global && global[:derivation] && names_a_rule
+        parts = content.split(/(?<!\\)\\t/, -1)
         if parts.size == 2 && !content.include?('\\n') && !parts[1].strip.empty?
           @rule_name = parts[1].strip
           content = parts[0]
@@ -161,6 +166,16 @@ module RSyntaxTree
       [:unclosed_matrix,
        ->(s) { s.scan("#(").size > s.scan("#)").size ? s + "#)" : s },
        "A matrix opened with '#(' is never closed with '#)'."],
+      # A derivation writes the name of each step after a column break, and
+      # the combinators it is written with are made of the same characters as
+      # the whitespace marker. Read as an ordinary tree such a label is
+      # unclosed markup, and the advice below is about spaces — the opposite of
+      # what the writer needs. Asked here, before those, so that a derivation
+      # written without the option on is told so.
+      [:rule_name_without_derivation,
+       ->(s) { s.include?('\\n') ? s : s.sub(/(?<!\\)\\t.*\z/m, "") },
+       "This label names a rule after a column break, the way a derivation " \
+       "does. Turn derivation on to draw it as one, or escape the break as \\\\t."],
       # Neutralising every occurrence of one character, rather than adding a
       # closing one, locates the culprit wherever it sits in the label — an
       # opener left unclosed halfway down a matrix is not fixed by appending.

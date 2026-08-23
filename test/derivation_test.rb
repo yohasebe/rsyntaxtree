@@ -148,6 +148,120 @@ class DerivationTest < Minitest::Test
     end
   end
 
+  # Every premise is given at the start, so the words stand in one row. Placed
+  # by depth from the root instead, a branch that combines in fewer steps
+  # leaves its word higher than the rest and the top of the figure is a
+  # staircase. The relative clause is where this shows: its branches are three
+  # steps apart.
+  def test_the_words_stand_in_one_row
+    ALL.each do |name, data|
+      # Rows are read off the drawing, where a label of several lines puts a
+      # line in each of them. That would count one label as many and the
+      # reading would be wrong, so the check is only good for labels of one
+      # line — which is what a derivation of categories is.
+      refute_includes data, '\n', "#{name}: rows cannot be counted this way"
+      svg = draw(data)
+      ys = svg.scan(/<tspan x='[\d.]+' y='([\d.]+)'/).flatten.map(&:to_f)
+      top = ys.min
+      words = ys.count { |y| (y - top).abs < 1.0 }
+      # However many words the derivation has, they are all on that row: no
+      # other row can hold more than the top one.
+      rows = ys.group_by { |y| y.round }.values.map(&:size)
+      assert_equal rows.max, words, "#{name}: the words are not all in the top row"
+    end
+  end
+
+  # The name is drawn past the end of its rule, and the packing has to leave
+  # room for it. Pulled tight against the next subtree, two steps read as one
+  # long rule with a mark in the middle of it.
+  #
+  # Drawn with tidy off there is slack between the subtrees anyway and nothing
+  # here is ever tight; it is tidy that closes the gap and so tidy the room has
+  # to survive. The gallery draws these on low for the same reason.
+  def test_a_rule_name_does_not_touch_the_next_rule
+    svg = draw(APPLICATION, tidy: "low")
+    rules = svg.scan(/<line[^>]*x1='([\d.]+)' y1='([\d.]+)' x2='([\d.]+)' y2='([\d.]+)'/)
+               .select { |_, y1, _, y2| (y1.to_f - y2.to_f).abs < 0.01 }
+               .map { |x1, y, x2, _| [y.to_f.round, x1.to_f, x2.to_f] }
+    names = svg.scan(/font-size:\s*([\d.]+)px[^>]*x='([\d.]+)' y='([\d.]+)'/)
+               .select { |size,| size.to_f < @fontsize_guard }
+               .map { |_, x, y| [y.to_f.round, x.to_f] }
+    checked = 0
+    rules.group_by(&:first).each_value do |row|
+      next if row.size < 2
+
+      row.sort_by! { |_, x1, _| x1 }
+      row.each_cons(2) do |(y, _, left_end), (_, right_start, _)|
+        name = names.find { |ny, nx| (ny - y).abs < 30 && nx > left_end && nx < right_start }
+        next unless name
+
+        # The name is about fourteen wide here. Measured from where it starts,
+        # anything under twenty-four leaves it all but touching what follows;
+        # unpacked for the name it comes out around thirty.
+        assert_operator right_start - name.last, :>, 24.0,
+                        "a rule name is pressed against the rule that follows it"
+        checked += 1
+      end
+    end
+    assert_operator checked, :>, 0, "no neighbouring rules were found to check"
+  end
+
+  # The name is the one thing drawn outside any element's own box, so the
+  # canvas has to be told where it ends. Measured from the boxes alone, the
+  # last step's name ran off the edge of the image and was cut in half.
+  def test_a_long_rule_name_stays_inside_the_canvas
+    ["btt", "ttb"].each do |dir|
+      ['[S\t>BN-compose-long-name [NP the cat] [VP sat]]',
+       '[A [B x] [C\t>VERY-LONG-COMPOSITION [D y]]]'].each do |src|
+        svg = draw(src, direction: dir)
+        canvas = svg[/<svg[^>]*>/][/\bwidth=['"]([\d.]+)/, 1].to_f
+        names = svg.scan(/font-size:\s*([\d.]+)px[^>]*x='([\d.]+)' y='[\d.]+'[^>]*>([^<]*)</)
+                   .select { |size,| size.to_f < @fontsize_guard }
+        refute_empty names
+        names.each do |size, x, text|
+          # The name is set in the same face as everything else, so half its
+          # point size per character is a floor on how wide it is, never an
+          # overestimate.
+          least = text.length * size.to_f / 2
+          assert_operator x.to_f + least, :<, canvas,
+                          "#{dir}: the rule name runs off the canvas"
+        end
+      end
+    end
+  end
+
+  # Hiding the default connectors draws them in the background colour rather
+  # than skipping them, and a derivation's rules go the same way: the figure
+  # comes out as rows of categories with nothing joining them.
+  def test_hiding_the_connectors_is_refused
+    e = assert_raises(RSTError) { draw(APPLICATION, hide_default_connectors: "on") }
+    assert_equal :invalid_option, e.code
+    assert_includes e.hint, "derivation"
+  end
+
+  # Written without the option on, the label is unclosed markup and the advice
+  # is about spaces — the opposite of what the writer needs. The combinators
+  # are made of the same characters as the whitespace marker, so the reading
+  # has to be settled before that one is offered.
+  def test_a_derivation_written_without_the_option_is_told_so
+    e = assert_raises(RSTError) { draw(APPLICATION, derivation: "off") }
+    assert_equal :rule_name_without_derivation, e.code
+    assert_includes e.hint, "derivation"
+  end
+
+  # A break the writer escaped is theirs. Split on it as well, the label lost
+  # everything after it and nothing was drawn in its place.
+  def test_an_escaped_column_break_is_left_in_the_label
+    assert_includes draw('[X a\\\\tb [Y d]]'), "a\\tb"
+  end
+
+  # Only a mother has a step under it for a name to sit beside. Taken off a
+  # leaf, whose `a\tb` is a row of two columns, the second column vanished.
+  def test_a_leaf_keeps_both_of_its_columns
+    svg = draw('[X [w1 a\tL] [w2 b]]')
+    %w[a L].each { |t| assert_includes svg, ">#{t}<" }
+  end
+
   # A feature matrix is many lines and many columns. Reading its last column as
   # a rule name would take a value out of the matrix.
   def test_a_matrix_label_keeps_all_its_columns

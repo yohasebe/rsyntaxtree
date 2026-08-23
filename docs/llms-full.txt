@@ -886,73 +886,24 @@ Source: Radford 2004
 ]
 ```
 
-## 011 — CCG sample
+## 011 — CCG derivation: forward and backward application
 
 Category: Combinatory Categorial Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif leafstyle=nothing tidy=low vheight=0.7
+Source: Steedman 2000
 
 ```
-[S\
- \<
-  [NP\
-   \>
-    [NP/N\
-    ---\
-     *the*
-    ]
-    [N\
-    ---\
-     *dog*
-    ]
-  ]
-  [S\\NP\
-    \>
-    [(S\\NP)\\NP\
-    ---\
-     *bit*
-    ]
-    [NP\
-    ---\
-     *John*
-    ]
-  ]
-]
+[S\t< [NP\t> [NP/N the] [N dog]] [S\\NP\t> [(S\\NP)/NP bit] [NP John]]]
 ```
 
-## 012 — CCG sample
+## 012 — CCG derivation: a relative clause
 
 Category: Combinatory Categorial Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.5
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif leafstyle=nothing tidy=low vheight=0.7
+Source: Steedman 2000
 
 ```
-[S\
-    \>
-  [S/NP\
-   B_\>_
-    [S/(S\\NP)\
-     T_\>_
-      [NP\
-         \>
-        [NP/N\
-         ---\
-         *the*
-        ]
-        [N\
-         ---\
-         *dog*
-        ]
-      ]
-    ]
-    [(S\\NP)/NP\
-     ---\
-     *bit*
-    ]    
-  ]
-  [NP\
-   ---\
-   *John*
-  ]
-]
+[NP\t> [NP/N the] [N\t< [N man] [N\\N\t> [(N\\N)/(S/NP) that] [S/NP\t>B [S/(S\\NP)\t>T [NP Mary]] [(S\\NP)/NP saw]]]]]
 ```
 
 ## 013 — HPSG sample
