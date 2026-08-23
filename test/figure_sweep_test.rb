@@ -218,7 +218,42 @@ class FigureSweepTest < Minitest::Test
     end
   end
 
+  # A label is measured by what is written in it, not by what is written
+  # elsewhere in the figure. Measurement used to put the CJK face first for the
+  # whole figure as soon as any character outside ASCII turned up anywhere in
+  # it — a Greek letter, an angle bracket, an accented vowel — while the drawing
+  # went on using the ordinary one. Latin text was then measured in a face it
+  # was not set in, and in the monospaced style, where the two differ most, the
+  # run after it was drawn on top of it.
+  def test_a_label_is_measured_by_itself_and_not_by_its_neighbours
+    %w[sans serif mono cjk].each do |face|
+      [16, 26].each do |size|
+        opts = { fontstyle: face, fontsize: size }
+        alone = label_width("[S [NP relies]]", **opts)
+        ["θ", "⟨⟩", "é", "−"].each do |mark|
+          beside = label_width("[S [NP relies] [VP #{mark}]]", **opts)
+          assert_in_delta alone, beside, 0.01,
+                          "#{face} #{size}px: '#{mark}' elsewhere in the figure changed " \
+                          "how 'relies' was measured"
+        end
+      end
+    end
+  end
+
   private
+
+  # The width the layout gave the label 'relies', read from the interchange
+  # format, which reports what the measuring — not the drawing — arrived at.
+  def label_width(data, **opts)
+    lsif = JSON.parse(
+      RSyntaxTree::RSGenerator.new(
+        DEFAULT_OPTS.merge(data: data, format: "lsif").merge(opts)
+      ).draw_lsif
+    )
+    node = lsif["nodes"].find { |n| n["label"]["raw"].to_s.include?("relies") }
+    refute_nil node
+    node["position"]["content_width"]
+  end
 
   # The distance from the bottom of each mother to the top of each daughter,
   # read from the interchange format, which is where the layout says where it
@@ -351,9 +386,18 @@ class FigureSweepTest < Minitest::Test
     end
   end
 
+  # A run set smaller than the line — a subscript, a superscript — is given its
+  # size as a percentage of the size around it rather than in pixels, and a
+  # reading that knows only pixels measured those at full size.
   def font_size(el)
-    style = [el["style"], el.parent && el.parent["style"]].compact.join(";")
-    (style[/font-size:\s*([\d.]+)px/, 1] || DEFAULT_OPTS[:fontsize]).to_f
+    own = el["style"].to_s
+    around = (el.parent && el.parent["style"]).to_s
+    outer = (around[/font-size:\s*([\d.]+)px/, 1] || DEFAULT_OPTS[:fontsize] * FONT_SCALING).to_f
+    if (share = own[/font-size:\s*([\d.]+)%/, 1])
+      outer * share.to_f / 100
+    else
+      (own[/font-size:\s*([\d.]+)px/, 1] || outer).to_f
+    end
   end
 
   # Measured in the weight and slant it is drawn in: bold text is wider than
@@ -362,9 +406,14 @@ class FigureSweepTest < Minitest::Test
   # The family list the run is drawn with, in the form Pango takes, so a string
   # is measured with the faces it was set in.
   def text_family(el)
-    style = [el["style"], el.parent && el.parent["style"]].compact.join(";")
-    family = style[/font-family:\s*([^;]+)/, 1].to_s.tr("'\"", "").strip
-    family.empty? ? FontFamily.for_pango(:sans) : family
+    # The drawing sets the family as an attribute of its own, not inside the
+    # style, and only looking in the style measured every face as the sans one:
+    # a monospaced label came out wider than it is drawn, which reads as marks
+    # running into each other that never touch.
+    found = [el, el.parent].compact.filter_map do |node|
+      node["font-family"] || node["style"].to_s[/font-family:\s*([^;]+)/, 1]
+    end.first.to_s.tr("'\"", "").strip
+    found.empty? ? FontFamily.for_pango(:sans) : found
   end
 
   def text_width(el)

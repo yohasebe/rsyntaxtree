@@ -26,9 +26,9 @@ class FontResolutionTest < Minitest::Test
     @context = Cairo::Context.new(surface)
   end
 
-  def resolved_families(text, style, cjk_priority: false)
+  def resolved_families(text, style)
     layout = @context.create_pango_layout
-    layout.font_description = Pango::FontDescription.new("#{FontFamily.for_pango(style, cjk_priority: cjk_priority)} 20")
+    layout.font_description = Pango::FontDescription.new("#{FontFamily.for_pango(style)} 20")
     layout.text = text
     families = []
     iter = layout.iter
@@ -51,17 +51,6 @@ class FontResolutionTest < Minitest::Test
 
       families, unknown = resolved_families(sample[:text], :sans)
       assert_equal 0, unknown, "#{sample[:script]} produced tofu"
-      assert_includes families, sample[:sans]
-    end
-
-    define_method("test_#{sample[:script].downcase}_survives_cjk_priority") do
-      skip "#{sample[:sans]} not installed" unless installed?(sample[:sans])
-
-      # A label containing any non-ASCII character sets contains_cjk?, which
-      # swaps the first two families. The swap must not change which font wins
-      # for these scripts.
-      families, unknown = resolved_families(sample[:text], :sans, cjk_priority: true)
-      assert_equal 0, unknown, "#{sample[:script]} produced tofu under cjk_priority"
       assert_includes families, sample[:sans]
     end
 

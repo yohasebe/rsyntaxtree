@@ -469,7 +469,7 @@ module RSyntaxTree
         style += "font-style: italic; " if e[:decoration].include?(:italic) || e[:decoration].include?(:bolditalic)
         style += "\""
 
-        fontstyle = FontFamily.for_svg(@fontstyle, cjk_priority: e[:cjk])
+        fontstyle = FontFamily.for_svg(@fontstyle)
 
         if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
           # Measured around the enclosed marks in Element#setup; the line

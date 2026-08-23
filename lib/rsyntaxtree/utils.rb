@@ -61,20 +61,23 @@ FONT_FAMILIES = {
 }.freeze
 
 module FontFamily
-  # cjk_priority: put the JP font first (mirrors the e[:cjk] branch in
-  # SVGGraph#draw_element). No-op for the :cjk style, which has no variant.
-  def list(style, cjk_priority: false)
-    families = FONT_FAMILIES.fetch(style.to_sym).dup
-    families[0], families[1] = families[1], families[0] if cjk_priority && style.to_sym != :cjk
-    families
+  # One order, used by the measuring and by the drawing alike. There was a
+  # second, with the CJK face moved to the front, which measurement switched to
+  # as soon as any character outside ASCII appeared anywhere in the figure while
+  # the drawing kept to this one — so Latin text was measured in a face it was
+  # not set in. Fontconfig reaches the CJK faces through this order anyway, the
+  # scripts that need them measuring the same either way, so the second order
+  # bought nothing and is gone.
+  def list(style)
+    FONT_FAMILIES.fetch(style.to_sym)
   end
 
-  def for_svg(style, cjk_priority: false)
-    list(style, cjk_priority: cjk_priority).map { |name| name.include?(" ") ? "'#{name}'" : name }.join(", ")
+  def for_svg(style)
+    list(style).map { |name| name.include?(" ") ? "'#{name}'" : name }.join(", ")
   end
 
-  def for_pango(style, cjk_priority: false)
-    list(style, cjk_priority: cjk_priority).join(", ")
+  def for_pango(style)
+    list(style).join(", ")
   end
 
   module_function :list, :for_svg, :for_pango

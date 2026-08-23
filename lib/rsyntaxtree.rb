@@ -236,7 +236,6 @@ module RSyntaxTree
                   else :sans
                   end
           fontset[:family] = FontFamily.for_pango(style)
-          fontset[:family_cjk] = FontFamily.for_pango(style, cjk_priority: style != :cjk)
           new_params[:fontstyle] = style.to_s
         else
           new_params[key] = value
@@ -258,7 +257,6 @@ module RSyntaxTree
       # fall back to the merged default style otherwise
       if fontset[:family].nil?
         fontset[:family] = FontFamily.for_pango(@params[:fontstyle])
-        fontset[:family_cjk] = FontFamily.for_pango(@params[:fontstyle], cjk_priority: true)
       end
       @params[:fontset] = fontset
       single_x_metrics = FontMetrics.get_metrics("X", fontset[:family], @params[:fontsize], :normal, :normal)
