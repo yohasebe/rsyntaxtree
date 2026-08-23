@@ -268,6 +268,53 @@ class FigureSweepTest < Minitest::Test
     end
   end
 
+  # Mirroring turns the figure over, and turning it over is all it does: every
+  # label ends up as far from the right edge as it stood from the left. The
+  # packing runs before the turn, so the two must not depend on each other —
+  # a contour read after the turn, or a turn that moved a subtree instead of
+  # reflecting it, would show here as the figures failing to line up.
+  def test_mirroring_reflects_the_figure_whatever_the_packing
+    %w[off low medium high symmetric].each do |tidy|
+      TREES.each_value do |data|
+        plain = node_extents(data, tidy: tidy)
+        turned = node_extents(data, tidy: tidy, mirror: "on")
+        # Reflection about any axis leaves this sum the same for every node,
+        # so it is read off the figures rather than assumed.
+        sums = plain.filter_map do |id, (x, _)|
+          turned[id] && (turned[id].sum + x).round(3)
+        end
+        refute_empty sums
+        assert_in_delta sums.min, sums.max, 0.5,
+                        "tidy #{tidy}: mirroring did not reflect the figure"
+      end
+    end
+  end
+
+  # A region covers the subtree it is put on: all of it, and none of what
+  # stands beside it. The shade is drawn behind the tree with a padding of its
+  # own, so the packing has to leave room for it however tightly it packs.
+  def test_a_region_covers_its_subtree_and_no_more
+    %w[off low medium high symmetric].each do |tidy|
+      { "[S [%NP [D the] [N dog]] [VP [V chased] [NP [D a] [N cat]]]]" => 5,
+        "[S [%A [B [C [D deep]]]] [E e]]" => 5,
+        "[%S [NP a] [VP b]]" => 5,
+        "[S [%A [a1 x] [a2 y] [a3 z]] [B b]]" => 7 }.each do |data, labels|
+        doc = Nokogiri::XML(draw(data, tidy: tidy))
+        canvas = doc.root["viewBox"].split(/[\s,]+/).map(&:to_f)[2]
+        shades = doc.css("rect").reject do |r|
+          r.ancestors("defs").any? || r["width"].to_f >= canvas - 1
+        end
+        assert_equal 1, shades.size, "tidy #{tidy}: expected one region"
+
+        inside, touching = region_tally(doc, shades.first)
+        assert_equal labels, inside,
+                     "tidy #{tidy}: the region covers #{inside} labels of #{labels}"
+        assert_equal inside, touching,
+                     "tidy #{tidy}: the region cuts across a label beside it"
+      end
+    end
+  end
+
   private
 
   # The width the layout gave the label 'relies', read from the interchange
@@ -301,6 +348,41 @@ class FigureSweepTest < Minitest::Test
       (daughter["position"]["y"] -
         (mother["position"]["y"] + mother["position"]["content_height"])).round(2)
     end.compact
+  end
+
+  # Where each node sits and how wide it is, read from the interchange format.
+  def node_extents(data, **opts)
+    lsif = JSON.parse(
+      RSyntaxTree::RSGenerator.new(
+        DEFAULT_OPTS.merge(data: data, format: "lsif").merge(opts)
+      ).draw_lsif
+    )
+    lsif["nodes"].to_h { |n| [n["id"], [n["position"]["x"], n["position"]["content_width"]]] }
+  end
+
+  # How many labels a shade holds, and how many it reaches at all. The two are
+  # the same when it covers whole labels and cuts across none.
+  def region_tally(doc, shade)
+    x1 = shade["x"].to_f
+    y1 = shade["y"].to_f
+    x2 = x1 + shade["width"].to_f
+    y2 = y1 + shade["height"].to_f
+    inside = 0
+    touching = 0
+    doc.css("tspan").reject { |t| t.ancestors("defs").any? }.each do |t|
+      next unless t["x"] && t["y"] && inked?(t.text)
+
+      metrics = FontMetrics.get_metrics(t.text, text_family(t), font_size(t), :normal, :normal)
+      left = t["x"].to_f
+      right = left + metrics.width
+      top = t["y"].to_f - metrics.ink_above
+      bottom = top + metrics.ink_height
+      next unless left < x2 && right > x1 && top < y2 && bottom > y1
+
+      touching += 1
+      inside += 1 if left >= x1 - 1 && right <= x2 + 1 && top >= y1 - 1 && bottom <= y2 + 1
+    end
+    [inside, touching]
   end
 
   # Whether a run puts any ink on the page. A `<>` in the input becomes a run of
