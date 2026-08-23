@@ -127,6 +127,19 @@ module FontMetrics
   # 1.25x, so mixed-language documents had inconsistent spacing).
   LINE_HEIGHT_FACTOR = 1.4
 
+  # How far below the baseline the visual centre of a line of text sits.
+  #
+  # Text is placed by its baseline, so anything meant to sit level with it — a
+  # box drawn around it, a rule beside it — has to know where the middle of the
+  # marks is. The answer is half the height of a capital, not half of whatever
+  # is written: centring on the marks themselves puts the middle of an `s`
+  # lower than the middle of a `G`, and centring on the whole cap-to-descender
+  # band sits low around digits and capitals, which reach nothing below the
+  # baseline and are most of what a label holds.
+  def visual_centre(font, fontsize)
+    get_metrics("X", font, fontsize, :normal, :normal).ink_above / 2.0
+  end
+
   # Measures text with Pango, the same engine (and the same font fallback
   # resolution) that librsvg uses to render the SVG output, so widths stay
   # consistent with the drawn output for any script. `font` is a
@@ -152,5 +165,5 @@ module FontMetrics
     @pango_layout ||= Pango::Layout.new(Pango::CairoFontMap.default.create_context)
   end
 
-  module_function :get_metrics, :pango_layout
+  module_function :get_metrics, :pango_layout, :visual_centre
 end

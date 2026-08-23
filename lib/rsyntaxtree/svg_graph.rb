@@ -928,13 +928,9 @@ module RSyntaxTree
       return if name.nil? || name.empty?
 
       size = (@fontsize * 0.8).round(2)
-      metrics = FontMetrics.get_metrics(name, @fontset[:family], size, :normal, :normal)
-      # Centre the marks on the rule, not the line box on it. Text is placed by
-      # its baseline, and how far the marks sit above that differs with what is
-      # written — an arrow and a Greek capital do not fill the same band — so
-      # the offset is measured from the ink rather than taken as a fraction of
-      # the line height, which set every name a little low.
-      baseline = y + metrics.ink_above - metrics.ink_height / 2.0
+      # Level with the rule, by the same reckoning an enclosure uses to sit
+      # level with what it encloses.
+      baseline = y + FontMetrics.visual_centre(@fontset[:family], size)
       @tree_data += @text_styles.sub(/COLOR/, @col_line)
                                 .sub(/fontsize/, size.to_s + "px;")
                                 .sub(/X_VALUE/, (right + @global[:width_half_x]).to_s)

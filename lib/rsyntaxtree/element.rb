@@ -371,7 +371,7 @@ module RSyntaxTree
               # ENCLOSURE_SIZE only for content that will not fit.
               band = FontMetrics.get_metrics("Xg", font, fontsize, :normal, :normal)
               descender = band.ink_height - band.ink_above
-              centre = standard_metrics.ink_above / 2.0
+              centre = FontMetrics.visual_centre(font, fontsize)
 
               ink = FontMetrics.get_metrics(text, font, fontsize, style, weight)
               ink_height = ink.ink_height.to_f
