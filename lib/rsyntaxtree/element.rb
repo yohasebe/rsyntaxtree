@@ -45,14 +45,13 @@ module RSyntaxTree
       # it, written after a column break: `S/NP\t\>B`. The name belongs beside
       # the rule rather than beside the result, so it comes out of the label
       # here, before the label is measured, and BaseGraph draws it at the end
-      # of the rule. Only a single-line label with exactly one break is read
-      # this way, which leaves a feature matrix — many lines, many columns —
-      # alone. A break the writer escaped is theirs and is not a break here.
+      # of the rule.
       if global && global[:derivation] && names_a_rule
-        parts = content.split(/(?<!\\)\\t/, -1)
-        if parts.size == 2 && !content.include?('\\n') && !parts[1].strip.empty?
-          @rule_name = parts[1].strip
-          content = parts[0]
+        at = rule_name_break(content)
+        name = at && content[(at + 2)..].to_s.strip
+        if name && !name.empty?
+          @rule_name = name
+          content = content[0...at]
         end
       end
 
@@ -468,6 +467,36 @@ module RSyntaxTree
     # the air around it.
     def matrix_bracket_room
       @global[:width_half_x] * MATRIX_BRACKET_ROOM
+    end
+
+    # Where the break that names the rule is, or nil if the label does not name
+    # one. It is the break at the top level of the label: a feature matrix is
+    # written with breaks of its own and those belong to its columns, so a step
+    # whose category is a matrix can still name the rule that produced it.
+    #
+    # Exactly one, and no line break outside a matrix: a rule has one name, and
+    # a label written over several lines is a matrix rather than a step. A
+    # break the writer escaped is theirs and is not a break here.
+    def rule_name_break(content)
+      depth = 0
+      breaks = []
+      lined = false
+      index = 0
+      while index < content.length
+        pair = content[index, 2]
+        case pair
+        when "#(" then depth += 1
+        when "#)" then depth -= 1
+        when "\\\\" then nil # an escaped backslash owns the character after it
+        when '\\t' then breaks << index if depth.zero?
+        when '\\n' then lined = true if depth.zero?
+        else
+          index += 1
+          next
+        end
+        index += 2
+      end
+      breaks.first if !lined && breaks.size == 1
     end
 
     # The first row of a label carries a margin above it that holds the text

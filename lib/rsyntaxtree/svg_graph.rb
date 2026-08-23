@@ -903,15 +903,20 @@ module RSyntaxTree
       right = [right, parent.horizontal_indent + parent.content_width].max
 
       hctt = @global[:height_connector_to_text]
-      child_edge = children.map { |c| c.vertical_indent + c.content_height }.max
-      parent_top = parent.vertical_indent
-      y = if parent_top >= child_edge
-            # The parent sits below: the rule goes between the two.
-            (child_edge + hctt + parent_top) / 2.0
+      above, below = derivation_rule_band(parent)
+      y = if above
+            (above + hctt + below) / 2.0
           else
-            # The parent sits above (an ordinary top-to-bottom tree).
-            (parent.vertical_indent + parent.content_height + hctt +
-             children.map(&:vertical_indent).min) / 2.0
+            child_edge = children.map { |c| c.vertical_indent + c.content_height }.max
+            parent_top = parent.vertical_indent
+            if parent_top >= child_edge
+              # The parent sits below: the rule goes between the two.
+              (child_edge + hctt + parent_top) / 2.0
+            else
+              # The parent sits above (an ordinary top-to-bottom tree).
+              (parent.vertical_indent + parent.content_height + hctt +
+               children.map(&:vertical_indent).min) / 2.0
+            end
           end
 
       @tree_data += @line_styles.sub(/X1/, left.to_s).sub(/Y1/, y.to_s)

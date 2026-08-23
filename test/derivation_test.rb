@@ -262,6 +262,50 @@ class DerivationTest < Minitest::Test
     %w[a L].each { |t| assert_includes svg, ">#{t}<" }
   end
 
+  # A category may be a feature structure, which is how a derivation is written
+  # where the categories carry features. The breaks inside the matrix are its
+  # own columns; the one that names the rule is the break at the top level of
+  # the label. Counted together, a matrix category could name no rule at all
+  # and the label was refused — with advice to turn on the option that was
+  # already on.
+  def test_a_matrix_category_can_name_its_rule
+    svg = draw('[#(CAT\tS#)\t< [#(CAT\tNP#)\t> [#(CAT\tNP/N#) the] ' \
+               '[#(CAT\tN#) dog]] [#(CAT\tS\\\\NP#) bit]]', hyphen: "literal")
+    assert_includes svg, "&lt;"
+    assert_includes svg, "CAT"
+    assert_equal 0, slanted_lines(svg)
+  end
+
+  # Rows are levelled after the layout is turned over. Turning it over sets
+  # each box against its own bottom edge, so a matrix — taller than the
+  # categories beside it — stood proud of its row and took the rule drawn to it
+  # up with it, leaving two steps of the same derivation at two heights.
+  def test_a_tall_category_does_not_lift_its_rule_off_the_row
+    %w[btt ttb].each do |direction|
+      svg = draw('[S\t< [#(CAT\tNP\nNUM\tsg#)\t> [NP/N the] [N dog]] ' \
+                 '[S\\\\NP\t> [(S\\\\NP)/NP bit] [NP John]]]',
+                 hyphen: "literal", direction: direction)
+      heights = rule_heights(svg)
+      # Four words, two steps over them, then one step over both: three heights.
+      assert_equal 3, heights.size,
+                   "#{direction}: the rules stand at #{heights.size} heights, not three"
+    end
+  end
+
+  # Where all the categories are one line, every row is the same height, so the
+  # rules come at an even pitch down the page. Placing a rule from its row
+  # rather than from its label must leave that pitch alone — a derivation of
+  # plain categories is what the gallery holds, and what most readers write.
+  def test_rules_come_at_an_even_pitch_when_the_rows_are_of_a_height
+    %w[btt ttb].each do |direction|
+      heights = rule_heights(draw(APPLICATION, direction: direction))
+      assert_operator heights.size, :>=, 3
+      pitches = heights.each_cons(2).map { |a, b| (b - a).round(1) }
+      assert_equal 1, pitches.uniq.size,
+                   "#{direction}: the rules come at #{pitches.uniq.inspect} apart, not one pitch"
+    end
+  end
+
   # A feature matrix is many lines and many columns. Reading its last column as
   # a rule name would take a value out of the matrix.
   def test_a_matrix_label_keeps_all_its_columns
@@ -308,6 +352,13 @@ class DerivationTest < Minitest::Test
   end
 
   private
+
+  # The heights the horizontal rules stand at, in order down the page.
+  def rule_heights(svg)
+    svg.scan(/<line[^>]*y1='([\d.]+)' x2='[\d.]+' y2='([\d.]+)'/)
+       .select { |y1, y2| (y1.to_f - y2.to_f).abs < 0.01 }
+       .map { |y1,| y1.to_f.round(1) }.uniq.sort
+  end
 
   # A rule is horizontal: both ends share a y. Anything else is a connector
   # the derivation was supposed to replace.

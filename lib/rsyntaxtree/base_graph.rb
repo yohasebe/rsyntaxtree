@@ -258,12 +258,22 @@ module RSyntaxTree
     #
     # Run after the ordinary placement, so the row heights and the drop between
     # them are the ones that pass settled on.
-    def level_derivation_rows
+    # Levelled twice, and the two are not the same pass. The first runs inside
+    # the layout, because tidy packs subtrees by their contours and a contour is
+    # read off the vertical positions: rows it has not seen levelled pack as
+    # though the figure were a tree, and two rules of one row come out
+    # overlapping. The second runs after the layout has been turned over, since
+    # turning it over sets each box against its own bottom edge, which leaves a
+    # tall label — a feature matrix, say — standing proud of its row. Counting
+    # rows from the end the words are at is what makes the second pass the same
+    # reckoning as the first, read the other way up.
+    def level_derivation_rows(flipped: false)
       root_height = subtree_height(1)
       rows = {}
       tallest = Hash.new(0.0)
       @element_list.get_elements.each do |e|
-        row = root_height - subtree_height(e.id)
+        height = subtree_height(e.id)
+        row = flipped ? height : root_height - height
         rows[e.id] = row
         tallest[row] = [tallest[row], e.content_height].max
       end
@@ -277,6 +287,40 @@ module RSyntaxTree
       end
 
       @element_list.get_elements.each { |e| e.vertical_indent = top[rows[e.id]] }
+
+      # Which row each element ended up in, kept for the drawing: a rule belongs
+      # between two rows, not between two labels. Placed from the label instead,
+      # a step whose result is taller than its neighbours — a feature matrix
+      # among plain categories — had its rule drawn at a height of its own while
+      # the rules beside it stayed on the row.
+      @derivation_rows = rows
+    end
+
+    # How far a row reaches, read from the labels as they stand. Taken when the
+    # rows were levelled it would be the measured height, and the drawing works
+    # to a slightly different one.
+    def derivation_row_extent(row)
+      @derivation_extents ||= {}
+      @derivation_extents[row] ||= begin
+        members = @element_list.get_elements.select { |e| @derivation_rows[e.id] == row }
+        [members.map(&:vertical_indent).min,
+         members.map { |e| e.vertical_indent + e.content_height }.max]
+      end
+    end
+
+    # The rule for a step runs between the row its result sits in and the row
+    # holding the last of its premises — always the next row along, since a step
+    # is one taller than the tallest thing it draws on.
+    def derivation_rule_band(parent)
+      return nil unless @derivation_rows
+
+      row = @derivation_rows[parent.id]
+      neighbour = row + (@direction == "btt" ? -1 : 1)
+      return nil unless @derivation_rows.value?(neighbour)
+
+      here = derivation_row_extent(row)
+      there = derivation_row_extent(neighbour)
+      @direction == "btt" ? [there[1], here[0]] : [here[1], there[0]]
     end
 
     # Steps from +id+ down to the furthest word under it. A word is zero.
@@ -1003,6 +1047,7 @@ module RSyntaxTree
       # btt is the top-to-bottom layout turned over, so the layout runs as
       # usual and the flip comes after it.
       flip_vertical if @direction == "btt"
+      level_derivation_rows(flipped: true) if @derivation && @direction == "btt"
       mirror_layout if @mirror
 
       draw_elements
