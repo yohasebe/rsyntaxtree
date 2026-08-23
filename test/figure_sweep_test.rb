@@ -51,7 +51,13 @@ class FigureSweepTest < Minitest::Test
     nested: from_gallery("076"),
     f_structure: from_gallery("078"),
     in_a_tree: '[#(CAT\tS\nVAL\t⟨⟩#) [#(CAT\tNP#) Kim] ' \
-               '[#(CAT\tVP\nVAL\t⟨|1|⟩#) [#(CAT\tV#) sleeps]]]'
+               '[#(CAT\tVP\nVAL\t⟨|1|⟩#) [#(CAT\tV#) sleeps]]]',
+    # A label that is nothing but a matrix, which is measured as a decoration
+    # on the run rather than as the node's own enclosure and so goes down a
+    # different path from the two above. Kept flat on purpose: a matrix nested
+    # inside brings padding of its own, which covered the shortfall that a
+    # plain one exposes.
+    whole_label: '[#(CAT\tS\nVAL\t⟨⟩#)]'
   }.freeze
 
   # A hyphen opens an underline, and the deepest of these has RELIED-ON in it,
@@ -159,7 +165,68 @@ class FigureSweepTest < Minitest::Test
     end
   end
 
+  # A node is as tall as what is written in it. The tree places the next level
+  # by that height, so a node measured short of its own contents pulls its
+  # daughters up into them — which is what a feature matrix did: every row of a
+  # label is given a margin above it that holds the text clear of the connector
+  # coming down, and the row holding a matrix was measured without it.
+  #
+  # Drawn alone, all the ink in the figure belongs to the one node, so the two
+  # can be compared without having to work out which mark belongs to whom.
+  def test_a_node_is_as_tall_as_what_is_written_in_it
+    %i[nested f_structure whole_label].each do |name|
+      SETTINGS.each do |label, opts|
+        data = MATRICES[name]
+        where = "#{name} at #{label}"
+        lsif = JSON.parse(
+          RSyntaxTree::RSGenerator.new(
+            DEFAULT_OPTS.merge(data: data, format: "lsif").merge(MATRIX_BASE).merge(opts)
+          ).draw_lsif
+        )
+        node = lsif["nodes"].first
+        bottom = node["position"]["y"] + node["position"]["content_height"]
+        ink = ink_bottom(draw(data, **MATRIX_BASE, **opts))
+        next unless ink
+
+        assert_operator bottom, :>=, ink - MARGIN,
+                        "#{where}: the node is #{(ink - bottom).round(1)} shorter than " \
+                        "what is written in it"
+      end
+    end
+  end
+
   private
+
+  # The distance from the bottom of each mother to the top of each daughter,
+  # read from the interchange format, which is where the layout says where it
+  # put things.
+  def parent_to_daughter_gaps(data, **opts)
+    lsif = JSON.parse(
+      RSyntaxTree::RSGenerator.new(
+        DEFAULT_OPTS.merge(data: data, format: "lsif").merge(opts)
+      ).draw_lsif
+    )
+    by_id = lsif["nodes"].to_h { |n| [n["id"], n] }
+    lsif["edges"].map do |e|
+      mother = by_id[e["from"]]
+      daughter = by_id[e["to"]]
+      next unless mother && daughter
+
+      (daughter["position"]["y"] -
+        (mother["position"]["y"] + mother["position"]["content_height"])).round(2)
+    end.compact
+  end
+
+  # How far down the page the ink of a drawing reaches.
+  def ink_bottom(svg)
+    doc = Nokogiri::XML(svg)
+    doc.css("tspan").reject { |t| t.ancestors("defs").any? }.filter_map do |t|
+      next unless t["x"] && t["y"] && !t.text.strip.empty?
+
+      metrics = FontMetrics.get_metrics(t.text, text_family(t), font_size(t), :normal, :normal)
+      t["y"].to_f - metrics.ink_above + metrics.ink_height
+    end.max
+  end
 
   def draw(data, **opts)
     RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(data: data).merge(opts)).draw_svg
@@ -248,10 +315,17 @@ class FigureSweepTest < Minitest::Test
   # Measured in the weight and slant it is drawn in: bold text is wider than
   # the same string set normal, so measuring everything normal would let a bold
   # label reach past the edge unnoticed.
-  def text_width(el)
+  # The family list the run is drawn with, in the form Pango takes, so a string
+  # is measured with the faces it was set in.
+  def text_family(el)
     style = [el["style"], el.parent && el.parent["style"]].compact.join(";")
     family = style[/font-family:\s*([^;]+)/, 1].to_s.tr("'\"", "").strip
-    family = FontFamily.for_pango(:sans) if family.empty?
+    family.empty? ? FontFamily.for_pango(:sans) : family
+  end
+
+  def text_width(el)
+    style = [el["style"], el.parent && el.parent["style"]].compact.join(";")
+    family = text_family(el)
     weight = style.include?("font-weight: bold") ? :bold : :normal
     slant = style.include?("font-style: italic") ? :italic : :normal
     FontMetrics.get_metrics(el.text, family, font_size(el), weight, slant).width

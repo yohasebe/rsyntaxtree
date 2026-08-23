@@ -321,7 +321,8 @@ module RSyntaxTree
               # the padding and the second is what actually separates the
               # bracket from the descenders of the line above it.
               content[:top_room] = matrix_vertical_room * 2
-              elements_height << e[:height]
+              elements_height << with_first_row_margin(e[:height], one_bvm_given)
+              one_bvm_given = true
               row_width += e[:width]
               next
             end
@@ -438,14 +439,8 @@ module RSyntaxTree
             # the height of the nodes above it, so a node measured short of the
             # rhythm pulls its own children up and off the row its cousins sit
             # on.
-            measured = [height, line_height].max
-
-            if one_bvm_given
-              elements_height << measured
-            else
-              one_bvm_given = true
-              elements_height << measured + @global[:box_vertical_margin]
-            end
+            elements_height << with_first_row_margin([height, line_height].max, one_bvm_given)
+            one_bvm_given = true
 
             e[:width] = width
             row_width += width
@@ -468,6 +463,15 @@ module RSyntaxTree
     # the air around it.
     def matrix_bracket_room
       @global[:width_half_x] * MATRIX_BRACKET_ROOM
+    end
+
+    # The first row of a label carries a margin above it that holds the text
+    # clear of the connector coming down to the node. Every row is entered
+    # through here so that the one holding a feature matrix is given it too: it
+    # used to be measured without, and a matrix node came out shorter than the
+    # rows drawn in it, which sat its daughters up inside the matrix.
+    def with_first_row_margin(height, already_given)
+      already_given ? height : height + @global[:box_vertical_margin]
     end
 
     # Vertical room a nested matrix keeps between itself and the rows above and
