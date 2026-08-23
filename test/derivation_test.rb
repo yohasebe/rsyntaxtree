@@ -86,6 +86,32 @@ class DerivationTest < Minitest::Test
     assert_operator btt["S"], :>, btt["a"], "btt should put the root below the leaves"
   end
 
+  # Turned over on its own, without the rules, the connectors have to change
+  # ends: the parent is now the lower of the two. Keeping the top-to-bottom
+  # ends drew every line back up through both labels.
+  def test_btt_connectors_run_between_the_labels
+    svg = draw("[S [NP a] [VP b]]", direction: "btt", derivation: "off")
+    text_y = svg.scan(/<tspan x='[\d.]+' y='([\d.]+)'[^>]*>([^<]*)</)
+                .to_h { |y, t| [t.strip, y.to_f] }
+    svg.scan(/<line[^>]*y1='([\d.]+)'[^>]*y2='([\d.]+)'/).each do |y1, y2|
+      top, bottom = [y1.to_f, y2.to_f].minmax
+      assert_operator top, :>, text_y["a"], "a connector starts above the leaves"
+      assert_operator bottom, :<, text_y["S"] + 40, "a connector runs past the root"
+    end
+  end
+
+  # Both directions and both connector styles: what changes is which edge of
+  # each box the line leaves from, and nothing else.
+  def test_every_direction_and_connector_combination_draws
+    [["ttb", "off"], ["ttb", "on"], ["btt", "off"], ["btt", "on"]].each do |dir, der|
+      [["off"], ["on"]].each do |poly,|
+        svg = draw("[S [NP [D the] [N dog]] [VP bit]]",
+                   direction: dir, derivation: der, polyline: poly)
+        assert_match(/<svg/, svg, "direction=#{dir} derivation=#{der} polyline=#{poly}")
+      end
+    end
+  end
+
   # The rule's name comes out of the label and goes beside the rule, so it is
   # drawn once and is not part of the category.
   def test_the_rule_name_leaves_the_label

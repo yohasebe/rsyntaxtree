@@ -936,6 +936,34 @@ module RSyntaxTree
                                 .sub(/CONTENT/) { CGI.escapeHTML(name) }
     end
 
+    # Where a connector meets each box in a vertical layout: the underside of
+    # whichever sits higher and the top of whichever sits lower. Turned over,
+    # the parent is the lower of the two, and keeping the top-to-bottom edges
+    # sent the line back up through both labels. An empty label has no text to
+    # clear, so the line runs to its middle.
+    def connector_edges(child, parent)
+      hctt = @global[:height_connector_to_text]
+      child_above = child.vertical_indent <= parent.vertical_indent
+
+      child_y = if child.empty_label?
+                  child.vertical_indent + child.content_height / 2
+                elsif child_above
+                  child.vertical_indent + child.content_height + hctt
+                else
+                  child.vertical_indent + hctt / 2
+                end
+
+      parent_y = if parent.empty_label?
+                   parent.vertical_indent + parent.content_height / 2
+                 elsif child_above
+                   parent.vertical_indent + hctt / 2
+                 else
+                   parent.vertical_indent + parent.content_height + hctt
+                 end
+
+      [child_y, parent_y]
+    end
+
     def line_to_parent(parent, child)
       return if child.horizontal_indent.zero?
 
@@ -973,10 +1001,8 @@ module RSyntaxTree
         # TTB: parent's bottom → child's top
         if @polyline
           chi_x = child.horizontal_indent + child.content_width / 2
-          chi_y = child.empty_label? ? child.vertical_indent + child.content_height / 2 : child.vertical_indent + @global[:height_connector_to_text] / 2
-
           par_x = parent.horizontal_indent + parent.content_width / 2
-          par_y = parent.empty_label? ? parent.vertical_indent + parent.content_height / 2 : parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+          chi_y, par_y = connector_edges(child, parent)
 
           mid_x1 = chi_x
           mid_y1 = par_y + (chi_y - par_y) / 2
@@ -994,9 +1020,8 @@ module RSyntaxTree
                                         .sub(/PARY/, par_y.to_s)
         else
           x1 = child.horizontal_indent + child.content_width / 2
-          y1 = child.empty_label? ? child.vertical_indent + child.content_height / 2 : child.vertical_indent + @global[:height_connector_to_text] / 2
           x2 = parent.horizontal_indent + parent.content_width / 2
-          y2 = parent.empty_label? ? parent.vertical_indent + parent.content_height / 2 : parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+          y1, y2 = connector_edges(child, parent)
 
           line_data   = @line_styles.sub(/X1/, x1.to_s)
           line_data   = line_data.sub(/Y1/, y1.to_s)
