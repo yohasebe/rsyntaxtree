@@ -35,7 +35,12 @@ class FigureSweepTest < Minitest::Test
     # the padding, which is how the name came to be cut off at the image edge.
     long_name: ['[S\t>B-forward-composition [NP the cat] [VP sat]]', 2],
     # One word, one step: the smallest derivation there is.
-    single_step: ['[NP\t>T [N dog]]', 1]
+    single_step: ['[NP\t>T [N dog]]', 1],
+    # A pass-through joint in a derivation: a node with nothing written in it,
+    # which the drawing runs the connectors straight through.
+    joint: ['[S\t< [NP\t> [<> [N deep]]] [VP sat]]', 2],
+    # Six premises under one rule, which is what the rule has to reach across.
+    wide: ['[S\t<Φ> [A a] [B b] [C c] [D d] [E e] [F f]]', 6]
   }.freeze
 
   # The two deepest matrices in the gallery, read from the gallery itself so
@@ -63,6 +68,17 @@ class FigureSweepTest < Minitest::Test
   # A hyphen opens an underline, and the deepest of these has RELIED-ON in it,
   # so they are drawn the way the gallery draws them.
   MATRIX_BASE = { hyphen: "literal" }.freeze
+
+  # Ordinary trees whose drawing reaches outside the labels: a region shaded
+  # behind a whole subtree, which is drawn with a padding of its own and has to
+  # be counted into the canvas, and a chain of joints, which the connectors run
+  # straight through.
+  TREES = {
+    region: "[S [%NP [D the] [N dog]] [VP sat]]",
+    region_coloured: "[S [%@blue:NP [D the] [N dog]] [%@red:VP sat]]",
+    joints: "[S [NP [<> [<> [N deep]]]] [VP sat]]",
+    wide: "[S [A a] [B b] [C c] [D d] [E e] [F f]]"
+  }.freeze
 
   # One setting moved at a time from the default, so a drawing that fails says
   # which setting it failed at. The cross of size and face is swept separately
@@ -116,6 +132,18 @@ class FigureSweepTest < Minitest::Test
       SETTINGS.each do |label, opts|
         where = "#{name} at #{label}"
         svg = draw(data, **MATRIX_BASE, **opts)
+        assert_well_formed svg, where
+        assert_everything_inside_the_image svg, where
+        assert_no_connector_crosses_a_label svg, where
+      end
+    end
+  end
+
+  def test_trees_survive_every_setting
+    TREES.each do |name, data|
+      SETTINGS.each do |label, opts|
+        where = "#{name} at #{label}"
+        svg = draw(data, **opts)
         assert_well_formed svg, where
         assert_everything_inside_the_image svg, where
         assert_no_connector_crosses_a_label svg, where
@@ -275,11 +303,19 @@ class FigureSweepTest < Minitest::Test
     end.compact
   end
 
+  # Whether a run puts any ink on the page. A `<>` in the input becomes a run of
+  # the whitespace block, which stands for the space it asks for and is drawn
+  # with nothing in it — a node made only of those is the pass-through joint
+  # that connectors are meant to run straight through.
+  def inked?(text)
+    !text.gsub(WHITESPACE_BLOCK, "").strip.empty?
+  end
+
   # How far down the page the ink of a drawing reaches.
   def ink_bottom(svg)
     doc = Nokogiri::XML(svg)
     doc.css("tspan").reject { |t| t.ancestors("defs").any? }.filter_map do |t|
-      next unless t["x"] && t["y"] && !t.text.strip.empty?
+      next unless t["x"] && t["y"] && inked?(t.text)
 
       metrics = FontMetrics.get_metrics(t.text, text_family(t), font_size(t), :normal, :normal)
       t["y"].to_f - metrics.ink_above + metrics.ink_height
@@ -432,7 +468,7 @@ class FigureSweepTest < Minitest::Test
   def assert_no_connector_crosses_a_label(svg, where)
     doc = Nokogiri::XML(svg)
     boxes = doc.css("tspan").reject { |t| t.ancestors("defs").any? }.filter_map do |t|
-      next unless t["x"] && t["y"] && !t.text.strip.empty?
+      next unless t["x"] && t["y"] && inked?(t.text)
 
       size = font_size(t)
       x = t["x"].to_f
