@@ -270,7 +270,8 @@ class MarkupParserTest < Minitest::Test
   #
   # Asked of the drawing rather than of either list, so a character that falls
   # out of one of them says so here.
-  ESCAPABLE = "#<>{}^+*_=~|-[]%"
+  # The backslash itself is on the list: `\\` is how a label carries one.
+  ESCAPABLE = "#<>{}^+*_=~|-[]%\\"
 
   ESCAPABLE.each_char do |character|
     define_method("test_a_backslash_makes_#{character.ord}_literal") do
