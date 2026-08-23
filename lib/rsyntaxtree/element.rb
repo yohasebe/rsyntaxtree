@@ -353,7 +353,12 @@ module RSyntaxTree
             standard_metrics = FontMetrics.get_metrics('X', font, fontsize, :normal, :normal)
 
             height = standard_metrics.height
-            line_height = height
+            # The rhythm a row advances by belongs to the label, not to the size
+            # a run inside it happens to be set at. Taken from the run, a label
+            # that is nothing but a subscript measured a subscript tall and came
+            # out shorter than the text drawn in it, so its daughters were
+            # placed up into it.
+            line_height = @global[:single_x_metrics].height
             if /\A[<>]+\z/ =~ text
               width = standard_metrics.width * text.size / 2
             elsif text.contains_emoji?

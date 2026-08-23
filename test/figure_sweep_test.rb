@@ -195,6 +195,29 @@ class FigureSweepTest < Minitest::Test
     end
   end
 
+  # The height a label is measured at and the height it is drawn at are worked
+  # out by two pieces of code, and two pieces of code that answer one question
+  # drift. They differ here by a fixed amount — the drawing reckons from the
+  # top of the bracket, the tree from the top edge of the node — and that
+  # amount is the same for every kind of label there is. A label kind that
+  # comes out at some other figure is one the two have stopped agreeing about,
+  # which is how a feature matrix went a whole margin astray.
+  def test_the_two_reckonings_of_a_label_differ_by_one_fixed_amount
+    kinds = MATRICES.values + [
+      "[S [NP Kim] [VP [V sleeps]]]",
+      "[#S [#NP Kim] [##VP z]]",
+      '[S [NP ^triangle] [VP |1| [V {2}]]]',
+      '[S [NP a\nb] [VP *bold* [V _sub_]]]',
+      "[S [NP <> ] [VP z]]"
+    ]
+    [10, 16, 26].each do |size|
+      ratios = kinds.flat_map { |data| measured_to_drawn_ratios(data, fontsize: size) }
+      assert_equal 1, ratios.uniq.size,
+                   "at #{size}px the two reckonings differ by #{ratios.uniq.sort.inspect} " \
+                   "of a connector gap, not by one amount"
+    end
+  end
+
   private
 
   # The distance from the bottom of each mother to the top of each daughter,
@@ -226,6 +249,27 @@ class FigureSweepTest < Minitest::Test
       metrics = FontMetrics.get_metrics(t.text, text_family(t), font_size(t), :normal, :normal)
       t["y"].to_f - metrics.ink_above + metrics.ink_height
     end.max
+  end
+
+  # For every node: how far the drawn height sits from the measured one, in
+  # connector gaps. Reached through the parser and the drawing directly, since
+  # the measured height is what the tree lays out with and the drawn one is
+  # only known once the label has been drawn.
+  def measured_to_drawn_ratios(data, **opts)
+    params = DEFAULT_OPTS.merge(data: data, hyphen: "literal").merge(opts)
+    generator = RSyntaxTree::RSGenerator.new(params)
+    global = generator.instance_variable_get(:@global)
+    resolved = generator.instance_variable_get(:@params)
+    parser = RSyntaxTree::StringParser.new(resolved[:data].clone, resolved[:fontset],
+                                           resolved[:fontsize], global)
+    parser.parse
+    elements = parser.get_elementlist
+    measured = elements.get_elements.map(&:content_height)
+    RSyntaxTree::SVGGraph.new(elements, resolved, global).svg_data
+    gap = global[:height_connector_to_text]
+    elements.get_elements.map.with_index do |element, i|
+      ((element.content_height - measured[i]) / gap).round(3)
+    end
   end
 
   def draw(data, **opts)
