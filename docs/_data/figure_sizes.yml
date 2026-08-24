@@ -48,11 +48,11 @@
   layout: grid-stack
 '011':
   width: 528
-  height: 303
+  height: 284
   layout: grid-wide
 '012':
   width: 675
-  height: 497
+  height: 462
   layout: grid-stack
 '013':
   width: 766
@@ -328,5 +328,5 @@
   layout: ''
 '081':
   width: 740
-  height: 411
+  height: 383
   layout: grid-stack

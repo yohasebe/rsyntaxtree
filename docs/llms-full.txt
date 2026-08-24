@@ -138,7 +138,8 @@ the top instead, each constituent's extent marked by a rule:
 ```
 
 Set `Connector shape` to `none` so that no bar is drawn between a word and its
-category, and use a small `V spacing`: a derivation is set tight.
+category, and use a small `V spacing` — the gallery's derivations are set at
+`0.5`, the smallest there is: a derivation is set tight down the page.
 
 Across the page, use `Tidy layout: low` with a wide `H spacing`. A derivation is
 set as a table, each column as wide as the widest thing standing in it, and that
@@ -942,7 +943,7 @@ Source: Radford 2004
 ## 011 — CCG derivation: forward and backward application
 
 Category: Combinatory Categorial Grammar
-Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.7
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.5
 Source: Steedman 2000
 
 ```
@@ -958,7 +959,7 @@ Source: Steedman 2000
 ## 012 — CCG derivation: a relative clause
 
 Category: Combinatory Categorial Grammar
-Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.7
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.5
 Source: Steedman 2000
 
 ```
@@ -3167,7 +3168,7 @@ Settings: fontstyle=noto-serif tidy=low vheight=1.0
 ## 081 — CCG derivation: right node raising
 
 Category: Combinatory Categorial Grammar
-Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.7
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.5
 Source: Steedman 2000
 
 ```

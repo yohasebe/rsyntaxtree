@@ -279,7 +279,7 @@ Source: Radford 2004
 ## 011 — CCG derivation: forward and backward application
 
 Category: Combinatory Categorial Grammar
-Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.7
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.5
 Source: Steedman 2000
 
 ```
@@ -295,7 +295,7 @@ Source: Steedman 2000
 ## 012 — CCG derivation: a relative clause
 
 Category: Combinatory Categorial Grammar
-Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.7
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.5
 Source: Steedman 2000
 
 ```
@@ -2504,7 +2504,7 @@ Settings: fontstyle=noto-serif tidy=low vheight=1.0
 ## 081 — CCG derivation: right node raising
 
 Category: Combinatory Categorial Grammar
-Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.7
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2.0 leafstyle=nothing tidy=low vheight=0.5
 Source: Steedman 2000
 
 ```

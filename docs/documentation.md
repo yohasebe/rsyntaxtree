@@ -87,7 +87,8 @@ the top instead, each constituent's extent marked by a rule:
 ```
 
 Set `Connector shape` to `none` so that no bar is drawn between a word and its
-category, and use a small `V spacing`: a derivation is set tight.
+category, and use a small `V spacing` — the gallery's derivations are set at
+`0.5`, the smallest there is: a derivation is set tight down the page.
 
 Across the page, use `Tidy layout: low` with a wide `H spacing`. A derivation is
 set as a table, each column as wide as the widest thing standing in it, and that
