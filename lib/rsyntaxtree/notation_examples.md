@@ -283,7 +283,13 @@ Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2
 Source: Steedman 2000
 
 ```
-[S\t< [NP\t> [NP/N the] [N dog]] [S\\NP\t> [(S\\NP)/NP bit] [NP John]]]
+[S\t<
+  [NP\t>
+    [NP/N the]
+    [N dog]]
+  [S\\NP\t>
+    [(S\\NP)/NP bit]
+    [NP John]]]
 ```
 
 ## 012 — CCG derivation: a relative clause
@@ -293,7 +299,16 @@ Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2
 Source: Steedman 2000
 
 ```
-[NP\t> [NP/N the] [N\t< [N man] [N\\N\t> [(N\\N)/(S/NP) that] [S/NP\t>B [S/(S\\NP)\t>T [NP Mary]] [(S\\NP)/NP saw]]]]]
+[NP\t>
+  [NP/N the]
+  [N\t<
+    [N man]
+    [N\\N\t>
+      [(N\\N)/(S/NP) that]
+      [S/NP\t>B
+        [S/(S\\NP)\t>T
+          [NP Mary]]
+        [(S\\NP)/NP saw]]]]]
 ```
 
 ## 013 — HPSG sample
@@ -2493,5 +2508,16 @@ Settings: color=none derivation=on direction=btt fontstyle=noto-serif hspacing=2
 Source: Steedman 2000
 
 ```
-[S\t> [S/NP\t<Φ> [S/NP\t>B [S/(S\\NP)\t>T [NP Mary]] [(S\\NP)/NP likes]] [conj and] [S/NP\t>B [S/(S\\NP)\t>T [NP Bill]] [(S\\NP)/NP hates]]] [NP London]]
+[S\t>
+  [S/NP\t<Φ>
+    [S/NP\t>B
+      [S/(S\\NP)\t>T
+        [NP Mary]]
+      [(S\\NP)/NP likes]]
+    [conj and]
+    [S/NP\t>B
+      [S/(S\\NP)\t>T
+        [NP Bill]]
+      [(S\\NP)/NP hates]]]
+  [NP London]]
 ```
