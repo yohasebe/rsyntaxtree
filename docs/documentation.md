@@ -71,6 +71,14 @@ of the label before the label is read as markup.
 **A backslash in a category is written `\\`.** `S\\NP` draws as `S\NP`. A single
 backslash starts a line break, which is why the doubling is needed.
 
+A category may be a feature structure rather than a plain label, which is how a
+derivation is written where the categories carry features. The breaks inside the
+matrix are its own columns; the one that names the rule is the break outside it:
+
+```text
+[#(CAT\tS#)\t< [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]]
+```
+
 Leave `Direction` at `ttb` and the same option draws the spans of a tree from
 the top instead, each constituent's extent marked by a rule:
 
@@ -81,11 +89,14 @@ the top instead, each constituent's extent marked by a rule:
 Set `Connector shape` to `none` so that no bar is drawn between a word and its
 category, and use a small `V spacing`: a derivation is set tight.
 
-Two things a derivation cannot be. `Direction: ltr` is refused, because a rule
-across the premises needs them side by side. TikZ output is refused as well:
-`forest` joins each daughter to its mother with an edge of its own and puts the
-root at the top, so what it would produce is a correct tree of the same
-structure rather than this figure. Use PNG, SVG or PDF.
+Three things a derivation cannot be. `Direction: ltr` is refused, because a rule
+across the premises needs them side by side. `Hide default connectors` is refused
+too: it draws the connectors in the background colour rather than skipping them,
+and a derivation's rules are the figure itself, not something added to it — hide
+them and the categories are left in rows with nothing joining them. TikZ output
+is refused as well: `forest` joins each daughter to its mother with an edge of
+its own and puts the root at the top, so what it would produce is a correct tree
+of the same structure rather than this figure. Use PNG, SVG or PDF.
 
 ### Tidy Layout
 
