@@ -34,8 +34,11 @@ class MarkupParserTest < Minitest::Test
     case tree
     when Hash then tree.to_h { |key, value| [key, plain(value)] }
     when Array then tree.map { |value| plain(value) }
-    when Symbol, true, false, nil then tree
-    else tree.to_s
+    # Only the slices become text. Everything else the grammar reports is
+    # already the value it means — a refusal carries the offset as a number,
+    # and turning that into "1" would have it fail against 1.
+    when Parslet::Slice then tree.to_s
+    else tree
     end
   end
 
@@ -151,6 +154,14 @@ class MarkupParserTest < Minitest::Test
                   marks,
                   { paths: [] }],
                  plain(@parser.lines.parse("^#X_Y_Z")))
+    # Without the triangle. It is the one maybe that stands on its own, so its
+    # absence is a hash holding a single nil, where the three that follow come
+    # out as one hash of three names.
+    assert_equal([{ triangle: nil },
+                  { enclosure: "#", region: nil, color: nil },
+                  marks,
+                  { paths: [] }],
+                 plain(@parser.lines.parse("#X_Y_Z")))
     assert_equal([{ triangle: "^" },
                   { enclosure: nil, region: nil, color: nil },
                   marks,
@@ -183,6 +194,8 @@ class MarkupParserTest < Minitest::Test
     refused = plain(Markup.parse('!^#----\\n\\nX_Y_Z+1+>2'))
     assert_equal :error, refused[:status]
     assert_equal '!^#----\\n\\nX_Y_Z+1+>2', refused[:text]
+    # Where it gave up, counted in characters — a number, not text.
+    assert_equal 1, refused[:charpos]
   end
 
   def test_escaped_percent
