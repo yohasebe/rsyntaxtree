@@ -89,6 +89,16 @@ the top instead, each constituent's extent marked by a rule:
 Set `Connector shape` to `none` so that no bar is drawn between a word and its
 category, and use a small `V spacing`: a derivation is set tight.
 
+Across the page, use `Tidy layout: low` with a wide `H spacing`. A derivation is
+set as a table, each column as wide as the widest thing standing in it, and that
+is what `low` does: it pulls the columns together and keeps the words in order.
+`H spacing` then opens every column by the same amount, so the figure grows
+wider without the rules and the words losing their proportions — the gallery's
+derivations are set at `2.0`. What not to reach for is `Tidy layout: off`, which
+gives each subtree the width the tree layout allots it: the gaps land wherever
+the branching happens to put them rather than where the table wants them, and
+one of them can be several times another.
+
 Three things a derivation cannot be. `Direction: ltr` is refused, because a rule
 across the premises needs them side by side. `Hide default connectors` is refused
 too: it draws the connectors in the background colour rather than skipping them,
