@@ -12,10 +12,18 @@ Gem::Specification.new do |s|
   s.description = "Syntax tree generator made with Ruby"
   s.licenses    = ["MIT"]
   s.required_ruby_version = ">= 3.2.0"
-  # Exclude the documentation site (gallery assets), development tools and
-  # tests from the installed gem; they live in the repository.
+  # What the gem carries is what someone installing it needs: the library, the
+  # command, the notation reference the command prints, and the files that say
+  # what this is, how to cite it and under what licence. The rest of the
+  # repository is for working on it — the documentation site and its gallery,
+  # the scripts that build them, the tests, the CI and container setup, the
+  # bundle and the rake tasks — and whoever wants those clones the repository.
+  development = ["docs/", "dev/", "img/", "test/", ".github/"]
+  development_files = [".gitattributes", ".gitignore", ".ruby-version",
+                       "Dockerfile", "Gemfile", "Rakefile"]
   s.files         = `git ls-files`.split("\n").reject do |path|
-                      path.start_with?("docs/", "dev/", "img/", "test/")
+                      development.any? { |dir| path.start_with?(dir) } ||
+                        development_files.include?(path)
                     end
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]

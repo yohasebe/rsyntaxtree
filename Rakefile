@@ -13,9 +13,10 @@ Rake::TestTask.new do |task|
     task.warning = false
 end
 
-# Gem packaging preserves on-disk file modes. Owner-only permissions (which a
-# Dropbox-synced checkout tends to produce) ship files that are unreadable, and
-# a CLI that is unexecutable, for anyone but the owner after `sudo gem install`.
+# Gem packaging preserves on-disk file modes, and a working copy can end up with
+# owner-only permissions on everything — some file-syncing tools leave it that
+# way. Packaged as they stand, those files are unreadable, and the CLI is
+# unexecutable, for anyone but the owner after `sudo gem install`.
 # Normalize every tracked file before the gem is built: a file is executable
 # only if it is a command (bin/, exe/) or a script with a shebang; everything
 # else is data and gets 0644. Deciding by path/content rather than by the
