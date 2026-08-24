@@ -44,71 +44,6 @@ The `Direction` option controls the orientation of the tree layout:
 
 In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
 
-### Derivations
-
-A derivation is written differently from a tree. The words come first, at the
-top; each step draws a rule across everything it combines and writes the result
-under it; and what the whole thing arrives at stands at the bottom. Categorial
-grammar is written this way, and so are diagrams of constituent spans.
-
-Turn `Derivation` on and every node is joined to its daughters by one rule
-across all of them, instead of by a line to each. Set `Direction` to `btt` as
-well and the tree is turned over, so the words come first:
-
-```text
-[S\t< [NP\t> [NP/N the] [N dog]] [S\\NP\t> [(S\\NP)/NP bit] [NP John]]]
-```
-
-The structure is the ordinary bracket notation; nothing about it is special to
-derivations. Two things are worth knowing.
-
-**The name of each step goes after a column break.** `[S\t<` means the label is
-`S` and the step that produced it is `<`. The name is set beside the end of its
-own rule, small, where a derivation puts it. Anything can go there — `>`, `<`,
-`>B`, `>T`, `<Φ>` — and none of it needs escaping, because the name is taken out
-of the label before the label is read as markup.
-
-**A backslash in a category is written `\\`.** `S\\NP` draws as `S\NP`. A single
-backslash starts a line break, which is why the doubling is needed.
-
-A category may be a feature structure rather than a plain label, which is how a
-derivation is written where the categories carry features. The breaks inside the
-matrix are its own columns; the one that names the rule is the break outside it:
-
-```text
-[#(CAT\tS#)\t< [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]]
-```
-
-Leave `Direction` at `ttb` and the same option draws the spans of a tree from
-the top instead, each constituent's extent marked by a rule:
-
-```text
-[S [NP [D the] [N dog]] [VP [V bit] [NP John]]]
-```
-
-Set `Connector shape` to `none` so that no bar is drawn between a word and its
-category, and use a small `V spacing` — the gallery's derivations are set at
-`0.5`, the smallest there is: a derivation is set tight down the page.
-
-Across the page, use `Tidy layout: low` with a wide `H spacing`. A derivation is
-set as a table, each column as wide as the widest thing standing in it, and that
-is what `low` does: it pulls the columns together and keeps the words in order.
-`H spacing` then opens every column by the same amount, so the figure grows
-wider without the rules and the words losing their proportions — the gallery's
-derivations are set at `2.0`. What not to reach for is `Tidy layout: off`, which
-gives each subtree the width the tree layout allots it: the gaps land wherever
-the branching happens to put them rather than where the table wants them, and
-one of them can be several times another.
-
-Three things a derivation cannot be. `Direction: ltr` is refused, because a rule
-across the premises needs them side by side. `Hide default connectors` is refused
-too: it draws the connectors in the background colour rather than skipping them,
-and a derivation's rules are the figure itself, not something added to it — hide
-them and the categories are left in rows with nothing joining them. TikZ output
-is refused as well: `forest` joins each daughter to its mother with an edge of
-its own and puts the root at the top, so what it would produce is a correct tree
-of the same structure rather than this figure. Use PNG, SVG or PDF.
-
 ### Tidy Layout
 
 The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one scale from the most spacious to the most dense:
@@ -215,71 +150,6 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 |`str1\nstr2`                   |str1<br />str2      |
 |`str1\n\nstr2`                 |str1<br /><br />str2|
 
-### Feature Structures
-
-An attribute-value matrix is a label of several lines, cut into columns so the
-attributes line up down one side and their values down the other, with brackets
-around the whole. Nothing about it is a notation of its own: it is ordinary label
-markup, and each piece below is useful by itself.
-
-| To draw | Write | Explained under |
-|---------|-------|-----------------|
-| the brackets around the matrix | `#` at the start of the label | [Brackets and Rectangles around a Leaf](#brackets-and-rectangles-around-a-leaf) |
-| attributes and values in columns | `\t` between them | [Columns](#columns) |
-| a matrix as the value of an attribute | `#(` … `#)` | [Nested matrices](#nested-matrices) |
-| a boxed tag, for structure sharing | `|1|` | [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow) |
-| angle brackets around a list | `⟨` and `⟩`, typed as themselves | — |
-| a hyphen in a feature name | `Hyphen: literal` | [Hyphens](#hyphens) |
-
-Put together:
-
-```text
-[#*word*\
-  PHON\t⟨<>*Kim*<>⟩\
-  SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
-    CASE\t*nom*#)\
-    SPR\t⟨<>|1|<>⟩#)#)#)
-]
-```
-
-The gallery has three: an [HPSG feature structure](https://yohasebe.github.io/rsyntaxtree/examples#example-013), a [nested one](https://yohasebe.github.io/rsyntaxtree/examples#example-076), and an [f-structure](https://yohasebe.github.io/rsyntaxtree/examples#example-078).
-
-A matrix can also stand at a node of a tree, which is what HPSG does with them,
-and can be the category of a step in a [derivation](#derivations).
-
-#### Columns
-
-`\t` cuts a line into cells. Every line of the label is cut at the same points, and each column is drawn at the width of its widest cell, so the parts line up down the label instead of starting wherever the text before them happened to end. This is what an attribute-value matrix asks for — the attributes in one column, their values in the next:
-
-```text
-[#HEAD\tnoun\
-  SPR\t⟨<>⟩\
-  COMPS\t⟨<>NP<>⟩
-  Kim
-]
-```
-
-A label with more than two columns works the same way; each is as wide as it needs to be. See the [Head-Driven Phrase Structure Grammar example](https://yohasebe.github.io/rsyntaxtree/examples#example-013) in the gallery.
-
-#### Nested matrices
-
-The value of an attribute can be another matrix, written between `#(` and `#)`. It draws its own brackets and lays out its own columns, and the rows that follow it clear its full height:
-
-```text
-[#*word*\
-  PHON\t⟨<>*Kim*<>⟩\
-  SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
-    CASE\t*nom*#)\
-    SPR\t⟨<>⟩#)#)#)
-]
-```
-
-Matrices nest to any depth, which is what a feature path such as `SYNSEM | LOCAL | CATEGORY | HEAD` needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
-
-#### Hyphens
-
-A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and escaping each one is a poor trade for a rule that work never uses. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead. Two hyphens are structure rather than markup and are left alone either way: a line of nothing but hyphens is still the horizontal rule, and the one in a path suffix (`+-1`) still marks that path dashed.
-
 ### Drawing Non-Text Elements
 
 Circles, boxes and rules can be drawn around or alongside the text.
@@ -373,6 +243,136 @@ The backslash character `\` must be used to print certain characters used in the
 **Note:** A newline character `↩️` is treated just as a whitespace. Thus 1) `\n`, 2) `\↩️`, and 3) `\` followed by a whitespace character are all rendered as a newline `↩️` in the resulting image. Note also that a `↩️` or a whitespace repeated more than once is reduced to a single whitespace.
 
 **Note:** A straight ASCII apostrophe (`'`) in a label is automatically rendered as a typographic (curly) apostrophe `’`, which looks smarter in serif fonts and suits X-bar primes such as `T'`. This also applies to apostrophes in ordinary words (e.g. *John's*).
+
+### Feature Structures
+
+An attribute-value matrix is a label of several lines, cut into columns so the
+attributes line up down one side and their values down the other, with brackets
+around the whole. Nothing about it is a notation of its own: it is ordinary label
+markup, and each piece below is useful by itself.
+
+| To draw | Write | Explained under |
+|---------|-------|-----------------|
+| the brackets around the matrix | `#` at the start of the label | [Brackets and Rectangles around a Leaf](#brackets-and-rectangles-around-a-leaf) |
+| attributes and values in columns | `\t` between them | [Columns](#columns) |
+| a matrix as the value of an attribute | `#(` … `#)` | [Nested matrices](#nested-matrices) |
+| a boxed tag, for structure sharing | `|1|` | [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow) |
+| angle brackets around a list | `⟨` and `⟩`, typed as themselves | — |
+| a hyphen in a feature name | `Hyphen: literal` | [Hyphens](#hyphens) |
+
+Put together:
+
+```text
+[#*word*\
+  PHON\t⟨<>*Kim*<>⟩\
+  SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
+    CASE\t*nom*#)\
+    SPR\t⟨<>|1|<>⟩#)#)#)
+]
+```
+
+The gallery has three: an [HPSG feature structure](https://yohasebe.github.io/rsyntaxtree/examples#example-013), a [nested one](https://yohasebe.github.io/rsyntaxtree/examples#example-076), and an [f-structure](https://yohasebe.github.io/rsyntaxtree/examples#example-078).
+
+A matrix can also stand at a node of a tree, which is what HPSG does with them,
+and can be the category of a step in a [derivation](#derivations).
+
+#### Columns
+
+`\t` cuts a line into cells. Every line of the label is cut at the same points, and each column is drawn at the width of its widest cell, so the parts line up down the label instead of starting wherever the text before them happened to end. This is what an attribute-value matrix asks for — the attributes in one column, their values in the next:
+
+```text
+[#HEAD\tnoun\
+  SPR\t⟨<>⟩\
+  COMPS\t⟨<>NP<>⟩
+  Kim
+]
+```
+
+A label with more than two columns works the same way; each is as wide as it needs to be. See the [Head-Driven Phrase Structure Grammar example](https://yohasebe.github.io/rsyntaxtree/examples#example-013) in the gallery.
+
+#### Nested matrices
+
+The value of an attribute can be another matrix, written between `#(` and `#)`. It draws its own brackets and lays out its own columns, and the rows that follow it clear its full height:
+
+```text
+[#*word*\
+  PHON\t⟨<>*Kim*<>⟩\
+  SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
+    CASE\t*nom*#)\
+    SPR\t⟨<>⟩#)#)#)
+]
+```
+
+Matrices nest to any depth, which is what a feature path such as `SYNSEM | LOCAL | CATEGORY | HEAD` needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
+
+#### Hyphens
+
+A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and escaping each one is a poor trade for a rule that work never uses. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead. Two hyphens are structure rather than markup and are left alone either way: a line of nothing but hyphens is still the horizontal rule, and the one in a path suffix (`+-1`) still marks that path dashed.
+
+### Derivations
+
+A derivation is written differently from a tree. The words come first, at the
+top; each step draws a rule across everything it combines and writes the result
+under it; and what the whole thing arrives at stands at the bottom. Categorial
+grammar is written this way, and so are diagrams of constituent spans.
+
+Turn `Derivation` on and every node is joined to its daughters by one rule
+across all of them, instead of by a line to each. Set `Direction` to `btt` as
+well and the tree is turned over, so the words come first:
+
+```text
+[S\t< [NP\t> [NP/N the] [N dog]] [S\\NP\t> [(S\\NP)/NP bit] [NP John]]]
+```
+
+The structure is the ordinary bracket notation; nothing about it is special to
+derivations. Two things are worth knowing.
+
+**The name of each step goes after a column break.** `[S\t<` means the label is
+`S` and the step that produced it is `<`. The name is set beside the end of its
+own rule, small, where a derivation puts it. Anything can go there — `>`, `<`,
+`>B`, `>T`, `<Φ>` — and none of it needs escaping, because the name is taken out
+of the label before the label is read as markup.
+
+**A backslash in a category is written `\\`.** `S\\NP` draws as `S\NP`. A single
+backslash starts a line break, which is why the doubling is needed.
+
+A category may be a feature structure rather than a plain label, which is how a
+derivation is written where the categories carry features. The breaks inside the
+matrix are its own columns; the one that names the rule is the break outside it:
+
+```text
+[#(CAT\tS#)\t< [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]]
+```
+
+Leave `Direction` at `ttb` and the same option draws the spans of a tree from
+the top instead, each constituent's extent marked by a rule:
+
+```text
+[S [NP [D the] [N dog]] [VP [V bit] [NP John]]]
+```
+
+Set `Connector shape` to `none` so that no bar is drawn between a word and its
+category, and use a small `V spacing` — the gallery's derivations are set at
+`0.5`, the smallest there is: a derivation is set tight down the page.
+
+Across the page, use `Tidy layout: low` with a wide `H spacing`. A derivation is
+set as a table, each column as wide as the widest thing standing in it, and that
+is what `low` does: it pulls the columns together and keeps the words in order.
+`H spacing` then opens every column by the same amount, so the figure grows
+wider without the rules and the words losing their proportions — the gallery's
+derivations are set at `2.0`. What not to reach for is `Tidy layout: off`, which
+gives each subtree the width the tree layout allots it: the gaps land wherever
+the branching happens to put them rather than where the table wants them, and
+one of them can be several times another.
+
+Three things a derivation cannot be. `Direction: ltr` is refused, because a rule
+across the premises needs them side by side. `Hide default connectors` is refused
+too: it draws the connectors in the background colour rather than skipping them,
+and a derivation's rules are the figure itself, not something added to it — hide
+them and the categories are left in rows with nothing joining them. TikZ output
+is refused as well: `forest` joins each daughter to its mother with an edge of
+its own and puts the root at the top, so what it would produce is a correct tree
+of the same structure rather than this figure. Use PNG, SVG or PDF.
 
 ### Draw Paths between Nodes (experimental)
 
