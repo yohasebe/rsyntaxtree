@@ -1,4 +1,4 @@
-RSyntaxTree examples: 75 trees, every one verified to draw.
+RSyntaxTree examples: 76 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -2484,4 +2484,14 @@ Settings: fontstyle=noto-serif tidy=low vheight=1.0
   [VP
     [V [<> [<> sat]]]
     [PP [P [<> on]] [NP [D the] [N mat]]]]]
+```
+
+## 081 — CCG derivation: right node raising
+
+Category: Combinatory Categorial Grammar
+Settings: color=none derivation=on direction=btt fontstyle=noto-serif leafstyle=nothing tidy=low vheight=0.7
+Source: Steedman 2000
+
+```
+[S\t> [S/NP\t<Φ> [S/NP\t>B [S/(S\\NP)\t>T [NP Mary]] [(S\\NP)/NP likes]] [conj and] [S/NP\t>B [S/(S\\NP)\t>T [NP Bill]] [(S\\NP)/NP hates]]] [NP London]]
 ```

@@ -11,7 +11,7 @@ rather than guessing.
 ## Everything in one file
 
 - [llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt): the brief in about fifty lines,
-  then the manual, then all 75 examples with the options each was
+  then the manual, then all 76 examples with the options each was
   drawn with. Roughly 70 KB.
 
 The brief alone is a tenth of that and covers the traps. Which of the two
@@ -20,7 +20,7 @@ to send is not a question this project has an answer to.
 ## The same material as pages
 
 - [Manual](https://yohasebe.github.io/rsyntaxtree/documentation): every construction, with figures
-- [Gallery](https://yohasebe.github.io/rsyntaxtree/examples): 75 trees across linguistic frameworks, each verified to draw
+- [Gallery](https://yohasebe.github.io/rsyntaxtree/examples): 76 trees across linguistic frameworks, each verified to draw
 
 ## Checking your work
 
