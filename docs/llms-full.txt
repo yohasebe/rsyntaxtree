@@ -244,6 +244,49 @@ A node whose label is *only* `<>` renders as an invisible pass-through joint: th
 
 Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, and *on* one row above. Each leaf takes as many joints as it needs to reach the deepest row, so all six words end up on the bottom row. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029) in the gallery uses `<>`-only joints the same way.
 
+#### Newline
+
+|Sample Input                   |Output              |
+|-------------------------------|--------------------|
+|`str1\`<br />`str2`            |str1<br />str2      |
+|`str1\`<br />`   \`<br />`str2`|str1<br /><br />str2|
+|`str1\ str2`                   |str1<br />str2      |
+|`str1\ \ str2`                 |str1<br /><br />str2|
+|`str1\nstr2`                   |str1<br />str2      |
+|`str1\n\nstr2`                 |str1<br /><br />str2|
+
+### Feature Structures
+
+An attribute-value matrix is a label of several lines, cut into columns so the
+attributes line up down one side and their values down the other, with brackets
+around the whole. Nothing about it is a notation of its own: it is ordinary label
+markup, and each piece below is useful by itself.
+
+| To draw | Write | Explained under |
+|---------|-------|-----------------|
+| the brackets around the matrix | `#` at the start of the label | [Brackets and Rectangles around a Leaf](#brackets-and-rectangles-around-a-leaf) |
+| attributes and values in columns | `\t` between them | [Columns](#columns) |
+| a matrix as the value of an attribute | `#(` … `#)` | [Nested matrices](#nested-matrices) |
+| a boxed tag, for structure sharing | `|1|` | [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow) |
+| angle brackets around a list | `⟨` and `⟩`, typed as themselves | — |
+| a hyphen in a feature name | `Hyphen: literal` | [Hyphens](#hyphens) |
+
+Put together:
+
+```text
+[#*word*\
+  PHON\t⟨<>*Kim*<>⟩\
+  SYNSEM\t#(LOCAL\t#(CAT\t#(HEAD\t#(*noun*\
+    CASE\t*nom*#)\
+    SPR\t⟨<>|1|<>⟩#)#)#)
+]
+```
+
+The gallery has three: an [HPSG feature structure](https://yohasebe.github.io/rsyntaxtree/examples#example-013), a [nested one](https://yohasebe.github.io/rsyntaxtree/examples#example-076), and an [f-structure](https://yohasebe.github.io/rsyntaxtree/examples#example-078).
+
+A matrix can also stand at a node of a tree, which is what HPSG does with them,
+and can be the category of a step in a [derivation](#derivations).
+
 #### Columns
 
 `\t` cuts a line into cells. Every line of the label is cut at the same points, and each column is drawn at the width of its widest cell, so the parts line up down the label instead of starting wherever the text before them happened to end. This is what an attribute-value matrix asks for — the attributes in one column, their values in the next:
@@ -276,17 +319,6 @@ Matrices nest to any depth, which is what a feature path such as `SYNSEM | LOCAL
 #### Hyphens
 
 A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and escaping each one is a poor trade for a rule that work never uses. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead. Two hyphens are structure rather than markup and are left alone either way: a line of nothing but hyphens is still the horizontal rule, and the one in a path suffix (`+-1`) still marks that path dashed.
-
-#### Newline
-
-|Sample Input                   |Output              |
-|-------------------------------|--------------------|
-|`str1\`<br />`str2`            |str1<br />str2      |
-|`str1\`<br />`   \`<br />`str2`|str1<br /><br />str2|
-|`str1\ str2`                   |str1<br />str2      |
-|`str1\ \ str2`                 |str1<br /><br />str2|
-|`str1\nstr2`                   |str1<br />str2      |
-|`str1\n\nstr2`                 |str1<br /><br />str2|
 
 ### Drawing Non-Text Elements
 
