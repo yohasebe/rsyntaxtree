@@ -34,13 +34,15 @@ The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By cha
 
 `Line width` sets the thickness of every line in the figure — connectors, brackets, enclosures — as a ratio of the font size. `1` is 5% of it (the weight of an ordinary text rule), each 0.5 step adds another 2.5%, and the scale runs from `0.5` (a hairline) to `3.0` (15%, the heaviest). Because the lines follow the font size, text and lines keep the same balance at any font size.
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-ae181a61'].layout }}" markdown="1">
 
 ```text
-[S [NP [D The] [N cat]] [VP [V sat] [PP [P on] [NP [D the] [N mat]]]]]
+[S
+  [NP [D The] [N cat]]
+  [VP [V sat] [PP [P on] [NP [D the] [N mat]]]]]
 ```
 
-![A tree drawn from labelled bracket notation](assets/doc/doc-39092e78.svg)
+{% include doc_figure.html name="doc-ae181a61" alt="A tree drawn from labelled bracket notation" %}
 
 </div>
 
@@ -54,14 +56,16 @@ The `Direction` option controls the orientation of the tree layout:
 
 In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-88c1647e'].layout }}" markdown="1">
 
 <!-- figure: direction=ltr -->
 ```text
-[Noun [Common [Count cat] [Mass water]] [Proper Tokyo]]
+[Noun
+  [Common [Count cat] [Mass water]]
+  [Proper Tokyo]]
 ```
 
-![The same structure laid out left to right](assets/doc/doc-d96540bc.svg)
+{% include doc_figure.html name="doc-88c1647e" alt="The same structure laid out left to right" %}
 
 </div>
 
@@ -114,13 +118,16 @@ what it has, and the text comes out a little out of balance:
 
 You can apply font styles (italic/bold/bold-italic), text decoration (overline/underline/line-through), subscript/superscript font rendering, and more. These markups can be nested within each other.
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-052f00a8'].layout }}" markdown="1">
 
 ```text
-[S [NP *italic* **bold**] [VP =overline= -underline- X_i_ Y__j__]]
+[Styles
+  [Emphasis *italic* **bold**]
+  [Lines =overline= -underline- ~struck~]
+  [Scripts X_i_ Y__j__]]
 ```
 
-![Italic, bold, overline, underline, subscript and superscript together](assets/doc/doc-b6b3313a.svg)
+{% include doc_figure.html name="doc-052f00a8" alt="Italic, bold, overline, underline, subscript and superscript together" %}
 
 </div>
 
@@ -161,7 +168,7 @@ A label that is *only* `<>` is a special case with its own use: see [Levelling t
 
 A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-4260e983'].layout }}" markdown="1">
 
 ```text
 [S
@@ -171,7 +178,7 @@ A node whose label is *only* `<>` renders as an invisible pass-through joint: th
     [PP [P [<> on]] [NP [D the] [N mat]]]]]
 ```
 
-![Every word on the bottom row, reached with pass-through joints](assets/doc/doc-4260e983.svg)
+{% include doc_figure.html name="doc-4260e983" alt="Every word on the bottom row, reached with pass-through joints" %}
 
 </div>
 
@@ -192,13 +199,15 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 Circles, boxes and rules can be drawn around or alongside the text.
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-48059fe7'].layout }}" markdown="1">
 
 ```text
-[S [#NP |1| {2}] [##VP sat]]
+[Shapes
+  [#Brackets |1| {2}]
+  [##Rectangle boxed]]
 ```
 
-![A boxed tag, a circled tag, brackets and a rectangle](assets/doc/doc-db9d043f.svg)
+{% include doc_figure.html name="doc-48059fe7" alt="A boxed tag, a circled tag, brackets and a rectangle" %}
 
 </div>
 
@@ -253,13 +262,15 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 |`#@red:NP`|Square brackets + red color|
 |`^#@green:NP`|Triangle + brackets + green color|
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-f26350d4'].layout }}" markdown="1">
 
 ```text
-[S [@blue:NP [D the] [N dog]] [@red:VP [V chased] [NP a cat]]]
+[S
+  [@blue:NP [D the] [N dog]]
+  [@red:VP [V chased] [NP a cat]]]
 ```
 
-![Two nodes given colours of their own](assets/doc/doc-22e30cae.svg)
+{% include doc_figure.html name="doc-f26350d4" alt="Two nodes given colours of their own" %}
 
 </div>
 
@@ -292,13 +303,15 @@ semi-transparent. Region shade works in both top-to-bottom and left-to-right
 (`-d ltr`) layouts, and applies to all raster/vector outputs (SVG, PNG, PDF,
 JPG, GIF).
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-3c14cae4'].layout }}" markdown="1">
 
 ```text
-[S [%NP [D the] [N dog]] [%@blue:VP [V chased] [NP a cat]]]
+[S
+  [%NP [D the] [N dog]]
+  [%@blue:VP [V chased] [NP a cat]]]
 ```
 
-![Two subtrees shaded, one of them in a colour](assets/doc/doc-d8af96d7.svg)
+{% include doc_figure.html name="doc-3c14cae4" alt="Two subtrees shaded, one of them in a colour" %}
 
 </div>
 
@@ -330,7 +343,7 @@ markup, and each piece below is useful by itself.
 
 Put together:
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-41e0b789'].layout }}" markdown="1">
 
 ```text
 [#*word*\
@@ -341,7 +354,7 @@ Put together:
 ]
 ```
 
-![A feature structure with columns, a nested matrix and a tag](assets/doc/doc-41e0b789.svg)
+{% include doc_figure.html name="doc-41e0b789" alt="A feature structure with columns, a nested matrix and a tag" %}
 
 </div>
 
@@ -354,7 +367,7 @@ and can be the category of a step in a [derivation](#derivations).
 
 `\t` cuts a line into cells. Every line of the label is cut at the same points, and each column is drawn at the width of its widest cell, so the parts line up down the label instead of starting wherever the text before them happened to end. This is what an attribute-value matrix asks for — the attributes in one column, their values in the next:
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-94998461'].layout }}" markdown="1">
 
 ```text
 [#HEAD\tnoun\
@@ -364,7 +377,7 @@ and can be the category of a step in a [derivation](#derivations).
 ]
 ```
 
-![Attributes in one column and their values in the next](assets/doc/doc-94998461.svg)
+{% include doc_figure.html name="doc-94998461" alt="Attributes in one column and their values in the next" %}
 
 </div>
 
@@ -374,7 +387,7 @@ A label with more than two columns works the same way; each is as wide as it nee
 
 The value of an attribute can be another matrix, written between `#(` and `#)`. It draws its own brackets and lays out its own columns, and the rows that follow it clear its full height:
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-31d502b2'].layout }}" markdown="1">
 
 ```text
 [#*word*\
@@ -385,7 +398,7 @@ The value of an attribute can be another matrix, written between `#(` and `#)`. 
 ]
 ```
 
-![A matrix nested to four levels](assets/doc/doc-31d502b2.svg)
+{% include doc_figure.html name="doc-31d502b2" alt="A matrix nested to four levels" %}
 
 </div>
 
@@ -406,13 +419,19 @@ Turn `Derivation` on and every node is joined to its daughters by one rule
 across all of them, instead of by a line to each. Set `Direction` to `btt` as
 well and the tree is turned over, so the words come first:
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-2d8d212b'].layout }}" markdown="1">
 
 ```text
-[S\t< [NP\t> [NP/N the] [N dog]] [S\\NP\t> [(S\\NP)/NP bit] [NP John]]]
+[S\t<
+  [NP\t>
+    [NP/N the]
+    [N dog]]
+  [S\\NP\t>
+    [(S\\NP)/NP bit]
+    [NP John]]]
 ```
 
-![A categorial derivation, words first and the result last](assets/doc/doc-0e9a1ec9.svg)
+{% include doc_figure.html name="doc-2d8d212b" alt="A categorial derivation, words first and the result last" %}
 
 </div>
 
@@ -432,26 +451,30 @@ A category may be a feature structure rather than a plain label, which is how a
 derivation is written where the categories carry features. The breaks inside the
 matrix are its own columns; the one that names the rule is the break outside it:
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-08f42506'].layout }}" markdown="1">
 
 ```text
-[#(CAT\tS#)\t< [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]]
+[#(CAT\tS#)\t<
+  [#(CAT\tNP#) Kim]
+  [#(CAT\tVP#) sleeps]]
 ```
 
-![A derivation whose categories are feature structures](assets/doc/doc-b6efc69e.svg)
+{% include doc_figure.html name="doc-08f42506" alt="A derivation whose categories are feature structures" %}
 
 </div>
 
 Leave `Direction` at `ttb` and the same option draws the spans of a tree from
 the top instead, each constituent's extent marked by a rule:
 
-<div class="grid" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-902cadd8'].layout }}" markdown="1">
 
 ```text
-[S [NP [D the] [N dog]] [VP [V bit] [NP John]]]
+[S
+  [NP [D the] [N dog]]
+  [VP [V bit] [NP John]]]
 ```
 
-![The same option marking the spans of an ordinary tree](assets/doc/doc-b998f2f6.svg)
+{% include doc_figure.html name="doc-902cadd8" alt="The same option marking the spans of an ordinary tree" %}
 
 </div>
 

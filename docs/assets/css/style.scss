@@ -43,6 +43,25 @@ div.grid.grid-stack .notation {
   max-height: 300px;
 }
 
+/* An example needs air above and below it. The theme sets a small margin on
+   pre, which reads as cramped once the block sits in a grid between two
+   paragraphs — the text runs into the code and the code into the figure. */
+div.grid {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+div.grid > div:first-child > pre,
+div.grid pre.highlight {
+  margin-top: 0;
+}
+
+/* Side by side the figure is centred against the code beside it; stacked, it
+   keeps the left edge the code has. */
+div.grid img {
+  margin-top: 0.25rem;
+}
+
 /* Long input lines scroll inside their own column. */
 div.grid pre,
 div.grid code {

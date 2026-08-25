@@ -1,0 +1,13 @@
+{%- comment -%}
+The figure beside an example in the manual, at the size dev/stamp_figure_sizes.rb
+worked out for it. Every manual figure is drawn at the same font size, so left to
+fit its column each on its own a narrow figure would be shown whole and a wide
+one halved, and the same lettering would look twice the size in one figure as in
+the next. The recorded size eases them onto one scale instead.
+
+  {% include doc_figure.html name="doc-1a2b3c4d" alt="…" %}
+{%- endcomment -%}
+{%- assign size = site.data.doc_figure_sizes[include.name] -%}
+<img src="assets/doc/{{ include.name }}.svg" alt="{{ include.alt }}"
+     {% if size %}width="{{ size.width }}" height="{{ size.height }}"{% endif %}
+     loading="lazy" decoding="async" />

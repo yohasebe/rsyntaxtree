@@ -74,8 +74,14 @@ module DocFigures
   # How the manuals are drawn: no colour, the serif face the gallery uses, and
   # the connectors a tree is drawn with unless the example is a derivation.
   def options(code, asked = nil)
+    # A manual figure sits beside its code in a column, so it is drawn tighter
+    # than the default: the connectors carry no information and length between
+    # the rows only costs the reader scrolling. Everything else is left at the
+    # default, so what the reader is shown is what the same input gives them —
+    # `hyphen: literal` here once made the underline example draw its hyphens
+    # as hyphens, which is the opposite of what it was there to show.
     base = { data: code, color: "off", fontstyle: "serif", fontsize: 16,
-             tidy: "low", linewidth: 1, hyphen: "literal" }
+             tidy: "low", linewidth: 1, vheight: 1.2 }
     if code.include?('\\t') && code.match?(/\\t\s*[<>]/)
       base = base.merge(derivation: "on", direction: "btt", leafstyle: "nothing",
                         vheight: 0.5, hspacing: 2.0)

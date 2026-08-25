@@ -33,6 +33,13 @@ module LlmPayload
     # edition, neither of which belongs in a file that is the content.
     md = md.sub(/^###[^\n]*\n\{:[^}]*\}\n\n1\.\s*toc\n\{:toc\}\n/, "")
     md = md[/^###\s.*/m].to_s
+    # The figure beside each example is a picture of what the code above it
+    # draws, which is nothing a reader of this file can see. The code stays;
+    # the picture and the two-column wrapper it sat in go.
+    md = md.gsub(/^<div class="grid"[^>]*>\n\n?/, "")
+           .gsub(/^<!--\s*figure:.*?-->\n/, "")
+           .gsub(/^\{%-?\s*include\s+doc_figure\.html.*?%\}\n\n?/, "")
+           .gsub(%r{^</div>\n}, "")
     md = md.gsub(/\{%-?\s*include\s+(\S+?)\s*-?%\}/) do
       table_to_list(File.join(ROOT, "docs", "_includes", Regexp.last_match(1)))
     end
