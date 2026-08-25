@@ -40,10 +40,29 @@ DOC_DATA_FILE = File.expand_path("../docs/_data/doc_figure_sizes.yml", __dir__)
 # Without the tiers a wide figure is squeezed into half a row and its lettering
 # comes out half the size of the lettering in the figure above it.
 DOC_LAYOUTS = [
-  { max_width: 460.0, css_class: "",           column: 460.0 },
-  { max_width: 610.0, css_class: "grid-wide",  column: 610.0 },
+  { max_width: 414.0, css_class: "",           column: 460.0 },
+  { max_width: 549.0, css_class: "grid-wide",  column: 610.0 },
   { max_width: nil,   css_class: "grid-stack", column: 940.0 }
 ].freeze
+
+# The manual's figures are eased more gently than the gallery's, and smaller.
+#
+# A gallery figure is the page; a manual figure is one column of a page whose
+# other column is the code that made it, and is read next to the paragraph above
+# it rather than on its own. So it wants to be smaller than the gallery's easing
+# gives it, and — because the reader's eye goes from one figure straight to the
+# next as they read down — it wants its lettering to keep more nearly one size
+# from figure to figure. The flatter exponent does the second: at 0.75 the widest
+# manual figure was drawn at 0.67 of its size and the narrowest at 0.94, and the
+# same 16px label looked half again as large in one as in the other; at 0.85 that
+# spread closes to 0.62–0.77. The coefficient then takes about a tenth off
+# everything.
+#
+# The tier thresholds above are the gallery's, scaled by the same tenth, so that
+# a figure sits in the row it sat in before — a wide feature structure keeps the
+# row to itself rather than being squeezed beside its own six lines of notation.
+DOC_EXPONENT = 0.85
+DOC_COEFFICIENT = 1.739
 
 # How much of the row a figure gets, as a class on the grid in
 # docs/assets/css/style.scss: a figure narrow enough to sit beside the bracket
@@ -120,10 +139,10 @@ HEADER
 
 puts "wrote #{sizes.size} figure sizes to #{DATA_FILE.sub("#{Dir.pwd}/", "")}"
 
-# The manual's figures, by the same reckoning. Every one is drawn at the same
-# font size, so left to fit their column each on its own a narrow figure would
-# be shown whole and a wide one halved, and the same 16px lettering would look
-# twice the size in one figure as in the next.
+# The manual's figures, eased the same way but on their own curve. Every one is
+# drawn at the same font size, so left to fit their column each on its own a
+# narrow figure would be shown whole and a wide one halved, and the same 16px
+# lettering would look twice the size in one figure as in the next.
 def svg_size(path)
   head = File.read(path, 400)
   [head[/\bwidth="([\d.]+)/, 1].to_f, head[/\bheight="([\d.]+)/, 1].to_f]
@@ -134,7 +153,7 @@ if Dir.exist?(DOC_DIR)
     width, height = svg_size(path)
     next if width.zero? || height.zero?
 
-    eased = eased_width(width)
+    eased = DOC_COEFFICIENT * (width**DOC_EXPONENT)
     tier = DOC_LAYOUTS.find { |l| l[:max_width].nil? || eased <= l[:max_width] }
     scale = [eased / width, 900.0 / height, 1.0, tier[:column] / width].min
     acc[File.basename(path, ".svg")] = {

@@ -106,17 +106,20 @@ Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding
 
 `Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-974a005e'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-f38cade7'].layout }}" markdown="1">
 
-<!-- figure: mirror=on -->
+<!-- figure: mirror=on vheight=1.0 -->
 ```text
 [S
-  [NP الكتاب]
-  [VP قرأ]
+  [NP الطالب]
+  [VP
+    [V قرأ]
+    [NP الكتاب]
+  ]
 ]
 ```
 
-{% include doc_figure.html name="doc-974a005e" alt="The same tree reflected, so an Arabic sentence reads right to left" %}
+{% include doc_figure.html name="doc-f38cade7" alt="The same tree reflected, so an Arabic sentence reads right to left" %}
 
 </div>
 
@@ -258,22 +261,35 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 Circles, boxes and rules can be drawn around or alongside the text.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-b04ed95a'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-7988cf4f'].layout }}" markdown="1">
 
 ```text
 [Shapes
   [#Brackets |1| {2}]
-  [##Rectangle boxed]
+  [##Rectangle |boxed|]
 ]
 ```
 
-{% include doc_figure.html name="doc-b04ed95a" alt="A boxed tag, a circled tag, brackets and a rectangle" %}
+{% include doc_figure.html name="doc-7988cf4f" alt="A boxed tag, a circled tag, brackets and a rectangle" %}
 
 </div>
 
 #### Small Capitals
 
 Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD.
+
+<div class="grid {{ site.data.doc_figure_sizes['doc-978d14e0'].layout }}" markdown="1">
+
+```text
+[#H___EAD___\tnoun\
+  C___ASE___\tnom
+  Kim
+]
+```
+
+{% include doc_figure.html name="doc-978d14e0" alt="Attribute names set in imitation small capitals" %}
+
+</div>
 
 #### Box, Circle, Bar, and Arrow
 
@@ -291,27 +307,27 @@ Here, `---` represents `-` repeated three times or more consecutively.
 
 ### Connectors
 
-`Connector shape` offers three settings for what is drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
+`Connector shape` offers three settings for what is drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. It can go at the head of the node's label instead: `[NP ^cats]` and `[^NP cats]` ask for the same thing. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-57fc7fda'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-6b6e6d02'].layout }}" markdown="1">
 
 ```text
 [S
   [NP a phrase]
   [VP
     [V word]
-    [NP ^forced triangle]
+    [NP ^forced]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-57fc7fda" alt="A triangle for a phrase, a bar for a single word, and one forced with a caret" %}
+{% include doc_figure.html name="doc-6b6e6d02" alt="A triangle for a phrase, a bar for a single word, and one asked for with a caret" %}
 
 </div>
 
 ### Brackets and Rectangles around a Leaf
 
-In `auto` mode, the triangle connector shape is applied when the terminal node contains words separated by whitespace. In `bar` and `none` modes, triangles are drawn for the nodes with `^` at the beginning of the leaf text, lie `[NP ^syntax-trees]`.
+In `auto` mode, the triangle connector shape is applied when the terminal node contains words separated by whitespace. `bar` and `none` do not read whitespace that way, and under either — as under `auto` — a `^` at the beginning of the leaf text asks for a triangle, like `[NP ^syntax-trees]`.
 
 If a `#` character is placed at the beginning of a label or leaf text (right after `^` if there is one), the text is enclosed in a pair of square brackets (e.g. `[#NP text]`, `[NP #text]`, `[NP ^#text]`).
 
@@ -576,6 +592,7 @@ the top instead, each constituent's extent marked by a rule:
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-3a24085b'].layout }}" markdown="1">
 
+<!-- figure: derivation=on leafstyle=nothing vheight=0.5 hspacing=2.0 -->
 ```text
 [S
   [NP
@@ -628,22 +645,25 @@ Each path is distinguished by a unique ID number. The ID is specified by putting
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-5f725310'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-faa011eb'].layout }}" markdown="1">
 
 ```text
-[S
-  [NP+1 What]
-  [S
-    [NP does]
-    [VP
-      [V like]
-      [NP+>1 t]
+[CP
+  [NP What+1]
+  [C'
+    [C does]
+    [IP
+      [NP John]
+      [VP
+        [V like]
+        [NP t+>1]
+      ]
     ]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-5f725310" alt="A path with an arrowhead, drawn between two nodes that share an ID" %}
+{% include doc_figure.html name="doc-faa011eb" alt="A path with an arrowhead, drawn between two leaves that share an ID" %}
 
 </div>
 
@@ -659,17 +679,16 @@ Each additional connectors is distinguished by an ID number. The ID is specified
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the additional connector is rendered. The same ID number cannot appear in more than two places.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-481ba325'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-0f4a4bf1'].layout }}" markdown="1">
 
 ```text
 [S
-  [Subject+-1 they]
-  [Verb+->1 agree]
-  [Object them]
+  [NP+-1 The dogs]
+  [VP+->1 bark]
 ]
 ```
 
-{% include doc_figure.html name="doc-481ba325" alt="An extra connector, drawn straight between two nodes of the same row" %}
+{% include doc_figure.html name="doc-0f4a4bf1" alt="An extra connector, drawn straight between two nodes of the same row" %}
 
 </div>
 

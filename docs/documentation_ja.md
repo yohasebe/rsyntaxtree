@@ -105,17 +105,20 @@ Tidy モードではコネクタの高さも自動調整されます．`横間�
 
 `左右反転（RTL）` は `方向` と組み合わせられます。実例は[ギャラリーの Multilingual カテゴリ](https://yohasebe.github.io/rsyntaxtree/examples)のアラビア語の例をご覧ください．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-974a005e'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-f38cade7'].layout }}" markdown="1">
 
-<!-- figure: mirror=on -->
+<!-- figure: mirror=on vheight=1.0 -->
 ```text
 [S
-  [NP الكتاب]
-  [VP قرأ]
+  [NP الطالب]
+  [VP
+    [V قرأ]
+    [NP الكتاب]
+  ]
 ]
 ```
 
-{% include doc_figure.html name="doc-974a005e" alt="反転した木．アラビア語の文が右から左に読める" %}
+{% include doc_figure.html name="doc-f38cade7" alt="反転した木．アラビア語の文が右から左に読める" %}
 
 </div>
 
@@ -258,22 +261,35 @@ CJK のテキストを描画できます．
 
 テキストと組み合わせてサークル○，ボックス□，水平線などを描画することができます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-b04ed95a'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-7988cf4f'].layout }}" markdown="1">
 
 ```text
 [Shapes
   [#Brackets |1| {2}]
-  [##Rectangle boxed]
+  [##Rectangle |boxed|]
 ]
 ```
 
-{% include doc_figure.html name="doc-b04ed95a" alt="四角と丸のタグ，括弧と矩形の囲み" %}
+{% include doc_figure.html name="doc-7988cf4f" alt="四角と丸のタグ，括弧と矩形の囲み" %}
 
 </div>
 
 #### スモールキャピタル
 
 HPSGなどの素性構造の素性名は慣例としてスモールキャピタルで組まれますが，これを見た目上、実現することができます（フォント自体はスモールキャピタルフォントを使いません）。大文字は通常通り表示し、スモールキャピタルの部分は `___` で囲んでください．例えば、`H___EAD___` と書くと，通常の大きさの H に続いて小さめの EAD が描かれます．
+
+<div class="grid {{ site.data.doc_figure_sizes['doc-978d14e0'].layout }}" markdown="1">
+
+```text
+[#H___EAD___\tnoun\
+  C___ASE___\tnom
+  Kim
+]
+```
+
+{% include doc_figure.html name="doc-978d14e0" alt="スモールキャピタル風に組まれた素性名" %}
+
+</div>
 
 #### ボックス・サークル・水平線・矢印
 
@@ -291,21 +307,21 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 
 ### コネクター
 
-`コネクタ形状` では終端ノードとリーフの間に何を描くかを3種の中から選べます（`auto`，`bar`，`none`）．`auto` では，1つ以上の空白を含むリーフ（要するに「句」）に対しては終端ノードを頂点とした三角形を描画します．リーフが空白を含まない場合（つまり「単語」の場合)，垂直の直線が描かれます ．なお，リーフの先頭に `^` をつけると，そのリーフが句であると宣言することになります．したがって必ず三角形が描かれます． `bar` では，すべてのリーフに関して垂直の直線が描かれます． `none` では終端ノードとリーフの間にコネクターは描かれません．
+`コネクタ形状` では終端ノードとリーフの間に何を描くかを3種の中から選べます（`auto`，`bar`，`none`）．`auto` では，1つ以上の空白を含むリーフ（要するに「句」）に対しては終端ノードを頂点とした三角形を描画します．リーフが空白を含まない場合（つまり「単語」の場合)，垂直の直線が描かれます ．なお，リーフの先頭に `^` をつけると，そのリーフが句であると宣言することになります．したがって必ず三角形が描かれます．`^` はノードのラベルの先頭に置いても構いません．`[NP ^cats]` と `[^NP cats]` は同じ意味です． `bar` では，すべてのリーフに関して垂直の直線が描かれます． `none` では終端ノードとリーフの間にコネクターは描かれません．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-57fc7fda'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-6b6e6d02'].layout }}" markdown="1">
 
 ```text
 [S
   [NP a phrase]
   [VP
     [V word]
-    [NP ^forced triangle]
+    [NP ^forced]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-57fc7fda" alt="句には三角，単語には縦線．先頭の ^ で三角を強制した例" %}
+{% include doc_figure.html name="doc-6b6e6d02" alt="句には三角，単語には縦線．先頭の ^ で三角を指定した例" %}
 
 </div>
 
@@ -565,6 +581,7 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-3a24085b'].layout }}" markdown="1">
 
+<!-- figure: derivation=on leafstyle=nothing vheight=0.5 hspacing=2.0 -->
 ```text
 [S
   [NP
@@ -578,7 +595,7 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 ]
 ```
 
-{% include doc_figure.html name="doc-3a24085b" alt="同じオプションで構成素の広がりを示した図" %}
+{% include doc_figure.html name="doc-3a24085b" alt="同じオプションで，通常の木の構成素の広がりを示した図" %}
 
 </div>
 
@@ -612,22 +629,25 @@ TikZ 出力も拒否されます．`forest` は娘それぞれに辺を引いて
 
 IDにはどのような数字を用いても構いませんが，必ず **2箇所** で同じIDを指定することが必要です．同じIDを3箇所以上で指定することはできません．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-5f725310'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-faa011eb'].layout }}" markdown="1">
 
 ```text
-[S
-  [NP+1 What]
-  [S
-    [NP does]
-    [VP
-      [V like]
-      [NP+>1 t]
+[CP
+  [NP What+1]
+  [C'
+    [C does]
+    [IP
+      [NP John]
+      [VP
+        [V like]
+        [NP t+>1]
+      ]
     ]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-5f725310" alt="同じ番号を持つ 2 つのノードを結ぶ，矢印つきのパス" %}
+{% include doc_figure.html name="doc-faa011eb" alt="同じ番号を持つ 2 つのリーフを結ぶ，矢印つきのパス" %}
 
 </div>
 
@@ -643,17 +663,16 @@ IDにはどのような数字を用いても構いませんが，必ず **2箇�
 
 IDにはどのような数字を用いても構いませんが，必ず **2箇所** で同じIDを指定することが必要です．同じIDを3箇所以上で指定することはできません．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-481ba325'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-0f4a4bf1'].layout }}" markdown="1">
 
 ```text
 [S
-  [Subject+-1 they]
-  [Verb+->1 agree]
-  [Object them]
+  [NP+-1 The dogs]
+  [VP+->1 bark]
 ]
 ```
 
-{% include doc_figure.html name="doc-481ba325" alt="同じ段の 2 つのノードを直線で結ぶ追加のコネクタ" %}
+{% include doc_figure.html name="doc-0f4a4bf1" alt="同じ段の 2 つのノードを直線で結ぶ追加のコネクタ" %}
 
 </div>
 
