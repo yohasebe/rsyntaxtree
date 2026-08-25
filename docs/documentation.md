@@ -34,6 +34,16 @@ The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By cha
 
 `Line width` sets the thickness of every line in the figure — connectors, brackets, enclosures — as a ratio of the font size. `1` is 5% of it (the weight of an ordinary text rule), each 0.5 step adds another 2.5%, and the scale runs from `0.5` (a hairline) to `3.0` (15%, the heaviest). Because the lines follow the font size, text and lines keep the same balance at any font size.
 
+<div class="grid" markdown="1">
+
+```text
+[S [NP [D The] [N cat]] [VP [V sat] [PP [P on] [NP [D the] [N mat]]]]]
+```
+
+![A tree drawn from labelled bracket notation](assets/doc/doc-39092e78.svg)
+
+</div>
+
 ### Tree Direction
 
 The `Direction` option controls the orientation of the tree layout:
@@ -43,6 +53,17 @@ The `Direction` option controls the orientation of the tree layout:
 - **Bottom to Top** (`btt`): Leaves at the top, root at the bottom. This is how a derivation is written, with the words first and the result last: see [Derivations](#derivations).
 
 In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
+
+<div class="grid" markdown="1">
+
+<!-- figure: direction=ltr -->
+```text
+[Noun [Common [Count cat] [Mass water]] [Proper Tokyo]]
+```
+
+![The same structure laid out left to right](assets/doc/doc-d96540bc.svg)
+
+</div>
 
 ### Tidy Layout
 
@@ -92,6 +113,16 @@ what it has, and the text comes out a little out of balance:
 ### Drawing Text
 
 You can apply font styles (italic/bold/bold-italic), text decoration (overline/underline/line-through), subscript/superscript font rendering, and more. These markups can be nested within each other.
+
+<div class="grid" markdown="1">
+
+```text
+[S [NP *italic* **bold**] [VP =overline= -underline- X_i_ Y__j__]]
+```
+
+![Italic, bold, overline, underline, subscript and superscript together](assets/doc/doc-b6b3313a.svg)
+
+</div>
 
 #### Font Styles
 
@@ -161,6 +192,16 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 Circles, boxes and rules can be drawn around or alongside the text.
 
+<div class="grid" markdown="1">
+
+```text
+[S [#NP |1| {2}] [##VP sat]]
+```
+
+![A boxed tag, a circled tag, brackets and a rectangle](assets/doc/doc-db9d043f.svg)
+
+</div>
+
 #### Small Capitals
 
 Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD.
@@ -212,6 +253,16 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 |`#@red:NP`|Square brackets + red color|
 |`^#@green:NP`|Triangle + brackets + green color|
 
+<div class="grid" markdown="1">
+
+```text
+[S [@blue:NP [D the] [N dog]] [@red:VP [V chased] [NP a cat]]]
+```
+
+![Two nodes given colours of their own](assets/doc/doc-22e30cae.svg)
+
+</div>
+
 ### Region Shade
 
 While `#`, `##`, and `###` enclose a single node label, a region shade paints a
@@ -240,6 +291,16 @@ Overlapping or nested regions blend naturally because the planes are
 semi-transparent. Region shade works in both top-to-bottom and left-to-right
 (`-d ltr`) layouts, and applies to all raster/vector outputs (SVG, PNG, PDF,
 JPG, GIF).
+
+<div class="grid" markdown="1">
+
+```text
+[S [%NP [D the] [N dog]] [%@blue:VP [V chased] [NP a cat]]]
+```
+
+![Two subtrees shaded, one of them in a colour](assets/doc/doc-d8af96d7.svg)
+
+</div>
 
 ### Escape Special Characters
 

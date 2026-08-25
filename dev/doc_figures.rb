@@ -15,6 +15,14 @@ module DocFigures
   MANUALS = ["documentation.md", "documentation_ja.md"].freeze
   DIRECTORY = "doc"
 
+  # An example drawn with something other than the ordinary settings says so on
+  # the line above its code, where whoever edits the example will see it:
+  #
+  #   <!-- figure: direction=ltr -->
+  #
+  # Kept out of the code block itself, so what a reader copies is only the tree.
+  SETTINGS = /<!--\s*figure:\s*(.+?)\s*-->/
+
   # The bracket notation in every drawing example, in the order it appears.
   # A fenced block is a drawing example when it is `text` and starts a tree.
   def examples(manual)
@@ -23,6 +31,8 @@ module DocFigures
     index = 0
     while index < lines.length
       if lines[index] == "```text"
+        # What the line above asked for, if it asked for anything.
+        asked = index.positive? ? lines[index - 1][SETTINGS, 1] : nil
         body = []
         index += 1
         while index < lines.length && !lines[index].start_with?("```")
@@ -30,11 +40,23 @@ module DocFigures
           index += 1
         end
         code = body.join("\n").strip
-        found << code if code.start_with?("[")
+        found << [code, asked] if code.start_with?("[")
       end
       index += 1
     end
     found
+  end
+
+  # `direction=ltr color=modern` as the generator wants it. A value that reads
+  # as a number becomes one, since the options that take a number will not have
+  # a string.
+  def parse(asked)
+    return {} if asked.nil? || asked.strip.empty?
+
+    asked.split(/\s+/).to_h do |pair|
+      key, value = pair.split("=", 2)
+      [key.to_sym, /\A-?\d+(\.\d+)?\z/.match?(value) ? value.to_f : value]
+    end
   end
 
   # What the figure for a piece of code is called. Taken from the code, so the
@@ -51,12 +73,13 @@ module DocFigures
 
   # How the manuals are drawn: no colour, the serif face the gallery uses, and
   # the connectors a tree is drawn with unless the example is a derivation.
-  def options(code)
+  def options(code, asked = nil)
     base = { data: code, color: "off", fontstyle: "serif", fontsize: 16,
              tidy: "low", linewidth: 1, hyphen: "literal" }
-    return base unless code.include?('\t') && code.match?(/\\t\s*[<>]/)
-
-    base.merge(derivation: "on", direction: "btt", leafstyle: "nothing",
-               vheight: 0.5, hspacing: 2.0)
+    if code.include?('\\t') && code.match?(/\\t\s*[<>]/)
+      base = base.merge(derivation: "on", direction: "btt", leafstyle: "nothing",
+                        vheight: 0.5, hspacing: 2.0)
+    end
+    base.merge(parse(asked))
   end
 end
