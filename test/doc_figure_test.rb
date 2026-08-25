@@ -26,7 +26,7 @@ class DocFigureTest < Minitest::Test
   end
 
   def test_every_example_has_its_figure
-    missing = examples.reject { |code, _| File.exist?(File.join(FIGURES, "#{DocFigures.name(code)}.svg")) }
+    missing = examples.reject { |code, asked| File.exist?(File.join(FIGURES, "#{DocFigures.name(code, asked)}.svg")) }
     assert_empty missing.map { |code, _| code.lines.first.strip },
                  "the manual has examples with no figure — run rake docker_generate"
   end
@@ -34,7 +34,7 @@ class DocFigureTest < Minitest::Test
   # A figure whose code has gone leaves a file nothing points at, and the
   # directory would grow by one with every rewording.
   def test_no_figure_outlives_its_example
-    wanted = examples.map { |code, _| "#{DocFigures.name(code)}.svg" }
+    wanted = examples.map { |code, asked| "#{DocFigures.name(code, asked)}.svg" }
     orphans = Dir.glob("doc-*.svg", base: FIGURES) - wanted
     assert_empty orphans, "figures for code no longer in the manual"
   end
@@ -68,7 +68,7 @@ class DocFigureTest < Minitest::Test
   def test_the_two_manuals_share_their_figures
     en = DocFigures.examples(File.join(DOCS, "documentation.md"))
     ja = DocFigures.examples(File.join(DOCS, "documentation_ja.md"))
-    shared = en.map { |c, _| DocFigures.name(c) } & ja.map { |c, _| DocFigures.name(c) }
+    shared = en.map { |c, a| DocFigures.name(c, a) } & ja.map { |c, a| DocFigures.name(c, a) }
     refute_empty shared, "the manuals share no example"
   end
 
@@ -86,14 +86,38 @@ class DocFigureTest < Minitest::Test
         code = block[/```text\n(.*?)\n```/m, 1]
         next unless code
 
-        expected = DocFigures.name(code.strip)
-        block.scan(/doc_figure_sizes\['(doc-[0-9a-f]+)'\]|name="(doc-[0-9a-f]+)"/) do
-          named = Regexp.last_match(1) || Regexp.last_match(2)
-          assert_equal expected, named,
-                       "#{manual}: an example is shown beside another example's figure"
-        end
+        asked = block[DocFigures::SETTINGS, 1]
+        expected = DocFigures.variants(asked).map { |v| DocFigures.name(code.strip, v) }
+        shown = block.scan(/name="(doc-[0-9a-f]+)"/).flatten
+        sized = block.scan(/doc_figure_sizes\['(doc-[0-9a-f]+)'\]/).flatten
+
+        assert_equal expected, shown,
+                     "#{manual}: an example does not show its own figures, or not all of them"
+        assert_empty sized - expected,
+                     "#{manual}: a grid takes its width from another example's figure"
       end
     end
+  end
+
+  # An example drawn twice with different settings is two figures. Named for
+  # the code alone they would be one, three references would share it, and
+  # whichever drawing ran last would be the one all three showed.
+  def test_settings_are_part_of_the_name
+    code = "[S [NP a] [VP b]]"
+    assert_equal DocFigures.name(code), DocFigures.name(code, nil),
+                 "an example that asks for nothing keeps the name its code alone gives it"
+    refute_equal DocFigures.name(code, "fontstyle=sans"), DocFigures.name(code, "fontstyle=mono"),
+                 "two settings, two figures"
+    refute_equal DocFigures.name(code), DocFigures.name(code, "fontstyle=sans")
+  end
+
+  # `|` in a settings line lists the ways one example is to be drawn.
+  def test_a_settings_line_may_list_several_variants
+    assert_equal [nil], DocFigures.variants(nil)
+    assert_equal [nil], DocFigures.variants("  ")
+    assert_equal ["direction=ltr"], DocFigures.variants("direction=ltr")
+    assert_equal %w[fontstyle=sans fontstyle=serif fontstyle=mono],
+                 DocFigures.variants("fontstyle=sans | fontstyle=serif | fontstyle=mono")
   end
 
   # Every example the manual offers has to draw. One that does not is a reader

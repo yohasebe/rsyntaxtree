@@ -85,8 +85,6 @@ The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By cha
 
 `Line width` sets the thickness of every line in the figure — connectors, brackets, enclosures — as a ratio of the font size. `1` is 5% of it (the weight of an ordinary text rule), each 0.5 step adds another 2.5%, and the scale runs from `0.5` (a hairline) to `3.0` (15%, the heaviest). Because the lines follow the font size, text and lines keep the same balance at any font size.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-532ffe07'].layout }}" markdown="1">
-
 ```text
 [S
   [NP
@@ -116,8 +114,6 @@ The `Direction` option controls the orientation of the tree layout:
 - **Bottom to Top** (`btt`): Leaves at the top, root at the bottom. This is how a derivation is written, with the words first and the result last: see [Derivations](#derivations).
 
 In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-5517a0a0'].layout }}" markdown="1">
 
 ```text
 [Noun
@@ -150,8 +146,6 @@ Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding
 
 `Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-f38cade7'].layout }}" markdown="1">
-
 ```text
 [S
   [NP الطالب]
@@ -174,6 +168,16 @@ A figure is drawn with one of three faces, chosen with `Font`:
 All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders
 CJK text.
 
+The same tree in each of the three, in the order above:
+
+```text
+[S
+  [NP the cat]
+  [VP sat]
+]
+```
+
+
 Which fonts have to be on which machine depends on the format. A PNG, PDF, JPG
 or GIF is drawn here and arrives as a picture, so nothing needs installing to
 look at one. An SVG carries the names of the faces rather than the shapes, and
@@ -191,8 +195,6 @@ what it has, and the text comes out a little out of balance:
 ### Drawing Text
 
 You can apply font styles (italic/bold/bold-italic), text decoration (overline/underline/line-through), subscript/superscript font rendering, and more. These markups can be nested within each other.
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-b054f4be'].layout }}" markdown="1">
 
 ```text
 [Styles
@@ -239,8 +241,6 @@ A label that is *only* `<>` is a special case with its own use: see [Levelling t
 #### Levelling the Terminals
 
 A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-28455e24'].layout }}" markdown="1">
 
 ```text
 [S
@@ -293,8 +293,6 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 Circles, boxes and rules can be drawn around or alongside the text.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-7988cf4f'].layout }}" markdown="1">
-
 ```text
 [Shapes
   [#Brackets |1| {2}]
@@ -306,8 +304,6 @@ Circles, boxes and rules can be drawn around or alongside the text.
 #### Small Capitals
 
 Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD.
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-978d14e0'].layout }}" markdown="1">
 
 ```text
 [#H___EAD___\tnoun\
@@ -352,8 +348,6 @@ Here, `---` represents `-` repeated three times or more consecutively.
 
 `Connector shape` offers three settings for what is drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. It can go at the head of the node's label instead: `[NP ^cats]` and `[^NP cats]` ask for the same thing. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-c235812c'].layout }}" markdown="1">
-
 ```text
 [S
   [NP a phrase]
@@ -374,8 +368,6 @@ If a `#` character is placed at the beginning of a label or leaf text (right aft
 If `##` is placed at the beginning of the leaf text, a rectangle is drawn instead of brackets.
 
 If `###` is placed at the beginning of the leaf text, a rectangle with thicker lines is drawn.
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-e2d3ee35'].layout }}" markdown="1">
 
 ```text
 [Enclosures
@@ -404,8 +396,6 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 |`^@blue:NP`|Triangle connector + blue color|
 |`#@red:NP`|Square brackets + red color|
 |`^#@green:NP`|Triangle + brackets + green color|
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-25afe7a3'].layout }}" markdown="1">
 
 ```text
 [S
@@ -449,8 +439,6 @@ Overlapping or nested regions blend naturally because the planes are
 semi-transparent. Region shade works in both top-to-bottom and left-to-right
 (`-d ltr`) layouts, and applies to all raster/vector outputs (SVG, PNG, PDF,
 JPG, GIF).
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-f460070e'].layout }}" markdown="1">
 
 ```text
 [S
@@ -512,8 +500,6 @@ markup, and each piece below is useful by itself.
 
 Put together:
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-41e0b789'].layout }}" markdown="1">
-
 ```text
 [#*word*\
   PHON\t⟨<>*Kim*<>⟩\
@@ -533,8 +519,6 @@ and can be the category of a step in a [derivation](#derivations).
 
 `\t` cuts a line into cells. Every line of the label is cut at the same points, and each column is drawn at the width of its widest cell, so the parts line up down the label instead of starting wherever the text before them happened to end. This is what an attribute-value matrix asks for — the attributes in one column, their values in the next:
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-94998461'].layout }}" markdown="1">
-
 ```text
 [#HEAD\tnoun\
   SPR\t⟨<>⟩\
@@ -549,8 +533,6 @@ A label with more than two columns works the same way; each is as wide as it nee
 #### Nested matrices
 
 The value of an attribute can be another matrix, written between `#(` and `#)`. It draws its own brackets and lays out its own columns, and the rows that follow it clear its full height:
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-31d502b2'].layout }}" markdown="1">
 
 ```text
 [#*word*\
@@ -578,8 +560,6 @@ grammar is written this way, and so are diagrams of constituent spans.
 Turn `Derivation` on and every node is joined to its daughters by one rule
 across all of them, instead of by a line to each. Set `Direction` to `btt` as
 well and the tree is turned over, so the words come first:
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-f4320d2c'].layout }}" markdown="1">
 
 ```text
 [S\t<
@@ -611,8 +591,6 @@ A category may be a feature structure rather than a plain label, which is how a
 derivation is written where the categories carry features. The breaks inside the
 matrix are its own columns; the one that names the rule is the break outside it:
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-e9eada7a'].layout }}" markdown="1">
-
 ```text
 [#(CAT\tS#)\t<
   [#(CAT\tNP#) Kim]
@@ -623,8 +601,6 @@ matrix are its own columns; the one that names the rule is the break outside it:
 
 Leave `Direction` at `ttb` and the same option draws the spans of a tree from
 the top instead, each constituent's extent marked by a rule:
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-3a24085b'].layout }}" markdown="1">
 
 ```text
 [S
@@ -675,8 +651,6 @@ Each path is distinguished by a unique ID number. The ID is specified by putting
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-c05567af'].layout }}" markdown="1">
-
 ```text
 [CP
   [NP What+>1]
@@ -705,8 +679,6 @@ You can also add extra connector between nodes in the same fasion as you draw pa
 Each additional connectors is distinguished by an ID number. The ID is specified by putting a a number after a sequence of a plus and a minus symbols (e.g. `+-8`) at the end of the node text. If a greater-than `>` or less-than `<` symbol is placed between the minus sign and the number (e.g. `+->8`), an arrowhead will appear at the end of the connector. Note that it makes no difference whether `+->` or `+-<` is used. The arrow is always directed to the element with one of these ID symbols.
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the additional connector is rendered. The same ID number cannot appear in more than two places.
-
-<div class="grid {{ site.data.doc_figure_sizes['doc-0f4a4bf1'].layout }}" markdown="1">
 
 ```text
 [S

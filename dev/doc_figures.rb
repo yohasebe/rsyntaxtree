@@ -21,7 +21,23 @@ module DocFigures
   #   <!-- figure: direction=ltr -->
   #
   # Kept out of the code block itself, so what a reader copies is only the tree.
+  #
+  # One example may also be drawn several times over, to be compared with
+  # itself — one input in each of the three faces is the only honest way to
+  # show what a face does to it. The variants are separated by `|`:
+  #
+  #   <!-- figure: fontstyle=sans | fontstyle=serif | fontstyle=mono -->
   SETTINGS = /<!--\s*figure:\s*(.+?)\s*-->/
+  VARIANT_SEPARATOR = "|"
+
+  # The settings each figure for one example is drawn with. One entry, holding
+  # nil, when the example asked for nothing.
+  def variants(asked)
+    return [nil] if asked.nil? || asked.strip.empty?
+
+    found = asked.split(VARIANT_SEPARATOR).map(&:strip).reject(&:empty?)
+    found.empty? ? [nil] : found
+  end
 
   # The bracket notation in every drawing example, in the order it appears.
   # A fenced block is a drawing example when it is `text` and starts a tree.
@@ -40,7 +56,7 @@ module DocFigures
           index += 1
         end
         code = body.join("\n").strip
-        found << [code, asked] if code.start_with?("[")
+        variants(asked).each { |v| found << [code, v] } if code.start_with?("[")
       end
       index += 1
     end
@@ -59,11 +75,16 @@ module DocFigures
     end
   end
 
-  # What the figure for a piece of code is called. Taken from the code, so the
-  # name follows it: an edited example asks for a figure that has not been
-  # drawn, which is what doc_figure_test.rb reports.
-  def name(code)
-    "doc-#{Digest::SHA256.hexdigest(code)[0, 8]}"
+  # What the figure for a piece of code is called. Taken from the code and from
+  # the settings it is drawn with, so the name follows both: an edited example
+  # asks for a figure that has not been drawn, which is what doc_figure_test.rb
+  # reports, and one example drawn three ways is three figures rather than one
+  # that three references quietly share and the last drawing wins.
+  #
+  # An example that asked for nothing hashes its code alone, as it always did.
+  def name(code, asked = nil)
+    key = asked.nil? ? code : "#{code}\n<!-- figure: #{asked} -->"
+    "doc-#{Digest::SHA256.hexdigest(key)[0, 8]}"
   end
 
   # Every example in the manuals, without repeats.

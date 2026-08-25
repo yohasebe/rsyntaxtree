@@ -33,6 +33,21 @@ class LlmPayloadTest < Minitest::Test
     assert_equal published, LlmPayload.examples.size
   end
 
+  # The manual is a web page and this file is not, so the page's own furniture
+  # has to come out: the two-column wrapper around each example and the picture
+  # it held. It was not coming out. The pattern that took the wrapper away
+  # matched `class="grid"` exactly, and the class had since grown the layout the
+  # figure was measured into — so nineteen opening divs stayed in the file while
+  # their closing tags, matched by a different pattern, kept being removed.
+  # Nothing noticed, because every test here asked what the file contains and
+  # none asked what it should not.
+  def test_the_manual_leaves_the_page_behind
+    manual = LlmPayload.manual
+    ["<div", "</div>", "<img", "doc_figure.html", "<!-- figure:"].each do |leftover|
+      refute_includes manual, leftover, "the page's own markup reached the payload"
+    end
+  end
+
   # The two tables the manual pulls in through Jekyll carry the box, circle and
   # escape notation. An unresolved include tag would drop exactly the part a
   # model needs, and would not otherwise show up as a failure.

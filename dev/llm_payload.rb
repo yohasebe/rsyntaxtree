@@ -36,7 +36,11 @@ module LlmPayload
     # The figure beside each example is a picture of what the code above it
     # draws, which is nothing a reader of this file can see. The code stays;
     # the picture and the two-column wrapper it sat in go.
-    md = md.gsub(/^<div class="grid"[^>]*>\n\n?/, "")
+    # `class="grid …"`, not `class="grid"`: the class came to carry the layout
+    # the figure had been measured into, and the exact-match pattern that had
+    # been here stopped matching anything at all. The wrapper then stayed in the
+    # file — nineteen opening divs whose closing tag was still being taken out.
+    md = md.gsub(/^<div class="grid[^"]*"[^>]*>\n\n?/, "")
            .gsub(/^<!--\s*figure:.*?-->\n/, "")
            .gsub(/^\{%-?\s*include\s+doc_figure\.html.*?%\}\n\n?/, "")
            .gsub(%r{^</div>\n}, "")

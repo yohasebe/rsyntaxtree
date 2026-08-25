@@ -12,7 +12,7 @@ doc_dir = File.expand_path(ARGV[0] || File.join(__dir__, "..", "docs"))
 out_dir = File.join(doc_dir, "assets", DocFigures::DIRECTORY)
 Dir.mkdir(out_dir) unless Dir.exist?(out_dir)
 
-wanted = DocFigures.all(doc_dir).to_h { |code, asked| [DocFigures.name(code), [code, asked]] }
+wanted = DocFigures.all(doc_dir).to_h { |code, asked| [DocFigures.name(code, asked), [code, asked]] }
 
 wanted.each do |name, (code, asked)|
   svg = RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(DocFigures.options(code, asked))).draw_svg

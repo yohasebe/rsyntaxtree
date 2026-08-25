@@ -68,7 +68,7 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 
 左から右のモードでは，コネクタ，三角形，移動パス，ノード間直線接続のすべてが水平方向に適応されます．`縦間隔` オプションは LTR モードではツリーのレベル間の水平距離を制御します．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-5517a0a0'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-a7a2f333'].layout }}" markdown="1">
 
 <!-- figure: direction=ltr -->
 ```text
@@ -81,7 +81,7 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 ]
 ```
 
-{% include doc_figure.html name="doc-5517a0a0" alt="同じ構造を左から右へ展開した図" %}
+{% include doc_figure.html name="doc-a7a2f333" alt="同じ構造を左から右へ展開した図" %}
 
 </div>
 
@@ -105,7 +105,7 @@ Tidy モードではコネクタの高さも自動調整されます．`横間�
 
 `左右反転（RTL）` は `方向` と組み合わせられます。実例は[ギャラリーの Multilingual カテゴリ](https://yohasebe.github.io/rsyntaxtree/examples)のアラビア語の例をご覧ください．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-f38cade7'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-02bc5fec'].layout }}" markdown="1">
 
 <!-- figure: mirror=on vheight=1.0 -->
 ```text
@@ -118,7 +118,7 @@ Tidy モードではコネクタの高さも自動調整されます．`横間�
 ]
 ```
 
-{% include doc_figure.html name="doc-f38cade7" alt="反転した木．アラビア語の文が右から左に読める" %}
+{% include doc_figure.html name="doc-02bc5fec" alt="反転した木．アラビア語の文が右から左に読める" %}
 
 </div>
 
@@ -132,6 +132,24 @@ Tidy モードではコネクタの高さも自動調整されます．`横間�
 
 いずれも漢字・ハングル・かなは Noto CJK にフォールバックするため，どれを選んでも
 CJK のテキストを描画できます．
+
+同じ木を 3 種類の書体で描いたものです．並びは上の箇条書きと同じ順です．
+
+<div class="grid grid-figures" markdown="1">
+
+<!-- figure: fontstyle=sans | fontstyle=serif | fontstyle=mono -->
+```text
+[S
+  [NP the cat]
+  [VP sat]
+]
+```
+
+{% include doc_figure.html name="doc-785f7893" alt="Noto Sans で組んだ木" %}
+{% include doc_figure.html name="doc-9cb0997a" alt="Noto Serif で組んだ木" %}
+{% include doc_figure.html name="doc-f6631a1c" alt="Noto Sans Mono で組んだ木" %}
+
+</div>
 
 どの機械にフォントが要るかは形式によって変わります．PNG・PDF・JPG・GIF はこちらで
 描いて絵として届くので，見るだけなら何も導入する必要はありません．SVG は字形ではなく
@@ -149,7 +167,7 @@ CJK のテキストを描画できます．
 
 フォントのスタイルとしてイタリック／ボールド／ボールド+イタリックを指定できます．テキスト装飾としては，上線，下線，取り消し線を指定できます．また上付き文字と下付き文字を指定できます．これらは組み合わせて使用することもできます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-b054f4be'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-94889119'].layout }}" markdown="1">
 
 <!-- figure: direction=ltr polyline=on leafstyle=bar -->
 ```text
@@ -160,7 +178,7 @@ CJK のテキストを描画できます．
 ]
 ```
 
-{% include doc_figure.html name="doc-b054f4be" alt="文字装飾の一覧．左から右に，直角のコネクタで描いたもの" %}
+{% include doc_figure.html name="doc-94889119" alt="文字装飾の一覧．左から右に，直角のコネクタで描いたもの" %}
 
 </div>
 
@@ -204,7 +222,7 @@ CJK のテキストを描画できます．
 
 ラベルが `<>` **のみ**のノードは不可視の中継点として描画され，コネクタの線は途切れずに貫通します．これを連ねると浅いリーフを下の段に送れるため，すべての終端要素を同じ高さに揃えたい場合に便利です．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-28455e24'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-e5062caa'].layout }}" markdown="1">
 
 <!-- figure: vheight=0.6 -->
 ```text
@@ -240,7 +258,7 @@ CJK のテキストを描画できます．
 ]
 ```
 
-{% include doc_figure.html name="doc-28455e24" alt="継手ですべての語を最下段に揃えた図" %}
+{% include doc_figure.html name="doc-e5062caa" alt="継手ですべての語を最下段に揃えた図" %}
 
 </div>
 
@@ -333,8 +351,9 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 
 テキストの最初に `###` を付けると，テキスト全体を太い線の矩形（ボックス）で囲みます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-e2d3ee35'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-49f323a8'].layout }}" markdown="1">
 
+<!-- figure: direction=ltr polyline=on leafstyle=bar -->
 ```text
 [Enclosures
   [#Brackets one]
@@ -343,7 +362,7 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 ]
 ```
 
-{% include doc_figure.html name="doc-e2d3ee35" alt="角括弧・矩形・太線の矩形" %}
+{% include doc_figure.html name="doc-49f323a8" alt="角括弧・矩形・太線の矩形" %}
 
 </div>
 
@@ -579,7 +598,7 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 `方向` を `ttb` のままにすると，同じオプションで構成素の広がりを上から示す図になります．
 各構成素の範囲が罫で示されます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-3a24085b'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-2ea8675a'].layout }}" markdown="1">
 
 <!-- figure: derivation=on leafstyle=nothing vheight=0.5 hspacing=2.0 -->
 ```text
@@ -595,7 +614,7 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 ]
 ```
 
-{% include doc_figure.html name="doc-3a24085b" alt="同じオプションで，通常の木の構成素の広がりを示した図" %}
+{% include doc_figure.html name="doc-2ea8675a" alt="同じオプションで，通常の木の構成素の広がりを示した図" %}
 
 </div>
 

@@ -69,7 +69,7 @@ The `Direction` option controls the orientation of the tree layout:
 
 In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-5517a0a0'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-a7a2f333'].layout }}" markdown="1">
 
 <!-- figure: direction=ltr -->
 ```text
@@ -82,7 +82,7 @@ In left-to-right mode, connectors, triangles, movement paths, and line-type conn
 ]
 ```
 
-{% include doc_figure.html name="doc-5517a0a0" alt="The same structure laid out left to right" %}
+{% include doc_figure.html name="doc-a7a2f333" alt="The same structure laid out left to right" %}
 
 </div>
 
@@ -106,7 +106,7 @@ Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding
 
 `Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-f38cade7'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-02bc5fec'].layout }}" markdown="1">
 
 <!-- figure: mirror=on vheight=1.0 -->
 ```text
@@ -119,7 +119,7 @@ Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding
 ]
 ```
 
-{% include doc_figure.html name="doc-f38cade7" alt="The same tree reflected, so an Arabic sentence reads right to left" %}
+{% include doc_figure.html name="doc-02bc5fec" alt="The same tree reflected, so an Arabic sentence reads right to left" %}
 
 </div>
 
@@ -133,6 +133,24 @@ A figure is drawn with one of three faces, chosen with `Font`:
 
 All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders
 CJK text.
+
+The same tree in each of the three, in the order above:
+
+<div class="grid grid-figures" markdown="1">
+
+<!-- figure: fontstyle=sans | fontstyle=serif | fontstyle=mono -->
+```text
+[S
+  [NP the cat]
+  [VP sat]
+]
+```
+
+{% include doc_figure.html name="doc-785f7893" alt="The tree set in Noto Sans" %}
+{% include doc_figure.html name="doc-9cb0997a" alt="The tree set in Noto Serif" %}
+{% include doc_figure.html name="doc-f6631a1c" alt="The tree set in Noto Sans Mono" %}
+
+</div>
 
 Which fonts have to be on which machine depends on the format. A PNG, PDF, JPG
 or GIF is drawn here and arrives as a picture, so nothing needs installing to
@@ -152,7 +170,7 @@ what it has, and the text comes out a little out of balance:
 
 You can apply font styles (italic/bold/bold-italic), text decoration (overline/underline/line-through), subscript/superscript font rendering, and more. These markups can be nested within each other.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-b054f4be'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-94889119'].layout }}" markdown="1">
 
 <!-- figure: direction=ltr polyline=on leafstyle=bar -->
 ```text
@@ -163,7 +181,7 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 ]
 ```
 
-{% include doc_figure.html name="doc-b054f4be" alt="Every text style, set left to right with square connectors" %}
+{% include doc_figure.html name="doc-94889119" alt="Every text style, set left to right with square connectors" %}
 
 </div>
 
@@ -204,7 +222,7 @@ A label that is *only* `<>` is a special case with its own use: see [Levelling t
 
 A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-28455e24'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-e5062caa'].layout }}" markdown="1">
 
 <!-- figure: vheight=0.6 -->
 ```text
@@ -240,7 +258,7 @@ A node whose label is *only* `<>` renders as an invisible pass-through joint: th
 ]
 ```
 
-{% include doc_figure.html name="doc-28455e24" alt="Every word on the bottom row, reached with pass-through joints" %}
+{% include doc_figure.html name="doc-e5062caa" alt="Every word on the bottom row, reached with pass-through joints" %}
 
 </div>
 
@@ -335,8 +353,9 @@ If `##` is placed at the beginning of the leaf text, a rectangle is drawn instea
 
 If `###` is placed at the beginning of the leaf text, a rectangle with thicker lines is drawn.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-e2d3ee35'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-49f323a8'].layout }}" markdown="1">
 
+<!-- figure: direction=ltr polyline=on leafstyle=bar -->
 ```text
 [Enclosures
   [#Brackets one]
@@ -345,7 +364,7 @@ If `###` is placed at the beginning of the leaf text, a rectangle with thicker l
 ]
 ```
 
-{% include doc_figure.html name="doc-e2d3ee35" alt="Square brackets, a rectangle, and a rectangle with thicker lines" %}
+{% include doc_figure.html name="doc-49f323a8" alt="Square brackets, a rectangle, and a rectangle with thicker lines" %}
 
 </div>
 
@@ -590,7 +609,7 @@ matrix are its own columns; the one that names the rule is the break outside it:
 Leave `Direction` at `ttb` and the same option draws the spans of a tree from
 the top instead, each constituent's extent marked by a rule:
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-3a24085b'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-2ea8675a'].layout }}" markdown="1">
 
 <!-- figure: derivation=on leafstyle=nothing vheight=0.5 hspacing=2.0 -->
 ```text
@@ -606,7 +625,7 @@ the top instead, each constituent's extent marked by a rule:
 ]
 ```
 
-{% include doc_figure.html name="doc-3a24085b" alt="The same option marking the spans of an ordinary tree" %}
+{% include doc_figure.html name="doc-2ea8675a" alt="The same option marking the spans of an ordinary tree" %}
 
 </div>
 
