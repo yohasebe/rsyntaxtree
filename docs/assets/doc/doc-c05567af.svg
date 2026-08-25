@@ -66,6 +66,6 @@
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='466.80000000000007' y1='586.4319999999999' x2='429.30000000000007' y2='531.395613963039' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='391.80000000000007' y1='720.8319999999999' x2='392.30000000000007' y2='670.4319999999999' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='466.80000000000007' y1='720.8319999999999' x2='466.80000000000007' y2='670.4319999999999' />
-<line x1='57.8' y1='388.2173897330596' x2='57.8' y2='827.2319999999999' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='57.8' y1='827.2319999999999' x2='466.80000000000007' y2='827.2319999999999' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='466.80000000000007' y1='827.2319999999999' x2='466.80000000000007' y2='804.8319999999999' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  marker-end='url(#arrow)' /></svg>
+<line x1='466.80000000000007' y1='804.8319999999999' x2='466.80000000000007' y2='827.2319999999999' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
+<line x1='466.80000000000007' y1='827.2319999999999' x2='57.8' y2='827.2319999999999' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
+<line x1='57.8' y1='827.2319999999999' x2='57.8' y2='388.2173897330596' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  marker-end='url(#arrow)' /></svg>

@@ -151,7 +151,7 @@ CJK のテキストを描画できます．
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-b054f4be'].layout }}" markdown="1">
 
-<!-- figure: vheight=2.0 -->
+<!-- figure: direction=ltr polyline=on leafstyle=bar -->
 ```text
 [Styles
   [Emphasis *italic* **bold**]
@@ -160,7 +160,7 @@ CJK のテキストを描画できます．
 ]
 ```
 
-{% include doc_figure.html name="doc-b054f4be" alt="イタリック・ボールド・上線・下線・下付き・上付きを併用した図" %}
+{% include doc_figure.html name="doc-b054f4be" alt="文字装飾の一覧．左から右に，直角のコネクタで描いたもの" %}
 
 </div>
 
@@ -309,19 +309,19 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 
 `コネクタ形状` では終端ノードとリーフの間に何を描くかを3種の中から選べます（`auto`，`bar`，`none`）．`auto` では，1つ以上の空白を含むリーフ（要するに「句」）に対しては終端ノードを頂点とした三角形を描画します．リーフが空白を含まない場合（つまり「単語」の場合)，垂直の直線が描かれます ．なお，リーフの先頭に `^` をつけると，そのリーフが句であると宣言することになります．したがって必ず三角形が描かれます．`^` はノードのラベルの先頭に置いても構いません．`[NP ^cats]` と `[^NP cats]` は同じ意味です． `bar` では，すべてのリーフに関して垂直の直線が描かれます． `none` では終端ノードとリーフの間にコネクターは描かれません．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-6b6e6d02'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-c235812c'].layout }}" markdown="1">
 
 ```text
 [S
   [NP a phrase]
   [VP
     [V word]
-    [NP ^forced]
+    [NP ^forced\-triangle]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-6b6e6d02" alt="句には三角，単語には縦線．先頭の ^ で三角を指定した例" %}
+{% include doc_figure.html name="doc-c235812c" alt="句には三角，単語には縦線．先頭の ^ で三角を指定した例" %}
 
 </div>
 
@@ -629,25 +629,25 @@ TikZ 出力も拒否されます．`forest` は娘それぞれに辺を引いて
 
 IDにはどのような数字を用いても構いませんが，必ず **2箇所** で同じIDを指定することが必要です．同じIDを3箇所以上で指定することはできません．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-faa011eb'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-c05567af'].layout }}" markdown="1">
 
 ```text
 [CP
-  [NP What+1]
+  [NP What+>1]
   [C'
     [C does]
     [IP
       [NP John]
       [VP
         [V like]
-        [NP t+>1]
+        [NP t+1]
       ]
     ]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-faa011eb" alt="同じ番号を持つ 2 つのリーフを結ぶ，矢印つきのパス" %}
+{% include doc_figure.html name="doc-c05567af" alt="痕跡から移動した語へ向かう，矢印つきのパス" %}
 
 </div>
 

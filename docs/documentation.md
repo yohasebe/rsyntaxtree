@@ -154,7 +154,7 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-b054f4be'].layout }}" markdown="1">
 
-<!-- figure: vheight=2.0 -->
+<!-- figure: direction=ltr polyline=on leafstyle=bar -->
 ```text
 [Styles
   [Emphasis *italic* **bold**]
@@ -163,7 +163,7 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 ]
 ```
 
-{% include doc_figure.html name="doc-b054f4be" alt="Italic, bold, overline, underline, subscript and superscript together" %}
+{% include doc_figure.html name="doc-b054f4be" alt="Every text style, set left to right with square connectors" %}
 
 </div>
 
@@ -309,19 +309,19 @@ Here, `---` represents `-` repeated three times or more consecutively.
 
 `Connector shape` offers three settings for what is drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. It can go at the head of the node's label instead: `[NP ^cats]` and `[^NP cats]` ask for the same thing. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-6b6e6d02'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-c235812c'].layout }}" markdown="1">
 
 ```text
 [S
   [NP a phrase]
   [VP
     [V word]
-    [NP ^forced]
+    [NP ^forced\-triangle]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-6b6e6d02" alt="A triangle for a phrase, a bar for a single word, and one asked for with a caret" %}
+{% include doc_figure.html name="doc-c235812c" alt="A triangle for a phrase, a bar for a single word, and one asked for with a caret" %}
 
 </div>
 
@@ -645,25 +645,25 @@ Each path is distinguished by a unique ID number. The ID is specified by putting
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-faa011eb'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-c05567af'].layout }}" markdown="1">
 
 ```text
 [CP
-  [NP What+1]
+  [NP What+>1]
   [C'
     [C does]
     [IP
       [NP John]
       [VP
         [V like]
-        [NP t+>1]
+        [NP t+1]
       ]
     ]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-faa011eb" alt="A path with an arrowhead, drawn between two leaves that share an ID" %}
+{% include doc_figure.html name="doc-c05567af" alt="A path with an arrowhead, drawn from a trace to the word that moved" %}
 
 </div>
 

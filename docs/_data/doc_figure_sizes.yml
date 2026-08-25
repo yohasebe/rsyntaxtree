@@ -34,10 +34,6 @@ doc-5517a0a0:
   width: 542
   height: 204
   layout: grid-wide
-doc-6b6e6d02:
-  width: 334
-  height: 359
-  layout: ''
 doc-7988cf4f:
   width: 360
   height: 259
@@ -51,9 +47,17 @@ doc-978d14e0:
   height: 203
   layout: ''
 doc-b054f4be:
-  width: 528
-  height: 290
-  layout: grid-wide
+  width: 582
+  height: 202
+  layout: grid-stack
+doc-c05567af:
+  width: 375
+  height: 572
+  layout: ''
+doc-c235812c:
+  width: 408
+  height: 347
+  layout: ''
 doc-e2d3ee35:
   width: 466
   height: 247
@@ -73,8 +77,4 @@ doc-f4320d2c:
 doc-f460070e:
   width: 362
   height: 362
-  layout: ''
-doc-faa011eb:
-  width: 375
-  height: 572
   layout: ''
