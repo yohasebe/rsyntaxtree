@@ -227,31 +227,31 @@ A label that is *only* `<>` is a special case with its own use: see [Levelling t
 
 A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-42e3258b'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-28455e24'].layout }}" markdown="1">
 
 ```text
 [S
   [NP
-    [<>
+    [D
       [<>
-        [D The]
+        [<> the]
       ]
     ]
-    [<>
+    [N
       [<>
-        [N cat]
+        [<> cat]
       ]
     ]
   ]
   [VP
-    [<>
+    [V
       [<>
-        [V sat]
+        [<> sat]
       ]
     ]
     [PP
-      [<>
-        [P on]
+      [P
+        [<> on]
       ]
       [NP
         [D the]
@@ -263,7 +263,7 @@ A node whose label is *only* `<>` renders as an invisible pass-through joint: th
 ```
 
 
-Without the joints, *D* and *N* under the first *NP* sit two rows above the *D* and *N* under the second, and *V* and *P* one row above. Each takes as many joints as it needs to reach the deepest row, so the six categories come out in one row and the six words in the row below it. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029) in the gallery uses `<>`-only joints the same way.
+Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, and *on* one row above. Each leaf takes as many joints as it needs to reach the deepest row, so all six words end up on the bottom row. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029) in the gallery uses `<>`-only joints the same way.
 
 #### Newline
 
