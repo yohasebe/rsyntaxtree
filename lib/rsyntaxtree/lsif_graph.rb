@@ -82,21 +82,22 @@ module RSyntaxTree
 
       if children.size == 1
         child = children[0]
+        forced = triangle_asked_for?(parent, child)
         case @leafstyle
         when "auto"
-          if parent.triangle || child.contains_phrase
+          if forced || child.contains_phrase
             triangle_to_parent(parent, child)
           else
             line_to_parent(parent, child)
           end
         when "bar"
-          if parent.triangle
+          if forced
             triangle_to_parent(parent, child)
           else
             line_to_parent(parent, child)
           end
         when "nothing", "none"
-          if parent.triangle
+          if forced
             triangle_to_parent(parent, child)
           elsif ETYPE_LEAF != child.type
             line_to_parent(parent, child)

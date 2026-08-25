@@ -395,6 +395,22 @@ module RSyntaxTree
       end
     end
 
+    # Whether a `^` has asked for a triangle over this leaf. It may be written
+    # at the head of the node's label or at the head of the leaf's own text —
+    # `[^NP cats]` and `[NP ^cats]` — and both forms are in the gallery. Only
+    # the first was honoured here, and the second was dropped without a word:
+    # the caret vanished from the text and a bar was drawn, so an example named
+    # for its triangles had none. The rest of the layout already reads the
+    # leaf's own flag — a leaf marked this way keeps the gap a triangle needs
+    # even when connectors are off — which is what left the two sides of one
+    # rule disagreeing.
+    #
+    # Asked of a leaf only. A `^` on an internal node is that node's own mark,
+    # and it is honoured when that node is in turn the parent here.
+    def triangle_asked_for?(parent, child)
+      parent.triangle || (ETYPE_LEAF == child.type && child.triangle)
+    end
+
     def draw_connector(id = 1)
       parent = @element_list.get_id(id)
       children = parent.children.map { |c| @element_list.get_id(c) }
@@ -410,21 +426,22 @@ module RSyntaxTree
 
       if children.size == 1
         child = children[0]
+        forced = triangle_asked_for?(parent, child)
         case @leafstyle
         when "auto"
-          if parent.triangle || child.contains_phrase
+          if forced || child.contains_phrase
             triangle_to_parent(parent, child)
           else
             line_to_parent(parent, child)
           end
         when "bar"
-          if parent.triangle
+          if forced
             triangle_to_parent(parent, child)
           else
             line_to_parent(parent, child)
           end
         when "nothing", "none"
-          if parent.triangle
+          if forced
             triangle_to_parent(parent, child)
           elsif ETYPE_LEAF != child.type
             line_to_parent(parent, child)
