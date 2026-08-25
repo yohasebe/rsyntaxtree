@@ -39,6 +39,31 @@ class DocFigureTest < Minitest::Test
     assert_empty orphans, "figures for code no longer in the manual"
   end
 
+  # A figure git ignores is a figure the published site does not have. These
+  # went uncommitted from the day they were first drawn: `doc/` in .gitignore,
+  # written for RDoc's output at the root, was unanchored and matched
+  # docs/assets/doc as well. Nothing said so — the files were on disk, the local
+  # preview served them from disk, the tests above found them on disk, and only
+  # the site, built from what was committed, was missing all of them.
+  #
+  # Asked as "is this ignored", not "is this committed", so that a figure just
+  # redrawn and not yet added does not fail the suite.
+  def test_the_figures_are_not_ignored
+    Dir.chdir(File.dirname(DOCS)) do
+      skip "not a git work tree" unless system("git rev-parse --git-dir", out: File::NULL, err: File::NULL)
+
+      paths = Dir.glob("doc-*.svg", base: FIGURES)
+                 .map { |f| File.join("docs", "assets", DocFigures::DIRECTORY, f) }
+      refute_empty paths, "no figures to check"
+      ignored = IO.popen(["git", "check-ignore", "--stdin"], "r+") do |io|
+        io.puts(paths)
+        io.close_write
+        io.read
+      end
+      assert_empty ignored.split("\n"), "figures the manual shows that git is set to ignore"
+    end
+  end
+
   # Named for the code, so the same example in both manuals is drawn once.
   def test_the_two_manuals_share_their_figures
     en = DocFigures.examples(File.join(DOCS, "documentation.md"))

@@ -1,6 +1,9 @@
 pkg/
 tmp/
-doc/
+# RDoc's output, at the root. Anchored: unanchored it also swallowed
+# docs/assets/doc/, where the manual's figures are, and they went uncommitted
+# without a word — the site built with every one of them missing.
+/doc/
 .DS_Store
 Gemfile.lock
 

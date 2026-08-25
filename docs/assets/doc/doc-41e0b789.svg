@@ -1,0 +1,86 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="931.9999999999999" height="458.0799999999999" viewBox="-16.8, 0, 931.9999999999999, 458.0799999999999" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
+    </marker>
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+    </marker>
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
+    </marker>
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.400000000000006" markerHeight="16.8" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
+    </marker>
+    <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
+    </pattern>
+    <pattern id="hatchForNode" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
+    </pattern>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
+    </pattern>
+  </defs>
+<rect x="-16.8" y="0" width="931.9999999999999" height="458.0799999999999" stroke="none" fill="white" />
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='43.05000000000001' y='67.19999999999999'><tspan x='43.05000000000001' y='67.19999999999999' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">word</tspan>
+<tspan x='43.05000000000001' y='111.99999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">PHON</tspan>
+<tspan x='135.05' y='111.99999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"></tspan>
+<tspan x='181.55' y='111.99999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">⟨<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='209.55' y='111.99999999999999' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">Kim</tspan>
+<tspan x='270.55' y='111.99999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"><tspan style='fill:none;'>￭</tspan>⟩</tspan>
+<tspan x='43.05000000000001' y='179.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">SYNSEM</tspan>
+<tspan x='171.05' y='179.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"></tspan>
+<tspan x='207.8' y='201.6' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">LOCAL</tspan>
+<tspan x='314.8' y='201.6' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"></tspan>
+<tspan x='351.55' y='224.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">CAT</tspan>
+<tspan x='412.55' y='224.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"></tspan>
+<tspan x='449.3' y='246.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">HEAD</tspan>
+<tspan x='540.3' y='246.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"></tspan>
+<tspan x='577.05' y='246.4' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">noun</tspan>
+<tspan x='577.05' y='291.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">CASE</tspan>
+<tspan x='657.05' y='291.2' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"></tspan>
+<tspan x='667.55' y='291.2' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">nom</tspan>
+<tspan x='449.3' y='358.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">SPR</tspan>
+<tspan x='506.3' y='358.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"></tspan>
+<tspan x='550.8' y='358.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">⟨<tspan style='fill:none;'>￭</tspan></tspan>
+<tspan x='590.5999999999999' y='358.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">1</tspan>
+<tspan x='620.3999999999999' y='358.4' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif"><tspan style='fill:none;'>￭</tspan>⟩</tspan>
+</text>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='559.1999999999999,199.36 550.8,199.36 550.8,311.36 559.1999999999999,311.36' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='751.4,199.36 759.8,199.36 759.8,311.36 751.4,311.36' />
+
+<rect style='stroke: black; stroke-linejoin:round; stroke-width:1.6;'
+                    x='578.8' y='325.59999999999997'
+                    width='41.6' height='41.6'
+                    fill='none' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='431.45,176.96 423.05,176.96 423.05,383.04 431.45,383.04' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='777.65,176.96 786.05,176.96 786.05,383.04 777.65,383.04' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='333.7,154.56 325.3,154.56 325.3,405.44000000000005 333.7,405.44000000000005' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='803.9,154.56 812.3,154.56 812.3,405.44000000000005 803.9,405.44000000000005' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='189.95000000000002,132.16 181.55,132.16 181.55,427.84000000000003 189.95000000000002,427.84000000000003' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='830.15,132.16 838.55,132.16 838.55,427.84000000000003 830.15,427.84000000000003' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='25.20000000000001,16.799999999999997 16.80000000000001,16.799999999999997 16.80000000000001,452.47999999999996 25.20000000000001,452.47999999999996' />
+
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='856.4,16.799999999999997 864.8,16.799999999999997 864.8,452.47999999999996 856.4,452.47999999999996' />
+</svg>
