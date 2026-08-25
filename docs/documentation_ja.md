@@ -139,15 +139,15 @@ CJK のテキストを描画できます．
 
 <!-- figure: fontstyle=sans | fontstyle=serif | fontstyle=mono -->
 ```text
-[S
-  [NP the cat]
-  [VP sat]
+[Digits
+  [Even 02468]
+  [Odd 13579]
 ]
 ```
 
-{% include doc_figure.html name="doc-785f7893" alt="Noto Sans で組んだ木" %}
-{% include doc_figure.html name="doc-9cb0997a" alt="Noto Serif で組んだ木" %}
-{% include doc_figure.html name="doc-f6631a1c" alt="Noto Sans Mono で組んだ木" %}
+{% include doc_figure.html name="doc-695a9afc" alt="Noto Sans で組んだ木" %}
+{% include doc_figure.html name="doc-9171f7d9" alt="Noto Serif で組んだ木" %}
+{% include doc_figure.html name="doc-91363c37" alt="Noto Sans Mono で組んだ木" %}
 
 </div>
 
@@ -279,16 +279,16 @@ CJK のテキストを描画できます．
 
 テキストと組み合わせてサークル○，ボックス□，水平線などを描画することができます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-7988cf4f'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-2e03ab17'].layout }}" markdown="1">
 
 ```text
 [Shapes
   [#Brackets |1| {2}]
-  [##Rectangle |boxed|]
+  [##Rectangle {capsuled}]
 ]
 ```
 
-{% include doc_figure.html name="doc-7988cf4f" alt="四角と丸のタグ，括弧と矩形の囲み" %}
+{% include doc_figure.html name="doc-2e03ab17" alt="四角と丸のタグ，括弧と矩形の囲み" %}
 
 </div>
 

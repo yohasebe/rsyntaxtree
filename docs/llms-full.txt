@@ -171,9 +171,9 @@ CJK text.
 The same tree in each of the three, in the order above:
 
 ```text
-[S
-  [NP the cat]
-  [VP sat]
+[Digits
+  [Even 02468]
+  [Odd 13579]
 ]
 ```
 
@@ -296,7 +296,7 @@ Circles, boxes and rules can be drawn around or alongside the text.
 ```text
 [Shapes
   [#Brackets |1| {2}]
-  [##Rectangle |boxed|]
+  [##Rectangle {capsuled}]
 ]
 ```
 

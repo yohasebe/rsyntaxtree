@@ -140,15 +140,15 @@ The same tree in each of the three, in the order above:
 
 <!-- figure: fontstyle=sans | fontstyle=serif | fontstyle=mono -->
 ```text
-[S
-  [NP the cat]
-  [VP sat]
+[Digits
+  [Even 02468]
+  [Odd 13579]
 ]
 ```
 
-{% include doc_figure.html name="doc-785f7893" alt="The tree set in Noto Sans" %}
-{% include doc_figure.html name="doc-9cb0997a" alt="The tree set in Noto Serif" %}
-{% include doc_figure.html name="doc-f6631a1c" alt="The tree set in Noto Sans Mono" %}
+{% include doc_figure.html name="doc-695a9afc" alt="The tree set in Noto Sans" %}
+{% include doc_figure.html name="doc-9171f7d9" alt="The tree set in Noto Serif" %}
+{% include doc_figure.html name="doc-91363c37" alt="The tree set in Noto Sans Mono" %}
 
 </div>
 
@@ -279,16 +279,16 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 Circles, boxes and rules can be drawn around or alongside the text.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-7988cf4f'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-2e03ab17'].layout }}" markdown="1">
 
 ```text
 [Shapes
   [#Brackets |1| {2}]
-  [##Rectangle |boxed|]
+  [##Rectangle {capsuled}]
 ]
 ```
 
-{% include doc_figure.html name="doc-7988cf4f" alt="A boxed tag, a circled tag, brackets and a rectangle" %}
+{% include doc_figure.html name="doc-2e03ab17" alt="A boxed tag, a circled tag, brackets and a rectangle" %}
 
 </div>
 

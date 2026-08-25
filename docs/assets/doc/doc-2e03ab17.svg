@@ -35,7 +35,7 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='289.75' y='219.07199999999997'><tspan x='289.75' y='219.07199999999997' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">Rectangle</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='312.0' y='353.472'><tspan x='317.25' y='353.472' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">boxed</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; storoke-width: 0; font-size: 32px;' x='291.0' y='353.472'><tspan x='296.25' y='353.472' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', OpenMoji, 'OpenMoji Color', 'OpenMoji Black', 'Noto Emoji', serif">capsuled</tspan>
 </text>
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='107.55' y1='163.07199999999997' x2='235.65' y2='95.19999999999999' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='363.75' y1='163.07199999999997' x2='235.65' y2='95.19999999999999' />
@@ -60,8 +60,8 @@
 <polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='263.5,168.67199999999997 464.0,168.67199999999997 464.0,241.47199999999998 263.5,241.47199999999998' />
 
-<rect style='stroke: black; stroke-linejoin:round; stroke-width:1.6;'
-                    x='312.0' y='320.67199999999997'
-                    width='103.5' height='41.6'
+<rect style='stroke: black; stroke-width:1.6;'
+                    x='291.0' y='320.67199999999997' rx='20.8' ry='20.8'
+                    width='145.5' height='41.6'
                     fill='none' />
 </svg>
