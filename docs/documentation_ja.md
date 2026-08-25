@@ -33,15 +33,28 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 
 `線幅`（`linewidth`，CLI では `--linewidth`）は，コネクタ・括弧・囲みなど図中のすべての線の太さを，文字サイズに対する比で指定します．`1` は文字サイズの5%（本文の罫線と同じ太さ）で，0.5 刻みで 2.5% ずつ増え，`0.5`（最細）から `3.0`（15%，最太）まで選べます．線は文字サイズに追随するため，どの文字サイズでも文字と線の釣り合いが変わりません．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-ae181a61'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-532ffe07'].layout }}" markdown="1">
 
 ```text
 [S
-  [NP [D The] [N cat]]
-  [VP [V sat] [PP [P on] [NP [D the] [N mat]]]]]
+  [NP
+    [D The]
+    [N cat]
+  ]
+  [VP
+    [V sat]
+    [PP
+      [P on]
+      [NP
+        [D the]
+        [N mat]
+      ]
+    ]
+  ]
+]
 ```
 
-{% include doc_figure.html name="doc-ae181a61" alt="ラベル付き括弧表記から描かれた樹形図" %}
+{% include doc_figure.html name="doc-532ffe07" alt="ラベル付き括弧表記から描かれた樹形図" %}
 
 </div>
 
@@ -55,16 +68,20 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 
 左から右のモードでは，コネクタ，三角形，移動パス，ノード間直線接続のすべてが水平方向に適応されます．`縦間隔` オプションは LTR モードではツリーのレベル間の水平距離を制御します．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-88c1647e'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-5517a0a0'].layout }}" markdown="1">
 
 <!-- figure: direction=ltr -->
 ```text
 [Noun
-  [Common [Count cat] [Mass water]]
-  [Proper Tokyo]]
+  [Common
+    [Count cat]
+    [Mass water]
+  ]
+  [Proper Tokyo]
+]
 ```
 
-{% include doc_figure.html name="doc-88c1647e" alt="同じ構造を左から右へ展開した図" %}
+{% include doc_figure.html name="doc-5517a0a0" alt="同じ構造を左から右へ展開した図" %}
 
 </div>
 
@@ -115,16 +132,17 @@ CJK のテキストを描画できます．
 
 フォントのスタイルとしてイタリック／ボールド／ボールド+イタリックを指定できます．テキスト装飾としては，上線，下線，取り消し線を指定できます．また上付き文字と下付き文字を指定できます．これらは組み合わせて使用することもできます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-052f00a8'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-b054f4be'].layout }}" markdown="1">
 
 ```text
 [Styles
   [Emphasis *italic* **bold**]
   [Lines =overline= -underline- ~struck~]
-  [Scripts X_i_ Y__j__]]
+  [Scripts X_i_ Y__j__]
+]
 ```
 
-{% include doc_figure.html name="doc-052f00a8" alt="イタリック・ボールド・上線・下線・下付き・上付きを併用した図" %}
+{% include doc_figure.html name="doc-b054f4be" alt="イタリック・ボールド・上線・下線・下付き・上付きを併用した図" %}
 
 </div>
 
@@ -168,17 +186,42 @@ CJK のテキストを描画できます．
 
 ラベルが `<>` **のみ**のノードは不可視の中継点として描画され，コネクタの線は途切れずに貫通します．これを連ねると浅いリーフを下の段に送れるため，すべての終端要素を同じ高さに揃えたい場合に便利です．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-4260e983'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-28455e24'].layout }}" markdown="1">
 
 ```text
 [S
-  [NP [D [<> [<> the]]] [N [<> [<> cat]]]]
+  [NP
+    [D
+      [<>
+        [<> the]
+      ]
+    ]
+    [N
+      [<>
+        [<> cat]
+      ]
+    ]
+  ]
   [VP
-    [V [<> [<> sat]]]
-    [PP [P [<> on]] [NP [D the] [N mat]]]]]
+    [V
+      [<>
+        [<> sat]
+      ]
+    ]
+    [PP
+      [P
+        [<> on]
+      ]
+      [NP
+        [D the]
+        [N mat]
+      ]
+    ]
+  ]
+]
 ```
 
-{% include doc_figure.html name="doc-4260e983" alt="継手ですべての語を最下段に揃えた図" %}
+{% include doc_figure.html name="doc-28455e24" alt="継手ですべての語を最下段に揃えた図" %}
 
 </div>
 
@@ -199,15 +242,16 @@ CJK のテキストを描画できます．
 
 テキストと組み合わせてサークル○，ボックス□，水平線などを描画することができます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-48059fe7'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-b04ed95a'].layout }}" markdown="1">
 
 ```text
 [Shapes
   [#Brackets |1| {2}]
-  [##Rectangle boxed]]
+  [##Rectangle boxed]
+]
 ```
 
-{% include doc_figure.html name="doc-48059fe7" alt="四角と丸のタグ，括弧と矩形の囲み" %}
+{% include doc_figure.html name="doc-b04ed95a" alt="四角と丸のタグ，括弧と矩形の囲み" %}
 
 </div>
 
@@ -260,15 +304,22 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 |`#@red:NP`|角括弧＋赤色|
 |`^#@green:NP`|三角形＋角括弧＋緑色|
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-f26350d4'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-25afe7a3'].layout }}" markdown="1">
 
 ```text
 [S
-  [@blue:NP [D the] [N dog]]
-  [@red:VP [V chased] [NP a cat]]]
+  [@blue:NP
+    [D the]
+    [N dog]
+  ]
+  [@red:VP
+    [V chased]
+    [NP a cat]
+  ]
+]
 ```
 
-{% include doc_figure.html name="doc-f26350d4" alt="2 つのノードに個別の色を与えた図" %}
+{% include doc_figure.html name="doc-25afe7a3" alt="2 つのノードに個別の色を与えた図" %}
 
 </div>
 
@@ -296,15 +347,22 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 重なり合う（入れ子の）領域は，面が半透明なので自然に混色されます．領域シェードは
 上下方向・左右方向（`-d ltr`）の両レイアウトで機能し，すべての出力タイプ（SVG，PNG，PDF）に適用されます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-3c14cae4'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-f460070e'].layout }}" markdown="1">
 
 ```text
 [S
-  [%NP [D the] [N dog]]
-  [%@blue:VP [V chased] [NP a cat]]]
+  [%NP
+    [D the]
+    [N dog]
+  ]
+  [%@blue:VP
+    [V chased]
+    [NP a cat]
+  ]
+]
 ```
 
-{% include doc_figure.html name="doc-3c14cae4" alt="2 つの部分木を網掛けし、一方に色を付けた図" %}
+{% include doc_figure.html name="doc-f460070e" alt="2 つの部分木を網掛けし、一方に色を付けた図" %}
 
 </div>
 
@@ -411,19 +469,22 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 `導出`（`derivation`）をオンにすると，各ノードと娘を結ぶ線が，娘全体をまたぐ 1 本の罫に
 置き換わります．あわせて `方向` を `btt` にすると木が上下逆になり，語が先に来ます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-2d8d212b'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-f4320d2c'].layout }}" markdown="1">
 
 ```text
 [S\t<
   [NP\t>
     [NP/N the]
-    [N dog]]
+    [N dog]
+  ]
   [S\\NP\t>
     [(S\\NP)/NP bit]
-    [NP John]]]
+    [NP John]
+  ]
+]
 ```
 
-{% include doc_figure.html name="doc-2d8d212b" alt="語が先で結果が最後に来る範疇文法の導出図" %}
+{% include doc_figure.html name="doc-f4320d2c" alt="語が先で結果が最後に来る範疇文法の導出図" %}
 
 </div>
 
@@ -440,30 +501,38 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 範疇は素のラベルでなく素性構造でも構いません．範疇が素性を担う流儀の導出はこの形で
 書きます．行列の中の桁区切りは行列自身の列で，規則を名づけるのは行列の外にある区切りです：
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-08f42506'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-e9eada7a'].layout }}" markdown="1">
 
 ```text
 [#(CAT\tS#)\t<
   [#(CAT\tNP#) Kim]
-  [#(CAT\tVP#) sleeps]]
+  [#(CAT\tVP#) sleeps]
+]
 ```
 
-{% include doc_figure.html name="doc-08f42506" alt="範疇を素性構造にした導出図" %}
+{% include doc_figure.html name="doc-e9eada7a" alt="範疇を素性構造にした導出図" %}
 
 </div>
 
 `方向` を `ttb` のままにすると，同じオプションで構成素の広がりを上から示す図になります．
 各構成素の範囲が罫で示されます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-902cadd8'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-3a24085b'].layout }}" markdown="1">
 
 ```text
 [S
-  [NP [D the] [N dog]]
-  [VP [V bit] [NP John]]]
+  [NP
+    [D the]
+    [N dog]
+  ]
+  [VP
+    [V bit]
+    [NP John]
+  ]
+]
 ```
 
-{% include doc_figure.html name="doc-902cadd8" alt="同じオプションで構成素の広がりを示した図" %}
+{% include doc_figure.html name="doc-3a24085b" alt="同じオプションで構成素の広がりを示した図" %}
 
 </div>
 
