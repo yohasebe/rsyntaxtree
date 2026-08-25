@@ -105,6 +105,20 @@ Tidy モードではコネクタの高さも自動調整されます．`横間�
 
 `左右反転（RTL）` は `方向` と組み合わせられます。実例は[ギャラリーの Multilingual カテゴリ](https://yohasebe.github.io/rsyntaxtree/examples)のアラビア語の例をご覧ください．
 
+<div class="grid {{ site.data.doc_figure_sizes['doc-974a005e'].layout }}" markdown="1">
+
+<!-- figure: mirror=on -->
+```text
+[S
+  [NP الكتاب]
+  [VP قرأ]
+]
+```
+
+{% include doc_figure.html name="doc-974a005e" alt="反転した木．アラビア語の文が右から左に読める" %}
+
+</div>
+
 ### フォント
 
 図は 3 種類の書体のいずれかで描かれます．`フォント` で選びます．
@@ -279,6 +293,22 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 
 `コネクタ形状` では終端ノードとリーフの間に何を描くかを3種の中から選べます（`auto`，`bar`，`none`）．`auto` では，1つ以上の空白を含むリーフ（要するに「句」）に対しては終端ノードを頂点とした三角形を描画します．リーフが空白を含まない場合（つまり「単語」の場合)，垂直の直線が描かれます ．なお，リーフの先頭に `^` をつけると，そのリーフが句であると宣言することになります．したがって必ず三角形が描かれます． `bar` では，すべてのリーフに関して垂直の直線が描かれます． `none` では終端ノードとリーフの間にコネクターは描かれません．
 
+<div class="grid {{ site.data.doc_figure_sizes['doc-57fc7fda'].layout }}" markdown="1">
+
+```text
+[S
+  [NP a phrase]
+  [VP
+    [V word]
+    [NP ^forced triangle]
+  ]
+]
+```
+
+{% include doc_figure.html name="doc-57fc7fda" alt="句には三角，単語には縦線．先頭の ^ で三角を強制した例" %}
+
+</div>
+
 ### リーフを囲む括弧と矩形の描画
 
 ラベルまたはリーフとなるテキストの最初に（`^` が存在する場合はその直後に） `#` を付けると，そのテキスト全体を角括弧（［ ］）で囲みます（例：`[#NP text]`, `[NP #text]`, `[NP ^#text]`）．
@@ -286,6 +316,20 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 テキストの最初に `##` を付けると，テキスト全体を矩形（ボックス）で囲みます．
 
 テキストの最初に `###` を付けると，テキスト全体を太い線の矩形（ボックス）で囲みます．
+
+<div class="grid {{ site.data.doc_figure_sizes['doc-e2d3ee35'].layout }}" markdown="1">
+
+```text
+[Enclosures
+  [#Brackets one]
+  [##Rectangle two]
+  [###Bold three]
+]
+```
+
+{% include doc_figure.html name="doc-e2d3ee35" alt="角括弧・矩形・太線の矩形" %}
+
+</div>
 
 ### ノードごとの色指定
 
@@ -568,6 +612,25 @@ TikZ 出力も拒否されます．`forest` は娘それぞれに辺を引いて
 
 IDにはどのような数字を用いても構いませんが，必ず **2箇所** で同じIDを指定することが必要です．同じIDを3箇所以上で指定することはできません．
 
+<div class="grid {{ site.data.doc_figure_sizes['doc-5f725310'].layout }}" markdown="1">
+
+```text
+[S
+  [NP+1 What]
+  [S
+    [NP does]
+    [VP
+      [V like]
+      [NP+>1 t]
+    ]
+  ]
+]
+```
+
+{% include doc_figure.html name="doc-5f725310" alt="同じ番号を持つ 2 つのノードを結ぶ，矢印つきのパス" %}
+
+</div>
+
 ### ノードからノードへの追加的なコネクターの描画
 
 パスの指定と類似した方式でノードからノードへのコネクターを追加することができます．追加的なコネクターは直線で描画されます（`polyline`にはなりません）．追加的なコネクターを描画する際，デフォルトのコネクターを非表示（透明）にしたいときには `コネクタを隠す` オプションをオンにすると良いでしょう．
@@ -579,6 +642,20 @@ IDにはどのような数字を用いても構いませんが，必ず **2箇�
 - 両方向の矢印のあるコネクター（`-◀-▶-`）
 
 IDにはどのような数字を用いても構いませんが，必ず **2箇所** で同じIDを指定することが必要です．同じIDを3箇所以上で指定することはできません．
+
+<div class="grid {{ site.data.doc_figure_sizes['doc-481ba325'].layout }}" markdown="1">
+
+```text
+[S
+  [Subject+-1 they]
+  [Verb+->1 agree]
+  [Object them]
+]
+```
+
+{% include doc_figure.html name="doc-481ba325" alt="同じ段の 2 つのノードを直線で結ぶ追加のコネクタ" %}
+
+</div>
 
 ### Penn Treebank形式
 

@@ -106,6 +106,20 @@ Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding
 
 `Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
 
+<div class="grid {{ site.data.doc_figure_sizes['doc-974a005e'].layout }}" markdown="1">
+
+<!-- figure: mirror=on -->
+```text
+[S
+  [NP الكتاب]
+  [VP قرأ]
+]
+```
+
+{% include doc_figure.html name="doc-974a005e" alt="The same tree reflected, so an Arabic sentence reads right to left" %}
+
+</div>
+
 ### Fonts
 
 A figure is drawn with one of three faces, chosen with `Font`:
@@ -279,6 +293,22 @@ Here, `---` represents `-` repeated three times or more consecutively.
 
 `Connector shape` offers three settings for what is drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
 
+<div class="grid {{ site.data.doc_figure_sizes['doc-57fc7fda'].layout }}" markdown="1">
+
+```text
+[S
+  [NP a phrase]
+  [VP
+    [V word]
+    [NP ^forced triangle]
+  ]
+]
+```
+
+{% include doc_figure.html name="doc-57fc7fda" alt="A triangle for a phrase, a bar for a single word, and one forced with a caret" %}
+
+</div>
+
 ### Brackets and Rectangles around a Leaf
 
 In `auto` mode, the triangle connector shape is applied when the terminal node contains words separated by whitespace. In `bar` and `none` modes, triangles are drawn for the nodes with `^` at the beginning of the leaf text, lie `[NP ^syntax-trees]`.
@@ -288,6 +318,20 @@ If a `#` character is placed at the beginning of a label or leaf text (right aft
 If `##` is placed at the beginning of the leaf text, a rectangle is drawn instead of brackets.
 
 If `###` is placed at the beginning of the leaf text, a rectangle with thicker lines is drawn.
+
+<div class="grid {{ site.data.doc_figure_sizes['doc-e2d3ee35'].layout }}" markdown="1">
+
+```text
+[Enclosures
+  [#Brackets one]
+  [##Rectangle two]
+  [###Bold three]
+]
+```
+
+{% include doc_figure.html name="doc-e2d3ee35" alt="Square brackets, a rectangle, and a rectangle with thicker lines" %}
+
+</div>
 
 ### Per-Node Styling (Color)
 
@@ -584,6 +628,25 @@ Each path is distinguished by a unique ID number. The ID is specified by putting
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
 
+<div class="grid {{ site.data.doc_figure_sizes['doc-5f725310'].layout }}" markdown="1">
+
+```text
+[S
+  [NP+1 What]
+  [S
+    [NP does]
+    [VP
+      [V like]
+      [NP+>1 t]
+    ]
+  ]
+]
+```
+
+{% include doc_figure.html name="doc-5f725310" alt="A path with an arrowhead, drawn between two nodes that share an ID" %}
+
+</div>
+
 ### Draw Extra Connectors between Nodes (experimental)
 
 You can also add extra connector between nodes in the same fasion as you draw paths between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s). You may enable the `Hide connectors` option when drawing extra connectors.
@@ -595,6 +658,20 @@ You can also add extra connector between nodes in the same fasion as you draw pa
 Each additional connectors is distinguished by an ID number. The ID is specified by putting a a number after a sequence of a plus and a minus symbols (e.g. `+-8`) at the end of the node text. If a greater-than `>` or less-than `<` symbol is placed between the minus sign and the number (e.g. `+->8`), an arrowhead will appear at the end of the connector. Note that it makes no difference whether `+->` or `+-<` is used. The arrow is always directed to the element with one of these ID symbols.
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the additional connector is rendered. The same ID number cannot appear in more than two places.
+
+<div class="grid {{ site.data.doc_figure_sizes['doc-481ba325'].layout }}" markdown="1">
+
+```text
+[S
+  [Subject+-1 they]
+  [Verb+->1 agree]
+  [Object them]
+]
+```
+
+{% include doc_figure.html name="doc-481ba325" alt="An extra connector, drawn straight between two nodes of the same row" %}
+
+</div>
 
 ### Penn Treebank Format
 
