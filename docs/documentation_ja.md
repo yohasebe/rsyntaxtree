@@ -63,19 +63,21 @@ Tidy モードではコネクタの高さも自動調整されます．`横間�
 
 `左右反転（RTL）` は `方向` と組み合わせられます。実例は[ギャラリーの Multilingual カテゴリ](https://yohasebe.github.io/rsyntaxtree/examples)のアラビア語の例をご覧ください．
 
-### PNG形式を用いる場合
+### フォント
 
-Web インターフェイスでは次の3種類の書体を選べます．
+図は 3 種類の書体のいずれかで描かれます．`フォント` で選びます．
 
 - `Noto Sans`（`sans`）：ラテン文字と基本的なUnicode文字をゴシック体に近い書体で表示します．
 - `Noto Serif`（`serif`）：同じ範囲を明朝体に近い書体で表示します．
 - `Noto Sans Mono`（`mono`）：同じ範囲を等幅の書体で表示します．
 
-いずれも漢字・ハングル・かなは Noto CJK にフォールバックするため，どれを選んでも CJK のテキストを描画できます．
+いずれも漢字・ハングル・かなは Noto CJK にフォールバックするため，どれを選んでも
+CJK のテキストを描画できます．
 
-### SVG形式を用いる場合
-
-SVG形式を用いる場合，期待通りの表示を得るためには，ご使用のコンピュータに適切なフォントがインストールされている必要があります．下記のフォントをあらかじめインストールしておいてください．必要なフォントがインストールされていない場合は，別のフォントで表示されるため，見た目のバランスをやや欠くことがあります．
+どの機械にフォントが要るかは形式によって変わります．PNG・PDF・JPG・GIF はこちらで
+描いて絵として届くので，見るだけなら何も導入する必要はありません．SVG は字形ではなく
+書体の名前を持ち運び，開いた側がそれを用意します．そのため下記のフォントが無い機械では
+別の書体で代替され，文字の釣り合いをやや欠いた表示になります．
 
 - [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans): ラテン文字と基本的なUnicode文字（サンセリフ）の表示
 - [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP): 日本語のひらがな／カタカナ／漢字（サンセリフ）の表示
@@ -83,8 +85,6 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 - [Noto Serif JP](https://fonts.google.com/noto/specimen/Noto+Serif+JP):日本語のひらがな／カタカナ／漢字（セリフ）の表示
 - [Noto Sans CJK / Noto Serif CJK](https://github.com/notofonts/noto-cjk): ハングルや簡体字を含む CJK 全域の表示（上記の JP のフォントは日本語のみ）
 - [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): 絵文字の表示（モノクロ版．カラー絵文字フォントは PNG／PDF の描画経路では出力されません）
-
-ギャラリーで扱うスクリプトはシステム任せのフォールバックではなくフォント名を明示して解決します（`Noto Sans Arabic` ／ `Noto Naskh Arabic`，`Noto Sans Hebrew` ／ `Noto Serif Hebrew`，およびデーヴァナーガリー・タイ・クメールの Noto Sans／Noto Serif）．これらのフォントが導入されている環境どうしであれば，同じ入力が同じ字形で描画されます．数学用英数字（U+1D400 以降．例えば *v*P のイタリック体の *v*）は，環境によって字形が変わることがあります．
 
 ### テキストの描画
 
@@ -130,6 +130,8 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
 
 ラベルが `<>` **のみ**のノードは不可視の中継点として描画され，コネクタの線は途切れずに貫通します．これを連ねると浅いリーフを下の段に送れるため，すべての終端要素を同じ高さに揃えたい場合に便利です．
 
+<div class="grid" markdown="1">
+
 ```text
 [S
   [NP [D [<> [<> the]]] [N [<> [<> cat]]]]
@@ -137,6 +139,10 @@ SVG形式を用いる場合，期待通りの表示を得るためには，ご�
     [V [<> [<> sat]]]
     [PP [P [<> on]] [NP [D the] [N mat]]]]]
 ```
+
+![継手ですべての語を最下段に揃えた図](assets/doc/doc-4260e983.svg)
+
+</div>
 
 中継点がなければ，*the*・*cat*・*sat* は *the*・*mat* より2段上に，*on* は1段上に浮きます．各リーフは最も深い段に届くのに必要な数だけ中継点を重ねるので，6語すべてが最下段に並びます．ギャラリーの [Terminals levelled with pass-through joints](https://yohasebe.github.io/rsyntaxtree/examples#example-080) の例をご覧ください．
 
@@ -257,6 +263,8 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 
 組み合わせると次のようになります．
 
+<div class="grid" markdown="1">
+
 ```text
 [#*word*\
   PHON\t⟨<>*Kim*<>⟩\
@@ -265,6 +273,10 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
     SPR\t⟨<>|1|<>⟩#)#)#)
 ]
 ```
+
+![桁揃え・入れ子の行列・タグを含む素性構造](assets/doc/doc-41e0b789.svg)
+
+</div>
 
 ギャラリーには 3 つあります．[HPSG の素性構造](https://yohasebe.github.io/rsyntaxtree/examples#example-013)，[入れ子になったもの](https://yohasebe.github.io/rsyntaxtree/examples#example-076)，[f 構造](https://yohasebe.github.io/rsyntaxtree/examples#example-078)です．
 
@@ -275,6 +287,8 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 
 `\t` は行をセルに区切ります．ラベルの各行が同じ位置で区切られ，各列はその列の最大幅で描画されるため，直前のテキストの長さに関係なく縦に揃います．HPSGなどで属性値行列（AVM）を記述する時などに便利です．
 
+<div class="grid" markdown="1">
+
 ```text
 [#HEAD\tnoun\
   SPR\t⟨<>⟩\
@@ -283,11 +297,17 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 ]
 ```
 
+![属性と値が桁で揃った行列](assets/doc/doc-94998461.svg)
+
+</div>
+
 3列以上でも同様に動作し，各列は必要な幅を取ります．ギャラリーの [HPSG sample](https://yohasebe.github.io/rsyntaxtree/examples#example-013) の例などをご覧ください．
 
 #### 行列の入れ子
 
 属性の値として別の行列を書けます．`#(` と `#)` で囲むと，その行列は自前の角括弧と桁揃えを持ち，後続の行はその高さ全体を避けて配置されます．
+
+<div class="grid" markdown="1">
 
 ```text
 [#*word*\
@@ -297,6 +317,10 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
     SPR\t⟨<>⟩#)#)#)
 ]
 ```
+
+![四重に入れ子になった行列](assets/doc/doc-31d502b2.svg)
+
+</div>
 
 入れ子は何段でも可能です．`SYNSEM | LOCAL | CATEGORY | HEAD` のような素性パスを書くために必要な機能です．素の角括弧は樹形図の構造として解釈され，素の丸括弧はラベル本文でよく使われるため，区切りには `#(` と `#)` を用いています．ギャラリーの [Nested feature structure](https://yohasebe.github.io/rsyntaxtree/examples#example-076) の例などをご覧ください。
 
@@ -313,9 +337,15 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 `導出`（`derivation`）をオンにすると，各ノードと娘を結ぶ線が，娘全体をまたぐ 1 本の罫に
 置き換わります．あわせて `方向` を `btt` にすると木が上下逆になり，語が先に来ます．
 
+<div class="grid" markdown="1">
+
 ```text
 [S\t< [NP\t> [NP/N the] [N dog]] [S\\NP\t> [(S\\NP)/NP bit] [NP John]]]
 ```
+
+![語が先で結果が最後に来る範疇文法の導出図](assets/doc/doc-0e9a1ec9.svg)
+
+</div>
 
 構造は普通の括弧表記で，導出のための特別な記法はありません．知っておくとよいのは 2 点です．
 
@@ -330,16 +360,28 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 範疇は素のラベルでなく素性構造でも構いません．範疇が素性を担う流儀の導出はこの形で
 書きます．行列の中の桁区切りは行列自身の列で，規則を名づけるのは行列の外にある区切りです：
 
+<div class="grid" markdown="1">
+
 ```text
 [#(CAT\tS#)\t< [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]]
 ```
 
+![範疇を素性構造にした導出図](assets/doc/doc-b6efc69e.svg)
+
+</div>
+
 `方向` を `ttb` のままにすると，同じオプションで構成素の広がりを上から示す図になります．
 各構成素の範囲が罫で示されます．
+
+<div class="grid" markdown="1">
 
 ```text
 [S [NP [D the] [N dog]] [VP [V bit] [NP John]]]
 ```
+
+![同じオプションで構成素の広がりを示した図](assets/doc/doc-b998f2f6.svg)
+
+</div>
 
 `コネクタ形状` を `none` にして語と範疇の間に縦線が入らないようにし，`縦間隔` は小さめに
 してください．ギャラリーの導出図は最小の `0.5` です．導出は縦に詰めて組むものです．
@@ -413,6 +455,8 @@ RSyntaxTreeはPenn Treebank形式を自動的に検出し，括弧表記に変�
 以下の機能はウェブアプリでは提供されません．RSyntaxTreeをgemまたはDockerイメージとして自分の環境で動かす場合に利用できます．
 
 #### 好みのフォントを使う
+
+ギャラリーで扱うスクリプトはシステム任せのフォールバックではなくフォント名を明示して解決します（`Noto Sans Arabic` ／ `Noto Naskh Arabic`，`Noto Sans Hebrew` ／ `Noto Serif Hebrew`，およびデーヴァナーガリー・タイ・クメールの Noto Sans／Noto Serif）．これらのフォントが導入されている環境どうしであれば，同じ入力が同じ字形で描画されます．数学用英数字（U+1D400 以降．例えば *v*P のイタリック体の *v*）は，環境によって字形が変わることがあります．
 
 上記のフォント指定はシステムの既定より優先されるため，お使いのアラビア語フォントなどがあっても Noto が優先されます．RSyntaxTree 側を変更しなくても，fontconfig の alias で上書きできます．たとえばアラビア語を Amiri で描画するには，`~/.config/fontconfig/fonts.conf` に次を書いて `fc-cache -f` を実行します．
 

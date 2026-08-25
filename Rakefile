@@ -69,6 +69,9 @@ task :docker_generate do
     `docker build ./ -t rsyntaxtree_devel`
     `docker run --rm -v #{docpath}:/rsyntaxtree/hostdocs rsyntaxtree_devel ruby /rsyntaxtree/dev/generate_examples.rb /rsyntaxtree/hostdocs`
     `cat #{docpath}/generate_examples.log`
+    # The figures beside the manual's examples, drawn in the same container for
+    # the same reason: a machine's fonts must not decide what the site shows.
+    puts `docker run --rm -v #{docpath}:/rsyntaxtree/hostdocs rsyntaxtree_devel ruby /rsyntaxtree/dev/generate_doc_figures.rb /rsyntaxtree/hostdocs`
 end
 
 # The examples page scales every figure by the size recorded here, so the

@@ -64,19 +64,22 @@ Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding
 
 `Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
 
-### Fonts Used to Generate PNG
+### Fonts
 
-The web interface offers three font styles:
+A figure is drawn with one of three faces, chosen with `Font`:
 
 - `Noto Sans` (`sans`): latin and other basic Unicode characters in a sans serif face.
 - `Noto Serif` (`serif`): the same range in a serif face.
 - `Noto Sans Mono` (`mono`): the same range in a mono-spaced face.
 
-All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders CJK text.
+All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders
+CJK text.
 
-### Install Fonts for SVG
-
-SVG images are dependent on the fonts installed locally on your computer. In order for the images to display as intended, the following fonts should be installed beforehand (click on the links). If these fonts are not installed, other available fonts will be used, resulting in a somewhat unbalanced display of the text.
+Which fonts have to be on which machine depends on the format. A PNG, PDF, JPG
+or GIF is drawn here and arrives as a picture, so nothing needs installing to
+look at one. An SVG carries the names of the faces rather than the shapes, and
+whatever opens it supplies them — so a machine without these fonts substitutes
+what it has, and the text comes out a little out of balance:
 
 - [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans): for latin and other basic Unicode characters in sans serif
 - [Noto Sans JP](https://fonts.google.com/noto/specimen/Noto+Sans+JP): for Japanese characters in sans serif
@@ -85,8 +88,6 @@ SVG images are dependent on the fonts installed locally on your computer. In ord
 - [Noto Sans CJK / Noto Serif CJK](https://github.com/notofonts/noto-cjk): for the full CJK range, including Hangul and simplified Han (the JP families above cover Japanese only)
 - [Noto Sans Mono](https://fonts.google.com/noto/specimen/Noto+Sans+Mono): for latin and other basic Unicode characters in sans serif mono (semi-condensed)
 - [Noto Emoji](https://fonts.google.com/noto/specimen/Noto+Emoji): for emoji characters (the monochrome build; colour emoji fonts are not rendered by the PNG/PDF pipeline)
-
-The scripts the gallery covers are named explicitly rather than left to the system's generic fallback: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif. Where those fonts are installed, the same input renders the same way from one machine to the next. Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named yet and still depend on what the system offers.
 
 ### Drawing Text
 
@@ -129,6 +130,8 @@ A label that is *only* `<>` is a special case with its own use: see [Levelling t
 
 A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
 
+<div class="grid" markdown="1">
+
 ```text
 [S
   [NP [D [<> [<> the]]] [N [<> [<> cat]]]]
@@ -136,6 +139,10 @@ A node whose label is *only* `<>` renders as an invisible pass-through joint: th
     [V [<> [<> sat]]]
     [PP [P [<> on]] [NP [D the] [N mat]]]]]
 ```
+
+![Every word on the bottom row, reached with pass-through joints](assets/doc/doc-4260e983.svg)
+
+</div>
 
 Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, and *on* one row above. Each leaf takes as many joints as it needs to reach the deepest row, so all six words end up on the bottom row. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029) in the gallery uses `<>`-only joints the same way.
 
@@ -262,6 +269,8 @@ markup, and each piece below is useful by itself.
 
 Put together:
 
+<div class="grid" markdown="1">
+
 ```text
 [#*word*\
   PHON\t⟨<>*Kim*<>⟩\
@@ -270,6 +279,10 @@ Put together:
     SPR\t⟨<>|1|<>⟩#)#)#)
 ]
 ```
+
+![A feature structure with columns, a nested matrix and a tag](assets/doc/doc-41e0b789.svg)
+
+</div>
 
 The gallery has three: an [HPSG feature structure](https://yohasebe.github.io/rsyntaxtree/examples#example-013), a [nested one](https://yohasebe.github.io/rsyntaxtree/examples#example-076), and an [f-structure](https://yohasebe.github.io/rsyntaxtree/examples#example-078).
 
@@ -280,6 +293,8 @@ and can be the category of a step in a [derivation](#derivations).
 
 `\t` cuts a line into cells. Every line of the label is cut at the same points, and each column is drawn at the width of its widest cell, so the parts line up down the label instead of starting wherever the text before them happened to end. This is what an attribute-value matrix asks for — the attributes in one column, their values in the next:
 
+<div class="grid" markdown="1">
+
 ```text
 [#HEAD\tnoun\
   SPR\t⟨<>⟩\
@@ -288,11 +303,17 @@ and can be the category of a step in a [derivation](#derivations).
 ]
 ```
 
+![Attributes in one column and their values in the next](assets/doc/doc-94998461.svg)
+
+</div>
+
 A label with more than two columns works the same way; each is as wide as it needs to be. See the [Head-Driven Phrase Structure Grammar example](https://yohasebe.github.io/rsyntaxtree/examples#example-013) in the gallery.
 
 #### Nested matrices
 
 The value of an attribute can be another matrix, written between `#(` and `#)`. It draws its own brackets and lays out its own columns, and the rows that follow it clear its full height:
+
+<div class="grid" markdown="1">
 
 ```text
 [#*word*\
@@ -302,6 +323,10 @@ The value of an attribute can be another matrix, written between `#(` and `#)`. 
     SPR\t⟨<>⟩#)#)#)
 ]
 ```
+
+![A matrix nested to four levels](assets/doc/doc-31d502b2.svg)
+
+</div>
 
 Matrices nest to any depth, which is what a feature path such as `SYNSEM | LOCAL | CATEGORY | HEAD` needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
 
@@ -320,9 +345,15 @@ Turn `Derivation` on and every node is joined to its daughters by one rule
 across all of them, instead of by a line to each. Set `Direction` to `btt` as
 well and the tree is turned over, so the words come first:
 
+<div class="grid" markdown="1">
+
 ```text
 [S\t< [NP\t> [NP/N the] [N dog]] [S\\NP\t> [(S\\NP)/NP bit] [NP John]]]
 ```
+
+![A categorial derivation, words first and the result last](assets/doc/doc-0e9a1ec9.svg)
+
+</div>
 
 The structure is the ordinary bracket notation; nothing about it is special to
 derivations. Two things are worth knowing.
@@ -340,16 +371,28 @@ A category may be a feature structure rather than a plain label, which is how a
 derivation is written where the categories carry features. The breaks inside the
 matrix are its own columns; the one that names the rule is the break outside it:
 
+<div class="grid" markdown="1">
+
 ```text
 [#(CAT\tS#)\t< [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]]
 ```
 
+![A derivation whose categories are feature structures](assets/doc/doc-b6efc69e.svg)
+
+</div>
+
 Leave `Direction` at `ttb` and the same option draws the spans of a tree from
 the top instead, each constituent's extent marked by a rule:
+
+<div class="grid" markdown="1">
 
 ```text
 [S [NP [D the] [N dog]] [VP [V bit] [NP John]]]
 ```
+
+![The same option marking the spans of an ordinary tree](assets/doc/doc-b998f2f6.svg)
+
+</div>
 
 Set `Connector shape` to `none` so that no bar is drawn between a word and its
 category, and use a small `V spacing` — the gallery's derivations are set at
@@ -428,6 +471,8 @@ Example:
 The following are not offered by the web app. They are available when you run RSyntaxTree on your own machine, as the gem or as the Docker image.
 
 #### Using a Font of Your Own
+
+The scripts the gallery covers are named explicitly rather than left to the system's generic fallback: `Noto Sans Arabic` / `Noto Naskh Arabic`, `Noto Sans Hebrew` / `Noto Serif Hebrew`, and the Devanagari, Thai and Khmer faces of Noto Sans and Noto Serif. Where those fonts are installed, the same input renders the same way from one machine to the next. Mathematical alphanumerics (U+1D400–, such as the italic *v* of *v*P) are not named yet and still depend on what the system offers.
 
 The family chains above take precedence over whatever your system would pick by itself, which also means an Arabic or Devanagari font you prefer will lose to Noto. You can override any entry with a fontconfig alias — no change to RSyntaxTree is needed. For example, to render Arabic with Amiri, put this in `~/.config/fontconfig/fonts.conf` and run `fc-cache -f`:
 
