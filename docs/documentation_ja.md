@@ -134,6 +134,7 @@ CJK のテキストを描画できます．
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-b054f4be'].layout }}" markdown="1">
 
+<!-- figure: vheight=2.0 -->
 ```text
 [Styles
   [Emphasis *italic* **bold**]
@@ -186,31 +187,31 @@ CJK のテキストを描画できます．
 
 ラベルが `<>` **のみ**のノードは不可視の中継点として描画され，コネクタの線は途切れずに貫通します．これを連ねると浅いリーフを下の段に送れるため，すべての終端要素を同じ高さに揃えたい場合に便利です．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-28455e24'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-42e3258b'].layout }}" markdown="1">
 
 ```text
 [S
   [NP
-    [D
+    [<>
       [<>
-        [<> the]
+        [D The]
       ]
     ]
-    [N
+    [<>
       [<>
-        [<> cat]
+        [N cat]
       ]
     ]
   ]
   [VP
-    [V
+    [<>
       [<>
-        [<> sat]
+        [V sat]
       ]
     ]
     [PP
-      [P
-        [<> on]
+      [<>
+        [P on]
       ]
       [NP
         [D the]
@@ -221,11 +222,11 @@ CJK のテキストを描画できます．
 ]
 ```
 
-{% include doc_figure.html name="doc-28455e24" alt="継手ですべての語を最下段に揃えた図" %}
+{% include doc_figure.html name="doc-42e3258b" alt="継手ですべての語を最下段に揃えた図" %}
 
 </div>
 
-中継点がなければ，*the*・*cat*・*sat* は *the*・*mat* より2段上に，*on* は1段上に浮きます．各リーフは最も深い段に届くのに必要な数だけ中継点を重ねるので，6語すべてが最下段に並びます．ギャラリーの [Terminals levelled with pass-through joints](https://yohasebe.github.io/rsyntaxtree/examples#example-080) の例をご覧ください．
+中継点がなければ，最初の *NP* の下の *D*・*N* は 2 つめの *NP* の下の *D*・*N* より 2 段上に，*V*・*P* は 1 段上に浮きます．それぞれ最も深い段に届くのに必要な数だけ中継点を重ねるので，6 つの範疇が 1 段に，その下に 6 語が並びます．ギャラリーの [Terminals levelled with pass-through joints](https://yohasebe.github.io/rsyntaxtree/examples#example-080) の例をご覧ください．
 
 #### 改行
 

@@ -6,10 +6,6 @@ doc-25afe7a3:
   width: 389
   height: 407
   layout: ''
-doc-28455e24:
-  width: 433
-  height: 605
-  layout: ''
 doc-31d502b2:
   width: 621
   height: 302
@@ -22,6 +18,10 @@ doc-41e0b789:
   width: 621
   height: 305
   layout: grid-stack
+doc-42e3258b:
+  width: 438
+  height: 602
+  layout: ''
 doc-532ffe07:
   width: 438
   height: 602
@@ -40,7 +40,7 @@ doc-b04ed95a:
   layout: ''
 doc-b054f4be:
   width: 571
-  height: 261
+  height: 313
   layout: grid-wide
 doc-e9eada7a:
   width: 451

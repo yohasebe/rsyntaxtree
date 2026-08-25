@@ -137,6 +137,7 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-b054f4be'].layout }}" markdown="1">
 
+<!-- figure: vheight=2.0 -->
 ```text
 [Styles
   [Emphasis *italic* **bold**]
@@ -186,31 +187,31 @@ A label that is *only* `<>` is a special case with its own use: see [Levelling t
 
 A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-28455e24'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-42e3258b'].layout }}" markdown="1">
 
 ```text
 [S
   [NP
-    [D
+    [<>
       [<>
-        [<> the]
+        [D The]
       ]
     ]
-    [N
+    [<>
       [<>
-        [<> cat]
+        [N cat]
       ]
     ]
   ]
   [VP
-    [V
+    [<>
       [<>
-        [<> sat]
+        [V sat]
       ]
     ]
     [PP
-      [P
-        [<> on]
+      [<>
+        [P on]
       ]
       [NP
         [D the]
@@ -221,11 +222,11 @@ A node whose label is *only* `<>` renders as an invisible pass-through joint: th
 ]
 ```
 
-{% include doc_figure.html name="doc-28455e24" alt="Every word on the bottom row, reached with pass-through joints" %}
+{% include doc_figure.html name="doc-42e3258b" alt="Every word on the bottom row, reached with pass-through joints" %}
 
 </div>
 
-Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, and *on* one row above. Each leaf takes as many joints as it needs to reach the deepest row, so all six words end up on the bottom row. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029) in the gallery uses `<>`-only joints the same way.
+Without the joints, *D* and *N* under the first *NP* sit two rows above the *D* and *N* under the second, and *V* and *P* one row above. Each takes as many joints as it needs to reach the deepest row, so the six categories come out in one row and the six words in the row below it. The [Animal ontology example](https://yohasebe.github.io/rsyntaxtree/examples#example-029) in the gallery uses `<>`-only joints the same way.
 
 #### Newline
 
