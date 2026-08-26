@@ -96,9 +96,9 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 - **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Two leaves never swap their left-right order.
 - **High** (`high`): the densest mode, tucking without limit and allowing branch angles to differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
 
-One tree at each of the five settings, narrowing at every step. `medium` and
-`high` land in the same place here, which is the ordinary case — the two part
-only on trees deeper and more lopsided than this one:
+One tree at each of the five settings, narrowing at every step. The last two are
+set side by side because that is where the difference is hardest to see: `high`
+pulls *sell* in against the noun, and `medium` leaves it where the branch puts it.
 
 <div class="grid grid-figures" markdown="1">
 
@@ -110,27 +110,29 @@ only on trees deeper and more lopsided than this one:
       [Deg too]
       [A few]
     ]
-    [N cars]
+    [N electric\-cars]
   ]
-  [V sold]
+  [V sell]
 ]
 ```
 
-{% include doc_figure.html name="doc-e7201793" alt="The tree at tidy symmetric" %}
+{% include doc_figure.html name="doc-bdd75d02" alt="The tree at tidy symmetric" %}
 Symmetric
-
-{% include doc_figure.html name="doc-ffd51e50" alt="The tree with tidy off" %}
-Off
 
 <div class="figure-break"></div>
 
-{% include doc_figure.html name="doc-34bbdf80" alt="The tree at tidy low" %}
+{% include doc_figure.html name="doc-50cc86f6" alt="The tree with tidy off" %}
+Off
+
+{% include doc_figure.html name="doc-9f5c8f70" alt="The tree at tidy low" %}
 Low
 
-{% include doc_figure.html name="doc-157f25ce" alt="The tree at tidy medium" %}
+<div class="figure-break"></div>
+
+{% include doc_figure.html name="doc-c363d295" alt="The tree at tidy medium" %}
 Medium
 
-{% include doc_figure.html name="doc-0d6ae53b" alt="The tree at tidy high" %}
+{% include doc_figure.html name="doc-75dc92c3" alt="The tree at tidy high" %}
 High
 
 </div>
