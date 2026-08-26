@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- An option given as an empty string is read as an option not given, rather
+  than as a value no list contains. An HTML form posts a field for every
+  control it carries, and a control with nothing selected posts the empty
+  string, so a form that has outlived one of its own controls sends that field
+  empty alongside the rest. Since option validation arrived in 1.11.0 that
+  failed the whole request: the web UI's Download buttons answered 500 for
+  every input, because the form still read a `format` select the page no longer
+  had. A value that is actually wrong is still rejected.
+
 ## [1.13.0] - 2026-08
 
 ### Added

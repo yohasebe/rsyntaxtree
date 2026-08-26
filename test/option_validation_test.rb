@@ -99,6 +99,31 @@ class OptionValidationTest < Minitest::Test
     assert_equal :invalid_option, e.code
   end
 
+  # An HTML form posts a field for every control it carries, and a control with
+  # nothing selected posts the empty string. So a form that has outlived one of
+  # its own controls keeps sending that field, empty, alongside everything else
+  # — which is how the web UI came to send `format=` on every download and get
+  # 500 back for every input, the reason nowhere a user could see it. An option
+  # given as an empty string is an option not given, and the default stands.
+  def test_an_empty_value_is_no_value_rather_than_a_bad_one
+    OPTION_VALUES.each_key do |key|
+      assert_nil build(key => ""), "#{key}: an empty value should be read as unset"
+      assert_nil build(key => nil), "#{key}: nil should be read as unset"
+    end
+    NUMERIC_RANGES.each_key do |key|
+      assert_nil build(key => ""), "#{key}: an empty value should be read as unset"
+    end
+  end
+
+  # And the default really is what stands — an empty value must not reach the
+  # drawing as a zero or a blank.
+  def test_an_empty_value_leaves_the_default_in_place
+    plain = RSyntaxTree::RSGenerator.new(data: "[S [NP a] [VP b]]").draw_svg
+    emptied = RSyntaxTree::RSGenerator.new(data: "[S [NP a] [VP b]]", format: "", fontsize: "",
+                                           color: "", direction: "", vheight: "").draw_svg
+    assert_equal plain, emptied
+  end
+
   def test_unknown_keys_still_pass_because_callers_send_their_own
     assert_nil build(my_own_field: "whatever", data_extra: 1)
   end

@@ -151,6 +151,18 @@ module RSyntaxTree
       fontset = {}
       params.each do |keystr, value|
         key = keystr.to_sym
+        # An option given as an empty string is an option not given. An HTML
+        # form posts a field for every control it carries, and a control with
+        # nothing selected posts the empty string — so a form that has outlived
+        # one of its own controls sends `format=` and every other option along
+        # with it. Read as a value, that is a choice nobody can have made, and
+        # it failed the whole request: the web UI's three Download buttons
+        # returned 500 for every input, with the reason nowhere the user could
+        # see it. Read as silence, the default stands, which is what the sender
+        # meant.
+        next if (OPTION_VALUES.key?(key) || NUMERIC_RANGES.key?(key)) &&
+                (value.nil? || value.to_s.strip.empty?)
+
         if OPTION_VALUES.key?(key) && !OPTION_VALUES[key].include?(value.to_s)
           raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
                              code: :invalid_option,
