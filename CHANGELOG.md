@@ -1,8 +1,15 @@
 # Changelog
 
-## [Unreleased]
+## [1.13.1] - 2026-08
 
 ### Fixed
+- `^` at the head of a leaf draws the triangle it asks for. The mark may be
+  written on the node's label or on the leaf's own text — `[^NP cats]` and
+  `[NP ^cats]` — and the documentation, the notation reference and the gallery
+  all use both, but only the first was drawn: the second lost its caret to the
+  parser and then a bar was drawn under it. The two now produce the same figure
+  in every connector style, and LSIF records the edge as a triangle. Three
+  gallery figures change accordingly, each toward what it was written to show.
 - An option given as an empty string is read as an option not given, rather
   than as a value no list contains. An HTML form posts a field for every
   control it carries, and a control with nothing selected posts the empty
