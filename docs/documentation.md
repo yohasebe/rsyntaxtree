@@ -103,33 +103,33 @@ last step is the smallest:
 
 <!-- figure: tidy=symmetric | tidy=off | tidy=low | tidy=medium | tidy=high -->
 ```text
-[X
-  [Y
-    [Z
-      [W w]
-      [V v]
+[S
+  [NP
+    [AP
+      [Adv very]
+      [A tall]
     ]
-    u
+    trees
   ]
-  [T t]
+  [VP fell]
 ]
 ```
 
-{% include doc_figure.html name="doc-51e25774" alt="The tree at tidy symmetric" %}
+{% include doc_figure.html name="doc-3ca926eb" alt="The tree at tidy symmetric" %}
 Symmetric
 
-{% include doc_figure.html name="doc-8bfc06ec" alt="The tree with tidy off" %}
+{% include doc_figure.html name="doc-5a7cb17d" alt="The tree with tidy off" %}
 Off
 
 <div class="figure-break"></div>
 
-{% include doc_figure.html name="doc-4838aa83" alt="The tree at tidy low" %}
+{% include doc_figure.html name="doc-6f8c31e4" alt="The tree at tidy low" %}
 Low
 
-{% include doc_figure.html name="doc-06a22669" alt="The tree at tidy medium" %}
+{% include doc_figure.html name="doc-347dde62" alt="The tree at tidy medium" %}
 Medium
 
-{% include doc_figure.html name="doc-10ddc52c" alt="The tree at tidy high" %}
+{% include doc_figure.html name="doc-75dead08" alt="The tree at tidy high" %}
 High
 
 </div>

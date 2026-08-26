@@ -140,15 +140,15 @@ One lopsided tree at each of the five settings. It narrows at every step, and th
 last step is the smallest:
 
 ```text
-[X
-  [Y
-    [Z
-      [W w]
-      [V v]
+[S
+  [NP
+    [AP
+      [Adv very]
+      [A tall]
     ]
-    u
+    trees
   ]
-  [T t]
+  [VP fell]
 ]
 ```
 

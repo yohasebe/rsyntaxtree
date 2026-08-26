@@ -14,17 +14,9 @@ doc-02bc5fec:
   width: 255
   height: 357
   layout: ''
-doc-06a22669:
-  width: 205
-  height: 497
-  layout: ''
 doc-0f4a4bf1:
   width: 248
   height: 276
-  layout: ''
-doc-10ddc52c:
-  width: 200
-  height: 500
   layout: ''
 doc-2ea8675a:
   width: 419
@@ -34,38 +26,46 @@ doc-31d502b2:
   width: 581
   height: 283
   layout: grid-stack
+doc-347dde62:
+  width: 282
+  height: 470
+  layout: ''
+doc-3ca926eb:
+  width: 560
+  height: 397
+  layout: grid-stack
 doc-41e0b789:
   width: 581
   height: 286
   layout: grid-stack
-doc-4838aa83:
-  width: 222
-  height: 491
-  layout: ''
 doc-49f323a8:
   width: 494
   height: 230
-  layout: grid-wide
-doc-51e25774:
-  width: 437
-  height: 415
   layout: grid-wide
 doc-532ffe07:
   width: 391
   height: 538
   layout: ''
+doc-5a7cb17d:
+  width: 358
+  height: 430
+  layout: ''
 doc-695a9afc:
   width: 218
   height: 283
+  layout: ''
+doc-6f8c31e4:
+  width: 314
+  height: 461
+  layout: ''
+doc-75dead08:
+  width: 281
+  height: 470
   layout: ''
 doc-8671daca:
   width: 541
   height: 204
   layout: grid-wide
-doc-8bfc06ec:
-  width: 272
-  height: 451
-  layout: ''
 doc-91363c37:
   width: 224
   height: 281

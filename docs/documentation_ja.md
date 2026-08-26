@@ -102,33 +102,33 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 
 <!-- figure: tidy=symmetric | tidy=off | tidy=low | tidy=medium | tidy=high -->
 ```text
-[X
-  [Y
-    [Z
-      [W w]
-      [V v]
+[S
+  [NP
+    [AP
+      [Adv very]
+      [A tall]
     ]
-    u
+    trees
   ]
-  [T t]
+  [VP fell]
 ]
 ```
 
-{% include doc_figure.html name="doc-51e25774" alt="Tidy symmetric の木" %}
+{% include doc_figure.html name="doc-3ca926eb" alt="Tidy symmetric の木" %}
 Symmetric
 
-{% include doc_figure.html name="doc-8bfc06ec" alt="Tidy オフの木" %}
+{% include doc_figure.html name="doc-5a7cb17d" alt="Tidy オフの木" %}
 オフ
 
 <div class="figure-break"></div>
 
-{% include doc_figure.html name="doc-4838aa83" alt="Tidy low の木" %}
+{% include doc_figure.html name="doc-6f8c31e4" alt="Tidy low の木" %}
 Low
 
-{% include doc_figure.html name="doc-06a22669" alt="Tidy medium の木" %}
+{% include doc_figure.html name="doc-347dde62" alt="Tidy medium の木" %}
 Medium
 
-{% include doc_figure.html name="doc-10ddc52c" alt="Tidy high の木" %}
+{% include doc_figure.html name="doc-75dead08" alt="Tidy high の木" %}
 High
 
 </div>
