@@ -136,8 +136,8 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 - **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Two leaves never swap their left-right order.
 - **High** (`high`): the densest mode, tucking without limit and allowing branch angles to differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
 
-One lopsided tree at each of the four ordinary settings. It narrows at every step, and
-the last step is the smallest:
+One lopsided tree at each of the five settings. It narrows at every step, and the
+last step is the smallest:
 
 ```text
 [X
@@ -151,6 +151,8 @@ the last step is the smallest:
   [T t]
 ]
 ```
+
+Symmetric
 
 Off
 

@@ -95,12 +95,12 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 - **Medium**（`medium`）：浅い部分木を隣の深い部分木の上の空白に入れ込んで，さらに圧縮します（例：指定部の NP が主要部側に寄る）．2つのリーフの左右順序が入れ替わることはありません。
 - **High**（`high`）：入れ込みを制限なく行う最も密なオプションです，幅が詰まるならレベル間で枝の角度が大きく食い違うことも許容します．リーフの順序保証は同じ段の中のみに限定されるので、文の線形順序が図の中の表示の水平軸において、部分的に入れ替わることがあり得ます。
 
-偏りのある木を，通常使う 4 つの設定で描いたものです．段階を追って幅が詰まり，最後の一段が
-最も小さい差になります．
+偏りのある木を 5 つの設定で描いたものです．段階を追って幅が詰まり，最後の一段が最も
+小さい差になります．
 
 <div class="grid grid-figures" markdown="1">
 
-<!-- figure: tidy=off | tidy=low | tidy=medium | tidy=high -->
+<!-- figure: tidy=symmetric | tidy=off | tidy=low | tidy=medium | tidy=high -->
 ```text
 [X
   [Y
@@ -114,8 +114,13 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 ]
 ```
 
+{% include doc_figure.html name="doc-51e25774" alt="Tidy symmetric の木" %}
+Symmetric
+
 {% include doc_figure.html name="doc-8bfc06ec" alt="Tidy オフの木" %}
 オフ
+
+<div class="figure-break"></div>
 
 {% include doc_figure.html name="doc-4838aa83" alt="Tidy low の木" %}
 Low

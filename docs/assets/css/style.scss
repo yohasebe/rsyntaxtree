@@ -70,16 +70,34 @@ div.grid img {
    each of them a row. Laid out in the ordinary flow instead, as inline blocks,
    they sit in a line and wrap when the page is too narrow for them. */
 div.grid.grid-figures {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+/* The notation runs the width of the row; so does a break placed to say where
+   the figures are meant to divide, which is how five settings come out two and
+   three rather than however many happen to fit. */
+div.grid.grid-figures > div[class^="language-"],
+div.grid.grid-figures > div.figure-break {
+  flex-basis: 100%;
+  margin: 0;
 }
 
 div.grid.grid-figures > p {
-  display: inline-block;
-  vertical-align: top;
-  margin: 0.25rem 1.5rem 0 0;
+  margin: 0;
   text-align: center;
   font-size: 0.85em;
   line-height: 1.4;
+}
+
+/* The label goes under the figure, not beside it. Left inline, it sat at the
+   image's baseline — off to the right and level with the bottom row of the
+   tree, where it read as part of the drawing. */
+div.grid.grid-figures > p img {
+  display: block;
+  margin: 0 auto 0.35rem;
 }
 
 /* Long input lines scroll inside their own column. */

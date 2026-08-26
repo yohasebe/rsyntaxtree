@@ -96,12 +96,12 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 - **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Two leaves never swap their left-right order.
 - **High** (`high`): the densest mode, tucking without limit and allowing branch angles to differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
 
-One lopsided tree at each of the four ordinary settings. It narrows at every step, and
-the last step is the smallest:
+One lopsided tree at each of the five settings. It narrows at every step, and the
+last step is the smallest:
 
 <div class="grid grid-figures" markdown="1">
 
-<!-- figure: tidy=off | tidy=low | tidy=medium | tidy=high -->
+<!-- figure: tidy=symmetric | tidy=off | tidy=low | tidy=medium | tidy=high -->
 ```text
 [X
   [Y
@@ -115,8 +115,13 @@ the last step is the smallest:
 ]
 ```
 
+{% include doc_figure.html name="doc-51e25774" alt="The tree at tidy symmetric" %}
+Symmetric
+
 {% include doc_figure.html name="doc-8bfc06ec" alt="The tree with tidy off" %}
 Off
+
+<div class="figure-break"></div>
 
 {% include doc_figure.html name="doc-4838aa83" alt="The tree at tidy low" %}
 Low

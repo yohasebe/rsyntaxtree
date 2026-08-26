@@ -43,7 +43,7 @@ module LlmPayload
     # Any div, not the grid alone. The page also sets some passages aside in a
     # box, and their text is content a reader of this file wants — it is only
     # the box that means nothing here.
-    md = md.gsub(/^<div\b[^>]*>\n\n?/, "")
+    md = md.gsub(%r{^<div\b[^>]*>(?:</div>)?\n\n?}, "")
            .gsub(/^<!--\s*figure:.*?-->\n/, "")
            .gsub(/^\{%-?\s*include\s+doc_figure\.html.*?%\}\n\n?/, "")
            .gsub(%r{^</div>\n}, "")
