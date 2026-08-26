@@ -18,6 +18,14 @@ doc-0f4a4bf1:
   width: 248
   height: 276
   layout: ''
+doc-1471e588:
+  width: 348
+  height: 453
+  layout: ''
+doc-23080864:
+  width: 796
+  height: 373
+  layout: grid-stack
 doc-2ea8675a:
   width: 419
   height: 267
@@ -34,10 +42,6 @@ doc-49f323a8:
   width: 494
   height: 230
   layout: grid-wide
-doc-50cc86f6:
-  width: 420
-  height: 418
-  layout: grid-wide
 doc-532ffe07:
   width: 391
   height: 538
@@ -46,10 +50,14 @@ doc-695a9afc:
   width: 218
   height: 283
   layout: ''
-doc-75dc92c3:
-  width: 317
-  height: 460
-  layout: ''
+doc-6c1c9fed:
+  width: 473
+  height: 409
+  layout: grid-wide
+doc-84af9266:
+  width: 431
+  height: 436
+  layout: grid-wide
 doc-8671daca:
   width: 541
   height: 204
@@ -74,14 +82,6 @@ doc-978d14e0:
   width: 220
   height: 203
   layout: ''
-doc-9f5c8f70:
-  width: 374
-  height: 447
-  layout: ''
-doc-bdd75d02:
-  width: 528
-  height: 401
-  layout: grid-wide
 doc-c05567af:
   width: 375
   height: 572
@@ -90,9 +90,9 @@ doc-c235812c:
   width: 408
   height: 347
   layout: ''
-doc-c363d295:
-  width: 327
-  height: 458
+doc-daf326ff:
+  width: 365
+  height: 449
   layout: ''
 doc-e31ee644:
   width: 456

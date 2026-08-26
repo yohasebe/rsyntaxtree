@@ -106,8 +106,8 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 [S
   [NP
     [AP
-      [Deg too]
-      [A few]
+      [Deg less]
+      [A expensive]
     ]
     [N electric\-cars]
   ]
@@ -115,23 +115,23 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 ]
 ```
 
-{% include doc_figure.html name="doc-bdd75d02" alt="Tidy symmetric の木" %}
+{% include doc_figure.html name="doc-23080864" alt="Tidy symmetric の木" %}
 Symmetric
 
 <div class="figure-break"></div>
 
-{% include doc_figure.html name="doc-50cc86f6" alt="Tidy オフの木" %}
+{% include doc_figure.html name="doc-6c1c9fed" alt="Tidy オフの木" %}
 オフ
 
-{% include doc_figure.html name="doc-9f5c8f70" alt="Tidy low の木" %}
+{% include doc_figure.html name="doc-84af9266" alt="Tidy low の木" %}
 Low
 
 <div class="figure-break"></div>
 
-{% include doc_figure.html name="doc-c363d295" alt="Tidy medium の木" %}
+{% include doc_figure.html name="doc-daf326ff" alt="Tidy medium の木" %}
 Medium
 
-{% include doc_figure.html name="doc-75dc92c3" alt="Tidy high の木" %}
+{% include doc_figure.html name="doc-1471e588" alt="Tidy high の木" %}
 High
 
 </div>

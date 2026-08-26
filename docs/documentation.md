@@ -107,8 +107,8 @@ pulls *sell* in against the noun, and `medium` leaves it where the branch puts i
 [S
   [NP
     [AP
-      [Deg too]
-      [A few]
+      [Deg less]
+      [A expensive]
     ]
     [N electric\-cars]
   ]
@@ -116,23 +116,23 @@ pulls *sell* in against the noun, and `medium` leaves it where the branch puts i
 ]
 ```
 
-{% include doc_figure.html name="doc-bdd75d02" alt="The tree at tidy symmetric" %}
+{% include doc_figure.html name="doc-23080864" alt="The tree at tidy symmetric" %}
 Symmetric
 
 <div class="figure-break"></div>
 
-{% include doc_figure.html name="doc-50cc86f6" alt="The tree with tidy off" %}
+{% include doc_figure.html name="doc-6c1c9fed" alt="The tree with tidy off" %}
 Off
 
-{% include doc_figure.html name="doc-9f5c8f70" alt="The tree at tidy low" %}
+{% include doc_figure.html name="doc-84af9266" alt="The tree at tidy low" %}
 Low
 
 <div class="figure-break"></div>
 
-{% include doc_figure.html name="doc-c363d295" alt="The tree at tidy medium" %}
+{% include doc_figure.html name="doc-daf326ff" alt="The tree at tidy medium" %}
 Medium
 
-{% include doc_figure.html name="doc-75dc92c3" alt="The tree at tidy high" %}
+{% include doc_figure.html name="doc-1471e588" alt="The tree at tidy high" %}
 High
 
 </div>
