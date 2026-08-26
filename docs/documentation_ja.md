@@ -95,8 +95,9 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 - **Medium**（`medium`）：浅い部分木を隣の深い部分木の上の空白に入れ込んで，さらに圧縮します（例：指定部の NP が主要部側に寄る）．2つのリーフの左右順序が入れ替わることはありません。
 - **High**（`high`）：入れ込みを制限なく行う最も密なオプションです，幅が詰まるならレベル間で枝の角度が大きく食い違うことも許容します．リーフの順序保証は同じ段の中のみに限定されるので、文の線形順序が図の中の表示の水平軸において、部分的に入れ替わることがあり得ます。
 
-偏りのある木を 5 つの設定で描いたものです．段階を追って幅が詰まります．最後の 2 つは
-*trees* の位置をご覧ください．`high` は隣の AP に寄せますが，`medium` は寄せません．
+同じ木を 5 つの設定で描いたものです．段階を追って幅が詰まります．`medium` と `high` は
+ここでは同じ結果になりますが，それが通常です．両者が分かれるのは，これよりも深く
+偏った木に限られます．
 
 <div class="grid grid-figures" markdown="1">
 
@@ -105,35 +106,30 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 [S
   [NP
     [AP
-      [AP
-        [Adv very]
-        [A tall]
-      ]
-      [A green]
+      [Deg too]
+      [A few]
     ]
-    trees
+    [N cars]
   ]
-  [VP fell]
+  [V sold]
 ]
 ```
 
-{% include doc_figure.html name="doc-64a015a3" alt="Tidy symmetric の木" %}
+{% include doc_figure.html name="doc-e7201793" alt="Tidy symmetric の木" %}
 Symmetric
 
-<div class="figure-break"></div>
-
-{% include doc_figure.html name="doc-26aca6b3" alt="Tidy オフの木" %}
+{% include doc_figure.html name="doc-ffd51e50" alt="Tidy オフの木" %}
 オフ
 
-{% include doc_figure.html name="doc-cba31ab1" alt="Tidy low の木" %}
-Low
-
 <div class="figure-break"></div>
 
-{% include doc_figure.html name="doc-da18a892" alt="Tidy medium の木" %}
+{% include doc_figure.html name="doc-34bbdf80" alt="Tidy low の木" %}
+Low
+
+{% include doc_figure.html name="doc-157f25ce" alt="Tidy medium の木" %}
 Medium
 
-{% include doc_figure.html name="doc-cf2ccfd0" alt="Tidy high の木" %}
+{% include doc_figure.html name="doc-0d6ae53b" alt="Tidy high の木" %}
 High
 
 </div>
