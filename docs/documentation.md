@@ -855,7 +855,7 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 - Text decoration (bold, italic)
 - Subscript/superscript (`_x_`, `__x__`)
 - Path drawing (`+1`, `+>1`)
-- Column alignment (`\t`) — cells run together on one line
+- Column alignment (`\t`)
 - Nested matrix (`#(` … `#)`)
 - Grey line scheme (`color: gray`)
 
