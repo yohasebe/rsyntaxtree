@@ -68,20 +68,20 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 
 左から右のモードでは，コネクタ，三角形，移動パス，ノード間直線接続のすべてが水平方向に適応されます．`縦間隔` オプションは LTR モードではツリーのレベル間の水平距離を制御します．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-a7a2f333'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-8671daca'].layout }}" markdown="1">
 
 <!-- figure: direction=ltr -->
 ```text
 [Noun
   [Common
-    [Count cat]
-    [Mass water]
+    [Count *cat*]
+    [Mass *water*]
   ]
-  [Proper Tokyo]
+  [Proper *Tokyo*]
 ]
 ```
 
-{% include doc_figure.html name="doc-a7a2f333" alt="同じ構造を左から右へ展開した図" %}
+{% include doc_figure.html name="doc-8671daca" alt="同じ構造を左から右へ展開した図" %}
 
 </div>
 
@@ -95,6 +95,39 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 - **Medium**（`medium`）：浅い部分木を隣の深い部分木の上の空白に入れ込んで，さらに圧縮します（例：指定部の NP が主要部側に寄る）．2つのリーフの左右順序が入れ替わることはありません。
 - **High**（`high`）：入れ込みを制限なく行う最も密なオプションです，幅が詰まるならレベル間で枝の角度が大きく食い違うことも許容します．リーフの順序保証は同じ段の中のみに限定されるので、文の線形順序が図の中の表示の水平軸において、部分的に入れ替わることがあり得ます。
 
+偏りのある木を，通常使う 4 つの設定で描いたものです．段階を追って幅が詰まり，最後の一段が
+最も小さい差になります．
+
+<div class="grid grid-figures" markdown="1">
+
+<!-- figure: tidy=off | tidy=low | tidy=medium | tidy=high -->
+```text
+[X
+  [Y
+    [Z
+      [W w]
+      [V v]
+    ]
+    u
+  ]
+  [T t]
+]
+```
+
+{% include doc_figure.html name="doc-8bfc06ec" alt="Tidy オフの木" %}
+オフ
+
+{% include doc_figure.html name="doc-4838aa83" alt="Tidy low の木" %}
+Low
+
+{% include doc_figure.html name="doc-06a22669" alt="Tidy medium の木" %}
+Medium
+
+{% include doc_figure.html name="doc-10ddc52c" alt="Tidy high の木" %}
+High
+
+</div>
+
 `high` の効果が得られるのは深く偏った木に限定され，均整のとれた木では `medium` と大差ない結果になることもあります．通常の用途は `off`・`low`・`medium` で足ります．
 
 Tidy モードではコネクタの高さも自動調整されます．`横間隔`（`hspacing`，デフォルト 1.0，目安 0.5〜3.0）と`縦間隔`（`vheight`）はそれぞれ横方向と縦方向の間隔倍率で，tidy の有無に関わらずすべてのレイアウトモードで有効です．
@@ -103,7 +136,7 @@ Tidy モードではコネクタの高さも自動調整されます．`横間�
 
 アラビア語やヘブライ語など右から左に書く文字体系のため，樹形図を右から左に展開させることができます．`左右反転（RTL）` オプション（`mirror: on`，CLI では `--mirror`）は，レイアウト確定後の樹全体を水平方向に反転します．構造は変わらず，リーフの並び順だけが逆転して，文が自然な方向に読めるようになります．
 
-`左右反転（RTL）` は `方向` と組み合わせられます。実例は[ギャラリーの Multilingual カテゴリ](https://yohasebe.github.io/rsyntaxtree/examples)のアラビア語の例をご覧ください．
+`左右反転（RTL）` は `方向` と組み合わせられます．
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-02bc5fec'].layout }}" markdown="1">
 
@@ -133,7 +166,7 @@ Tidy モードではコネクタの高さも自動調整されます．`横間�
 いずれも漢字・ハングル・かなは Noto CJK にフォールバックするため，どれを選んでも
 CJK のテキストを描画できます．
 
-同じ木を 3 種類の書体で描いたものです．並びは上の箇条書きと同じ順です．
+同じ木を 3 種類の書体で描いたものです．
 
 <div class="grid grid-figures" markdown="1">
 
@@ -146,8 +179,13 @@ CJK のテキストを描画できます．
 ```
 
 {% include doc_figure.html name="doc-695a9afc" alt="Noto Sans で組んだ木" %}
+Sans
+
 {% include doc_figure.html name="doc-9171f7d9" alt="Noto Serif で組んだ木" %}
+Serif
+
 {% include doc_figure.html name="doc-91363c37" alt="Noto Sans Mono で組んだ木" %}
+Mono
 
 </div>
 
@@ -266,6 +304,10 @@ CJK のテキストを描画できます．
 
 #### 改行
 
+ラベルの改行は 3 通りの書き方があり，どれも同じ意味です．行末のバックスラッシュ，
+バックスラッシュと空白，そして `\n` です．2 つ続けると 1 行空きます．バックスラッシュは
+エスケープ文字なので，文字としてのバックスラッシュは `\\` と書きます（[一部の文字を表示するためのエスケープ](#一部の文字を表示するためのエスケープ)を参照）．
+
 |Sample Input                   |Output              |
 |-------------------------------|--------------------|
 |`str1\`<br />`str2`            |str1<br />str2      |
@@ -278,17 +320,20 @@ CJK のテキストを描画できます．
 ### テキスト以外の要素の描画
 
 テキストと組み合わせてサークル○，ボックス□，水平線などを描画することができます．
+フォントが持つ文字であればラベルにそのまま書けます．絵文字も同様で，モノクロの
+Noto Emoji で描かれるため，色は付かず輪郭で表示されます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-2e03ab17'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-e31ee644'].layout }}" markdown="1">
 
 ```text
 [Shapes
   [#Brackets |1| {2}]
   [##Rectangle {capsuled}]
+  [Emoji 🌱 🐛 ✅]
 ]
 ```
 
-{% include doc_figure.html name="doc-2e03ab17" alt="四角と丸のタグ，括弧と矩形の囲み" %}
+{% include doc_figure.html name="doc-e31ee644" alt="四角と丸のタグ，括弧と矩形の囲み" %}
 
 </div>
 
@@ -385,22 +430,22 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 |`#@red:NP`|角括弧＋赤色|
 |`^#@green:NP`|三角形＋角括弧＋緑色|
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-25afe7a3'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-02b248ba'].layout }}" markdown="1">
 
 ```text
 [S
   [@blue:NP
     [D the]
-    [N dog]
+    [N @blue:dog]
   ]
   [@red:VP
-    [V chased]
+    [V @red:chased]
     [NP a cat]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-25afe7a3" alt="2 つのノードに個別の色を与えた図" %}
+{% include doc_figure.html name="doc-02b248ba" alt="2 つのノードに個別の色を与えた図" %}
 
 </div>
 
@@ -428,7 +473,7 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 重なり合う（入れ子の）領域は，面が半透明なので自然に混色されます．領域シェードは
 上下方向・左右方向（`-d ltr`）の両レイアウトで機能し，すべての出力タイプ（SVG，PNG，PDF）に適用されます．
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-f460070e'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-0050a108'].layout }}" markdown="1">
 
 ```text
 [S
@@ -438,12 +483,12 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
   ]
   [%@blue:VP
     [V chased]
-    [NP a cat]
+    [%@red:NP a cat]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-f460070e" alt="2 つの部分木を網掛けし、一方に色を付けた図" %}
+{% include doc_figure.html name="doc-0050a108" alt="2 つの部分木を網掛けし、一方に色を付けた図" %}
 
 </div>
 
@@ -490,8 +535,6 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 {% include doc_figure.html name="doc-41e0b789" alt="桁揃え・入れ子の行列・タグを含む素性構造" %}
 
 </div>
-
-ギャラリーには 3 つあります．[HPSG の素性構造](https://yohasebe.github.io/rsyntaxtree/examples#example-013)，[入れ子になったもの](https://yohasebe.github.io/rsyntaxtree/examples#example-076)，[f 構造](https://yohasebe.github.io/rsyntaxtree/examples#example-078)です．
 
 行列は木のノードに置くこともでき（HPSG がそうします），[導出図](#導出図)のステップの
 範疇にすることもできます．
@@ -618,22 +661,29 @@ HPSGなどの素性構造の素性名は慣例としてスモールキャピタ�
 
 </div>
 
-`コネクタ形状` を `none` にして語と範疇の間に縦線が入らないようにし，`縦間隔` は小さめに
-してください．ギャラリーの導出図は最小の `0.5` です．導出は縦に詰めて組むものです．
+<div class="aside" markdown="1">
 
-横方向は `Tidy レイアウト: low` に `横間隔` を広めで組みます．導出は各桁をそこに立つ最も
-広いものの幅にとった表として組むもので，`low` がまさにそれを行い，桁を寄せつつ語順を
-保ちます．そのうえで `横間隔` が全桁を同じだけ開くので，罫と語の釣り合いを崩さずに
-図を横に広げられます．ギャラリーの導出図は `2.0` です．避けたいのは `Tidy レイアウト: off`
-で，各部分木に木のレイアウトが割り当てた幅をそのまま与えるため，空きが表の求める場所では
-なく枝分かれの都合で入り，一箇所だけ何倍も空くことがあります．
+**組みかた．** `コネクタ形状` を `none` にすると語と範疇の間に縦線が入りません．`縦間隔`
+は小さめが縦に詰まった図に合います．ギャラリーの導出図は最小の `0.5` です．
 
-できないことが 3 つあります．`方向: ltr` は拒否されます．前提をまたぐ罫は，前提が横に
-並んでいなければ引けないからです．`既定のコネクタを隠す` も拒否されます．このオプションは
-コネクタを描かないのではなく背景色で描くもので，導出の罫は図そのものであって後から
-足したものではありません．隠すと範疇が段に並ぶだけで何も結ばれていない図になります．
-TikZ 出力も拒否されます．`forest` は娘それぞれに辺を引いて根を上に置くので，出てくるのは
-同じ構造の正しい木であって，この図ではありません．PNG・SVG・PDF をお使いください．
+横方向は `Tidy レイアウト: low` に `横間隔` を広めにするとうまく収まります．導出は各桁を
+そこに立つ最も広いものの幅にとった表として組むもので，`low` がまさにそれを行い，桁を
+寄せつつ語順を保ちます．そのうえで `横間隔` が全桁を同じだけ開きます．ギャラリーの
+導出図は `2.0` です．避けたいのは `Tidy レイアウト: off` で，各部分木に木のレイアウトが
+割り当てた幅をそのまま与えるため，空きが表の求める場所ではなく枝分かれの都合で入ります．
+
+</div>
+
+<div class="aside" markdown="1">
+
+**導出でできないこと．** `方向: ltr` は拒否されます．前提をまたぐ罫は，前提が横に並んで
+いなければ引けないからです．`既定のコネクタを隠す` も拒否されます．このオプションは
+コネクタを描かないのではなく背景色で描くもので，導出の罫は図そのものです．隠すと範疇が
+段に並ぶだけで何も結ばれていない図になります．TikZ 出力も拒否されます．`forest` は娘
+それぞれに辺を引いて根を上に置くので，出てくるのは同じ構造の正しい木であって，この図では
+ありません．PNG・SVG・PDF をお使いください．
+
+</div>
 
 ### ノードからノードへのパスの描画
 
@@ -741,9 +791,18 @@ RSyntaxTreeはPenn Treebank形式を自動的に検出し，括弧表記に変�
 </fontconfig>
 ```
 
-計測も描画も同じ fontconfig を経由するので，置き換えたフォントで計測されレイアウトも崩れません．
+計測と描画は同じ fontconfig をたどるため，置き換えたあとのフォントで計測されます．レイアウトが崩れることはありません．
 
-これが当てはまるのは Pango が fontconfig でフォントを解決する環境，つまり Linux と Docker イメージです．macOS の Pango は CoreText を使い fontconfig を参照しないため，alias を書いても効きません．また CoreText は絵文字のコードポイントに必ず Apple Color Emoji を返し，そのカラーグリフを librsvg が描画しないため，絵文字を含む図は Linux か Docker イメージで生成することをおすすめします．
+<div class="aside" markdown="1">
+
+**macOS では．** 以上は Pango が fontconfig でフォントを解決する環境，つまり Linux と
+Docker イメージでの話です．macOS の Pango は CoreText を使い fontconfig を参照しないため，
+alias を書いても効きません．描きたいフォントは入力のフォント指定で選んでください．また
+CoreText は絵文字のコードポイントに必ず Apple Color Emoji を返し，そのカラーグリフを
+librsvg が描画しないため，絵文字を含む図は Linux か Docker イメージで生成することを
+おすすめします．
+
+</div>
 
 #### 描画せずに入力を検査する
 

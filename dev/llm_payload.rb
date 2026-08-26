@@ -40,7 +40,10 @@ module LlmPayload
     # the figure had been measured into, and the exact-match pattern that had
     # been here stopped matching anything at all. The wrapper then stayed in the
     # file — nineteen opening divs whose closing tag was still being taken out.
-    md = md.gsub(/^<div class="grid[^"]*"[^>]*>\n\n?/, "")
+    # Any div, not the grid alone. The page also sets some passages aside in a
+    # box, and their text is content a reader of this file wants — it is only
+    # the box that means nothing here.
+    md = md.gsub(/^<div\b[^>]*>\n\n?/, "")
            .gsub(/^<!--\s*figure:.*?-->\n/, "")
            .gsub(/^\{%-?\s*include\s+doc_figure\.html.*?%\}\n\n?/, "")
            .gsub(%r{^</div>\n}, "")

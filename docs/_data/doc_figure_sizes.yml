@@ -2,21 +2,29 @@
 # Display size of each figure beside an example in the manual, eased the same
 # way the gallery's are so that the lettering keeps one apparent size across
 # figures of different widths.
+doc-0050a108:
+  width: 371
+  height: 361
+  layout: ''
+doc-02b248ba:
+  width: 342
+  height: 358
+  layout: ''
 doc-02bc5fec:
   width: 255
   height: 357
+  layout: ''
+doc-06a22669:
+  width: 205
+  height: 497
   layout: ''
 doc-0f4a4bf1:
   width: 248
   height: 276
   layout: ''
-doc-25afe7a3:
-  width: 342
-  height: 358
-  layout: ''
-doc-2e03ab17:
-  width: 360
-  height: 259
+doc-10ddc52c:
+  width: 200
+  height: 500
   layout: ''
 doc-2ea8675a:
   width: 419
@@ -30,6 +38,10 @@ doc-41e0b789:
   width: 581
   height: 286
   layout: grid-stack
+doc-4838aa83:
+  width: 222
+  height: 491
+  layout: ''
 doc-49f323a8:
   width: 494
   height: 230
@@ -41,6 +53,14 @@ doc-532ffe07:
 doc-695a9afc:
   width: 218
   height: 283
+  layout: ''
+doc-8671daca:
+  width: 541
+  height: 204
+  layout: grid-wide
+doc-8bfc06ec:
+  width: 272
+  height: 451
   layout: ''
 doc-91363c37:
   width: 224
@@ -62,10 +82,6 @@ doc-978d14e0:
   width: 220
   height: 203
   layout: ''
-doc-a7a2f333:
-  width: 542
-  height: 204
-  layout: grid-wide
 doc-c05567af:
   width: 375
   height: 572
@@ -74,6 +90,10 @@ doc-c235812c:
   width: 408
   height: 347
   layout: ''
+doc-e31ee644:
+  width: 456
+  height: 248
+  layout: grid-wide
 doc-e5062caa:
   width: 386
   height: 445
@@ -86,7 +106,3 @@ doc-f4320d2c:
   width: 484
   height: 260
   layout: grid-wide
-doc-f460070e:
-  width: 362
-  height: 362
-  layout: ''

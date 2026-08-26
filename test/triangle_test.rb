@@ -59,11 +59,24 @@ class TriangleTest < Minitest::Test
   end
 
   # Under `none` a leaf is otherwise pulled up against its node, and a triangle
-  # needs the room. This is the half of the rule that was right all along.
+  # needs the room.
   def test_a_marked_leaf_keeps_the_room_a_triangle_needs
     marked = svg("[NP ^cats]", leafstyle: "nothing")[/<svg[^>]*height="([\d.]+)/, 1].to_f
     plain = svg("[NP cats]", leafstyle: "nothing")[/<svg[^>]*height="([\d.]+)/, 1].to_f
     assert marked > plain, "a triangle asks for more height than a leaf with nothing over it"
+  end
+
+  # The manual says the two placements ask for the same thing, so they have to
+  # produce the same figure — not merely both a triangle. They did not under
+  # `none`: the room a triangle needs was decided from the leaf's own mark
+  # alone, so a caret on the node drew its triangle into a gap that had been
+  # closed, and it came out a sliver. The same question, asked two ways again.
+  def test_the_two_placements_draw_the_same_figure
+    %w[auto bar nothing none].each do |style|
+      assert_equal svg("[S [NP ^cats] [VP sit]]", leafstyle: style),
+                   svg("[S [^NP cats] [VP sit]]", leafstyle: style),
+                   "leafstyle #{style}: the two placements draw different figures"
+    end
   end
 
   # A caret on an internal node is that node's own mark and belongs to the leaf

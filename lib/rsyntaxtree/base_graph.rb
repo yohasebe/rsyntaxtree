@@ -221,7 +221,12 @@ module RSyntaxTree
       else
         parent = @element_list.get_id(target.parent)
 
-        vertical_indent = if !target.triangle &&
+        # A leaf with nothing drawn over it is pulled up against its node; one
+        # with a triangle over it needs the room the triangle takes. Which is
+        # which is the same question the connector asks, so it is asked the same
+        # way — reading only the leaf's own mark left `[^NP cats]` a triangle
+        # squashed into a gap that had been closed.
+        vertical_indent = if !triangle_asked_for?(parent, target) &&
                              (@leafstyle == "nothing" || @leafstyle == "none") &&
                              ETYPE_LEAF == target.type && parent.children.size == 1
                             if @direction == "ltr"

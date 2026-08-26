@@ -11,3 +11,9 @@ the next. The recorded size eases them onto one scale instead.
 <img src="assets/doc/{{ include.name }}.svg" alt="{{ include.alt }}"
      {% if size %}width="{{ size.width }}" height="{{ size.height }}"{% endif %}
      loading="lazy" decoding="async" />
+{%- comment -%}
+The file ends without a newline on purpose. Jekyll puts the included file's
+trailing newline into the page, and a blank line there ends the paragraph —
+which put every figure of a comparison in a block of its own and left no way
+to write a label under one.
+{%- endcomment -%}

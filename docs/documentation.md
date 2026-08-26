@@ -69,20 +69,20 @@ The `Direction` option controls the orientation of the tree layout:
 
 In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-a7a2f333'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-8671daca'].layout }}" markdown="1">
 
 <!-- figure: direction=ltr -->
 ```text
 [Noun
   [Common
-    [Count cat]
-    [Mass water]
+    [Count *cat*]
+    [Mass *water*]
   ]
-  [Proper Tokyo]
+  [Proper *Tokyo*]
 ]
 ```
 
-{% include doc_figure.html name="doc-a7a2f333" alt="The same structure laid out left to right" %}
+{% include doc_figure.html name="doc-8671daca" alt="The same structure laid out left to right" %}
 
 </div>
 
@@ -96,6 +96,39 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 - **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Two leaves never swap their left-right order.
 - **High** (`high`): the densest mode, tucking without limit and allowing branch angles to differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
 
+One lopsided tree at each of the four ordinary settings. It narrows at every step, and
+the last step is the smallest:
+
+<div class="grid grid-figures" markdown="1">
+
+<!-- figure: tidy=off | tidy=low | tidy=medium | tidy=high -->
+```text
+[X
+  [Y
+    [Z
+      [W w]
+      [V v]
+    ]
+    u
+  ]
+  [T t]
+]
+```
+
+{% include doc_figure.html name="doc-8bfc06ec" alt="The tree with tidy off" %}
+Off
+
+{% include doc_figure.html name="doc-4838aa83" alt="The tree at tidy low" %}
+Low
+
+{% include doc_figure.html name="doc-06a22669" alt="The tree at tidy medium" %}
+Medium
+
+{% include doc_figure.html name="doc-10ddc52c" alt="The tree at tidy high" %}
+High
+
+</div>
+
 `high` pays off on deeply lopsided trees; on a well-balanced one it often lands close to `medium`. `off`, `low` and `medium` cover ordinary work.
 
 Connector heights adjust automatically in tidy mode. `H spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `V spacing` (`vheight`) scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
@@ -104,7 +137,7 @@ Connector heights adjust automatically in tidy mode. `H spacing` (`hspacing`, de
 
 Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding from right to left. The `Mirror (RTL)` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
 
-`Mirror` composes with `Direction`. See the Arabic example in the [Multilingual gallery](https://yohasebe.github.io/rsyntaxtree/examples) for a demonstration.
+`Mirror` composes with `Direction`.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-02bc5fec'].layout }}" markdown="1">
 
@@ -134,7 +167,7 @@ A figure is drawn with one of three faces, chosen with `Font`:
 All three fall back to Noto CJK for Han, Hangul and kana, so any of them renders
 CJK text.
 
-The same tree in each of the three, in the order above:
+The same tree in each of the three:
 
 <div class="grid grid-figures" markdown="1">
 
@@ -147,8 +180,13 @@ The same tree in each of the three, in the order above:
 ```
 
 {% include doc_figure.html name="doc-695a9afc" alt="The tree set in Noto Sans" %}
+Sans
+
 {% include doc_figure.html name="doc-9171f7d9" alt="The tree set in Noto Serif" %}
+Serif
+
 {% include doc_figure.html name="doc-91363c37" alt="The tree set in Noto Sans Mono" %}
+Mono
 
 </div>
 
@@ -266,6 +304,11 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 #### Newline
 
+A label is broken onto a new line three ways, and they mean the same thing: a
+backslash at the end of the line, a backslash followed by a space, or `\n`. Two
+of them in a row leave a blank line. The backslash is the escape character, so a
+literal one is written `\\` — see [Escape Special Characters](#escape-special-characters).
+
 |Sample Input                   |Output              |
 |-------------------------------|--------------------|
 |`str1\`<br />`str2`            |str1<br />str2      |
@@ -277,18 +320,21 @@ Without the joints, *the*, *cat* and *sat* sit two rows above *the* and *mat*, a
 
 ### Drawing Non-Text Elements
 
-Circles, boxes and rules can be drawn around or alongside the text.
+Circles, boxes and rules can be drawn around or alongside the text. Any character
+the fonts carry can stand in a label as well, emoji included — drawn from the
+monochrome Noto Emoji, so they come out as outlines rather than in colour.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-2e03ab17'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-e31ee644'].layout }}" markdown="1">
 
 ```text
 [Shapes
   [#Brackets |1| {2}]
   [##Rectangle {capsuled}]
+  [Emoji 🌱 🐛 ✅]
 ]
 ```
 
-{% include doc_figure.html name="doc-2e03ab17" alt="A boxed tag, a circled tag, brackets and a rectangle" %}
+{% include doc_figure.html name="doc-e31ee644" alt="A boxed tag, a circled tag, brackets and a rectangle" %}
 
 </div>
 
@@ -387,22 +433,22 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 |`#@red:NP`|Square brackets + red color|
 |`^#@green:NP`|Triangle + brackets + green color|
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-25afe7a3'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-02b248ba'].layout }}" markdown="1">
 
 ```text
 [S
   [@blue:NP
     [D the]
-    [N dog]
+    [N @blue:dog]
   ]
   [@red:VP
-    [V chased]
+    [V @red:chased]
     [NP a cat]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-25afe7a3" alt="Two nodes given colours of their own" %}
+{% include doc_figure.html name="doc-02b248ba" alt="Two nodes given colours of their own" %}
 
 </div>
 
@@ -435,7 +481,7 @@ semi-transparent. Region shade works in both top-to-bottom and left-to-right
 (`-d ltr`) layouts, and applies to all raster/vector outputs (SVG, PNG, PDF,
 JPG, GIF).
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-f460070e'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-0050a108'].layout }}" markdown="1">
 
 ```text
 [S
@@ -445,12 +491,12 @@ JPG, GIF).
   ]
   [%@blue:VP
     [V chased]
-    [NP a cat]
+    [%@red:NP a cat]
   ]
 ]
 ```
 
-{% include doc_figure.html name="doc-f460070e" alt="Two subtrees shaded, one of them in a colour" %}
+{% include doc_figure.html name="doc-0050a108" alt="Two subtrees shaded, one of them in a colour" %}
 
 </div>
 
@@ -496,8 +542,6 @@ Put together:
 {% include doc_figure.html name="doc-41e0b789" alt="A feature structure with columns, a nested matrix and a tag" %}
 
 </div>
-
-The gallery has three: an [HPSG feature structure](https://yohasebe.github.io/rsyntaxtree/examples#example-013), a [nested one](https://yohasebe.github.io/rsyntaxtree/examples#example-076), and an [f-structure](https://yohasebe.github.io/rsyntaxtree/examples#example-078).
 
 A matrix can also stand at a node of a tree, which is what HPSG does with them,
 and can be the category of a step in a [derivation](#derivations).
@@ -629,28 +673,34 @@ the top instead, each constituent's extent marked by a rule:
 
 </div>
 
-Set `Connector shape` to `none` so that no bar is drawn between a word and its
-category, and use a small `V spacing` — the gallery's derivations are set at
-`0.5`, the smallest there is: a derivation is set tight down the page.
+<div class="aside" markdown="1">
 
-Across the page, use `Tidy layout: low` with a wide `H spacing`. A derivation is
-set as a table, each column as wide as the widest thing standing in it, and that
-is what `low` does: it pulls the columns together and keeps the words in order.
-`H spacing` then opens every column by the same amount, so the figure grows
-wider without the rules and the words losing their proportions — the gallery's
-derivations are set at `2.0`. What not to reach for is `Tidy layout: off`, which
-gives each subtree the width the tree layout allots it: the gaps land wherever
-the branching happens to put them rather than where the table wants them, and
-one of them can be several times another.
+**Setting one up.** `Connector shape: none` leaves no bar between a word and its
+category. A small `V spacing` suits a figure set tight down the page; the
+gallery's derivations use `0.5`, the smallest there is.
 
-Three things a derivation cannot be. `Direction: ltr` is refused, because a rule
-across the premises needs them side by side. `Hide default connectors` is refused
-too: it draws the connectors in the background colour rather than skipping them,
-and a derivation's rules are the figure itself, not something added to it — hide
-them and the categories are left in rows with nothing joining them. TikZ output
-is refused as well: `forest` joins each daughter to its mother with an edge of
-its own and puts the root at the top, so what it would produce is a correct tree
-of the same structure rather than this figure. Use PNG, SVG or PDF.
+Across the page, `Tidy layout: low` with a wide `H spacing` works well. A
+derivation is set as a table, each column as wide as the widest thing standing
+in it, which is what `low` does: it pulls the columns together and keeps the
+words in order. `H spacing` then opens every column by the same amount — the
+gallery's derivations use `2.0`. `Tidy layout: off` is the one to avoid, since
+it gives each subtree the width the tree layout allots it, so the gaps land
+where the branching puts them rather than where the table wants them.
+
+</div>
+
+<div class="aside" markdown="1">
+
+**What a derivation will not do.** `Direction: ltr` is refused, because a rule
+across the premises needs them side by side. `Hide default connectors` is
+refused too: it draws the connectors in the background colour rather than
+skipping them, and a derivation's rules are the figure itself — hide them and
+the categories are left in rows with nothing joining them. TikZ output is
+refused as well: `forest` joins each daughter to its mother with an edge of its
+own and puts the root at the top, so what it would produce is a correct tree of
+the same structure rather than this figure. Use PNG, SVG or PDF.
+
+</div>
 
 ### Draw Paths between Nodes (experimental)
 
@@ -757,9 +807,19 @@ The family chains above take precedence over whatever your system would pick by 
 </fontconfig>
 ```
 
-Because measurement and rendering both resolve through fontconfig, the substituted font is measured as well as drawn, so the layout stays correct.
+Measurement and drawing both go through fontconfig, so the substituted font is the one measured. The layout stays correct.
 
-This applies to systems where Pango resolves fonts through fontconfig, which means Linux and the Docker image. On macOS, Pango goes through CoreText instead and ignores fontconfig, so an alias has no effect there; name the font you want in the input's font style instead. CoreText also answers every emoji codepoint with Apple Color Emoji, whose colour glyphs librsvg does not draw, so trees containing emoji are best generated on Linux or in the Docker image.
+<div class="aside" markdown="1">
+
+**On macOS.** All of the above holds where Pango resolves fonts through
+fontconfig, which means Linux and the Docker image. On macOS, Pango goes through
+CoreText and does not consult fontconfig, so an alias has no effect; name the
+font you want in the input's font style instead. CoreText also answers every
+emoji codepoint with Apple Color Emoji, whose colour glyphs librsvg does not
+draw, so a tree containing emoji is best generated on Linux or in the Docker
+image.
+
+</div>
 
 #### Checking Input Without Drawing
 

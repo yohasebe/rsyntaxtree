@@ -77,6 +77,9 @@ div.grid.grid-figures > p {
   display: inline-block;
   vertical-align: top;
   margin: 0.25rem 1.5rem 0 0;
+  text-align: center;
+  font-size: 0.85em;
+  line-height: 1.4;
 }
 
 /* Long input lines scroll inside their own column. */
@@ -110,4 +113,24 @@ h3 {
 
 a i {
   margin: 5px;
+}
+
+/* A box beside the argument rather than inside it: the settings that make a
+   particular figure come out right, or the one machine where a rule does not
+   hold. A reader needs it when they get there and can pass over it until then,
+   and in the running text it crowded out what the section was explaining. */
+div.aside {
+  border-left: 3px solid #d5d5d5;
+  background: #fafafa;
+  padding: 0.8rem 1.1rem;
+  margin: 1.5rem 0;
+  font-size: 0.94em;
+}
+
+div.aside > :first-child {
+  margin-top: 0;
+}
+
+div.aside > :last-child {
+  margin-bottom: 0;
 }
