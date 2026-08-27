@@ -10,62 +10,108 @@ of a refusal along with a fix known to work.
 
 # Notation, in brief
 
-RSyntaxTree notation, in brief.
+RSyntaxTree notation, on one page.
 
 A tree is labeled brackets: [S [NP the cat] [VP sat]]. The label follows the
-opening bracket; children follow the label.
+opening bracket; children follow the label. Parentheses are read as Penn
+Treebank notation and converted: (S (NP the cat) (VP sat)) draws the same tree.
 
-Within a label:
-- `\n` breaks a line; `\t` separates columns, and every line is cut at the
-  same points, so the columns line up down the label. (`\t` is the two
-  characters backslash and t, not a real tab.)
-- `#label` draws square brackets around the whole label; `##label` a
-  rectangle. `#( ... #)` nests a matrix inside a label, to any depth.
-- `*italic*`, `**bold**`, `x_sub_`, `x__super__`, `|x|` in a box, `{x}` in a
-  circle, `---` a horizontal rule.
-- `+n` on two nodes links them with a movement arrow; `+>n` puts the
-  arrowhead on that end.
+## What already means something
 
-Four traps, because these characters already mean something:
-- `<` and `>` are never angle brackets in this notation: `<>` is one space,
-  `<3>` is three. Wherever linguistics uses angle brackets — a list ⟨NP⟩,
-  an argument structure like 'hand⟨SUBJ,OBJ⟩', anything — write the
-  characters ⟨ and ⟩ themselves (U+27E8 and U+27E9):
-  SPR\t⟨<>NP<>⟩    PRED\t'hand⟨SUBJ,OBJ⟩'
-- `-` opens and closes an underline, so a bare hyphen in ANY word is an
-  error: V-bar, f-structure, HEAD-DTR. Write `V'`, or escape the hyphen:
-  `V\-bar`, `f\-structure`, `HEAD\-DTR`.
-- A raw space is safe in a one-line label, and unreliable in a label that
-  has `\n` or `\t` in it: there it splits a value that carries markup, and
-  it breaks a matrix nested with `#( ... #)`. Since matrices are exactly the
-  multi-line case, write a space as `<>` inside any label with columns:
-  'a<>toy', not 'a toy'.
-- Parentheses are not brackets, and this is silent: `(S (NP ...))` raises no
-  error and draws one leaf with that text in it. Convert it first.
+The characters that bite, first. A mistake the tool can see is refused with a
+hint; everything below is taken silently, and the figure that draws is not the
+figure that was meant.
 
-An attribute-value matrix is columns plus an enclosure:
+- `<>` is one space and `<3>` is three, everywhere — never angle brackets.
+  Where linguistics wants the brackets themselves, write ⟨ and ⟩ (U+27E8/9):
+  SPR\t⟨<>NP<>⟩, 'hand⟨SUBJ,OBJ⟩'. A label written <NP> is refused with this
+  advice; a stray <3> simply draws three spaces.
+- A pair of hyphens underlines what stands between them: well-made-word draws
+  "made" underlined. (A lone hyphen is refused with a hint.) Write `\-` for a
+  hyphen — V\-bar, HEAD\-DTR — or set the hyphen option to literal.
+- A raw space is safe in a one-line label and unreliable in a label that has
+  `\n` or `\t` in it: there it can split a value that carries markup, and it
+  breaks a nested #( ... #) matrix. Inside any label with columns, write a
+  space as `<>`: 'a<>toy', not 'a toy'.
+- A straight apostrophe is typeset as the curly ’ (U+2019).
+- A backslash takes the character after it, whatever it is: \q draws q, and
+  C:\path draws C:path. A backslash itself is \\.
+- The prefixes of a label compose in one order, and only this one:
+  `^` → `#`/`##`/`###` → `%` → `@color:`. So ^#%@red:NP is read whole, while
+  @red:%NP leaves the % as a literal character and silently drops the shade.
+- A rule name (for derivations) is written after the label's last `\t`, as in
+  [S/NP\t>B ...], and needs the derivation option ON — with it off the name is
+  drawn as a column. The name is taken out before markup runs, so `>` and `<`
+  need no escaping there and `\>` would put the backslash in the figure. A
+  label that also carries `\n` keeps all its columns instead.
 
-    [#*word*\
-      HEAD\t*verb*\
-      SPR\t⟨<>NP<>⟩\
-      COMPS\t⟨<>⟩
-    ]
+## What there is
 
-A value can be another matrix. Nest it with `#( ... #)`, never with square
-brackets — those are read as tree structure:
+Structure:
+
+| what                                   | how it is written |
+|----------------------------------------|-------------------|
+| a node with children                   | [S [NP the cat] [VP sat]] |
+| a phrase under one leaf (triangle)     | [NP a toy] — one word, forced: [NP ^cats] |
+| an invisible joint, to align leaves    | a label of only <>, as in [X [<> [Y y]] [Z z]] |
+| a movement path (dashed)               | [S [NP a+1] [VP [V b] [NP c+1]]] |
+| the same, with an arrowhead            | write +>1 on the end the arrow points at |
+| an extra straight connector            | +-1 on two nodes; +->1 for an arrowhead |
+
+Inside a label:
+
+| what                                   | how it is written |
+|----------------------------------------|-------------------|
+| italic, bold, both                     | *x*, **x**, ***x*** |
+| subscript, superscript                 | x_i_, x__2__ |
+| small capitals                         | H___EAD___ |
+| overline, underline, strikethrough     | =x=, -x-, ~x~ |
+| a line break; a blank line             | a\nb (or a\ b); \n\n |
+| columns, aligned down the label        | HEAD\t*verb*\nSPR\t⟨<>⟩ |
+| a horizontal rule across the label     | a line of --- (or === for a double rule) |
+| boxed, circled text                    | |1|, {2} — more than one character draws a capsule |
+| empty and hatched boxes and circles    | ||, {}, |/|, {/} |
+| bar and arrows as symbols              | --, ->, <-, <-> — bold with *...*, as in *->* |
+
+Around a label:
+
+| what                                   | how it is written |
+|----------------------------------------|-------------------|
+| square brackets, rectangle, bold       | #NP, ##NP, ###NP |
+| a feature matrix as a value            | #(HEAD\tnoun#), nested to any depth |
+| a whole label that is one matrix       | [#(CAT\tS#) [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]] |
+| a region shade behind the subtree      | %NP, coloured: %@blue:NP |
+| a colour                               | @red:NP, @#3af:NP, @#33aaff:NP (3 or 6 hex digits) |
+
+An attribute-value matrix is columns plus an enclosure, and a value can be
+another matrix — nested with #( ... #), never with square brackets, which are
+read as tree structure:
 
     [#PRED\t'hand⟨SUBJ,OBJ⟩'\
       TENSE\tpast\
       SUBJ\t#(PRED\t'David'#)
     ]
 
-A movement arrow links the two nodes that carry the same number:
+Options (the command line spells them --like-this):
 
-    [S [NP what+>1] [VP [V see] [NP+1 t]]]
+| option     | what it decides |
+|------------|-----------------|
+| format     | png, svg, pdf, gif, jpg, tikz, lsif |
+| fontstyle  | sans, serif, mono, cjk |
+| fontsize   | 6–26 |
+| color      | modern, traditional, off, gray |
+| linewidth  | every line's weight, 0.5–3.0, as a ratio of the font size |
+| leafstyle  | auto, bar, nothing — what joins a node to its leaf |
+| direction  | ttb, ltr, btt |
+| mirror     | flip the finished layout, for RTL scripts |
+| tidy       | off, symmetric, low, medium, high — how tightly subtrees pack |
+| hspacing   | horizontal spacing factor, 0.5–3.0 (tidy_spacing is its old name) |
+| vheight    | vertical spacing factor, 0.5–5.0 |
+| derivation | one rule across the daughters, categorial-grammar style |
+| hyphen     | markup (hyphens underline) or literal (hyphens are hyphens) |
 
-What is above is the part of the notation that is easy to get wrong, not the
-whole of it. The rest is in the manual, and every example in the gallery is
-written out beside the figure it draws:
+The full manual explains each of these with figures, and every example in the
+gallery is written out beside the figure it draws:
 
     https://yohasebe.github.io/rsyntaxtree/documentation
     https://yohasebe.github.io/rsyntaxtree/examples
@@ -111,6 +157,44 @@ The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By cha
 ]
 ```
 
+
+### The Notation at a Glance
+
+Everything the notation can draw, one line each, with the section that
+explains it. The samples are live: a test draws each of them, so a row here
+cannot outlive the feature it names.
+
+**Structure**
+
+- `[S [NP the cat] [VP sat]]` — a node and its children → [Basic Usage](#basic-usage)
+- `(S (NP the cat) (VP sat))` — Penn Treebank input, converted on sight → [Penn Treebank Format](#penn-treebank-format)
+- `^cats` — force a triangle over one leaf (a spaced leaf gets one by itself) → [Connectors](#connectors)
+- `<>` as a whole label — an invisible joint, to level the terminals → [Levelling the Terminals](#levelling-the-terminals)
+- `+1` on two nodes, `+>1` for an arrowhead — a movement path → [Paths](#draw-paths-between-nodes-experimental)
+- `+-1`, `+->1` — an extra straight connector → [Extra Connectors](#draw-extra-connectors-between-nodes-experimental)
+
+**Inside a label**
+
+- `*x*`, `**x**`, `***x***` — italic, bold, both → [Drawing Text](#drawing-text)
+- `x_i_`, `x__2__` — subscript, superscript → [Subscript and Superscript](#subscript-and-superscript)
+- `H___EAD___` — small capitals → [Small Capitals](#small-capitals)
+- `=x=`, `-x-`, `~x~` — overline, underline, strikethrough → [Text Decoration](#text-decoration)
+- `\n` (or a backslash at the line's end) — a line break; twice for a blank line → [Newline](#newline)
+- `\t` — columns, aligned down the label → [Columns](#columns)
+- `---` on a line of its own — a rule across the label; `===` a double rule → [Horizontal Line](#horizontal-line)
+- `|1|`, `{2}` — boxed and circled text (more than one character draws a capsule) → [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow)
+- `||`, `{}`, `|/|`, `{/}` — empty and hatched boxes and circles → [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow)
+- `--`, `->`, `<-`, `<->` — a bar and arrows as symbols; bold inside `*...*`, as in `*->*` → [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow)
+
+**Around a label**
+
+- `#NP`, `##NP`, `###NP` — square brackets, a rectangle, a bold rectangle → [Brackets and Rectangles](#brackets-and-rectangles-around-a-leaf)
+- `#(HEAD\tnoun#)` — a feature matrix as a value, nested to any depth → [Nested matrices](#nested-matrices)
+- `[#(CAT\tS#) ...]` — a whole label that is one matrix → [Feature Structures](#feature-structures)
+- `%NP`, `%@blue:NP` — a region shade behind the whole subtree → [Region Shade](#region-shade)
+- `@red:NP`, `@#3af:NP` — colour, by name or 3/6 hex digits → [Per-Node Styling](#per-node-styling-color)
+
+**Options** — each is a select in the [web interface](https://yohasebe.com/rsyntaxtree) and a flag on the command line: `format` (png, svg, pdf, ...), `fontstyle` and `fontsize`, `color`, `linewidth`, `leafstyle` (what joins a node to its leaf), `direction` (ttb, ltr, btt), `mirror` for RTL scripts, `tidy` and `hspacing` and `vheight` for the packing and the spacing, `derivation` for categorial-style figures, and `hyphen` (whether a hyphen is markup or a character). Each is described in the section it concerns.
 
 ### Tree Direction
 

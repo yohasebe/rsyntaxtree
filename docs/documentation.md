@@ -59,6 +59,44 @@ The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By cha
 
 </div>
 
+### The Notation at a Glance
+
+Everything the notation can draw, one line each, with the section that
+explains it. The samples are live: a test draws each of them, so a row here
+cannot outlive the feature it names.
+
+**Structure**
+
+- `[S [NP the cat] [VP sat]]` — a node and its children → [Basic Usage](#basic-usage)
+- `(S (NP the cat) (VP sat))` — Penn Treebank input, converted on sight → [Penn Treebank Format](#penn-treebank-format)
+- `^cats` — force a triangle over one leaf (a spaced leaf gets one by itself) → [Connectors](#connectors)
+- `<>` as a whole label — an invisible joint, to level the terminals → [Levelling the Terminals](#levelling-the-terminals)
+- `+1` on two nodes, `+>1` for an arrowhead — a movement path → [Paths](#draw-paths-between-nodes-experimental)
+- `+-1`, `+->1` — an extra straight connector → [Extra Connectors](#draw-extra-connectors-between-nodes-experimental)
+
+**Inside a label**
+
+- `*x*`, `**x**`, `***x***` — italic, bold, both → [Drawing Text](#drawing-text)
+- `x_i_`, `x__2__` — subscript, superscript → [Subscript and Superscript](#subscript-and-superscript)
+- `H___EAD___` — small capitals → [Small Capitals](#small-capitals)
+- `=x=`, `-x-`, `~x~` — overline, underline, strikethrough → [Text Decoration](#text-decoration)
+- `\n` (or a backslash at the line's end) — a line break; twice for a blank line → [Newline](#newline)
+- `\t` — columns, aligned down the label → [Columns](#columns)
+- `---` on a line of its own — a rule across the label; `===` a double rule → [Horizontal Line](#horizontal-line)
+- `|1|`, `{2}` — boxed and circled text (more than one character draws a capsule) → [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow)
+- `||`, `{}`, `|/|`, `{/}` — empty and hatched boxes and circles → [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow)
+- `--`, `->`, `<-`, `<->` — a bar and arrows as symbols; bold inside `*...*`, as in `*->*` → [Box, Circle, Bar, and Arrow](#box-circle-bar-and-arrow)
+
+**Around a label**
+
+- `#NP`, `##NP`, `###NP` — square brackets, a rectangle, a bold rectangle → [Brackets and Rectangles](#brackets-and-rectangles-around-a-leaf)
+- `#(HEAD\tnoun#)` — a feature matrix as a value, nested to any depth → [Nested matrices](#nested-matrices)
+- `[#(CAT\tS#) ...]` — a whole label that is one matrix → [Feature Structures](#feature-structures)
+- `%NP`, `%@blue:NP` — a region shade behind the whole subtree → [Region Shade](#region-shade)
+- `@red:NP`, `@#3af:NP` — colour, by name or 3/6 hex digits → [Per-Node Styling](#per-node-styling-color)
+
+**Options** — each is a select in the [web interface](https://yohasebe.com/rsyntaxtree) and a flag on the command line: `format` (png, svg, pdf, ...), `fontstyle` and `fontsize`, `color`, `linewidth`, `leafstyle` (what joins a node to its leaf), `direction` (ttb, ltr, btt), `mirror` for RTL scripts, `tidy` and `hspacing` and `vheight` for the packing and the spacing, `derivation` for categorial-style figures, and `hyphen` (whether a hyphen is markup or a character). Each is described in the section it concerns.
+
 ### Tree Direction
 
 The `Direction` option controls the orientation of the tree layout:
