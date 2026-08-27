@@ -1,14 +1,15 @@
 # RSyntaxTree 1.14.0 — notation, manual and examples
 
 Everything a language model needs in order to write this notation, in one
-file: the brief that leads with the traps, the manual as the site
-publishes it, and every gallery example with the options it needs.
+file: the one-page reference — the characters that already mean something,
+then every feature — the manual as the site publishes it, and every
+gallery example with the options it needs.
 
 Generated from the sources the tool itself reads. Check what you write
 with `rsyntaxtree --validate`, which draws nothing and reports the cause
 of a refusal along with a fix known to work.
 
-# Notation, in brief
+# The notation, on one page
 
 RSyntaxTree notation, on one page.
 
@@ -919,9 +920,10 @@ releases, and the exit code is the stable part of the answer.
 
 #### Notation Reference
 
-`--notation` prints a short reference for the notation to standard output.
-`--examples` prints every published example with the options it was drawn
-with. Both write and exit without reading any input.
+`--notation` prints the one-page reference — the characters that already mean
+something, then every feature at a line each, then the options. `--examples`
+prints every published example with the options it was drawn with. Both write
+and exit without reading any input.
 
 ```bash
 rsyntaxtree --notation
@@ -930,9 +932,11 @@ rsyntaxtree --examples
 
 The same material is on the site as plain text, for a reader that can fetch a
 URL but cannot run a command: [llms.txt](https://yohasebe.github.io/rsyntaxtree/llms.txt)
-is an index, and [llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt)
-holds the reference, this manual and every example in one file. Both are
-generated from the sources they describe.
+is an index, [notation.txt](https://yohasebe.github.io/rsyntaxtree/notation.txt)
+is the one-page reference by itself, and
+[llms-full.txt](https://yohasebe.github.io/rsyntaxtree/llms-full.txt) holds the
+reference, this manual and every example in one file. All are generated from
+the sources they describe.
 
 #### Standard Input Support
 
@@ -1016,10 +1020,10 @@ here through the same parser that draws it, so each one is accepted.
 Notation reference: rsyntaxtree --notation
 Check an input without drawing: rsyntaxtree --validate "[S [NP a] [VP b]]"
 
-What the option names on a settings line mean is not in this file, nor in
-the reference, which leaves the options out on purpose. For those, see
-`rsyntaxtree --help` or the manual: https://yohasebe.github.io/rsyntaxtree/documentation. Everything at
-once, this file and the manual together: https://yohasebe.github.io/rsyntaxtree/llms-full.txt
+What the option names on a settings line mean: one line each at the end
+of the reference (`rsyntaxtree --notation`), the full story in the manual
+at https://yohasebe.github.io/rsyntaxtree/documentation. Everything at once, this file and the manual
+together: https://yohasebe.github.io/rsyntaxtree/llms-full.txt
 
 
 ## 000 — RSyntaxTree basic example

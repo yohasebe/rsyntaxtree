@@ -215,10 +215,11 @@ a model writing it does better with the reference in front of it than without.
 [web interface](https://yohasebe.com/rsyntaxtree) or on your own machine —
 nothing needs installing. Give the model one of these to read:
 
-- [The brief reference](https://yohasebe.github.io/rsyntaxtree/llms.txt), about
-  a page, leading with the characters that already mean something.
+- [The reference, on one page](https://yohasebe.github.io/rsyntaxtree/notation.txt):
+  the characters that already mean something, then every feature at a line
+  each, then the options. About 6 KB.
 - [Everything in one file](https://yohasebe.github.io/rsyntaxtree/llms-full.txt):
-  the reference, the manual and all the gallery examples, 78 KB.
+  the reference, the manual and all the gallery examples, about 85 KB.
 
 **If the model can run a shell**, it can draw and then look at what it drew,
 which is the part that lets it correct itself:

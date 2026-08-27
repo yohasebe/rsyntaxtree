@@ -131,10 +131,10 @@ module LlmPayload
       Notation reference: rsyntaxtree --notation
       Check an input without drawing: rsyntaxtree --validate "[S [NP a] [VP b]]"
 
-      What the option names on a settings line mean is not in this file, nor in
-      the reference, which leaves the options out on purpose. For those, see
-      `rsyntaxtree --help` or the manual: #{SITE}/documentation. Everything at
-      once, this file and the manual together: #{SITE}/llms-full.txt
+      What the option names on a settings line mean: one line each at the end
+      of the reference (`rsyntaxtree --notation`), the full story in the manual
+      at #{SITE}/documentation. Everything at once, this file and the manual
+      together: #{SITE}/llms-full.txt
     HEAD
     ex.each do |e|
       out << "\n\n## #{e[:name]} — #{e[:caption]}\n\n"
@@ -154,18 +154,24 @@ module LlmPayload
       > notation; the output is PNG, SVG, PDF, TikZ or LSIF. Version #{version}.
 
       The notation is small, and several characters in it already mean
-      something. The brief leads with those traps, which is why it is worth
+      something. The reference leads with those, which is why it is worth
       reading before writing any, and why what you write is worth checking
       rather than guessing.
 
+      ## The reference, on one page
+
+      - [notation.txt](#{SITE}/notation.txt): the characters that already mean
+        something, then every feature at a line each, then the options. This is
+        also what `rsyntaxtree --notation` prints. About 6 KB.
+
       ## Everything in one file
 
-      - [llms-full.txt](#{SITE}/llms-full.txt): the brief in about fifty lines,
-        then the manual, then all #{examples.size} examples with the options each was
-        drawn with. Roughly 70 KB.
+      - [llms-full.txt](#{SITE}/llms-full.txt): the reference, then the manual,
+        then all #{examples.size} examples with the options each was drawn with.
+        Roughly 85 KB.
 
-      The brief alone is a tenth of that and covers the traps. Which of the two
-      to send is not a question this project has an answer to.
+      Send the reference to write a tree; send the full file when there is room
+      for the worked examples too.
 
       ## The same material as pages
 
@@ -177,7 +183,14 @@ module LlmPayload
       `rsyntaxtree --validate "[S [NP the cat] [VP sat]]"` answers with JSON and
       an exit code, drawing nothing. A refusal names the cause, the label it is
       in, and a one-line fix that was confirmed by applying it and parsing again.
+      The `retryable` field says whether rewriting the input can help at all.
     TXT
+  end
+
+  # The one-page reference by itself, at its own address, for handing a model
+  # the map without the rest. Exactly what `--notation` prints.
+  def notation_document
+    "#{notation_core}\n"
   end
 
   def full_document
@@ -185,14 +198,15 @@ module LlmPayload
       # RSyntaxTree #{version} — notation, manual and examples
 
       Everything a language model needs in order to write this notation, in one
-      file: the brief that leads with the traps, the manual as the site
-      publishes it, and every gallery example with the options it needs.
+      file: the one-page reference — the characters that already mean something,
+      then every feature — the manual as the site publishes it, and every
+      gallery example with the options it needs.
 
       Generated from the sources the tool itself reads. Check what you write
       with `rsyntaxtree --validate`, which draws nothing and reports the cause
       of a refusal along with a fix known to work.
 
-      # Notation, in brief
+      # The notation, on one page
     HEAD
   end
 end
