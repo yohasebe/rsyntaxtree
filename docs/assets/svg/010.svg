@@ -5,6 +5,9 @@
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
     </marker>
+    <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10" fill="#CC79A7"/>
+    </marker>
     <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
     </marker>
@@ -86,9 +89,5 @@
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='886.5500000000001' y1='870.5024532501931' x2='774.1750000000001' y2='812.2599006676174' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='816.8000000000001' y1='1009.7919999999999' x2='886.5500000000001' y2='954.5024532501931' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='955.8000000000001' y1='1009.7919999999999' x2='886.5500000000001' y2='954.5024532501931' />
-<line x1='339.8' y1='747.9891276812493' x2='339.8' y2='770.3891276812493' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='339.8' y1='770.3891276812493' x2='116.8' y2='770.3891276812493' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='116.8' y1='770.3891276812493' x2='116.8' y2='460.3965753545385' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-end='url(#arrow)' />
-<line x1='816.8000000000001' y1='1174.432' x2='816.8000000000001' y2='1196.832' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='816.8000000000001' y1='1196.832' x2='474.8' y2='1196.832' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='474.8' y1='1196.832' x2='474.8' y2='892.8999006676174' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-end='url(#arrow)' /></svg>
+<path d='M339.8,747.989 L339.8,759.189 Q339.8,770.389 328.6,770.389 L128.0,770.389 Q116.8,770.389 116.8,759.189 L116.8,460.397' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt; stroke-linejoin:round;' marker-end='url(#arrow)' />
+<path d='M816.8,1174.432 L816.8,1185.632 Q816.8,1196.832 805.6,1196.832 L486.0,1196.832 Q474.8,1196.832 474.8,1185.632 L474.8,892.9' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt; stroke-linejoin:round;' marker-end='url(#arrow)' /></svg>

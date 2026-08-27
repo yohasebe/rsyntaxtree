@@ -3,6 +3,14 @@
 ## [Unreleased]
 
 ### Fixed
+- A movement path is drawn as one stroke with its corners eased, in place of
+  three lines meeting at right angles. The dash of a non-directional path now
+  runs round each turn instead of restarting at it, and the arrowhead is the end
+  of the stroke rather than a marker on whichever line finished last. The radius
+  is held down to half of each run it joins, so a short leg cannot be swallowed
+  by its own turn, and to the length of an arrowhead where there is one, so the
+  head is never drawn onto the curve. Three gallery figures carry paths and
+  change with it.
 - Digits are set in the text face again on machines that have a colour emoji
   font. The font chains named emoji families by name, and asking fontconfig for
   one is asking for the generic `emoji` family, whose preference list fontconfig

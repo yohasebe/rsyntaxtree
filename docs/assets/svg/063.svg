@@ -5,6 +5,9 @@
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
     </marker>
+    <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10" fill="#CC79A7"/>
+    </marker>
     <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
     </marker>
@@ -86,9 +89,5 @@
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='1090.7327048114432' y1='770.56' x2='987.9767620286085' y2='689.0799999999999' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='1264.37' y1='716.24' x2='1165.5327048114434' y2='770.56' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='1264.37' y1='824.8799999999999' x2='1165.5327048114434' y2='770.56' />
-<line x1='927.8614954486345' y1='390.31999999999994' x2='950.2614954486345' y2='390.31999999999994' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='950.2614954486345' y1='390.31999999999994' x2='950.2614954486345' y2='173.04' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='950.2614954486345' y1='173.04' x2='568.3818075422627' y2='173.04' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-end='url(#arrow)' />
-<line x1='1399.5700000000002' y1='716.24' x2='1421.9700000000003' y2='716.24' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='1421.9700000000003' y1='716.24' x2='1421.9700000000003' y2='498.9599999999999' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='1421.9700000000003' y1='498.9599999999999' x2='1102.3767620286085' y2='498.9599999999999' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-end='url(#arrow)' /></svg>
+<path d='M927.861,390.32 L939.061,390.32 Q950.261,390.32 950.261,379.12 L950.261,184.24 Q950.261,173.04 939.061,173.04 L568.382,173.04' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt; stroke-linejoin:round;' marker-end='url(#arrow)' />
+<path d='M1399.57,716.24 L1410.77,716.24 Q1421.97,716.24 1421.97,705.04 L1421.97,510.16 Q1421.97,498.96 1410.77,498.96 L1102.377,498.96' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt; stroke-linejoin:round;' marker-end='url(#arrow)' /></svg>

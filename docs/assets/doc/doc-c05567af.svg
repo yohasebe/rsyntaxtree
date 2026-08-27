@@ -5,6 +5,9 @@
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
     </marker>
+    <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10" fill="black"/>
+    </marker>
     <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
     </marker>
@@ -66,6 +69,4 @@
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='466.80000000000007' y1='586.4319999999999' x2='429.30000000000007' y2='531.395613963039' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='391.80000000000007' y1='720.8319999999999' x2='392.30000000000007' y2='670.4319999999999' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='466.80000000000007' y1='720.8319999999999' x2='466.80000000000007' y2='670.4319999999999' />
-<line x1='466.80000000000007' y1='804.8319999999999' x2='466.80000000000007' y2='827.2319999999999' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='466.80000000000007' y1='827.2319999999999' x2='57.8' y2='827.2319999999999' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='57.8' y1='827.2319999999999' x2='57.8' y2='388.2173897330596' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  marker-end='url(#arrow)' /></svg>
+<path d='M466.8,804.832 L466.8,816.032 Q466.8,827.232 455.6,827.232 L69.0,827.232 Q57.8,827.232 57.8,816.032 L57.8,388.217' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:butt; stroke-linejoin:round;' marker-end='url(#arrow)' /></svg>

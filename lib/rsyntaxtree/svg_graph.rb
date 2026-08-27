@@ -108,6 +108,9 @@ module RSyntaxTree
             <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
               <path d="M 0 0 L 10 5 L 0 10" fill="#{@col_extra}"/>
             </marker>
+            <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
+              <path d="M 10 0 L 0 5 L 10 10" fill="#{@col_extra}"/>
+            </marker>
             <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
               <path d="M 0 0 L 10 5 L 0 10 z" fill="#{@col_extra}"/>
             </marker>
@@ -259,9 +262,83 @@ module RSyntaxTree
       b
     end
 
+    # A point the given distance from `from` along the line towards `to`.
+    def along(from, to, distance)
+      dx = to[0] - from[0]
+      dy = to[1] - from[1]
+      length = Math.sqrt((dx * dx) + (dy * dy))
+      return from.dup if length.zero?
+
+      [from[0] + (dx / length * distance), from[1] + (dy / length * distance)]
+    end
+
+    # The `d` of a polyline whose corners are eased into quarter turns.
+    #
+    # The radius is clamped to half of each of the two runs meeting at a corner,
+    # so a short leg can never be swallowed by its own turn and two adjacent
+    # corners can never overlap — which is the whole of the arithmetic that
+    # rounding a right angle needs, and why it can be a constant everywhere
+    # else.
+    def rounded_polyline_d(points, radius)
+      return +"" if points.size < 2
+
+      at = ->(p) { "#{p[0].round(3)},#{p[1].round(3)}" }
+      d = +"M#{at.call(points[0])}"
+      points.each_cons(3) do |before, corner, after|
+        r = [radius,
+             Math.sqrt(((corner[0] - before[0])**2) + ((corner[1] - before[1])**2)) / 2.0,
+             Math.sqrt(((after[0] - corner[0])**2) + ((after[1] - corner[1])**2)) / 2.0].min
+        if r < 0.01
+          d << " L#{at.call(corner)}"
+        else
+          d << " L#{at.call(along(corner, before, r))}" \
+               " Q#{at.call(corner)} #{at.call(along(corner, after, r))}"
+        end
+      end
+      d << " L#{at.call(points.last)}"
+    end
+
+    # One stroke rather than three lines meeting at right angles. Drawn this way
+    # the dash pattern runs round each turn instead of restarting at it, and an
+    # arrowhead is the end of the stroke rather than a marker on whichever line
+    # happens to finish last.
+    def generate_path(points, col, dashed: false, radius: 0, start_arrow: false, end_arrow: false)
+      # An arrowhead is drawn back along the run it ends, so the corner before
+      # it has to leave that run its full length. Without this the shorter of
+      # the two end runs — which is only as long as the path's bulge — lost half
+      # of itself to the turn and the head came out sitting on the curve.
+      arrow_length = @global[:h_gap_between_nodes]
+      leg = ->(a, b) { Math.sqrt(((a[0] - b[0])**2) + ((a[1] - b[1])**2)) }
+      radius = [radius, leg.call(points[0], points[1]) - arrow_length].min if start_arrow
+      radius = [radius, leg.call(points[-2], points[-1]) - arrow_length].min if end_arrow
+      radius = [radius, 0].max
+
+      dash = @fontsize / 4.0
+      dasharray = dashed ? "stroke-dasharray='#{dash} #{dash}' " : ""
+      markers = +""
+      markers << "marker-start='url(#arrowStart)' " if start_arrow
+      markers << "marker-end='url(#arrow)' " if end_arrow
+
+      # A round cap is half the stroke's width of ink past the point the stroke
+      # ends at, and an arrowhead has its tip at exactly that point — so the
+      # line came through the tip: 13% ink on the pixel beyond the head of a
+      # path, and 81% beyond its tail, where the marker's apex sits on the
+      # anchor rather than behind it. Squared off, the stroke stops where the
+      # head begins. Only where there is a head: a path without one is the
+      # dashed form, and every dash of it wants its round ends.
+      linecap = start_arrow || end_arrow ? "butt" : "round"
+
+      "<path d='#{rounded_polyline_d(points, radius)}' style='fill: none; stroke: #{col}; " \
+        "stroke-width:#{@global[:stroke_normal]}; stroke-linecap:#{linecap}; stroke-linejoin:round;' " \
+        "#{dasharray}#{markers}/>"
+    end
+
     def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)
       spacing = @global[:h_gap_between_nodes] * 1.25
       min_bulge = @global[:height_connector_to_text]
+      # Small enough that the turn reads as an eased corner rather than as an
+      # arc, and taken from a layout measure so it holds at every font size.
+      corner_radius = min_bulge / 2.0
 
       # Centered offset for multiple lines at the same endpoint
       s_key = "#{s_x.round}"
@@ -288,20 +365,11 @@ module RSyntaxTree
         new_s_y = s_y + s_offset
         new_t_y = t_y + t_offset
 
-        case target_arrow
-        when :single
-          @extra_lines << generate_line(s_x, new_s_y, new_x, new_s_y, @col_path, dashed)
-          @extra_lines << generate_line(new_x, new_s_y, new_x, new_t_y, @col_path, dashed)
-          @extra_lines << generate_line(new_x, new_t_y, t_x, new_t_y, @col_path, dashed, true)
-        when :double
-          @extra_lines << generate_line(new_x, new_s_y, s_x, new_s_y, @col_path, dashed, true)
-          @extra_lines << generate_line(new_x, new_s_y, new_x, new_t_y, @col_path, dashed)
-          @extra_lines << generate_line(new_x, new_t_y, t_x, new_t_y, @col_path, dashed, true)
-        else
-          @extra_lines << generate_line(s_x, new_s_y, new_x, new_s_y, @col_path, dashed)
-          @extra_lines << generate_line(new_x, new_s_y, new_x, new_t_y, @col_path, dashed)
-          @extra_lines << generate_line(new_x, new_t_y, t_x, new_t_y, @col_path, dashed)
-        end
+        @extra_lines << generate_path([[s_x, new_s_y], [new_x, new_s_y],
+                                       [new_x, new_t_y], [t_x, new_t_y]],
+                                      @col_path, dashed: dashed, radius: corner_radius,
+                                      start_arrow: target_arrow == :double,
+                                      end_arrow: target_arrow != :none)
         @width = new_x if new_x > @width
       else
         # TTB: route BELOW the tree (U shape)
@@ -315,20 +383,11 @@ module RSyntaxTree
         new_s_x = s_x - s_offset
         new_t_x = t_x - t_offset
 
-        case target_arrow
-        when :single
-          @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
-          @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
-          @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed, true)
-        when :double
-          @extra_lines << generate_line(new_s_x, new_y, new_s_x, s_y, @col_path, dashed, true)
-          @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
-          @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed, true)
-        else
-          @extra_lines << generate_line(new_s_x, s_y, new_s_x, new_y, @col_path, dashed)
-          @extra_lines << generate_line(new_s_x, new_y, new_t_x, new_y, @col_path, dashed)
-          @extra_lines << generate_line(new_t_x, new_y, new_t_x, t_y, @col_path, dashed)
-        end
+        @extra_lines << generate_path([[new_s_x, s_y], [new_s_x, new_y],
+                                       [new_t_x, new_y], [new_t_x, t_y]],
+                                      @col_path, dashed: dashed, radius: corner_radius,
+                                      start_arrow: target_arrow == :double,
+                                      end_arrow: target_arrow != :none)
         @height = new_y if new_y > @height
       end
     end

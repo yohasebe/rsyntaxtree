@@ -2,6 +2,9 @@
 
 **RSyntaxTree** is a graphical syntax tree generator for linguistic research.
 
+[![Test](https://github.com/yohasebe/rsyntaxtree/actions/workflows/test.yml/badge.svg)](https://github.com/yohasebe/rsyntaxtree/actions/workflows/test.yml)
+[![Gem Version](https://img.shields.io/gem/v/rsyntaxtree)](https://rubygems.org/gems/rsyntaxtree)
+
 <p>
   <a href="https://yohasebe.com/rsyntaxtree"><strong>Web App</strong></a> ·
   <a href="https://yohasebe.github.io/rsyntaxtree/examples"><strong>Example Gallery</strong></a> ·
