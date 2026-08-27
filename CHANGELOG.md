@@ -1,5 +1,29 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- Turning `derivation` on no longer deletes a column from a node that has no
+  daughters. A rule name is written after a column break and names the step
+  that produced a node from its daughters, so a node with none names no rule —
+  but the label is read before the tree is built, and the name was taken out
+  anyway and then had no rule to be drawn beside. `[A\tfoo]` drew "A foo" with
+  the option off and "A" with it on. The label is put back once the tree is
+  known.
+- A mistake inside a node's label keeps the name of what is wrong with it. The
+  first raw space splits a token into a label and its children, and when the
+  label would not parse, every cause but one was relabelled "a raw space split
+  this" — so the message named an unknown colour while the code and the hint
+  talked about spaces, and a caller acting on the code was sent to fix what was
+  not wrong. Which story is right is now asked of the parser rather than
+  guessed: the token is put back together with its spaces written as the
+  notation writes them, and if it reads, the space was the cause.
+- A hex colour is three digits or six, which is what every message about colour
+  here already said. The grammar asked for three to six, so four and five
+  parsed, passed the validator — which does not look at a value beginning with
+  `#` — and reached librsvg, which cannot read them and draws the label black
+  without reporting it.
+
 ## [1.13.2] - 2026-08
 
 ### Fixed

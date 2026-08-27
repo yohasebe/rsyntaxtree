@@ -13,7 +13,7 @@ require_relative "color_names"
 
 module RSyntaxTree
   class Element
-    attr_accessor :rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
+    attr_accessor :rule_name, :label_with_rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
 
     # names_a_rule says the content is a mother's label rather than a leaf's
     # text. Only a mother has a step under it for a name to sit beside, and a
@@ -42,7 +42,11 @@ module RSyntaxTree
       @fontset = fontset
       @fontsize = fontsize
       # In a derivation the label may carry the name of the rule that produced
-      # it, written after a column break: `S/NP\t\>B`. The name belongs beside
+      # it, written after a column break: `S/NP\t>B`. The name is taken out
+      # before the label is read as markup, so it is drawn exactly as written —
+      # `>` and `<` need no escaping there, and escaping them puts the backslash
+      # in the figure. (This example carried one, which is the opposite of what
+      # the gallery's derivations do.) The name belongs beside
       # the rule rather than beside the result, so it comes out of the label
       # here, before the label is measured, and BaseGraph draws it at the end
       # of the rule.
@@ -51,6 +55,11 @@ module RSyntaxTree
         name = at && content[(at + 2)..].to_s.strip
         if name && !name.empty?
           @rule_name = name
+          # Kept whole, because whether this node has daughters — and so
+          # whether it names a rule at all — is not known until the tree
+          # is built. StringParser puts the label back if it turns out
+          # there was no step for the name to belong to.
+          @label_with_rule_name = content
           content = content[0...at]
         end
       end

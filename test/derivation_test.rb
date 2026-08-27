@@ -25,6 +25,31 @@ class DerivationTest < Minitest::Test
     ).draw_svg
   end
 
+  # A rule name names the step that produced a node from its daughters, so a
+  # node with no daughters names no rule, and what looked like a name is a
+  # column of the label like any other. Turning the option on used to delete it:
+  # the label is read before the tree is built, the name was taken out, and then
+  # there was no rule to draw it beside.
+  def test_a_node_with_no_daughters_keeps_its_columns
+    labels = ->(svg) { svg.scan(%r{<tspan[^>]*>([^<]*)</tspan>}).flatten.reject(&:empty?) }
+    off = labels.call(draw("[S [A\\tfoo] [B b]]", derivation: "off", direction: "ttb"))
+    on = labels.call(draw("[S [A\\tfoo] [B b]]"))
+
+    assert_includes off, "foo", "the column is drawn when the option is off"
+    assert_includes on, "foo", "and the option must not delete it"
+  end
+
+  # Where there is a step, the name still leaves the label and is drawn beside
+  # the rule instead.
+  def test_a_node_with_daughters_still_names_its_rule
+    svg = draw("[A\\tfoo [B b] [C c]]")
+
+    refute_includes svg.scan(%r{<tspan[^>]*>([^<]*)</tspan>}).flatten, "foo",
+                    "the name is no longer a column"
+    assert_includes svg.scan(%r{<text[^>]*>([^<]+)</text>}).flatten.map(&:strip), "foo",
+                    "it is drawn beside the rule"
+  end
+
   # Two premises joined, twice, then the two results joined.
   APPLICATION = '[S\t< [NP\t> [NP/N the] [N dog]] ' \
                 '[S\\\\NP\t> [(S\\\\NP)/NP bit] [NP John]]]'

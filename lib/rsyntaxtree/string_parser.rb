@@ -110,6 +110,30 @@ module RSyntaxTree
     def parse
       make_tree(0);
       @elist.set_hierarchy
+      restore_rule_names_without_a_rule
+    end
+
+    # A rule name names the step that produced a node from its daughters. A node
+    # with no daughters is the product of no step, so what looked like a name is
+    # a column of the label like any other, and it goes back.
+    #
+    # Whether a node will have daughters is not known where the label is read —
+    # they arrive as later tokens — so the label is read first and put right
+    # here, once the tree is built. Left alone, turning the option on deleted a
+    # column: `[A\tfoo]` drew "A foo" with derivation off and "A" with it on,
+    # and said nothing about the difference.
+    def restore_rule_names_without_a_rule
+      @elist.elements.each_with_index do |e, i|
+        next if e.rule_name.nil? || e.rule_name.empty?
+        next unless e.children.empty?
+        next if e.label_with_rule_name.nil?
+
+        restored = Element.new(e.id, e.parent, e.label_with_rule_name,
+                               e.level, @fontset, @fontsize, @global)
+        restored.children = e.children
+        restored.type = e.type
+        @elist.elements[i] = restored
+      end
     end
 
     def get_elementlist
