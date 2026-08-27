@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.13.2] - 2026-08
 
 ### Fixed
 - A movement path is drawn as one stroke with its corners eased, in place of
