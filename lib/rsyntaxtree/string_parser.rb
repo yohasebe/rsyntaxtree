@@ -96,6 +96,17 @@ module RSyntaxTree
       end
     end
 
+    # Whether the raw space that split this token is what stopped it parsing.
+    # Asked of the parser rather than reasoned about: the whole token, with its
+    # spaces written as `<>`, either reads as one label or it does not.
+    def space_is_the_cause?(token, parent)
+      Element.new(-1, parent, token.gsub(" ", WHITESPACE_BLOCK), @level,
+                  @fontset, @fontsize, @global, true)
+      true
+    rescue StandardError
+      false
+    end
+
     def parse
       make_tree(0);
       @elist.set_hierarchy
@@ -215,7 +226,34 @@ module RSyntaxTree
                 # parse, the likeliest story is that the space belongs
                 # inside the label and cut a construct in two — say so,
                 # unless a more specific cause is already known.
-                raise e if e.code == :bare_hyphen
+                #
+                # Which of the two it is, the repair machinery has already
+                # decided: it names a cause only when it has a repair it has
+                # checked, and falls back to :invalid_markup when no single
+                # repair worked. So a named cause is one a caller can act on,
+                # and the space is a red herring; :invalid_markup is where the
+                # space is the better story.
+                #
+                # This used to keep :bare_hyphen and relabel every other cause,
+                # which left one error saying two things: the message naming an
+                # unknown colour while the code and the hint talked about
+                # spaces. A caller acting on the code — which is what the
+                # structured errors are for — was sent to fix what was not
+                # wrong.
+                # Which story is right is not a thing to guess at: ask
+                # whether the space is the one that breaks it. Put the whole
+                # token back together with the spaces written as the notation
+                # writes them, and try again. If it parses, the space was
+                # cutting a construct in two and that is what to say. If it
+                # fails the same way, the space is a red herring and the cause
+                # already named is the one to keep.
+                #
+                # It used to keep :bare_hyphen and relabel every other cause,
+                # so one error said two things: the message naming an unknown
+                # colour while the code and the hint talked about spaces. A
+                # caller acting on the code — which is what these are for —
+                # was sent to fix what was not wrong.
+                raise e unless space_is_the_cause?(token_r.join, parent)
 
                 raise RSTError.new(e.message,
                                    code: :label_split,

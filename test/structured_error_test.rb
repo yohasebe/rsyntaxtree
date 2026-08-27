@@ -236,4 +236,63 @@ class StructuredErrorTest < Minitest::Test
     assert e.retryable
     assert_equal false, RSTError.new("Error: input text is empty", code: :empty_input).retryable
   end
+
+  # A mistake inside a node's label kept its message and lost its name. The
+  # first raw space splits a token into a label and its children, and when the
+  # label would not parse the code relabelled the failure as :label_split —
+  # every cause but one. So the error said two things at once: the message
+  # naming an unknown colour while the code and the hint talked about spaces.
+  # A caller acting on the code, which is the whole point of these, was sent to
+  # fix what was not wrong.
+  #
+  # The repair machinery has already decided which it is: it names a cause only
+  # when it has a repair it has checked, and falls back to :invalid_markup when
+  # none worked. A named cause is one that can be acted on.
+  def test_a_node_label_keeps_the_name_of_what_is_wrong_with_it
+    {
+      "[@blu:NP a]" => :unknown_color,
+      "[N*P a]" => :unclosed_markup,
+      "[<NP> a]" => :angle_brackets,
+      "[NP well-known a]" => :bare_hyphen
+    }.each do |data, code|
+      e = failure(data)
+      assert_equal code, e.code, "#{data}: the code should name the cause the message names"
+    end
+  end
+
+  # The same mistake in a leaf was always named correctly. The two paths agree
+  # now.
+  def test_a_leaf_and_a_node_label_report_the_same_mistake_the_same_way
+    assert_equal failure("[NP @blu:a]").code, failure("[@blu:NP a]").code
+  end
+
+  # Whether the space is the cause is not guessed at: the whole token is put
+  # back together with its spaces written as the notation writes them, and the
+  # parser is asked again. A space that was cutting a construct in two shows up
+  # as a token that parses once it is written as `<>`; a space that is beside
+  # the point leaves the same failure behind.
+  def test_the_space_is_blamed_only_when_the_space_is_the_cause
+    cut = failure("[S\\n*a b*]")
+    assert_equal :label_split, cut.code, "the space cut the italics in two"
+    assert_includes cut.hint, "<>"
+
+    beside_the_point = failure("[@blu:NP a]")
+    assert_equal :unknown_color, beside_the_point.code
+    refute_includes beside_the_point.hint, "<>",
+                    "the space is not what is wrong here, so it is not mentioned"
+  end
+
+  # Every message about colour in this codebase says three digits or six. The
+  # grammar said three to six, so four and five parsed, passed the validator —
+  # which does not look at a value beginning with '#' — and reached librsvg,
+  # which cannot read them and draws the label black without reporting it.
+  def test_a_hex_colour_is_three_digits_or_six
+    ["#abc", "#aabbcc"].each do |c|
+      RSyntaxTree::RSGenerator.check_data("[@#{c}:NP a]", {})
+      RSyntaxTree::RSGenerator.check_data("[%@#{c}:NP a]", {})
+    end
+    ["#ab", "#abcd", "#abcde", "#aabbccdd"].each do |c|
+      assert_equal :invalid_color, failure("[@#{c}:NP a]").code, "#{c}: named as a colour mistake"
+    end
+  end
 end

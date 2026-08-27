@@ -63,6 +63,13 @@ A movement arrow links the two nodes that carry the same number:
 
     [S [NP what+>1] [VP [V see] [NP+1 t]]]
 
+What is above is the part of the notation that is easy to get wrong, not the
+whole of it. The rest is in the manual, and every example in the gallery is
+written out beside the figure it draws:
+
+    https://yohasebe.github.io/rsyntaxtree/documentation
+    https://yohasebe.github.io/rsyntaxtree/examples
+
 
 # Manual
 

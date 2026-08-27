@@ -15,7 +15,14 @@ class MarkupParser < Parslet::Parser
 
   # Color specification: @colorname: or @#hexcode:
   rule(:color_name) { match('[a-zA-Z]').repeat(1) }
-  rule(:color_hex) { str('#') >> match('[0-9a-fA-F]').repeat(3, 6) }
+  # Three digits or six, which is what every message about colour in this
+  # codebase already says. The rule used to be written as "three to six", so
+  # four and five passed the parser, passed the validator (which does not look
+  # at a value beginning with '#' at all), and went into the SVG — where
+  # librsvg cannot read them and draws the label black, with nothing reported.
+  # Six first: on a six-digit value the three-digit branch matches and then
+  # the ':' is not there to be found.
+  rule(:color_hex) { str('#') >> (match('[0-9a-fA-F]').repeat(6, 6) | match('[0-9a-fA-F]').repeat(3, 3)) }
   rule(:color_spec) { str('@') >> (color_hex | color_name).as(:color_value) >> str(':') }
 
   # Region shade: '%' marks the node so that the whole subtree it governs
