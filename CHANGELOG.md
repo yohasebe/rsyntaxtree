@@ -1,6 +1,28 @@
 # Changelog
 
-## [Unreleased]
+## [1.14.0] - 2026-08-27
+
+### Added
+- The notation has a map. The reference the gem ships (`--notation`) is one
+  page: the characters that already mean something, then every feature at a
+  line each with the notation beside it, then the options. Both manuals open
+  with the same list, each row pointing at the section that explains it. A test
+  reads the feature set out of the grammar itself and draws every sample, so a
+  feature the grammar gains with no row in the documents fails the build, and a
+  sample that stops meaning what it says fails with it.
+- The changelog is on the documentation site, at /changelog, built from
+  CHANGELOG.md and linked from the manuals and the README.
+
+### Changed
+- Every release in the changelog is dated to the day, from the git tags. Two of
+  the old month-only dates were wrong.
+- What the trap section warns about is now, by definition, what the tool
+  accepts and draws as something other than what was meant. A mistake the tool
+  refuses is the error message's job, and its card has come down; the warning
+  about parentheses, which the Penn Treebank conversion had made false, tells
+  the truth again.
+- The arrow markers' dimensions are rounded; the defs of every SVG carried
+  float dust in an attribute.
 
 ### Fixed
 - Turning `derivation` on no longer deletes a column from a node that has no
