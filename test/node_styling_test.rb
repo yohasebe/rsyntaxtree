@@ -837,18 +837,28 @@ end
     end
   end
 
+  # The quicksort figure is three nested three-way splits; its middle edges
+  # measured vertical before the link spread and slanted after it.
+  #
+  # Asked as a gap, not as a count of pixels. This test used to require the
+  # three smallest dx to be under 1.0 and the rest over 10, and those numbers
+  # were read off one machine: the figure's width is decided by text
+  # measurement, so the residual on a vertical edge is 0.45 here, 1.95 in the
+  # container the gallery is drawn in, and the test passed nowhere but the
+  # machine it was written on. What does not move between machines is the
+  # distance between the two groups — a vertical edge is off by a fraction of a
+  # pixel and a slanted one by tens — so that is what is asked about.
   def test_043_middle_edges_are_vertical
-    # The quicksort figure is three nested three-way splits; its middle
-    # edges measured vertical before the link spread and slanted after it.
     require_relative "../dev/example_options"
     _name, opts = ExampleOptions.load(File.expand_path("../docs/_examples/043.md", __dir__))
     doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(opts).draw_svg)
 
-    near_vertical = connector_dxs(doc).select { |dx| dx < 10 }
-    assert_operator near_vertical.size, :>=, 3, "the three middle edges should be near-vertical"
-    near_vertical.each do |dx|
-      assert_operator dx, :<, 1.0, "a middle edge off vertical: dx=#{dx.round(2)}"
-    end
+    dxs = connector_dxs(doc).sort
+    # The count is structure rather than metrics, so it holds everywhere, and
+    # without it a figure that lost its edges could pass the ratio vacuously.
+    assert_equal 17, dxs.size, "the quicksort figure has seventeen connectors"
+    assert_operator dxs[3] / dxs[2], :>=, 10,
+                    "the three middle edges are no longer set apart from the slanted ones: #{dxs.first(4).map { |d| d.round(2) }.inspect}"
   end
 
   # ===================

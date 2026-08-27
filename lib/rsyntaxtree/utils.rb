@@ -28,14 +28,22 @@ SCRIPT_FAMILIES_SANS = ["Noto Sans Arabic", "Noto Sans Hebrew", "Noto Sans Devan
 # Arabic behind it for systems that ship one but not the other.
 SCRIPT_FAMILIES_SERIF = ["Noto Naskh Arabic", "Noto Sans Arabic", "Noto Serif Hebrew", "Noto Serif Devanagari", "Noto Serif Thai", "Noto Serif Khmer"].freeze
 
-# Monochrome emoji faces only. Colour emoji fonts carry their glyphs as bitmap
-# or COLR tables, which Pango happily measures but librsvg does not draw, so a
-# colour font in this list would give a figure whose emoji are blank or blobbed.
+# No emoji family is named in the chains below, and naming one was a mistake.
 #
-# This holds only where Pango resolves through fontconfig. On macOS it goes
-# through CoreText, which answers every emoji codepoint with Apple Color Emoji
-# whatever the chain asks for; emoji figures have to be generated elsewhere.
-EMOJI_FAMILIES = ["OpenMoji", "OpenMoji Color", "OpenMoji Black", "Noto Emoji"].freeze
+# Asking for an emoji face by name is asking fontconfig for it, and fontconfig
+# aliases the name to the generic `emoji` family, whose preference list it then
+# prepends to the whole pattern with a strong binding. The requested face
+# arrives at the head of the chain rather than at the tail, ahead of the Noto
+# text faces — and a colour emoji font carries ASCII digits, for the keycap
+# sequences. So on any machine with one installed, which is every ordinary
+# Linux desktop, `[N 20]` was set in the emoji face at more than twice the
+# width. Measurement and drawing read the same chain, so the figure held
+# together; it was simply not the figure the same input gives anywhere else.
+#
+# Emoji still draw. A codepoint no named family covers reaches fontconfig's own
+# fallback, which finds the emoji font — that is the path this list was
+# duplicating, and it was already the path taken wherever these families were
+# not installed.
 
 # Mathematical alphanumerics (U+1D400–) label heads such as the little v of vP.
 # Neither Noto Sans nor Noto Serif covers the block, so without these entries
@@ -49,15 +57,15 @@ MATH_FAMILIES_SANS = ["Noto Sans Math"].freeze
 MATH_FAMILIES_SERIF = ["DejaVu Serif", "Noto Sans Math"].freeze
 
 FONT_FAMILIES = {
-  sans:  (["Noto Sans", "Noto Sans JP", "Noto Sans CJK JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + EMOJI_FAMILIES + ["sans-serif"]).freeze,
-  serif: (["Noto Serif", "Noto Serif JP", "Noto Serif CJK JP"] + SCRIPT_FAMILIES_SERIF + MATH_FAMILIES_SERIF + EMOJI_FAMILIES + ["serif"]).freeze,
+  sans:  (["Noto Sans", "Noto Sans JP", "Noto Sans CJK JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + ["sans-serif"]).freeze,
+  serif: (["Noto Serif", "Noto Serif JP", "Noto Serif CJK JP"] + SCRIPT_FAMILIES_SERIF + MATH_FAMILIES_SERIF + ["serif"]).freeze,
   # Noto ships no monospaced faces for these scripts, so the mono style borrows
   # the proportional ones rather than dropping to the generic fallback.
-  mono:  (["Noto Sans Mono", "Noto Sans JP", "Noto Sans Mono CJK JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + EMOJI_FAMILIES + ["monospace"]).freeze,
+  mono:  (["Noto Sans Mono", "Noto Sans JP", "Noto Sans Mono CJK JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + ["monospace"]).freeze,
   # The cjk style puts a full-coverage CJK family first, for text that mixes
   # Han, Hangul and kana. Latin falls back to the same Noto faces the sans
   # style uses. (Before 1.8.0 this was WQY Zen Hei.)
-  cjk:   (["Noto Sans CJK JP", "Noto Sans", "Noto Sans JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + EMOJI_FAMILIES + ["sans-serif"]).freeze
+  cjk:   (["Noto Sans CJK JP", "Noto Sans", "Noto Sans JP"] + SCRIPT_FAMILIES_SANS + MATH_FAMILIES_SANS + ["sans-serif"]).freeze
 }.freeze
 
 module FontFamily

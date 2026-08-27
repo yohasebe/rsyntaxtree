@@ -113,6 +113,8 @@ class OptionValidationTest < Minitest::Test
     end
     NUMERIC_RANGES.each_key do |key|
       assert_nil build(key => ""), "#{key}: an empty value should be read as unset"
+      assert_nil build(key => nil), "#{key}: nil should be read as unset"
+      assert_nil build(key => "  "), "#{key}: whitespace should be read as unset"
     end
   end
 

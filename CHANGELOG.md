@@ -1,5 +1,22 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- Digits are set in the text face again on machines that have a colour emoji
+  font. The font chains named emoji families by name, and asking fontconfig for
+  one is asking for the generic `emoji` family, whose preference list fontconfig
+  then prepends to the whole pattern with a strong binding — so the emoji face
+  arrived ahead of the Noto text faces rather than behind them. A colour emoji
+  font carries the ASCII digits, for keycap sequences, so on an ordinary Linux
+  desktop `[N 20]` came out in the emoji face at more than twice the width.
+  Measurement and drawing read the same chain, so the figure held together; it
+  was simply not the figure the same input gives elsewhere. No emoji family is
+  named now: a codepoint no named family covers reaches fontconfig's own
+  fallback, which is the path this was duplicating. Emoji draw as before, and
+  the gallery is unchanged to the pixel — every raster figure is byte-identical
+  and the SVGs differ only in the family list they carry.
+
 ## [1.13.1] - 2026-08
 
 ### Fixed
