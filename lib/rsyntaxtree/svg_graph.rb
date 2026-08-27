@@ -92,8 +92,11 @@ module RSyntaxTree
 
       extra_lines = @extra_lines.join("\n")
 
-      as2 = @global[:h_gap_between_nodes] * 1.0
-      as4 = as2 * 3
+      # Rounded like the stroke widths are: the arithmetic leaves float dust
+      # (13.600000000000001) in an attribute of every figure, and the SVG is a
+      # deliverable people open in editors.
+      as2 = (@global[:h_gap_between_nodes] * 1.0).round(3)
+      as4 = (as2 * 3).round(3)
       # The hatch density follows the type size the way the enclosure it
       # fills does: the cell is 10/32 of the font size, the line 4/32 —
       # the ratios the absolute 10 and 4 had at the default size.
