@@ -251,19 +251,6 @@ module RSyntaxTree
                 # inside the label and cut a construct in two — say so,
                 # unless a more specific cause is already known.
                 #
-                # Which of the two it is, the repair machinery has already
-                # decided: it names a cause only when it has a repair it has
-                # checked, and falls back to :invalid_markup when no single
-                # repair worked. So a named cause is one a caller can act on,
-                # and the space is a red herring; :invalid_markup is where the
-                # space is the better story.
-                #
-                # This used to keep :bare_hyphen and relabel every other cause,
-                # which left one error saying two things: the message naming an
-                # unknown colour while the code and the hint talked about
-                # spaces. A caller acting on the code — which is what the
-                # structured errors are for — was sent to fix what was not
-                # wrong.
                 # Which story is right is not a thing to guess at: ask
                 # whether the space is the one that breaks it. Put the whole
                 # token back together with the spaces written as the notation
