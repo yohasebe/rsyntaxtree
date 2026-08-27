@@ -206,6 +206,50 @@ fontsize: 18
 
 CLI options override config file settings.
 
+## Using RSyntaxTree with an AI Model
+
+The notation is small, but several characters in it already mean something, so
+a model writing it does better with the reference in front of it than without.
+
+**If the model only writes the notation** and you draw it yourself — in the
+[web interface](https://yohasebe.com/rsyntaxtree) or on your own machine —
+nothing needs installing. Give the model one of these to read:
+
+- [The brief reference](https://yohasebe.github.io/rsyntaxtree/llms.txt), about
+  a page, leading with the characters that already mean something.
+- [Everything in one file](https://yohasebe.github.io/rsyntaxtree/llms-full.txt):
+  the reference, the manual and all the gallery examples, 78 KB.
+
+**If the model can run a shell**, it can draw and then look at what it drew,
+which is the part that lets it correct itself:
+
+```bash
+docker run --rm -v "$PWD:/work" -w /work ghcr.io/yohasebe/rsyntaxtree \
+  rsyntaxtree --notation                       # the reference, on stdout
+docker run --rm -v "$PWD:/work" -w /work ghcr.io/yohasebe/rsyntaxtree \
+  rsyntaxtree -f png -o . "[S [NP a tree] [VP appears]]"
+```
+
+Then read `syntree.png` back. `--examples` prints every gallery example with
+the settings it was drawn at, and `--validate` reports what is wrong with an
+input as JSON — including whether rewriting it is worth trying — without
+drawing anything:
+
+```json
+{ "schema": "rsyntaxtree.error/1", "ok": false,
+  "errors": [ { "code": "unbalanced_brackets",
+                "message": "Error: open and close brackets do not match",
+                "hint": "Count the brackets: every '[' needs one ']'.",
+                "retryable": true } ],
+  "reference": "rsyntaxtree --notation, or https://yohasebe.github.io/rsyntaxtree/llms-full.txt" }
+```
+
+The exit code carries the verdict too, so a script can branch on it without
+reading the JSON. The Docker image is used above because this tool draws
+through Pango and librsvg, and a figure depends on which versions of those —
+and which fonts — are installed; the image fixes all of them. Installed as a
+gem it works the same, once those libraries are on the machine.
+
 ## Documentation
 
 For detailed documentation on syntax and markup:
