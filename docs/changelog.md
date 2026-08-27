@@ -1,4 +1,14 @@
+---
+title: RSyntaxTree
+layout: default
+---
+
 # Changelog
+{:.no_toc}
+
+[Documentation](https://yohasebe.github.io/rsyntaxtree/documentation) |
+[Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) |
+[Web App](https://yohasebe.com/rsyntaxtree)
 
 ## [Unreleased]
 

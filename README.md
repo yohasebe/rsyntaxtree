@@ -257,6 +257,7 @@ For detailed documentation on syntax and markup:
 - [Documentation in English](https://yohasebe.github.io/rsyntaxtree/documentation)
 - [日本語ドキュメント](https://yohasebe.github.io/rsyntaxtree/documentation_ja)
 - [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples)
+- [Changelog](https://yohasebe.github.io/rsyntaxtree/changelog)
 
 ## How to Cite
 

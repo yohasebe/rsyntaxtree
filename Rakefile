@@ -51,6 +51,11 @@ task :llm_payload do
     ruby "dev/generate_llm_payload.rb"
 end
 
+desc "Build the site's changelog page from CHANGELOG.md"
+task :changelog_page do
+    ruby "dev/changelog_page.rb"
+end
+
 desc "Record the pixel size of each gallery figure for the examples page"
 task :figure_sizes do
     ruby "dev/stamp_figure_sizes.rb"
