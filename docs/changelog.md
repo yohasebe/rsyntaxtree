@@ -523,12 +523,40 @@ RMagick dependency.
 
 ## [1.3.1] - 2024-10-24
 
+- Square brackets can be escaped with `\[` and `\]`
 - Bug fixes and improvements
 
 ## [1.3.0] - 2024-08-27
 
 - TikZ/forest LaTeX output support
 
-## Previous versions
+## Earlier releases (2018–2023)
 
-See commit history for earlier changes.
+Before this file was kept, the web interface carried the release notes. Moved
+here so the history has one home.
+
+- 2023-09 — Cross-hatch rendering issue fixed
+- 2023-02 — PDF download; improved line edges; `Line width` option;
+  `Traditional` colour option; `Hide connectors` option; extra connectors
+  between nodes
+- 2023-01 — `Noto Sans Mono` font option
+- 2022-11 — `¥` accepted in place of the backslash for escapes; documentation
+  in Japanese
+- 2022-06 — RSyntaxTree on the Web: the UI as a source package, runnable
+  locally with Docker
+- 2022-02 — `Polyline connector` option
+- 2022-01 — comprehensive rewrite; path drawing (non-directional, directional,
+  bidirectional); more flexible text markup; new markup patterns (newlines,
+  brackets, horizontal lines, boxed text); triangles in every connector mode;
+  improved error display and image zoom in the UI
+- 2021-12 — subscript `_text_` and superscript `__text__`; `\n` inside
+  terminal nodes
+- 2021-11 — label-less terminal nodes (`[A [B] [C]]`); auto bracket close;
+  math symbol rendering; better image quality; some decoration symbols altered
+- 2019-11 — SVG download error fixed
+- 2019-04 — SVG colour on/off fixed
+- 2018-06 — whitespace in labels with `<>` (`Modal<>AUX`)
+- 2018-03 — `V spacing` option (then called Connector height); syntax
+  highlighting of the input; text styles (italic, bold) and decoration
+  (underline, overline, line-through); refined site design
+- 2018-02 — margins around the image; better editor (Ace)
