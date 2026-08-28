@@ -5,16 +5,32 @@ layout: default
 
 <h1 id="examples">Example Gallery</h1>
 {% assign all_examples = site.examples %}
-{% assign categories = all_examples | group_by: 'category' %}
+{%- comment -%}
+  The categories in the order _data/categories.yml gives, not the order they
+  happen to appear in among the examples. A category the data file does not
+  name is still shown, at the end, so an example can never vanish from the
+  page for want of a line in a list; a test names that as the mistake it is.
+{%- endcomment -%}
+{% assign grouped = all_examples | group_by: 'category' %}
+{% assign listed = site.data.categories.order %}
+{% assign ordered = "" | split: "" %}
+{%- for name in listed -%}
+  {%- for group in grouped -%}
+    {%- if group.name == name -%}{% assign ordered = ordered | push: group %}{%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- for group in grouped -%}
+  {%- unless listed contains group.name -%}{% assign ordered = ordered | push: group %}{%- endunless -%}
+{%- endfor -%}
 <ul>
-  {%- for category in categories -%}
+  {%- for category in ordered -%}
     {%- if category.name != "Test" and category.name != "Error" -%}
       <li><a href="#category-{{ category.name | slugify }}">{{ category.name }}</a> [{{category.size}}]</li>
     {%- endif -%}
   {%- endfor -%}
 </ul>
 
-{%- for category in categories -%}
+{%- for category in ordered -%}
   {%- if category.name != "Test" and category.name != "Error" -%}
     <hr />
     <h2 id="category-{{category.name | slugify }}"><b>{{ category.name }}</b></h2>

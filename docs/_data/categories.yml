@@ -1,0 +1,43 @@
+# The order the gallery lists its categories in, and the only thing that
+# decides it. Without this the order was whatever `group_by` returned, which
+# is the order the categories first appear among the examples — so it was the
+# order they happened to be added in, and a new one always landed last however
+# well it belonged elsewhere.
+#
+# The shape of the list: the two that introduce the notation, then the grammars,
+# then the rest of linguistics, then the fields outside it, and Miscellaneous
+# at the end. Within a group the names are alphabetical, so a reader can find
+# one by name and a category added later has a place already.
+#
+# Every category used by an example has to appear here: gallery_category_test.rb
+# fails on one that does not, which is what keeps a new example from quietly
+# dropping to the bottom of the page.
+order:
+  # The way in
+  - General
+  - Generative Grammar
+
+  # Grammars
+  - Cognitive Grammar
+  - Combinatory Categorial Grammar
+  - Construction Grammar
+  - Formal Grammar
+  - Functional Grammar
+  - Head-Driven Phrase Structure Grammar
+  - Lexical-Functional Grammar
+
+  # The rest of linguistics
+  - Formal Semantics
+  - Historical Linguistics
+  - Morphology
+  - Multilingual
+  - Phonology
+  - Pragmatics
+
+  # Outside linguistics
+  - Computer Science
+  - Formal Concept Analysis
+  - Natural Language Processing
+
+  # Everything else
+  - Miscellaneous
