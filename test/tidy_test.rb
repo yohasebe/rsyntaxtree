@@ -103,6 +103,26 @@ class TidyTest < Minitest::Test
     assert widths[0] < widths[1] && widths[1] < widths[2], "off-layout width should grow with hspacing: #{widths.inspect}"
   end
 
+  # Left to right, the tree turns but the options do not: hspacing is what
+  # separates sisters, which now stand one above another, so it is the height
+  # that answers to it. The layout replaces the sister gap with one of its own
+  # and has to scale that by hspacing too — without it both options pushed the
+  # width and a left-to-right figure could be made wider but never shorter,
+  # which is a thing no test noticed.
+  def test_hspacing_moves_the_height_of_a_left_to_right_tree
+    heights = %w[0.5 1.0 3.0].map do |hs|
+      generator(SIMPLE, direction: "ltr", hspacing: hs).draw_svg[/height="([\d.]+)"/, 1].to_f
+    end
+    assert_equal heights.sort, heights, "hspacing must not shrink the height"
+    assert_operator heights.last, :>, heights.first * 1.5,
+                    "hspacing barely moved the height: #{heights.inspect}"
+
+    widths = %w[0.5 1.0 3.0].map do |hs|
+      generator(SIMPLE, direction: "ltr", hspacing: hs).draw_svg[/width="([\d.]+)"/, 1].to_f
+    end
+    refute_equal widths.first, widths.last, "hspacing still has to move the margins"
+  end
+
   # legacy tidy_spacing acts as an hspacing alias
   def test_tidy_spacing_alias
     bracket, fontstyle = UD_TREES["Chinese"]

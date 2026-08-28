@@ -313,7 +313,13 @@ module RSyntaxTree
       # Horizontal counterpart of vheight: hspacing scales every horizontal
       # gap (sibling clearance in all layout modes, tidy minimum gap,
       # margins) the way vheight scales the vertical rhythm.
-      @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8 * (@params[:hspacing] || 1.0).to_f
+      #
+      # The factor is kept beside the gap it scales because the left-to-right
+      # layout replaces that gap with one of its own and has to scale it by
+      # the same amount. Recovering the factor by dividing the gap back out
+      # would be this rule written a second time, free to drift from this one.
+      @global[:hspacing] = (@params[:hspacing] || 1.0).to_f
+      @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8 * @global[:hspacing]
       @global[:box_vertical_margin] = single_x_metrics.height * 0.8
       # Every stroke follows the type size: linewidth 1 is 5% of it (the
       # ratio of an ordinary text rule, booktabs' \lightrulewidth), each

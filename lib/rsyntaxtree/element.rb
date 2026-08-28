@@ -309,6 +309,10 @@ module RSyntaxTree
           row_holds_text = content[:elements].any? do |e|
             (e[:decoration] & [:box, :circle, :bar]).empty? && !e[:text].to_s.strip.empty?
           end
+          # True until something is drawn in the current column. A tabstop
+          # opens the next one, so a block that starts a column is at the
+          # start of a cell however many columns came before it.
+          cell_start = true
           content[:elements].each do |e|
             # A nested matrix is measured by the same code one level down, and
             # reports the size of the block it will occupy in this row: its own
@@ -317,7 +321,18 @@ module RSyntaxTree
               inner = measure_lines(e[:matrix], nested: true)
               e[:matrix_width] = inner[:width]
               e[:matrix_height] = inner[:height]
-              e[:width] = inner[:width] + matrix_bracket_room * 2
+              # A block that opens a cell needs nothing in front of it: the
+              # column it starts is already held clear. One that follows
+              # something in the same cell — the tag on a shared value, as in
+              # AGR |1| [ ... ] — was drawn with its bracket on the ink before
+              # it, because a run is spaced for the glyph that comes next and
+              # a bracket is not a glyph.
+              # As much room in front of the bracket as the bracket keeps
+              # inside it, so the two sides of it look alike. Half as much
+              # left it looking crowded from the outside.
+              e[:matrix_lead] = cell_start ? 0 : matrix_bracket_room
+              cell_start = false
+              e[:width] = inner[:width] + matrix_bracket_room * 2 + e[:matrix_lead]
               # Two separate allowances. The block is padded inside its own
               # brackets, above and below, and that padding is part of the row.
               # The gap that keeps the block clear of the rows either side is
@@ -333,6 +348,14 @@ module RSyntaxTree
               one_bvm_given = true
               row_width += e[:width]
               next
+            end
+
+            # A tabstop opens the next column; anything else puts ink in the
+            # one being filled.
+            if e[:decoration].to_a.include?(:tabstop)
+              cell_start = true
+            elsif !e[:text].to_s.empty?
+              cell_start = false
             end
 
             text = e[:text]

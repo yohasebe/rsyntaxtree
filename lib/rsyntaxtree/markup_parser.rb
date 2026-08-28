@@ -5,8 +5,13 @@ require 'parslet'
 class MarkupParser < Parslet::Parser
   rule(:cr) { str('\\n') }
   rule(:eof) { any.absent? }
-  rule(:border) { match('[^\-]').absent? >> str('-').repeat(3).as(:border) >> (eof | cr) }
-  rule(:bborder) { match('[^=]').absent? >> str('=').repeat(3).as(:bborder) >> (eof | cr) }
+  rule(:border) { rule_line >> (eof | cr) }
+  rule(:bborder) { double_rule_line >> (eof | cr) }
+  # The rule itself, without what ends the line. A matrix ends its rows on
+  # its own closing delimiter as well as on a line break, so it supplies its
+  # own terminator; folding one in here would have the two consume it twice.
+  rule(:rule_line) { match('[^\-]').absent? >> str('-').repeat(3).as(:border) }
+  rule(:double_rule_line) { match('[^=]').absent? >> str('=').repeat(3).as(:bborder) }
 
   rule(:brectangle) { str('###') }
   rule(:rectangle) { str('##') }
@@ -79,7 +84,7 @@ class MarkupParser < Parslet::Parser
   # bare brackets would be read as tree structure and bare parentheses appear
   # in labels too often to claim.
   rule(:matrix) { str('#(') >> matrix_line.repeat(1).as(:matrix) >> str('#)') }
-  rule(:matrix_line) { matrix_markup.repeat(1).as(:line) >> (cr | str('#)').present?) }
+  rule(:matrix_line) { (rule_line | double_rule_line | matrix_markup.repeat(1).as(:line)) >> (cr | str('#)').present?) }
   rule(:matrix_markup) { (matrix | tabstop | matrix_text | decoration | shape | bstroke) }
   # Text inside a matrix stops at the closing delimiter as well.
   rule(:matrix_text) { (escaped | (str('#)').absent? >> non_escaped)).repeat(1).as(:text) }

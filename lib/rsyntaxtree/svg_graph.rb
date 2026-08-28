@@ -45,7 +45,7 @@ module RSyntaxTree
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
       @polygon_styles = "<polygon style='fill: none; stroke: #{@col_connector}; stroke-width:#{@global[:stroke_normal]}; stroke-linejoin:round;stroke-linecap:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
-      @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; storoke-width: 0; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
+      @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; stroke-width: 0; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
       @tree_data = String.new
       @visited_x = {}
       @visited_y = {}
@@ -624,11 +624,42 @@ module RSyntaxTree
     # the sizes Element#measure_lines worked out, inside its own brackets.
     def render_matrix(e, this_x, text_y, element, col)
       out = +""
+      advance = e[:width]
+      # The room measured in front of the block, if it follows something in
+      # the same cell. Taken off this_x here so the bracket starts after it,
+      # and left in the advance so the row is as wide as it was measured.
+      lead = e[:matrix_lead].to_f
+      this_x += lead
       inner_x = this_x + @global[:width_half_x] * MATRIX_BRACKET_ROOM
       baseline = text_y
       prev_height = nil
 
       e[:matrix].each_with_index do |line, idx|
+        # A rule across the matrix, the way one runs across a label: it takes
+        # a row of its own and spans the width inside the brackets, so a
+        # feature structure can separate its type from its features and a
+        # tableau its header from its candidates.
+        if %i[border bborder].include?(line[:type])
+          # Placed from the baseline above it, the way a rule across a label
+          # is: a third of a line under the row before, the rest of the gap
+          # under the rule. Measuring from the row it is about to open
+          # instead put the space on the wrong side — more above the rule
+          # than below, where the ascenders of the next row need it.
+          above = baseline
+          baseline += prev_height if idx.positive? && prev_height
+          prev_height = line[:height].to_f
+          y = if idx.zero?
+                above - prev_height - @global[:single_line_height] / 8
+              else
+                above + prev_height - @global[:single_line_height] / 8
+              end
+          inner_w = e[:width] - (inner_x - this_x) * 2
+          stroke = line[:type] == :bborder ? @global[:stroke_bold] : @global[:stroke_normal]
+          @extra_lines << "<line style=\"stroke:#{col}; fill:none; stroke-linecap:round; " \
+                          "stroke-width:#{stroke}; \" x1=\"#{inner_x}\" y1=\"#{y}\" " \
+                          "x2=\"#{inner_x + inner_w}\" y2=\"#{y}\"></line>"
+          next
+        end
         next unless line[:type] == :text
 
         baseline += prev_height if idx.positive? && prev_height
@@ -651,8 +682,8 @@ module RSyntaxTree
       # stacked blocks touching.
       padding = @global[:single_x_metrics].height * MATRIX_VERTICAL_ROOM
       top = text_y - @global[:single_x_metrics].height * 0.8 - padding
-      draw_bracket(this_x, top, e[:width], e[:matrix_height] + padding * 2, col)
-      [out, this_x + e[:width]]
+      draw_bracket(this_x, top, e[:width] - lead, e[:matrix_height] + padding * 2, col)
+      [out, this_x + advance - lead]
     end
 
     def draw_rectangle(x1, y1, width, height, col, bline = false)

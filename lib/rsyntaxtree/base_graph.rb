@@ -966,7 +966,13 @@ module RSyntaxTree
       # is disproportionately large relative to the swapped content dimensions.
       # Use height_connector_to_text / 2 (= font_height / 4) for tight
       # vertical packing proportional to the font size.
-      @global[:h_gap_between_nodes] = @global[:height_connector_to_text] / 2
+      #
+      # Scaled by hspacing, like the gap it replaces. Without it the two
+      # spacing options both pushed the width in this direction — hspacing
+      # only through the margins it is left in — and nothing at all decided
+      # how far apart siblings sat, so a left-to-right tree could be made
+      # wider but never shorter.
+      @global[:h_gap_between_nodes] = @global[:height_connector_to_text] / 2 * @global[:hspacing]
 
       # In LTR, height_connector becomes horizontal depth between levels.
       # After content swap, content_height = original content_width (small),
