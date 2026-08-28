@@ -96,7 +96,7 @@ cannot outlive the feature it names.
 - `%NP`, `%@blue:NP` — a region shade behind the whole subtree → [Region Shade](#region-shade)
 - `@red:NP`, `@#3af:NP` — colour, by name or 3/6 hex digits → [Per-Node Styling](#per-node-styling-color)
 
-**Options** — each is a select in the [web interface](https://yohasebe.com/rsyntaxtree) and a flag on the command line: `format` (png, svg, pdf, ...), `fontstyle` and `fontsize`, `color`, `linewidth`, `leafstyle` (what joins a node to its leaf), `direction` (ttb, ltr, btt), `mirror` for RTL scripts, `tidy` and `hspacing` and `vheight` for the packing and the spacing, `derivation` for categorial-style figures, and `hyphen` (whether a hyphen is markup or a character). Each is described in the section it concerns.
+**Options** — each is a select in the [web interface](https://yohasebe.com/rsyntaxtree) and a flag on the command line: `format` (png, svg, pdf, ...), `fontstyle` and `fontsize`, `color`, `linewidth`, `leafstyle` (what joins a node to its leaf), `direction` (ttb, ltr, btt), `mirror` for RTL scripts, `tidy` and `hspacing` and `vheight` for the packing and the spacing, `polyline` for right-angled connectors, `hide_default_connectors` for figures whose links are all drawn by hand, `transparent` for a clear background, `derivation` for categorial-style figures, and `hyphen` (whether a hyphen is markup or a character). Each is described in the section it concerns.
 
 ### Tree Direction
 
@@ -237,9 +237,9 @@ Mono
 
 </div>
 
-Which fonts have to be on which machine depends on the format. A PNG, PDF, JPG
-or GIF is drawn here and arrives as a picture, so nothing needs installing to
-look at one. An SVG carries the names of the faces rather than the shapes, and
+Which fonts have to be on which machine depends on the format. A PNG or a PDF
+is drawn here and arrives as a picture, so nothing needs installing to look at
+one. An SVG carries the names of the faces rather than the shapes, and
 whatever opens it supplies them — so a machine without these fonts substitutes
 what it has, and the text comes out a little out of balance:
 
@@ -525,8 +525,7 @@ black-and-white figure use bare `%` (gray) rather than a colored shade.
 
 Overlapping or nested regions blend naturally because the planes are
 semi-transparent. Region shade works in both top-to-bottom and left-to-right
-(`-d ltr`) layouts, and applies to all raster/vector outputs (SVG, PNG, PDF,
-JPG, GIF).
+(`-d ltr`) layouts, and applies to every drawn output (SVG, PNG, PDF).
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-0050a108'].layout }}" markdown="1">
 
@@ -968,6 +967,10 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 - Column alignment (`\t`)
 - Nested matrix (`#(` … `#)`)
 - Grey line scheme (`color: gray`)
+
+None of these is refused; each is dropped, and the tree is written out
+without it. A label that is a matrix arrives as its cells run together on one
+line, so check the `forest` code against the figure before publishing it.
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>

@@ -1,0 +1,191 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="1977.0000000000002" height="2264.6399999999994" viewBox="-8.4, 0, 1977.0000000000002, 2264.6399999999994" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8.4" markerHeight="8.4" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="8.4" markerHeight="8.4" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8.4" markerHeight="8.4" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8.4" markerHeight="8.4" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="25.2" markerHeight="8.4" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
+    </marker>
+    <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
+    </pattern>
+    <pattern id="hatchForNode" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="#0072B2" stroke-width="4.0"></line>
+    </pattern>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="#009E73" stroke-width="4.0"></line>
+    </pattern>
+  </defs>
+<rect x="-8.4" y="0" width="1977.0000000000002" height="2264.6399999999994" stroke="none" fill="white" />
+<rect x='602.4000000000001' y='30.799999999999905' width='1349.4' height='468.1600000000001' rx='11.2' ry='11.2' fill='#4a7c59' fill-opacity='0.2' stroke='#4a7c59' stroke-opacity='0.55' stroke-width='1.6' />
+<rect x='602.4000000000001' y='546.0000000000002' width='979.8000000000002' height='468.15999999999997' rx='11.2' ry='11.2' fill='#3d6b9e' fill-opacity='0.2' stroke='#3d6b9e' stroke-opacity='0.55' stroke-width='1.6' />
+<rect x='602.4000000000001' y='1061.2' width='1034.8000000000002' height='468.1600000000003' rx='11.2' ry='11.2' fill='#b5651d' fill-opacity='0.2' stroke='#b5651d' stroke-opacity='0.55' stroke-width='1.6' />
+<rect x='602.4000000000001' y='1576.4' width='1088.8000000000002' height='365.1200000000001' rx='11.2' ry='11.2' fill='#8e4585' fill-opacity='0.2' stroke='#8e4585' stroke-opacity='0.55' stroke-width='1.6' />
+<rect x='602.4000000000001' y='1988.5600000000002' width='1043.8000000000002' height='56.000000000000455' rx='11.2' ry='11.2' fill='#7a6a9b' fill-opacity='0.2' stroke='#7a6a9b' stroke-opacity='0.55' stroke-width='1.6' />
+<rect x='602.4000000000001' y='2091.6' width='488.20000000000005' height='159.03999999999996' rx='11.2' ry='11.2' fill='#2f7d7d' fill-opacity='0.2' stroke='#2f7d7d' stroke-opacity='0.55' stroke-width='1.6' />
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='0' y='1244.8799999999997'><tspan x='0' y='1244.8799999999997' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Proto-Indo-European</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='614.1' y='304.6399999999999'><tspan x='614.1' y='304.6399999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Italic</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='983.2' y='304.6399999999999'><tspan x='983.2' y='304.6399999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Latin</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1356.3000000000002' y='175.83999999999986'><tspan x='1356.3000000000002' y='175.83999999999986' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Western</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1775.9' y='72.7999999999999'><tspan x='1775.4' y='72.7999999999999' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Spanish</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1775.4' y='175.83999999999986'><tspan x='1775.4' y='175.83999999999986' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Portuguese</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1775.9' y='278.8799999999999'><tspan x='1775.4' y='278.8799999999999' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">French</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1355.8000000000002' y='433.44000000000005'><tspan x='1355.8000000000002' y='433.44000000000005' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Eastern</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1764.9' y='381.9200000000001'><tspan x='1764.4' y='381.9200000000001' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Italian</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1764.4' y='484.96000000000004'><tspan x='1764.4' y='484.96000000000004' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Romanian</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='613.6' y='819.8400000000001'><tspan x='613.6' y='819.8400000000001' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Germanic</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1056.2' y='691.0400000000002'><tspan x='1056.2' y='691.0400000000002' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">West</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1423.3000000000002' y='588.0000000000002'><tspan x='1422.8000000000002' y='588.0000000000002' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">English</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1423.3000000000002' y='691.0400000000002'><tspan x='1422.8000000000002' y='691.0400000000002' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">German</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1423.3000000000002' y='794.0800000000002'><tspan x='1422.8000000000002' y='794.0800000000002' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Dutch</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1056.2' y='948.6400000000002'><tspan x='1056.2' y='948.6400000000002' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">North</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1436.8000000000002' y='897.1200000000001'><tspan x='1436.8000000000002' y='897.1200000000001' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Swedish</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1437.3000000000002' y='1000.1600000000002'><tspan x='1436.8000000000002' y='1000.1600000000002' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Icelandic</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='613.6' y='1335.04'><tspan x='613.6' y='1335.04' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Balto-Slavic</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1084.2' y='1206.24'><tspan x='1084.2' y='1206.24' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Slavic</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1466.8000000000002' y='1103.2'><tspan x='1466.8000000000002' y='1103.2' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Russian</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1466.8000000000002' y='1206.24'><tspan x='1466.8000000000002' y='1206.24' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Polish</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1467.3000000000002' y='1309.28'><tspan x='1466.8000000000002' y='1309.28' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Czech</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1084.2' y='1463.8400000000001'><tspan x='1084.2' y='1463.8400000000001' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Baltic</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1462.8000000000002' y='1412.3200000000002'><tspan x='1462.8000000000002' y='1412.3200000000002' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Lithuanian</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1462.8000000000002' y='1515.3600000000001'><tspan x='1462.8000000000002' y='1515.3600000000001' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Latvian</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='614.1' y='1772.96'><tspan x='614.1' y='1772.96' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Indo-Iranian</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1101.2' y='1669.92'><tspan x='1101.2' y='1669.92' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Indo-Aryan</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1570.3000000000002' y='1618.4'><tspan x='1569.8000000000002' y='1618.4' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Hindi</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1570.3000000000002' y='1721.44'><tspan x='1569.8000000000002' y='1721.44' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Bengali</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1101.2' y='1876.0'><tspan x='1101.2' y='1876.0' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Iranian</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1507.8000000000002' y='1824.48'><tspan x='1507.8000000000002' y='1824.48' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Persian</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1508.3000000000002' y='1927.52'><tspan x='1507.8000000000002' y='1927.52' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Pashto</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='613.6' y='2030.5600000000004'><tspan x='613.6' y='2030.5600000000004' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Hellenic</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='1032.2' y='2030.5600000000004'><tspan x='1032.2' y='2030.5600000000004' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Ancient<tspan style='fill:none;'>￭</tspan>Greek</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='1551.3000000000002' y='2030.5600000000004'><tspan x='1550.8000000000002' y='2030.5600000000004' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Greek</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='613.6' y='2185.12'><tspan x='613.6' y='2185.12' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Celtic</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='990.7' y='2133.6'><tspan x='990.2' y='2133.6' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Irish</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='990.2' y='2236.64'><tspan x='990.2' y='2236.64' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Welsh</tspan>
+</text>
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='591.2 290.6399999999999 467.3 290.6399999999999 467.3 1230.8799999999997 343.4 1230.8799999999997' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='591.2 805.8400000000001 467.3 805.8400000000001 467.3 1230.8799999999997 343.4 1230.8799999999997' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='591.2 1321.04 467.3 1321.04 467.3 1230.8799999999997 343.4 1230.8799999999997' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='591.2 1758.96 467.3 1758.96 467.3 1230.8799999999997 343.4 1230.8799999999997' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='591.2 2016.5600000000004 467.3 2016.5600000000004 467.3 1230.8799999999997 343.4 1230.8799999999997' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='591.2 2171.12 467.3 2171.12 467.3 1230.8799999999997 343.4 1230.8799999999997' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='960.8000000000001 290.6399999999999 836.9000000000001 290.6399999999999 836.9000000000001 290.6399999999999 713.0 290.6399999999999' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1333.4 161.83999999999986 1209.5 161.83999999999986 1209.5 290.6399999999999 1085.6000000000001 290.6399999999999' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1333.4 419.44000000000005 1209.5 419.44000000000005 1209.5 290.6399999999999 1085.6000000000001 290.6399999999999' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1753.0 58.7999999999999 1629.1000000000001 58.7999999999999 1629.1000000000001 161.83999999999986 1505.2000000000003 161.83999999999986' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1753.0 161.83999999999986 1629.1000000000001 161.83999999999986 1629.1000000000001 161.83999999999986 1505.2000000000003 161.83999999999986' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1753.0 264.8799999999999 1629.1000000000001 264.8799999999999 1629.1000000000001 161.83999999999986 1505.2000000000003 161.83999999999986' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1742.0 367.9200000000001 1618.1000000000001 367.9200000000001 1618.1000000000001 419.44000000000005 1494.2000000000003 419.44000000000005' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1742.0 470.96000000000004 1618.1000000000001 470.96000000000004 1618.1000000000001 419.44000000000005 1494.2000000000003 419.44000000000005' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1033.8 677.0400000000002 909.9 677.0400000000002 909.9 805.8400000000001 786.0 805.8400000000001' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1033.8 934.6400000000002 909.9 934.6400000000002 909.9 805.8400000000001 786.0 805.8400000000001' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1400.4 574.0000000000002 1276.5 574.0000000000002 1276.5 677.0400000000002 1152.6000000000001 677.0400000000002' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1400.4 677.0400000000002 1276.5 677.0400000000002 1276.5 677.0400000000002 1152.6000000000001 677.0400000000002' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1400.4 780.0800000000002 1276.5 780.0800000000002 1276.5 677.0400000000002 1152.6000000000001 677.0400000000002' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1414.4 883.1200000000001 1290.5 883.1200000000001 1290.5 934.6400000000002 1166.6000000000001 934.6400000000002' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1414.4 986.1600000000002 1290.5 986.1600000000002 1290.5 934.6400000000002 1166.6000000000001 934.6400000000002' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1061.8 1192.2400000000002 937.9 1192.2400000000002 937.9 1321.04 814.0 1321.04' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1061.8 1449.8400000000001 937.9 1449.8400000000001 937.9 1321.04 814.0 1321.04' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1444.4 1089.2000000000003 1320.5 1089.2000000000003 1320.5 1192.2400000000002 1196.6000000000001 1192.2400000000002' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1444.4 1192.2400000000002 1320.5 1192.2400000000002 1320.5 1192.2400000000002 1196.6000000000001 1192.2400000000002' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1444.4 1295.2800000000002 1320.5 1295.2800000000002 1320.5 1192.2400000000002 1196.6000000000001 1192.2400000000002' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1440.4 1398.3200000000002 1316.5 1398.3200000000002 1316.5 1449.8400000000001 1192.6000000000001 1449.8400000000001' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1440.4 1501.3600000000001 1316.5 1501.3600000000001 1316.5 1449.8400000000001 1192.6000000000001 1449.8400000000001' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1078.8 1655.92 954.9 1655.92 954.9 1758.96 831.0 1758.96' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1078.8 1862.0 954.9 1862.0 954.9 1758.96 831.0 1758.96' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1547.4 1604.4 1423.5 1604.4 1423.5 1655.92 1299.6000000000001 1655.92' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1547.4 1707.44 1423.5 1707.44 1423.5 1655.92 1299.6000000000001 1655.92' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1485.4 1810.48 1361.5 1810.48 1361.5 1862.0 1237.6000000000001 1862.0' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1485.4 1913.52 1361.5 1913.52 1361.5 1862.0 1237.6000000000001 1862.0' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1009.8000000000001 2016.5600000000004 885.9000000000001 2016.5600000000004 885.9000000000001 2016.5600000000004 762.0 2016.5600000000004' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='1528.4 2016.5600000000004 1404.5 2016.5600000000004 1404.5 2016.5600000000004 1280.6000000000001 2016.5600000000004' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='967.8000000000001 2119.6 843.9000000000001 2119.6 843.9000000000001 2171.12 720.0 2171.12' />
+<polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
+                            points='967.8000000000001 2222.64 843.9000000000001 2222.64 843.9000000000001 2171.12 720.0 2171.12' />
+</svg>

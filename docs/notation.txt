@@ -13,7 +13,10 @@ figure that was meant.
 - `<>` is one space and `<3>` is three, everywhere — never angle brackets.
   Where linguistics wants the brackets themselves, write ⟨ and ⟩ (U+27E8/9):
   SPR\t⟨<>NP<>⟩, 'hand⟨SUBJ,OBJ⟩'. A label written <NP> is refused with this
-  advice; a stray <3> simply draws three spaces.
+  advice; a stray <3> simply draws three spaces. No text face carries these
+  two characters, so whatever the machine falls back to draws them — they
+  will not quite match the letters beside them, and how far off they look
+  depends on the fonts installed.
 - A pair of hyphens underlines what stands between them: well-made-word draws
   "made" underlined. (A lone hyphen is refused with a hint.) Write `\-` for a
   hyphen — V\-bar, HEAD\-DTR — or set the hyphen option to literal.
@@ -84,7 +87,7 @@ Options (the command line spells them --like-this):
 
 | option     | what it decides |
 |------------|-----------------|
-| format     | png, svg, pdf, gif, jpg, tikz, lsif |
+| format     | png, svg, pdf, tikz, lsif |
 | fontstyle  | sans, serif, mono, cjk |
 | fontsize   | 6–26 |
 | color      | modern, traditional, off, gray |
@@ -93,10 +96,17 @@ Options (the command line spells them --like-this):
 | direction  | ttb, ltr, btt |
 | mirror     | flip the finished layout, for RTL scripts |
 | tidy       | off, symmetric, low, medium, high — how tightly subtrees pack |
-| hspacing   | horizontal spacing factor, 0.5–3.0 (tidy_spacing is its old name) |
-| vheight    | vertical spacing factor, 0.5–5.0 |
+| hspacing   | how far apart sisters sit, 0.5–3.0 |
+| vheight    | how far apart levels sit, 0.5–5.0 |
+| polyline   | draw each connector as two right angles rather than a slanted line |
+| hide_default_connectors | draw no parent-to-child lines, leaving only the ones written with +-n — how a lattice or a network is drawn |
+| transparent | leave the background clear instead of painting it white |
 | derivation | one rule across the daughters, categorial-grammar style |
 | hyphen     | markup (hyphens underline) or literal (hyphens are hyphens) |
+
+hspacing and vheight are named for the top-to-bottom layout, and follow the
+tree rather than the page: with direction ltr, sisters stack downwards and
+hspacing is what separates them, while vheight runs across.
 
 The full manual explains each of these with figures, and every example in the
 gallery is written out beside the figure it draws:

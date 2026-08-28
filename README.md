@@ -69,7 +69,7 @@ Connect nodes with lines or arrows:
 
 ### Multiple Output Formats
 
-Generate trees in PNG, SVG, PDF, or LSIF (JSON) format. (JPG and GIF are deprecated and will be removed in 2.0.)
+Generate trees in PNG, SVG, PDF, TikZ, or LSIF (JSON) format.
 
 ## Web Interface
 
@@ -170,18 +170,22 @@ Usage:
 | Option | Description | Default |
 |--------|-------------|---------|
 | `-o, --outdir` | Output directory | `./` |
-| `-f, --format` | Output format: png, svg, pdf, lsif, tikz (jpg and gif are deprecated) | `png` |
+| `-f, --format` | Output format: png, svg, pdf, lsif, tikz | `png` |
 | `-l, --leafstyle` | Leaf style: auto, triangle, bar, nothing | `auto` |
 | `-n, --fontstyle` | Font style: sans, serif, cjk, mono | `sans` |
 | `-s, --fontsize` | Font size: 6-26 | `16` |
 | `-i, --linewidth` | Line width relative to the font size: 0.5-3.0 (`1` = 5% of the font size) | `1.0` |
 | `-c, --color` | Color mode: modern, traditional, gray (black text, grey lines), off | `modern` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
-| `-d, --direction` | Tree layout direction: ttb, ltr | `ttb` |
+| `--hide-default-connectors` | Draw no parent-to-child lines, leaving only the ones written with `+-n`: on, off | `off` |
+| `-d, --direction` | Tree layout direction: ttb, ltr, btt | `ttb` |
 | `--tidy` | Layout scale: off, symmetric, low, medium, high | `off` |
-| `--hspacing` | Horizontal spacing factor, all layout modes (0.5-3.0) | `1.0` |
+| `--hspacing` | How far apart sisters sit, all layout modes (0.5-3.0) | `1.0` |
+| `-v, --vheight` | How far apart levels sit (0.5-5.0) | `2.0` |
+| `--derivation` | Join each node to its daughters with one rule drawn across them: on, off | `off` |
 | `--hyphen` | How a hyphen reads: markup (`-underline-`) or literal | `markup` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
+| `-r, --transparent` | Leave the background clear instead of painting it white: on, off | `off` |
 | `--validate` | Check the input without drawing: a JSON diagnosis on stdout, the verdict in the exit code | |
 | `--notation` | Print a short reference for the notation | |
 

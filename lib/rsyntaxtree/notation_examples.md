@@ -1,4 +1,4 @@
-RSyntaxTree examples: 76 trees, every one verified to draw.
+RSyntaxTree examples: 79 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -2520,4 +2520,68 @@ Source: Steedman 2000
         [NP Bill]]
       [(S\\NP)/NP hates]]]
   [NP London]]
+```
+
+## 082 — Indo-European language family
+
+Category: Historical Linguistics
+Settings: direction=ltr fontstyle=noto-serif hspacing=0.5 polyline=on vheight=5.0
+
+```
+[Proto\-Indo\-European
+  [%@#4a7c59:Italic
+    [Latin
+      [Western [*Spanish*] [*Portuguese*] [*French*]]
+      [Eastern [*Italian*] [*Romanian*]]]]
+  [%@#3d6b9e:Germanic
+    [West [*English*] [*German*] [*Dutch*]]
+    [North [*Swedish*] [*Icelandic*]]]
+  [%@#b5651d:Balto\-Slavic
+    [Slavic [*Russian*] [*Polish*] [*Czech*]]
+    [Baltic [*Lithuanian*] [*Latvian*]]]
+  [%@#8e4585:Indo\-Iranian
+    [Indo\-Aryan [*Hindi*] [*Bengali*]]
+    [Iranian [*Persian*] [*Pashto*]]]
+  [%@#7a6a9b:Hellenic [Ancient<>Greek [*Greek*]]]
+  [%@#2f7d7d:Celtic [*Irish*] [*Welsh*]]]
+```
+
+## 083 — Type-driven semantic composition
+
+Category: Formal Semantics
+Settings: color=none fontstyle=noto-serif leafstyle=nothing
+
+```
+[S\n*t*\n**love**(**m**)(**j**)
+  [DP\n*e*\n**j** [*John*]]
+  [VP\n⟨*e*,*t*⟩\nλ*x*.**love**(**m**)(*x*)
+    [V\n⟨*e*,⟨*e*,*t*⟩⟩\nλ*y*λ*x*.**love**(*y*)(*x*) [*loves*]]
+    [DP\n*e*\n**m** [*Mary*]]]]
+```
+
+## 084 — Typed feature structures with structure sharing
+
+Category: Formal Grammar
+Settings: color=none fontstyle=noto-serif leafstyle=nothing
+
+```
+[#(*phrase*\
+---\
+SYN\t#(HEAD\t|1|\
+VAL\t#(SPR\t⟨<>⟩#)#)#)
+  [#(*phrase*\
+  ---\
+  SYN\t#(HEAD\t#(*noun*\
+  ---\
+  AGR\t|2|#(*3sing*\
+  ---\
+  PER\t3\
+  NUM\t*sg*#)#)\
+  VAL\t#(SPR\t⟨<>⟩#)#)#) [the<>dog]]
+  [#(*word*\
+  ---\
+  SYN\t#(HEAD\t|1|#(*verb*\
+  ---\
+  AGR\t|2|#)\
+  VAL\t#(SPR\t⟨<>*NP*<>⟩#)#)#) [barks]]]
 ```

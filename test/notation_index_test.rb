@@ -31,6 +31,13 @@ class NotationIndexTest < Minitest::Test
     "documentation_ja.md" => File.read(File.expand_path("../docs/documentation_ja.md", __dir__))
   }.freeze
 
+  # The README lists the options too, and was the one place nothing checked.
+  # It is not asked to carry the notation samples — it is a front page, not a
+  # reference — so it joins the documents only for the option roll-call.
+  OPTION_DOCUMENTS = DOCUMENTS.merge(
+    "README.md" => File.read(File.expand_path("../README.md", __dir__))
+  ).freeze
+
   # One sample per grammar feature: the notation as a reader would type it, and
   # the names the evaluated parse must mention for the sample to be showing
   # that feature. The evaluator normalises some grammar rules into flags
@@ -78,9 +85,12 @@ class NotationIndexTest < Minitest::Test
     "cr" => { sample: '\n', lines: 2, in_label: 'a\nb' }
   }.freeze
 
-  # The option keys, one line each in every document. tidy_spacing is the
-  # deprecated spelling of hspacing and rides in its row.
-  OPTION_ALIASES = { tidy_spacing: :hspacing, symmetrization: :tidy }.freeze
+  # The options a document may leave out, each with the reason. Everything
+  # else in DEFAULT_OPTS has to appear. The list is short and explicit so that
+  # an option cannot fall out of the documents by being forgotten here — which
+  # is how polyline, hide_default_connectors and transparent went undocumented
+  # while this test passed.
+  UNDOCUMENTED_ON_PURPOSE = {}.freeze
 
   # What the grammar actually enumerates, read from its source so this file
   # cannot quietly fall behind it.
@@ -135,12 +145,76 @@ class NotationIndexTest < Minitest::Test
     assert_empty missing, "grammar features with no sample: add a row and document it"
   end
 
+  # Every option a caller may set, read from the defaults the library itself
+  # carries. It used to be read from OPTION_VALUES and NUMERIC_RANGES, which
+  # between them describe the options that take a listed value and the ones
+  # that take a number — and so never asked after the five that take on or
+  # off. Those five have no value list to be enumerated in, which is exactly
+  # why deriving the roll-call from a value table missed them.
   def test_every_option_has_a_line_in_every_document
-    keys = (OPTION_VALUES.keys + NUMERIC_RANGES.keys).uniq - OPTION_ALIASES.keys
-    DOCUMENTS.each do |name, text|
-      missing = keys.reject { |k| text.include?(k.to_s) }
+    keys = DEFAULT_OPTS.keys - %i[data name] - UNDOCUMENTED_ON_PURPOSE.keys
+    OPTION_DOCUMENTS.each do |name, text|
+      # An option is named twice over: hide_default_connectors as a parameter,
+      # --hide-default-connectors on the command line. A document that spells
+      # a flag the way it is typed has named the option.
+      missing = keys.reject do |k|
+        text.include?(k.to_s) || text.include?(k.to_s.tr("_", "-"))
+      end
       assert_empty missing, "#{name}: options with no line"
     end
+  end
+
+  # The exemptions name options that exist. One left behind after its option
+  # was renamed would quietly widen the hole this test exists to close.
+  def test_the_exemptions_are_real_options
+    assert_empty UNDOCUMENTED_ON_PURPOSE.keys - DEFAULT_OPTS.keys,
+                 "exempted options that no longer exist"
+  end
+
+  # --- the same everywhere it is written --------------------------------
+
+  # Where a label may be written, the notation is the same notation. Three
+  # of the defects found in 2.0 were one shape: a feature that worked in a
+  # label and not inside a matrix, because the matrix rules are a second
+  # grammar for the same marks and had fallen behind. Asking every feature
+  # in every context is what notices, and it is cheap: the answers only
+  # have to agree with each other.
+  CONTEXTS = {
+    "a label" => ->(label) { label },
+    "a matrix" => ->(label) { "#(k\\t#{label}#)" },
+    "a matrix inside a matrix" => ->(label) { "#(a\\t#(k\\t#{label}#)#)" }
+  }.freeze
+
+  # What a matrix may refuse, and why. Each of these is a mark on a whole
+  # label rather than on anything written inside one: the caret and the
+  # enclosures open a label, a path closes it. A cell is not a label, so a
+  # cell is right to turn them down. Anything not named here has to read the
+  # same wherever it stands.
+  NOT_IN_A_MATRIX = {
+    "triangle" => "the caret opens a label, and a cell is not a label",
+    "brackets" => "an enclosure surrounds a label, and a cell is not a label",
+    "rectangle" => "an enclosure surrounds a label, and a cell is not a label",
+    "brectangle" => "an enclosure surrounds a label, and a cell is not a label",
+    "path" => "a path closes a label, and a cell is not a label"
+  }.freeze
+
+  def test_every_feature_reads_the_same_wherever_it_is_written
+    disagreed = SAMPLES.filter_map do |name, spec|
+      label = spec[:in_label] || spec[:sample]
+      answers = CONTEXTS.transform_values { |wrap| Markup.parse(wrap.call(label))[:status] }
+      next if NOT_IN_A_MATRIX.key?(name)
+      next if answers.values.uniq.size == 1
+
+      "#{name} (#{label.inspect}): #{answers.map { |where, got| "#{where}=#{got}" }.join(', ')}"
+    end
+    assert_empty disagreed, "features read differently depending on where they stand"
+  end
+
+  # The exemptions name features that exist, so one left behind after a
+  # rename cannot quietly widen the hole.
+  def test_the_matrix_exemptions_are_real_features
+    assert_empty NOT_IN_A_MATRIX.keys - SAMPLES.keys,
+                 "exempted features that are not in the index"
   end
 
   # --- the samples mean what they say -----------------------------------

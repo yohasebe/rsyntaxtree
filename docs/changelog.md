@@ -10,6 +10,78 @@ layout: default
 [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) |
 [Web App](https://yohasebe.com/rsyntaxtree)
 
+## [2.0.0] - 2026-08-28
+
+The removals announced in 1.10.0 and 1.12.0, and the fixes that came out of
+looking at what was left. Every figure in the gallery draws exactly as it did.
+
+### Removed
+- JPG and GIF output. JPEG blurs line art and GIF has nothing to offer that
+  PNG does not do better, and they were the only reason for the RMagick
+  dependency. `-f jpg` and `-f gif` are now refused the way any unknown
+  format is. Use `-f png`.
+- The RMagick dependency, and with it ImageMagick. A machine that installs
+  this gem no longer needs ImageMagick's headers to build one, and the gem
+  now asks for four libraries instead of five.
+- The deprecated aliases, which a major release is the moment to drop:
+  `symmetrize` and its `-y` flag (say `tidy: symmetric`), `tidy_spacing`
+  (say `hspacing`), the undocumented `tidy_nest`, and `nothing`'s
+  undocumented spelling `none` in `leafstyle`. Each is refused by name and
+  told what replaced it. An unknown option is passed over in silence, since
+  a caller may hand its own parameters through, and a removed one read that
+  way would have handed back a different figure without a word.
+- `symmetrize` from the LSIF `meta.source.params` block. The layout scale it
+  duplicated, `tidy`, is written there already.
+
+### Fixed
+- A rule written `---` (or `===` for a double rule) was refused inside a
+  `#( … #)` matrix, though it was drawn in every other kind of label. Two
+  hyphens and four were accepted there and three were not — a distinction
+  nothing could explain. The matrix grammar had no rule for it and the
+  matrix renderer dropped every row that was not text.
+- The bracket of a matrix that followed something in the same cell was drawn
+  on top of it: `AGR |1| [ … ]`, which is how a shared value is written, put
+  the right edge of the tag and the left edge of the bracket on the same
+  coordinate exactly. A block now keeps as much room in front of it as the
+  bracket keeps inside it.
+- In a left-to-right tree, `hspacing` and `vheight` both moved the width and
+  nothing moved the height. The layout replaces the gap that separates
+  sisters with one of its own and was not scaling it by `hspacing`, so a
+  left-to-right figure could be made wider but never shorter.
+- `storoke-width` in the style of every text element of every SVG. Renderers
+  ignored the misspelling, so nothing ever looked wrong.
+
+### Added
+- Three gallery examples, in two new categories: the Indo-European family
+  tree (Historical Linguistics), where the region shade groups branches
+  rather than marking a c-command domain; type-driven semantic composition
+  (Formal Semantics); and a tree of typed feature structures with structure
+  sharing (Formal Grammar), which is the figure the matrix rule was missing.
+
+### Changed
+- The documents name every option. Four were missing from the one-page
+  reference and one from the README, because the test that reads the
+  documents built its roll-call from the tables of listed and numeric
+  values — and so never asked after the options that take on or off. It
+  reads the roll-call from the defaults now, and the README is one of the
+  documents it reads.
+- Three tests were added for the shapes of defect this release fixed: one
+  asks every feature in the index to read the same in a label, in a matrix
+  and in a matrix inside a matrix; one reads the drawn shapes back out of
+  the SVG and asks whether any two of them touch; and one asks a
+  left-to-right tree to answer to `hspacing` in its height.
+- The manuals say what TikZ output does with what it cannot draw: it drops
+  it rather than refusing, so a label that is a matrix arrives with its
+  cells run together on one line.
+
+### Migration
+- `format: "jpg"` / `"gif"` → `"png"`.
+- `symmetrize: "on"` → `tidy: "symmetric"`; `tidy_spacing: n` → `hspacing: n`;
+  `leafstyle: "none"` → `"nothing"`. Each has been the documented spelling
+  since 1.12.0.
+- Everything else — every other option, and every piece of notation — is
+  unchanged.
+
 ## [1.14.0] - 2026-08-27
 
 ### Added

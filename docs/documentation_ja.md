@@ -95,7 +95,7 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 - `%NP`、`%@blue:NP` — 部分木の背後の領域シェード → [領域シェード](#領域シェード)
 - `@red:NP`、`@#3af:NP` — 色。名前か 16 進 3 桁/6 桁 → [ノードごとの色指定](#ノードごとの色指定)
 
-**オプション** — いずれも [Web インターフェイス](https://yohasebe.com/rsyntaxtree)の項目であり、コマンドラインのフラグでもあります: `format`（png・svg・pdf ほか）、`fontstyle` と `fontsize`、`color`、`linewidth`、`leafstyle`（ノードとリーフの間に何を描くか）、`direction`（ttb・ltr・btt）、RTL 用の `mirror`、詰め方と間隔の `tidy`・`hspacing`・`vheight`、圏論的な図のための `derivation`、`hyphen`（ハイフンをマークアップと読むか文字と読むか）。詳細はそれぞれの節にあります。
+**オプション** — いずれも [Web インターフェイス](https://yohasebe.com/rsyntaxtree)の項目であり、コマンドラインのフラグでもあります: `format`（png・svg・pdf ほか）、`fontstyle` と `fontsize`、`color`、`linewidth`、`leafstyle`（ノードとリーフの間に何を描くか）、`direction`（ttb・ltr・btt）、RTL 用の `mirror`、詰め方と間隔の `tidy`・`hspacing`・`vheight`、直角のコネクタにする `polyline`、既定のコネクタを引かない `hide_default_connectors`、背景を塗らない `transparent`、圏論的な図のための `derivation`、`hyphen`（ハイフンをマークアップと読むか文字と読むか）。詳細はそれぞれの節にあります。
 
 ### ツリーの方向
 
@@ -236,7 +236,7 @@ Mono
 
 </div>
 
-どの機械にフォントが要るかは形式によって変わります．PNG・PDF・JPG・GIF はこちらで
+どの機械にフォントが要るかは形式によって変わります．PNG・PDF はこちらで
 描いて絵として届くので，見るだけなら何も導入する必要はありません．SVG は字形ではなく
 書体の名前を持ち運び，開いた側がそれを用意します．そのため下記のフォントが無い機械では
 別の書体で代替され，文字の釣り合いをやや欠いた表示になります．
@@ -939,6 +939,9 @@ RSyntaxTreeは`-f tikz`オプションを使用してLaTeXドキュメント用�
 - 桁揃え（`\t`）
 - 入れ子行列（`#(` … `#)`）
 - 配色（`color: gray`）
+
+いずれも拒否されるのではなく，落とされたうえで木が書き出されます．行列のラベルは
+セルが 1 行に連なった形で出てくるので，`forest` のコードは図と見比べてから使ってください．
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/src/js/lightbox.js"></script>
