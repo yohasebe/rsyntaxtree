@@ -260,7 +260,7 @@ def test_short_flags_are_stable
     "-o" => "--outdir", "-u" => "--outfilename", "-f" => "--format",
     "-l" => "--leafstyle", "-n" => "--fontstyle", "-s" => "--fontsize",
     "-i" => "--linewidth", "-v" => "--vheight", "-c" => "--color",
-    "-y" => "--symmetrize", "-r" => "--transparent", "-p" => "--polyline",
+    "-r" => "--transparent", "-p" => "--polyline",
     "-m" => "--mirror", "-d" => "--direction"
   }.each do |short, long|
     assert_match(/#{Regexp.escape(short)},\s*#{Regexp.escape(long)}/, text,
@@ -294,26 +294,29 @@ end
     refute_empty Dir.glob(File.join(@tmpdir, "*.svg"))
   end
 
-  # ===================
-  # JPG/GIF deprecation
-  # ===================
+  # =====================
+  # The formats that went
+  # =====================
 
-  # Both formats are removed in 2.0. Until then a request must still work —
-  # the warning goes to stderr and the exit status stays 0.
-  def test_jpg_warns_about_deprecation_but_succeeds
+  # JPG and GIF were the only reason this gem depended on RMagick, and JPEG
+  # blurs line art while GIF has no use here that PNG does not serve better.
+  # Both were announced as deprecated in 1.10.0 and removed in 2.0, so a
+  # request for one is now an unknown format — refused in the same words as
+  # any other, and writing nothing.
+  def test_jpg_is_refused_like_any_unknown_format
     result = run_cli("-o", @tmpdir, "-f", "jpg", "[S [NP a] [VP b]]")
 
-    assert result[:status].success?, "JPG should still succeed: #{result[:stderr]}"
-    assert_includes result[:stderr], "deprecated"
-    refute_empty Dir.glob(File.join(@tmpdir, "*.jpg")), "JPG file should be written"
+    refute result[:status].success?, "JPG should be refused"
+    assert_includes result[:stderr], "must be png, pdf, svg, lsif, or tikz"
+    assert_empty Dir.glob(File.join(@tmpdir, "*.jpg"))
   end
 
-  def test_gif_warns_about_deprecation_but_succeeds
+  def test_gif_is_refused_like_any_unknown_format
     result = run_cli("-o", @tmpdir, "-f", "gif", "[S [NP a] [VP b]]")
 
-    assert result[:status].success?, "GIF should still succeed: #{result[:stderr]}"
-    assert_includes result[:stderr], "deprecated"
-    refute_empty Dir.glob(File.join(@tmpdir, "*.gif")), "GIF file should be written"
+    refute result[:status].success?, "GIF should be refused"
+    assert_includes result[:stderr], "must be png, pdf, svg, lsif, or tikz"
+    assert_empty Dir.glob(File.join(@tmpdir, "*.gif"))
   end
 
   def test_png_does_not_warn

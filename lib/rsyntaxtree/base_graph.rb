@@ -14,7 +14,6 @@ module RSyntaxTree
     def initialize(element_list, params, global)
       @global = global
       @element_list = element_list
-      @symmetrize = params[:symmetrize] == true
       @direction = params[:direction] || "ttb"
 
       case params[:color]
@@ -72,13 +71,10 @@ module RSyntaxTree
       # "off" | "low" (packing, strict leaf positions) | "medium" (packing
       # with cross-row tucking as long as no two leaves swap left-right
       # order) | "high" (free tucking; leaf order kept per row only).
-      # Legacy inputs upgrade into the scale: tidy_nest: on lifts "low" to
-      # "high", and the old standalone symmetrize: on lifts "off" to
-      # "symmetric". When tidy packing is active the symmetric layout is
-      # meaningless, so packing wins over a legacy symmetrize flag.
+      # One scale, and nothing beside it: the standalone symmetrize and
+      # tidy_nest flags that used to lift a mode into another were removed
+      # in 2.0, so what is asked for is what is drawn.
       tidy_mode = params[:tidy].to_s
-      tidy_mode = "high" if tidy_mode == "low" && params[:tidy_nest] == true
-      tidy_mode = "symmetric" if tidy_mode == "off" && @symmetrize
       @tidy = %w[low medium high].include?(tidy_mode)
       # :none — leaf spans may not overlap at all (strict positions)
       # :ordered — spans may overlap, but leaf centers keep their order

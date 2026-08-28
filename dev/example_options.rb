@@ -22,13 +22,11 @@ module ExampleOptions
     "polyline" => :polyline,
     "hide_default_connectors" => :hide_default_connectors,
     "connector_height" => :vheight,
-    "symmetrization" => :symmetrize,
     "connector" => :leafstyle,
     "direction" => :direction,
     "derivation" => :derivation,
     "tidy" => :tidy,
     "hspacing" => :hspacing,
-    "tidy_spacing" => :tidy_spacing,
     "mirror" => :mirror,
     "font" => :fontstyle
   }.freeze

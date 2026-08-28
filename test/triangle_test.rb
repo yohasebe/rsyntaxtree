@@ -41,10 +41,10 @@ class TriangleTest < Minitest::Test
     assert_equal 1, triangles("[NP two words]")
   end
 
-  # `auto` reads whitespace; `bar` and `none` do not, and the caret is the only
+  # `auto` reads whitespace; `bar` and `nothing` do not, and the caret is the only
   # way to ask for a triangle under either.
   def test_the_caret_is_honoured_whatever_the_leaf_style
-    %w[auto bar nothing none].each do |style|
+    %w[auto bar nothing].each do |style|
       assert_equal 1, triangles("[NP ^cats]", leafstyle: style),
                    "leafstyle #{style}: a caret on the leaf"
       assert_equal 0, triangles("[NP cats]", leafstyle: style),
@@ -58,7 +58,7 @@ class TriangleTest < Minitest::Test
     assert_includes svg("[NP ^cats]"), "cats"
   end
 
-  # Under `none` a leaf is otherwise pulled up against its node, and a triangle
+  # Under `nothing` a leaf is otherwise pulled up against its node, and a triangle
   # needs the room.
   def test_a_marked_leaf_keeps_the_room_a_triangle_needs
     marked = svg("[NP ^cats]", leafstyle: "nothing")[/<svg[^>]*height="([\d.]+)/, 1].to_f
@@ -68,11 +68,11 @@ class TriangleTest < Minitest::Test
 
   # The manual says the two placements ask for the same thing, so they have to
   # produce the same figure — not merely both a triangle. They did not under
-  # `none`: the room a triangle needs was decided from the leaf's own mark
+  # `nothing`: the room a triangle needs was decided from the leaf's own mark
   # alone, so a caret on the node drew its triangle into a gap that had been
   # closed, and it came out a sliver. The same question, asked two ways again.
   def test_the_two_placements_draw_the_same_figure
-    %w[auto bar nothing none].each do |style|
+    %w[auto bar nothing].each do |style|
       assert_equal svg("[S [NP ^cats] [VP sit]]", leafstyle: style),
                    svg("[S [^NP cats] [VP sit]]", leafstyle: style),
                    "leafstyle #{style}: the two placements draw different figures"

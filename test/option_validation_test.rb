@@ -54,7 +54,7 @@ class OptionValidationTest < Minitest::Test
       { fontstyle: "mono" }, { fontstyle: "serif" }, { fontstyle: "cjk" },
       { tidy: "compact" }, { tidy: "on" }, { tidy: "symmetric" },
       { direction: "ltr" }, { direction: "ttb" },
-      { hyphen: "literal" }, { leafstyle: "none" }, { leafstyle: "bar" },
+      { hyphen: "literal" }, { leafstyle: "bar" }, { leafstyle: "nothing" },
       { format: "svg" }
     ].each do |opts|
       assert_nil build(opts), "#{opts} should pass"

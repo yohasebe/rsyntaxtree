@@ -28,15 +28,16 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # specify any dependencies here; for example:
+  # Four, and each is used: optimist parses the command line, parslet parses
+  # the markup inside a label, pango measures the text, rsvg2 draws the PNG
+  # and the PDF. Two of them build against a system library — pango and
+  # librsvg — which is what an install of this gem asks a machine for.
   s.add_runtime_dependency "optimist", ">= 3.0.1"
   s.add_runtime_dependency "pango"
   s.add_runtime_dependency "parslet"
-  s.add_runtime_dependency "rmagick", ">= 4.3"
   s.add_runtime_dependency "rsvg2"
 
   s.add_development_dependency "minitest"
   s.add_development_dependency "nokogiri"
   s.add_development_dependency "rake"
-  s.add_development_dependency "yaml"
 end

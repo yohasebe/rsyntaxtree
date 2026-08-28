@@ -9,7 +9,7 @@ require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
 require_relative '../lib/rsyntaxtree/format_converter'
 
-# "png, jpg, gif, pdf, svg, lsif, or tikz" — built once from the library's
+# "png, pdf, svg, lsif, or tikz" — built once from the library's
 # own list so the three places that name the formats cannot drift apart.
 FORMAT_LIST_MESSAGE = FORMATS.join(", ").sub(/, ([^,]+)\z/, ', or \1')
 
@@ -24,14 +24,12 @@ CONFIG_VALIDATORS = {
   linewidth: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
   vheight: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 5.0 ? nil : "must be in the range of 0.5-5.0" },
   color: ->(v) { OPTION_VALUES[:color].include?(v.to_s) ? nil : "must be modern, traditional, gray, or off" },
-  symmetrize: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   transparent: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   polyline: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   hide_default_connectors: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   mirror: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   tidy: ->(v) { OPTION_VALUES[:tidy].include?(v.to_s) ? nil : "must be off, symmetric, low, medium, or high" },
   hspacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
-  tidy_spacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
   direction: ->(v) { OPTION_VALUES[:direction].include?(v.to_s) ? nil : "must be one of: #{OPTION_VALUES[:direction].join(', ')}" },
   hyphen: ->(v) { OPTION_VALUES[:hyphen].include?(v.to_s) ? nil : "must be markup or literal" }
 }.freeze
@@ -114,14 +112,12 @@ opts = Optimist.options do
   opt :linewidth, "Size: 0.5-3.0", default: 1.0, short: :i
   opt :vheight, "Connector Height: 0.5-5.0", default: 2.0, short: :v
   opt :color, "Color text and bars: modern, traditional, gray, or off", default: "modern", short: :c
-  opt :symmetrize, "DEPRECATED alias of --tidy symmetric: on or off", default: "off", short: :y
   opt :transparent, "Make background transparent: on or off", default: "off", short: :r
   opt :polyline, "draw polyline connectors: on or off", default: "off", short: :p
   opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off", short: :none
   opt :mirror, "flip the tree horizontally (RTL linguistics convention: first word at the right edge): on or off", default: "off"
   opt :tidy, "tidy tree layout: off, symmetric (radical symmetrization), low (packed, strict leaf positions), medium (packed; leaves may overlap but never swap order), or high (packed; leaf order kept per row only)", default: "off", short: :none
   opt :hspacing, "Horizontal spacing factor (counterpart of vheight): 0.5-3.0", default: 1.0, short: :none
-  opt :tidy_spacing, "DEPRECATED alias of --hspacing: 0.5-3.0", default: 1.0, short: :none
   opt :direction, "Tree layout direction: ttb (top-to-bottom), ltr (left-to-right) or btt (bottom-to-top, the root last)", default: "ttb", short: :d
   opt :derivation, "Join each node to its daughters with one rule drawn across them, as a derivation is written, rather than with a line to each: on, off", default: "off", short: :none
   opt :hyphen, "How a hyphen in a label reads: markup (-underline-) or literal (a hyphen; \-underline\- then underlines)", default: "markup", short: :none
@@ -141,7 +137,6 @@ Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless OPTION_VALUE
 Optimist.die :fontsize, "must be in the range of 6-26" unless opts[:fontsize] >= 6 && opts[:fontsize] <= 26
 Optimist.die :linewidth, "must be in the range of 0.5-3.0" unless opts[:linewidth] >= 0.5 && opts[:linewidth] <= 3.0
 Optimist.die :color, "must be either modern, traditional, gray, or off" unless OPTION_VALUES[:color].include?(opts[:color])
-Optimist.die :symmetrize, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:symmetrize]
 Optimist.die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0
 Optimist.die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]
 Optimist.die :polyline, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:polyline]
@@ -149,7 +144,6 @@ Optimist.die :hide_default_connectors, "must be either on or off" unless /\A(on|
 Optimist.die :mirror, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:mirror]
 Optimist.die :tidy, "must be off, symmetric, low, medium, or high" unless OPTION_VALUES[:tidy].include?(opts[:tidy])
 Optimist.die :hspacing, "must be in the range of 0.5-3.0" if opts[:hspacing] < 0.5 || opts[:hspacing] > 3.0
-Optimist.die :tidy_spacing, "must be in the range of 0.5-3.0" if opts[:tidy_spacing] < 0.5 || opts[:tidy_spacing] > 3.0
 
 # Merge config file options with CLI options (CLI takes precedence)
 string_opts = {}
@@ -168,10 +162,6 @@ opts.each do |key, value|
   if opts[:"#{key}_given"] || !file_config.key?(key_sym)
     string_opts[key_sym] = value
   end
-end
-
-if %w[jpg gif].include?(string_opts[:format])
-  warn "Warning: #{string_opts[:format].upcase} output is deprecated and will be removed in RSyntaxTree 2.0. Use PNG instead."
 end
 
 # These print and exit, so they answer before the input is read. Reading

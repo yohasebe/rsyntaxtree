@@ -34,11 +34,9 @@ WHITESPACE_BLOCK = "￭"
 # Every format the library can produce, and the file extension each one
 # writes. The CLI builds its --format validation, help text, and output
 # filename from these, so a new format is added here and nowhere else.
-FORMATS = %w[png jpg gif pdf svg lsif tikz].freeze
+FORMATS = %w[png pdf svg lsif tikz].freeze
 FORMAT_EXTENSIONS = {
   "png" => "png",
-  "jpg" => "jpg",
-  "gif" => "gif",
   "pdf" => "pdf",
   "svg" => "svg",
   "lsif" => "lsif.json",
@@ -54,7 +52,7 @@ FORMAT_EXTENSIONS = {
 # pass their own extra parameters through.
 OPTION_VALUES = {
   format: FORMATS,
-  leafstyle: %w[auto triangle bar nothing none],
+  leafstyle: %w[auto triangle bar nothing],
   fontstyle: ["sans", "serif", "cjk", "mono", "noto-sans", "noto-serif", "noto-sans-mono", "cjk zenhei"],
   color: %w[modern traditional gray grey off none on true false],
   tidy: %w[off symmetric low medium high on compact true false],
@@ -67,8 +65,19 @@ NUMERIC_RANGES = {
   fontsize: 6..26,
   linewidth: 0.5..3.0,
   vheight: 0.5..5.0,
-  hspacing: 0.5..3.0,
-  tidy_spacing: 0.5..3.0
+  hspacing: 0.5..3.0
+}.freeze
+
+# Options 2.0 removed, and what to say instead. An unknown key is passed over
+# in silence, because a caller may hand its own parameters through — which is
+# right for a key this library never had, and wrong for one it used to obey.
+# A program that still asks for symmetrize would have been given the layout it
+# asked for in 1.x and a different one here, with nothing said. Named here,
+# the ask is refused the way `-f jpg` and `leafstyle: none` are.
+REMOVED_OPTIONS = {
+  symmetrize: 'tidy: "symmetric"',
+  tidy_spacing: "hspacing",
+  tidy_nest: 'tidy: "high"'
 }.freeze
 
 DEFAULT_OPTS = {
@@ -79,7 +88,6 @@ DEFAULT_OPTS = {
   linewidth: 1,
   vheight: 2.0,
   color: "modern",
-  symmetrize: "off",
   transparent: "off",
   polyline: "off",
   hide_default_connectors: "off",
@@ -163,6 +171,12 @@ module RSyntaxTree
         next if (OPTION_VALUES.key?(key) || NUMERIC_RANGES.key?(key)) &&
                 (value.nil? || value.to_s.strip.empty?)
 
+        if REMOVED_OPTIONS.key?(key)
+          raise RSTError.new(+"Error: option '#{key}' was removed in RSyntaxTree 2.0",
+                             code: :invalid_option,
+                             hint: "Use #{REMOVED_OPTIONS[key]} instead.",
+                             retryable: false)
+        end
         if OPTION_VALUES.key?(key) && !OPTION_VALUES[key].include?(value.to_s)
           raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
                              code: :invalid_option,
@@ -200,10 +214,10 @@ module RSyntaxTree
           # strict leaf positions), "medium" (packing that may tuck
           # branches across rows as long as no two leaves swap their
           # left-right order), "high" (free tucking; leaf order kept per
-          # row only). "on"/"compact" are accepted as legacy aliases of
-          # low/high, legacy tidy_nest: "on" upgrades low to high, and
-          # legacy symmetrize: "on" upgrades "off" to "symmetric" (both
-          # below, in BaseGraph).
+          # row only). "on"/"compact" are accepted as aliases of low/high.
+          # The separate symmetrize and tidy_nest flags this scale replaced
+          # were removed in 2.0; tidy: symmetric and tidy: high say what
+          # they said.
           new_params[key] = case value.to_s
                             when "high", "compact"
                               "high"
@@ -216,7 +230,7 @@ module RSyntaxTree
                             else
                               "off"
                             end
-        when :tidy_nest, :symmetrize, :transparent, :polyline, :hide_default_connectors, :mirror, :derivation
+        when :transparent, :polyline, :hide_default_connectors, :mirror, :derivation
           new_params[key] = switched_on?(value)
         when :color
           new_params[key] = case value.to_s
@@ -235,7 +249,7 @@ module RSyntaxTree
           new_params[key] = value.to_i
         when :linewidth
           new_params[key] = value.to_f
-        when :vheight, :hspacing, :tidy_spacing
+        when :vheight, :hspacing
           new_params[key] = value.to_f
         when :fontstyle
           # Fonts are resolved by name through fontconfig (measurement via
@@ -252,13 +266,6 @@ module RSyntaxTree
         else
           new_params[key] = value
         end
-      end
-
-      # Legacy alias: tidy_spacing was the tidy-only horizontal gap factor
-      # before it was generalized to hspacing (all layout modes).
-      if (new_params[:hspacing].nil? || new_params[:hspacing] == 1.0) &&
-         new_params[:tidy_spacing] && new_params[:tidy_spacing] != 1.0
-        new_params[:hspacing] = new_params[:tidy_spacing]
       end
 
       # defaults to the following
@@ -392,17 +399,15 @@ module RSyntaxTree
     #
     # Which generation depends on the format asked for, because the formats
     # can refuse different things: a tree can be too wide for a raster
-    # surface while remaining a perfectly good SVG, and JPG and GIF need a
-    # gem that may not be installed. Everything up to the last point where
-    # a format is known to say no is done; painting the tree onto the
-    # surface, which is most of the cost and refuses nothing this knows of,
-    # is not. A surface inside Cairo's limits but large enough to exhaust
-    # memory would still fail at that painting, so this is where validation
-    # is a strong guess rather than a guarantee.
+    # surface while remaining a perfectly good SVG. Everything up to the
+    # last point where a format is known to say no is done; painting the
+    # tree onto the surface, which is most of the cost and refuses nothing
+    # this knows of, is not. A surface inside Cairo's limits but large
+    # enough to exhaust memory would still fail at that painting, so this is
+    # where validation is a strong guess rather than a guarantee.
     def validate!
       case @params[:format]
       when "png" then raster_surface_for(draw_svg, &:finish)
-      when "jpg", "gif" then with_rmagick { raster_surface_for(draw_svg, &:finish) }
       when "pdf" then pdf_surface_for(draw_svg, StringIO.new, &:finish)
       when "lsif" then draw_lsif
       when "tikz" then draw_tikz
@@ -476,44 +481,6 @@ module RSyntaxTree
       sp.parse
       graph = SVGGraph.new(sp.get_elementlist, @params, @global)
       graph.svg_data
-    end
-
-    # JPG and GIF output converts the PNG through RMagick. The require is
-    # lazy: both formats are deprecated and will be removed in 2.0, and the
-    # library must load without RMagick for every other format. A missing
-    # RMagick is reported as an input-level error, not a bare LoadError.
-    def with_rmagick
-      require 'rmagick'
-      yield
-    rescue LoadError
-      raise RSTError.new(+"Error: JPG/GIF output requires ImageMagick and the rmagick gem, " \
-                         "which is not installed. Use PNG instead — JPG and GIF support " \
-                         "is deprecated and will be removed in 2.0.",
-                         code: :missing_dependency, retryable: false)
-    end
-
-    def draw_jpg
-      with_rmagick do
-        png_data = draw_png
-        images = Magick::Image.from_blob(png_data)
-        image = images.first
-        image.format = 'JPEG'
-        blob = image.to_blob
-        images.each(&:destroy!)
-        blob
-      end
-    end
-
-    def draw_gif
-      with_rmagick do
-        png_data = draw_png
-        images = Magick::Image.from_blob(png_data)
-        image = images.first
-        image.format = 'GIF'
-        blob = image.to_blob
-        images.each(&:destroy!)
-        blob
-      end
     end
 
     def draw_lsif

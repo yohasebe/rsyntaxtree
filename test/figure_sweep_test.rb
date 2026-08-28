@@ -100,7 +100,6 @@ class FigureSweepTest < Minitest::Test
     %w[on off].each { |p| sets["polyline #{p}"] = { polyline: p } }
     %w[modern traditional gray off].each { |c| sets["color #{c}"] = { color: c } }
     sets["mirror"] = { mirror: "on" }
-    sets["symmetrize"] = { symmetrize: "on" }
     sets
   end
   SETTINGS = settings.freeze

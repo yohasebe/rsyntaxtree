@@ -5,7 +5,7 @@ WORKDIR $WORKSPACE
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache linux-headers libxml2-dev make gcc libc-dev bash && \
-    apk add --no-cache librsvg librsvg-dev pango-dev imagemagick imagemagick-dev xz-dev libbz2 && \
+    apk add --no-cache librsvg librsvg-dev pango-dev xz-dev libbz2 && \
     apk add --no-cache gobject-introspection gobject-introspection-dev && \
     apk add --no-cache -t .build-packages --no-cache build-base curl-dev wget gcompat && \
     apk add --no-cache font-noto font-noto-cjk font-noto-cjk-extra \

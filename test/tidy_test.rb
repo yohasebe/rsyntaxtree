@@ -103,34 +103,6 @@ class TidyTest < Minitest::Test
     assert widths[0] < widths[1] && widths[1] < widths[2], "off-layout width should grow with hspacing: #{widths.inspect}"
   end
 
-  # Left to right, the tree turns but the options do not: hspacing is what
-  # separates sisters, which now stand one above another, so it is the height
-  # that answers to it. The layout replaces the sister gap with one of its own
-  # and has to scale that by hspacing too — without it both options pushed the
-  # width and a left-to-right figure could be made wider but never shorter,
-  # which is a thing no test noticed.
-  def test_hspacing_moves_the_height_of_a_left_to_right_tree
-    heights = %w[0.5 1.0 3.0].map do |hs|
-      generator(SIMPLE, direction: "ltr", hspacing: hs).draw_svg[/height="([\d.]+)"/, 1].to_f
-    end
-    assert_equal heights.sort, heights, "hspacing must not shrink the height"
-    assert_operator heights.last, :>, heights.first * 1.5,
-                    "hspacing barely moved the height: #{heights.inspect}"
-
-    widths = %w[0.5 1.0 3.0].map do |hs|
-      generator(SIMPLE, direction: "ltr", hspacing: hs).draw_svg[/width="([\d.]+)"/, 1].to_f
-    end
-    refute_equal widths.first, widths.last, "hspacing still has to move the margins"
-  end
-
-  # legacy tidy_spacing acts as an hspacing alias
-  def test_tidy_spacing_alias
-    bracket, fontstyle = UD_TREES["Chinese"]
-    a = lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", hspacing: 2.0)["geometry"]["width"]
-    b = lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", tidy_spacing: 2.0)["geometry"]["width"]
-    assert_equal a, b
-  end
-
   # medium: leaf centers keep global order while width shrinks below low
   def test_tidy_medium_ordered_nesting
     data = "[CP [John] [TP [T [V [V cause] [V fall]] [T]] [VP [V t] [CP [books] [t]]]]]"
@@ -213,21 +185,43 @@ class TidyTest < Minitest::Test
     end
   end
 
-  # tidy + symmetrize: meaningless combination; tidy wins (no crash)
-  def test_tidy_plus_symmetrize_does_not_crash
-    svg = generator(SIMPLE, tidy: "low", symmetrize: "on").draw_svg
-    assert svg.include?("<svg")
-    assert_no_overlaps lsif(SIMPLE, tidy: "low", symmetrize: "on")["nodes"], "tidy+symmetrize"
+  # Left to right, the tree turns but the options do not: hspacing is what
+  # separates sisters, which now stand one above another, so it is the height
+  # that answers to it. The layout replaces the sister gap with one of its own
+  # and has to scale that by hspacing too — without it both options pushed the
+  # width and a left-to-right figure could be made wider but never shorter,
+  # which is a thing no test noticed.
+  def test_hspacing_moves_the_height_of_a_left_to_right_tree
+    heights = %w[0.5 1.0 3.0].map do |hs|
+      generator(SIMPLE, direction: "ltr", hspacing: hs).draw_svg[/height="([\d.]+)"/, 1].to_f
+    end
+    assert_equal heights.sort, heights, "hspacing must not shrink the height"
+    assert_operator heights.last, :>, heights.first * 1.5,
+                    "hspacing barely moved the height: #{heights.inspect}"
+
+    widths = %w[0.5 1.0 3.0].map do |hs|
+      generator(SIMPLE, direction: "ltr", hspacing: hs).draw_svg[/width="([\d.]+)"/, 1].to_f
+    end
+    refute_equal widths.first, widths.last, "hspacing still has to move the margins"
+  end
+
+  # The options removed in 2.0 are refused, and refused with the name of what
+  # replaced them. Being ignored would be worse than being rejected: a caller
+  # that still asks for symmetrize was given that layout in 1.x, and silence
+  # would hand it a different figure without a word.
+  def test_options_removed_in_2_0_are_refused_with_a_way_forward
+    { symmetrize: "on", tidy_nest: "on", tidy_spacing: 2.0 }.each do |gone, value|
+      e = assert_raises(RSTError, "#{gone} was accepted") do
+        generator(SIMPLE, gone => value).draw_svg
+      end
+      assert_equal :invalid_option, e.code
+      refute_nil e.hint, "#{gone}: refused with no way forward"
+    end
   end
   # Legacy values keep working: on == medium, compact == high
   def test_tidy_legacy_value_aliases
     assert_equal generator(SIMPLE, tidy: "low").draw_svg, generator(SIMPLE, tidy: "on").draw_svg
     assert_equal generator(SIMPLE, tidy: "high").draw_svg, generator(SIMPLE, tidy: "compact").draw_svg
-  end
-  # symmetric level == the legacy standalone symmetrize option
-  def test_tidy_symmetric_equals_legacy_symmetrize
-    assert_equal generator(SIMPLE, tidy: "symmetric").draw_svg,
-                 generator(SIMPLE, symmetrize: "on").draw_svg
   end
   # Regression: partial params (defaults not passing through normalization)
   # must not turn string defaults like symmetrize: "off" into truthy flags.

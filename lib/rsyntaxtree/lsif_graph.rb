@@ -291,10 +291,10 @@ module RSyntaxTree
               connector_height: @params[:vheight],
               horizontal_spacing: @params[:hspacing] || 1.0,
               line_width: @params[:linewidth],
-              # The layout scale the figure was drawn on. symmetrize is kept
-              # for readers of older files; tidy: "symmetric" supersedes it.
+              # The layout scale the figure was drawn on. Files written
+              # before 2.0 carry a separate symmetrize flag beside it; the
+              # scale is what it meant, and it is all that is written now.
               tidy: @params[:tidy] || "off",
-              symmetrize: @params[:symmetrize],
               mirror: @params[:mirror] == true,
               direction: @params[:direction] || "ttb",
               # Which of the two readings of a hyphen the input was parsed
