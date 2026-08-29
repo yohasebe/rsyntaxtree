@@ -24,6 +24,18 @@ looking at what was left. Every figure in the gallery draws exactly as it did.
   duplicated, `tidy`, is written there already.
 
 ### Fixed
+- Every label now keeps the same air above it as below it. The connector
+  endpoints were measured from the layout box, whose edges sit unevenly
+  around the ink, so every figure carried a little more space under each
+  label than over it — visibly once a figure was tilted. The enclosures
+  were built with symmetric clearances all along; the plain labels now get
+  what the boxes always had. Nearly every gallery figure changes by a few
+  pixels of line length; no label, no position and no size moves.
+- A movement rail could reach past the right edge of a left-to-right
+  canvas and be cut off at it: the rail grows the canvas as it routes, and
+  the width it grew — unlike the height — was then recomputed from the
+  elements alone. Four pixels at the default spacing, twenty-four at
+  hspacing 0.5.
 - A rule written `---` (or `===` for a double rule) was refused inside a
   `#( … #)` matrix, though it was drawn in every other kind of label. Two
   hyphens and four were accepted there and three were not — a distinction
@@ -42,6 +54,17 @@ looking at what was left. Every figure in the gallery draws exactly as it did.
   ignored the misspelling, so nothing ever looked wrong.
 
 ### Added
+- `shear`: the drawn figure tilts by the given angle (degrees, positive
+  leaning the top to the right) and lies on a plane drawn behind it, so the
+  lean reads as a surface seen at an angle rather than as a mistake. The
+  whole picture shears as one affine piece — layout untouched, region
+  shades coming out parallelograms on their own, and nothing able to newly
+  touch or cross. `shear_plane` turns the plane off or gives it a colour.
+  TikZ refuses a sheared figure the way it refuses a derivation.
+- `vmargin`: the clearance between a label and its connectors, the same
+  above and below, measured from the ink its row actually contains — a row
+  of capitals pays nothing for descenders nobody wrote, and the ends of a
+  row's connectors stay level.
 - Three gallery examples, in two new categories: the Indo-European family
   tree (Historical Linguistics), where the region shade groups branches
   rather than marking a c-command domain; type-driven semantic composition

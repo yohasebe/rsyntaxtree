@@ -515,6 +515,7 @@ module RSyntaxTree
       this_x = 0
       this_y = 0
       prev_line_height = nil
+      first_baseline = nil
       bc = { x: text_x - enclosure_room, y: top, width: element.content_width, height: nil }
       element.content.each_with_index do |l, idx|
         case l[:type]
@@ -555,6 +556,7 @@ module RSyntaxTree
           # after it has to clear all of it.
           text_y += prev_line_height if idx != 0 && prev_line_height
           text_y += l[:top_room].to_f
+          first_baseline ||= text_y
           prev_line_height = l[:elements].map { |e| e[:height] }.max
 
           l[:elements].each do |e|
@@ -587,6 +589,36 @@ module RSyntaxTree
       end
 
       element.content_height = bc[:height]
+
+      # Where the label's ink is, for the symmetric clearances of vmargin.
+      # A drawn shape — an enclosure, or a label that is one matrix — hands
+      # over its own edges; a plain label hands over the font's band around
+      # its first and last baselines, so the connectors of one level start
+      # level with each other whatever letters happen to hang below.
+      drawn_shape = element.enclosure != :none ||
+                    element.content.any? do |line|
+                      line[:type] == :text &&
+                        line[:elements].any? { |e| e[:decoration].include?(:matrix) }
+                    end
+      if drawn_shape
+        element.ink_top = bc[:y]
+        element.ink_bottom = bc[:y] + bc[:height]
+      elsif first_baseline
+        # The label's own ink, not the font's whole band: measured from the
+        # first and last lines of text as drawn. What the connectors then
+        # keep clear of is the union of these across a row (see row_ink), so
+        # the ends stay level within a row while a row of capitals pays no
+        # tax for descenders nobody wrote.
+        text_lines = element.content.select { |l| l[:type] == :text }
+        first_text = text_lines.first[:elements].map { |e| e[:text].to_s }.join.gsub(WHITESPACE_BLOCK, " ")
+        last_text = text_lines.last[:elements].map { |e| e[:text].to_s }.join.gsub(WHITESPACE_BLOCK, " ")
+        f_m = FontMetrics.get_metrics(first_text.strip.empty? ? "X" : first_text,
+                                      @fontset[:family], @fontsize.to_f, :normal, :normal)
+        l_m = FontMetrics.get_metrics(last_text.strip.empty? ? "X" : last_text,
+                                      @fontset[:family], @fontsize.to_f, :normal, :normal)
+        element.ink_top = first_baseline - f_m.ink_above
+        element.ink_bottom = text_y + (l_m.ink_height - l_m.ink_above)
+      end
       @tree_data += text_data.sub(/CONTENT/, new_text)
     end
 
@@ -1138,14 +1170,57 @@ module RSyntaxTree
     # the parent is the lower of the two, and keeping the top-to-bottom edges
     # sent the line back up through both labels. An empty label has no text to
     # clear, so the line runs to its middle.
+    # The ink extents of a row: the union, across every plain label standing
+    # at one height, of where its type actually reaches. An endpoint measured
+    # from the label's own ink alone gives every label equal air but leaves
+    # the ends of a row's connectors ragged — a line reaches lower over `on`
+    # than over `the`; measured from the whole font's band the ends are level
+    # but a row of capitals pays for descenders nobody wrote. The row's own
+    # union keeps the ends level and charges only for what the row contains.
+    def row_ink
+      @row_ink ||= @element_list.get_elements.each_with_object({}) do |e, rows|
+        next unless e.ink_top && e.ink_bottom
+        next if e.enclosure != :none
+
+        row = (rows[e.vertical_indent.round(1)] ||= { top: e.ink_top, bottom: e.ink_bottom })
+        row[:top] = [row[:top], e.ink_top].min
+        row[:bottom] = [row[:bottom], e.ink_bottom].max
+      end
+    end
+
+    # Where a connector clears an element on the vmargin geometry: the row's
+    # ink for a plain label, the drawn edge for an enclosed one.
+    def ink_over(element)
+      row = element.enclosure == :none && row_ink[element.vertical_indent.round(1)]
+      row ? row[:top] : element.ink_top
+    end
+
+    def ink_under(element)
+      row = element.enclosure == :none && row_ink[element.vertical_indent.round(1)]
+      row ? row[:bottom] : element.ink_bottom
+    end
+
     def connector_edges(child, parent)
       hctt = @global[:height_connector_to_text]
       child_above = child.vertical_indent <= parent.vertical_indent
 
+      # Each endpoint decides for itself. A line through a chain of invisible
+      # joints keeps one real label at most, and when the pair had to agree
+      # on a geometry, the segments beside a joint fell back to the classic
+      # one while their neighbours took the symmetric one — a row of leaves
+      # under example 080's joints ended thirteen units apart.
+      m = @global[:vmargin] ? @global[:single_x_metrics].height * @global[:vmargin] : nil
+
       child_y = if child.empty_label?
                   child.vertical_indent + child.content_height / 2
                 elsif child_above
-                  child.vertical_indent + child.content_height + hctt
+                  if m && child.ink_bottom
+                    ink_under(child) + m
+                  else
+                    child.vertical_indent + child.content_height + hctt
+                  end
+                elsif m && child.ink_top
+                  ink_over(child) - m
                 else
                   child.vertical_indent + hctt / 2
                 end
@@ -1153,10 +1228,30 @@ module RSyntaxTree
       parent_y = if parent.empty_label?
                    parent.vertical_indent + parent.content_height / 2
                  elsif child_above
-                   parent.vertical_indent + hctt / 2
+                   if m && parent.ink_top
+                     ink_over(parent) - m
+                   else
+                     parent.vertical_indent + hctt / 2
+                   end
+                 elsif m && parent.ink_bottom
+                   ink_under(parent) + m
                  else
                    parent.vertical_indent + parent.content_height + hctt
                  end
+
+      # A tight pitch can put the two endpoints past each other — the gap
+      # between the inks smaller than the clearance on both sides — and a
+      # crossed pair draws the stroke back up through a label. Both then
+      # settle at the middle of the gap, which is the one point that is
+      # clear of the ink on either side whenever the gap exists at all.
+      if m
+        upper_pt, lower_pt = child_above ? [child_y, parent_y] : [parent_y, child_y]
+        if upper_pt > lower_pt
+          mid = (upper_pt + lower_pt) / 2.0
+          child_y = mid
+          parent_y = mid
+        end
+      end
 
       [child_y, parent_y]
     end
@@ -1250,11 +1345,22 @@ module RSyntaxTree
         # TTB: triangle opens horizontally (left-right of child text),
         # apex at parent's bottom
         x1 = child.horizontal_indent
-        y1 = child.vertical_indent + @global[:height_connector_to_text] / 2
         x2 = child.horizontal_indent + child.content_width
-        y2 = child.vertical_indent + @global[:height_connector_to_text] / 2
         x3 = parent.horizontal_indent + parent.content_width / 2
-        y3 = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+        if @global[:vmargin] && child.ink_top && parent.ink_bottom
+          m = @global[:single_x_metrics].height * @global[:vmargin]
+          y1 = ink_over(child) - m
+          y3 = ink_under(parent) + m
+          if y3 > y1
+            mid = (y1 + y3) / 2.0
+            y1 = mid
+            y3 = mid
+          end
+        else
+          y1 = child.vertical_indent + @global[:height_connector_to_text] / 2
+          y3 = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+        end
+        y2 = y1
       end
 
       polygon_data = @polygon_styles.sub(/X1/, x1.to_s)

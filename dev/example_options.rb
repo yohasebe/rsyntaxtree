@@ -30,6 +30,7 @@ module ExampleOptions
     "mirror" => :mirror,
     "shear" => :shear,
     "shear_plane" => :shear_plane,
+    "vmargin" => :vmargin,
     "font" => :fontstyle
   }.freeze
 

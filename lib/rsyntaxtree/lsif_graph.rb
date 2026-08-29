@@ -302,6 +302,7 @@ module RSyntaxTree
               # a reader who wants the drawn look applies it, and one who
               # wants the layout ignores it.
               shear: (@params[:shear] || 0).to_f,
+              vmargin: (@params[:vmargin] || 0.4).to_f,
               # Which of the two readings of a hyphen the input was parsed
               # under. The input is recorded verbatim above, and the same
               # string means different things under the two, so a reader

@@ -66,7 +66,8 @@ NUMERIC_RANGES = {
   linewidth: 0.5..3.0,
   vheight: 0.5..5.0,
   hspacing: 0.5..3.0,
-  shear: -45..45
+  shear: -45..45,
+  vmargin: 0.0..1.0
 }.freeze
 
 # Options 2.0 removed, and what to say instead. An unknown key is passed over
@@ -99,7 +100,12 @@ DEFAULT_OPTS = {
   hyphen: "markup",
   derivation: "off",
   shear: 0,
-  shear_plane: "on"
+  shear_plane: "on",
+  # 0.4 keeps the level pitch the historical drawing had, and replaces its
+  # unequal air — a little more below every label than above it, an
+  # unadjusted leftover of measuring from the layout box — with the same
+  # clearance on both sides of the ink.
+  vmargin: 0.4
 }.freeze
 
 # A parse or generation failure. `message` is the human-readable text the
@@ -263,7 +269,7 @@ module RSyntaxTree
           new_params[key] = value.to_i
         when :linewidth
           new_params[key] = value.to_f
-        when :vheight, :hspacing, :shear
+        when :vheight, :hspacing, :shear, :vmargin
           new_params[key] = value.to_f
         when :shear_plane
           # on | off | a colour. The empty string is a form control nobody
@@ -361,7 +367,19 @@ module RSyntaxTree
       # would be this rule written a second time, free to drift from this one.
       @global[:hspacing] = (@params[:hspacing] || 1.0).to_f
       @global[:h_gap_between_nodes] = single_x_metrics.width * 0.8 * @global[:hspacing]
-      @global[:box_vertical_margin] = single_x_metrics.height * 0.8
+      # The font's band: how far a capital reaches above the baseline and a
+      # descender below it. What the symmetric clearances of vmargin measure
+      # from — the band rather than each label's own ink, so the line ends
+      # line up across a level instead of following every g and y.
+      @global[:cap_height] = single_x_metrics.ink_above
+      xg_metrics = FontMetrics.get_metrics("Xg", fontset[:family], @params[:fontsize], :normal, :normal)
+      @global[:descender] = xg_metrics.ink_height - xg_metrics.ink_above
+      @global[:vmargin] = @params[:vmargin]
+      @global[:box_vertical_margin] = if @params[:vmargin]
+                                        single_x_metrics.height * @params[:vmargin] * 2
+                                      else
+                                        single_x_metrics.height * 0.8
+                                      end
       # Every stroke follows the type size: linewidth 1 is 5% of it (the
       # ratio of an ordinary text rule, booktabs' \lightrulewidth), each
       # 0.5 step of the option adds another 2.5%, and a bold stroke adds

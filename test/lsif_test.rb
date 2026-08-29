@@ -50,7 +50,7 @@ class LsifGeneratorTest < Minitest::Test
 
       # The layout settings that the coordinates alone cannot reveal
       params = data["meta"]["source"]["params"]
-      %w[tidy mirror direction horizontal_spacing shear].each do |key|
+      %w[tidy mirror direction horizontal_spacing shear vmargin].each do |key|
         assert params.key?(key), "meta.source.params must record #{key}"
       end
 

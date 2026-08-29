@@ -13,7 +13,7 @@ require_relative "color_names"
 
 module RSyntaxTree
   class Element
-    attr_accessor :rule_name, :label_with_rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
+    attr_accessor :ink_top, :ink_bottom, :rule_name, :label_with_rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color
 
     # names_a_rule says the content is a mother's label rather than a leaf's
     # text. Only a mother has a step under it for a name to sit beside, and a
