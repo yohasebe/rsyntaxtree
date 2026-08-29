@@ -96,7 +96,23 @@ cannot outlive the feature it names.
 - `%NP`, `%@blue:NP` — a region shade behind the whole subtree → [Region Shade](#region-shade)
 - `@red:NP`, `@#3af:NP` — colour, by name or 3/6 hex digits → [Per-Node Styling](#per-node-styling-color)
 
-**Options** — each is a select in the [web interface](https://yohasebe.com/rsyntaxtree) and a flag on the command line: `format` (png, svg, pdf, ...), `fontstyle` and `fontsize`, `color`, `linewidth`, `leafstyle` (what joins a node to its leaf), `direction` (ttb, ltr, btt), `mirror` for RTL scripts, `tidy` and `hspacing` and `vheight` for the packing and the spacing, `polyline` for right-angled connectors, `hide_default_connectors` for figures whose links are all drawn by hand, `transparent` for a clear background, `derivation` for categorial-style figures, `hyphen` (whether a hyphen is markup or a character), and `shear` with `shear_plane`, which tilt the finished figure — the whole drawing leans by the given angle (degrees, positive leaning the top to the right) and lies on a plane drawn behind it, so the lean reads as a surface seen at an angle rather than as a mistake. `shear_plane` turns that plane off or gives it a colour, and a transparent background takes it away for you. `vmargin` sets the clearance between a label and its connectors — the same above and below, measured from the type the row actually contains. Each option is described in the section it concerns.
+**Options** — each is a select in the [web interface](https://yohasebe.com/rsyntaxtree) and a flag on the command line.
+
+- `format` — png, svg, pdf, ...
+- `fontstyle` and `fontsize` — the typeface and its size → [Fonts](#fonts)
+- `color` — colour the nodes and leaves, or draw in black
+- `linewidth` — the weight of every line, as a ratio of the font size
+- `leafstyle` — what joins a node to its leaf → [Connectors](#connectors)
+- `direction` — ttb, ltr, or btt → [Tree Direction](#tree-direction)
+- `mirror` — flip the finished tree for RTL scripts → [Mirrored Layout](#mirrored-layout-for-rtl-scripts)
+- `tidy`, `hspacing` and `vheight` — the packing and the spacing → [Tidy Layout](#tidy-layout)
+- `polyline` — right-angled connectors → [Connectors](#connectors)
+- `hide_default_connectors` — for figures whose links are all drawn by hand → [Connectors](#connectors)
+- `transparent` — a clear background
+- `derivation` — categorial-style figures → [Derivations](#derivations)
+- `hyphen` — whether a hyphen is markup or a character → [Hyphens](#hyphens)
+- `shear` and `shear_plane` — tilt the finished figure so it lies on a tilted plane → [Shear](#shear)
+- `vmargin` — the clearance between a label and its connectors, the same above as below, measured from the type the row actually contains
 
 ### Tree Direction
 
