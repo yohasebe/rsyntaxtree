@@ -297,6 +297,11 @@ module RSyntaxTree
               tidy: @params[:tidy] || "off",
               mirror: @params[:mirror] == true,
               direction: @params[:direction] || "ttb",
+              # Degrees, positive leaning the top right. The geometry below
+              # is the unsheared layout — the shear is applied at render — so
+              # a reader who wants the drawn look applies it, and one who
+              # wants the layout ignores it.
+              shear: (@params[:shear] || 0).to_f,
               # Which of the two readings of a hyphen the input was parsed
               # under. The input is recorded verbatim above, and the same
               # string means different things under the two, so a reader

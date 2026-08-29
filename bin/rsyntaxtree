@@ -28,6 +28,8 @@ CONFIG_VALIDATORS = {
   polyline: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   hide_default_connectors: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
   mirror: ->(v) { /\A(on|off|true|false)\z/ =~ v.to_s ? nil : "must be on or off" },
+  shear: ->(v) { v.is_a?(Numeric) && v >= -45 && v <= 45 ? nil : "must be in the range of -45-45" },
+  shear_plane: ->(v) { v.to_s =~ /\A(on|off)\z/ || RSyntaxTree::COLOR_NAMES.include?(v.to_s.downcase) || v.to_s =~ /\A#(\h{3}|\h{6})\z/ ? nil : "must be on, off, or a colour" },
   tidy: ->(v) { OPTION_VALUES[:tidy].include?(v.to_s) ? nil : "must be off, symmetric, low, medium, or high" },
   hspacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
   direction: ->(v) { OPTION_VALUES[:direction].include?(v.to_s) ? nil : "must be one of: #{OPTION_VALUES[:direction].join(', ')}" },
@@ -116,6 +118,8 @@ opts = Optimist.options do
   opt :polyline, "draw polyline connectors: on or off", default: "off", short: :p
   opt :hide_default_connectors, "make default connectors transparent: on or off", default: "off", short: :none
   opt :mirror, "flip the tree horizontally (RTL linguistics convention: first word at the right edge): on or off", default: "off"
+  opt :shear, "Tilt the drawn figure, in degrees: -45 to 45, positive leaning the top to the right", default: 0.0, short: :none
+  opt :shear_plane, "The plane behind a sheared figure: on, off, a colour name, or a hex colour", default: "on", short: :none
   opt :tidy, "tidy tree layout: off, symmetric (radical symmetrization), low (packed, strict leaf positions), medium (packed; leaves may overlap but never swap order), or high (packed; leaf order kept per row only)", default: "off", short: :none
   opt :hspacing, "Horizontal spacing factor (counterpart of vheight): 0.5-3.0", default: 1.0, short: :none
   opt :direction, "Tree layout direction: ttb (top-to-bottom), ltr (left-to-right) or btt (bottom-to-top, the root last)", default: "ttb", short: :d
@@ -136,6 +140,8 @@ Optimist.die :leafstyle, "must be auto, triangle, bar, or nothing" unless OPTION
 Optimist.die :fontstyle, "must be sans, serif, cjk, or mono" unless OPTION_VALUES[:fontstyle].include?(opts[:fontstyle])
 Optimist.die :fontsize, "must be in the range of 6-26" unless opts[:fontsize] >= 6 && opts[:fontsize] <= 26
 Optimist.die :linewidth, "must be in the range of 0.5-3.0" unless opts[:linewidth] >= 0.5 && opts[:linewidth] <= 3.0
+Optimist.die :shear, "must be in the range of -45-45" unless opts[:shear] >= -45 && opts[:shear] <= 45
+Optimist.die :shear_plane, "must be on, off, or a colour" unless /\A(on|off)\z/ =~ opts[:shear_plane] || RSyntaxTree::COLOR_NAMES.include?(opts[:shear_plane].downcase) || /\A#(\h{3}|\h{6})\z/ =~ opts[:shear_plane]
 Optimist.die :color, "must be either modern, traditional, gray, or off" unless OPTION_VALUES[:color].include?(opts[:color])
 Optimist.die :vheight, "must be in the range of 0.5-5.0" if opts[:vheight] < 0.5 || opts[:vheight] > 5.0
 Optimist.die :transparent, "must be either on or off" unless /\A(on|off|true|false)\z/ =~ opts[:transparent]

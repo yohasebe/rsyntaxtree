@@ -185,6 +185,8 @@ Usage:
 | `--derivation` | Join each node to its daughters with one rule drawn across them: on, off | `off` |
 | `--hyphen` | How a hyphen reads: markup (`-underline-`) or literal | `markup` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
+| `--shear` | Tilt the drawn figure, in degrees (-45 to 45, positive leans the top right) | `0` |
+| `--shear-plane` | The plane behind a sheared figure: on, off, or a colour | `on` |
 | `-r, --transparent` | Leave the background clear instead of painting it white: on, off | `off` |
 | `--validate` | Check the input without drawing: a JSON diagnosis on stdout, the verdict in the exit code | |
 | `--notation` | Print a short reference for the notation | |

@@ -65,7 +65,8 @@ NUMERIC_RANGES = {
   fontsize: 6..26,
   linewidth: 0.5..3.0,
   vheight: 0.5..5.0,
-  hspacing: 0.5..3.0
+  hspacing: 0.5..3.0,
+  shear: -45..45
 }.freeze
 
 # Options 2.0 removed, and what to say instead. An unknown key is passed over
@@ -96,7 +97,9 @@ DEFAULT_OPTS = {
   hspacing: 1.0,
   direction: "ttb",
   hyphen: "markup",
-  derivation: "off"
+  derivation: "off",
+  shear: 0,
+  shear_plane: "on"
 }.freeze
 
 # A parse or generation failure. `message` is the human-readable text the
@@ -183,6 +186,17 @@ module RSyntaxTree
                              hint: "'#{key}' must be one of: #{OPTION_VALUES[key].join(', ')}.",
                              retryable: false)
         end
+        # The range check reads the value as a float, and a string that is
+        # not a number reads as zero. Every range used to sit clear of zero,
+        # so nonsense failed the range check by accident; shear's runs through
+        # it, and "abc" would have been taken as no shear at all.
+        if NUMERIC_RANGES.key?(key) && !value.is_a?(Numeric) &&
+           value.to_s.strip !~ /\A-?(\d+(\.\d+)?|\.\d+)\z/
+          raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
+                             code: :invalid_option,
+                             hint: "'#{key}' takes a number.",
+                             retryable: false)
+        end
         if NUMERIC_RANGES.key?(key) && !NUMERIC_RANGES[key].cover?(value.to_f)
           range = NUMERIC_RANGES[key]
           raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
@@ -249,8 +263,28 @@ module RSyntaxTree
           new_params[key] = value.to_i
         when :linewidth
           new_params[key] = value.to_f
-        when :vheight, :hspacing
+        when :vheight, :hspacing, :shear
           new_params[key] = value.to_f
+        when :shear_plane
+          # on | off | a colour. The empty string is a form control nobody
+          # touched, so the default stands — this key sits outside the value
+          # tables the blanket blank-skip above covers.
+          v = value.to_s.strip
+          unless v.empty?
+            new_params[key] = case v.downcase
+                              when "on", "true", "yes", "1" then "on"
+                              when "off", "false", "no", "0", "none" then "off"
+                              else
+                                unless COLOR_NAMES.include?(v.downcase) || v =~ /\A#(\h{3}|\h{6})\z/
+                                  raise RSTError.new(+"Error: invalid value for option 'shear_plane': #{value.inspect}",
+                                                     code: :invalid_option,
+                                                     hint: "'shear_plane' is on, off, a colour name, " \
+                                                           "or a hex colour of 3 or 6 digits.",
+                                                     retryable: false)
+                                end
+                                v
+                              end
+          end
         when :fontstyle
           # Fonts are resolved by name through fontconfig (measurement via
           # Pango, rendering via the SVG font-family attribute), so all a

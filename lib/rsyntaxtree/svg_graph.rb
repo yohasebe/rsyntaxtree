@@ -24,6 +24,11 @@ module RSyntaxTree
     # a darker shade of the same color — keeping the region clearly bounded on
     # a white page without a per-color "darker shade" lookup.
     REGION_STROKE_OPACITY = 0.55
+    # The plane a sheared figure lies on. Lighter than a region shade: a
+    # region marks part of a figure out from the rest, and the plane is
+    # behind all of it — at the region's own opacity the whole page darkens.
+    SHEAR_PLANE_FILL_OPACITY = 0.12
+    SHEAR_PLANE_STROKE_OPACITY = 0.4
 
     attr_accessor :width, :height
 
@@ -41,6 +46,12 @@ module RSyntaxTree
       @fontstyle = params[:fontstyle]
       @polyline = params[:polyline] == true
       @direction = params[:direction] || "ttb"
+      # The angle arrives in degrees, positive leaning the top to the right.
+      # What the transform wants is the x-shift per unit of y, and y grows
+      # downward here, so the tangent changes sign on the way in.
+      @shear_deg = (params[:shear] || 0).to_f
+      @shear_k = (-Math.tan(@shear_deg * Math::PI / 180)).round(3)
+      @shear_plane = params[:shear_plane] || "on"
       @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
@@ -88,6 +99,43 @@ module RSyntaxTree
         y1 = top
         x2 = new_x2
         y2 = new_y2
+      end
+
+      # A sheared figure needs a canvas of its own shape. The plane is laid
+      # out in the space the tree was drawn in — everything inside the shear
+      # group shares it — so it is the union of all the ink there: the
+      # elements, the region shades, the movement rails, and a rule's name
+      # hanging past the last box. The canvas is that plane's four corners
+      # after the shear, with the usual margin around them.
+      unless @shear_k.zero?
+        gap = @global[:h_gap_between_nodes]
+        els = @element_list.get_elements
+        ink_l = els.map(&:horizontal_indent).min
+        ink_t = els.map(&:vertical_indent).min
+        ink_r = els.map { |e| e.horizontal_indent + e.content_width }.max
+        ink_b = els.map { |e| e.vertical_indent + e.content_height }.max
+        ink_r = @rule_name_edge if @rule_name_edge.to_f > ink_r
+        [@region_bounds, @path_bounds].compact.each do |b|
+          ink_l = [ink_l, b[:min_x]].min
+          ink_t = [ink_t, b[:min_y]].min
+          ink_r = [ink_r, b[:max_x]].max
+          ink_b = [ink_b, b[:max_y]].max
+        end
+        pad = gap * 1.5
+        @plane_rect = { x: (ink_l - pad).round(3), y: (ink_t - pad).round(3),
+                        w: (ink_r - ink_l + pad * 2).round(3), h: (ink_b - ink_t + pad * 2).round(3) }
+        cx0 = @plane_rect[:x] - gap
+        cx1 = @plane_rect[:x] + @plane_rect[:w] + gap
+        cy0 = @plane_rect[:y] - gap
+        cy1 = @plane_rect[:y] + @plane_rect[:h] + gap
+        sheared = [cx0 + @shear_k * cy0, cx0 + @shear_k * cy1,
+                   cx1 + @shear_k * cy0, cx1 + @shear_k * cy1]
+        x1 = sheared.min.round(3)
+        x2 = (sheared.max - sheared.min).round(3)
+        y1 = cy0.round(3)
+        y2 = (cy1 - cy0).round(3)
+        @width = x2
+        @height = y2
       end
 
       extra_lines = @extra_lines.join("\n")
@@ -145,10 +193,35 @@ module RSyntaxTree
       # below tree connectors and labels.
       shades = @region_shades.join
 
-      if @transparent
-        header + shades + @tree_data + extra_lines + footer
+      if @shear_k.zero?
+        if @transparent
+          header + shades + @tree_data + extra_lines + footer
+        else
+          header + rect + shades + @tree_data + extra_lines + footer
+        end
       else
-        header + rect + shades + @tree_data + extra_lines + footer
+        # The whole picture shears as one: the plane, the shades, the tree
+        # and the rails all live inside the group, so an affine map carries
+        # every incidence with it — nothing can newly touch or cross. The
+        # background stays outside, painted to the sheared canvas.
+        plane = +""
+        unless @shear_plane == "off"
+          color = @shear_plane == "on" ? REGION_DEFAULT_COLOR : @shear_plane
+          radius = @global[:height_connector_to_text] / 2.0
+          plane = "<rect x=\"#{@plane_rect[:x]}\" y=\"#{@plane_rect[:y]}\" " \
+                  "width=\"#{@plane_rect[:w]}\" height=\"#{@plane_rect[:h]}\" " \
+                  "rx=\"#{radius}\" ry=\"#{radius}\" " \
+                  "fill=\"#{color}\" fill-opacity=\"#{SHEAR_PLANE_FILL_OPACITY}\" " \
+                  "stroke=\"#{color}\" stroke-opacity=\"#{SHEAR_PLANE_STROKE_OPACITY}\" " \
+                  "stroke-width=\"#{@global[:stroke_normal]}\" />\n"
+        end
+        body = "<g transform=\"matrix(1,0,#{@shear_k},1,0,0)\">\n" +
+               plane + shades + @tree_data + extra_lines + "</g>\n"
+        if @transparent
+          header + body + footer
+        else
+          header + rect + body + footer
+        end
       end
     end
 
@@ -336,6 +409,20 @@ module RSyntaxTree
         "#{dasharray}#{markers}/>"
     end
 
+    # Where the movement paths have been, as a box. The canvas learns of a
+    # rail through @width and @height, which only say how far right and down
+    # anything got; the plane behind a sheared figure has to enclose the rail
+    # on every side, so the corners themselves are kept.
+    def note_path_extent(points)
+      xs = points.map(&:first)
+      ys = points.map(&:last)
+      b = (@path_bounds ||= { min_x: xs.min, min_y: ys.min, max_x: xs.max, max_y: ys.max })
+      b[:min_x] = [b[:min_x], xs.min].min
+      b[:min_y] = [b[:min_y], ys.min].min
+      b[:max_x] = [b[:max_x], xs.max].max
+      b[:max_y] = [b[:max_y], ys.max].max
+    end
+
     def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)
       spacing = @global[:h_gap_between_nodes] * 1.25
       min_bulge = @global[:height_connector_to_text]
@@ -368,6 +455,8 @@ module RSyntaxTree
         new_s_y = s_y + s_offset
         new_t_y = t_y + t_offset
 
+        note_path_extent([[s_x, new_s_y], [new_x, new_s_y],
+                          [new_x, new_t_y], [t_x, new_t_y]])
         @extra_lines << generate_path([[s_x, new_s_y], [new_x, new_s_y],
                                        [new_x, new_t_y], [t_x, new_t_y]],
                                       @col_path, dashed: dashed, radius: corner_radius,
@@ -386,6 +475,8 @@ module RSyntaxTree
         new_s_x = s_x - s_offset
         new_t_x = t_x - t_offset
 
+        note_path_extent([[new_s_x, s_y], [new_s_x, new_y],
+                          [new_t_x, new_y], [new_t_x, t_y]])
         @extra_lines << generate_path([[new_s_x, s_y], [new_s_x, new_y],
                                        [new_t_x, new_y], [new_t_x, t_y]],
                                       @col_path, dashed: dashed, radius: corner_radius,

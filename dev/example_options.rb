@@ -28,6 +28,8 @@ module ExampleOptions
     "tidy" => :tidy,
     "hspacing" => :hspacing,
     "mirror" => :mirror,
+    "shear" => :shear,
+    "shear_plane" => :shear_plane,
     "font" => :fontstyle
   }.freeze
 

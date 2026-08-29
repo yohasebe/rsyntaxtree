@@ -40,6 +40,15 @@ module RSyntaxTree
                                  "at the top. Use png, svg or pdf for this figure.",
                            retryable: false)
       end
+      # Refused rather than quietly drawn straight: a shear is the whole point
+      # of the figure that asks for it, and TikZ's own slant (xslant) leaves
+      # the bounding box unaware of the lean, so standalone output crops.
+      if params[:shear].to_f != 0
+        raise RSTError.new(+"Error: TikZ output cannot draw a sheared figure",
+                           code: :invalid_option,
+                           hint: "Use png, svg or pdf for this figure, or drop the shear option.",
+                           retryable: false)
+      end
     end
 
     # Generate TikZ forest code

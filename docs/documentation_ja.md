@@ -95,7 +95,7 @@ RSyntaxTreeではPNG形式またはSVG形式で画像を生成します．どち
 - `%NP`、`%@blue:NP` — 部分木の背後の領域シェード → [領域シェード](#領域シェード)
 - `@red:NP`、`@#3af:NP` — 色。名前か 16 進 3 桁/6 桁 → [ノードごとの色指定](#ノードごとの色指定)
 
-**オプション** — いずれも [Web インターフェイス](https://yohasebe.com/rsyntaxtree)の項目であり、コマンドラインのフラグでもあります: `format`（png・svg・pdf ほか）、`fontstyle` と `fontsize`、`color`、`linewidth`、`leafstyle`（ノードとリーフの間に何を描くか）、`direction`（ttb・ltr・btt）、RTL 用の `mirror`、詰め方と間隔の `tidy`・`hspacing`・`vheight`、直角のコネクタにする `polyline`、既定のコネクタを引かない `hide_default_connectors`、背景を塗らない `transparent`、圏論的な図のための `derivation`、`hyphen`（ハイフンをマークアップと読むか文字と読むか）。詳細はそれぞれの節にあります。
+**オプション** — いずれも [Web インターフェイス](https://yohasebe.com/rsyntaxtree)の項目であり、コマンドラインのフラグでもあります: `format`（png・svg・pdf ほか）、`fontstyle` と `fontsize`、`color`、`linewidth`、`leafstyle`（ノードとリーフの間に何を描くか）、`direction`（ttb・ltr・btt）、RTL 用の `mirror`、詰め方と間隔の `tidy`・`hspacing`・`vheight`、直角のコネクタにする `polyline`、既定のコネクタを引かない `hide_default_connectors`、背景を塗らない `transparent`、圏論的な図のための `derivation`、`hyphen`（ハイフンをマークアップと読むか文字と読むか）、そして仕上がった図を傾ける `shear` と `shear_plane`。図全体が指定の角度（度数、正で上辺が右）だけ傾き、背後に平面が敷かれるので、傾きは誤りではなく面を斜めから見た図として読めます。`shear_plane` はその平面を消すか、色を与えます。詳細はそれぞれの節にあります。
 
 ### ツリーの方向
 

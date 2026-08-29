@@ -103,6 +103,8 @@ Options (the command line spells them --like-this):
 | transparent | leave the background clear instead of painting it white |
 | derivation | one rule across the daughters, categorial-grammar style |
 | hyphen     | markup (hyphens underline) or literal (hyphens are hyphens) |
+| shear      | tilt the drawn figure: degrees, −45 to 45, positive leans the top right |
+| shear_plane | the plane behind a sheared figure: on (grey), off, or a colour |
 
 hspacing and vheight are named for the top-to-bottom layout, and follow the
 tree rather than the page: with direction ltr, sisters stack downwards and
