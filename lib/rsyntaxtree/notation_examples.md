@@ -1,4 +1,4 @@
-RSyntaxTree examples: 80 trees, every one verified to draw.
+RSyntaxTree examples: 81 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -2586,30 +2586,56 @@ VAL\t#(SPR\t⟨<>⟩#)#)#)
   VAL\t#(SPR\t⟨<>*NP*<>⟩#)#)#) [barks]]]
 ```
 
-## 085 — A tree on a tilted plane
+## 085 — A tree on a tilted plane, with a movement path
 
 Category: General
 Settings: fontstyle=noto-serif shear=20 vheight=1.0
 
 ```
-[S
-  [NP
-    [D the]
-    [N man]
-  ]
-  [VP
-    [V put]
-    [NP
-      [D the]
-      [N book]
-    ]
-    [PP
-      [P on]
+[CP
+  [NP what+>1]
+  [C'
+    [C did]
+    [TP
       [NP
         [D the]
-        [N table]
+        [N man]
+      ]
+      [VP
+        [V'
+          [V put]
+          [NP *t*+1]
+        ]
+        [PP
+          [P on]
+          [NP
+            [D the]
+            [N table]
+          ]
+        ]
       ]
     ]
   ]
 ]
+```
+
+## 086 — Feature structures on a tilted plane
+
+Category: General
+Settings: color=none fontstyle=noto-serif leafstyle=nothing shear=20 vheight=1.5
+
+```
+[#(*phrase*\
+---\
+SYN\t#(HEAD\t|1|#)#)
+  [#(*word*\
+  ---\
+  SYN\t#(HEAD\t#(*noun*\
+  ---\
+  AGR\t|2|#(NUM\t*pl*#)#)#)#) [dogs]]
+  [#(*word*\
+  ---\
+  SYN\t#(HEAD\t|1|#(*verb*\
+  ---\
+  AGR\t|2|#)#)#) [bark]]]
 ```

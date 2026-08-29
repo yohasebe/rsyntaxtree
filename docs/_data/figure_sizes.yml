@@ -343,6 +343,10 @@
   height: 725
   layout: grid-stack
 '085':
-  width: 794
-  height: 481
+  width: 887
+  height: 612
+  layout: grid-stack
+'086':
+  width: 940
+  height: 516
   layout: grid-stack
