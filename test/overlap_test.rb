@@ -18,8 +18,8 @@ class OverlapTest < Minitest::Test
   # within this tolerance is measurement noise, not a visual overlap.
   OVERLAP_TOLERANCE = 2.0
 
-  def assert_no_level_overlap(lsif_json, direction = "ttb")
-    data = JSON.parse(lsif_json)
+  def assert_no_level_overlap(layout_json, direction = "ttb")
+    data = JSON.parse(layout_json)
     nodes = data["nodes"]
 
     # Group nodes by level
@@ -68,7 +68,7 @@ class OverlapTest < Minitest::Test
     opts[:data] = "[T' [TPAST [\\+Agr3MSG [a]]] [AspP [AspPERFECT [u,i]]] [VoiceP [VoicePASSIVE [pasive]] [vP [vPASSIVE] [VP [√KTB] [*t*_i_]]]]]"
     opts[:fontstyle] = "serif"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    assert_no_level_overlap(rsg.draw_lsif)
+    assert_no_level_overlap(rsg.draw_json)
   end
 
   def test_long_cousin_labels_no_overlap
@@ -76,7 +76,7 @@ class OverlapTest < Minitest::Test
     opts[:data] = "[Root [A [VeryLongLabelOne x]] [B [VeryLongLabelTwo y]]]"
     opts[:fontstyle] = "serif"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    assert_no_level_overlap(rsg.draw_lsif)
+    assert_no_level_overlap(rsg.draw_json)
   end
 
   def test_wide_leaf_under_narrow_parent
@@ -84,7 +84,7 @@ class OverlapTest < Minitest::Test
     opts[:data] = "[S [A [LongChildLabel]] [B [AnotherLongChild]]]"
     opts[:fontstyle] = "serif"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    assert_no_level_overlap(rsg.draw_lsif)
+    assert_no_level_overlap(rsg.draw_json)
   end
 
   def test_three_siblings_with_long_children
@@ -92,7 +92,7 @@ class OverlapTest < Minitest::Test
     opts[:data] = "[S [X [LongNameAlpha a]] [Y [LongNameBeta b]] [Z [LongNameGamma c]]]"
     opts[:fontstyle] = "serif"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    assert_no_level_overlap(rsg.draw_lsif)
+    assert_no_level_overlap(rsg.draw_json)
   end
 
   def test_different_font_styles
@@ -101,7 +101,7 @@ class OverlapTest < Minitest::Test
       opts[:data] = "[Root [A [VeryLongLabel x]] [B [AnotherLongOne y]]]"
       opts[:fontstyle] = style
       rsg = RSyntaxTree::RSGenerator.new(opts)
-      assert_no_level_overlap(rsg.draw_lsif)
+      assert_no_level_overlap(rsg.draw_json)
     end
   end
 
@@ -112,7 +112,7 @@ class OverlapTest < Minitest::Test
       opts[:fontstyle] = "serif"
       opts[:fontsize] = size
       rsg = RSyntaxTree::RSGenerator.new(opts)
-      assert_no_level_overlap(rsg.draw_lsif)
+      assert_no_level_overlap(rsg.draw_json)
     end
   end
 
@@ -124,6 +124,6 @@ class OverlapTest < Minitest::Test
     opts[:fontstyle] = "serif"
     opts[:direction] = "ltr"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    assert_no_level_overlap(rsg.draw_lsif, "ltr")
+    assert_no_level_overlap(rsg.draw_json, "ltr")
   end
 end

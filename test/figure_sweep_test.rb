@@ -221,12 +221,12 @@ class FigureSweepTest < Minitest::Test
     FIXED_DIRECTION.each do |label, opts|
       next if opts[:fontstyle] == "cjk" # measured wider; the tree is Latin
 
-      lsif = JSON.parse(
+      doc = JSON.parse(
         RSyntaxTree::RSGenerator.new(
-          DEFAULT_OPTS.merge(data: MATRICES[:in_a_tree], format: "lsif").merge(MATRIX_BASE).merge(opts)
-        ).draw_lsif
+          DEFAULT_OPTS.merge(data: MATRICES[:in_a_tree], format: "json").merge(MATRIX_BASE).merge(opts)
+        ).draw_json
       )
-      rows = lsif["nodes"].group_by { |n| n["level"] }
+      rows = doc["nodes"].group_by { |n| n["level"] }
       rows.each_value do |row|
         row.sort_by { |n| n["position"]["x"] }.each_cons(2) do |a, b|
           gap = b["position"]["x"] - (a["position"]["x"] + a["position"]["content_width"])
@@ -250,12 +250,12 @@ class FigureSweepTest < Minitest::Test
       SETTINGS.each do |label, opts|
         data = MATRICES[name]
         where = "#{name} at #{label}"
-        lsif = JSON.parse(
+        doc = JSON.parse(
           RSyntaxTree::RSGenerator.new(
-            DEFAULT_OPTS.merge(data: data, format: "lsif").merge(MATRIX_BASE).merge(opts)
-          ).draw_lsif
+            DEFAULT_OPTS.merge(data: data, format: "json").merge(MATRIX_BASE).merge(opts)
+          ).draw_json
         )
-        node = lsif["nodes"].first
+        node = doc["nodes"].first
         bottom = node["position"]["y"] + node["position"]["content_height"]
         ink = ink_bottom(draw(data, **MATRIX_BASE, **opts))
         next unless ink
@@ -364,12 +364,12 @@ class FigureSweepTest < Minitest::Test
   # The width the layout gave the label 'relies', read from the interchange
   # format, which reports what the measuring — not the drawing — arrived at.
   def label_width(data, **opts)
-    lsif = JSON.parse(
+    doc = JSON.parse(
       RSyntaxTree::RSGenerator.new(
-        DEFAULT_OPTS.merge(data: data, format: "lsif").merge(opts)
-      ).draw_lsif
+        DEFAULT_OPTS.merge(data: data, format: "json").merge(opts)
+      ).draw_json
     )
-    node = lsif["nodes"].find { |n| n["label"]["raw"].to_s.include?("relies") }
+    node = doc["nodes"].find { |n| n["label"]["raw"].to_s.include?("relies") }
     refute_nil node
     node["position"]["content_width"]
   end
@@ -378,13 +378,13 @@ class FigureSweepTest < Minitest::Test
   # read from the interchange format, which is where the layout says where it
   # put things.
   def parent_to_daughter_gaps(data, **opts)
-    lsif = JSON.parse(
+    doc = JSON.parse(
       RSyntaxTree::RSGenerator.new(
-        DEFAULT_OPTS.merge(data: data, format: "lsif").merge(opts)
-      ).draw_lsif
+        DEFAULT_OPTS.merge(data: data, format: "json").merge(opts)
+      ).draw_json
     )
-    by_id = lsif["nodes"].to_h { |n| [n["id"], n] }
-    lsif["edges"].map do |e|
+    by_id = doc["nodes"].to_h { |n| [n["id"], n] }
+    doc["edges"].map do |e|
       mother = by_id[e["from"]]
       daughter = by_id[e["to"]]
       next unless mother && daughter
@@ -396,12 +396,12 @@ class FigureSweepTest < Minitest::Test
 
   # Where each node sits and how wide it is, read from the interchange format.
   def node_extents(data, **opts)
-    lsif = JSON.parse(
+    doc = JSON.parse(
       RSyntaxTree::RSGenerator.new(
-        DEFAULT_OPTS.merge(data: data, format: "lsif").merge(opts)
-      ).draw_lsif
+        DEFAULT_OPTS.merge(data: data, format: "json").merge(opts)
+      ).draw_json
     )
-    lsif["nodes"].to_h { |n| [n["id"], [n["position"]["x"], n["position"]["content_width"]]] }
+    doc["nodes"].to_h { |n| [n["id"], [n["position"]["x"], n["position"]["content_width"]]] }
   end
 
   # How many labels a shade holds, and how many it reaches at all. The two are

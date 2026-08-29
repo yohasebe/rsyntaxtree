@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 #==========================
-# lsif_graph.rb
+# json_graph.rb
 #==========================
 #
 # Generates LSIF (Linguistic Structure Interchange Format) JSON output.
@@ -12,7 +12,7 @@ require_relative 'base_graph'
 require_relative 'utils'
 
 module RSyntaxTree
-  class LsifGraph < BaseGraph
+  class JSONGraph < BaseGraph
     attr_accessor :width, :height
 
     def initialize(element_list, params, global)
@@ -30,7 +30,7 @@ module RSyntaxTree
       @global = global
     end
 
-    def lsif_data
+    def json_data
       metrics = parse_list
       @width = metrics[:width] + @global[:h_gap_between_nodes] * 2
       @height = metrics[:height] + @global[:height_connector_to_text] / 2
@@ -241,14 +241,7 @@ module RSyntaxTree
       element.content.each do |l|
         next unless l[:type] == :text
 
-        segments = l[:elements].map do |e|
-          next if e[:decoration].include?(:whitespace) && e[:text].strip.empty?
-
-          {
-            text: e[:text].gsub(WHITESPACE_BLOCK, " ").gsub('&#62;', '>').gsub('&#60;', '<'),
-            decorations: e[:decoration].map(&:to_s).reject { |d| d == "whitespace" }
-          }
-        end.compact
+        segments = l[:elements].map { |e| build_segment(e) }.compact
         lines << { segments: segments } unless segments.empty?
       end
 
@@ -256,6 +249,43 @@ module RSyntaxTree
         raw: element.raw_content,
         lines: lines
       }
+    end
+
+    def build_segment(run)
+      return nil if run[:decoration].include?(:whitespace) && run[:text].strip.empty?
+
+      segment = {
+        text: run[:text].gsub(WHITESPACE_BLOCK, " ").gsub('&#62;', '>').gsub('&#60;', '<'),
+        decorations: run[:decoration].map(&:to_s).reject { |d| d == "whitespace" }
+      }
+      # A feature matrix used to reach this document as an empty segment
+      # marked "matrix", its attribute-value pairs recoverable only by
+      # re-parsing the raw label — which is no way to score whether a model
+      # wrote CASE nom where CASE nom was wanted. The rows come through now:
+      # cells split on the tab stops, rules kept as rows of their own, a
+      # matrix inside a cell recursing.
+      segment[:matrix] = { rows: build_matrix_rows(run[:matrix]) } if run[:decoration].include?(:matrix) && run[:matrix]
+      segment
+    end
+
+    def build_matrix_rows(matrix_lines)
+      matrix_lines.filter_map do |line|
+        case line[:type]
+        when :border then { rule: "single" }
+        when :bborder then { rule: "double" }
+        when :text
+          cells = [[]]
+          line[:elements].each do |run|
+            if run[:decoration].include?(:tabstop)
+              cells << []
+            else
+              segment = build_segment(run)
+              cells.last << segment if segment
+            end
+          end
+          { cells: cells }
+        end
+      end
     end
 
     def map_enclosure(enclosure)
@@ -273,8 +303,14 @@ module RSyntaxTree
 
     def build_json
       data = {
-        lsif: {
-          version: "0.3.0",
+        # What this document is, said by a field rather than by the key, so a
+        # reader checks ["format"]["name"] and the key never has to change
+        # again. Documents up to schema 0.3.0 said it with a top-level "lsif"
+        # key instead — a name that collided with the code-intelligence
+        # format of the same initials.
+        format: {
+          name: "rsyntaxtree-json",
+          version: "0.4.0",
           generator: "rsyntaxtree #{RSyntaxTree::VERSION}",
           level: "rendered"
         },

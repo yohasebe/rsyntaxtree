@@ -10,6 +10,23 @@ layout: default
 [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) |
 [Web App](https://yohasebe.com/rsyntaxtree)
 
+## [2.1.0] - 2026-08-29
+
+### Changed
+- The JSON output's format name is `json`: `-f json`, writing `syntree.json`.
+  The old name `lsif` collided with an established code-intelligence format
+  of the same initials, and called itself an interchange format when only
+  one tool had ever written or read it. It remains an accepted alias — the
+  CLI says so on stderr — until 3.0. The document now identifies itself in a
+  top-level `format` object (`name: "rsyntaxtree-json"`, schema 0.4.0) in
+  place of the `lsif` key.
+
+### Added
+- A feature matrix in the JSON output carries its rows: cells split on the
+  tab stops, rules as rows of their own, and a matrix inside a cell
+  recursing. It used to arrive as an empty segment marked "matrix", its
+  attribute-value pairs recoverable only by re-parsing the raw label.
+
 ## [2.0.0] - 2026-08-28
 
 The removals announced in 1.10.0 and 1.12.0, and the fixes that came out of

@@ -32,8 +32,8 @@ class TidyTest < Minitest::Test
     RSyntaxTree::RSGenerator.new(opts)
   end
 
-  def lsif(data, extra = {})
-    JSON.parse(generator(data, extra).draw_lsif)
+  def json_of(data, extra = {})
+    JSON.parse(generator(data, extra).draw_json)
   end
 
   # => [[y0, y1, x0, x1, id], ...]
@@ -72,15 +72,15 @@ class TidyTest < Minitest::Test
   # tidy: on never produces overlapping labels (9 languages, ttb and ltr)
   def test_tidy_on_no_overlaps_nine_languages
     UD_TREES.each do |lang, (bracket, fontstyle)|
-      assert_no_overlaps lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["nodes"], "#{lang}/ttb"
-      assert_no_overlaps lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", direction: "ltr")["nodes"], "#{lang}/ltr"
+      assert_no_overlaps json_of(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["nodes"], "#{lang}/ttb"
+      assert_no_overlaps json_of(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", direction: "ltr")["nodes"], "#{lang}/ltr"
     end
   end
 
   # tidy: on preserves the global leaf order (left to right)
   def test_tidy_preserves_leaf_order
     UD_TREES.each do |lang, (bracket, fontstyle)|
-      centers = leaf_centers(lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["nodes"])
+      centers = leaf_centers(json_of(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["nodes"])
       assert centers.each_cons(2).all? { |x, y| x <= y + 0.01 }, "#{lang}: leaf order changed"
     end
   end
@@ -89,7 +89,7 @@ class TidyTest < Minitest::Test
   def test_hspacing_monotonic_tidy
     bracket, fontstyle = UD_TREES["Chinese"]
     gaps = [0.5, 1.0, 2.0].map do |sp|
-      min_label_gap(lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", hspacing: sp)["nodes"])
+      min_label_gap(json_of(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low", hspacing: sp)["nodes"])
     end
     assert gaps[0] < gaps[1] && gaps[1] < gaps[2], "min label gap should grow with hspacing: #{gaps.inspect}"
   end
@@ -98,7 +98,7 @@ class TidyTest < Minitest::Test
   def test_hspacing_monotonic_off
     bracket, fontstyle = UD_TREES["Chinese"]
     widths = [0.5, 1.0, 2.0].map do |sp|
-      lsif(bracket, fontstyle: fontstyle, vheight: 1.2, hspacing: sp)["geometry"]["width"]
+      json_of(bracket, fontstyle: fontstyle, vheight: 1.2, hspacing: sp)["geometry"]["width"]
     end
     assert widths[0] < widths[1] && widths[1] < widths[2], "off-layout width should grow with hspacing: #{widths.inspect}"
   end
@@ -106,36 +106,36 @@ class TidyTest < Minitest::Test
   # medium: leaf centers keep global order while width shrinks below low
   def test_tidy_medium_ordered_nesting
     data = "[CP [John] [TP [T [V [V cause] [V fall]] [T]] [VP [V t] [CP [books] [t]]]]]"
-    w_low = lsif(data, tidy: "low")["geometry"]["width"]
-    w_medium = lsif(data, tidy: "medium")["geometry"]["width"]
-    w_high = lsif(data, tidy: "high")["geometry"]["width"]
+    w_low = json_of(data, tidy: "low")["geometry"]["width"]
+    w_medium = json_of(data, tidy: "medium")["geometry"]["width"]
+    w_high = json_of(data, tidy: "high")["geometry"]["width"]
     # Cross-environment Pango metrics differ by a pixel or two, so the
     # monotonicity is asserted with a small tolerance (cf. OverlapTest).
     tolerance = 2.0
     assert w_medium <= w_low + tolerance, "medium (#{w_medium}) should be no wider than low (#{w_low})"
     assert w_high <= w_medium + tolerance, "high (#{w_high}) should be no wider than medium (#{w_medium})"
-    centers = leaf_centers(lsif(data, tidy: "medium")["nodes"])
+    centers = leaf_centers(json_of(data, tidy: "medium")["nodes"])
     assert centers.each_cons(2).all? { |x, y| x <= y + 0.01 },
            "medium must keep global leaf-center order: #{centers.inspect}"
-    assert_no_overlaps lsif(data, tidy: "medium")["nodes"], "medium"
+    assert_no_overlaps json_of(data, tidy: "medium")["nodes"], "medium"
   end
 
   # tidy height budget: the tidy tree is never much taller than off
   # (the automatic budget replaces the old tidy_slope knob)
   def test_tidy_height_budget
     bracket, fontstyle = UD_TREES["Chinese"]
-    h_off = lsif(bracket, fontstyle: fontstyle, vheight: 1.2)["geometry"]["height"]
-    h_on = lsif(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["geometry"]["height"]
+    h_off = json_of(bracket, fontstyle: fontstyle, vheight: 1.2)["geometry"]["height"]
+    h_on = json_of(bracket, fontstyle: fontstyle, vheight: 1.2, tidy: "low")["geometry"]["height"]
     assert h_on <= h_off * 1.10, "tidy height #{h_on} should stay within 10% of off height #{h_off}"
   end
 
   # tidy: compact nests across rows => at least as narrow as plain tidy
   def test_tidy_high_no_wider
     data = "[CP [John] [TP [T [V [V cause] [V fall]] [T]] [VP [V t] [CP [books] [t]]]]]"
-    w_on = lsif(data, tidy: "low")["geometry"]["width"]
-    w_high = lsif(data, tidy: "high")["geometry"]["width"]
+    w_on = json_of(data, tidy: "low")["geometry"]["width"]
+    w_high = json_of(data, tidy: "high")["geometry"]["width"]
     assert w_high <= w_on, "compact (#{w_high}) should not be wider than on (#{w_on})"
-    assert_no_overlaps lsif(data, tidy: "high")["nodes"], "compact"
+    assert_no_overlaps json_of(data, tidy: "high")["nodes"], "compact"
   end
 
   # hspacing 1.0 is the identity (backward compatibility)
@@ -147,8 +147,8 @@ class TidyTest < Minitest::Test
 
   # tidy + mirror: no overlaps, leaf order reversed relative to tidy alone
   def test_tidy_plus_mirror
-    tidy_nodes = lsif(SIMPLE, tidy: "low")["nodes"]
-    mirror_nodes = lsif(SIMPLE, tidy: "low", mirror: "on")["nodes"]
+    tidy_nodes = json_of(SIMPLE, tidy: "low")["nodes"]
+    mirror_nodes = json_of(SIMPLE, tidy: "low", mirror: "on")["nodes"]
     assert_no_overlaps mirror_nodes, "tidy+mirror"
 
     tidy_leaves = leaf_centers(tidy_nodes)
@@ -159,7 +159,7 @@ class TidyTest < Minitest::Test
 
   # tidy + ltr: no crash, no overlaps, root stays at the left edge
   def test_tidy_plus_ltr
-    nodes = lsif(SIMPLE, tidy: "low", direction: "ltr")["nodes"]
+    nodes = json_of(SIMPLE, tidy: "low", direction: "ltr")["nodes"]
     assert_no_overlaps nodes, "tidy+ltr"
     root = nodes.find { |n| n["parent"].nil? }
     leaves = nodes.select { |n| n["type"] == "leaf" }

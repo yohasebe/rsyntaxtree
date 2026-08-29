@@ -307,7 +307,7 @@ end
     result = run_cli("-o", @tmpdir, "-f", "jpg", "[S [NP a] [VP b]]")
 
     refute result[:status].success?, "JPG should be refused"
-    assert_includes result[:stderr], "must be png, pdf, svg, lsif, or tikz"
+    assert_includes result[:stderr], "must be png, pdf, svg, json, or tikz"
     assert_empty Dir.glob(File.join(@tmpdir, "*.jpg"))
   end
 
@@ -315,8 +315,16 @@ end
     result = run_cli("-o", @tmpdir, "-f", "gif", "[S [NP a] [VP b]]")
 
     refute result[:status].success?, "GIF should be refused"
-    assert_includes result[:stderr], "must be png, pdf, svg, lsif, or tikz"
+    assert_includes result[:stderr], "must be png, pdf, svg, json, or tikz"
     assert_empty Dir.glob(File.join(@tmpdir, "*.gif"))
+  end
+
+  def test_the_old_format_name_warns_and_writes_the_new_file
+    result = run_cli("-o", @tmpdir, "-f", "lsif", "[S [NP a] [VP b]]")
+
+    assert result[:status].success?, "the old name must keep working until 3.0"
+    assert_includes result[:stderr], "'lsif' is now 'json'"
+    refute_empty Dir.glob(File.join(@tmpdir, "syntree.json"))
   end
 
   def test_png_does_not_warn

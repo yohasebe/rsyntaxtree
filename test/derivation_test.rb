@@ -363,17 +363,17 @@ class DerivationTest < Minitest::Test
   end
 
   # The interchange format states that it carries how the figure was drawn.
-  def test_lsif_records_the_rules_as_rules
+  def test_json_records_the_rules_as_rules
     require "json"
-    lsif = JSON.parse(
+    doc = JSON.parse(
       RSyntaxTree::RSGenerator.new(
-        DEFAULT_OPTS.merge(data: APPLICATION, format: "lsif", leafstyle: "nothing",
+        DEFAULT_OPTS.merge(data: APPLICATION, format: "json", leafstyle: "nothing",
                            direction: "btt", derivation: "on")
-      ).draw_lsif
+      ).draw_json
     )
-    assert_equal true, lsif["meta"]["source"]["params"]["derivation"]
-    assert_equal "btt", lsif["geometry"]["direction"]
-    assert_equal ["rule"], lsif["edges"].map { |e| e["connector"] }.uniq
+    assert_equal true, doc["meta"]["source"]["params"]["derivation"]
+    assert_equal "btt", doc["geometry"]["direction"]
+    assert_equal ["rule"], doc["edges"].map { |e| e["connector"] }.uniq
   end
 
   private

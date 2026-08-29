@@ -24,13 +24,13 @@ class FormatsTest < Minitest::Test
   end
 
   def test_format_list_is_stable
-    assert_equal %w[png pdf svg lsif tikz], FORMATS
+    assert_equal %w[png pdf svg json tikz], FORMATS
   end
 
   def test_cli_rejects_an_unknown_format_with_the_same_words
     _out, err, status = Open3.capture3("ruby", BIN_PATH, "-f", "bmp", "[S a]")
     refute status.success?
-    assert_includes err, "must be png, pdf, svg, lsif, or tikz"
+    assert_includes err, "must be png, pdf, svg, json, or tikz"
   end
 
   def test_cli_tikz_writes_a_tex_file

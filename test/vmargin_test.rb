@@ -116,10 +116,10 @@ class VmarginTest < Minitest::Test
                  "an empty string is an option not given (and so the default 0.4)"
   end
 
-  def test_lsif_records_the_value_and_the_default
+  def test_json_records_the_value_and_the_default
     require "json"
-    with = JSON.parse(RSGenerator.new(data: "[S a]", format: "lsif", vmargin: "0.35").draw_lsif)
-    without = JSON.parse(RSGenerator.new(data: "[S a]", format: "lsif").draw_lsif)
+    with = JSON.parse(RSGenerator.new(data: "[S a]", format: "json", vmargin: "0.35").draw_json)
+    without = JSON.parse(RSGenerator.new(data: "[S a]", format: "json").draw_json)
     assert_equal 0.35, with.dig("meta", "source", "params", "vmargin")
     assert_equal 0.4, without.dig("meta", "source", "params", "vmargin")
   end

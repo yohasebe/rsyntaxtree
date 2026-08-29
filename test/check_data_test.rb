@@ -90,7 +90,7 @@ class CheckDataTest < Minitest::Test
   end
 
   def test_valid_tree_passes_in_every_format
-    %w[svg png pdf lsif tikz].each do |format|
+    %w[svg png pdf json tikz].each do |format|
       assert RSyntaxTree::RSGenerator.check_data("[S [NP a] [VP b]]", format: format),
              "should validate as #{format}"
     end

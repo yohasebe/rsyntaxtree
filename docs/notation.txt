@@ -87,7 +87,7 @@ Options (the command line spells them --like-this):
 
 | option     | what it decides |
 |------------|-----------------|
-| format     | png, svg, pdf, tikz, lsif |
+| format     | png, svg, pdf, tikz, json (the tree as structured data) |
 | fontstyle  | sans, serif, mono, cjk |
 | fontsize   | 6–26 |
 | color      | modern, traditional, off, gray |

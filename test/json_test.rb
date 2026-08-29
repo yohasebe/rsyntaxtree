@@ -24,22 +24,23 @@ class LsifGeneratorTest < Minitest::Test
 
     name, opts = ExampleOptions.load(md_path)
 
-    define_method "test_lsif_#{name}" do
+    define_method "test_json_#{name}" do
       rsg = RSyntaxTree::RSGenerator.new(opts)
-      json_str = rsg.draw_lsif
+      json_str = rsg.draw_json
       data = JSON.parse(json_str)
 
       # Verify top-level structure
-      assert data.key?("lsif"), "Missing 'lsif' key"
+      assert data.key?("format"), "Missing 'format' key"
       assert data.key?("geometry"), "Missing 'geometry' key"
       assert data.key?("nodes"), "Missing 'nodes' key"
       assert data.key?("edges"), "Missing 'edges' key"
       assert data.key?("paths"), "Missing 'paths' key"
 
-      # Verify lsif section
-      assert_equal "0.3.0", data["lsif"]["version"]
-      assert_equal "rendered", data["lsif"]["level"]
-      assert data["lsif"]["generator"].start_with?("rsyntaxtree")
+      # Verify format section
+      assert_equal "rsyntaxtree-json", data["format"]["name"]
+      assert_equal "0.4.0", data["format"]["version"]
+      assert_equal "rendered", data["format"]["level"]
+      assert data["format"]["generator"].start_with?("rsyntaxtree")
 
       # Verify geometry
       assert data["geometry"]["width"] > 0, "Width must be positive"
@@ -114,39 +115,39 @@ class LsifGeneratorTest < Minitest::Test
       opts = DEFAULT_OPTS.dup
       opts[:data] = "[S [NP a] [VP b]]"
       opts[:hyphen] = mode
-      data = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_lsif)
+      data = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_json)
       assert_equal mode, data.dig("meta", "source", "params", "hyphen")
     end
   end
 end
 
 class LsifDirectionTest < Minitest::Test
-  def test_lsif_default_direction_is_ttb
+  def test_json_default_direction_is_ttb
     opts = DEFAULT_OPTS.dup
     opts[:data] = "[S [NP test] [VP works]]"
     opts[:fontstyle] = "sans"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    data = JSON.parse(rsg.draw_lsif)
+    data = JSON.parse(rsg.draw_json)
     assert_equal "ttb", data["geometry"]["direction"]
   end
 
-  def test_lsif_ltr_direction
+  def test_json_ltr_direction
     opts = DEFAULT_OPTS.dup
     opts[:data] = "[S [NP test] [VP works]]"
     opts[:fontstyle] = "sans"
     opts[:direction] = "ltr"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    data = JSON.parse(rsg.draw_lsif)
+    data = JSON.parse(rsg.draw_json)
     assert_equal "ltr", data["geometry"]["direction"]
   end
 
-  def test_lsif_ltr_has_valid_structure
+  def test_json_ltr_has_valid_structure
     opts = DEFAULT_OPTS.dup
     opts[:data] = "[S [NP the cat] [VP [V sat] [PP [P on] [NP the mat]]]]"
     opts[:fontstyle] = "serif"
     opts[:direction] = "ltr"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    data = JSON.parse(rsg.draw_lsif)
+    data = JSON.parse(rsg.draw_json)
 
     assert data["geometry"]["width"] > 0
     assert data["geometry"]["height"] > 0
@@ -163,13 +164,13 @@ class LsifDirectionTest < Minitest::Test
     assert leaf_xs.all? { |x| x >= root_x }, "In LTR, all leaves should be to the right of root"
   end
 
-  def test_lsif_ltr_nodes_have_valid_positions
+  def test_json_ltr_nodes_have_valid_positions
     opts = DEFAULT_OPTS.dup
     opts[:data] = "[A [B [D] [E]] [C [F] [G]]]"
     opts[:fontstyle] = "sans"
     opts[:direction] = "ltr"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    data = JSON.parse(rsg.draw_lsif)
+    data = JSON.parse(rsg.draw_json)
 
     data["nodes"].each do |node|
       pos = node["position"]
@@ -180,13 +181,13 @@ class LsifDirectionTest < Minitest::Test
     end
   end
 
-  def test_lsif_ltr_edges_reference_valid_nodes
+  def test_json_ltr_edges_reference_valid_nodes
     opts = DEFAULT_OPTS.dup
     opts[:data] = "[S [NP test] [VP works]]"
     opts[:fontstyle] = "sans"
     opts[:direction] = "ltr"
     rsg = RSyntaxTree::RSGenerator.new(opts)
-    data = JSON.parse(rsg.draw_lsif)
+    data = JSON.parse(rsg.draw_json)
 
     node_ids = data["nodes"].map { |n| n["id"] }
     data["edges"].each do |edge|
@@ -266,11 +267,11 @@ class SvgDirectionTest < Minitest::Test
     assert doc.errors.empty?, "TTB SVG should still be valid XML"
   end
 
-  def test_lsif_records_region_in_node_style
+  def test_json_records_region_in_node_style
     opts = DEFAULT_OPTS.dup
     opts[:data] = "[S [%@yellow:NP a] [VP b]]"
     opts[:fontstyle] = "sans"
-    data = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_lsif)
+    data = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_json)
 
     np = data["nodes"].find { |n| n["label"]["lines"].first["segments"].first["text"] == "NP" }
     refute_nil np
@@ -278,5 +279,39 @@ class SvgDirectionTest < Minitest::Test
 
     vp = data["nodes"].find { |n| n["label"]["lines"].first["segments"].first["text"] == "VP" }
     assert_nil vp["style"]["region"], "Non-region node should have null region"
+  end
+
+  # The name this format wore from 1.11.0 to 2.0.0. It stays a spelling of
+  # the same thing until 3.0 — same output to the byte — because five months
+  # of being documented is five months of possible callers.
+  def test_the_old_name_is_an_alias_for_now
+    data = "[S [NP a] [VP b]]"
+    assert_equal RSyntaxTree::RSGenerator.new(data: data, format: "json").draw_json,
+                 RSyntaxTree::RSGenerator.new(data: data, format: "lsif").draw_json
+    gen = RSyntaxTree::RSGenerator.new(data: data, format: "json")
+    assert_equal gen.draw_json, gen.draw_lsif, "draw_lsif must stay a spelling of draw_json"
+  end
+
+  # What a matrix says, not just that there is one. The rows come through as
+  # cells split on the tab stops, rules as rows of their own, and a matrix
+  # inside a cell recursing — so scoring an attribute-value pair no longer
+  # means re-parsing the raw label.
+  def test_a_matrix_hands_over_its_rows
+    doc = JSON.parse(RSyntaxTree::RSGenerator.new(
+      data: '[#(CAT\tnp\n---\nCASE\tnom\nAGR\t#(NUM\tsg#)#) [NP Kim]]',
+      format: "json"
+    ).draw_json)
+    matrix = doc["nodes"].first.dig("label", "lines", 0, "segments", 0, "matrix")
+    refute_nil matrix, "a matrix segment must carry its rows"
+
+    rows = matrix["rows"]
+    texts = ->(cell) { cell.map { |s| s["text"] }.join }
+    assert_equal %w[CAT np], rows[0]["cells"].map(&texts)
+    assert_equal({ "rule" => "single" }, rows[1])
+    assert_equal %w[CASE nom], rows[2]["cells"].map(&texts)
+
+    nested = rows[3]["cells"][1][0]["matrix"]
+    refute_nil nested, "a matrix in a cell must recurse"
+    assert_equal %w[NUM sg], nested["rows"][0]["cells"].map(&texts)
   end
 end

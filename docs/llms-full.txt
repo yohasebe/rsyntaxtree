@@ -1,4 +1,4 @@
-# RSyntaxTree 2.0.0 — notation, manual and examples
+# RSyntaxTree 2.1.0 — notation, manual and examples
 
 Everything a language model needs in order to write this notation, in one
 file: the one-page reference — the characters that already mean something,
@@ -100,7 +100,7 @@ Options (the command line spells them --like-this):
 
 | option     | what it decides |
 |------------|-----------------|
-| format     | png, svg, pdf, tikz, lsif |
+| format     | png, svg, pdf, tikz, json (the tree as structured data) |
 | fontstyle  | sans, serif, mono, cjk |
 | fontsize   | 6–26 |
 | color      | modern, traditional, off, gray |

@@ -34,12 +34,12 @@ WHITESPACE_BLOCK = "￭"
 # Every format the library can produce, and the file extension each one
 # writes. The CLI builds its --format validation, help text, and output
 # filename from these, so a new format is added here and nowhere else.
-FORMATS = %w[png pdf svg lsif tikz].freeze
+FORMATS = %w[png pdf svg json tikz].freeze
 FORMAT_EXTENSIONS = {
   "png" => "png",
   "pdf" => "pdf",
   "svg" => "svg",
-  "lsif" => "lsif.json",
+  "json" => "json",
   "tikz" => "tex" # forest code, to be included in a LaTeX document
 }.freeze
 
@@ -51,7 +51,10 @@ FORMAT_EXTENSIONS = {
 # purpose (see switched_on?); unknown keys are not rejected, because callers
 # pass their own extra parameters through.
 OPTION_VALUES = {
-  format: FORMATS,
+  # lsif is the name the JSON format wore from 1.11.0 to 2.0.0, accepted as
+  # an alias until 3.0. It collided with a code-intelligence format of the
+  # same initials, and claimed an interchange nobody else had implemented.
+  format: FORMATS + ["lsif"],
   leafstyle: %w[auto triangle bar nothing],
   fontstyle: ["sans", "serif", "cjk", "mono", "noto-sans", "noto-serif", "noto-sans-mono", "cjk zenhei"],
   color: %w[modern traditional gray grey off none on true false],
@@ -152,7 +155,7 @@ require_relative 'rsyntaxtree/utils'
 require_relative 'rsyntaxtree/element'
 require_relative 'rsyntaxtree/elementlist'
 require_relative 'rsyntaxtree/svg_graph'
-require_relative 'rsyntaxtree/lsif_graph'
+require_relative 'rsyntaxtree/json_graph'
 require_relative 'rsyntaxtree/tikz_generator'
 require_relative 'rsyntaxtree/version'
 require_relative 'rsyntaxtree/string_parser'
@@ -263,6 +266,8 @@ module RSyntaxTree
                             else
                               "off"
                             end
+        when :format
+          new_params[key] = value.to_s == "lsif" ? "json" : value.to_s
         when :hyphen
           new_params[key] = value.to_s == "literal" ? "literal" : "markup"
         when :fontsize
@@ -461,7 +466,7 @@ module RSyntaxTree
       case @params[:format]
       when "png" then raster_surface_for(draw_svg, &:finish)
       when "pdf" then pdf_surface_for(draw_svg, StringIO.new, &:finish)
-      when "lsif" then draw_lsif
+      when "json" then draw_json
       when "tikz" then draw_tikz
       else draw_svg
       end
@@ -535,11 +540,16 @@ module RSyntaxTree
       graph.svg_data
     end
 
-    def draw_lsif
+    def draw_json
       sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
       sp.parse
-      graph = LsifGraph.new(sp.get_elementlist, @params, @global)
-      graph.lsif_data
+      graph = JSONGraph.new(sp.get_elementlist, @params, @global)
+      graph.json_data
+    end
+
+    # The name the JSON output wore from 1.11.0 to 2.0.0; removed in 3.0.
+    def draw_lsif
+      draw_json
     end
 
     def draw_tikz(standalone: false, font: nil)

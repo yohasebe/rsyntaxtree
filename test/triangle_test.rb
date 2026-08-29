@@ -89,9 +89,9 @@ class TriangleTest < Minitest::Test
 
   # LSIF states what the figure was drawn with, so it has to say triangle here
   # too. It carries its own copy of this decision.
-  def test_lsif_records_the_triangle
+  def test_json_records_the_triangle
     edges = lambda do |data|
-      json = JSON.parse(RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(data: data)).draw_lsif)
+      json = JSON.parse(RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(data: data)).draw_json)
       (json.dig("graphs", 0, "edges") || json["edges"]).map { |e| e["connector"] }
     end
     assert_equal ["triangle"], edges.call("[NP ^cats]")

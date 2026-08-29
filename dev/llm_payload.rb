@@ -151,7 +151,7 @@ module LlmPayload
       # RSyntaxTree
 
       > A generator for linguistic syntax trees. The input is labeled bracket
-      > notation; the output is PNG, SVG, PDF, TikZ or LSIF. Version #{version}.
+      > notation; the output is PNG, SVG, PDF, TikZ or JSON. Version #{version}.
 
       The notation is small, and several characters in it already mean
       something. The reference leads with those, which is why it is worth

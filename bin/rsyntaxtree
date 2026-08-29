@@ -9,7 +9,7 @@ require_relative '../lib/rsyntaxtree'
 require_relative '../lib/rsyntaxtree/utils'
 require_relative '../lib/rsyntaxtree/format_converter'
 
-# "png, pdf, svg, lsif, or tikz" — built once from the library's
+# "png, pdf, svg, json, or tikz" — built once from the library's
 # own list so the three places that name the formats cannot drift apart.
 FORMAT_LIST_MESSAGE = FORMATS.join(", ").sub(/, ([^,]+)\z/, ', or \1')
 
@@ -17,7 +17,7 @@ FORMAT_LIST_MESSAGE = FORMATS.join(", ").sub(/, ([^,]+)\z/, ', or \1')
 CONFIG_VALIDATORS = {
   outdir: ->(v) { FileTest.directory?(v) ? nil : "must be an existing directory path" },
   outfilename: ->(v) { v.is_a?(String) ? nil : "must be a string" },
-  format: ->(v) { FORMATS.include?(v.to_s) ? nil : "must be #{FORMAT_LIST_MESSAGE}" },
+  format: ->(v) { FORMATS.include?(v.to_s) || v.to_s == "lsif" ? nil : "must be #{FORMAT_LIST_MESSAGE}" },
   leafstyle: ->(v) { OPTION_VALUES[:leafstyle].include?(v.to_s) ? nil : "must be auto, triangle, bar, or nothing" },
   fontstyle: ->(v) { OPTION_VALUES[:fontstyle].include?(v.to_s) ? nil : "must be sans, serif, cjk, or mono" },
   fontsize: ->(v) { v.is_a?(Integer) && v >= 6 && v <= 26 ? nil : "must be in the range of 6-26" },
@@ -131,6 +131,13 @@ opts = Optimist.options do
   opt :notation, "Print the notation reference to stdout and exit", short: :none
   opt :examples, "Print every gallery example, with the options each needs, to stdout and exit", short: :none
   opt :help, "This is a custom help message", short: :h
+end
+
+# The name the JSON format wore from 1.11.0 to 2.0.0. Accepted until 3.0,
+# and said out loud, the way JPG and GIF were seen out.
+if opts[:format] == "lsif"
+  warn "Warning: the format name 'lsif' is now 'json'. The old name will be removed in RSyntaxTree 3.0."
+  opts[:format] = "json"
 end
 
 Optimist.die :outdir, "must be an exsting directory path" unless FileTest.directory?(opts[:outdir])

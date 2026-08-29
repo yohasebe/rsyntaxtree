@@ -151,9 +151,9 @@ class ShearTest < Minitest::Test
     RSGenerator.new(data: TREE, format: "tikz").draw_tikz # 0 stays fine
   end
 
-  def test_lsif_records_the_angle
+  def test_json_records_the_angle
     require "json"
-    data = JSON.parse(RSGenerator.new(data: TREE, format: "lsif", shear: "20").draw_lsif)
+    data = JSON.parse(RSGenerator.new(data: TREE, format: "json", shear: "20").draw_json)
     assert_equal 20.0, data.dig("meta", "source", "params", "shear")
   end
 

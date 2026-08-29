@@ -568,7 +568,7 @@ def test_an_enclosure_stays_inside_the_node_it_encloses
   opts = @base_opts.merge(data: "[S [##Alpha [b]] [##Beta [c]]]")
   generator = RSyntaxTree::RSGenerator.new(opts)
   svg = generator.draw_svg
-  nodes = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_lsif)["nodes"]
+  nodes = JSON.parse(RSyntaxTree::RSGenerator.new(opts).draw_json)["nodes"]
 
   boxed = nodes.select { |n| n.dig("style", "enclosure") == "rectangle" }
                .map { |n| [n["position"]["x"], n["position"]["x"] + n["position"]["content_width"]] }
