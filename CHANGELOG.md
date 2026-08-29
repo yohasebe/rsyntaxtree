@@ -66,7 +66,12 @@ looking at what was left. Every figure in the gallery draws exactly as it did.
   lean reads as a surface seen at an angle rather than as a mistake. The
   whole picture shears as one affine piece — layout untouched, region
   shades coming out parallelograms on their own, and nothing able to newly
-  touch or cross. `shear_plane` turns the plane off or gives it a colour.
+  touch or cross. The plane is fill without an edge — a region shade is
+  bounded because it marks one part of a figure off from the rest, and a
+  line round the whole drawing would read as a frame. `shear_plane` turns
+  it off or gives it a colour, and a transparent background takes it away
+  for you: a clear background is asked for in order to lay the figure over
+  something else, and a sheet under it is what would defeat that.
   TikZ refuses a sheared figure the way it refuses a derivation.
 - `vmargin`: the clearance between a label and its connectors, the same
   above and below, measured from the ink its row actually contains — a row

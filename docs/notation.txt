@@ -104,7 +104,7 @@ Options (the command line spells them --like-this):
 | derivation | one rule across the daughters, categorial-grammar style |
 | hyphen     | markup (hyphens underline) or literal (hyphens are hyphens) |
 | shear      | tilt the drawn figure: degrees, −45 to 45, positive leans the top right |
-| shear_plane | the plane behind a sheared figure: on (grey), off, or a colour |
+| shear_plane | the plane behind a sheared figure: on (grey), off, or a colour; never drawn on a transparent background |
 | vmargin    | clearance between a label and its connectors, 0.1–1.0, the same above and below |
 
 hspacing and vheight are named for the top-to-bottom layout, and follow the

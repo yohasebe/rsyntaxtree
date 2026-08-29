@@ -93,6 +93,25 @@ class ShearTest < Minitest::Test
     refute_includes svg(TREE), "fill-opacity=\"0.12\"", "a plane with no shear"
   end
 
+  # A clear background is asked for in order to lay the figure over something
+  # else, and an opaque sheet under the figure is the one thing that would
+  # defeat that. The plane goes when the background does.
+  def test_a_clear_background_takes_the_plane_with_it
+    refute plane_rect(svg(TREE, shear: "20", transparent: "on")),
+           "the plane stayed on a transparent background"
+    assert plane_rect(svg(TREE, shear: "20", transparent: "off"))
+  end
+
+  # Fill alone. A region shade is bounded because it marks one part of a
+  # figure off from the rest; the plane is under all of it, and an edge round
+  # the whole drawing reads as a frame.
+  def test_the_plane_has_no_outline
+    out = svg(TREE, shear: "20")
+    plane = out[/<rect x="[-\d.]+" y="[-\d.]+"[^>]*fill-opacity="0.12"[^>]*\/>/]
+    refute_nil plane
+    assert_includes plane, 'stroke="none"'
+  end
+
   def test_the_plane_takes_a_colour_and_refuses_a_non_colour
     assert_includes svg(TREE, shear: "20", shear_plane: "lightblue"), "fill=\"lightblue\""
     assert_includes svg(TREE, shear: "20", shear_plane: "#8e4585"), "fill=\"#8e4585\""

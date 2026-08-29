@@ -96,7 +96,7 @@ cannot outlive the feature it names.
 - `%NP`, `%@blue:NP` — a region shade behind the whole subtree → [Region Shade](#region-shade)
 - `@red:NP`, `@#3af:NP` — colour, by name or 3/6 hex digits → [Per-Node Styling](#per-node-styling-color)
 
-**Options** — each is a select in the [web interface](https://yohasebe.com/rsyntaxtree) and a flag on the command line: `format` (png, svg, pdf, ...), `fontstyle` and `fontsize`, `color`, `linewidth`, `leafstyle` (what joins a node to its leaf), `direction` (ttb, ltr, btt), `mirror` for RTL scripts, `tidy` and `hspacing` and `vheight` for the packing and the spacing, `polyline` for right-angled connectors, `hide_default_connectors` for figures whose links are all drawn by hand, `transparent` for a clear background, `derivation` for categorial-style figures, `hyphen` (whether a hyphen is markup or a character), and `shear` with `shear_plane`, which tilt the finished figure — the whole drawing leans by the given angle (degrees, positive leaning the top to the right) and lies on a plane drawn behind it, so the lean reads as a surface seen at an angle rather than as a mistake. `shear_plane` turns that plane off or gives it a colour. `vmargin` sets the clearance between a label and its connectors — the same above and below, measured from the type the row actually contains. Each option is described in the section it concerns.
+**Options** — each is a select in the [web interface](https://yohasebe.com/rsyntaxtree) and a flag on the command line: `format` (png, svg, pdf, ...), `fontstyle` and `fontsize`, `color`, `linewidth`, `leafstyle` (what joins a node to its leaf), `direction` (ttb, ltr, btt), `mirror` for RTL scripts, `tidy` and `hspacing` and `vheight` for the packing and the spacing, `polyline` for right-angled connectors, `hide_default_connectors` for figures whose links are all drawn by hand, `transparent` for a clear background, `derivation` for categorial-style figures, `hyphen` (whether a hyphen is markup or a character), and `shear` with `shear_plane`, which tilt the finished figure — the whole drawing leans by the given angle (degrees, positive leaning the top to the right) and lies on a plane drawn behind it, so the lean reads as a surface seen at an angle rather than as a mistake. `shear_plane` turns that plane off or gives it a colour, and a transparent background takes it away for you. `vmargin` sets the clearance between a label and its connectors — the same above and below, measured from the type the row actually contains. Each option is described in the section it concerns.
 
 ### Tree Direction
 
@@ -505,7 +505,9 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 to the right — and `Shear plane` draws the plane it lies on. The plane is what
 makes the tilt read as a surface seen at an angle rather than as a drawing
 gone wrong; turn it off, or give it a colour, when the figure says the same
-thing without it.
+thing without it. A transparent background takes the plane with it: a clear
+background is asked for in order to lay the figure over something else, and a
+sheet under it is what would defeat that.
 
 The whole picture leans as one piece. The layout is computed exactly as it is
 for an upright tree, and the plane, the shades, the tree and its rails are

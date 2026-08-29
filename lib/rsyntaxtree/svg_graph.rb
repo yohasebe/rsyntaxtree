@@ -28,7 +28,6 @@ module RSyntaxTree
     # region marks part of a figure out from the rest, and the plane is
     # behind all of it — at the region's own opacity the whole page darkens.
     SHEAR_PLANE_FILL_OPACITY = 0.12
-    SHEAR_PLANE_STROKE_OPACITY = 0.4
 
     attr_accessor :width, :height
 
@@ -204,16 +203,21 @@ module RSyntaxTree
         # and the rails all live inside the group, so an affine map carries
         # every incidence with it — nothing can newly touch or cross. The
         # background stays outside, painted to the sheared canvas.
+        # No plane on a transparent background: what a clear background is
+        # for is laying the figure over something else, and an opaque sheet
+        # under it is the one thing that would defeat that.
         plane = +""
-        unless @shear_plane == "off"
+        if @shear_plane != "off" && !@transparent
           color = @shear_plane == "on" ? REGION_DEFAULT_COLOR : @shear_plane
           radius = @global[:height_connector_to_text] / 2.0
+          # Fill alone, no edge. A region shade is bounded because it marks
+          # one part of a figure off from the rest; the plane is under all of
+          # it, and a line around the whole drawing reads as a frame.
           plane = "<rect x=\"#{@plane_rect[:x]}\" y=\"#{@plane_rect[:y]}\" " \
                   "width=\"#{@plane_rect[:w]}\" height=\"#{@plane_rect[:h]}\" " \
                   "rx=\"#{radius}\" ry=\"#{radius}\" " \
                   "fill=\"#{color}\" fill-opacity=\"#{SHEAR_PLANE_FILL_OPACITY}\" " \
-                  "stroke=\"#{color}\" stroke-opacity=\"#{SHEAR_PLANE_STROKE_OPACITY}\" " \
-                  "stroke-width=\"#{@global[:stroke_normal]}\" />\n"
+                  "stroke=\"none\" />\n"
         end
         body = "<g transform=\"matrix(1,0,#{@shear_k},1,0,0)\">\n" +
                plane + shades + @tree_data + extra_lines + "</g>\n"
