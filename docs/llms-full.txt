@@ -558,6 +558,35 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 ```
 
 
+### Shear
+
+`Shear` tilts the finished figure by so many degrees — positive leans the top
+to the right — and `Shear plane` draws the plane it lies on. The plane is what
+makes the tilt read as a surface seen at an angle rather than as a drawing
+gone wrong; turn it off, or give it a colour, when the figure says the same
+thing without it.
+
+The whole picture leans as one piece. The layout is computed exactly as it is
+for an upright tree, and the plane, the shades, the tree and its rails are
+carried through a single tilt at the end, so a region shade comes out a
+parallelogram of its own accord and nothing that stood clear of anything else
+can come to touch it. A sheared figure is drawn as PNG, SVG or PDF; TikZ says
+so rather than quietly drawing it straight.
+
+A tilted figure is usually worth a tighter `V spacing` than an upright one:
+the lean spreads the tree sideways, and the levels can afford to sit closer.
+
+```text
+[S
+  [NP the cat]
+  [VP
+    [V sat]
+    [PP on the mat]
+  ]
+]
+```
+
+
 ### Region Shade
 
 While `#`, `##`, and `###` enclose a single node label, a region shade paints a
@@ -1026,7 +1055,7 @@ line, so check the `forest` code against the figure before publishing it.
 
 # Examples
 
-RSyntaxTree examples: 79 trees, every one verified to draw.
+RSyntaxTree examples: 80 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -3612,4 +3641,32 @@ VAL\t#(SPR\t⟨<>⟩#)#)#)
   ---\
   AGR\t|2|#)\
   VAL\t#(SPR\t⟨<>*NP*<>⟩#)#)#) [barks]]]
+```
+
+## 085 — A tree on a tilted plane
+
+Category: General
+Settings: fontstyle=noto-serif shear=20 vheight=1.0
+
+```
+[S
+  [NP
+    [D the]
+    [N man]
+  ]
+  [VP
+    [V put]
+    [NP
+      [D the]
+      [N book]
+    ]
+    [PP
+      [P on]
+      [NP
+        [D the]
+        [N table]
+      ]
+    ]
+  ]
+]
 ```

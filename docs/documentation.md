@@ -499,6 +499,41 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 
 </div>
 
+### Shear
+
+`Shear` tilts the finished figure by so many degrees — positive leans the top
+to the right — and `Shear plane` draws the plane it lies on. The plane is what
+makes the tilt read as a surface seen at an angle rather than as a drawing
+gone wrong; turn it off, or give it a colour, when the figure says the same
+thing without it.
+
+The whole picture leans as one piece. The layout is computed exactly as it is
+for an upright tree, and the plane, the shades, the tree and its rails are
+carried through a single tilt at the end, so a region shade comes out a
+parallelogram of its own accord and nothing that stood clear of anything else
+can come to touch it. A sheared figure is drawn as PNG, SVG or PDF; TikZ says
+so rather than quietly drawing it straight.
+
+A tilted figure is usually worth a tighter `V spacing` than an upright one:
+the lean spreads the tree sideways, and the levels can afford to sit closer.
+
+<div class="grid {{ site.data.doc_figure_sizes['doc-dc3d68b0'].layout }}" markdown="1">
+
+<!-- figure: shear=20 vheight=1.0 -->
+```text
+[S
+  [NP the cat]
+  [VP
+    [V sat]
+    [PP on the mat]
+  ]
+]
+```
+
+{% include doc_figure.html name="doc-dc3d68b0" alt="A tree leaning on the plane it is drawn on" %}
+
+</div>
+
 ### Region Shade
 
 While `#`, `##`, and `###` enclose a single node label, a region shade paints a

@@ -1,4 +1,4 @@
-RSyntaxTree examples: 79 trees, every one verified to draw.
+RSyntaxTree examples: 80 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -2584,4 +2584,32 @@ VAL\t#(SPR\t⟨<>⟩#)#)#)
   ---\
   AGR\t|2|#)\
   VAL\t#(SPR\t⟨<>*NP*<>⟩#)#)#) [barks]]]
+```
+
+## 085 — A tree on a tilted plane
+
+Category: General
+Settings: fontstyle=noto-serif shear=20 vheight=1.0
+
+```
+[S
+  [NP
+    [D the]
+    [N man]
+  ]
+  [VP
+    [V put]
+    [NP
+      [D the]
+      [N book]
+    ]
+    [PP
+      [P on]
+      [NP
+        [D the]
+        [N table]
+      ]
+    ]
+  ]
+]
 ```
