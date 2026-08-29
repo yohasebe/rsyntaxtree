@@ -1092,7 +1092,14 @@ module RSyntaxTree
       max_x = @rule_name_edge if @rule_name_edge.to_f > max_x
       width = max_x + @global[:h_gap_between_nodes]
       height = max_y
+      # A movement path routes outside the tree — below it top-to-bottom,
+      # beyond it to the right left-to-right — and grows @height or @width as
+      # it goes. The height has always been read back here; the width was
+      # computed from the elements alone and then overwrote what the path had
+      # grown, so a left-to-right path could reach past the canvas and be cut
+      # off at its edge.
       height = @height if @height > height
+      width = @width if @width > width
       { height: height, width: width }
     end
   end

@@ -136,6 +136,24 @@ class MovementPathTest < Minitest::Test
     assert_includes stroke, "stroke-linecap:butt", "a stroke that ends in an arrowhead stops there"
   end
 
+  # A path routes outside the tree — below it top-to-bottom, beyond it to the
+  # right left-to-right. The height it grew was always read back into the
+  # canvas; the width was recomputed from the elements alone, so a
+  # left-to-right rail reached past the right edge of the canvas and was cut
+  # off there. Worse the tighter hspacing packed the tree: +4 pixels at the
+  # default, +24 at 0.5.
+  def test_a_left_to_right_rail_stays_on_the_canvas
+    ["1.0", "0.5"].each do |hs|
+      out = svg("[S [NP+>1 [N who]] [VP [V saw] [NP [N *t*+1]]]]",
+                direction: "ltr", hspacing: hs)
+      vb = out.match(/viewBox="([-\d.e]+), [-\d.e]+, ([\d.e]+), [\d.e]+"/)
+      right_edge = vb[1].to_f + vb[2].to_f
+      rail_right = movement_paths(out).flat_map { |d| coordinates(d).map(&:first) }.max
+      assert_operator rail_right, :<, right_edge,
+                      "hspacing #{hs}: the rail reaches past the canvas"
+    end
+  end
+
   # And only there. A path with no head is the dashed one, and every dash of it
   # wants its round ends.
   def test_a_dashed_path_keeps_its_round_ends
