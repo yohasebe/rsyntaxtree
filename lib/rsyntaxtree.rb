@@ -67,7 +67,7 @@ NUMERIC_RANGES = {
   vheight: 0.5..5.0,
   hspacing: 0.5..3.0,
   shear: -45..45,
-  vmargin: 0.0..1.0
+  vmargin: 0.1..1.0
 }.freeze
 
 # Options 2.0 removed, and what to say instead. An unknown key is passed over

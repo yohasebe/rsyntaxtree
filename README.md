@@ -187,7 +187,7 @@ Usage:
 | `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
 | `--shear` | Tilt the drawn figure, in degrees (-45 to 45, positive leans the top right) | `0` |
 | `--shear-plane` | The plane behind a sheared figure: on, off, or a colour | `on` |
-| `--vmargin` | Clearance between a label and its connectors (0.0-1.0, same above and below) | `0.4` |
+| `--vmargin` | Clearance between a label and its connectors (0.1-1.0, same above and below) | `0.4` |
 | `-r, --transparent` | Leave the background clear instead of painting it white: on, off | `off` |
 | `--validate` | Check the input without drawing: a JSON diagnosis on stdout, the verdict in the exit code | |
 | `--notation` | Print a short reference for the notation | |

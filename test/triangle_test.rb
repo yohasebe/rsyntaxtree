@@ -97,4 +97,35 @@ class TriangleTest < Minitest::Test
     assert_equal ["triangle"], edges.call("[NP ^cats]")
     assert_equal ["line"], edges.call("[NP cats]")
   end
+
+  # A triangle points at the parent, and bottom-to-top is where the parent is
+  # not below. Drawn as though it always were, the figure folded through
+  # itself: the base struck through the leaf and the apex through the node.
+  # No gallery figure has ever carried one — every bottom-to-top example is a
+  # derivation, which draws rules instead of connectors — so nothing said.
+  def test_a_triangle_points_the_right_way_bottom_to_top
+    %w[ttb btt].each do |direction|
+      svg = RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(
+        data: "[S [NP ^the<>big<>dog] [VP barks]]", direction: direction
+      )).draw_svg
+      pts = svg[/<polygon[^>]*points='([^']+)'/, 1]
+                .split(/\s+/).each_slice(2).map { |a, b| [a.to_f, b.to_f] }
+      area = (pts[0][0] * (pts[1][1] - pts[2][1]) +
+              pts[1][0] * (pts[2][1] - pts[0][1]) +
+              pts[2][0] * (pts[0][1] - pts[1][1])).abs / 2
+      assert_operator area, :>, 1000, "#{direction}: the triangle is flat"
+
+      baselines = svg.scan(/<tspan[^>]*y='([\d.]+)'/).flatten.map(&:to_f).uniq.sort
+      leaf, node = direction == "btt" ? [baselines.first, baselines[1]] : [baselines.last, baselines[1]]
+      base_y = pts.map(&:last).sort[1] # the two equal corners
+      apex_y = pts.map(&:last).minmax.find { |y| pts.map(&:last).count(y) == 1 }
+      if direction == "btt"
+        assert_operator base_y, :>, leaf, "btt: the base cuts through the leaf"
+        assert_operator apex_y, :<, node, "btt: the apex cuts through the node"
+      else
+        assert_operator base_y, :<, leaf, "ttb: the base cuts through the leaf"
+        assert_operator apex_y, :>, node, "ttb: the apex cuts through the node"
+      end
+    end
+  end
 end

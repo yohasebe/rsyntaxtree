@@ -83,7 +83,14 @@ class FigureSweepTest < Minitest::Test
     region: "[S [%NP [D the] [N dog]] [VP sat]]",
     region_coloured: "[S [%@blue:NP [D the] [N dog]] [%@red:VP sat]]",
     joints: "[S [NP [<> [<> [N deep]]]] [VP sat]]",
-    wide: "[S [A a] [B b] [C c] [D d] [E e] [F f]]"
+    wide: "[S [A a] [B b] [C c] [D d] [E e] [F f]]",
+    # A triangle is the one connector with an area, and the only figure whose
+    # shape says which way the tree runs; a rail is the one that routes
+    # outside the tree. Neither was swept, and each hid a defect that the
+    # settings alone could not have found — a triangle drawn inside out
+    # bottom-to-top, and a rail cut off at the right edge in ltr.
+    triangle: "[S [NP ^the<>big<>dog] [VP barks]]",
+    rail: "[S [NP+>1 [N who]] [VP [V saw] [NP [N *t*+1]]]]"
   }.freeze
 
   # One setting moved at a time from the default, so a drawing that fails says
@@ -100,9 +107,19 @@ class FigureSweepTest < Minitest::Test
     %w[on off].each { |p| sets["polyline #{p}"] = { polyline: p } }
     %w[modern traditional gray off].each { |c| sets["color #{c}"] = { color: c } }
     sets["mirror"] = { mirror: "on" }
+    # The direction is a setting like any other. It was left out because the
+    # trees here are drawn top to bottom, and the two defects above lived in
+    # what the other directions do differently.
+    %w[ltr btt].each { |d| sets["direction #{d}"] = { direction: d } }
+    [0.1, 1.0].each { |v| sets["vmargin #{v}"] = { vmargin: v } }
+    [20, -45].each { |s| sets["shear #{s}"] = { shear: s } }
     sets
   end
   SETTINGS = settings.freeze
+  # The settings that move the direction, kept apart: a test that fixes the
+  # direction itself — a derivation, or a check that reads the layout as
+  # columns across the page — cannot have it moved underneath.
+  FIXED_DIRECTION = SETTINGS.reject { |k, _| k.start_with?("direction ") }.freeze
 
   # Ink may sit this far outside the image before it counts as outside it. Text
   # is measured through the host's fontconfig, so a boundary is good to about a
@@ -111,7 +128,7 @@ class FigureSweepTest < Minitest::Test
 
   def test_derivations_survive_every_setting
     DERIVATIONS.each do |name, (data, words)|
-      SETTINGS.each do |label, opts|
+      FIXED_DIRECTION.each do |label, opts|
         where = "#{name} at #{label}"
         svg = draw(data, derivation: "on", direction: "btt", leafstyle: "nothing",
                    **MATRIX_BASE, **opts)
@@ -126,7 +143,7 @@ class FigureSweepTest < Minitest::Test
   # top, so it has to hold up under the same sweep.
   def test_derivations_survive_every_setting_the_other_way_up
     DERIVATIONS.each do |name, (data, _words)|
-      SETTINGS.each do |label, opts|
+      FIXED_DIRECTION.each do |label, opts|
         svg = draw(data, derivation: "on", direction: "ttb", leafstyle: "nothing",
                    **MATRIX_BASE, **opts)
         assert_everything_inside_the_image svg, "#{name} ttb at #{label}"
@@ -146,6 +163,21 @@ class FigureSweepTest < Minitest::Test
     end
   end
 
+  # A triangle drawn the wrong way up folds to a horizontal line: it stays
+  # inside the canvas, crosses nothing, and is well formed, so every other
+  # check here passes it. Its area is what says it is a triangle at all.
+  def assert_every_triangle_has_an_area(svg, where)
+    Nokogiri::XML(svg).css("polygon").reject { |g| g.ancestors("defs").any? }.each do |poly|
+      pts = poly["points"].to_s.split(/\s+/).each_slice(2).map { |a, b| [a.to_f, b.to_f] }
+      next unless pts.size == 3
+
+      area = (pts[0][0] * (pts[1][1] - pts[2][1]) +
+              pts[1][0] * (pts[2][1] - pts[0][1]) +
+              pts[2][0] * (pts[0][1] - pts[1][1])).abs / 2
+      assert_operator area, :>, 1.0, "#{where}: a triangle drawn flat"
+    end
+  end
+
   def test_trees_survive_every_setting
     TREES.each do |name, data|
       SETTINGS.each do |label, opts|
@@ -154,6 +186,7 @@ class FigureSweepTest < Minitest::Test
         assert_well_formed svg, where
         assert_everything_inside_the_image svg, where
         assert_no_connector_crosses_a_label svg, where
+        assert_every_triangle_has_an_area svg, where
       end
     end
   end
@@ -181,8 +214,11 @@ class FigureSweepTest < Minitest::Test
   # Labels on one row of a matrix-bearing tree must stay off each other however
   # wide the settings make them. Read from the interchange format, which is
   # where the layout says where it put things.
+  # Read as columns across the page, which is what a level is when the tree
+  # runs top to bottom. Left to right the same level stacks downwards
+  # instead, so the direction is held still here.
   def test_matrix_nodes_do_not_run_into_each_other
-    SETTINGS.each do |label, opts|
+    FIXED_DIRECTION.each do |label, opts|
       next if opts[:fontstyle] == "cjk" # measured wider; the tree is Latin
 
       lsif = JSON.parse(

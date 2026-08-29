@@ -34,6 +34,13 @@ looking at what was left. Every figure in the gallery draws exactly as it did.
   duplicated, `tidy`, is written there already.
 
 ### Fixed
+- A triangle drawn bottom to top pointed the wrong way. The shape spans the
+  child's text and points at the parent, and which way that is depends on
+  which of the two sits higher — the question the connectors ask and the
+  triangle did not. Bottom to top the figure folded through itself: the base
+  struck through the leaf and the apex through the node. No gallery figure
+  carries one, because every bottom-to-top example is a derivation, which
+  draws rules instead of connectors.
 - Every label now keeps the same air above it as below it. The connector
   endpoints were measured from the layout box, whose edges sit unevenly
   around the ink, so every figure carried a little more space under each
@@ -74,7 +81,8 @@ looking at what was left. Every figure in the gallery draws exactly as it did.
 - `vmargin`: the clearance between a label and its connectors, the same
   above and below, measured from the ink its row actually contains — a row
   of capitals pays nothing for descenders nobody wrote, and the ends of a
-  row's connectors stay level.
+  row's connectors stay level. From 0.1 to 1.0; at nothing at all a node's
+  box stops holding a label that draws its own shape.
 - Three gallery examples, in two new categories: the Indo-European family
   tree (Historical Linguistics), where the region shade groups branches
   rather than marking a c-command domain; type-driven semantic composition
@@ -93,6 +101,12 @@ looking at what was left. Every figure in the gallery draws exactly as it did.
   and in a matrix inside a matrix; one reads the drawn shapes back out of
   the SVG and asks whether any two of them touch; and one asks a
   left-to-right tree to answer to `hspacing` in its height.
+- The sweep draws two more figures — one with a triangle, one with a
+  movement rail — and moves the direction, `vmargin` and `shear` among its
+  settings, and asks of every triangle that it have an area. Each of the two
+  defects above lived in a figure the sweep did not draw, at a direction it
+  did not set: the settings alone could not have found either, and a
+  triangle folded flat passes every other check there is.
 - The manuals say what TikZ output does with what it cannot draw: it drops
   it rather than refusing, so a label that is a matrix arrives with its
   cells run together on one line.

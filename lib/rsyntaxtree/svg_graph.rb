@@ -1206,10 +1206,15 @@ module RSyntaxTree
 
       # Each endpoint decides for itself. A line through a chain of invisible
       # joints keeps one real label at most, and when the pair had to agree
-      # on a geometry, the segments beside a joint fell back to the classic
-      # one while their neighbours took the symmetric one — a row of leaves
+      # on a geometry, the segments beside a joint fell back to the box
+      # measure while their neighbours took the ink one — a row of leaves
       # under example 080's joints ended thirteen units apart.
-      m = @global[:vmargin] ? @global[:single_x_metrics].height * @global[:vmargin] : nil
+      #
+      # An element whose ink went unrecorded falls back to the measure the
+      # boxes gave. Nothing reaches that now — every drawn label records its
+      # ink — and it is kept as the answer for a label that somehow has none
+      # rather than as a second geometry anyone can ask for.
+      m = @global[:single_x_metrics].height * @global[:vmargin]
 
       child_y = if child.empty_label?
                   child.vertical_indent + child.content_height / 2
@@ -1342,23 +1347,39 @@ module RSyntaxTree
         x3 = parent.horizontal_indent + parent.content_width + @global[:height_connector_to_text]
         y3 = parent_y_center
       else
-        # TTB: triangle opens horizontally (left-right of child text),
-        # apex at parent's bottom
+        # The triangle spans the child's text and points at the parent. Which
+        # way it points is the question the connectors ask as `child_above`,
+        # and the answer is not always the same: bottom-to-top turns the
+        # finished layout over, so the child sits above the parent there and
+        # the base and the apex trade sides. Drawn as though the child were
+        # always below, a bottom-to-top triangle came out inside out — its
+        # base struck through the leaf and its apex through the node — for as
+        # long as the option has existed. No gallery figure carries one: the
+        # bottom-to-top examples are derivations, which draw rules instead.
         x1 = child.horizontal_indent
         x2 = child.horizontal_indent + child.content_width
         x3 = parent.horizontal_indent + parent.content_width / 2
-        if @global[:vmargin] && child.ink_top && parent.ink_bottom
-          m = @global[:single_x_metrics].height * @global[:vmargin]
-          y1 = ink_over(child) - m
-          y3 = ink_under(parent) + m
-          if y3 > y1
+        child_above = child.vertical_indent <= parent.vertical_indent
+        m = child.ink_top && parent.ink_bottom ? @global[:single_x_metrics].height * @global[:vmargin] : nil
+        if child_above
+          y1 = m ? ink_under(child) + m : child.vertical_indent + child.content_height + @global[:height_connector_to_text]
+          y3 = m ? ink_over(parent) - m : parent.vertical_indent + @global[:height_connector_to_text] / 2
+          # The apex must stay clear of the base, or the figure folds through
+          # itself; where there is no room for both clearances they meet in
+          # the middle of what room there is.
+          if m && y3 < y1
             mid = (y1 + y3) / 2.0
             y1 = mid
             y3 = mid
           end
         else
-          y1 = child.vertical_indent + @global[:height_connector_to_text] / 2
-          y3 = parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+          y1 = m ? ink_over(child) - m : child.vertical_indent + @global[:height_connector_to_text] / 2
+          y3 = m ? ink_under(parent) + m : parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+          if m && y3 > y1
+            mid = (y1 + y3) / 2.0
+            y1 = mid
+            y3 = mid
+          end
         end
         y2 = y1
       end

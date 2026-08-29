@@ -107,6 +107,11 @@ class VmarginTest < Minitest::Test
     assert_equal :invalid_option, e.code
     e = assert_raises(RSTError) { svg("[S a]", vmargin: "1.5") }
     assert_equal :invalid_option, e.code
+    # Zero is below the floor: with no margin at all a node's box no longer
+    # holds a label that draws its own shape, and a feature matrix overflowed
+    # the node it was written in by the depth of a descender.
+    e = assert_raises(RSTError) { svg("[S a]", vmargin: "0.0") }
+    assert_equal :invalid_option, e.code
     assert_equal svg("[S [NP a]]"), svg("[S [NP a]]", vmargin: ""),
                  "an empty string is an option not given (and so the default 0.4)"
   end
