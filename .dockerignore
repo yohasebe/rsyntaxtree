@@ -1,0 +1,5 @@
+# The image needs the working tree, not the repository: without this, ADD .
+# copies .git into every image — hundreds of megabytes of history, including
+# refs that exist only on the build machine.
+.git
+pkg
