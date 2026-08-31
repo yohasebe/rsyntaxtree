@@ -109,7 +109,7 @@ cannot outlive the feature it names.
 - `polyline` — right-angled connectors → [Connectors](#connectors)
 - `hide_default_connectors` — for figures whose links are all drawn by hand → [Connectors](#connectors)
 - `transparent` — a clear background
-- `derivation` — categorial-style figures → [Derivations](#derivations)
+- `derivation` — CCG-style derivations → [Derivations](#derivations)
 - `hyphen` — whether a hyphen is markup or a character → [Hyphens](#hyphens)
 - `shear` and `shear_plane` — tilt the finished figure so it lies on a tilted plane → [Shear](#shear)
 - `vmargin` — the clearance between a label and its connectors, the same above as below, measured from the type the row actually contains
@@ -518,10 +518,9 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 ### Shear
 
 `Shear` tilts the finished figure by so many degrees — positive leans the top
-to the right — and `Shear plane` draws the plane it lies on. The plane is what
-makes the tilt read as a surface seen at an angle rather than as a drawing
-gone wrong; turn it off, or give it a colour, when the figure says the same
-thing without it. A transparent background takes the plane with it: a clear
+to the right — and `Shear plane` draws the plane it lies on, which shows the
+tilt as a surface rather than leaving the figure leaning in blank space. Turn
+the plane off, or give it a colour, as the figure needs. A transparent background takes the plane with it: a clear
 background is asked for in order to lay the figure over something else, and a
 sheet under it is what would defeat that.
 

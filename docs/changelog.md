@@ -127,9 +127,8 @@ looking at what was left. Every figure in the gallery draws exactly as it did.
 
 ### Added
 - `shear`: the drawn figure tilts by the given angle (degrees, positive
-  leaning the top to the right) and lies on a plane drawn behind it, so the
-  lean reads as a surface seen at an angle rather than as a mistake. The
-  whole picture shears as one affine piece — layout untouched, region
+  leaning the top to the right) and lies on a plane drawn behind it, which
+  shows the tilt as a surface. The whole picture shears as one affine piece — layout untouched, region
   shades coming out parallelograms on their own, and nothing able to newly
   touch or cross. The plane is fill without an edge — a region shade is
   bounded because it marks one part of a figure off from the rest, and a
@@ -275,9 +274,8 @@ looking at what was left. Every figure in the gallery draws exactly as it did.
 - Derivations. A derivation puts the words first and the result last, and
   joins what each step combines with one rule drawn across all of it rather
   than with a line to each daughter. `derivation` draws the rules and
-  `direction: btt` turns the tree over; together they give the format
-  categorial grammar is written in, and `derivation` on its own marks the
-  spans of an ordinary tree. The name of each step rides in the label after a
+  `direction: btt` turns the tree over; together they draw a CCG derivation,
+  and `derivation` on its own marks the spans of an ordinary tree. The name of each step rides in the label after a
   column break and is set beside the end of its rule. A derivation runs down
   the page and is drawn with its rules, so `direction: ltr` and hiding the
   default connectors are refused rather than approximated.
@@ -409,15 +407,15 @@ RMagick dependency.
   rule that work never uses.
 - A matrix nested in a label, written between `#(` and `#)`. The value of an
   attribute can be another attribute-value matrix, to any depth, which is what
-  a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs and what HPSG,
-  SBCG and LFG are written in. The nested matrix draws its own brackets and
+  a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs, and what
+  HPSG and LFG are written in. The nested matrix draws its own brackets and
   lays out its own columns, and the rows after it clear its full height.
 - `\t` in a label cuts the line into cells. Every line is cut at the same
   points and each column is drawn at the width of its widest cell, so the
   parts line up down the label. Together with the bracket enclosure and the
   horizontal rule this gives attribute-value matrices — the feature structures
-  of HPSG, SBCG and LFG — without spacing each row by hand, which is how the
-  gallery's HPSG example used to do it.
+  of HPSG, LFG and the like — without spacing each row by hand, which is how
+  the gallery's HPSG example used to do it.
 - `color: gray`, a scheme that keeps node and leaf labels black and draws the
   connectors, triangles and movement paths in grey. It is for diagrams whose
   links outnumber their labels — an ontology, a network of constructions —
