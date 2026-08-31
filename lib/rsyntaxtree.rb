@@ -133,6 +133,43 @@ class RSTError < StandardError
     super(msg.gsub(WHITESPACE_BLOCK, "<>"))
   end
 
+  # Every code an error from this library can carry. Consumers dispatch on
+  # these — a translation keyed by code, a harness counting what kinds of
+  # mistake occur — and both need to know the whole set, not only the codes
+  # they have happened to see: a kind of mistake nobody made is not the same
+  # as a kind that cannot happen. Until this list existed the set was only
+  # discoverable by reading four files and a repair table.
+  #
+  # Written out rather than computed, because it is a contract and a contract
+  # should be readable at a glance and visible in a diff. A test keeps it
+  # honest by finding the codes the library actually raises and comparing.
+  #
+  # Eight of these name a mistake inside a label — angle_brackets,
+  # bare_hyphen, incomplete_path, invalid_color, rule_name_without_derivation,
+  # stray_triangle, unclosed_markup, unclosed_matrix — and invalid_markup is
+  # where a label lands whose mistake none of them fits alone.
+  CODES = %i[
+    angle_brackets
+    bare_hyphen
+    empty_brackets
+    empty_input
+    incomplete_path
+    internal_error
+    invalid_color
+    invalid_markup
+    invalid_option
+    label_split
+    path_multiple_ends
+    path_single_end
+    result_too_big
+    rule_name_without_derivation
+    stray_triangle
+    unbalanced_brackets
+    unclosed_markup
+    unclosed_matrix
+    unknown_color
+  ].freeze
+
   # Where the notation is written down. A hint repairs the mistake in front of
   # it and says nothing about the rest, which is enough for a reader who knows
   # the notation and not enough for one who was guessing at it. Given once, at
