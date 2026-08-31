@@ -4,6 +4,7 @@ require "minitest/autorun"
 require "json"
 require "open3"
 require_relative "../lib/rsyntaxtree"
+require_relative "../dev/example_options"
 
 # diagnose returns every error of the first stage that finds any, where
 # check_data stops at the first error found. These tests fix the collection
@@ -144,43 +145,38 @@ class DiagnoseTest < Minitest::Test
   # The two entry points must never disagree about whether an input is
   # good: a caller switching from check_data to diagnose, or the CLI's
   # --validate against a later draw, must get the same verdict. Asked of
-  # both implementations across every gallery example (with its own
-  # options) and a battery of ways of breaking each.
+  # both implementations across every gallery example — under the options
+  # the example actually records, read through the same ExampleOptions
+  # table the drawing and its test read, so this cannot drift into judging
+  # by defaults — and a battery of ways of breaking each: the first label,
+  # the last label, the bracket structure.
   def test_diagnose_and_check_data_agree_on_every_example_and_its_mutations
     examples = Dir.glob(File.expand_path("../docs/_examples/*.md", __dir__))
     refute_empty examples
     examples.each do |path|
-      src = File.read(path)
-      body = src[/^```\n(.*?)\n```/m, 1]
-      next unless body
+      _name, opts = ExampleOptions.load(path)
+      body = opts.delete(:data)
+      opts.delete(:name)
+      opts[:format] = "svg"
 
-      front = src[/\A---\n(.*?)\n---/m, 1]
-      # Every drawing option the front matter records, under the names the
-      # library takes — the examples that need tidy, shear or a mirrored
-      # layout must be judged with them, not with the defaults.
-      renames = { "connector" => :leafstyle, "connector_height" => :vheight }
-      opts = front.scan(/^(\w+): "(.+)"$/).to_h do |key, value|
-        [renames.fetch(key, key.to_sym), value]
+      mutations = { "as committed" => body }
+      if (last = body.rindex("["))
+        mutations["a bracket removed"] = body.sub("]", "")
+        mutations["the first label broken"] = body.sub("[", "[**")
+        mutations["a stray triangle"] = body.sub("[", "[^^")
+        mutations["the last label broken"] = body[0..last] + "**" + body[last + 1..]
+      else
+        # A bracketless example is a single label; break the label itself.
+        mutations["markup broken"] = "**#{body}"
       end
-      opts = opts.slice(:leafstyle, :vheight, :vmargin, :color, :polyline,
-                        :linewidth, :tidy, :hspacing, :direction, :derivation,
-                        :mirror, :hyphen, :shear, :shear_plane)
-
-      mutations = {
-        "as committed" => body,
-        "a bracket removed" => body.sub("]", ""),
-        "markup broken" => body.sub(/\[(\w+)/, '[**\1'),
-        "a stray triangle" => body.sub(/\[(\w+)/, '[^^\1'),
-        "the last label broken" => body.reverse.sub(/(\w+)\[/, '\1**[').reverse,
-      }
       mutations.each do |name, data|
         verdict = begin
-          RSyntaxTree::RSGenerator.check_data(data, opts.merge(format: "svg"))
+          RSyntaxTree::RSGenerator.check_data(data, opts)
           true
         rescue RSTError
           false
         end
-        assert_equal verdict, diagnose(data, opts.merge(format: "svg"))["ok"],
+        assert_equal verdict, diagnose(data, opts)["ok"],
                      "#{File.basename(path)} (#{name}): the two verdicts disagree"
       end
     end
