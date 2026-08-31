@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install system dependencies
-        run: brew install pango librsvg gobject-introspection
+        run: brew install pkg-config pango librsvg gobject-introspection
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -62,7 +62,8 @@ jobs:
           rsyntaxtree -f svg -o smoke "[S [NP this] [VP works]]"
           rsyntaxtree -f pdf -o smoke "[S [NP this] [VP works]]"
           rsyntaxtree -f json -o smoke "[S [NP this] [VP works]]"
+          rsyntaxtree -f tikz -o smoke "[S [NP this] [VP works]]"
           rsyntaxtree --validate "[S [NP this] [VP works]]"
-          for f in png svg pdf json; do
+          for f in png svg pdf json tex; do
             test -s "smoke/syntree.$f" || { echo "missing syntree.$f"; exit 1; }
           done

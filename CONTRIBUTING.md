@@ -1,7 +1,7 @@
 # Contributing to RSyntaxTree
 
-Thank you for considering a contribution. This page explains how to report a
-problem, propose a change, and get a development environment running.
+This page explains how to report a problem, propose a change, and get a
+development environment running.
 
 ## Reporting bugs
 
@@ -43,8 +43,12 @@ System libraries first (Pango for text measurement, librsvg for rasterizing):
 apt install libpango1.0-dev librsvg2-dev libgirepository1.0-dev gobject-introspection
 
 # macOS
-brew install pango librsvg gobject-introspection
+brew install pkg-config pango librsvg gobject-introspection
 ```
+
+The tests measure text with the Noto fonts, so install them too — the
+[Fonts](https://yohasebe.github.io/rsyntaxtree/documentation#fonts) section
+of the manual lists the package names for each platform.
 
 Then:
 
