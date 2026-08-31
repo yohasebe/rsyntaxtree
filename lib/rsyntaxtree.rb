@@ -139,14 +139,20 @@ class RSTError < StandardError
   # the top, rather than repeated on every error.
   REFERENCE = "rsyntaxtree --notation, or https://yohasebe.github.io/rsyntaxtree/llms-full.txt"
 
+  # One error as the hash the JSON diagnosis carries; to_h wraps a single
+  # one and diagnose collects many.
+  def error_entry
+    { "code" => code.to_s,
+      "message" => message,
+      "label" => label,
+      "position" => position,
+      "hint" => hint,
+      "retryable" => retryable }.compact
+  end
+
   def to_h
     { "ok" => false,
-      "errors" => [{ "code" => code.to_s,
-                     "message" => message,
-                     "label" => label,
-                     "position" => position,
-                     "hint" => hint,
-                     "retryable" => retryable }.compact],
+      "errors" => [error_entry],
       "reference" => REFERENCE }
   end
 end
@@ -185,13 +191,13 @@ module RSyntaxTree
 
         if REMOVED_OPTIONS.key?(key)
           raise RSTError.new(+"Error: option '#{key}' was removed in RSyntaxTree 2.0",
-                             code: :invalid_option,
+                             code: :invalid_option, label: key.to_s,
                              hint: "Use #{REMOVED_OPTIONS[key]} instead.",
                              retryable: false)
         end
         if OPTION_VALUES.key?(key) && !OPTION_VALUES[key].include?(value.to_s)
           raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
-                             code: :invalid_option,
+                             code: :invalid_option, label: key.to_s,
                              hint: "'#{key}' must be one of: #{OPTION_VALUES[key].join(', ')}.",
                              retryable: false)
         end
@@ -202,14 +208,14 @@ module RSyntaxTree
         if NUMERIC_RANGES.key?(key) && !value.is_a?(Numeric) &&
            value.to_s.strip !~ /\A-?(\d+(\.\d+)?|\.\d+)\z/
           raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
-                             code: :invalid_option,
+                             code: :invalid_option, label: key.to_s,
                              hint: "'#{key}' takes a number.",
                              retryable: false)
         end
         if NUMERIC_RANGES.key?(key) && !NUMERIC_RANGES[key].cover?(value.to_f)
           range = NUMERIC_RANGES[key]
           raise RSTError.new(+"Error: invalid value for option '#{key}': #{value.inspect}",
-                             code: :invalid_option,
+                             code: :invalid_option, label: key.to_s,
                              hint: "'#{key}' must be in the range of #{range.begin}-#{range.end}.",
                              retryable: false)
         end
@@ -288,7 +294,7 @@ module RSyntaxTree
                               else
                                 unless COLOR_NAMES.include?(v.downcase) || v =~ /\A#(\h{3}|\h{6})\z/
                                   raise RSTError.new(+"Error: invalid value for option 'shear_plane': #{value.inspect}",
-                                                     code: :invalid_option,
+                                                     code: :invalid_option, label: "shear_plane",
                                                      hint: "'shear_plane' is on, off, a colour name, " \
                                                            "or a hex colour of 3 or 6 digits.",
                                                      retryable: false)
@@ -333,7 +339,7 @@ module RSyntaxTree
       # the combination is refused rather than approximated.
       if @params[:derivation] == true && @params[:direction] == "ltr"
         raise RSTError.new(+"Error: a derivation cannot be drawn left to right",
-                           code: :invalid_option,
+                           code: :invalid_option, label: "derivation",
                            hint: "A derivation runs down the page. Use direction ttb or btt, " \
                                  "or turn derivation off.",
                            retryable: false)
@@ -346,7 +352,7 @@ module RSyntaxTree
       # them. Refused for the same reason as left to right.
       if @params[:derivation] == true && @params[:hide_default_connectors] == true
         raise RSTError.new(+"Error: a derivation's rules cannot be hidden",
-                           code: :invalid_option,
+                           code: :invalid_option, label: "derivation",
                            hint: "The rules are what a derivation is drawn with, not a " \
                                  "connector added to it. Turn off hide default connectors, " \
                                  "or turn derivation off.",
@@ -446,6 +452,97 @@ module RSyntaxTree
         raise RSTError.new(+"Error: input could not be processed (#{e.class})",
                            code: :internal_error, retryable: false)
       end
+    end
+
+    # Every option error at once. The constructor is the only judge of an
+    # option, and its rules are not written out a second time here: it
+    # stops at its first complaint, so it is asked again with the option
+    # it complained about set aside, until it accepts what is left or
+    # names nothing to set aside. Each round removes one option, so the
+    # loop is as bounded as the option list.
+    def self.option_errors(params)
+      remaining = params.reject { |k, _| k.to_sym == :data }
+      errors = []
+      loop do
+        begin
+          new(remaining.merge(data: "[A a]"))
+          break
+        rescue RSTError => e
+          errors << e
+          key = e.label
+          break if key.nil? || remaining.keys.none? { |k| k.to_s == key }
+
+          remaining = remaining.reject { |k, _| k.to_s == key }
+        end
+      end
+      errors
+    end
+
+    # Parse in collect mode: every label that will not parse, and every
+    # rule name that turns out to have no rule behind it, recorded instead
+    # of raised. The walk is the real one — the same tokens, the same
+    # judgments — so what this reports and what drawing rejects cannot
+    # drift apart. Returns the errors and whether the list was cut short.
+    def collect_input_errors
+      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset],
+                            @params[:fontsize], @global, collect_errors: true)
+      sp.parse
+      [sp.collected_errors, sp.more_errors?]
+    end
+
+    NOTE_OPTIONS = "Not every option could be read, so the input itself has " \
+                   "not been checked yet; fixing the options may reveal more."
+    NOTE_STRUCTURE = "The bracket structure could not be read, so the labels " \
+                     "have not been checked yet; fixing it may reveal more."
+    NOTE_LABELS = "Whole-tree checks (paths, output limits) run only once " \
+                  "every label reads, so fixing these may reveal more."
+    NOTE_TRUNCATED = " Only the first #{StringParser::COLLECTED_ERRORS_LIMIT} " \
+                     "problems are listed."
+
+    # The whole diagnosis at once, as the hash the CLI prints: every error
+    # of the first stage that finds any, not just the first error found.
+    # Stages are ordered so that nothing is reported whose appearance is an
+    # artifact of an earlier mistake — a missing bracket shifts every token
+    # after it, an unreadable hyphen option changes what counts as markup —
+    # and when a stage stops the walk, the note says that fixing what is
+    # listed may reveal more. check_data keeps its contract (raise the
+    # first error) for callers that want a verdict rather than a list.
+    def self.diagnose(text, params = {})
+      errors = []
+      note = nil
+      if text.to_s == ""
+        errors << RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false)
+      elsif (errors = option_errors(params)).any?
+        note = NOTE_OPTIONS
+      else
+        begin
+          StringParser.valid?(text)
+          gen = new(params.merge(data: text))
+          collected, truncated = gen.collect_input_errors
+          if collected.any?
+            errors = collected
+            note = NOTE_LABELS
+            note += NOTE_TRUNCATED if truncated
+          else
+            gen.validate!
+          end
+        rescue RSTError => e
+          errors << e
+          note = NOTE_STRUCTURE if %i[empty_brackets unbalanced_brackets].include?(e.code)
+        rescue StandardError => e
+          # The same promise check_data makes: a defect in the drawing code
+          # is still a verdict of "no", in the same shape, not a backtrace.
+          errors << RSTError.new(+"Error: input could not be processed (#{e.class})",
+                                 code: :internal_error, retryable: false)
+        end
+      end
+
+      return { "ok" => true } if errors.empty?
+
+      result = { "ok" => false, "errors" => errors.map(&:error_entry) }
+      result["note"] = note if note
+      result["reference"] = RSTError::REFERENCE
+      result
     end
 
     # Generate, and throw the result away. Parsing alone leaves out the

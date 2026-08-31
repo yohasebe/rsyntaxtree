@@ -15,9 +15,23 @@ require_relative 'utils'
 module RSyntaxTree
   class StringParser
     attr_accessor :data, :elist, :pos, :id, :level
+    attr_reader :collected_errors
 
-    def initialize(str, fontset, fontsize, global)
+    # In collect mode, reporting stops here but the walk does not: labels
+    # past this many failures are still checked (the tree must stay whole)
+    # without adding to the list.
+    COLLECTED_ERRORS_LIMIT = 20
+
+    # What stands in for a label that would not parse, when collecting.
+    # Any label that always parses will do; what matters is that it keeps
+    # the tree's shape.
+    PLACEHOLDER_LABEL = "x"
+
+    def initialize(str, fontset, fontsize, global, collect_errors: false)
       @global = global
+      @collect_errors = collect_errors
+      @collected_errors = []
+      @more_errors = false
       # Clean up the data a little to make processing easier
       # repeated newlines => a newline
       string = str.gsub(/[\n\r]+/m, "\n")
@@ -113,6 +127,41 @@ module RSyntaxTree
       restore_rule_names_without_a_rule
     end
 
+    def more_errors?
+      @more_errors
+    end
+
+    # One element, or its recorded failure. Outside collect mode this is
+    # exactly the Element.new it wraps. In collect mode an RSTError is
+    # recorded and a placeholder element stands in, so the walk continues
+    # and every bad label is seen. The placeholder keeps the tree's shape —
+    # parenthood, childlessness, level — which is all a later label's
+    # verdict can depend on; what it cannot keep (a path marker the broken
+    # label carried) only matters to the whole-tree checks, and those do
+    # not run while collected errors stand.
+    def element_or_recorded_failure(id, parent, level, names_a_rule = false)
+      yield
+    rescue RSTError => e
+      raise unless @collect_errors
+
+      record_failure(e)
+      Element.new(id, parent, PLACEHOLDER_LABEL, level, @fontset, @fontsize, @global, names_a_rule)
+    end
+
+    # The same mistake in two copies of a label is one thing to fix, so a
+    # failure is recorded once per (code, label, position). Past the limit
+    # the list stops growing and only the fact that there was more is kept.
+    def record_failure(error)
+      key = [error.code, error.label, error.position]
+      return if @collected_errors.any? { |c| [c.code, c.label, c.position] == key }
+
+      if @collected_errors.length >= COLLECTED_ERRORS_LIMIT
+        @more_errors = true
+      else
+        @collected_errors << error
+      end
+    end
+
     # A rule name names the step that produced a node from its daughters. A node
     # with no daughters is the product of no step, so what looked like a name is
     # a column of the label like any other, and it goes back.
@@ -128,8 +177,17 @@ module RSyntaxTree
         next unless e.children.empty?
         next if e.label_with_rule_name.nil?
 
-        restored = Element.new(e.id, e.parent, e.label_with_rule_name,
-                               e.level, @fontset, @fontsize, @global)
+        # In collect mode the failed restoration is recorded and the element
+        # kept as it is; the tree stays whole either way.
+        restored = begin
+          Element.new(e.id, e.parent, e.label_with_rule_name,
+                      e.level, @fontset, @fontsize, @global)
+        rescue RSTError => err
+          raise unless @collect_errors
+
+          record_failure(err)
+          next
+        end
         restored.children = e.children
         restored.type = e.type
         @elist.elements[i] = restored
@@ -226,7 +284,9 @@ module RSyntaxTree
           # Check for escaped square brackets
           if token =~ /\A\\\[/ || token =~ /\A\\\]/
             # Treat escaped brackets as regular text
-            element = Element.new(@id, parent, token, @level, @fontset, @fontsize, @global)
+            element = element_or_recorded_failure(@id, parent, @level) do
+              Element.new(@id, parent, token, @level, @fontset, @fontsize, @global)
+            end
             @id += 1
             @elist.add(element)
           else
@@ -241,7 +301,7 @@ module RSyntaxTree
               tl = token_r.length
               parts[1] = token_r[spaceat, tl - spaceat].join
 
-              element = begin
+              element = element_or_recorded_failure(@id, parent, @level, true) do
                 Element.new(@id, parent, parts[0], @level, @fontset, @fontsize, @global, true)
               rescue RSTError => e
                 # The first raw space splits a token into the node's label
@@ -277,11 +337,15 @@ module RSyntaxTree
               @elist.add(element)
               newparent = element.id
 
-              element = Element.new(@id, @id - 1, parts[1], @level + 1, @fontset, @fontsize, @global)
+              element = element_or_recorded_failure(@id, @id - 1, @level + 1) do
+                Element.new(@id, @id - 1, parts[1], @level + 1, @fontset, @fontsize, @global)
+              end
               @id += 1
             else
               joined = token_r.join
-              element = Element.new(@id, parent, joined, @level, @fontset, @fontsize, @global, true)
+              element = element_or_recorded_failure(@id, parent, @level, true) do
+                Element.new(@id, parent, joined, @level, @fontset, @fontsize, @global, true)
+              end
               @id += 1
               newparent = element.id
             end
@@ -291,7 +355,9 @@ module RSyntaxTree
           end
         else
           if token.strip != ""
-            element = Element.new(@id, parent, token, @level, @fontset, @fontsize, @global)
+            element = element_or_recorded_failure(@id, parent, @level) do
+              Element.new(@id, parent, token, @level, @fontset, @fontsize, @global)
+            end
             @id += 1
             @elist.add(element)
           end

@@ -214,12 +214,9 @@ data = RSyntaxTree::FormatConverter.to_bracket(data) if data
 # Validate without drawing or writing anything: the diagnosis goes to stdout
 # as JSON and the exit code carries the verdict.
 if opts[:validate]
-  diagnosis = begin
-    RSyntaxTree::RSGenerator.check_data(data, string_opts)
-    { "schema" => "rsyntaxtree.error/1", "ok" => true }
-  rescue RSTError => e
-    { "schema" => "rsyntaxtree.error/1" }.merge(e.to_h)
-  end
+  diagnosis = { "schema" => "rsyntaxtree.error/1" }.merge(
+    RSyntaxTree::RSGenerator.diagnose(data, string_opts)
+  )
   puts JSON.pretty_generate(diagnosis)
   exit(diagnosis["ok"] ? 0 : 1)
 end
