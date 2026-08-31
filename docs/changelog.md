@@ -10,6 +10,24 @@ layout: default
 [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) |
 [Web App](https://yohasebe.com/rsyntaxtree)
 
+## [2.2.0] - 2026-09-01
+
+### Changed
+- Validation reports every error of a stage, not just the first one found.
+  An input with three bad labels lists all three in the `errors` array of
+  the JSON diagnosis, so one round of fixes covers them. The stages are
+  ordered — options, bracket structure, labels, whole-tree checks — and a
+  mistake stops the later stages, with a `note` saying that fixing what is
+  listed may reveal more; nothing is reported whose appearance is an
+  artifact of an earlier mistake. Duplicate failures collapse to one entry
+  and the list stops at twenty. The schema is unchanged
+  (`rsyntaxtree.error/1`): the same array, more of it.
+
+### Added
+- `RSGenerator.diagnose(text, options)` returns the full diagnosis as a
+  hash — what `--validate` prints — for programmatic callers.
+  `check_data` keeps its contract of raising the first error.
+
 ## [2.1.0] - 2026-08-29
 
 ### Changed

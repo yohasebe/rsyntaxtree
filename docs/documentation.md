@@ -958,6 +958,16 @@ $ rsyntaxtree --validate "[X V-bar]"
 }
 ```
 
+Every error of a kind is reported together, not just the first one found:
+an input with three bad labels lists all three, one entry each, so one
+round of fixes covers them. The stages are ordered — options, then the
+bracket structure, then the labels, then whole-tree checks such as a
+movement path with one end — and a mistake stops the later stages, with a
+`note` saying that fixing what is listed may reveal more. That is not
+caution but correctness: a missing bracket shifts every token after it, so
+reporting past it would blame labels that are artifacts of the real
+mistake.
+
 This is one observed answer, not a contract: the fields may change between
 releases, and the exit code is the stable part of the answer.
 
