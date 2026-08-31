@@ -135,23 +135,17 @@ See [Fonts](https://yohasebe.github.io/rsyntaxtree/documentation#install-fonts-f
 gem install rsyntaxtree
 ```
 
-### macOS Installation Notice
+### macOS
 
-**Important for macOS users:** If you encounter build errors for native extensions (`gobject-introspection`, `cairo-gobject`, `gio2`), run the following commands before installing RSyntaxTree:
-
-```bash
-gem install gobject-introspection -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
-gem install cairo-gobject -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
-gem install gio2 -- --with-ldflags="-Wl,-undefined,dynamic_lookup"
-```
-
-Then install RSyntaxTree:
-
-```bash
-gem install rsyntaxtree
-```
-
-Alternatively, use the [Docker image](https://hub.docker.com/r/yohasebe/rsyntaxtree) or the [web interface](https://yohasebe.com/rsyntaxtree).
+With the libraries in place (`brew install pkg-config pango librsvg
+gobject-introspection`), a plain `gem install rsyntaxtree` builds the native
+extensions without further options — CI verifies this on every change. If an
+older setup still fails to build `gobject-introspection`, `cairo-gobject` or
+`gio2`, install those three first with
+`-- --with-ldflags="-Wl,-undefined,dynamic_lookup"` appended, then install
+RSyntaxTree; or skip the build entirely with the
+[Docker image](https://hub.docker.com/r/yohasebe/rsyntaxtree) or the
+[web interface](https://yohasebe.com/rsyntaxtree).
 
 ## Usage
 
