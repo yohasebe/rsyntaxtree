@@ -960,9 +960,10 @@ $ rsyntaxtree --validate "[X V-bar]"
 
 Every error of a kind is reported together, not just the first one found:
 an input with three bad labels lists all three, one entry each, so one
-round of fixes covers them. The stages are ordered — options, then the
-bracket structure, then the labels, then whole-tree checks such as a
-movement path with one end — and a mistake stops the later stages, with a
+round of fixes covers them. The stages are ordered — an empty
+input is refused before anything else, then options, then the bracket
+structure, then the labels, then whole-tree checks such as a movement
+path with one end — and a mistake stops the later stages, with a
 `note` saying that fixing what is listed may reveal more. That is not
 caution but correctness: a missing bracket shifts every token after it, so
 reporting past it would blame labels that are artifacts of the real

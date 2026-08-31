@@ -512,26 +512,30 @@ module RSyntaxTree
       note = nil
       if text.to_s == ""
         errors << RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false)
-      elsif (errors = option_errors(params)).any?
-        note = NOTE_OPTIONS
       else
         begin
-          StringParser.valid?(text)
-          gen = new(params.merge(data: text))
-          collected, truncated = gen.collect_input_errors
-          if collected.any?
-            errors = collected
-            note = NOTE_LABELS
-            note += NOTE_TRUNCATED if truncated
+          errors = option_errors(params)
+          if errors.any?
+            note = NOTE_OPTIONS
           else
-            gen.validate!
+            StringParser.valid?(text)
+            gen = new(params.merge(data: text))
+            collected, truncated = gen.collect_input_errors
+            if collected.any?
+              errors = collected
+              note = NOTE_LABELS
+              note += NOTE_TRUNCATED if truncated
+            else
+              gen.validate!
+            end
           end
         rescue RSTError => e
           errors << e
           note = NOTE_STRUCTURE if %i[empty_brackets unbalanced_brackets].include?(e.code)
         rescue StandardError => e
-          # The same promise check_data makes: a defect in the drawing code
-          # is still a verdict of "no", in the same shape, not a backtrace.
+          # The same promise check_data makes: a defect anywhere in here —
+          # the option probing included — is still a verdict of "no", in
+          # the same shape, not a backtrace.
           errors << RSTError.new(+"Error: input could not be processed (#{e.class})",
                                  code: :internal_error, retryable: false)
         end

@@ -83,6 +83,14 @@ class DiagnoseTest < Minitest::Test
     assert_equal %w[rule_name_without_derivation], codes(result)
   end
 
+  # The restoration step must add to the collection, not replace it: a
+  # raise there would throw away every error already collected on the way.
+  # Only an input with a second, unrelated mistake can tell the difference.
+  def test_the_restoration_step_keeps_what_was_already_collected
+    result = diagnose('[S [A\t>foo] [B **bad]]', derivation: "on")
+    assert_equal %w[rule_name_without_derivation unclosed_markup], codes(result).sort
+  end
+
   def test_a_rule_name_error_is_collected_alongside_a_label_error
     result = diagnose('[S [A\t>foo] [B **bad]]')
     assert_equal %w[rule_name_without_derivation unclosed_markup], codes(result).sort
@@ -114,6 +122,15 @@ class DiagnoseTest < Minitest::Test
     refute_includes result["note"].to_s, "first #{limit} problems"
   end
 
+  # A defect while probing the options is a verdict too, the same as one
+  # while drawing: nothing in diagnose answers with a backtrace.
+  def test_a_defect_during_option_probing_is_a_verdict_not_a_backtrace
+    explosive = Object.new
+    def explosive.to_s = raise "boom"
+    result = diagnose("[S [NP a]]", format: explosive)
+    assert_equal %w[internal_error], codes(result)
+  end
+
   def test_empty_input_is_one_error
     assert_equal %w[empty_input], codes(diagnose(""))
     assert_equal %w[empty_input], codes(diagnose(nil))
@@ -138,16 +155,23 @@ class DiagnoseTest < Minitest::Test
       next unless body
 
       front = src[/\A---\n(.*?)\n---/m, 1]
-      opts = {}
-      opts[:derivation] = "on" if front =~ /^derivation: "on"/
-      opts[:direction] = front[/^direction: "(\w+)"/, 1] if front =~ /^direction:/
-      opts[:hyphen] = "literal" if front =~ /^hyphen: "literal"/
+      # Every drawing option the front matter records, under the names the
+      # library takes — the examples that need tidy, shear or a mirrored
+      # layout must be judged with them, not with the defaults.
+      renames = { "connector" => :leafstyle, "connector_height" => :vheight }
+      opts = front.scan(/^(\w+): "(.+)"$/).to_h do |key, value|
+        [renames.fetch(key, key.to_sym), value]
+      end
+      opts = opts.slice(:leafstyle, :vheight, :vmargin, :color, :polyline,
+                        :linewidth, :tidy, :hspacing, :direction, :derivation,
+                        :mirror, :hyphen, :shear, :shear_plane)
 
       mutations = {
         "as committed" => body,
         "a bracket removed" => body.sub("]", ""),
         "markup broken" => body.sub(/\[(\w+)/, '[**\1'),
         "a stray triangle" => body.sub(/\[(\w+)/, '[^^\1'),
+        "the last label broken" => body.reverse.sub(/(\w+)\[/, '\1**[').reverse,
       }
       mutations.each do |name, data|
         verdict = begin
