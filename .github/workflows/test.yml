@@ -33,3 +33,36 @@ jobs:
 
       - name: Run tests
         run: bundle exec rake test
+
+  # What a macOS user actually does: brew for the libraries, gem install,
+  # draw something. No ldflags, no workarounds — if this job needs them,
+  # the README needs them; if it passes, the README can stop warning.
+  macos-install:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: brew install pango librsvg gobject-introspection
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+
+      - name: Install the gem as a user would
+        run: |
+          gem build rsyntaxtree.gemspec
+          gem install rsyntaxtree-*.gem
+
+      - name: Draw a figure in every format
+        run: |
+          mkdir smoke
+          rsyntaxtree -f png -o smoke "[S [NP this] [VP works]]"
+          rsyntaxtree -f svg -o smoke "[S [NP this] [VP works]]"
+          rsyntaxtree -f pdf -o smoke "[S [NP this] [VP works]]"
+          rsyntaxtree -f json -o smoke "[S [NP this] [VP works]]"
+          rsyntaxtree --validate "[S [NP this] [VP works]]"
+          for f in png svg pdf json; do
+            test -s "smoke/syntree.$f" || { echo "missing syntree.$f"; exit 1; }
+          done
