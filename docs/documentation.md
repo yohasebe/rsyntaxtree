@@ -72,8 +72,8 @@ cannot outlive the feature it names.
 - `(S (NP the cat) (VP sat))` — Penn Treebank input, converted on sight → [Penn Treebank Format](#penn-treebank-format)
 - `^cats` — force a triangle over one leaf (a spaced leaf gets one by itself) → [Connectors](#connectors)
 - `<>` as a whole label — an invisible joint, to level the terminals → [Levelling the Terminals](#levelling-the-terminals)
-- `+1` on two nodes, `+>1` for an arrowhead — a movement path → [Paths](#draw-paths-between-nodes-experimental)
-- `+-1`, `+->1` — an extra straight connector → [Extra Connectors](#draw-extra-connectors-between-nodes-experimental)
+- `+1` on two nodes, `+>1` for an arrowhead — a movement path → [Paths](#draw-paths-between-nodes)
+- `+-1`, `+->1` — an extra straight connector → [Extra Connectors](#draw-extra-connectors-between-nodes)
 
 **Inside a label**
 
@@ -801,7 +801,7 @@ the same structure rather than this figure. Use PNG, SVG or PDF.
 
 </div>
 
-### Draw Paths between Nodes (experimental)
+### Draw Paths between Nodes
 
 You can draw any number of paths of three different types:
 
@@ -835,7 +835,7 @@ A node can have any number of IDs. The same ID must appear in the text of the *t
 
 </div>
 
-### Draw Extra Connectors between Nodes (experimental)
+### Draw Extra Connectors between Nodes
 
 You can also add extra connector between nodes in the same fasion as you draw paths between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s). You may enable the `Hide connectors` option when drawing extra connectors.
 
