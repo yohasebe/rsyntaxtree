@@ -139,7 +139,7 @@ Type your text in the editor area using labeled bracket notation and click the D
 
 Every branch or leaf of the syntax tree must belong to a node. To create a node, place the label text right next to the start bracket. Any number of branches may follow, separated by a whitespace. (Node labels containing whitespaces can be created using the `<>` symbol. For example, `Modal<>Aux` will be rendered as `Modal Aux`).
 
-The `Connector shape` option (`leafstyle`, CLI `--leafstyle`) chooses what is drawn between a terminal node and its leaves; the three settings are described under [Connectors](#connectors). Whichever is chosen, the connectors can be made transparent with the `Hide connectors` option.
+The `Connector shape` option (`leafstyle`, CLI `--leafstyle`) chooses what is drawn between a node and its leaves; the three settings are described under [Connectors](#connectors). Whichever is chosen, the connectors can be made transparent with the `Hide connectors` option.
 
 The newline character `\n` can be used within the text of both node labels and leaves (a backslash followed by a space or a line break works too).
 
@@ -175,8 +175,7 @@ The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By cha
 ### The Notation at a Glance
 
 Everything the notation can draw, one line each, with the section that
-explains it. The samples are live: a test draws each of them, so a row here
-cannot outlive the feature it names.
+explains it. Every sample here is drawn by a test, so each one works.
 
 **Structure**
 
@@ -221,10 +220,10 @@ cannot outlive the feature it names.
 - `polyline` — right-angled connectors → [Connectors](#connectors)
 - `hide_default_connectors` — for figures whose links are all drawn by hand → [Connectors](#connectors)
 - `transparent` — a clear background
-- `derivation` — CCG-style derivations → [Derivations](#derivations)
+- `derivation` — derivation figures → [Derivations](#derivations)
 - `hyphen` — whether a hyphen is markup or a character → [Hyphens](#hyphens)
 - `shear` and `shear_plane` — tilt the finished figure so it lies on a tilted plane → [Shear](#shear)
-- `vmargin` — the clearance between a label and its connectors, the same above as below, measured from the type the row actually contains
+- `vmargin` — the clearance between a label and its connectors, the same above as below
 
 ### Tree Direction
 
@@ -257,9 +256,9 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 - **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Two leaves never swap their left-right order.
 - **High** (`high`): the densest mode, tucking without limit and allowing branch angles to differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
 
-One tree at each of the five settings, narrowing at every step. The last two are
-set side by side because that is where the difference is hardest to see: `high`
-pulls *sell* in against the noun, and `medium` leaves it where the branch puts it.
+One tree at each of the five settings, narrowing at every step. The last two are set side by
+side, where the difference is smallest: `high` pulls *sell* in against the
+noun, and `medium` leaves it where the branch puts it.
 
 ```text
 [S
@@ -509,7 +508,7 @@ Here, `---` represents `-` repeated three times or more consecutively.
 
 ### Connectors
 
-`Connector shape` offers three settings for what is drawn between a terminal node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. It can go at the head of the node's label instead: `[NP ^cats]` and `[^NP cats]` ask for the same thing. `bar` draws a straight bar for every leaf. `none` draws no connector between a terminal node and its leaves.
+`Connector shape` offers three settings for what is drawn between a node and its leaves (`auto`, `bar` and `none`). `auto` draws a triangle for leaves containing one or more whitespaces (= phrases). If the leaf does not contain any spaces (= single word), a straight bar is drawn instead. A `^` at the beginning of a leaf declares it to be a phrase, so a triangle is always drawn for it. It can go at the head of the node's label instead: `[NP ^cats]` and `[^NP cats]` ask for the same thing. `bar` draws a straight bar for every leaf. `none` draws no connector between a node and its leaves.
 
 ```text
 [S
@@ -577,18 +576,14 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 ### Shear
 
 `Shear` tilts the finished figure by so many degrees — positive leans the top
-to the right — and `Shear plane` draws the plane it lies on, which shows the
-tilt as a surface rather than leaving the figure leaning in blank space. Turn
-the plane off, or give it a colour, as the figure needs. A transparent background takes the plane with it: a clear
-background is asked for in order to lay the figure over something else, and a
-sheet under it is what would defeat that.
+to the right — and `Shear plane` draws the plane it lies on. Turn the plane
+off, or give it a colour, as the figure needs. A transparent background is
+drawn without the plane.
 
-The whole picture leans as one piece. The layout is computed exactly as it is
-for an upright tree, and the plane, the shades, the tree and its rails are
-carried through a single tilt at the end, so a region shade comes out a
-parallelogram of its own accord and nothing that stood clear of anything else
-can come to touch it. A sheared figure is drawn as PNG, SVG or PDF; TikZ says
-so rather than quietly drawing it straight.
+The whole picture leans as one piece: a region shade inside it comes out a
+parallelogram, and nothing that stood clear of anything else comes to touch
+it. A sheared figure is drawn as PNG, SVG or PDF; TikZ says so rather than
+quietly drawing it straight.
 
 A tilted figure is usually worth a tighter `V spacing` than an upright one:
 the lean spreads the tree sideways, and the levels can afford to sit closer.
@@ -630,7 +625,7 @@ black-and-white figure use bare `%` (gray) rather than a colored shade.
 
 Overlapping or nested regions blend naturally because the planes are
 semi-transparent. Region shade works in both top-to-bottom and left-to-right
-(`-d ltr`) layouts, and applies to every drawn output (SVG, PNG, PDF).
+(`-d ltr`) layouts, and comes out in every format, TikZ included.
 
 ```text
 [S
@@ -672,14 +667,14 @@ The backslash character `\` must be used to print certain characters used in the
 
 **Note:** A newline character `↩️` is treated just as a whitespace. Thus 1) `\n`, 2) `\↩️`, and 3) `\` followed by a whitespace character are all rendered as a newline `↩️` in the resulting image. Note also that a `↩️` or a whitespace repeated more than once is reduced to a single whitespace.
 
-**Note:** A straight ASCII apostrophe (`'`) in a label is automatically rendered as a typographic (curly) apostrophe `’`, which looks smarter in serif fonts and suits X-bar primes such as `T'`. This also applies to apostrophes in ordinary words (e.g. *John's*).
+**Note:** A straight ASCII apostrophe (`'`) in a label is automatically rendered as a typographic (curly) apostrophe `’`, which suits X-bar primes such as `T'`. This also applies to apostrophes in ordinary words (e.g. *John's*).
 
 ### Feature Structures
 
 An attribute-value matrix is a label of several lines, cut into columns so the
 attributes line up down one side and their values down the other, with brackets
-around the whole. Nothing about it is a notation of its own: it is ordinary label
-markup, and each piece below is useful by itself.
+around the whole. It is ordinary label markup, and each piece below is useful
+by itself.
 
 | To draw | Write | Explained under |
 |---------|-------|-----------------|
@@ -734,11 +729,11 @@ The value of an attribute can be another matrix, written between `#(` and `#)`. 
 ```
 
 
-Matrices nest to any depth, which is what a feature path such as `SYNSEM | LOCAL | CATEGORY | HEAD` needs. Bare brackets would be read as tree structure and bare parentheses appear in labels too often to be claimed, hence `#(` and `#)`.
+Matrices nest, which is what a feature path such as `SYNSEM | LOCAL | CATEGORY | HEAD` needs.
 
 #### Hyphens
 
-A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and escaping each one is a poor trade for a rule that work never uses. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead. Two hyphens are structure rather than markup and are left alone either way: a line of nothing but hyphens is still the horizontal rule, and the one in a path suffix (`+-1`) still marks that path dashed.
+A hyphen opens and closes an underline, so a literal one is written `\-`. Feature names in HPSG and its relatives are full of hyphens — HEAD-DTR, RELIED-ON — and such work rarely underlines. `Hyphen` (`hyphen`, CLI `--hyphen`) swaps the two readings: with `literal`, a bare hyphen is a hyphen and `\-underlined\-` underlines instead. Two hyphens are structure rather than markup and are left alone either way: a line of nothing but hyphens is still the horizontal rule, and the one in a path suffix (`+-1`) still marks that path dashed.
 
 ### Derivations
 
@@ -765,14 +760,12 @@ well and the tree is turned over, so the words come first:
 ```
 
 
-The structure is the ordinary bracket notation; nothing about it is special to
-derivations. Two things are worth knowing.
+The structure is the ordinary bracket notation. Two things are worth knowing.
 
 **The name of each step goes after a column break.** `[S\t<` means the label is
 `S` and the step that produced it is `<`. The name is set beside the end of its
 own rule, small, where a derivation puts it. Anything can go there — `>`, `<`,
-`>B`, `>T`, `<Φ>` — and none of it needs escaping, because the name is taken out
-of the label before the label is read as markup.
+`>B`, `>T`, `<Φ>` — and none of it needs escaping.
 
 **A backslash in a category is written `\\`.** `S\\NP` draws as `S\NP`. A single
 backslash starts a line break, which is why the doubling is needed.
@@ -814,19 +807,16 @@ Across the page, `Tidy layout: low` with a wide `H spacing` works well. A
 derivation is set as a table, each column as wide as the widest thing standing
 in it, which is what `low` does: it pulls the columns together and keeps the
 words in order. `H spacing` then opens every column by the same amount — the
-gallery's derivations use `2.0`. `Tidy layout: off` is the one to avoid, since
-it gives each subtree the width the tree layout allots it, so the gaps land
-where the branching puts them rather than where the table wants them.
+gallery's derivations use `2.0`. `Tidy layout: off` is the one to avoid: it spaces
+the columns by the branching rather than evenly.
 
 
 **What a derivation will not do.** `Direction: ltr` is refused, because a rule
 across the premises needs them side by side. `Hide default connectors` is
-refused too: it draws the connectors in the background colour rather than
-skipping them, and a derivation's rules are the figure itself — hide them and
-the categories are left in rows with nothing joining them. TikZ output is
-refused as well: `forest` joins each daughter to its mother with an edge of its
-own and puts the root at the top, so what it would produce is a correct tree of
-the same structure rather than this figure. Use PNG, SVG or PDF.
+refused too: a derivation's rules are the figure itself, and hiding them
+leaves the categories in rows with nothing joining them. TikZ output is
+refused as well, since `forest` draws a tree rather than this figure. Use
+PNG, SVG or PDF.
 
 
 ### Draw Paths between Nodes
@@ -979,17 +969,16 @@ round of fixes covers them. The stages are ordered — an empty
 input is refused before anything else, then options, then the bracket
 structure, then the labels, then whole-tree checks such as a movement
 path with one end — and a mistake stops the later stages, with a
-`note` saying that fixing what is listed may reveal more. That is not
-caution but correctness: a missing bracket shifts every token after it, so
-reporting past it would blame labels that are artifacts of the real
-mistake.
+`note` saying that fixing what is listed may reveal more. A missing bracket
+shifts every token after it, so reporting past it would blame labels that are
+only artifacts of the real mistake.
 
 The `code` is the part meant for a program. Every code the library can
 report is listed in `RSTError::CODES`, and the list only grows: a code once
 published is not renamed or removed, so a program keyed by code — one that
 translates the diagnosis, or tallies what kinds of mistake a writer makes —
-only ever has entries to add. Knowing the whole set matters for the second
-kind: a mistake nobody made is not the same as a mistake that cannot happen.
+only ever has entries to add. The whole set matters to the second kind: a
+code nobody triggered is not a code that cannot occur.
 
 The rest of an answer is not a contract: the wording of a message or a hint
 may change between releases, a field may be absent where it does not apply
@@ -1066,11 +1055,9 @@ line, so check the `forest` code against the figure before publishing it.
 ---
 
 <script>
-  // Copy the notation for one example. This used to add a `copy` listener to
-  // the document and leave it there, so every later Cmd+C on the page
-  // returned that same notation however much the reader had selected by
-  // hand. The clipboard is written directly instead, and nothing is left
-  // behind to intercept a selection.
+  // Copy the notation for one example. Write the clipboard directly: a
+  // document-level `copy` listener would stay behind and answer every later
+  // Cmd+C on the page, whatever the reader had selected.
   function copyToClipBoard(id){
     var text = document.getElementById(id).innerText;
     if (navigator.clipboard && navigator.clipboard.writeText) {
