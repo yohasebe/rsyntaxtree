@@ -48,6 +48,43 @@ class ErrorCodesTest < Minitest::Test
                  "RSTError::CODES and the codes the library raises have diverged"
   end
 
+  # The scan above can only see a code where one is written. A raise that
+  # leaves the code to the constructor's default, or writes it in a form the
+  # scan does not read, would produce an undeclared code and pass unnoticed —
+  # so every raise site is required to carry a literal code, and the two
+  # shorthand forms that would slip past the scan are refused outright.
+  ALLOWED_WITHOUT_A_LITERAL_CODE = [
+    # The markup failure splats the diagnosis, which always carries a code;
+    # markup_failure_details is where that is decided.
+    "element.rb"
+  ].freeze
+
+  def test_every_raise_site_names_its_code
+    Dir.glob(File.join(LIB, "**", "*.rb")).each do |path|
+      next if ALLOWED_WITHOUT_A_LITERAL_CODE.include?(File.basename(path))
+
+      src = File.read(path)
+      src.to_enum(:scan, /RSTError\.new\(/).each do
+        call = balanced_call(src, Regexp.last_match.begin(0))
+        assert_match(/code:\s*:[a-z_]+/, call,
+                     "#{File.basename(path)}: a raise with no literal code would " \
+                     "carry the constructor's default, which CODES does not declare")
+      end
+    end
+  end
+
+  def test_no_raise_uses_a_form_the_scan_cannot_read
+    Dir.glob(File.join(LIB, "**", "*.rb")).each do |path|
+      src = File.read(path)
+      name = File.basename(path)
+      refute_match(/raise\s+RSTError\s*,/, src,
+                   "#{name}: `raise RSTError, msg` takes the default code; " \
+                   "build the error with RSTError.new(...) and name the code")
+      refute_match(/RSTError\.new\s+[^(\s]/, src,
+                   "#{name}: call RSTError.new with parentheses so the code is found")
+    end
+  end
+
   def test_codes_is_a_frozen_list_of_symbols
     assert RSTError::CODES.frozen?
     assert(RSTError::CODES.all?(Symbol))
@@ -62,7 +99,7 @@ class ErrorCodesTest < Minitest::Test
               ["[S [NP a] [VP b]", {}], ["[S []]", {}],
               ["[S [NP **bad] [VP @notacolor:x] [PP ^^stray]]", {}],
               ["[S [NP a-b]]", {}], ["[S [NP <NP>]]", {}],
-              ["[S [NP #(A\\tB]]", {}], ["[S [NP a+]]", {}],
+              ["[S [NP a#(A]]", {}], ["[S [NP a+]]", {}],
               ["[S [NP w+1] [VP a]]", {}], ['[S\t>foo]', {}],
               ["[S [NP @#gg:a]]", {}]]
     seen = inputs.flat_map do |data, opts|

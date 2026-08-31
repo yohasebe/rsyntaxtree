@@ -64,7 +64,12 @@ module RSyntaxTree
     end
 
     def self.valid?(data)
-      raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if data.empty?
+      # Whitespace alone is an empty input, not a tree with one blank label:
+      # nothing survives the parse, and what used to happen is that the
+      # drawing walked off the end of an empty element list and reported a
+      # defect in the library for what the caller could see and fix. A space
+      # meant as a label is written <>, which is not whitespace here.
+      raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if data.strip.empty?
 
       if /\[\s*\]/m =~ data
         raise RSTError.new(+"Error: inside the brackets is empty", code: :empty_brackets,
@@ -204,7 +209,11 @@ module RSyntaxTree
       token = ""
       i = 0
 
-      return "" if (@pos + 1) >= data.length
+      # The cursor is exhausted when it reaches the end, not one before it:
+      # counting from @pos + 1 skipped the last character, so an input of a
+      # single character — "A", or "<>" once it is one whitespace block —
+      # produced no tokens at all and drew from an empty element list.
+      return "" if @pos >= data.length
 
       escape = false
       while ((@pos + i) < data.length) && !gottoken

@@ -138,16 +138,23 @@ class RSTError < StandardError
   # mistake occur — and both need to know the whole set, not only the codes
   # they have happened to see: a kind of mistake nobody made is not the same
   # as a kind that cannot happen. Until this list existed the set was only
-  # discoverable by reading four files and a repair table.
+  # discoverable by reading five files and a repair table.
   #
   # Written out rather than computed, because it is a contract and a contract
   # should be readable at a glance and visible in a diff. A test keeps it
   # honest by finding the codes the library actually raises and comparing.
   #
-  # Eight of these name a mistake inside a label — angle_brackets,
+  # The list grows and does not churn: a code once published is not renamed
+  # or removed, so a consumer keyed by code — a translation table, a tally of
+  # what kinds of mistake a writer makes — only ever has entries to add.
+  #
+  # Eight are named by the repair table, which diagnoses a label by rewriting
+  # it and asking the parser whether the rewrite reads: angle_brackets,
   # bare_hyphen, incomplete_path, invalid_color, rule_name_without_derivation,
-  # stray_triangle, unclosed_markup, unclosed_matrix — and invalid_markup is
-  # where a label lands whose mistake none of them fits alone.
+  # stray_triangle, unclosed_markup, unclosed_matrix. invalid_markup is where
+  # a label lands whose mistake no single rewrite fits, which in practice
+  # means more than one. unknown_color and label_split are mistakes inside a
+  # label too, found before the repair table is reached.
   CODES = %i[
     angle_brackets
     bare_hyphen
@@ -472,8 +479,21 @@ module RSyntaxTree
       !OFF.include?(value.to_s.strip.downcase)
     end
 
+    # Whether the input is nothing to draw. Whitespace alone counts: it
+    # leaves no label behind, and reporting it as a defect in the library
+    # told the caller their own fixable input was our fault. Asked without
+    # strip when the bytes are not valid UTF-8, because strip raises there
+    # and that input is not blank — it is malformed, which the caller
+    # learns further down.
+    def self.blank?(text)
+      s = text.to_s
+      return true if s.empty?
+
+      s.valid_encoding? && s.strip.empty?
+    end
+
     def self.check_data(text, params = {})
-      raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if text.to_s == ""
+      raise RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false) if blank?(text)
 
       begin
         StringParser.valid?(text)
@@ -547,7 +567,7 @@ module RSyntaxTree
     def self.diagnose(text, params = {})
       errors = []
       note = nil
-      if text.to_s == ""
+      if blank?(text)
         errors << RSTError.new(+"Error: input text is empty", code: :empty_input, retryable: false)
       else
         begin

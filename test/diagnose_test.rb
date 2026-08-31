@@ -137,9 +137,22 @@ class DiagnoseTest < Minitest::Test
     assert_equal %w[empty_input], codes(diagnose(nil))
   end
 
-  def test_a_drawing_defect_is_a_verdict_not_a_backtrace
-    result = diagnose("   ")
-    assert_equal %w[internal_error], codes(result)
+  # Whitespace leaves no label behind, so it is nothing to draw rather than
+  # something the library failed at. It used to be reported as a defect —
+  # internal_error, not retryable — which told the caller their own fixable
+  # input was our fault.
+  def test_whitespace_alone_is_an_empty_input
+    ["   ", "\t\n ", " "].each do |blank|
+      assert_equal %w[empty_input], codes(diagnose(blank)), blank.inspect
+    end
+  end
+
+  # A single character is a label on its own, which the manual says draws as
+  # one leaf; the tokenizer used to stop one character early and hand the
+  # drawing an empty tree.
+  def test_a_one_character_label_is_a_tree
+    assert_equal({ "ok" => true }, diagnose("A"))
+    assert_equal({ "ok" => true }, diagnose("<>"))
   end
 
   # The two entry points must never disagree about whether an input is
