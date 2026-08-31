@@ -969,8 +969,17 @@ caution but correctness: a missing bracket shifts every token after it, so
 reporting past it would blame labels that are artifacts of the real
 mistake.
 
-This is one observed answer, not a contract: the fields may change between
-releases, and the exit code is the stable part of the answer.
+The `code` is the part meant for a program. Every code the library can
+report is listed in `RSTError::CODES`, and the list only grows: a code once
+published is not renamed or removed, so a program keyed by code — one that
+translates the diagnosis, or tallies what kinds of mistake a writer makes —
+only ever has entries to add. Knowing the whole set matters for the second
+kind: a mistake nobody made is not the same as a mistake that cannot happen.
+
+The rest of an answer is not a contract: the wording of a message or a hint
+may change between releases, a field may be absent where it does not apply
+(there is no `label` on a mistake that belongs to no single label), and the
+exit code is the stable part of the answer.
 
 #### Notation Reference
 

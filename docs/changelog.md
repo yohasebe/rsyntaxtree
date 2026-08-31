@@ -10,6 +10,26 @@ layout: default
 [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) |
 [Web App](https://yohasebe.com/rsyntaxtree)
 
+## [2.3.0] - 2026-09-01
+
+### Added
+- `RSTError::CODES` lists every error code the library can report. A program
+  keyed by code — one that translates the diagnosis, or tallies what kinds of
+  mistake a writer makes — needs the whole set rather than the codes it has
+  happened to see, and until now that set could only be recovered by reading
+  five files and the repair table. The list only grows: a published code is
+  not renamed or removed.
+
+### Fixed
+- Whitespace alone is an empty input rather than a defect in the library. It
+  reached the drawing, which walked off the end of an empty tree and reported
+  `internal_error`, telling the caller that their own fixable input was the
+  library's fault.
+- A bracketless input of a single character draws. The tokenizer counted its
+  cursor as exhausted one character early, so `A`, and `<>` once it is one
+  whitespace block, produced no tokens at all — though the manual has always
+  said a label on its own draws as one leaf.
+
 ## [2.2.0] - 2026-09-01
 
 ### Changed
