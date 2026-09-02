@@ -1073,7 +1073,11 @@ curly one) or `:keep`.
 The result is checked the only way it can be: the test suite draws what
 `escape` returns for every markup character, alone and in company, and reads
 the text back off the figure. One text has no spelling under `hyphen:
-literal` — a label of nothing but hyphens, which is the horizontal rule.
+literal` — a line of nothing but three or more hyphens, which is the
+horizontal rule — and asking for it raises `ArgumentError` rather than
+returning notation that draws an empty leaf. Empty and all-whitespace text
+comes back as the whitespace it holds, which draws as a blank; a program
+building a tree from tokens will usually want to drop such tokens first.
 
 #### TikZ Output
 

@@ -63,7 +63,13 @@ class EscapeTest < Minitest::Test
     "|/|", "~z~", "=w=", "^top", "^^", "&", "co.", "back\\slash", "\\n", "\\t",
     "C++", "x+1", "2+2", "v+>1", "a+-1", "+1", "x--y", "->", "<-", "<->",
     "**bold**", "a b", "a  b", "日本語", "⟨NP⟩", "λx.P(x)", "¥100", "x\\+1",
-    "100%", "it's", "'", "a'b'c"
+    "100%", "it's", "'", "a'b'c", "wait --- no", "x---y",
+    # The web interface's transport spellings, which the reader turns back
+    # into the characters they stand for unless told otherwise.
+    "-AMP-", "-PRIME-", "-OABRACKET-",
+    # An ideographic space and a no-break space are characters, not word
+    # breaks: a phrase keeps them and a word does not turn them into <>.
+    "a\u3000b", "x\u00a0y"
   ].freeze
 
   # Under hyphen: literal a line of nothing but hyphens is the horizontal
@@ -84,6 +90,30 @@ class EscapeTest < Minitest::Test
         end
       end
     end
+  end
+
+  # Under hyphen: literal there is no notation for a line of hyphens, so
+  # escape says so instead of returning notation that draws nothing.
+  def test_a_line_of_hyphens_is_refused_under_literal
+    ["---", "----"].each do |text|
+      %i[word label cell].each do |as|
+        assert_raises(ArgumentError, "#{text} as #{as}") { RSyntaxTree.escape(text, as: as, hyphen: :literal) }
+      end
+      assert_raises(ArgumentError) { RSyntaxTree.escape(text, as: :phrase, hyphen: :literal) }
+    end
+    # A rule is a whole line: hyphens with company on the line are text.
+    assert_equal "wait --- no", RSyntaxTree.escape("wait --- no", as: :phrase, hyphen: :literal)
+    assert_equal "--", RSyntaxTree.escape("--", hyphen: :literal)
+    # A multi-line label or cell is refused when any of its lines is one.
+    assert_raises(ArgumentError) { RSyntaxTree.escape("a\n---\nb", as: :label, hyphen: :literal) }
+    assert_raises(ArgumentError) { RSyntaxTree.escape("a\n---", as: :cell, hyphen: :literal) }
+    # In a word a newline is a space, so the hyphens have company.
+    assert_equal "a<>---<>b", RSyntaxTree.escape("a\n---\nb", as: :word, hyphen: :literal)
+  end
+
+  def test_a_carriage_return_line_feed_is_one_space_in_a_word
+    assert_equal "a<>b", RSyntaxTree.escape("a\r\nb")
+    assert_equal "a\\nb", RSyntaxTree.escape("a\r\nb", as: :label)
   end
 
   def test_a_line_of_hyphens_draws_as_itself_under_markup

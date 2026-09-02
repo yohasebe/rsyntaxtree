@@ -19,7 +19,8 @@ layout: default
   whitespace means; the hyphen mode has to be given because no one spelling of
   a hyphen serves both; `apostrophe: :keep` keeps a straight apostrophe. The
   test draws every result and reads the text back, so the rules are exercised
-  rather than restated.
+  rather than restated. The one text with no spelling under `hyphen: literal`
+  — a line of nothing but hyphens, which is the rule — raises `ArgumentError`.
 - `\'` keeps a straight apostrophe, which the notation otherwise sets as a
   curly one. `\@` is an at sign.
 
