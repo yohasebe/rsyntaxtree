@@ -10,6 +10,18 @@ layout: default
 [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) |
 [Web App](https://yohasebe.com/rsyntaxtree)
 
+## [2.4.1] - 2026-09-02
+
+### Fixed
+- A node shorter than its row-mates connects to its children from its own
+  bottom. A row aligns its labels at the top, so a tall one — a feature
+  matrix, a two-line label — reaches far below the short ones beside it. The
+  downward connector took the row's shared bottom for its upper end, so a
+  short node's line began at the tall neighbour's depth: a gap opened under
+  the label, and a polyline's branch flattened into a rule above the
+  children. No committed figure changes; the effect shows only where a row
+  mixes label heights.
+
 ## [2.4.0] - 2026-09-02
 
 ### Added

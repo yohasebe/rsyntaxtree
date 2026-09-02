@@ -1,7 +1,7 @@
 # RSyntaxTree
 
 > A generator for linguistic syntax trees. The input is labeled bracket
-> notation; the output is PNG, SVG, PDF, TikZ or JSON. Version 2.4.0.
+> notation; the output is PNG, SVG, PDF, TikZ or JSON. Version 2.4.1.
 
 The notation is small, and several characters in it already mean
 something. The reference leads with those, which is why it is worth
