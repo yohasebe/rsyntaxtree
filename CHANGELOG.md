@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.4.0] - 2026-09-02
+
+### Added
+- `RSyntaxTree.escape(text, as:, hyphen:, apostrophe:)` returns notation that
+  draws as the given text, for a program writing notation from strings it did
+  not choose. The context (`:word`, `:phrase`, `:label`, `:cell`) decides what
+  whitespace means; the hyphen mode has to be given because no one spelling of
+  a hyphen serves both; `apostrophe: :keep` keeps a straight apostrophe. The
+  test draws every result and reads the text back, so the rules are exercised
+  rather than restated.
+- `\'` keeps a straight apostrophe, which the notation otherwise sets as a
+  curly one. `\@` is an at sign.
+
+### Fixed
+- `\+` before digits is a plus sign. The path markers at the end of a label
+  (`+1`, `+>2`) were detected without regard to a backslash, so no label could
+  contain "+1" at all: every "C++11" and "2+2" was read as one end of a
+  movement path.
+- A label containing a backslash could lose characters in the drawing. The
+  text was placed into the SVG as a replacement string, which Ruby reads for
+  backreferences: `\+` and `\'` were two of them.
+- An escaped character the tokenizer did not know (`\'`, `\@`) lost its
+  backslash before the markup was read.
+
 ## [2.3.0] - 2026-09-01
 
 ### Added

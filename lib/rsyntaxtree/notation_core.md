@@ -24,9 +24,16 @@ figure that was meant.
   `\n` or `\t` in it: there it can split a value that carries markup, and it
   breaks a nested #( ... #) matrix. Inside any label with columns, write a
   space as `<>`: 'a<>toy', not 'a toy'.
-- A straight apostrophe is typeset as the curly ’ (U+2019).
+- A straight apostrophe is typeset as the curly ’ (U+2019); \' keeps it
+  straight.
+- A `+` followed by digits at the end of a label is a movement path (+1, +>2).
+  \+ is a plus sign, so C\+\+11 and 2\+2 draw as written.
 - A backslash takes the character after it, whatever it is: \q draws q, and
   C:\path draws C:path. A backslash itself is \\.
+- A program building labels from text it did not choose should not copy
+  these rules: RSyntaxTree.escape(text, as: :word) returns notation that
+  draws as the text (as: :phrase, :label or :cell for the other places;
+  hyphen: to match the hyphen option; apostrophe: :keep to keep it straight).
 - The prefixes of a label compose in one order, and only this one:
   `^` → `#`/`##`/`###` → `%` → `@color:`. So ^#%@red:NP is read whole, while
   @red:%NP leaves the % as a literal character and silently drops the shade.

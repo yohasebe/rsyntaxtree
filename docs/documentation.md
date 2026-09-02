@@ -601,7 +601,9 @@ The backslash character `\` must be used to print certain characters used in the
 
 **Note:** A newline character `↩️` is treated just as a whitespace. Thus 1) `\n`, 2) `\↩️`, and 3) `\` followed by a whitespace character are all rendered as a newline `↩️` in the resulting image. Note also that a `↩️` or a whitespace repeated more than once is reduced to a single whitespace.
 
-**Note:** A straight ASCII apostrophe (`'`) in a label is automatically rendered as a typographic (curly) apostrophe `’`, which suits X-bar primes such as `T'`. This also applies to apostrophes in ordinary words (e.g. *John's*).
+**Note:** A straight ASCII apostrophe (`'`) in a label is automatically rendered as a typographic (curly) apostrophe `’`, which suits X-bar primes such as `T'`. This also applies to apostrophes in ordinary words (e.g. *John's*). Write `\'` for an apostrophe that is to stay straight.
+
+**Note:** A `+` followed by digits at the end of a label is a movement path (`+1`). Written `\+`, it is a plus sign: `C\+\+11` draws *C++11*.
 
 ### Feature Structures
 
@@ -1012,6 +1014,41 @@ symmetrize: off
 ```
 
 CLI arguments override configuration file settings. Unknown options in the config file will generate warnings, and invalid values will cause errors with helpful messages.
+
+#### Escaping Text from a Program
+
+A program that writes notation from strings it did not choose — a tagger's
+tokens, a corpus's words — has to escape whatever those strings contain, and
+copying the escaping rules into that program means they drift from the
+notation as it changes, silently, as a different figure. `RSyntaxTree.escape`
+does the escaping in the library that knows the notation:
+
+```ruby
+require "rsyntaxtree"
+
+RSyntaxTree.escape("C++ 2+2")                     # => "C\\+\\+<>2\\+2"
+RSyntaxTree.escape("well-known dog", as: :phrase)  # => "well\\-known dog"
+RSyntaxTree.escape("Tom's", apostrophe: :keep)     # => "Tom\\'s"
+RSyntaxTree.escape("a\tb\nc", as: :cell)           # => "a\\tb\\nc"
+```
+
+`as:` says where the text will stand, which decides what its whitespace
+means: a `:word` is one leaf or one label, and a space inside it becomes
+`<>`; a `:phrase` is a leaf of several words, whose spaces stay so the leaf
+gets a triangle; a `:label` is a node label, like a word but with a newline
+kept as a line break; a `:cell` is one cell of a column-aligned or matrix
+label, where a tab becomes the column break and a newline the row break.
+
+`hyphen:` must match the option the figure is drawn with. Under `:markup`
+(the default) a hyphen is escaped; under `:literal` a bare hyphen is already
+itself and the escaped form means an underline, so no one spelling serves
+both. `apostrophe:` is `:curly` (the default, a straight apostrophe set as a
+curly one) or `:keep`.
+
+The result is checked the only way it can be: the test suite draws what
+`escape` returns for every markup character, alone and in company, and reads
+the text back off the figure. One text has no spelling under `hyphen:
+literal` — a label of nothing but hyphens, which is the horizontal rule.
 
 #### TikZ Output
 
