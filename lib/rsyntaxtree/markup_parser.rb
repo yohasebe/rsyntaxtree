@@ -39,9 +39,13 @@ class MarkupParser < Parslet::Parser
 
   rule(:path) { (str('+') >> str('-').maybe >> (str('>') | str('<')).maybe >> match('\d').repeat(1)).as(:path) }
   # rule(:escaped) { str('\\') >> match('[#<>{}\\^+*_=~\|\n\-]').as(:chr) }
-  rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]%]').as(:chr) }
+  rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]%@]').as(:chr) }
+  # A straight apostrophe is set as a curly one; `\'` asks for the straight
+  # one itself. It comes through as a placeholder so the substitution, which
+  # runs later on the joined text, can tell the two apart.
+  rule(:kept_apostrophe) { str("\\'").as(:kept_apostrophe) }
   rule(:non_escaped) { ((match('[#<>{}\\^+*_=~\|\-]') | str('\\n') | str('\\t')).absent? >> any).as(:chr) }
-  rule(:text) { (escaped | non_escaped).repeat(1).as(:text) }
+  rule(:text) { (kept_apostrophe | escaped | non_escaped).repeat(1).as(:text) }
 
   # Column separator. Every line of a label is cut at these into cells, and
   # each column is laid out at the width of its widest cell, which is what an
@@ -87,7 +91,7 @@ class MarkupParser < Parslet::Parser
   rule(:matrix_line) { (rule_line | double_rule_line | matrix_markup.repeat(1).as(:line)) >> (cr | str('#)').present?) }
   rule(:matrix_markup) { (matrix | tabstop | matrix_text | decoration | shape | bstroke) }
   # Text inside a matrix stops at the closing delimiter as well.
-  rule(:matrix_text) { (escaped | (str('#)').absent? >> non_escaped)).repeat(1).as(:text) }
+  rule(:matrix_text) { (kept_apostrophe | escaped | (str('#)').absent? >> non_escaped)).repeat(1).as(:text) }
 
   rule(:markup) { (matrix | tabstop | text | decoration | shape | bstroke) }
 
@@ -107,10 +111,15 @@ class MarkupParser < Parslet::Parser
 end
 
 module Markup
+  # Stands in for an escaped apostrophe until the curly substitution has
+  # run. A private-use character no label carries.
+  KEPT_APOSTROPHE = "\uE000"
+
   @parser = MarkupParser.new
 
   @evaluator = Parslet::Transform.new do
     rule(chr: simple(:chr)) { chr.to_s }
+    rule(kept_apostrophe: simple(:kept)) { KEPT_APOSTROPHE }
     rule(text: sequence(:text)) { { text: text.join(""), decoration: [] } }
 
     rule(tabstop: subtree(:empty)) {

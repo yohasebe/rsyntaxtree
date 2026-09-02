@@ -256,7 +256,7 @@ module RSyntaxTree
         # `\#` arrived at the grammar as a bare '#', which opens an enclosure,
         # so a label written with a hash in it lost the hash and everything
         # after it went inside brackets instead.
-        when /[nt{}<>^+*_=~|%\-#]/
+        when /[nt{}<>^+*_=~|%\-#@']/
           if escape
             token += '\\' + ch
             escape = false

@@ -623,7 +623,11 @@ module RSyntaxTree
         element.ink_top = first_baseline - f_m.ink_above
         element.ink_bottom = text_y + (l_m.ink_height - l_m.ink_above)
       end
-      @tree_data += text_data.sub(/CONTENT/, new_text)
+      # The block form, so the label goes in as it is. As a replacement
+      # string it was read for backreferences, and `\+` — the last matched
+      # group, of which there is none — took a backslash and a plus sign out
+      # of any label that carried them.
+      @tree_data += text_data.sub(/CONTENT/) { new_text }
     end
 
     # Draws one run of a label — a stretch of text with its decorations, or the

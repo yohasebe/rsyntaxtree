@@ -210,6 +210,7 @@ require_relative 'rsyntaxtree/tikz_generator'
 require_relative 'rsyntaxtree/version'
 require_relative 'rsyntaxtree/string_parser'
 require_relative 'rsyntaxtree/format_converter'
+require_relative 'rsyntaxtree/escape'
 
 require 'cgi'
 require 'rsvg2'

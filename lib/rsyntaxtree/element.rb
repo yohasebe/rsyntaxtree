@@ -33,11 +33,8 @@ module RSyntaxTree
       @vertical_indent = 0     # Drawing offset
       content = content.strip
 
-      @path = if /.+?\^?((?:\+-?>?<?\d+)+)\^?\z/m =~ content
-                $1.sub(/\A\+/, "").split("+")
-              else
-                []
-              end
+      _body, path_text = Element.split_path(content)
+      @path = path_text.delete_prefix("^").delete_suffix("^").sub(/\A\+/, "").split("+")
 
       @fontset = fontset
       @fontsize = fontsize
@@ -64,7 +61,7 @@ module RSyntaxTree
         end
       end
 
-      @raw_content = content.sub(/\^?(?:\+-?>?<?\d+)+\^?\z/, '')
+      @raw_content = Element.split_path(content).first
 
       parsed = Markup.parse(prepare_markup(content))
 
@@ -125,9 +122,33 @@ module RSyntaxTree
     # something else: a `---` rule line of its own, and the `+-2` markers
     # at the end. Shared by swap_hyphen_markup and escape_hyphens.
     def self.hyphen_safe_lines(text)
-      path = text[/\^?(?:\+-?>?<?\d+)+\^?\z/]
-      body = path ? text[0...-path.length] : text
-      [body.split('\n', -1), path.to_s]
+      body, path = split_path(text)
+      [body.split('\n', -1), path]
+    end
+
+    # The run of path markers a label ends in: `+1`, `+>2`, `+-3`, several of
+    # them, an optional `^` on either side. A marker's `+` is a marker only
+    # when the backslashes before it are even in number: `x\+1` is a plus
+    # sign and a digit, `x\\+1` a backslash and a marker. Detection used to
+    # ignore the backslash, so a label could not contain "+1" at all — every
+    # "C++11" and "2+2" was read as one end of a movement path.
+    PATH_MARKERS = /(?:\+-?>?<?\d+)+/
+
+    # Splits a label into what is drawn and its trailing path text, the
+    # latter empty when there is none. A label that is nothing but markers
+    # has no path: there would be nothing to draw them from.
+    def self.split_path(text)
+      i = 0
+      while (i = text.index("+", i))
+        tail = text[i..]
+        if i.positive? && tail.match?(/\A#{PATH_MARKERS}\^?\z/) &&
+           text[0...i][/\\*\z/].length.even?
+          i -= 1 if i > 1 && text[i - 1] == "^"
+          return [text[0...i], text[i..]]
+        end
+        i += 1
+      end
+      [text, ""]
     end
 
     def swap_hyphen_markup(text)
@@ -366,7 +387,7 @@ module RSyntaxTree
             # as a curly apostrophe (U+2019) for smarter typography, e.g. the
             # X-bar prime in "T'". Applied before metrics so the measured glyph
             # matches the rendered one.
-            text = text.gsub("'", "’")
+            text = text.gsub("'", "’").gsub(Markup::KEPT_APOSTROPHE, "'")
             e[:text] = text.gsub(" ", WHITESPACE_BLOCK)
                           .gsub(">", '&#62;')
                           .gsub("<", '&#60;')
