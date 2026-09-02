@@ -1203,9 +1203,16 @@ module RSyntaxTree
       row ? row[:top] : element.ink_top
     end
 
+    # The lower endpoint clears the element's own ink, not the row's. A row
+    # keeps its labels top-aligned, so a tall one — a feature matrix, a
+    # two-line label — reaches far below its neighbours; taking the row's
+    # union here dragged every short label's downward connector down to that
+    # depth, opening a gap under the label with no line in it and flattening
+    # the branch of a polyline. The upper endpoint still takes the row (see
+    # ink_over): the edges arriving at a row of leaves are what must line up,
+    # which was the point of the band, and that is unchanged.
     def ink_under(element)
-      row = element.enclosure == :none && row_ink[element.vertical_indent.round(1)]
-      row ? row[:bottom] : element.ink_bottom
+      element.ink_bottom
     end
 
     def connector_edges(child, parent)
