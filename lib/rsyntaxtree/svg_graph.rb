@@ -511,7 +511,7 @@ module RSyntaxTree
       # enclosure needs, so the text starts that far inside the node's left
       # edge and the enclosure is drawn on the edge itself.
       enclosure_room = element.label_enclosure_room
-      text_x = txt_pos - element.content_width / 2 + enclosure_room
+      text_x = txt_pos - element.content_width / 2.0 + enclosure_room
       text_y = top + @global[:single_line_height] - @global[:height_connector_to_text]
       text_data  = text_data.sub(/X_VALUE/, text_x.to_s)
       text_data  = text_data.sub(/Y_VALUE/, text_y.to_s)
@@ -869,9 +869,9 @@ module RSyntaxTree
           lgeom = {
             left: element.horizontal_indent,
             right: element.horizontal_indent + element.content_width,
-            top: y_center - element.content_height / 2,
-            bottom: y_center + element.content_height / 2,
-            cx: element.horizontal_indent + element.content_width / 2,
+            top: y_center - element.content_height / 2.0,
+            bottom: y_center + element.content_height / 2.0,
+            cx: element.horizontal_indent + element.content_width / 2.0,
             cy: y_center
           }
         else
@@ -881,7 +881,7 @@ module RSyntaxTree
           # them into the boxes in narrow ones. Only the line pool uses
           # x0/x2; movement paths read x1, which is unchanged.
           x0 = element.horizontal_indent
-          x1 = element.horizontal_indent + element.content_width / 2
+          x1 = element.horizontal_indent + element.content_width / 2.0
           x2 = element.horizontal_indent + element.content_width
           y0 = element.vertical_indent + @global[:height_connector_to_text] / 2
           y1 = element.vertical_indent + element.content_height + @global[:height_connector_to_text]
@@ -1232,7 +1232,7 @@ module RSyntaxTree
       m = @global[:single_x_metrics].height * @global[:vmargin]
 
       child_y = if child.empty_label?
-                  child.vertical_indent + child.content_height / 2
+                  child.vertical_indent + child.content_height / 2.0
                 elsif child_above
                   if m && child.ink_bottom
                     ink_under(child) + m
@@ -1246,7 +1246,7 @@ module RSyntaxTree
                 end
 
       parent_y = if parent.empty_label?
-                   parent.vertical_indent + parent.content_height / 2
+                   parent.vertical_indent + parent.content_height / 2.0
                  elsif child_above
                    if m && parent.ink_top
                      ink_over(parent) - m
@@ -1287,8 +1287,8 @@ module RSyntaxTree
         hctt = @global[:height_connector_to_text]
         y1 = child.vertical_indent + (child.content_height + hctt * 1.5) / 2
         y2 = parent.vertical_indent + (parent.content_height + hctt * 1.5) / 2
-        x1 = child.empty_label? ? child.horizontal_indent + child.content_width / 2 : child.horizontal_indent - hctt
-        x2 = parent.empty_label? ? parent.horizontal_indent + parent.content_width / 2 : parent.horizontal_indent + parent.content_width + hctt
+        x1 = child.empty_label? ? child.horizontal_indent + child.content_width / 2.0 : child.horizontal_indent - hctt
+        x2 = parent.empty_label? ? parent.horizontal_indent + parent.content_width / 2.0 : parent.horizontal_indent + parent.content_width + hctt
 
         if @polyline
           mid_x1 = x2 + (x1 - x2) / 2
@@ -1312,8 +1312,8 @@ module RSyntaxTree
       else
         # TTB: parent's bottom → child's top
         if @polyline
-          chi_x = child.horizontal_indent + child.content_width / 2
-          par_x = parent.horizontal_indent + parent.content_width / 2
+          chi_x = child.horizontal_indent + child.content_width / 2.0
+          par_x = parent.horizontal_indent + parent.content_width / 2.0
           chi_y, par_y = connector_edges(child, parent)
 
           mid_x1 = chi_x
@@ -1331,8 +1331,8 @@ module RSyntaxTree
                                         .sub(/PARX/, par_x.to_s)
                                         .sub(/PARY/, par_y.to_s)
         else
-          x1 = child.horizontal_indent + child.content_width / 2
-          x2 = parent.horizontal_indent + parent.content_width / 2
+          x1 = child.horizontal_indent + child.content_width / 2.0
+          x2 = parent.horizontal_indent + parent.content_width / 2.0
           y1, y2 = connector_edges(child, parent)
 
           line_data   = @line_styles.sub(/X1/, x1.to_s)
@@ -1373,7 +1373,7 @@ module RSyntaxTree
         # bottom-to-top examples are derivations, which draw rules instead.
         x1 = child.horizontal_indent
         x2 = child.horizontal_indent + child.content_width
-        x3 = parent.horizontal_indent + parent.content_width / 2
+        x3 = parent.horizontal_indent + parent.content_width / 2.0
         child_above = child.vertical_indent <= parent.vertical_indent
         m = child.ink_top && parent.ink_bottom ? @global[:single_x_metrics].height * @global[:vmargin] : nil
         if child_above
