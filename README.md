@@ -144,7 +144,7 @@ older setup still fails to build `gobject-introspection`, `cairo-gobject` or
 `gio2`, install those three first with
 `-- --with-ldflags="-Wl,-undefined,dynamic_lookup"` appended, then install
 RSyntaxTree; or skip the build entirely with the
-[Docker image](https://hub.docker.com/r/yohasebe/rsyntaxtree) or the
+[Docker image](https://github.com/yohasebe/rsyntaxtree_web) or the
 [web interface](https://yohasebe.com/rsyntaxtree).
 
 ## Usage
