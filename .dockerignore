@@ -1,5 +1,19 @@
-# The image needs the working tree, not the repository: without this, ADD .
-# copies .git into every image — hundreds of megabytes of history, including
-# refs that exist only on the build machine.
-.git
-pkg
+# Ignore the whole build context, then allow back only what the image needs.
+# A blacklist lets the next private file added to .gitignore slip in through
+# ADD . — the image is built by allowing named things in, not by naming the
+# things to keep out. The container loads the gem from lib/ and runs the
+# generators in dev/ against docs mounted at run time, so nothing here needs
+# docs/, the git history or its rewrite scratch, editor and agent files
+# (.claude, CLAUDE.md, .solargraph.yml, .rubocop.yml), caches, logs, tmp/,
+# built gems, or .DS_Store.
+*
+!lib
+!bin
+!dev
+!fonts
+!Gemfile
+!rsyntaxtree.gemspec
+!Rakefile
+!README.md
+!CHANGELOG.md
+!LICENSE
