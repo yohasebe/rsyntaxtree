@@ -33,6 +33,16 @@ end
 
 Rake::Task["build"].enhance([:normalize_permissions])
 
+# Then look at what was actually built. The gemspec decides what ships by asking
+# git, so anything tracked ships — a private file added by mistake is in the
+# package by the same rule that puts the library there, and no reading of the
+# gemspec reveals it. The gate opens the built gem instead: it asks the gemspec
+# what the payload should be and compares both ways, then reads the payload for
+# secrets, machine-local paths and modes no one but the owner can read. It runs
+# after the permission pass above, and `release` builds before it pushes, so
+# nothing reaches RubyGems without going through here.
+Rake::Task["build"].enhance { sh "ruby", "dev/verify_gem.rb" }
+
 # For trying something out. It does NOT reproduce the committed gallery:
 # fontconfig resolves a family to whatever this machine has, so the same input
 # measures differently here than in the image the figures were drawn with. Run
