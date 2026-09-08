@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
   # the scripts that build them, the tests, the CI and container setup, the
   # bundle and the rake tasks — and whoever wants those clones the repository.
   development = ["docs/", "dev/", "img/", "test/", ".github/"]
-  development_files = [".gitattributes", ".gitignore", ".ruby-version",
-                       "Dockerfile", "Gemfile", "Rakefile"]
+  development_files = [".dockerignore", ".gitattributes", ".gitignore",
+                       ".ruby-version", "Dockerfile", "Gemfile", "Rakefile"]
   s.files         = `git ls-files`.split("\n").reject do |path|
                       development.any? { |dir| path.start_with?(dir) } ||
                         development_files.include?(path)
