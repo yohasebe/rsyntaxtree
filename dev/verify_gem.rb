@@ -113,7 +113,7 @@ failures << "suspicious file names (#{bad.size}):\n  " + bad.join("\n  ") unless
 # --- 3. content scan (narrow patterns only; wide words like "token" are noise) ------
 # Patterns whose source text would itself match are written as adjacent string
 # literals (Ruby concatenates them), so that this file never trips its own scan if
-# a project ships it inside the gem. (wp2txt hit this with the Dropbox pattern.)
+# a project ships it inside the gem.
 SECRET_PATTERNS = {
   "GitHub token"        => /\bghp_[A-Za-z0-9]{36}\b|\bgithub_pat_[A-Za-z0-9_]{22,}\b/,
   "OpenAI-style key"    => /\bsk-[A-Za-z0-9_-]{20,}\b/,
