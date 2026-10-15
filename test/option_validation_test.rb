@@ -40,7 +40,7 @@ class OptionValidationTest < Minitest::Test
       # composes with either direction, and naming it here as well would make
       # two spellings for one layout.
       direction: "rtl",
-      derivation: "sometimes"
+      derivation: "sometimes", leaf_align: "sometimes"
     }.each do |key, value|
       e = build(key => value)
       assert_equal :invalid_option, e.code, "#{key}: #{value} should be rejected"
@@ -72,7 +72,8 @@ class OptionValidationTest < Minitest::Test
       { hyphen: "markup" }, { hyphen: "literal" },
       { leafstyle: "auto" }, { leafstyle: "bar" }, { leafstyle: "nothing" },
       { linewidth: "0.5" }, { linewidth: "1" }, { linewidth: "1.5" }, { linewidth: "2" }, { linewidth: "2.5" }, { linewidth: "3" },
-      { mirror: "on" }, { transparent: "off" }, { polyline: "on" }, { hide_default_connectors: "off" }
+      { mirror: "on" }, { transparent: "off" }, { polyline: "on" }, { hide_default_connectors: "off" },
+      { leaf_align: "pad-lo" }, { leaf_align: "pad-hi" }
     ].each do |opts|
       assert_nil build(opts), "web UI value #{opts} should pass"
     end

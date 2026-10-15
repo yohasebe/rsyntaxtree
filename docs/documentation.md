@@ -107,6 +107,7 @@ explains it. Every sample here is drawn by a test, so each one works.
 - `tidy`, `hspacing` and `vheight` — the packing and the spacing → [Tidy Layout](#tidy-layout)
 - `polyline` — right-angled connectors → [Connectors](#connectors)
 - `hide_default_connectors` — for figures whose links are all drawn by hand → [Connectors](#connectors)
+- `leaf_align` — line leaf labels up at the far tree edge → [Levelling the Terminals](#levelling-the-terminals)
 - `transparent` — a clear background
 - `derivation` — derivation figures → [Derivations](#derivations)
 - `hyphen` — whether a hyphen is markup or a character → [Hyphens](#hyphens)
@@ -321,6 +322,8 @@ A label that is *only* `<>` is a special case with its own use: see [Levelling t
 #### Levelling the Terminals
 
 A node whose label is *only* `<>` renders as an invisible pass-through joint: the connector runs continuously through it without a break. Chaining such nodes pushes a shallow leaf down so it aligns with deeper leaves — useful when every terminal should sit on the same row.
+
+The `Leaf Alignment` option accepts `pad-lo` and `pad-hi` (CLI `--leaf-align pad-lo` or `--leaf-align pad-hi`). Both insert as many `<>` joints as shallow leaves need to be level with the deepest leaves. `pad-lo` puts them immediately above the leaves; `pad-hi` puts each joint as high as possible, keeping subtrees compact toward the leaves. `on` remains an alias for `pad-lo`.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-e5062caa'].layout }}" markdown="1">
 

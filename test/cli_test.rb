@@ -347,6 +347,12 @@ end
     assert_equal "rsyntaxtree.error/1", diagnosis["schema"]
   end
 
+  def test_leaf_align_option_is_accepted_by_the_cli
+    result = run_cli("--validate", "--leaf-align", "pad-hi", "[S [A a] [B [C b] [D c]]]")
+
+    assert result[:status].success?, result[:stderr]
+  end
+
   def test_validate_reports_a_structured_error
     result = run_cli("--validate", "[X V-bar]")
 

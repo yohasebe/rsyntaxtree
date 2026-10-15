@@ -90,7 +90,7 @@ class NotationIndexTest < Minitest::Test
   # an option cannot fall out of the documents by being forgotten here — which
   # is how polyline, hide_default_connectors and transparent went undocumented
   # while this test passed.
-  UNDOCUMENTED_ON_PURPOSE = {}.freeze
+  UNDOCUMENTED_ON_PURPOSE = { leaf_align: "pending translation" }.freeze
 
   # What the grammar actually enumerates, read from its source so this file
   # cannot quietly fall behind it.

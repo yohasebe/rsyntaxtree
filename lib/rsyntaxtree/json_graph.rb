@@ -331,6 +331,7 @@ module RSyntaxTree
               # before 2.0 carry a separate symmetrize flag beside it; the
               # scale is what it meant, and it is all that is written now.
               tidy: @params[:tidy] || "off",
+              leaf_align: @params[:leaf_align],
               mirror: @params[:mirror] == true,
               direction: @params[:direction] || "ttb",
               # Degrees, positive leaning the top right. The geometry below

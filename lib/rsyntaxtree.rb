@@ -61,7 +61,8 @@ OPTION_VALUES = {
   tidy: %w[off symmetric low medium high on compact true false],
   direction: %w[ttb ltr btt],
   hyphen: %w[markup literal],
-  derivation: %w[on off true false yes no 0 1 none]
+  derivation: %w[on off true false yes no 0 1 none],
+  leaf_align: %w[pad-lo pad-hi on off true false]
 }.freeze
 
 NUMERIC_RANGES = {
@@ -96,6 +97,7 @@ DEFAULT_OPTS = {
   transparent: "off",
   polyline: "off",
   hide_default_connectors: "off",
+  leaf_align: "off",
   mirror: "off",
   tidy: "off",
   hspacing: 1.0,
@@ -306,6 +308,15 @@ module RSyntaxTree
                             end
         when :transparent, :polyline, :hide_default_connectors, :mirror, :derivation
           new_params[key] = switched_on?(value)
+        when :leaf_align
+          new_params[key] = case value.to_s
+                             when "pad-hi"
+                               "pad-hi"
+                             when "pad-lo", "on", "true"
+                               "pad-lo"
+                             else
+                               "off"
+                             end
         when :color
           new_params[key] = case value.to_s
                             when "modern", "on", "true"
@@ -693,16 +704,12 @@ module RSyntaxTree
     end
 
     def draw_svg
-      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
-      sp.parse
-      graph = SVGGraph.new(sp.get_elementlist, @params, @global)
+      graph = SVGGraph.new(parsed_element_list, @params, @global)
       graph.svg_data
     end
 
     def draw_json
-      sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
-      sp.parse
-      graph = JSONGraph.new(sp.get_elementlist, @params, @global)
+      graph = JSONGraph.new(parsed_element_list, @params, @global)
       graph.json_data
     end
 
@@ -712,10 +719,20 @@ module RSyntaxTree
     end
 
     def draw_tikz(standalone: false, font: nil)
+      generator = TikZGenerator.new(parsed_element_list, @params)
+      generator.generate(standalone: standalone, font: font)
+    end
+
+    private
+
+    def parsed_element_list
       sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
       sp.parse
-      generator = TikZGenerator.new(sp.get_elementlist, @params)
-      generator.generate(standalone: standalone, font: font)
+      list = sp.get_elementlist
+      if @params[:leaf_align] != "off" && @params[:derivation] != true
+        list.align_leaves(@params[:leaf_align], @params[:fontset], @params[:fontsize], @global)
+      end
+      list
     end
   end
 end

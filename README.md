@@ -172,6 +172,7 @@ Usage:
 | `-c, --color` | Color mode: modern, traditional, gray (black text, grey lines), off | `modern` |
 | `-p, --polyline` | Polyline connectors: on, off | `off` |
 | `--hide-default-connectors` | Draw no parent-to-child lines, leaving only the ones written with `+-n`: on, off | `off` |
+| `--leaf-align` | Level leaves with invisible joints: pad-lo, pad-hi, or off | `off` |
 | `-d, --direction` | Tree layout direction: ttb, ltr, btt | `ttb` |
 | `--tidy` | Layout scale: off, symmetric, low, medium, high | `off` |
 | `--hspacing` | How far apart sisters sit, all layout modes (0.5-3.0) | `1.0` |

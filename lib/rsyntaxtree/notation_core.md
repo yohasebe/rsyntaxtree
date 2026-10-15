@@ -107,6 +107,7 @@ Options (the command line spells them --like-this):
 | vheight    | how far apart levels sit, 0.5–5.0 |
 | polyline   | draw each connector as two right angles rather than a slanted line |
 | hide_default_connectors | draw no parent-to-child lines, leaving only the ones written with +-n — how a lattice or a network is drawn |
+| leaf_align | level leaves with invisible joints: pad-lo, pad-hi, or off |
 | transparent | leave the background clear instead of painting it white |
 | derivation | one rule across the daughters, categorial-grammar style |
 | hyphen     | markup (hyphens underline) or literal (hyphens are hyphens) |
