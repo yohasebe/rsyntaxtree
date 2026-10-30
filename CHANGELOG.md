@@ -3,682 +3,268 @@
 ## [2.4.1] - 2026-09-02
 
 ### Fixed
-- A node shorter than its row-mates connects to its children from its own
-  bottom. A row aligns its labels at the top, so a tall one — a feature
-  matrix, a two-line label — reaches far below the short ones beside it. The
-  downward connector took the row's shared bottom for its upper end, so a
-  short node's line began at the tall neighbour's depth: a gap opened under
-  the label, and a polyline's branch flattened into a rule above the
-  children. No committed figure changes; the effect shows only where a row
-  mixes label heights.
+- Connectors from a short node start at its own bottom, not below a taller label in the same row
 
 ## [2.4.0] - 2026-09-02
 
 ### Added
-- `RSyntaxTree.escape(text, as:, hyphen:, apostrophe:)` returns notation that
-  draws as the given text, for a program writing notation from strings it did
-  not choose. The context (`:word`, `:phrase`, `:label`, `:cell`) decides what
-  whitespace means; the hyphen mode has to be given because no one spelling of
-  a hyphen serves both; `apostrophe: :keep` keeps a straight apostrophe. The
-  test draws every result and reads the text back, so the rules are exercised
-  rather than restated. The one text with no spelling under `hyphen: literal`
-  — a line of nothing but hyphens, which is the rule — raises `ArgumentError`.
-- `\'` keeps a straight apostrophe, which the notation otherwise sets as a
-  curly one. `\@` is an at sign.
+- `RSyntaxTree.escape(text, as:, hyphen:, apostrophe:)`: notation that draws as the given text
+- `\'` for a straight apostrophe and `\@` for an at sign
 
 ### Fixed
-- `\+` before digits is a plus sign. The path markers at the end of a label
-  (`+1`, `+>2`) were detected without regard to a backslash, so no label could
-  contain "+1" at all: every "C++11" and "2+2" was read as one end of a
-  movement path.
-- A label containing a backslash could lose characters in the drawing. The
-  text was placed into the SVG as a replacement string, which Ruby reads for
-  backreferences: `\+` and `\'` were two of them.
-- An escaped character the tokenizer did not know (`\'`, `\@`) lost its
-  backslash before the markup was read.
+- `\+` before digits is a plus sign (labels such as "C++11" no longer start a movement path)
+- Labels containing a backslash could lose characters in the drawing
+- Unknown escapes (`\'`, `\@`) lost their backslash before markup was read
 
 ## [2.3.0] - 2026-09-01
 
 ### Added
-- `RSTError::CODES` lists every error code the library can report. A program
-  keyed by code — one that translates the diagnosis, or tallies what kinds of
-  mistake a writer makes — needs the whole set rather than the codes it has
-  happened to see, and until now that set could only be recovered by reading
-  five files and the repair table. The list only grows: a published code is
-  not renamed or removed.
+- `RSTError::CODES`: the complete list of error codes (codes are only ever added)
 
 ### Fixed
-- Whitespace alone is an empty input rather than a defect in the library. It
-  reached the drawing, which walked off the end of an empty tree and reported
-  `internal_error`, telling the caller that their own fixable input was the
-  library's fault.
-- A bracketless input of a single character draws. The tokenizer counted its
-  cursor as exhausted one character early, so `A`, and `<>` once it is one
-  whitespace block, produced no tokens at all — though the manual has always
-  said a label on its own draws as one leaf.
+- Whitespace-only input reported as empty input instead of `internal_error`
+- A single character without brackets draws as one leaf
 
 ## [2.2.0] - 2026-09-01
 
 ### Changed
-- Validation reports every error of a stage, not just the first one found.
-  An input with three bad labels lists all three in the `errors` array of
-  the JSON diagnosis, so one round of fixes covers them. The stages are
-  ordered — options, bracket structure, labels, whole-tree checks — and a
-  mistake stops the later stages, with a `note` saying that fixing what is
-  listed may reveal more; nothing is reported whose appearance is an
-  artifact of an earlier mistake. Duplicate failures collapse to one entry
-  and the list stops at twenty. The schema is unchanged
-  (`rsyntaxtree.error/1`): the same array, more of it.
+- Validation reports every error in a stage, not only the first (up to 20; schema unchanged)
 
 ### Added
-- `RSGenerator.diagnose(text, options)` returns the full diagnosis as a
-  hash — what `--validate` prints — for programmatic callers.
-  `check_data` keeps its contract of raising the first error.
+- `RSGenerator.diagnose(text, options)` returns the full diagnosis as a hash
 
 ## [2.1.0] - 2026-08-29
 
 ### Changed
-- The JSON output's format name is `json`: `-f json`, writing `syntree.json`.
-  The old name `lsif` collided with an established code-intelligence format
-  of the same initials, and called itself an interchange format when only
-  one tool had ever written or read it. It remains an accepted alias — the
-  CLI says so on stderr — until 3.0. The document now identifies itself in a
-  top-level `format` object (`name: "rsyntaxtree-json"`, schema 0.4.0) in
-  place of the `lsif` key.
+- JSON output renamed from `lsif` to `json` (`-f json`, `syntree.json`); `lsif` remains an alias until 3.0
+- JSON documents carry a top-level `format` object (`rsyntaxtree-json`, schema 0.4.0) in place of `lsif`
 
 ### Added
-- A feature matrix in the JSON output carries its rows: cells split on the
-  tab stops, rules as rows of their own, and a matrix inside a cell
-  recursing. It used to arrive as an empty segment marked "matrix", its
-  attribute-value pairs recoverable only by re-parsing the raw label.
+- Feature matrices in the JSON output carry their rows and cells
 
 ## [2.0.0] - 2026-08-28
 
-The removals announced in 1.10.0 and 1.12.0, and the fixes that came out of
-looking at what was left. Every figure in the gallery draws exactly as it did.
-
 ### Removed
-- JPG and GIF output. JPEG blurs line art and GIF has nothing to offer that
-  PNG does not do better, and they were the only reason for the RMagick
-  dependency. `-f jpg` and `-f gif` are now refused the way any unknown
-  format is. Use `-f png`.
-- The RMagick dependency, and with it ImageMagick. A machine that installs
-  this gem no longer needs ImageMagick's headers to build one, and the gem
-  now asks for four libraries instead of five.
-- The deprecated aliases, which a major release is the moment to drop:
-  `symmetrize` and its `-y` flag (say `tidy: symmetric`), `tidy_spacing`
-  (say `hspacing`), the undocumented `tidy_nest`, and `nothing`'s
-  undocumented spelling `none` in `leafstyle`. Each is refused by name and
-  told what replaced it. An unknown option is passed over in silence, since
-  a caller may hand its own parameters through, and a removed one read that
-  way would have handed back a different figure without a word.
-- `symmetrize` from the LSIF `meta.source.params` block. The layout scale it
-  duplicated, `tidy`, is written there already.
-
-### Fixed
-- A triangle drawn bottom to top pointed the wrong way. The shape spans the
-  child's text and points at the parent, and which way that is depends on
-  which of the two sits higher — the question the connectors ask and the
-  triangle did not. Bottom to top the figure folded through itself: the base
-  struck through the leaf and the apex through the node. No gallery figure
-  carries one, because every bottom-to-top example is a derivation, which
-  draws rules instead of connectors.
-- Every label now keeps the same air above it as below it. The connector
-  endpoints were measured from the layout box, whose edges sit unevenly
-  around the ink, so every figure carried a little more space under each
-  label than over it — visibly once a figure was tilted. The enclosures
-  were built with symmetric clearances all along; the plain labels now get
-  what the boxes always had. Nearly every gallery figure changes by a few
-  pixels of line length; no label, no position and no size moves.
-- A movement rail could reach past the right edge of a left-to-right
-  canvas and be cut off at it: the rail grows the canvas as it routes, and
-  the width it grew — unlike the height — was then recomputed from the
-  elements alone. Four pixels at the default spacing, twenty-four at
-  hspacing 0.5.
-- A rule written `---` (or `===` for a double rule) was refused inside a
-  `#( … #)` matrix, though it was drawn in every other kind of label. Two
-  hyphens and four were accepted there and three were not — a distinction
-  nothing could explain. The matrix grammar had no rule for it and the
-  matrix renderer dropped every row that was not text.
-- The bracket of a matrix that followed something in the same cell was drawn
-  on top of it: `AGR |1| [ … ]`, which is how a shared value is written, put
-  the right edge of the tag and the left edge of the bracket on the same
-  coordinate exactly. A block now keeps as much room in front of it as the
-  bracket keeps inside it.
-- In a left-to-right tree, `hspacing` and `vheight` both moved the width and
-  nothing moved the height. The layout replaces the gap that separates
-  sisters with one of its own and was not scaling it by `hspacing`, so a
-  left-to-right figure could be made wider but never shorter.
-- `storoke-width` in the style of every text element of every SVG. Renderers
-  ignored the misspelling, so nothing ever looked wrong.
+- JPG and GIF output, and with them the RMagick and ImageMagick dependency
+- Deprecated aliases `symmetrize` (`-y`), `tidy_spacing`, `tidy_nest` and `leafstyle: none`
+- `symmetrize` from the LSIF `meta.source.params` block
 
 ### Added
-- `shear`: the drawn figure tilts by the given angle (degrees, positive
-  leaning the top to the right) and lies on a plane drawn behind it, which
-  shows the tilt as a surface. The whole picture shears as one affine piece — layout untouched, region
-  shades coming out parallelograms on their own, and nothing able to newly
-  touch or cross. The plane is fill without an edge — a region shade is
-  bounded because it marks one part of a figure off from the rest, and a
-  line round the whole drawing would read as a frame. `shear_plane` turns
-  it off or gives it a colour, and a transparent background takes it away
-  for you: a clear background is asked for in order to lay the figure over
-  something else, and a sheet under it is what would defeat that.
-  TikZ refuses a sheared figure the way it refuses a derivation.
-- `vmargin`: the clearance between a label and its connectors, the same
-  above and below, measured from the ink its row actually contains — a row
-  of capitals pays nothing for descenders nobody wrote, and the ends of a
-  row's connectors stay level. From 0.1 to 1.0; at nothing at all a node's
-  box stops holding a label that draws its own shape.
-- Three gallery examples, in two new categories: the Indo-European family
-  tree (Historical Linguistics), where the region shade groups branches
-  rather than marking a c-command domain; type-driven semantic composition
-  (Formal Semantics); and a tree of typed feature structures with structure
-  sharing (Formal Grammar), which is the figure the matrix rule was missing.
+- `shear` and `shear_plane`: tilt the figure and draw the plane it lies on
+- `vmargin`: clearance between a label and its connectors (0.1–1.0)
+- Gallery examples: Indo-European family tree, type-driven semantic composition, typed feature structures
 
 ### Changed
-- The documents name every option. Four were missing from the one-page
-  reference and one from the README, because the test that reads the
-  documents built its roll-call from the tables of listed and numeric
-  values — and so never asked after the options that take on or off. It
-  reads the roll-call from the defaults now, and the README is one of the
-  documents it reads.
-- Three tests were added for the shapes of defect this release fixed: one
-  asks every feature in the index to read the same in a label, in a matrix
-  and in a matrix inside a matrix; one reads the drawn shapes back out of
-  the SVG and asks whether any two of them touch; and one asks a
-  left-to-right tree to answer to `hspacing` in its height.
-- The sweep draws two more figures — one with a triangle, one with a
-  movement rail — and moves the direction, `vmargin` and `shear` among its
-  settings, and asks of every triangle that it have an area. Each of the two
-  defects above lived in a figure the sweep did not draw, at a direction it
-  did not set: the settings alone could not have found either, and a
-  triangle folded flat passes every other check there is.
-- The manuals say what TikZ output does with what it cannot draw: it drops
-  it rather than refusing, so a label that is a matrix arrives with its
-  cells run together on one line.
+- A removed option is refused with its replacement named
+- Every option listed in the README and the notation reference
+- Manuals describe what TikZ output drops
+
+### Fixed
+- Triangles pointed the wrong way in bottom-to-top trees
+- Labels keep the same space above as below
+- Movement rails cut off at the right edge of left-to-right figures
+- `---` and `===` rules refused inside `#( … #)` matrices
+- Matrix bracket drawn over the content before it in the same cell
+- `hspacing` and `vheight` both changed the width of left-to-right trees
+- Misspelled `storoke-width` in SVG text styles
 
 ### Migration
-- `format: "jpg"` / `"gif"` → `"png"`.
-- `symmetrize: "on"` → `tidy: "symmetric"`; `tidy_spacing: n` → `hspacing: n`;
-  `leafstyle: "none"` → `"nothing"`. Each has been the documented spelling
-  since 1.12.0.
-- Everything else — every other option, and every piece of notation — is
-  unchanged.
+- `format: "jpg"` / `"gif"` → `"png"`
+- `symmetrize: "on"` → `tidy: "symmetric"`
+- `tidy_spacing: n` → `hspacing: n`
+- `leafstyle: "none"` → `"nothing"`
 
 ## [1.14.0] - 2026-08-27
 
 ### Added
-- The notation has a map. The reference the gem ships (`--notation`) is one
-  page: the characters that already mean something, then every feature at a
-  line each with the notation beside it, then the options. Both manuals open
-  with the same list, each row pointing at the section that explains it. A test
-  reads the feature set out of the grammar itself and draws every sample, so a
-  feature the grammar gains with no row in the documents fails the build, and a
-  sample that stops meaning what it says fails with it.
-- The changelog is on the documentation site, at /changelog, built from
-  CHANGELOG.md and linked from the manuals and the README.
+- One-page notation reference (`--notation`), with the same feature list at the top of both manuals
+- Changelog page on the documentation site (/changelog)
 
 ### Changed
-- Every release in the changelog is dated to the day, from the git tags. Two of
-  the old month-only dates were wrong.
-- What the trap section warns about is now, by definition, what the tool
-  accepts and draws as something other than what was meant. A mistake the tool
-  refuses is the error message's job, and its card has come down; the warning
-  about parentheses, which the Penn Treebank conversion had made false, tells
-  the truth again.
-- The arrow markers' dimensions are rounded; the defs of every SVG carried
-  float dust in an attribute.
+- Changelog dates taken from the git tags
+- Pitfalls section limited to inputs that draw differently from what was meant
+- Arrow-marker dimensions rounded in SVG output
 
 ### Fixed
-- Turning `derivation` on no longer deletes a column from a node that has no
-  daughters. A rule name is written after a column break and names the step
-  that produced a node from its daughters, so a node with none names no rule —
-  but the label is read before the tree is built, and the name was taken out
-  anyway and then had no rule to be drawn beside. `[A\tfoo]` drew "A foo" with
-  the option off and "A" with it on. The label is put back once the tree is
-  known.
-- A mistake inside a node's label keeps the name of what is wrong with it. The
-  first raw space splits a token into a label and its children, and when the
-  label would not parse, every cause but one was relabelled "a raw space split
-  this" — so the message named an unknown colour while the code and the hint
-  talked about spaces, and a caller acting on the code was sent to fix what was
-  not wrong. Which story is right is now asked of the parser rather than
-  guessed: the token is put back together with its spaces written as the
-  notation writes them, and if it reads, the space was the cause.
-- A hex colour is three digits or six, which is what every message about colour
-  here already said. The grammar asked for three to six, so four and five
-  parsed, passed the validator — which does not look at a value beginning with
-  `#` — and reached librsvg, which cannot read them and draws the label black
-  without reporting it.
+- `derivation` dropped the second column of a childless node's label
+- Errors in a label split by a raw space now name the actual cause
+- Hex colours accept three or six digits only
 
 ## [1.13.2] - 2026-08-27
 
 ### Fixed
-- A movement path is drawn as one stroke with its corners eased, in place of
-  three lines meeting at right angles. The dash of a non-directional path now
-  runs round each turn instead of restarting at it, and the arrowhead is the end
-  of the stroke rather than a marker on whichever line finished last. The radius
-  is held down to half of each run it joins, so a short leg cannot be swallowed
-  by its own turn, and to the length of an arrowhead where there is one, so the
-  head is never drawn onto the curve. Three gallery figures carry paths and
-  change with it.
-- Digits are set in the text face again on machines that have a colour emoji
-  font. The font chains named emoji families by name, and asking fontconfig for
-  one is asking for the generic `emoji` family, whose preference list fontconfig
-  then prepends to the whole pattern with a strong binding — so the emoji face
-  arrived ahead of the Noto text faces rather than behind them. A colour emoji
-  font carries the ASCII digits, for keycap sequences, so on an ordinary Linux
-  desktop `[N 20]` came out in the emoji face at more than twice the width.
-  Measurement and drawing read the same chain, so the figure held together; it
-  was simply not the figure the same input gives elsewhere. No emoji family is
-  named now: a codepoint no named family covers reaches fontconfig's own
-  fallback, which is the path this was duplicating. Emoji draw as before, and
-  the gallery is unchanged to the pixel — every raster figure is byte-identical
-  and the SVGs differ only in the family list they carry.
+- Movement paths drawn as one stroke with rounded corners
+- Digits drawn in a colour emoji font on systems that have one
 
 ## [1.13.1] - 2026-08-27
 
 ### Fixed
-- `^` at the head of a leaf draws the triangle it asks for. The mark may be
-  written on the node's label or on the leaf's own text — `[^NP cats]` and
-  `[NP ^cats]` — and the documentation, the notation reference and the gallery
-  all use both, but only the first was drawn: the second lost its caret to the
-  parser and then a bar was drawn under it. The two now produce the same figure
-  in every connector style, and LSIF records the edge as a triangle. Three
-  gallery figures change accordingly, each toward what it was written to show.
-- An option given as an empty string is read as an option not given, rather
-  than as a value no list contains. An HTML form posts a field for every
-  control it carries, and a control with nothing selected posts the empty
-  string, so a form that has outlived one of its own controls sends that field
-  empty alongside the rest. Since option validation arrived in 1.11.0 that
-  failed the whole request: the web UI's Download buttons answered 500 for
-  every input, because the form still read a `format` select the page no longer
-  had. A value that is actually wrong is still rejected.
+- `^` on a leaf's own text (`[NP ^cats]`) draws a triangle, as `[^NP cats]` does
+- Options given as empty strings treated as not given (fixes the web UI's Download buttons)
 
 ## [1.13.0] - 2026-08-24
 
 ### Added
-- Derivations. A derivation puts the words first and the result last, and
-  joins what each step combines with one rule drawn across all of it rather
-  than with a line to each daughter. `derivation` draws the rules and
-  `direction: btt` turns the tree over; together they draw a CCG derivation,
-  and `derivation` on its own marks the spans of an ordinary tree. The name of each step rides in the label after a
-  column break and is set beside the end of its rule. A derivation runs down
-  the page and is drawn with its rules, so `direction: ltr` and hiding the
-  default connectors are refused rather than approximated.
-- `direction: btt`, the layout turned over, leaves first.
+- `derivation`: one rule across each node's daughters, with rule names (CCG style with `direction: btt`)
+- `direction: btt`: bottom-to-top layout
 
 ### Fixed
-- Connectors follow the tree when it is turned over. They kept the ends they
-  have when the root is at the top, so every line ran from above the daughter,
-  through its label and the mother's, to below the mother.
+- Connectors in bottom-to-top layout
 
 ## [1.12.0] - 2026-08-22
 
-Everything needed to write this notation is now available as text, built from
-the files the tool itself reads, and a refusal says where that text is.
-
 ### Added
-- `--examples` prints every published example with the options it was drawn
-  with. The gallery examples are checked against the parser that draws them,
-  so each one is known to be accepted.
-- The site carries the same material as plain text for a reader that can fetch
-  a URL but cannot run a command: `llms.txt` and `llms-full.txt`, the second
-  holding the reference, the manual and every example in one file. Both are
-  generated from their sources, and a test fails if they fall behind.
-- A refusal names where the notation is written down, once, alongside the
-  cause and the fix. A hint repairs the mistake in front of it and says
-  nothing about the rest, which is not enough for a caller that was guessing.
+- `--examples` prints every gallery example with its options
+- `llms.txt` and `llms-full.txt` on the documentation site
+- Error messages point to the notation reference
 
 ### Changed
-- The angle bracket the reference recommends is U+27E8 and U+27E9, which it
-  had always named while writing U+3008 and U+3009 in its own examples. The
-  East Asian pair draws a full em wide, wider than a capital, and had spread
-  through the gallery and into the repair that corrects ASCII brackets. Both
-  pairs still parse; documents written before this are unaffected.
-- Two feature-structure figures are redrawn at the narrower bracket.
+- Recommended angle brackets are U+27E8/U+27E9 (U+3008/U+3009 still parse)
+- Two feature-structure figures redrawn with the narrower bracket
 
 ### Fixed
-- `--notation` and `--examples` answer before the input is read. Reading first
-  meant waiting on a pipe that never closes when stdin is not a terminal,
-  which is how a script reaches them.
+- `--notation` and `--examples` no longer wait on stdin
 
 ## [1.11.0] - 2026-08-21
 
-Every input the tool accepts now draws, and every input it refuses says why.
-Line thickness follows the type size, so figures drawn at any font size keep
-the same balance between text and rules — existing figures come out about a
-fifth lighter than before.
-
 ### Added
-- `--validate` checks input without drawing or writing a file, reporting a
-  machine-readable diagnosis on stdout and the verdict in the exit code.
-- `--notation` prints a short reference for the notation, which now ships
-  with the gem.
-- Errors carry a code, the offending label and an offset inside it, a
-  one-line fix, and whether rewriting the input could help. The message text
-  is unchanged. Each cause is confirmed by applying its fix and parsing
-  again, so a named cause is one whose fix is known to work.
-- A label may be nothing but a matrix: `[#(HEAD\tnoun#)]` had no spelling
-  before, since the enclosure rule took the `#` first.
-- `-f tikz` on the command line, which the documentation had offered while
-  the CLI rejected it. TikZ output also carries the line width, which it
-  had been accepting and dropping.
-- A gallery figure and a heading of its own for levelling the terminals with
-  `<>` joints.
+- `--validate`: check input without drawing (JSON diagnosis on stdout, verdict in the exit code)
+- `--notation`: short notation reference, shipped with the gem
+- Errors carry a code, location, one-line fix and retryable flag
+- A label may be a matrix alone (`[#(HEAD\tnoun#)]`)
+- `-f tikz` in the CLI; TikZ output carries the line width
+- Gallery figure for levelling terminals with `<>` joints
 
 ### Changed
-- Line width is a fraction of the font size rather than an absolute number.
-  `1` is five per cent of the type size at any size, and the scale runs from
-  `0.5` to `3.0` in halves where it ran `1` to `5` and meant `2` to `6`.
-  Lines were two units wide whatever the type size, which read as heavily as
-  a serif stem at 16 point and heavier still below that, and nothing thinner
-  was available.
-- On/off options accept every spelling of off. `mirror: "no"` reversed the
-  tree and `transparent: "0"` cut the background away, because anything but
-  `"off"` and `"false"` was read as on.
-- Option values are checked against the values the option takes. A value
-  nobody defines was taken and read as something else — `direction:
-  "left-to-right"` laid the tree out top to bottom. The CLI has always
-  refused these; the library did not, which left the web interface and other
-  programmatic callers unguarded.
-- Colour names are checked against the CSS colour names. A name nobody
-  defines passed validation and drew black.
-- Penn Treebank input converts in the library, not only in the CLI. Other
-  callers got no conversion and no error: `(S (NP the dog))` drew as one
-  leaf containing that text.
-- Font sizes go down to 6, which the web interface has always offered while
-  the documentation said 8.
+- Line width relative to font size (`0.5`–`3.0`, `1` = 5% of the font size); figures about a fifth lighter
+- On/off options accept every spelling of off (`no`, `0`, …)
+- Option values validated in the library, not only in the CLI
+- Colour names checked against the CSS colour names
+- Penn Treebank conversion in the library
+- Minimum font size 6
 
 ### Fixed
-- Validation accepted input that drawing then refused: a movement path with
-  one end, a tree too wide for a raster surface, a colour spec that fails
-  only when the label is parsed. It now generates the drawing and discards
-  it, going as far as the requested format can still refuse.
-- A malformed colour was reported as an unclosed enclosure, sending the
-  writer to fix a `#` that was never the problem.
-- A left-to-right matrix drew its brackets on top of the attribute names.
-- Text in front of a tree crashed symmetrization, and an empty argument was
-  read as a path to the current directory.
-- Overline was documented as missing from PNG output. It has been there.
+- Validation passed input that drawing then refused
+- Malformed colour reported as an unclosed enclosure
+- Matrix brackets over attribute names in left-to-right trees
+- Crash on text before a tree; empty argument read as a path
+- Documentation said overline was missing from PNG output
 
 ## [1.10.0] - 2026-08-19
 
-A transitional release ahead of 2.0, which drops JPG/GIF output and the
-RMagick dependency.
-
 ### Deprecated
-- JPG and GIF output: the CLI prints a warning to stderr when either is
-  requested, and the documentation marks both as deprecated. JPEG blurs
-  line art and GIF has no use case here — use PNG. Both formats are
-  removed in 2.0.
+- JPG and GIF output (removed in 2.0)
 
 ### Changed
-- The library no longer loads RMagick at require time. SVG, PNG, PDF,
-  TikZ and LSIF work without ImageMagick installed; only a JPG or GIF
-  request needs RMagick, and a request without it reports the missing
-  dependency as a regular input error instead of a bare `LoadError`.
+- RMagick loaded only when JPG or GIF is requested
 
 ### Fixed
-- `RSTError` mutated the message it was given, so raising one with a plain
-  string literal crashed inside the error class with a `FrozenError`. Every
-  file here carries `frozen_string_literal`, which made the working form the
-  unobvious one.
+- `FrozenError` when raising `RSTError` with a string literal
 
 ## [1.9.0] - 2026-08-19
 
 ### Added
-- `hyphen: literal`, which trades the two readings of a hyphen: a bare one is
-  a hyphen and `\-underlined\-` underlines. Feature names in HPSG and its
-  relatives are full of hyphens, and escaping each one is a poor trade for a
-  rule that work never uses.
-- A matrix nested in a label, written between `#(` and `#)`. The value of an
-  attribute can be another attribute-value matrix, to any depth, which is what
-  a feature path such as SYNSEM | LOCAL | CATEGORY | HEAD needs, and what
-  HPSG and LFG are written in. The nested matrix draws its own brackets and
-  lays out its own columns, and the rows after it clear its full height.
-- `\t` in a label cuts the line into cells. Every line is cut at the same
-  points and each column is drawn at the width of its widest cell, so the
-  parts line up down the label. Together with the bracket enclosure and the
-  horizontal rule this gives attribute-value matrices — the feature structures
-  of HPSG, LFG and the like — without spacing each row by hand, which is how
-  the gallery's HPSG example used to do it.
-- `color: gray`, a scheme that keeps node and leaf labels black and draws the
-  connectors, triangles and movement paths in grey. It is for diagrams whose
-  links outnumber their labels — an ontology, a network of constructions —
-  where a page of black lines buries the text. `grey` is accepted too.
-- Gallery examples for two more frameworks: LFG (an annotated c-structure and
-  the f-structure it maps to, after Kaplan & Bresnan 1982 and Bresnan 2001)
-  and DRT (a discourse representation structure, after Kamp 1981).
-- The example gallery scales each figure by its own width rather than by one
-  factor for all of them, so a small tree and a wide one are read at a similar
-  apparent size; a figure now fits its row instead of scrolling, loads lazily,
-  and carries an anchor of its own.
+- `hyphen: literal`: a bare hyphen is a hyphen and `\-…\-` underlines
+- Nested matrices with `#(` … `#)`
+- `\t` splits a label into aligned columns, for attribute-value matrices
+- `color: gray` (or `grey`): black labels with grey connectors and paths
+- Gallery examples for LFG and DRT
+- Gallery figures scaled by their own width and loaded lazily, each with an anchor
 
 ### Changed
-- Every box and circle in a figure is drawn at one size and on one centre
-  line. The size used to come from the line's height, which left a box
-  standing a head taller than the numeral inside it, and each shape was
-  centred on its own glyph, so the box around `s` sat lower than the one
-  around `G`. A shape is now drawn at a fixed fraction of the font size,
-  centred on a capital, and grows only for content that will not fit. Every
-  figure with a boxed or circled label is redrawn.
-- The SVG's declared width and height agree with its viewBox. They did not,
-  so every figure was scaled down by a few percent and letterboxed inside
-  its own canvas.
+- Boxes and circles drawn at one size on one centre line
+- SVG width and height match the viewBox
 
 ### Fixed
-- TikZ export dropped everything inside a nested matrix: a feature structure
-  came out as its outermost attribute names and nothing else. The export still
-  cannot draw the brackets, but it keeps what they hold. The documented list of
-  what TikZ does not carry now names column alignment, nested matrices and the
-  grey line scheme.
-- LSIF records which of the two readings of a hyphen the input was parsed
-  under. It records the input verbatim, and the same string means different
-  things under the two, so a reader could not re-parse it.
-- A line-type connection with only one end raised a NoMethodError from inside
-  the drawing instead of being reported as the input error it is.
-- A line-type connection between two nodes was anchored a full inter-node gap
-  outside each of them, so the link fell short of both boxes where the gap was
-  wide and reached inside them where it was narrow. It now runs between the
-  boxes' own edges, a quarter of a gap short of each. The double arrowhead
-  keeps the shape it had but is sized to the link, instead of one fixed size
-  that spilled over both boxes on a short link. The same anchors are used in
-  left-to-right layout, where a link between siblings had been drawn diagonally
-  from the movement-path anchors and now runs straight between the facing
-  edges.
-- Two nodes joined by a line-type connection are laid out far enough apart for
-  a full-size arrowhead between them. Where the layout had packed them closer
-  than the arrow is wide — the two leaves at the foot of the quicksort figure —
-  the arrow was drawn small to fit; now the pair is spread and the arrow keeps
-  its size. Only pairs that carry a link move, and only when they need to.
+- TikZ export dropped the contents of nested matrices
+- LSIF records the hyphen mode
+- A one-ended line connection raised `NoMethodError`
+- Line connections anchored to the facing box edges, with arrowheads sized to the link
+- Nodes joined by a line connection spaced for a full-size arrowhead
 
 ## [1.8.2] - 2026-08-17
 
 ### Changed
-- `tidy: high` now compresses as far as its name promises. The level-balance
-  floor added in 1.8.0, which keeps a pair of siblings from being tucked
-  narrower than the level below it, applied to `medium` and `high` alike and
-  bound first in nearly every tree: across the 75 gallery examples the two
-  modes produced identical figures 70 times. The floor now applies to `medium`
-  only, leaving `high` free to trade even branch angles for width — 29 of the
-  75 examples now differ, by up to 19%. `off`, `low` and `medium` are
-  unchanged; `high`, like `symmetric` at the other end of the scale, is for
-  figures that ask for it.
-- Mathematical alphanumerics (U+1D400–, such as the little *v* of *v*P) are
-  named in the family chains. Neither Noto Sans nor Noto Serif covers the
-  block, so the glyphs came from whatever the machine offered: Noto Sans Math
-  on Alpine, DejaVu Serif on Debian/Ubuntu, STIX Two Math on macOS. The serif
-  style now asks for a serif source first, so a serif tree no longer shows a
-  sans *v*. The Docker images install `font-dejavu` for it.
+- `tidy: high` compresses further than `medium`
+- Mathematical alphanumerics (U+1D400–) named in the font chains; serif trees use a serif source
 
 ### Fixed
-- The CLI printed parse errors to stdout and exited 0, so a script generating
-  figures in bulk could not tell a rejected input from a drawn one. Errors go
-  to stderr and the exit status is 1.
-- Dropped `Noto Sans Mono SemiCondensed` from the mono chain. It is a width
-  style of the variable Noto Sans Mono rather than a family of its own, and
-  resolved nowhere on macOS, Debian/Ubuntu or Alpine; the chain fell through
-  to `Noto Sans Mono`, which it now names directly.
+- CLI errors go to stderr with exit status 1
+- `Noto Sans Mono SemiCondensed` removed from the mono chain
 
 ## [1.8.1] - 2026-08-15
 
 ### Fixed
-- Arabic rendered as isolated, unjoined letterforms in some environments.
-  Scripts outside Latin and CJK were left to the system's generic font
-  fallback, which is not the same font on every machine: on Alpine the Arabic
-  block was claimed by Noto Sans Math, which has the glyphs but no joining
-  rules, while on Debian/Ubuntu the same text fell to DejaVu Sans. The family
-  chains now name the scripts the gallery covers — Arabic (`Noto Sans Arabic`,
-  with `Noto Naskh Arabic` for the serif style), Hebrew, Devanagari, Thai and
-  Khmer — so machines that have those fonts installed produce the same shapes.
-  Mathematical alphanumerics (U+1D400–) are not named yet and still vary by
-  environment. Gallery example 067 (Arabic) was affected and has been
-  regenerated.
-- Emoji were measured with one font and drawn with another where a colour
-  emoji font was installed: Pango selects `Noto Color Emoji`, but the
-  librsvg/Cairo pipeline does not rasterise its bitmap glyphs, so the drawing
-  fell back to whatever outline font happened to cover the codepoint. The
-  project's Docker images now install the monochrome Noto Emoji and leave the
-  colour build out.
+- Arabic drawn as unjoined letterforms on some systems
+- Emoji measured and drawn with different fonts where a colour emoji font was installed
 
 ### Changed
-- The Docker images install the Noto packages for Arabic (including Naskh),
-  Hebrew, Devanagari, Thai and Khmer, and carry a fontconfig rule that removes
-  the Arabic ranges from Noto Sans Math while keeping its mathematical
-  alphanumerics (used for the little *v* of *v*P).
-- Documentation records how to override any of the named families with a
-  fontconfig alias, for users who prefer their own script fonts.
+- Font chains name Arabic, Hebrew, Devanagari, Thai and Khmer families
+- Docker images install Noto fonts for those scripts, with a fontconfig rule for Noto Sans Math
+- Documentation on overriding font families with fontconfig
 
 ## [1.8.0] - 2026-08-15
 
 ### Added
-- `tidy` layout scale, one option covering every layout mode from the most
-  spacious to the most dense: `symmetric` (radical symmetrization) | `off` |
-  `low` (contour packing, strict leaf positions) | `medium` (packing with
-  cross-row tucking that never lets two leaves swap their left-right order) |
-  `high` (free tucking; leaf order kept per row only). Connector heights
-  adjust automatically: a small height budget (5% of the tree's height) is
-  spent on the levels whose branches spread widest, evening out branch
-  angles. Tidy never produces overlapping labels (collisions roll back).
-- `mirror` option: flips the finished layout horizontally for the
-  right-to-left tree convention of Arabic/Hebrew syntax (composes with
-  `direction`).
-- `hspacing` option: scales every horizontal gap in every layout mode — the
-  horizontal counterpart of `vheight`/connector height.
-- Pass-through empty nodes: a node labeled only `<>` renders as an invisible
-  joint with the connector running continuously through it, so a `<>` chain
-  aligns a shallow leaf with deeper leaves without a broken line.
-- Full CJK coverage in every font style: the family chains fall back to
-  Noto Sans/Serif/Mono CJK, so Hangul and simplified/traditional Han render
-  in all styles (the standalone Noto JP faces carry no Hangul).
-- Example gallery: Multilingual category (the same UD-PUD sentence in nine
-  languages, constituency derived mechanically from the dependency
-  annotation; the Arabic example demonstrates `mirror`), a Morphology
-  category, and per-figure tidy settings across the whole gallery.
-- CI on GitHub Actions (Ruby 3.2/3.4).
+- `tidy` layout scale: `symmetric` | `off` | `low` | `medium` | `high`
+- `mirror` option for right-to-left trees
+- `hspacing` option for horizontal gaps
+- Pass-through `<>` nodes for levelling leaves
+- CJK coverage in every font style
+- Gallery: Multilingual and Morphology categories
+- CI on GitHub Actions (Ruby 3.2/3.4)
 
 ### Changed
-- LSIF output records the layout settings a reader cannot recover from the
-  coordinates: `geometry.mirror`, and `tidy`, `mirror`, `direction` and
-  `horizontal_spacing` under `meta.source.params`.
-- The standalone `symmetrize` option and `-y` flag are deprecated aliases of
-  `tidy: symmetric`; `tidy_spacing` is a deprecated alias of `hspacing`.
-- `--direction` now owns the `-d` short flag (it had been auto-assigned to
-  `--hide-default-connectors`, so the documented `-d ltr` silently did
-  nothing). Every published short flag is now declared explicitly rather
-  than derived from the option set. One undocumented auto-assignment moved
-  as a result: `-e` was `--direction` in 1.7.0 and is `--version` here.
-- The gem no longer bundles font files (38MB that were never opened at
-  runtime since the Pango migration): fonts resolve by family name through
-  fontconfig. See README for the system font packages. The dead `--font`
-  CLI option (its value was never read) is gone.
+- LSIF records `geometry.mirror` and the layout settings in `meta.source.params`
+- `symmetrize` (`-y`) and `tidy_spacing` deprecated
+- `-d` is `--direction` (it had been taken by `--hide-default-connectors`)
+- Font files no longer bundled; fonts resolve through fontconfig; `--font` removed
 
 ### Fixed
-- Boolean options left at their defaults are no longer misread as enabled
-  when the caller passes only a partial parameter set (e.g. `tidy: off`
-  rendered as `symmetric` in the web UI).
+- Boolean options left at their defaults misread as on with a partial parameter set
 
 ## [1.7.0] - 2026-08-13
 
 ### Changed
-- Text measurement now uses Pango, the same engine (and the same fontconfig
-  font-fallback resolution) librsvg uses to render the output, instead of
-  RMagick with the bundled font files. Labels in any script are measured with
-  the font that actually draws them, which fixes off-center labels for scripts
-  the bundled fonts do not cover (e.g. Khmer, #14) without bundling per-script
-  fonts. Horizontal dimensions of the output may change slightly.
-- Vertical rhythm is now derived deterministically from the font size
-  (1.4 x size, matching the previous Latin line height) and is identical
-  across scripts; the old engine spaced Japanese text 1.5x and WenQuanYi
-  1.25x, so mixed-language documents had inconsistent spacing.
-- The font-family lists used in the SVG output and in measurement are now
-  defined in a single place (`FONT_FAMILIES` / `FontFamily`).
+- Text measured with Pango instead of RMagick (fixes off-centre Khmer labels, #14)
+- Line height fixed at 1.4 × font size for every script
+- Font family lists defined in one place
 
 ### Added
-- Runtime dependency on the `pango` gem (ruby-gnome). No new system
-  requirements: librsvg already depends on Pango.
+- Runtime dependency on the `pango` gem
 
 ## [1.6.3] - 2026-07-19
 
 ### Fixed
-- Packaged files no longer carry owner-only permissions. `gem build` preserves
-  on-disk modes, so gems built from a checkout with `0600`/`0700` files shipped
-  a library unreadable — and a `rsyntaxtree` CLI unexecutable — by anyone but
-  the owner after `sudo gem install`. File modes are now normalized before the
-  gem is built: `0755` for commands (`bin/`, `exe/`) and shebang scripts, `0644`
-  for everything else. This also drops stray executable bits that the working
-  tree had picked up on data files (images, fonts, Markdown, CSS, library
-  sources).
+- Packaged files no longer carry owner-only permissions
 
 ## [1.6.2] - 2026-06-26
 
 ### Fixed
-- Region shade no longer touches the image edge when its padded bounds reach
-  past the tree's natural extent (e.g. a deep enclosed/multi-line node): the
-  canvas now grows with a margin around the shaded plane.
+- Region shade no longer touches the image edge
 
 ## [1.6.1] - 2026-06-26
 
 ### Improved
-- Region shade rendering wraps the subtree more cleanly: wider, balanced
-  padding; bracket/rectangle enclosures are kept inside the plane; the incoming
-  parent connector stops just short of the plane (no overlap or touching); and
-  the margin is consistent between root and non-root regions. Works in both
-  top-to-bottom and left-to-right layouts (the connector-facing edge is the top
-  in TTB and the left in LTR, with symmetric padding on the other sides).
+- Cleaner padding and connector clearance around region shades
 
 ### Added
-- Example 065: nested (overlapping) region shades, shown as progressively
-  darker gray.
+- Example 065: nested region shades
 
 ## [1.6.0] - 2026-06-25
 
 ### Added
-- Region shade (`%` prefix): paints a semi-transparent plane behind the whole
-  subtree a node governs, for marking c-command/binding domains and cognitive
-  grammar dominions. Color reuses the `@color:` syntax; bare `%` uses light gray.
-  Each plane has a darker same-color border for visibility on white. An explicit
-  shade color is always honored (consistent with `@color:` node text); use bare
-  `%` for a gray monochrome shade. Works in both TTB and LTR layouts and across
-  SVG/PNG/PDF/JPG/GIF.
-- Region shade support in TikZ export (via `forest` `fit to=tree`) and in LSIF
-  node `style.region`. TikZ region colors (names and hex, including SVG/CSS
-  names like `lightblue` that xcolor lacks) are emitted as explicit RGB so the
-  output compiles.
-- `\%` escape for a literal leading percent sign.
-- Typographic apostrophe: a straight ASCII apostrophe (`'`) in a label is now
-  rendered as a curly apostrophe (`’`, U+2019) for smarter typography, e.g. the
-  X-bar prime in `T'`. Applied to all fonts and measured before layout so
-  spacing stays correct.
-- Example 064: region shade for a c-command domain.
+- Region shade (`%` prefix), coloured with `%@color:`
+- Region shade in TikZ export and in LSIF (`style.region`)
+- `\%` for a literal leading percent sign
+- Straight apostrophes drawn as curly apostrophes (`’`)
+- Example 064: region shade for a c-command domain
 
 ### Changed
-- LSIF output version bumped to `0.3.0` (adds node `style.region`).
+- LSIF version 0.3.0
 
 ### Fixed
-- Region shade on the root/topmost node no longer clipped by the canvas: the
-  SVG viewBox now grows to include region planes that extend past the tree.
+- Region shade on the root clipped by the canvas
 
 ## [1.5.0] - 2026-04-06
 
