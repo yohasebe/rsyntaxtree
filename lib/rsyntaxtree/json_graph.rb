@@ -60,58 +60,32 @@ module RSyntaxTree
       @edges << { from: parent.id, to: child.id, type: "dominance", connector: "line" }
     end
 
-    def triangle_to_parent(parent, child)
-      @edges << { from: parent.id, to: child.id, type: "dominance", connector: "triangle" }
+    # A triangle spans from the parent to its child, through any joints leaf
+    # alignment put between them; each edge it crosses is recorded as part of
+    # it, so the joints keep their place in the tree.
+    def triangle_to_parent(parent, child, joints = [])
+      chain_edges(parent, joints, child, "triangle")
     end
 
-    # Override draw_connector to capture all edges including "none" connector
-    def draw_connector(id = 1)
-      parent = @element_list.get_id(id)
-      children = parent.children.map { |c| @element_list.get_id(c) }
+    # Recorded rather than left out: this format carries how the figure was
+    # drawn, and a child with no mark under it is part of that.
+    def no_connector(parent, child, joints = [])
+      chain_edges(parent, joints, child, "none")
+    end
 
-      # A derivation joins a node to its daughters with one rule across all of
-      # them. Recorded as what it is: this format states that it carries how
-      # the figure was drawn, so calling these lines would be a false record.
-      if @derivation && !children.empty?
-        children.each do |child|
-          @edges << { from: parent.id, to: child.id, type: "dominance", connector: "rule" }
-        end
-        parent.children.each { |c| draw_connector(c) }
-        return
+    # A derivation joins a node to its daughters with one rule across all of
+    # them. Recorded as what it is: this format states that it carries how
+    # the figure was drawn, so calling these lines would be a false record.
+    def rule_to_parent(parent, children)
+      children.each do |child|
+        @edges << { from: parent.id, to: child.id, type: "dominance", connector: "rule" }
       end
+    end
 
-      if children.size == 1
-        child = children[0]
-        forced = triangle_asked_for?(parent, child)
-        case @leafstyle
-        when "auto"
-          if forced || child.contains_phrase
-            triangle_to_parent(parent, child)
-          else
-            line_to_parent(parent, child)
-          end
-        when "bar"
-          if forced
-            triangle_to_parent(parent, child)
-          else
-            line_to_parent(parent, child)
-          end
-        when "nothing", "none"
-          if forced
-            triangle_to_parent(parent, child)
-          elsif ETYPE_LEAF != child.type
-            line_to_parent(parent, child)
-          else
-            @edges << { from: parent.id, to: child.id, type: "dominance", connector: "none" }
-          end
-        end
-      else
-        children.each do |child|
-          line_to_parent(parent, child)
-        end
+    def chain_edges(parent, joints, child, connector)
+      ([parent] + joints).zip(joints + [child]).each do |from, to|
+        @edges << { from: from.id, to: to.id, type: "dominance", connector: connector }
       end
-
-      parent.children.each { |c| draw_connector(c) }
     end
 
     def draw_paths

@@ -412,7 +412,9 @@ module RSyntaxTree
       parent.triangle || (ETYPE_LEAF == child.type && child.triangle)
     end
 
-    def draw_connector(id = 1)
+    # `through` carries the connector chosen above a run of joints leaf
+    # alignment inserted, down that run to the child it reaches.
+    def draw_connector(id = 1, through = nil)
       parent = @element_list.get_id(id)
       children = parent.children.map { |c| @element_list.get_id(c) }
 
@@ -425,39 +427,64 @@ module RSyntaxTree
         return
       end
 
-      if children.size == 1
-        child = children[0]
-        forced = triangle_asked_for?(parent, child)
-        case @leafstyle
-        when "auto"
-          if forced || child.contains_phrase
-            triangle_to_parent(parent, child)
-          else
-            line_to_parent(parent, child)
-          end
-        when "bar"
-          if forced
-            triangle_to_parent(parent, child)
-          else
-            line_to_parent(parent, child)
-          end
-        when "nothing", "none"
-          if forced
-            triangle_to_parent(parent, child)
-          elsif ETYPE_LEAF != child.type
-            line_to_parent(parent, child)
-          end
-        end
-      else
-        children.each do |child|
-          line_to_parent(parent, child)
-        end
+      if through
+        child = children.first
+        line_to_parent(parent, child) if through == :line
+        draw_connector(child.id, (through if child.inserted_joint))
+        return
       end
 
-      parent.children.each do |c|
-        draw_connector(c)
+      chosen = children.map do |child|
+        joints, target = past_inserted_joints(child)
+        connector = connector_for(parent, target, children.size == 1)
+        case connector
+        when :triangle then triangle_to_parent(parent, target, joints)
+        when :line then line_to_parent(parent, child)
+        else no_connector(parent, target, joints)
+        end
+        [child, connector]
+      end
+
+      chosen.each { |child, connector| draw_connector(child.id, (connector if child.inserted_joint)) }
+    end
+
+    # Leaf alignment puts joints between a node and the child it reaches. They
+    # are there to place the child, not to change how it is joined, so the
+    # connector is chosen for the node and the child past them and carried
+    # through them: a triangle runs from the node down to the words, a line
+    # passes through each joint, and where no line is drawn none is drawn at
+    # all. Joints written into the input are nodes like any other.
+    def past_inserted_joints(child)
+      joints = []
+      while child.inserted_joint
+        joints << child
+        child = @element_list.get_id(child.children.first)
+      end
+      [joints, child]
+    end
+
+    def connector_for(parent, child, only_child)
+      return :line unless only_child
+
+      forced = triangle_asked_for?(parent, child)
+      case @leafstyle
+      when "auto"
+        forced || child.contains_phrase ? :triangle : :line
+      when "bar"
+        forced ? :triangle : :line
+      when "nothing", "none"
+        if forced
+          :triangle
+        elsif ETYPE_LEAF != child.type
+          :line
+        else
+          :none
+        end
       end
     end
+
+    # A child joined to its parent by nothing at all: no mark to draw.
+    def no_connector(_parent, _child, _joints = []); end
 
     def get_leftmost(id = 1)
       target = @element_list.get_id(id)

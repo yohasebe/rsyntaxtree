@@ -167,4 +167,44 @@ class LeafAlignTest < Minitest::Test
     assert_equal "A", subtree.dig("label", "raw")
     assert_equal " ", nodes.fetch(subtree.fetch("parent")).dig("label", "lines", 0, "segments", 0, "text")
   end
+
+  SHALLOW_TRIANGLES = {
+    "marked_node" => "[S [^NP the quick fox] [VP [V jumped] [PP [P over] [NP [Det the] [N dog]]]]]",
+    "phrase" => "[S [NP the very big dog] [VP [V barked] [PP [P at] [NP [Det the] [N cat]]]]]"
+  }.freeze
+
+  SHALLOW_TRIANGLES.each do |what, tree|
+    define_method "test_words_stretches_one_triangle_from_the_#{what}_to_its_words" do
+      triangles = ->(mode) { RSyntaxTree::RSGenerator.new(data: tree, leaf_align: mode).draw_svg.scan("<polygon").size }
+      assert_equal triangles.call("off"), triangles.call("words")
+
+      aligned = JSON.parse(RSyntaxTree::RSGenerator.new(data: tree, format: "json", leaf_align: "words").draw_json)
+      edges = aligned.fetch("edges").select { |edge| edge["connector"] == "triangle" }
+      starts = edges.map { |edge| edge["from"] } - edges.map { |edge| edge["to"] }
+      apex = aligned.fetch("nodes").find { |node| node["id"] == starts.first }
+      assert_equal [starts.first], starts.uniq
+      assert_equal "NP", apex.dig("label", "lines", 0, "segments", 0, "text")
+    end
+  end
+
+  def test_words_draws_no_line_where_the_leaf_style_draws_none
+    aligned = JSON.parse(RSyntaxTree::RSGenerator.new(
+      data: "[S [NP Kim] [VP [V saw] [NP [Det a] [N bird]]]]", format: "json", leafstyle: "nothing", leaf_align: "words"
+    ).draw_json)
+    nodes = aligned.fetch("nodes").to_h { |node| [node["id"], node] }
+    joints = nodes.values.select { |node| node.dig("label", "raw") == WHITESPACE_BLOCK }.map { |node| node["id"] }
+
+    refute_empty joints
+    aligned.fetch("edges").select { |edge| joints.include?(edge["to"]) }.each do |edge|
+      assert_equal "none", edge["connector"], "no line should run into an inserted joint"
+    end
+  end
+
+  def test_words_keeps_a_line_to_a_phrase_under_a_branching_node
+    tree = "[S [NP [Det the] [N dog]] the end of it]"
+    %w[off words subtrees].each do |mode|
+      aligned = JSON.parse(RSyntaxTree::RSGenerator.new(data: tree, format: "json", leaf_align: mode).draw_json)
+      assert_empty aligned.fetch("edges").select { |edge| edge["connector"] == "triangle" }, mode
+    end
+  end
 end

@@ -1344,7 +1344,7 @@ module RSyntaxTree
     end
 
     # Draw a triangle between child/parent elements
-    def triangle_to_parent(parent, child)
+    def triangle_to_parent(parent, child, _joints = [])
       return if child.horizontal_indent.zero?
 
       if @direction == "ltr"

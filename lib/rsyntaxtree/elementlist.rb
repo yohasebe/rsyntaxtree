@@ -154,6 +154,7 @@ module RSyntaxTree
 
       count.times do
         joint = Element.new(next_id, parent.id, WHITESPACE_BLOCK, parent.level + 1, fontset, fontsize, global)
+        joint.inserted_joint = true
         next_id += 1
         @elements << joint
         insert_between(parent, child, joint)
