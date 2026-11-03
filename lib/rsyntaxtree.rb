@@ -62,7 +62,7 @@ OPTION_VALUES = {
   direction: %w[ttb ltr btt],
   hyphen: %w[markup literal],
   derivation: %w[on off true false yes no 0 1 none],
-  leaf_align: %w[pad-lo pad-hi on off true false]
+  leaf_align: %w[off words subtrees]
 }.freeze
 
 NUMERIC_RANGES = {
@@ -309,14 +309,7 @@ module RSyntaxTree
         when :transparent, :polyline, :hide_default_connectors, :mirror, :derivation
           new_params[key] = switched_on?(value)
         when :leaf_align
-          new_params[key] = case value.to_s
-                             when "pad-hi"
-                               "pad-hi"
-                             when "pad-lo", "on", "true"
-                               "pad-lo"
-                             else
-                               "off"
-                             end
+          new_params[key] = value.to_s
         when :color
           new_params[key] = case value.to_s
                             when "modern", "on", "true"

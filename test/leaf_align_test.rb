@@ -29,7 +29,7 @@ class LeafAlignTest < Minitest::Test
     assert_equal svg, svg(leaf_align: "off")
   end
 
-  %w[pad-lo pad-hi].each do |mode|
+  %w[words subtrees].each do |mode|
     {
       "ttb" => "y",
       "btt" => "y"
@@ -48,7 +48,7 @@ class LeafAlignTest < Minitest::Test
   end
 
   def test_ltr_alignment_levels_leaves
-    %w[pad-lo pad-hi].each do |mode|
+    %w[words subtrees].each do |mode|
       [false, true].each do |mirror|
         aligned = document(direction: "ltr", mirror: mirror, leaf_align: mode)
         levels = leaves(aligned).map { |node| node["level"] }
@@ -60,7 +60,7 @@ class LeafAlignTest < Minitest::Test
 
   def test_alignment_inserts_only_the_needed_invisible_joint
     ordinary = document
-    aligned = document(leaf_align: "pad-lo")
+    aligned = document(leaf_align: "words")
     leaf = leaves(aligned).find { |node| node.dig("label", "raw") == "a" }
     joint = aligned.fetch("nodes").find { |node| node["id"] == leaf["parent"] }
 
@@ -71,7 +71,7 @@ class LeafAlignTest < Minitest::Test
 
   def test_alignment_keeps_the_input_leaf_order
     data = JSON.parse(
-      RSyntaxTree::RSGenerator.new(data: "[S a [B b] c]", format: "json", leaf_align: "pad-lo").draw_json
+      RSyntaxTree::RSGenerator.new(data: "[S a [B b] c]", format: "json", leaf_align: "words").draw_json
     )
     ordered = leaves(data).sort_by { |node| node.dig("position", "x") }
                          .map { |node| node.dig("label", "raw") }
@@ -81,7 +81,7 @@ class LeafAlignTest < Minitest::Test
 
   def test_one_leaf_tree_is_not_moved
     plain = JSON.parse(RSyntaxTree::RSGenerator.new(data: "[S a]", format: "json").draw_json)
-    aligned = JSON.parse(RSyntaxTree::RSGenerator.new(data: "[S a]", format: "json", leaf_align: "pad-lo").draw_json)
+    aligned = JSON.parse(RSyntaxTree::RSGenerator.new(data: "[S a]", format: "json", leaf_align: "words").draw_json)
 
     assert_equal leaves(plain).map { |node| node["position"] },
                  leaves(aligned).map { |node| node["position"] }
@@ -90,21 +90,29 @@ class LeafAlignTest < Minitest::Test
   def test_derivations_keep_their_existing_leaf_rows
     options = { direction: "btt", derivation: "on", leafstyle: "nothing" }
     plain = document(**options)
-    aligned = document(**options, leaf_align: "pad-lo")
+    aligned = document(**options, leaf_align: "words")
 
     assert_equal leaves(plain).map { |node| node["position"] },
                  leaves(aligned).map { |node| node["position"] }
   end
 
-  def test_json_records_the_resolved_option
-    assert_equal "pad-lo", document(leaf_align: "on").dig("meta", "source", "params", "leaf_align")
-    assert_equal "pad-lo", document(leaf_align: "pad-lo").dig("meta", "source", "params", "leaf_align")
-    assert_equal "pad-hi", document(leaf_align: "pad-hi").dig("meta", "source", "params", "leaf_align")
+  def test_json_records_the_option
+    assert_equal "words", document(leaf_align: "words").dig("meta", "source", "params", "leaf_align")
+    assert_equal "subtrees", document(leaf_align: "subtrees").dig("meta", "source", "params", "leaf_align")
     assert_equal "off", document.dig("meta", "source", "params", "leaf_align")
   end
 
-  def test_pad_hi_inserts_a_joint_above_the_shallow_subtree
-    aligned = document(leaf_align: "pad-hi")
+  def test_the_mode_is_named_or_refused
+    %w[off words subtrees].each do |mode|
+      assert_nil RSyntaxTree::RSGenerator.option_errors(leaf_align: mode).first, mode
+    end
+    %w[on true pad-lo pad-hi].each do |mode|
+      refute_nil RSyntaxTree::RSGenerator.option_errors(leaf_align: mode).first, mode
+    end
+  end
+
+  def test_subtrees_inserts_a_joint_above_the_shallow_subtree
+    aligned = document(leaf_align: "subtrees")
     nodes = aligned.fetch("nodes").to_h { |node| [node["id"], node] }
     leaf = leaves(aligned).find { |node| node.dig("label", "raw") == "a" }
     subtree = nodes.fetch(leaf.fetch("parent"))
@@ -117,8 +125,8 @@ class LeafAlignTest < Minitest::Test
                     joint.dig("position", "x") + joint.dig("position", "content_width") / 2.0, 0.5
   end
 
-  def test_pad_hi_matches_explicit_joints
-    automatic = document(leaf_align: "pad-hi")
+  def test_subtrees_matches_explicit_joints
+    automatic = document(leaf_align: "subtrees")
     explicit = JSON.parse(
       RSyntaxTree::RSGenerator.new(
         data: "[S [<> [A a]] [B [C b] [D c]]]", format: "json"
@@ -129,8 +137,8 @@ class LeafAlignTest < Minitest::Test
     assert_equal explicit.fetch("edges"), automatic.fetch("edges")
   end
 
-  def test_pad_hi_centers_parents_on_visible_children
-    aligned = document(leaf_align: "pad-hi")
+  def test_subtrees_centers_parents_on_visible_children
+    aligned = document(leaf_align: "subtrees")
     nodes = aligned.fetch("nodes").to_h { |node| [node["id"], node] }
     root = nodes.fetch(1)
     children = root.fetch("children").map do |id|
@@ -144,10 +152,10 @@ class LeafAlignTest < Minitest::Test
     assert_in_delta (centers.min + centers.max) / 2.0, root_center, 0.5
   end
 
-  def test_pad_hi_keeps_a_shallow_subtree_together
+  def test_subtrees_keeps_a_shallow_subtree_together
     data = JSON.parse(
       RSyntaxTree::RSGenerator.new(
-        data: "[S [A [X a] [Y b]] [B [C [D c] [E d]]]]", format: "json", leaf_align: "pad-hi"
+        data: "[S [A [X a] [Y b]] [B [C [D c] [E d]]]]", format: "json", leaf_align: "subtrees"
       ).draw_json
     )
     nodes = data.fetch("nodes").to_h { |node| [node["id"], node] }

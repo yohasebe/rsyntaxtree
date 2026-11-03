@@ -30,7 +30,7 @@ class TikZTest < Minitest::Test
 
   def test_tikz_includes_invisible_leaf_joints_when_alignment_is_enabled
     tikz = RSyntaxTree::RSGenerator.new(
-      @simple_opts.merge(data: "[S [NP hello] [VP [V world]] ]", leaf_align: "on")
+      @simple_opts.merge(data: "[S [NP hello] [VP [V world]] ]", leaf_align: "words")
     ).draw_tikz
 
     assert_match(/\[\s*\[\s*hello\]/, tikz)

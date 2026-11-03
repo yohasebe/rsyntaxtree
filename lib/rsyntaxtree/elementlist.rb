@@ -107,7 +107,7 @@ module RSyntaxTree
 
       next_id = @elements.map(&:id).max + 1
 
-      if mode == "pad-hi"
+      if mode == "subtrees"
         root = @elements.find { |element| element.parent.zero? }
         add_high_joints(root, next_id, fontset, fontsize, global) if root
       else

@@ -348,7 +348,7 @@ end
   end
 
   def test_leaf_align_option_is_accepted_by_the_cli
-    result = run_cli("--validate", "--leaf-align", "pad-hi", "[S [A a] [B [C b] [D c]]]")
+    result = run_cli("--validate", "--leaf-align", "subtrees", "[S [A a] [B [C b] [D c]]]")
 
     assert result[:status].success?, result[:stderr]
   end
