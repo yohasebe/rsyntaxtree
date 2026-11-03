@@ -1215,6 +1215,25 @@ module RSyntaxTree
       element.ink_bottom
     end
 
+    # Where a polyline's rail sits: halfway between the parent's end and the
+    # row its children stand in, so every child of one node turns off the same
+    # rail. A plain child's own end is not the measure: a joint's line runs to
+    # its middle, so as to pass straight through it, and a label's lower edge
+    # is its own ink, which differs from letter to letter. An enclosed child is
+    # met at the box drawn round it, as ink_over meets it, so nil sends it to
+    # its own end.
+    def rail_edge_y(child, parent)
+      m = @global[:single_x_metrics].height * @global[:vmargin]
+      row = child.enclosure == :none && row_ink[child.vertical_indent.round(1)]
+      return nil unless m && row
+
+      child.vertical_indent <= parent.vertical_indent ? row[:bottom] + m : row[:top] - m
+    end
+
+    def rail_edge_x(child)
+      child.horizontal_indent - @global[:height_connector_to_text]
+    end
+
     def connector_edges(child, parent)
       hctt = @global[:height_connector_to_text]
       child_above = child.vertical_indent <= parent.vertical_indent
@@ -1291,7 +1310,7 @@ module RSyntaxTree
         x2 = parent.empty_label? ? parent.horizontal_indent + parent.content_width / 2.0 : parent.horizontal_indent + parent.content_width + hctt
 
         if @polyline
-          mid_x1 = x2 + (x1 - x2) / 2
+          mid_x1 = x2 + (rail_edge_x(child) - x2) / 2
           mid_y1 = y1
           mid_x2 = mid_x1
           mid_y2 = y2
@@ -1317,7 +1336,7 @@ module RSyntaxTree
           chi_y, par_y = connector_edges(child, parent)
 
           mid_x1 = chi_x
-          mid_y1 = par_y + (chi_y - par_y) / 2
+          mid_y1 = par_y + ((rail_edge_y(child, parent) || chi_y) - par_y) / 2
 
           mid_x2 = par_x
           mid_y2 = mid_y1
