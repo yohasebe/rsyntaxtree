@@ -430,6 +430,13 @@ module RSyntaxTree
     def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)
       spacing = @global[:h_gap_between_nodes] * 1.25
       min_bulge = @global[:height_connector_to_text]
+      # An end that carries an arrowhead needs a run long enough for the head
+      # and a stem before the turn. The rail clears the farther end by the
+      # bulge alone, so an arrowhead on that end — every arrowhead, once the
+      # terminals stand on one row — was pressed against the corner.
+      arrow_run = @global[:h_gap_between_nodes] + (min_bulge * 2)
+      source_arrow = target_arrow == :double
+      target_arrow_drawn = target_arrow != :none
       # Small enough that the turn reads as an eased corner rather than as an
       # arc, and taken from a layout measure so it holds at every font size.
       corner_radius = min_bulge / 2.0
@@ -455,6 +462,8 @@ module RSyntaxTree
                 else
                   xmax + bulge
                 end
+        new_x = [new_x, s_x + arrow_run].max if source_arrow
+        new_x = [new_x, t_x + arrow_run].max if target_arrow_drawn
 
         new_s_y = s_y + s_offset
         new_t_y = t_y + t_offset
@@ -475,6 +484,8 @@ module RSyntaxTree
         # not the full tree height
         bulge = [min_bulge, (s_x - t_x).abs * 0.3 + min_bulge].min
         new_y = ymax + bulge
+        new_y = [new_y, s_y + arrow_run].max if source_arrow
+        new_y = [new_y, t_y + arrow_run].max if target_arrow_drawn
 
         new_s_x = s_x - s_offset
         new_t_x = t_x - t_offset
