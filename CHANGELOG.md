@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.5.0] - 2026-11-04
+
+### Added
+- `leaf_align` (`--leaf-align`): the leaves on one row, by lowering `words` or `subtrees` (#16, thanks @jasperandrew)
+
+### Fixed
+- An arrowhead at the lower end of a movement path no longer sits against the corner
+- Polyline rails no longer step where a child is a `<>` joint, or between labels drawn bottom to top
+- A connector to a single child no longer leans by half a pixel
+
 ## [2.4.1] - 2026-09-02
 
 ### Fixed
