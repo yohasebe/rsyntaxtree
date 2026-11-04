@@ -3,6 +3,7 @@
 require "minitest/autorun"
 require "minitest/pride"
 require "json"
+require "timeout"
 
 require_relative "../lib/rsyntaxtree"
 
@@ -67,6 +68,23 @@ class PathRailTest < Minitest::Test
       else
         assert_operator wide, :>, narrow
       end
+    end
+  end
+
+  # A rail moved one spacing past another can measure a hair under that
+  # spacing; it is still clear, and the figure is still drawn.
+  {
+    "nested" => ["[S [a+1] [b+2] [c+2] [d+1]]", {}],
+    "nested_btt" => ["[S [a+1] [b+2] [c+2] [d+1]]", { direction: "btt" }],
+    "arrowed" => ["[S [a+>1] [b+>2] [c+>2] [d+>1]]", {}],
+    "shared_end" => ["[S [a+1+2] [b+2] [c+1]]", {}]
+  }.each do |name, (tree, options)|
+    define_method "test_rails_one_spacing_apart_are_clear_#{name}" do
+      svg = Timeout.timeout(10) do
+        RSyntaxTree::RSGenerator.new({ data: tree, hspacing: 1.5 }.merge(options)).draw_svg
+      end
+
+      assert_equal 2, svg.scan(/<path d='/).size
     end
   end
 

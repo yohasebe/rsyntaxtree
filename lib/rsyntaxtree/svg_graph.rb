@@ -442,15 +442,23 @@ module RSyntaxTree
       end.compact.send(@direction == "btt" ? :min : :max) || from
     end
 
+    RAIL_SLACK = 1e-6
+
     # A rail that would run along one already drawn, over part of the same
     # span, is moved outward past it: two paths whose rails coincide read as
     # one line, and nothing tells which ends it joins.
+    #
+    # Each move goes outward and past the rail in the way, so no rail can be in
+    # the way twice and there are at most as many moves as rails. The distance
+    # is compared with a little slack: a rail moved exactly one spacing past
+    # another can measure a hair under it, and would be moved again forever.
     def clear_of_rails(at, span, spacing, sign)
       @rails ||= []
       lo, hi = span
-      loop do
+      close = spacing - RAIL_SLACK
+      @rails.size.times do
         blocking = @rails.find do |r|
-          r[:lo] <= hi + spacing && lo <= r[:hi] + spacing && (r[:at] - at).abs < spacing
+          r[:lo] <= hi + spacing && lo <= r[:hi] + spacing && (r[:at] - at).abs < close
         end
         break unless blocking
 
