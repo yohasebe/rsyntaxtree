@@ -28,9 +28,9 @@
     </pattern>
   </defs>
 <rect x="-16.8" y="0" width="223.00000000000003" height="362.65599999999995" stroke="none" fill="white" />
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='62.80000000000001' y='67.19999999999999'><tspan x='62.80000000000001' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">γ</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='62.30000000000001' y='67.19999999999999'><tspan x='62.80000000000001' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">γ</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='17.299999999999997' y='202.56378947368418'><tspan x='17.299999999999997' y='202.56378947368418' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">γ</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='16.799999999999997' y='202.56378947368418'><tspan x='17.299999999999997' y='202.56378947368418' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">γ</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='106.30000000000001' y='202.56378947368418'><tspan x='106.30000000000001' y='202.56378947368418' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">α</tspan>
 </text>
@@ -38,8 +38,8 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='137.8' y='334.65599999999995'><tspan x='137.8' y='334.65599999999995' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">β</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='24.8' y1='166.6437894736842' x2='70.30000000000001' y2='93.11999999999999' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='116.30000000000001' y1='166.6437894736842' x2='70.30000000000001' y2='93.11999999999999' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='85.8' y1='291.73599999999993' x2='116.30000000000001' y2='228.48378947368417' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='146.8' y1='291.73599999999993' x2='116.30000000000001' y2='228.48378947368417' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='25.3' y1='166.6437894736842' x2='70.80000000000001' y2='93.11999999999999' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='116.30000000000001' y1='166.6437894736842' x2='70.80000000000001' y2='93.11999999999999' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='85.8' y1='291.73599999999993' x2='116.30000000000001' y2='220.48378947368417' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='146.8' y1='291.73599999999993' x2='116.30000000000001' y2='220.48378947368417' />
 </svg>
