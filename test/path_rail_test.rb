@@ -46,6 +46,30 @@ class PathRailTest < Minitest::Test
     end
   end
 
+  # Two paths over overlapping spans run on rails of their own, the wider
+  # outside the narrower, even where the same label sets how far out both go.
+  NESTED = "[S [A a+1] [B b+2] [C [D d]] [E e+2] [F [G f+1]]]"
+
+  %w[ttb btt].each do |direction|
+    define_method "test_overlapping_paths_keep_rails_of_their_own_#{direction}" do
+      svg = RSyntaxTree::RSGenerator.new(data: NESTED, direction: direction).draw_svg
+      rails = svg.scan(/<path d='([^']+)'[^>]*stroke-dasharray/).flatten.map do |d|
+        points = d.scan(/-?\d+(?:\.\d+)?/).map(&:to_f).each_slice(2).to_a
+        xs = points.map(&:first)
+        ys = points.map(&:last)
+        [xs.max - xs.min, direction == "btt" ? ys.min : ys.max]
+      end
+      narrow, wide = rails.sort_by(&:first).map(&:last)
+
+      assert_equal 2, rails.size
+      if direction == "btt"
+        assert_operator wide, :<, narrow
+      else
+        assert_operator wide, :>, narrow
+      end
+    end
+  end
+
   # Above the words, the rail is past the top of the tree, and the canvas
   # grows to hold it.
   def test_the_canvas_holds_a_rail_above_the_tree

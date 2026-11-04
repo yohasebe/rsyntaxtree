@@ -442,6 +442,24 @@ module RSyntaxTree
       end.compact.send(@direction == "btt" ? :min : :max) || from
     end
 
+    # A rail that would run along one already drawn, over part of the same
+    # span, is moved outward past it: two paths whose rails coincide read as
+    # one line, and nothing tells which ends it joins.
+    def clear_of_rails(at, span, spacing, sign)
+      @rails ||= []
+      lo, hi = span
+      loop do
+        blocking = @rails.find do |r|
+          r[:lo] <= hi + spacing && lo <= r[:hi] + spacing && (r[:at] - at).abs < spacing
+        end
+        break unless blocking
+
+        at = blocking[:at] + (sign * spacing)
+      end
+      @rails << { lo: lo, hi: hi, at: at }
+      at
+    end
+
     # Where the movement paths have been, as a box. The canvas learns of a
     # rail through @width and @height, which only say how far right and down
     # anything got; the plane behind a sheared figure has to enclose the rail
@@ -521,6 +539,7 @@ module RSyntaxTree
 
         new_s_x = s_x - s_offset
         new_t_x = t_x - t_offset
+        new_y = clear_of_rails(new_y, [new_s_x, new_t_x].minmax, spacing, sign)
 
         note_path_extent([[new_s_x, s_y], [new_s_x, new_y],
                           [new_t_x, new_y], [new_t_x, t_y]])
@@ -1002,6 +1021,10 @@ module RSyntaxTree
         end
       end
 
+      # Narrowest first, so a path that spans another runs outside it rather
+      # than across its ends. Left to right, every rail already clears the
+      # ones drawn before it, in the order written.
+      paths = paths.each_with_index.sort_by { |t, i| [(t[:x1] - t[:x2]).abs, i] }.map(&:first) unless @direction == "ltr"
       paths.each do |t|
         draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow])
       end

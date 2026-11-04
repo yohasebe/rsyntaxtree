@@ -250,30 +250,41 @@ module RSyntaxTree
         accum_array.max
       end.tap do
         level_derivation_rows if id == 1 && @derivation
-        level_ltr_columns if id == 1 && @leaf_align && @direction == "ltr" && !@derivation
+        level_leaf_rows if id == 1 && @leaf_align && !@derivation
       end
     end
 
-    # Leaf alignment gives every leaf the same depth. Drawn top to bottom that
-    # is enough: every row is one line of type, so equal depth is equal height.
-    # Drawn left to right a level is as wide as the label standing in it, and
-    # each label starts where its own parent ends, so equal depth still leaves
-    # the words ragged. Every level is given a column of its own instead, as
-    # wide as its widest label. Worked in the swapped coordinates the
-    # left-to-right layout runs in, where a column is a row.
-    def level_ltr_columns
-      widest = Hash.new(0.0)
-      @element_list.get_elements.each { |e| widest[e.level] = [widest[e.level], e.content_height].max }
+    # Leaf alignment gives every leaf the same depth, but equal depth is not
+    # an equal row: each label is set below its own parent, so a taller parent
+    # (a label of two lines) or a shorter drop (a leaf pulled up under
+    # leafstyle nothing) leaves the words of one depth at different heights.
+    # Drawn left to right it is worse, a level being as wide as the label
+    # standing in it. Every depth is therefore given one row: it starts below
+    # the tallest label of the row above, by the largest drop any of its
+    # elements had, so each connector keeps at least the room it was given.
+    # Worked in the swapped coordinates the left-to-right layout runs in,
+    # where a column is a row.
+    def level_leaf_rows
+      elements = @element_list.get_elements
+      drop = Hash.new(0.0)
+      elements.each do |e|
+        next unless e.parent.to_i.positive?
 
-      drop = @global[:height_connector].to_f
-      left = {}
-      x = 0.0
-      widest.keys.sort.each do |level|
-        left[level] = x
-        x += widest[level] + drop
+        parent = @element_list.get_id(e.parent)
+        drop[e.level] = [drop[e.level], e.vertical_indent - parent.vertical_indent - parent.content_height].max
+      end
+      tallest = Hash.new(0.0)
+      elements.each { |e| tallest[e.level] = [tallest[e.level], e.content_height].max }
+
+      top = {}
+      y = 0.0
+      tallest.keys.sort.each do |level|
+        y += drop[level]
+        top[level] = y
+        y += tallest[level]
       end
 
-      @element_list.get_elements.each { |e| e.vertical_indent = left[e.level] }
+      elements.each { |e| e.vertical_indent = top[e.level] }
     end
 
     # In a derivation every premise is given at the start, so the words stand in
