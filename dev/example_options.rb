@@ -31,7 +31,8 @@ module ExampleOptions
     "shear" => :shear,
     "shear_plane" => :shear_plane,
     "vmargin" => :vmargin,
-    "font" => :fontstyle
+    "font" => :fontstyle,
+    "leaf_align" => :leaf_align
   }.freeze
 
   # Returns [name, opts] for an example file.

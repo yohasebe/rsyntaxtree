@@ -350,3 +350,19 @@
   width: 940
   height: 516
   layout: grid-stack
+'087':
+  width: 433
+  height: 569
+  layout: ''
+'088':
+  width: 494
+  height: 700
+  layout: grid-wide
+'089':
+  width: 454
+  height: 560
+  layout: grid-wide
+'090':
+  width: 616
+  height: 594
+  layout: grid-stack

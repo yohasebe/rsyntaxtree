@@ -1133,7 +1133,7 @@ line, so check the `forest` code against the figure before publishing it.
 
 # Examples
 
-RSyntaxTree examples: 81 trees, every one verified to draw.
+RSyntaxTree examples: 85 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -3623,7 +3623,7 @@ own(x,<>y)
 ]
 ```
 
-## 080 — Terminals levelled with pass-through joints
+## 080 — Terminals levelled by hand with pass-through joints
 
 Category: General
 Settings: fontstyle=noto-serif tidy=low vheight=1.0
@@ -3773,4 +3773,59 @@ SYN\t#(HEAD\t|1|#)#)
   SYN\t#(HEAD\t|1|#(*verb*\
   ---\
   AGR\t|2|#)#)#) [bark]]]
+```
+
+## 087 — Terminals levelled automatically: whole subtrees drop
+
+Category: General
+Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low vheight=1.0
+
+```
+[S
+  [NP [D the] [N cat]]
+  [VP
+    [V sat]
+    [PP [P on] [NP [D the] [N mat]]]]]
+```
+
+## 088 — Wh-movement with the terminals levelled
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low vheight=1.0
+
+```
+[CP
+  [DP what+>1]
+  [C' [C did]
+    [TP
+      [DP [D the] [NP [N child]]]
+      [T' [T t]
+        [VP [V find] [DP t+1]]]]]]
+```
+
+## 089 — A Japanese sentence with its words on one row
+
+Category: Multilingual
+Settings: fontstyle=noto-serif leaf_align=words tidy=low vheight=1.0
+
+```
+[S
+  [NP [N 太郎] [P が]]
+  [VP
+    [NP [AdjP [Adj 古い]] [NP [N 本] [P を]]]
+    [V 読んだ]]]
+```
+
+## 090 — A summarised phrase deep in the tree, with the terminals levelled
+
+Category: General
+Settings: fontstyle=noto-serif leaf_align=words tidy=low vheight=1.0
+
+```
+[TP
+  [DP [D the]
+    [NP [N man]
+      [PP [P with] [^DP the hat]]]]
+  [T' [T will]
+    [VP [V give] [DP [D the] [NP [N book]]]]]]
 ```
