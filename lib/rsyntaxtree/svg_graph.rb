@@ -413,6 +413,26 @@ module RSyntaxTree
         "#{dasharray}#{markers}/>"
     end
 
+    # How far the labels standing between a path's two ends reach toward its
+    # rail: the rail runs past the two ends, and has to run past every label
+    # across its span too, or it is drawn through a word that stands farther
+    # out than either end. Measured to the same edge the ends are anchored at.
+    def label_reach(from, to)
+      lo, hi = [from, to].minmax
+      hctt = @global[:height_connector_to_text]
+      @element_list.get_elements.map do |e|
+        if @direction == "ltr"
+          next if e.vertical_indent > hi || e.vertical_indent + e.content_height < lo
+
+          e.horizontal_indent + e.content_width + hctt
+        else
+          next if e.horizontal_indent > hi || e.horizontal_indent + e.content_width < lo
+
+          e.vertical_indent + e.content_height + hctt
+        end
+      end.compact.max || from
+    end
+
     # Where the movement paths have been, as a box. The canvas learns of a
     # rail through @width and @height, which only say how far right and down
     # anything got; the plane behind a sheared figure has to enclose the rail
@@ -454,7 +474,7 @@ module RSyntaxTree
       if @direction == "ltr"
         # LTR: route to the RIGHT of the tree (⊃ shape / reversed C)
         # Source → right → vertical → left → Target
-        xmax = [s_x, t_x].max
+        xmax = [s_x, t_x, label_reach(s_y, t_y)].max
         bulge = [min_bulge, (s_y - t_y).abs * 0.3 + min_bulge].min
         # Ensure paths don't overlap: extend beyond previous paths
         new_x = if xmax < @width
@@ -479,7 +499,7 @@ module RSyntaxTree
       else
         # TTB: route BELOW the tree (U shape)
         # Source → down → horizontal → up → Target
-        ymax = [s_y, t_y].max
+        ymax = [s_y, t_y, label_reach(s_x, t_x)].max
         # Proportional bulge: based on distance between endpoints,
         # not the full tree height
         bulge = [min_bulge, (s_x - t_x).abs * 0.3 + min_bulge].min

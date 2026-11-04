@@ -67,6 +67,7 @@ module RSyntaxTree
       @fontsize = params[:fontsize]
       @mirror = params[:mirror] == true
       @derivation = params[:derivation] == true
+      @leaf_align = !params[:leaf_align].nil? && params[:leaf_align].to_s != "off"
       # tidy is one layout scale: "symmetric" (radical symmetrization) |
       # "off" | "low" (packing, strict leaf positions) | "medium" (packing
       # with cross-row tucking as long as no two leaves swap left-right
@@ -247,7 +248,32 @@ module RSyntaxTree
         end
         target.height = accum_array.max - target.vertical_indent
         accum_array.max
-      end.tap { level_derivation_rows if id == 1 && @derivation }
+      end.tap do
+        level_derivation_rows if id == 1 && @derivation
+        level_ltr_columns if id == 1 && @leaf_align && @direction == "ltr" && !@derivation
+      end
+    end
+
+    # Leaf alignment gives every leaf the same depth. Drawn top to bottom that
+    # is enough: every row is one line of type, so equal depth is equal height.
+    # Drawn left to right a level is as wide as the label standing in it, and
+    # each label starts where its own parent ends, so equal depth still leaves
+    # the words ragged. Every level is given a column of its own instead, as
+    # wide as its widest label. Worked in the swapped coordinates the
+    # left-to-right layout runs in, where a column is a row.
+    def level_ltr_columns
+      widest = Hash.new(0.0)
+      @element_list.get_elements.each { |e| widest[e.level] = [widest[e.level], e.content_height].max }
+
+      drop = @global[:height_connector].to_f
+      left = {}
+      x = 0.0
+      widest.keys.sort.each do |level|
+        left[level] = x
+        x += widest[level] + drop
+      end
+
+      @element_list.get_elements.each { |e| e.vertical_indent = left[e.level] }
     end
 
     # In a derivation every premise is given at the start, so the words stand in
