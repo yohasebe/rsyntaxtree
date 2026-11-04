@@ -8,6 +8,7 @@
 ### Fixed
 - An arrowhead at the lower end of a movement path no longer sits against the corner
 - A movement path no longer runs through a label that stands farther out than its two ends
+- A movement path in a bottom-to-top tree runs above the words instead of through the tree
 - Polyline rails no longer step where a child is a `<>` joint, or between labels drawn bottom to top
 - A connector to a single child no longer leans by half a pixel
 

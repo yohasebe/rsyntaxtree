@@ -83,6 +83,15 @@ module RSyntaxTree
       # the deepest leaf) keep a margin instead of touching the image edge. A
       # margin is added around the region extents before unioning with the tree
       # bounds. x2/y2 are the viewBox width/height, so right = x1 + x2.
+      # Bottom to top, a movement path runs above the words, past the top of
+      # the tree; the canvas grows upward to hold it.
+      if @direction == "btt" && @path_bounds
+        top = [y1, @path_bounds[:min_y] - @global[:height_connector_to_text]].min
+        y2 += y1 - top
+        @height += y1 - top
+        y1 = top
+      end
+
       if @region_bounds
         rb = @region_bounds
         m = @global[:h_gap_between_nodes]
@@ -428,9 +437,9 @@ module RSyntaxTree
         else
           next if e.horizontal_indent > hi || e.horizontal_indent + e.content_width < lo
 
-          e.vertical_indent + e.content_height + hctt
+          @direction == "btt" ? e.vertical_indent - hctt : e.vertical_indent + e.content_height + hctt
         end
-      end.compact.max || from
+      end.compact.send(@direction == "btt" ? :min : :max) || from
     end
 
     # Where the movement paths have been, as a box. The canvas learns of a
@@ -497,15 +506,18 @@ module RSyntaxTree
                                       end_arrow: target_arrow != :none)
         @width = new_x if new_x > @width
       else
-        # TTB: route BELOW the tree (U shape)
+        # TTB: route BELOW the tree (U shape), on the side the words are on;
+        # BTT turns the tree over, words at the top, and the path with it.
         # Source → down → horizontal → up → Target
-        ymax = [s_y, t_y, label_reach(s_x, t_x)].max
+        outward = @direction == "btt" ? :min : :max
+        sign = @direction == "btt" ? -1 : 1
+        edge = [s_y, t_y, label_reach(s_x, t_x)].send(outward)
         # Proportional bulge: based on distance between endpoints,
         # not the full tree height
         bulge = [min_bulge, (s_x - t_x).abs * 0.3 + min_bulge].min
-        new_y = ymax + bulge
-        new_y = [new_y, s_y + arrow_run].max if source_arrow
-        new_y = [new_y, t_y + arrow_run].max if target_arrow_drawn
+        new_y = edge + (sign * bulge)
+        new_y = [new_y, s_y + (sign * arrow_run)].send(outward) if source_arrow
+        new_y = [new_y, t_y + (sign * arrow_run)].send(outward) if target_arrow_drawn
 
         new_s_x = s_x - s_offset
         new_t_x = t_x - t_offset
@@ -918,6 +930,9 @@ module RSyntaxTree
           y1 = element.vertical_indent + element.content_height + @global[:height_connector_to_text]
           lgeom = nil
         end
+        # A movement path leaves a label on the side the words are on: below
+        # it top to bottom, above it bottom to top.
+        path_y = @direction == "btt" ? element.vertical_indent - @global[:height_connector_to_text] : y1
         et = element.path
         et.each do |tr|
           if /\A-(>|<)?(\d+)\z/ =~ tr
@@ -932,20 +947,20 @@ module RSyntaxTree
           elsif /\A(?:>|<)(\d+)\z/ =~ tr
             tr = $1
             if path_pool_target[tr]
-              path_pool_target[tr] << [x1, y1]
+              path_pool_target[tr] << [x1, path_y]
             else
-              path_pool_target[tr] = [[x1, y1]]
+              path_pool_target[tr] = [[x1, path_y]]
             end
             path_flags << tr
           elsif path_pool_source[tr]
             if path_pool_other[tr]
-              path_pool_other[tr] << [x1, y1]
+              path_pool_other[tr] << [x1, path_y]
             else
-              path_pool_other[tr] = [[x1, y1]]
+              path_pool_other[tr] = [[x1, path_y]]
             end
             path_flags << tr
           else
-            path_pool_source[tr] = [x1, y1]
+            path_pool_source[tr] = [x1, path_y]
             path_flags << tr
           end
           raise RSTError.new(+"Error: input text contains a path having more than two ends:\n > #{tr}", code: :path_multiple_ends, hint: "A path or line takes exactly two ends; check the numbers.", retryable: true) if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
