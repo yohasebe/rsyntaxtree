@@ -41,7 +41,11 @@ layout: default
         under Functional Grammar as well.
       {%- endcomment -%}
       {%- if example.category == category.name -%}
-        <h3 id="example-{{ example.name }}">{{ example.caption }}</h3>
+        {%- comment -%}
+          The number is there to be found with the browser's search, not to be
+          read: it is drawn in no colour, and left out of a selection.
+        {%- endcomment -%}
+        <h3 id="example-{{ example.name }}">{{ example.caption }}<span style='color: transparent; user-select: none; font-size: 0.6em; margin-left: 0.5em;'>#{{ example.name }}</span></h3>
         <div style='text-align:left;'>
           <button onclick="copyToClipBoard('text-{{ example.name }}')" style='margin: 20px 0; font-size: 0.85em;'>
             Copy to Clipboard
@@ -81,6 +85,7 @@ layout: default
                 <tr><td>Direction</td><td>{{ example.direction | default: "ttb" }}</td></tr>
                 <tr><td>Derivation</td><td>{{ example.derivation | default: "off" }}</td></tr>
                 <tr><td>Mirror (RTL)</td><td>{{ example.mirror | default: "off" }}</td></tr>
+                <tr><td>Leaf align</td><td>{{ example.leaf_align | default: "off" }}</td></tr>
                 <tr><td>Font</td><td>{{ example.font }}</td></tr>
                 <tr><td>Size</td><td>{{ example.fontsize | default: "16" }}</td></tr>
                 <tr><td>Color</td><td>{{ example.color }}</td></tr>

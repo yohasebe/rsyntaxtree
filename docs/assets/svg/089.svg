@@ -80,23 +80,23 @@
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='395.55' y1='165.7775058160028' x2='244.675' y2='85.11999999999999' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='48.8' y1='301.5219795558689' x2='93.80000000000001' y2='225.61750581600276' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='138.8' y1='301.5219795558689' x2='93.80000000000001' y2='225.61750581600276' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='48.8' y1='444.41935565738453' x2='48.8' y2='361.3619795558689' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='48.8' y1='573.552' x2='48.8' y2='444.41935565738453' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='48.8' y1='683.872' x2='48.8' y2='573.552' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='138.8' y1='444.41935565738453' x2='138.8' y2='361.3619795558689' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='138.8' y1='573.552' x2='138.8' y2='444.41935565738453' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='138.8' y1='683.872' x2='138.8' y2='573.552' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='48.8' y1='361.3619795558689' x2='48.8' y2='444.41935565738453' stroke-dasharray='8.0 8.0' stroke-dashoffset='0' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='48.8' y1='444.41935565738453' x2='48.8' y2='573.552' stroke-dasharray='8.0 8.0' stroke-dashoffset='83.057' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='48.8' y1='573.552' x2='48.8' y2='683.872' stroke-dasharray='8.0 8.0' stroke-dashoffset='212.19' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='138.8' y1='361.3619795558689' x2='138.8' y2='444.41935565738453' stroke-dasharray='8.0 8.0' stroke-dashoffset='0' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='138.8' y1='444.41935565738453' x2='138.8' y2='573.552' stroke-dasharray='8.0 8.0' stroke-dashoffset='83.057' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='138.8' y1='573.552' x2='138.8' y2='683.872' stroke-dasharray='8.0 8.0' stroke-dashoffset='212.19' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='292.3' y1='301.5219795558689' x2='395.55' y2='225.61750581600276' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='498.8' y1='301.5219795558689' x2='395.55' y2='225.61750581600276' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='228.8' y1='432.2993556573845' x2='292.3' y2='361.3619795558689' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='355.8' y1='432.2993556573845' x2='292.3' y2='361.3619795558689' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='228.8' y1='561.432' x2='228.8' y2='501.13935565738456' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='228.8' y1='683.872' x2='228.8' y2='630.2719999999999' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='228.8' y1='630.2719999999999' x2='228.8' y2='683.872' stroke-dasharray='8.0 8.0' stroke-dashoffset='0' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='318.8' y1='561.432' x2='355.8' y2='493.13935565738456' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='392.8' y1='561.432' x2='355.8' y2='493.13935565738456' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='318.8' y1='683.872' x2='318.8' y2='622.2719999999999' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='392.8' y1='683.872' x2='392.8' y2='622.2719999999999' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='498.8' y1='444.41935565738453' x2='498.8' y2='361.3619795558689' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='498.8' y1='573.552' x2='498.8' y2='444.41935565738453' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='498.8' y1='683.872' x2='498.8' y2='573.552' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='318.8' y1='622.2719999999999' x2='318.8' y2='683.872' stroke-dasharray='8.0 8.0' stroke-dashoffset='0' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='392.8' y1='622.2719999999999' x2='392.8' y2='683.872' stroke-dasharray='8.0 8.0' stroke-dashoffset='0' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='498.8' y1='361.3619795558689' x2='498.8' y2='444.41935565738453' stroke-dasharray='8.0 8.0' stroke-dashoffset='0' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='498.8' y1='444.41935565738453' x2='498.8' y2='573.552' stroke-dasharray='8.0 8.0' stroke-dashoffset='83.057' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='498.8' y1='573.552' x2='498.8' y2='683.872' stroke-dasharray='8.0 8.0' stroke-dashoffset='212.19' />
 </svg>
