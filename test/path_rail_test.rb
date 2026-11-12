@@ -88,6 +88,68 @@ class PathRailTest < Minitest::Test
     end
   end
 
+  # A label where one path ends and the next begins sends each from the side
+  # it heads for, so neither path crosses the other.
+  # Each tree is drawn with the shorter path on either side, as the shorter
+  # is drawn first and the other has to find room at the shared label.
+  CHAIN = {
+    "shorter_left" => "[S [a+>1] [b+1+>2] [c] [d] [e+2]]",
+    "shorter_right" => "[S [a+>1] [b] [c] [d+1+>2] [e+2]]",
+    "embedded" => "[CP [Wh what+>1] [C' [C can] [S [NP Tom] [VP [V remember] " \
+                  "[CP [Wh t+1+>2] [C' [C that] [S [NP Lucy] [VP [V was reading] [NP t+2]]]]]]]]]"
+  }.freeze
+
+  def strokes(svg)
+    svg.scan(/<path d='([^']+)'/).flatten.map do |d|
+      d.scan(/-?\d+(?:\.\d+)?/).map(&:to_f).each_slice(2).each_cons(2).to_a
+    end
+  end
+
+  def meet?((p1, p2), (q1, q2))
+    turn = ->(a, b, c) { ((b[0] - a[0]) * (c[1] - a[1])) - ((b[1] - a[1]) * (c[0] - a[0])) }
+    within = ->(a, b, c) { c[0].between?(*[a[0], b[0]].minmax) && c[1].between?(*[a[1], b[1]].minmax) }
+    d1 = turn.call(q1, q2, p1)
+    d2 = turn.call(q1, q2, p2)
+    d3 = turn.call(p1, p2, q1)
+    d4 = turn.call(p1, p2, q2)
+    return true if (d1 * d2).negative? && (d3 * d4).negative?
+
+    [[d1, q1, q2, p1], [d2, q1, q2, p2], [d3, p1, p2, q1], [d4, p1, p2, q2]].any? do |d, a, b, c|
+      d.zero? && within.call(a, b, c)
+    end
+  end
+
+  CHAIN.each do |name, tree|
+    %w[ttb btt ltr].each do |direction|
+      %w[off words].each do |mode|
+        define_method "test_chained_paths_do_not_cross_#{name}_#{direction}_#{mode}" do
+          svg = RSyntaxTree::RSGenerator.new(data: tree, direction: direction, leaf_align: mode).draw_svg
+          first, second = strokes(svg)
+
+          assert second, "two paths"
+          first.each do |a|
+            second.each { |b| refute meet?(a, b), "#{a.inspect} meets #{b.inspect}" }
+          end
+        end
+      end
+    end
+
+    # Two paths that only meet at a label run on one level: once their ends
+    # there are spread apart, nothing of one is in the other's way.
+    %w[ttb btt].each do |direction|
+      define_method "test_chained_paths_share_a_level_#{name}_#{direction}" do
+        svg = RSyntaxTree::RSGenerator.new(data: tree, direction: direction, leaf_align: "words").draw_svg
+        levels = strokes(svg).map do |segments|
+          ys = segments.flatten(1).map(&:last)
+          direction == "btt" ? ys.min : ys.max
+        end
+
+        assert_equal 2, levels.size
+        assert_in_delta levels[0], levels[1], 1e-6
+      end
+    end
+  end
+
   # Above the words, the rail is past the top of the tree, and the canvas
   # grows to hold it.
   def test_the_canvas_holds_a_rail_above_the_tree

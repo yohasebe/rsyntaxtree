@@ -57,7 +57,6 @@ module RSyntaxTree
       @polygon_styles = "<polygon style='fill: none; stroke: #{@col_connector}; stroke-width:#{@global[:stroke_normal]}; stroke-linejoin:round;stroke-linecap:round;' points='X1 Y1 X2 Y2 X3 Y3' />\n"
       @text_styles = "<text white-space='pre' alignment-baseline='text-top' style='fill: COLOR; stroke-width: 0; font-size: fontsize' x='X_VALUE' y='Y_VALUE'>CONTENT</text>\n"
       @tree_data = String.new
-      @visited_x = {}
       @visited_y = {}
       @global = global
     end
@@ -444,13 +443,20 @@ module RSyntaxTree
 
     RAIL_SLACK = 1e-6
 
+    # How far apart two rails stand, and two path ends on one label.
+    def rail_spacing
+      @global[:h_gap_between_nodes] * 1.25
+    end
+
     # A rail that would run along one already drawn, over part of the same
-    # span, is moved outward past it: two paths whose rails coincide read as
-    # one line, and nothing tells which ends it joins.
+    # span or less than one spacing short of it, is moved outward past it: two
+    # paths whose rails coincide read as one line, and nothing tells which
+    # ends it joins. Rails a spacing or more apart end to end stay on one
+    # level, as two paths meeting at a label do once their ends are spread.
     #
     # Each move goes outward and past the rail in the way, so no rail can be in
-    # the way twice and there are at most as many moves as rails. The distance
-    # is compared with a little slack: a rail moved exactly one spacing past
+    # the way twice and there are at most as many moves as rails. Distances
+    # are compared with a little slack: a rail moved exactly one spacing past
     # another can measure a hair under it, and would be moved again forever.
     def clear_of_rails(at, span, spacing, sign)
       @rails ||= []
@@ -458,7 +464,7 @@ module RSyntaxTree
       close = spacing - RAIL_SLACK
       @rails.size.times do
         blocking = @rails.find do |r|
-          r[:lo] <= hi + spacing && lo <= r[:hi] + spacing && (r[:at] - at).abs < close
+          r[:lo] < hi + close && lo < r[:hi] + close && (r[:at] - at).abs < close
         end
         break unless blocking
 
@@ -482,8 +488,35 @@ module RSyntaxTree
       b[:max_y] = [b[:max_y], ys.max].max
     end
 
-    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none)
-      spacing = @global[:h_gap_between_nodes] * 1.25
+    # Path ends that stand in one line across the paths' run (on one label,
+    # or on labels straight above one another) are spread apart, each to the
+    # side its path heads for: a path going left leaves from the left and one
+    # going right from the right, so neither crosses the other's rail. Among
+    # ends heading the same way, the one that goes farther takes the outer
+    # place, since its rail runs outside. Left to right, the same holds with
+    # up and down in place of left and right. Neighbouring ends stand one
+    # rail spacing apart, the same distance that keeps two rails apart.
+    def spread_shared_ends(paths)
+      step = rail_spacing
+      along = @direction == "ltr" ? 1 : 0
+      ends = Hash.new { |h, k| h[k] = [] }
+      paths.each do |t|
+        s = [t[:x1], t[:y1]]
+        e = [t[:x2], t[:y2]]
+        ends[s[along].round] << [t, :s_offset, s[along], e[along]]
+        ends[e[along].round] << [t, :t_offset, e[along], s[along]]
+      end
+      ends.each_value do |shared|
+        shared.each_with_index
+              .sort_by { |(_, _, at, other), i| [other <=> at, -other, i] }
+              .each_with_index do |((t, key, _, _), _), place|
+          t[key] = (place - (shared.size - 1) / 2.0) * step
+        end
+      end
+    end
+
+    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none, s_offset: 0, t_offset: 0)
+      spacing = rail_spacing
       min_bulge = @global[:height_connector_to_text]
       # An end that carries an arrowhead needs a run long enough for the head
       # and a stem before the turn. The rail clears the farther end by the
@@ -495,14 +528,6 @@ module RSyntaxTree
       # Small enough that the turn reads as an eased corner rather than as an
       # arc, and taken from a layout measure so it holds at every font size.
       corner_radius = min_bulge / 2.0
-
-      # Centered offset for multiple lines at the same endpoint
-      s_key = "#{s_x.round}"
-      t_key = "#{t_x.round}"
-      @visited_x[s_key] = (@visited_x[s_key] || 0) + 1
-      @visited_x[t_key] = (@visited_x[t_key] || 0) + 1
-      s_offset = ((@visited_x[s_key] - 1) - (@visited_x[s_key] - 1) / 2.0) * spacing
-      t_offset = ((@visited_x[t_key] - 1) - (@visited_x[t_key] - 1) / 2.0) * spacing
 
       dashed = true if target_arrow == :none
 
@@ -545,8 +570,8 @@ module RSyntaxTree
         new_y = [new_y, s_y + (sign * arrow_run)].send(outward) if source_arrow
         new_y = [new_y, t_y + (sign * arrow_run)].send(outward) if target_arrow_drawn
 
-        new_s_x = s_x - s_offset
-        new_t_x = t_x - t_offset
+        new_s_x = s_x + s_offset
+        new_t_x = t_x + t_offset
         new_y = clear_of_rails(new_y, [new_s_x, new_t_x].minmax, spacing, sign)
 
         note_path_extent([[new_s_x, s_y], [new_s_x, new_y],
@@ -1033,8 +1058,9 @@ module RSyntaxTree
       # than across its ends. Left to right, every rail already clears the
       # ones drawn before it, in the order written.
       paths = paths.each_with_index.sort_by { |t, i| [(t[:x1] - t[:x2]).abs, i] }.map(&:first) unless @direction == "ltr"
+      spread_shared_ends(paths)
       paths.each do |t|
-        draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow])
+        draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow], s_offset: t[:s_offset], t_offset: t[:t_offset])
       end
 
       line_pool.each do |_k, v|
