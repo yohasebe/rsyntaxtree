@@ -96,7 +96,7 @@ class PathRailTest < Minitest::Test
     "shorter_left" => "[S [a+>1] [b+1+>2] [c] [d] [e+2]]",
     "shorter_right" => "[S [a+>1] [b] [c] [d+1+>2] [e+2]]",
     "embedded" => "[CP [Wh what+>1] [C' [C can] [S [NP Tom] [VP [V remember] " \
-                  "[CP [Wh t+1+>2] [C' [C that] [S [NP Lucy] [VP [V was reading] [NP t+2]]]]]]]]]"
+                  "[CP [Wh \\_\\_+1+>2] [C' [C that] [S [NP Lucy] [VP [V was reading] [NP \\_\\_+2]]]]]]]]]"
   }.freeze
 
   def strokes(svg)
@@ -146,6 +146,39 @@ class PathRailTest < Minitest::Test
 
         assert_equal 2, levels.size
         assert_in_delta levels[0], levels[1], 1e-6
+      end
+    end
+  end
+
+  # However many paths meet at one label, their ends stay on it: off the
+  # labels beside it, and inside the canvas.
+  CROWDED = "[S #{(1..10).map { |n| "[a+>#{n}]" }.join(" ")} [i+#{(1..10).to_a.join("+")}]]"
+
+  %w[ttb btt ltr].each do |direction|
+    define_method "test_crowded_ends_stay_on_their_label_#{direction}" do
+      options = { data: CROWDED, direction: direction }
+      svg = RSyntaxTree::RSGenerator.new(options).draw_svg
+      nodes = JSON.parse(RSyntaxTree::RSGenerator.new(options.merge(format: "json")).draw_json)["nodes"]
+      shared = nodes.find { |n| n["label"]["raw"] == "i" }["position"]
+      left, top, width, height = svg[/viewBox="([^"]+)"/, 1].split(/[ ,]+/).map(&:to_f)
+      centre = [shared["x"] + (shared["content_width"] / 2.0), shared["y"] + (shared["content_height"] / 2.0)]
+      ends = strokes(svg).map do |segments|
+        [segments.first.first, segments.last.last].min_by { |x, y| Math.hypot(x - centre[0], y - centre[1]) }
+      end
+
+      assert_equal 10, ends.size
+      ends.each do |x, y|
+        assert_operator x, :>=, left
+        assert_operator x, :<=, left + width
+        assert_operator y, :>=, top
+        assert_operator y, :<=, top + height
+        if direction == "ltr"
+          assert_operator y, :>=, shared["y"], "on the label"
+          assert_operator y, :<=, shared["y"] + shared["content_height"], "on the label"
+        else
+          assert_operator x, :>=, shared["x"], "on the label"
+          assert_operator x, :<=, shared["x"] + shared["content_width"], "on the label"
+        end
       end
     end
   end

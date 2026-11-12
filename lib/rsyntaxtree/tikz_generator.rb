@@ -202,10 +202,15 @@ module RSyntaxTree
       end
     end
 
-    # The edge down to a word is dashed when leafstyle asks for it. Added to
-    # the edge style the tree sets, not in place of it, so the width holds.
+    # The edge down to a word is dashed when leafstyle asks for it, every
+    # piece of it: leaf alignment runs it through joints, and forest gives
+    # each joint the edge from the node above. Added to the edge style the
+    # tree sets, not in place of it, so the width holds.
     def leaf_edge_option(element)
-      @params[:leafstyle] == "dashed" && element.type == ETYPE_LEAF ? ", edge+=dashed" : ""
+      return "" unless @params[:leafstyle] == "dashed"
+
+      element = @element_list.get_id(element.children.first) while element.inserted_joint
+      element.type == ETYPE_LEAF ? ", edge+=dashed" : ""
     end
 
     # forest node option that paints a semi-transparent plane behind the whole

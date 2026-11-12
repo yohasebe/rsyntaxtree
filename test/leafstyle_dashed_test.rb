@@ -76,4 +76,14 @@ class LeafstyleDashedTest < Minitest::Test
     assert_equal 4, tex.scan("edge+=dashed").size
     assert_includes tex, "[Kim, edge+=dashed]"
   end
+
+  # Under leaf alignment the edge down to a word runs through joints, and
+  # forest gives each piece to the node below it: every piece is dashed.
+  def test_the_tikz_dashes_every_piece_through_joints
+    tex = RSyntaxTree::RSGenerator.new(DEFAULT_OPTS.merge(data: "[S [N x] [VP [V y]]]", leafstyle: "dashed",
+                                                          leaf_align: "words", format: "tikz")).draw_tikz
+
+    assert_match(/\[N\s+\[, edge\+=dashed\s+\[x, edge\+=dashed\]/, tex)
+    assert_equal 3, tex.scan("edge+=dashed").size
+  end
 end

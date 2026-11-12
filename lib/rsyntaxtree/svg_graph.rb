@@ -500,22 +500,25 @@ module RSyntaxTree
     # ends heading the same way, the one that goes farther takes the outer
     # place, since its rail runs outside. Left to right, the same holds with
     # up and down in place of left and right. Neighbouring ends stand one
-    # rail spacing apart, the same distance that keeps two rails apart.
+    # rail spacing apart, the same distance that keeps two rails apart, or
+    # closer where that would take them past the narrowest label they share:
+    # an end stays on its label, and so off its neighbours and on the canvas.
     def spread_shared_ends(paths)
-      step = rail_spacing
       along = @direction == "ltr" ? 1 : 0
       ends = Hash.new { |h, k| h[k] = [] }
       paths.each do |t|
         s = [t[:x1], t[:y1]]
         e = [t[:x2], t[:y2]]
-        ends[s[along].round] << [t, :s_offset, s[along], e[along]]
-        ends[e[along].round] << [t, :t_offset, e[along], s[along]]
+        ends[s[along].round] << [t, :s_offset, s[along], e[along], t[:across1]]
+        ends[e[along].round] << [t, :t_offset, e[along], s[along], t[:across2]]
       end
       ends.each_value do |shared|
+        gaps = shared.size - 1
+        step = gaps.zero? ? 0 : [rail_spacing, shared.map(&:last).min / gaps.to_f].min
         shared.each_with_index
-              .sort_by { |(_, _, at, other), i| [other <=> at, -other, i] }
-              .each_with_index do |((t, key, _, _), _), place|
-          t[key] = (place - (shared.size - 1) / 2.0) * step
+              .sort_by { |(_, _, at, other, _), i| [other <=> at, -other, i] }
+              .each_with_index do |((t, key, _, _, _), _), place|
+          t[key] = (place - (gaps / 2.0)) * step
         end
       end
     end
@@ -990,6 +993,14 @@ module RSyntaxTree
         # A movement path leaves a label on the side the words are on: below
         # it top to bottom, above it bottom to top.
         path_y = @direction == "btt" ? element.vertical_indent - @global[:height_connector_to_text] : y1
+        # How much of the label there is across the paths' run, for the ends
+        # that share it to be spread over: an even amount either side of the
+        # anchor, which left to right sits below the middle of the label.
+        across = if @direction == "ltr"
+                   [element.content_height - (@global[:height_connector_to_text] * 1.5), 0].max
+                 else
+                   element.content_width
+                 end
         et = element.path
         et.each do |tr|
           if /\A-(>|<)?(\d+)\z/ =~ tr
@@ -1004,20 +1015,20 @@ module RSyntaxTree
           elsif /\A(?:>|<)(\d+)\z/ =~ tr
             tr = $1
             if path_pool_target[tr]
-              path_pool_target[tr] << [x1, path_y]
+              path_pool_target[tr] << [x1, path_y, across]
             else
-              path_pool_target[tr] = [[x1, path_y]]
+              path_pool_target[tr] = [[x1, path_y, across]]
             end
             path_flags << tr
           elsif path_pool_source[tr]
             if path_pool_other[tr]
-              path_pool_other[tr] << [x1, path_y]
+              path_pool_other[tr] << [x1, path_y, across]
             else
-              path_pool_other[tr] = [[x1, path_y]]
+              path_pool_other[tr] = [[x1, path_y, across]]
             end
             path_flags << tr
           else
-            path_pool_source[tr] = [x1, path_y]
+            path_pool_source[tr] = [x1, path_y, across]
             path_flags << tr
           end
           raise RSTError.new(+"Error: input text contains a path having more than two ends:\n > #{tr}", code: :path_multiple_ends, hint: "A path or line takes exactly two ends; check the numbers.", retryable: true) if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
@@ -1038,11 +1049,11 @@ module RSyntaxTree
         path_flags.delete(k)
         if (targets = path_pool_target[k])
           targets.each do |t|
-            paths << { x1: v[0], y1: v[1], x2: t[0], y2: t[1], arrow: :single }
+            paths << { x1: v[0], y1: v[1], x2: t[0], y2: t[1], across1: v[2], across2: t[2], arrow: :single }
           end
         elsif (others = path_pool_other[k])
           others.each do |t|
-            paths << { x1: v[0], y1: v[1], x2: t[0], y2: t[1], arrow: :none }
+            paths << { x1: v[0], y1: v[1], x2: t[0], y2: t[1], across1: v[2], across2: t[2], arrow: :none }
           end
         end
       end
@@ -1055,7 +1066,7 @@ module RSyntaxTree
         next if fst.nil?
 
         targets.each do |t|
-          paths << { x1: fst[0], y1: fst[1], x2: t[0], y2: t[1], arrow: :double }
+          paths << { x1: fst[0], y1: fst[1], x2: t[0], y2: t[1], across1: fst[2], across2: t[2], arrow: :double }
         end
       end
 
