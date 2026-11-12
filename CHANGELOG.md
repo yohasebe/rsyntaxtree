@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.6.0] - 2026-11-12
+
+### Added
+- `leafstyle: dashed` (`-l dashed`): the line down to each word dashed, every line between nodes solid
+- Gallery: each example lists its leaf alignment, and its number can be found with the browser's search
+
+### Fixed
+- Two movement paths that meet at one label no longer cross, and run on one level when nothing else is in the way
+
 ## [2.5.0] - 2026-11-04
 
 ### Added
