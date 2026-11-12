@@ -99,7 +99,7 @@ Options (the command line spells them --like-this):
 | fontsize   | 6–26 |
 | color      | modern, traditional, off, gray |
 | linewidth  | every line's weight, 0.5–3.0, as a ratio of the font size |
-| leafstyle  | auto, bar, nothing — what joins a node to its leaf |
+| leafstyle  | auto, bar, dashed, nothing — what joins a node to its leaf |
 | direction  | ttb, ltr, btt |
 | mirror     | flip the finished layout, for RTL scripts |
 | tidy       | off, symmetric, low, medium, high — how tightly subtrees pack |

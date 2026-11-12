@@ -386,6 +386,12 @@ module RSyntaxTree
       d << " L#{at.call(points.last)}"
     end
 
+    # The dash every dashed line in the figure is drawn with.
+    def dash_array
+      dash = @fontsize / 4.0
+      "stroke-dasharray='#{dash} #{dash}'"
+    end
+
     # One stroke rather than three lines meeting at right angles. Drawn this way
     # the dash pattern runs round each turn instead of restarting at it, and an
     # arrowhead is the end of the stroke rather than a marker on whichever line
@@ -401,8 +407,7 @@ module RSyntaxTree
       radius = [radius, leg.call(points[-2], points[-1]) - arrow_length].min if end_arrow
       radius = [radius, 0].max
 
-      dash = @fontsize / 4.0
-      dasharray = dashed ? "stroke-dasharray='#{dash} #{dash}' " : ""
+      dasharray = dashed ? "#{dash_array} " : ""
       markers = +""
       markers << "marker-start='url(#arrowStart)' " if start_arrow
       markers << "marker-end='url(#arrow)' " if end_arrow
@@ -1128,8 +1133,7 @@ module RSyntaxTree
                else
                  ""
                end
-      dash = @fontsize / 4.0
-      dasharray = dashed ? "stroke-dasharray='#{dash} #{dash}'" : ""
+      dasharray = dashed ? dash_array : ""
       swidth = bline ? @global[:stroke_bold] : @global[:stroke_normal]
 
       if s_arrow && t_arrow
@@ -1194,8 +1198,7 @@ module RSyntaxTree
                else
                  ""
                end
-      dash = @fontsize / 4.0
-      dasharray = dashed ? "stroke-dasharray='#{dash} #{dash}'" : ""
+      dasharray = dashed ? dash_array : ""
       swidth = bline ? @global[:stroke_bold] : @global[:stroke_normal]
 
       "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray} #{string}/>"
@@ -1398,8 +1401,12 @@ module RSyntaxTree
       [child_y, parent_y]
     end
 
-    def line_to_parent(parent, child)
-      return if child.horizontal_indent.zero?
+    # Dashed from +dash_from+ on, when given: a line through the joints leaf
+    # alignment inserted is drawn one piece at a time, and each piece picks up
+    # the dash where the one above it left off, so the run reads as one line.
+    # Returns how long the line drawn is.
+    def line_to_parent(parent, child, dash_from: nil)
+      return 0 if child.horizontal_indent.zero?
 
       if @direction == "ltr"
         # LTR: parent's right side → child's left side
@@ -1417,19 +1424,9 @@ module RSyntaxTree
           mid_y1 = y1
           mid_x2 = mid_x1
           mid_y2 = y2
-          @tree_data += @polyline_styles.sub(/CHIX/, x1.to_s)
-                                        .sub(/CHIY/, y1.to_s)
-                                        .sub(/MIDX1/, mid_x1.to_s)
-                                        .sub(/MIDY1/, mid_y1.to_s)
-                                        .sub(/MIDX2/, mid_x2.to_s)
-                                        .sub(/MIDY2/, mid_y2.to_s)
-                                        .sub(/PARX/, x2.to_s)
-                                        .sub(/PARY/, y2.to_s)
+          points = [[x1, y1], [mid_x1, mid_y1], [mid_x2, mid_y2], [x2, y2]]
         else
-          line_data   = @line_styles.sub(/X1/, x1.to_s)
-          line_data   = line_data.sub(/Y1/, y1.to_s)
-          line_data   = line_data.sub(/X2/, x2.to_s)
-          @tree_data += line_data.sub(/Y2/, y2.to_s)
+          points = [[x1, y1], [x2, y2]]
         end
       else
         # TTB: parent's bottom → child's top
@@ -1444,25 +1441,38 @@ module RSyntaxTree
           mid_x2 = par_x
           mid_y2 = mid_y1
 
-          @tree_data += @polyline_styles.sub(/CHIX/, chi_x.to_s)
-                                        .sub(/CHIY/, chi_y.to_s)
-                                        .sub(/MIDX1/, mid_x1.to_s)
-                                        .sub(/MIDY1/, mid_y1.to_s)
-                                        .sub(/MIDX2/, mid_x2.to_s)
-                                        .sub(/MIDY2/, mid_y2.to_s)
-                                        .sub(/PARX/, par_x.to_s)
-                                        .sub(/PARY/, par_y.to_s)
+          points = [[chi_x, chi_y], [mid_x1, mid_y1], [mid_x2, mid_y2], [par_x, par_y]]
         else
           x1 = child.horizontal_indent + child.content_width / 2.0
           x2 = parent.horizontal_indent + parent.content_width / 2.0
           y1, y2 = connector_edges(child, parent)
-
-          line_data   = @line_styles.sub(/X1/, x1.to_s)
-          line_data   = line_data.sub(/Y1/, y1.to_s)
-          line_data   = line_data.sub(/X2/, x2.to_s)
-          @tree_data += line_data.sub(/Y2/, y2.to_s)
+          points = [[x1, y1], [x2, y2]]
         end
       end
+      emit_connector(points, dash_from)
+    end
+
+    # +points+ run from the child to the parent. A dashed line is laid the
+    # other way, from the parent down, so that its dash carries on into the
+    # piece below it.
+    def emit_connector(points, dash_from)
+      dash = ""
+      if dash_from
+        points = points.reverse
+        dash = " #{dash_array} stroke-dashoffset='#{dash_from.round(3)}'"
+      end
+      if points.size == 2
+        (x1, y1), (x2, y2) = points
+        @tree_data += @line_styles.sub(/X1/, x1.to_s).sub(/Y1/, y1.to_s)
+                                  .sub(/X2/, x2.to_s).sub(/Y2/, y2.to_s).sub(" />", "#{dash} />")
+      else
+        (chix, chiy), (mx1, my1), (mx2, my2), (parx, pary) = points
+        @tree_data += @polyline_styles.sub(/CHIX/, chix.to_s).sub(/CHIY/, chiy.to_s)
+                                      .sub(/MIDX1/, mx1.to_s).sub(/MIDY1/, my1.to_s)
+                                      .sub(/MIDX2/, mx2.to_s).sub(/MIDY2/, my2.to_s)
+                                      .sub(/PARX/, parx.to_s).sub(/PARY/, pary.to_s).sub(" />", "#{dash} />")
+      end
+      points.each_cons(2).sum { |(ax, ay), (bx, by)| Math.hypot(bx - ax, by - ay) }
     end
 
     # Draw a triangle between child/parent elements

@@ -450,8 +450,10 @@ module RSyntaxTree
     end
 
     # `through` carries the connector chosen above a run of joints leaf
-    # alignment inserted, down that run to the child it reaches.
-    def draw_connector(id = 1, through = nil)
+    # alignment inserted, down that run to the child it reaches; `dashed`
+    # carries how far a dashed line has run so far, so that its dash goes on
+    # unbroken through each joint.
+    def draw_connector(id = 1, through = nil, dashed = 0)
       parent = @element_list.get_id(id)
       children = parent.children.map { |c| @element_list.get_id(c) }
 
@@ -466,23 +468,32 @@ module RSyntaxTree
 
       if through
         child = children.first
-        line_to_parent(parent, child) if through == :line
-        draw_connector(child.id, (through if child.inserted_joint))
+        draw_connector(child.id, (through if child.inserted_joint), dashed + draw_line(parent, child, through, dashed))
         return
       end
 
       chosen = children.map do |child|
         joints, target = past_inserted_joints(child)
         connector = connector_for(parent, target, children.size == 1)
+        connector = :dashed if connector == :line && @leafstyle == "dashed" && ETYPE_LEAF == target.type
+        run = 0
         case connector
         when :triangle then triangle_to_parent(parent, target, joints)
-        when :line then line_to_parent(parent, child)
+        when :line, :dashed then run = draw_line(parent, child, connector, 0)
         else no_connector(parent, target, joints)
         end
-        [child, connector]
+        [child, connector, run]
       end
 
-      chosen.each { |child, connector| draw_connector(child.id, (connector if child.inserted_joint)) }
+      chosen.each { |child, connector, run| draw_connector(child.id, (connector if child.inserted_joint), run) }
+    end
+
+    # A line, dashed when it is one of the lines leafstyle `dashed` draws down
+    # to a word. Returns how long it is, for the piece below to carry on from.
+    def draw_line(parent, child, connector, dashed)
+      return 0 unless %i[line dashed].include?(connector)
+
+      line_to_parent(parent, child, dash_from: (dashed if connector == :dashed)).to_f
     end
 
     # Leaf alignment puts joints between a node and the child it reaches. They
@@ -507,7 +518,7 @@ module RSyntaxTree
       case @leafstyle
       when "auto"
         forced || child.contains_phrase ? :triangle : :line
-      when "bar"
+      when "bar", "dashed"
         forced ? :triangle : :line
       when "nothing", "none"
         if forced

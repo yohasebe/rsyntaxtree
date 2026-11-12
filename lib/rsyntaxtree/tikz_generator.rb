@@ -189,7 +189,7 @@ module RSyntaxTree
 
       label = extract_label(element)
       escaped_label = escape_latex(label)
-      head = "#{escaped_label}#{region_option(element)}"
+      head = "#{escaped_label}#{leaf_edge_option(element)}#{region_option(element)}"
 
       children = element.children
       indent_str = "  " * indent
@@ -200,6 +200,12 @@ module RSyntaxTree
         child_code = children.map { |child_id| generate_tree(child_id, indent + 1) }.join("\n")
         "#{indent_str}[#{head}\n#{child_code}\n#{indent_str}]"
       end
+    end
+
+    # The edge down to a word is dashed when leafstyle asks for it. Added to
+    # the edge style the tree sets, not in place of it, so the width holds.
+    def leaf_edge_option(element)
+      @params[:leafstyle] == "dashed" && element.type == ETYPE_LEAF ? ", edge+=dashed" : ""
     end
 
     # forest node option that paints a semi-transparent plane behind the whole

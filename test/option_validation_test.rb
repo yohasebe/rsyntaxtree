@@ -70,7 +70,7 @@ class OptionValidationTest < Minitest::Test
       { fontsize: "6" }, { fontsize: "26" },
       { color: "modern" }, { color: "traditional" }, { color: "gray" }, { color: "none" },
       { hyphen: "markup" }, { hyphen: "literal" },
-      { leafstyle: "auto" }, { leafstyle: "bar" }, { leafstyle: "nothing" },
+      { leafstyle: "auto" }, { leafstyle: "bar" }, { leafstyle: "dashed" }, { leafstyle: "nothing" },
       { linewidth: "0.5" }, { linewidth: "1" }, { linewidth: "1.5" }, { linewidth: "2" }, { linewidth: "2.5" }, { linewidth: "3" },
       { mirror: "on" }, { transparent: "off" }, { polyline: "on" }, { hide_default_connectors: "off" }
     ].each do |opts|

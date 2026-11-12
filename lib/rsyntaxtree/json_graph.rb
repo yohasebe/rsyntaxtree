@@ -56,8 +56,11 @@ module RSyntaxTree
       @nodes << build_node(element)
     end
 
-    def line_to_parent(parent, child)
-      @edges << { from: parent.id, to: child.id, type: "dominance", connector: "line" }
+    def line_to_parent(parent, child, dash_from: nil)
+      edge = { from: parent.id, to: child.id, type: "dominance", connector: "line" }
+      edge[:dashed] = true if dash_from
+      @edges << edge
+      0
     end
 
     # A triangle spans from the parent to its child, through any joints leaf

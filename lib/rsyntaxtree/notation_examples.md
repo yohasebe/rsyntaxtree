@@ -2671,7 +2671,7 @@ Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low vheight=
 ## 089 — A Japanese sentence with its words on one row
 
 Category: Multilingual
-Settings: fontstyle=noto-serif leaf_align=words tidy=low vheight=1.0
+Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low vheight=1.0
 
 ```
 [S
@@ -2684,7 +2684,7 @@ Settings: fontstyle=noto-serif leaf_align=words tidy=low vheight=1.0
 ## 090 — A summarised phrase deep in the tree, with the terminals levelled
 
 Category: General
-Settings: fontstyle=noto-serif leaf_align=words tidy=low vheight=1.0
+Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low vheight=1.0
 
 ```
 [TP

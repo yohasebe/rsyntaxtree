@@ -55,7 +55,7 @@ OPTION_VALUES = {
   # an alias until 3.0. It collided with a code-intelligence format of the
   # same initials, and claimed an interchange nobody else had implemented.
   format: FORMATS + ["lsif"],
-  leafstyle: %w[auto triangle bar nothing],
+  leafstyle: %w[auto triangle bar dashed nothing],
   fontstyle: ["sans", "serif", "cjk", "mono", "noto-sans", "noto-serif", "noto-sans-mono", "cjk zenhei"],
   color: %w[modern traditional gray grey off none on true false],
   tidy: %w[off symmetric low medium high on compact true false],
