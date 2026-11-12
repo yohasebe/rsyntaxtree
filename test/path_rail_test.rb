@@ -91,10 +91,13 @@ class PathRailTest < Minitest::Test
   # A label where one path ends and the next begins sends each from the side
   # it heads for, so neither path crosses the other.
   # Each tree is drawn with the shorter path on either side, as the shorter
-  # is drawn first and the other has to find room at the shared label.
+  # is drawn first and the other has to find room at the shared label. The
+  # shared label is wide enough for the ends to stand a rail spacing apart,
+  # whatever the fonts, except in the narrow tree, where they cannot.
   CHAIN = {
-    "shorter_left" => "[S [a+>1] [b+1+>2] [c] [d] [e+2]]",
-    "shorter_right" => "[S [a+>1] [b] [c] [d+1+>2] [e+2]]",
+    "shorter_left" => "[S [a+>1] [\\_\\_+1+>2] [c] [d] [e+2]]",
+    "shorter_right" => "[S [a+>1] [b] [c] [\\_\\_+1+>2] [e+2]]",
+    "narrow" => "[S [a+>1] [i+1+>2] [c] [d] [e+2]]",
     "embedded" => "[CP [Wh what+>1] [C' [C can] [S [NP Tom] [VP [V remember] " \
                   "[CP [Wh \\_\\_+1+>2] [C' [C that] [S [NP Lucy] [VP [V was reading] [NP \\_\\_+2]]]]]]]]]"
   }.freeze
@@ -135,7 +138,10 @@ class PathRailTest < Minitest::Test
     end
 
     # Two paths that only meet at a label run on one level: once their ends
-    # there are spread apart, nothing of one is in the other's way.
+    # there are spread apart, nothing of one is in the other's way. On a
+    # label too narrow for that, the rails would all but touch end to end.
+    next if name == "narrow"
+
     %w[ttb btt].each do |direction|
       define_method "test_chained_paths_share_a_level_#{name}_#{direction}" do
         svg = RSyntaxTree::RSGenerator.new(data: tree, direction: direction, leaf_align: "words").draw_svg
