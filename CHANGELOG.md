@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.0] - 2026-11-18
+
+### Added
+- `corner_label` (`--corner-label`): a short string, such as a judgement mark, set in a corner of the image beside the tree, with its position, size, colour and font style
+
+### Fixed
+- TikZ output writes `&`, `<`, `>` and backslashes in labels as characters, so the code compiles
+
 ## [2.6.0] - 2026-11-12
 
 ### Added
