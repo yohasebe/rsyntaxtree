@@ -176,6 +176,16 @@ class CornerLabelTest < Minitest::Test
     assert_includes tikz, "{A\\&B\\textbackslash{}c\\%};"
   end
 
+  def test_tikz_keeps_the_spaces
+    assert_includes generator(corner_label: " A  B").draw_tikz, "{~A~~B};"
+  end
+
+  def test_a_label_in_another_encoding_is_read_as_utf8
+    svg = generator(corner_label: "日".encode("UTF-16LE")).draw_svg
+
+    assert_includes svg, ">日</text>"
+  end
+
   def test_tikz_without_a_label_is_unchanged
     refute_includes generator.draw_tikz, "current bounding box"
   end
@@ -185,7 +195,8 @@ class CornerLabelTest < Minitest::Test
     corner_label_color: "nocolour",
     corner_label_size: 99,
     corner_label_fontstyle: "fraktur",
-    corner_label: "A\fB"
+    corner_label: "A\fB",
+    "corner_label" => "\xFF".b
   }.each do |key, value|
     define_method "test_rejects_#{key}_#{value.to_s.dump}" do
       error = assert_raises(RSTError) { generator(corner_label: "*", key => value) }

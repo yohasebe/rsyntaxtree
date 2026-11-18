@@ -376,8 +376,12 @@ module RSyntaxTree
           # in it, so * and # are themselves rather than markup. Only what
           # XML can carry: a control character would make an SVG no reader
           # accepts.
-          v = value.to_s
-          unless v.valid_encoding? && !v.match?(/[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]/)
+          v = begin
+            value.to_s.encode(Encoding::UTF_8)
+          rescue EncodingError
+            nil
+          end
+          unless v&.valid_encoding? && !v.match?(/[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]/)
             raise RSTError.new(+"Error: invalid value for option 'corner_label': #{value.inspect}",
                                code: :invalid_option, label: "corner_label",
                                hint: "'corner_label' is text without control characters.",
