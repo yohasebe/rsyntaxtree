@@ -81,6 +81,7 @@ module RSyntaxTree
       validate_color!(@color, content)
       validate_color!(@region_color, content)
       Element.span_colors(@content).each { |c| validate_color!(c, content) }
+      Element.join_colour_runs(@content)
 
       @contains_phrase = false
       setup
@@ -142,8 +143,36 @@ module RSyntaxTree
         next [] unless line[:type] == :text
 
         line[:elements].flat_map do |e|
-          [e[:color], *(e[:matrix] ? span_colors(e[:matrix]) : [])].compact
+          [*e[:span_colors], *(e[:matrix] ? span_colors(e[:matrix]) : [])]
         end
+      end
+    end
+
+    # Runs that differ only in colour are one stretch of text, measured and
+    # set as one so that kerning and the joining of a script carry across the
+    # change; each part keeps its colour. Only runs with a colour are joined,
+    # so a label without one is laid out as it always was.
+    SET_APART = %i[box circle bar whitespace tabstop matrix].freeze
+
+    def self.join_colour_runs(lines)
+      lines.each do |line|
+        next unless line[:type] == :text
+
+        joined = []
+        line[:elements].each do |e|
+          join_colour_runs(e[:matrix]) if e[:matrix]
+          prev = joined.last
+          if prev && (prev[:parts] || prev[:color] || e[:color]) &&
+             prev[:decoration] == e[:decoration] && (e[:decoration] & SET_APART).empty?
+            prev[:parts] ||= [[prev[:text], prev[:color]]]
+            prev[:parts] << [e[:text], e[:color]]
+            prev[:text] += e[:text]
+            prev[:color] = nil
+          else
+            joined << e
+          end
+        end
+        line[:elements] = joined
       end
     end
 
@@ -208,7 +237,7 @@ module RSyntaxTree
       # bare '#' or '@' behind that the enclosure repair below would happily
       # blame itself for. Tried first, so a color mistake is named as one.
       [:invalid_color,
-       ->(s) { s.sub(/\A%?@(?:#[0-9a-zA-Z]+|[a-zA-Z]+)?:/, "").gsub(/(?<!\\)@#[0-9a-zA-Z]*\(/, "\\(") },
+       ->(s) { s.sub(/\A%?@(?:#[0-9a-zA-Z]+|[a-zA-Z]+)?:/, "").gsub(/(?<!\\)@#(?!(?:\h{6}|\h{3})\()[0-9a-zA-Z]*\(/, "\\(") },
        "A color is @name: with a CSS color name, or @#rgb: / @#rrggbb: with 3 or 6 hex digits (e.g. @blue:VP, @#3af:VP, @red(word))."],
       [:angle_brackets,
        ->(s) { s.gsub(/(?<!\\)<([^<>]*[^<>\d][^<>]*)>/) { "⟨#{$1}⟩" } },
@@ -330,6 +359,19 @@ module RSyntaxTree
     # carries an extra margin that holds the text clear of the connector above
     # it; a nested block sits inside that margin already, so counting it again
     # would leave a bracket half a line taller than the rows it encloses.
+    # A run's text as it is set: escaped square brackets as themselves, and a
+    # straight ASCII apostrophe (U+0027) as a curly one (U+2019) for smarter
+    # typography, e.g. the X-bar prime in "T'". Applied before metrics so the
+    # measured glyph matches the rendered one.
+    def typeset(text)
+      text.gsub('\\[', '[').gsub('\\]', ']').gsub("'", "’").gsub(Markup::KEPT_APOSTROPHE, "'")
+    end
+
+    # A run's text as the drawing keeps it.
+    def stored(text)
+      text.gsub(" ", WHITESPACE_BLOCK).gsub(">", '&#62;').gsub("<", '&#60;')
+    end
+
     def measure_lines(lines, nested: false)
       total_width = 0
       total_height = 0
@@ -401,18 +443,9 @@ module RSyntaxTree
               cell_start = false
             end
 
-            text = e[:text]
-            # Handle escaped square brackets
-            text = text.gsub('\\[', '[')
-                      .gsub('\\]', ']')
-            # Typographic apostrophe: render a straight ASCII apostrophe (U+0027)
-            # as a curly apostrophe (U+2019) for smarter typography, e.g. the
-            # X-bar prime in "T'". Applied before metrics so the measured glyph
-            # matches the rendered one.
-            text = text.gsub("'", "’").gsub(Markup::KEPT_APOSTROPHE, "'")
-            e[:text] = text.gsub(" ", WHITESPACE_BLOCK)
-                          .gsub(">", '&#62;')
-                          .gsub("<", '&#60;')
+            text = typeset(e[:text])
+            e[:text] = stored(text)
+            e[:parts]&.each { |part| part[0] = stored(typeset(part[0])) }
 
             @contains_phrase = true if text.include?(" ")
             decoration = e[:decoration]

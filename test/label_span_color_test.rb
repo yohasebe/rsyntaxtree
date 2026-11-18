@@ -63,13 +63,13 @@ class LabelSpanColorTest < Minitest::Test
   def test_inside_a_matrix_cell
     svg = svg('[S [#(A\t@red(b)#) x]]')
 
-    assert_match(/fill: red; [^>]*>b</, svg)
+    assert_match(/fill: red;[^>]*>b</, svg)
   end
 
   def test_svg_paints_text_and_shapes
     out = svg("[S [X {}->@red({/}<>|/|)->] [Y look @red(at) it]]")
 
-    assert_match(/fill: red; [^>]*>at</, out)
+    assert_match(/fill: red;[^>]*>at</, out)
     assert_equal 2, out.scan(/<rect style='stroke: red;/).size
     assert_equal 2, out.scan("fill='url(#hatchSpan0)'").size
     assert_match(/<pattern id="hatchSpan0"[^>]*><line [^>]*stroke="red"/, out)
@@ -80,7 +80,7 @@ class LabelSpanColorTest < Minitest::Test
   end
 
   def test_the_colour_holds_with_colour_off
-    assert_match(/fill: red; [^>]*>at</, svg("[S look @red(at) it]", color: "off"))
+    assert_match(/fill: red;[^>]*>at</, svg("[S look @red(at) it]", color: "off"))
   end
 
   def test_json_segments_carry_the_colour
@@ -89,6 +89,23 @@ class LabelSpanColorTest < Minitest::Test
 
     assert_equal "red", segments.find { |s| s["text"] == "at" }["color"]
     refute segments.find { |s| s["text"] == "look " }.key?("color")
+  end
+
+  # Text that only changes colour is one stretch: measured as one, so the
+  # width does not change, and written as one where colour is dropped.
+  def test_a_change_of_colour_does_not_split_the_text
+    width = ->(t) { svg("[S #{t}]")[/<svg width="([\d.]+)"/, 1].to_f }
+
+    assert_equal width.call("AV"), width.call("A@red(V)")
+    assert_match(/\[unhappiness\]/, RSyntaxTree::RSGenerator.new(data: "[S un@red(happi)ness]").draw_tikz)
+    assert_includes svg("[S un@red(happi)ness]"), ">un<tspan style='fill: red;'>happi</tspan>ness</tspan>"
+  end
+
+  def test_an_escaped_parenthesis_stays_in_the_stretch
+    data = JSON.parse(RSyntaxTree::RSGenerator.new(data: "[S @red(a\\)b)]", format: "json").draw_json)
+
+    assert_equal [{ "text" => "a)b", "decorations" => [], "color" => "red" }],
+                 data["nodes"][1]["label"]["lines"].first["segments"]
   end
 
   def test_tikz_writes_the_text_once
@@ -101,7 +118,10 @@ class LabelSpanColorTest < Minitest::Test
     "[S @nocolour(a)]" => :unknown_color,
     "[S @#12(a)]" => :invalid_color,
     "[S @red(a]" => :unclosed_markup,
-    "[S **@red(a)**]" => :unclosed_markup
+    "[S **@red(a)**]" => :unclosed_markup,
+    "[S @#3af(a]" => :unclosed_markup,
+    "[S **@#3af(a)**]" => :unclosed_markup,
+    "[S @wrong(@red(a))]" => :unknown_color
   }.each do |input, code|
     define_method "test_#{input}_is_refused_as_#{code}" do
       error = assert_raises(RSTError) { svg(input) }

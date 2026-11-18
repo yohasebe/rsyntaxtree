@@ -916,6 +916,14 @@ module RSyntaxTree
         elsif e[:decoration].include?(:whitespace)
           return [out, this_x + e[:width]]
         else
+          # Text that changes colour part way is still one stretch, set as one
+          # and painted part by part.
+          if e[:parts]
+            escaped_text = e[:parts].map do |part, color|
+              t = part.gsub('>', '&gt;').gsub('<', '&lt;')
+              color ? "<tspan style='fill: #{color};'>#{t}</tspan>" : t
+            end.join
+          end
           out << set_tspan(this_x, this_y, style, decoration, fontstyle, escaped_text)
           this_x += e[:width]
         end

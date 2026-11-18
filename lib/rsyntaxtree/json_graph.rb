@@ -218,7 +218,7 @@ module RSyntaxTree
       element.content.each do |l|
         next unless l[:type] == :text
 
-        segments = l[:elements].map { |e| build_segment(e) }.compact
+        segments = l[:elements].flat_map { |e| build_segments(e) }
         lines << { segments: segments } unless segments.empty?
       end
 
@@ -226,6 +226,14 @@ module RSyntaxTree
         raw: Element.plain_text(element.raw_content.to_s),
         lines: lines
       }
+    end
+
+    # A run set as one stretch with parts in different colours is a segment
+    # per part, as it was written.
+    def build_segments(run)
+      return [build_segment(run)].compact unless run[:parts]
+
+      run[:parts].filter_map { |text, color| build_segment(run.merge(text: text, color: color, parts: nil)) }
     end
 
     def build_segment(run)
@@ -257,8 +265,7 @@ module RSyntaxTree
             if run[:decoration].include?(:tabstop)
               cells << []
             else
-              segment = build_segment(run)
-              cells.last << segment if segment
+              cells.last.concat(build_segments(run))
             end
           end
           { cells: cells }

@@ -228,9 +228,14 @@ module Markup
       { text: +"", decoration: [:matrix], matrix: matrix }
     }
     # Every run of a coloured stretch carries the colour, unless a stretch
-    # inside it gave the run one of its own first.
+    # inside it gave the run one of its own first. Every colour a run sits
+    # inside is kept as well, so an outer one is still checked when inner
+    # stretches cover all of its text.
     rule(color_value: simple(:color), colored: subtree(:runs)) {
-      [runs].flatten.each { |run| run[:color] ||= color.to_s }
+      [runs].flatten.each do |run|
+        run[:color] ||= color.to_s
+        (run[:span_colors] ||= []) << color.to_s
+      end
     }
     rule(line: subtree(:line)) {
       { type: :text, elements: [line].flatten }

@@ -503,7 +503,8 @@ words, decorations, and shapes such as `{}`, `{/}` and `->` with their
 outlines and hatching — is drawn in that colour, and a stretch inside another
 keeps its own. A stretch stays within one line of the label, a `)` inside it
 is written `\)`, and it goes outside other markup: `@red(**word**)`, not
-`**@red(word)**`.
+`**@red(word)**`. Part of a word in a joined script such as Arabic is drawn
+correctly by browsers, but not in PNG or PDF output; colour whole words there.
 
 |Sample Input|Description|
 |------------|-----------|
