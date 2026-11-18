@@ -822,6 +822,8 @@ Each path is distinguished by a unique ID number. The ID is specified by putting
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
 
+A path to a phrase — a node with daughters — stops at the edge of everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
+
 <div class="grid {{ site.data.doc_figure_sizes['doc-c05567af'].layout }}" markdown="1">
 
 ```text

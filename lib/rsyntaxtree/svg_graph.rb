@@ -402,6 +402,26 @@ module RSyntaxTree
     # Union of element_visual_box over the subtree rooted at +id+, in final
     # drawing coordinates. Used to size region shades so the whole subtree
     # (labels, enclosures, brackets) sits inside the plane.
+    # How far a phrase reaches: the boxes of everything it holds, and the
+    # shade of any region in it, which stands a gap clear of what it shades.
+    def phrase_reach(element)
+      reach = region_subtree_bounds(element.id)
+      pad = @global[:h_gap_between_nodes]
+      stack = [element]
+      until stack.empty?
+        node = stack.pop
+        if node.region
+          b = region_subtree_bounds(node.id)
+          reach[:left] = [reach[:left], b[:left] - pad].min
+          reach[:right] = [reach[:right], b[:right] + pad].max
+          reach[:top] = [reach[:top], b[:top] - pad].min
+          reach[:bottom] = [reach[:bottom], b[:bottom] + pad].max
+        end
+        node.children.each { |c| stack << @element_list.get_id(c) }
+      end
+      reach
+    end
+
     def region_subtree_bounds(id)
       b = element_visual_box(@element_list.get_id(id))
       @element_list.get_id(id).children.each do |c|
@@ -1077,8 +1097,21 @@ module RSyntaxTree
           lgeom = nil
         end
         # A movement path leaves a label on the side the words are on: below
-        # it top to bottom, above it bottom to top.
+        # it top to bottom, above it bottom to top. A path to a phrase stops
+        # at the edge of everything the phrase holds instead, its shade
+        # included, so that it reads as reaching the phrase as a whole and
+        # does not run in through the daughters to the label.
+        path_x = x1
         path_y = @direction == "btt" ? element.vertical_indent - @global[:height_connector_to_text] : y1
+        unless element.children.empty?
+          reach = phrase_reach(element)
+          hctt = @global[:height_connector_to_text]
+          case @direction
+          when "ltr" then path_x = reach[:right] + hctt
+          when "btt" then path_y = reach[:top] - hctt
+          else path_y = reach[:bottom] + hctt
+          end
+        end
         # How much of the label there is across the paths' run, for the ends
         # that share it to be spread over: an even amount either side of the
         # anchor, which left to right sits below the middle of the label.
@@ -1101,20 +1134,20 @@ module RSyntaxTree
           elsif /\A(?:>|<)(\d+)\z/ =~ tr
             tr = $1
             if path_pool_target[tr]
-              path_pool_target[tr] << [x1, path_y, across]
+              path_pool_target[tr] << [path_x, path_y, across]
             else
-              path_pool_target[tr] = [[x1, path_y, across]]
+              path_pool_target[tr] = [[path_x, path_y, across]]
             end
             path_flags << tr
           elsif path_pool_source[tr]
             if path_pool_other[tr]
-              path_pool_other[tr] << [x1, path_y, across]
+              path_pool_other[tr] << [path_x, path_y, across]
             else
-              path_pool_other[tr] = [[x1, path_y, across]]
+              path_pool_other[tr] = [[path_x, path_y, across]]
             end
             path_flags << tr
           else
-            path_pool_source[tr] = [x1, path_y, across]
+            path_pool_source[tr] = [path_x, path_y, across]
             path_flags << tr
           end
           raise RSTError.new(+"Error: input text contains a path having more than two ends:\n > #{tr}", code: :path_multiple_ends, hint: "A path or line takes exactly two ends; check the numbers.", retryable: true) if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
