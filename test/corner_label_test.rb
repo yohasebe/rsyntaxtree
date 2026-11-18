@@ -178,6 +178,7 @@ class CornerLabelTest < Minitest::Test
 
   def test_tikz_keeps_the_spaces
     assert_includes generator(corner_label: " A  B").draw_tikz, "{~A~~B};"
+    assert_includes generator(corner_label: "A ").draw_tikz, "{A~\\null};"
   end
 
   def test_a_label_in_another_encoding_is_read_as_utf8

@@ -236,7 +236,9 @@ module RSyntaxTree
     # The corner label, set by the root once the whole tree is drawn, so the
     # bounding box it stands beside is the tree's. Its size is kept as a
     # ratio to the tree's type, which in LaTeX is the document's. Its spaces
-    # are tied, since TeX would drop them at the ends and merge them inside.
+    # are tied, since TeX would drop them at the ends and merge them inside,
+    # and a trailing one is closed with an empty box, which the node's own
+    # end-of-text trimming does not remove.
     CORNER_ANCHORS = {
       "top-left" => ["north east", "north west", "-"],
       "top-right" => ["north west", "north east", ""],
@@ -253,7 +255,7 @@ module RSyntaxTree
       ", tikz+={\\node[anchor=#{anchor}, inner sep=0pt, scale=#{scale}, " \
         "text=#{tikz_region_color(corner[:color])}] " \
         "at ([xshift=#{sign}0.5em]current bounding box.#{at}) " \
-        "{#{escape_latex(corner[:text]).tr(' ', '~')}};}"
+        "{#{escape_latex(corner[:text]).tr(' ', '~')}#{'\\null' if corner[:text].end_with?(' ')}};}"
     end
 
     # Map an RSyntaxTree color (name or #hex) to a TikZ fill color expression.
