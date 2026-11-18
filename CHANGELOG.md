@@ -1,12 +1,19 @@
 # Changelog
 
-## [2.7.0] - 2026-11-18
+## [2.8.0] - 2026-11-18
 
 ### Added
 - `corner_label` (`--corner-label`): a short string, such as a judgement mark, set in a corner of the image beside the tree, with its position, size, colour and font style
+- `@red(...)` and `@#3af(...)` colour part of a label: the words, decorations and shapes inside, outlines and hatching included
+
+### Changed
+- `tidy: high` no longer closes a pair of branches far narrower than the pairs below it
+- A movement path to a phrase stops at the edge of the phrase and its shade instead of running through them to the label
 
 ### Fixed
+- A movement path no longer runs over a label packed under its end in `tidy` low, medium and high
 - TikZ output writes `&`, `<`, `>` and backslashes in labels as characters, so the code compiles
+- JSON labels carry `&` as a character rather than `&amp;`
 
 ## [2.6.0] - 2026-11-12
 
