@@ -41,6 +41,16 @@ class PathToPhraseTest < Minitest::Test
     end
   end
 
+  # One clearance from the shade as it is painted, the root's included,
+  # whose edge sits closer in than other shades'.
+  def test_the_tip_stands_one_clearance_from_a_root_shade
+    gen = RSyntaxTree::RSGenerator.new(data: "[%S+>1 [A x+1] [B y]]", format: "svg", direction: "btt", hspacing: 3)
+    svg = gen.draw_svg
+    hctt = gen.instance_variable_get(:@global)[:height_connector_to_text]
+
+    assert_in_delta shade(svg)[:top] - hctt, path_points(svg).last[1], 0.01
+  end
+
   def test_a_path_to_a_word_still_ends_at_the_word
     svg = RSyntaxTree::RSGenerator.new(data: "[CP [NP who+>1] [C did [NP ∅+1]]]", format: "svg").draw_svg
     gen = RSyntaxTree::RSGenerator.new(data: "[CP [NP who+>1] [C did [NP ∅+1]]]", format: "svg")

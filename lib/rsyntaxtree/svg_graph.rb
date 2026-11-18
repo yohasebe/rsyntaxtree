@@ -305,53 +305,13 @@ module RSyntaxTree
     # Outer (shallower) regions are emitted first so deeper ones layer on
     # top; with low opacity the overlap reads as a darker nesting.
     def collect_region_shades
-      hctt = @global[:height_connector_to_text]
-      pad = @global[:h_gap_between_nodes]  # generous padding for the non-parent-facing edges
-      pad_parent = hctt / 2.0              # tighter margin on the parent-facing edge of the root
-      radius = hctt / 2.0
+      radius = @global[:height_connector_to_text] / 2.0
       stroke_width = @global[:stroke_normal]
       half = stroke_width / 2.0
       @element_list.get_elements.each do |element|
         next unless element.region
 
-        b = region_subtree_bounds(element.id)
-        left = b[:left] - pad
-        right = b[:right] + pad
-        top = b[:top] - pad
-        bottom = b[:bottom] + pad
-
-        # The edge facing the parent is handled specially so the incoming
-        # connector neither overlaps nor touches the plane. That edge is the
-        # TOP in top-to-bottom layout and the LEFT in left-to-right layout; the
-        # other edges keep the generous padding. For a non-root node the edge
-        # is placed midway between the connector anchor and the content edge
-        # (even gap on both sides); the tree root has no incoming connector, so
-        # it just gets a tighter-but-consistent margin there.
-        is_root = element.parent.zero?
-        if @direction == "ltr"
-          anchor = element.horizontal_indent - hctt
-          left = if is_root
-                   b[:left] - pad_parent
-                 elsif anchor < b[:left]
-                   (b[:left] + anchor) / 2.0
-                 else
-                   left
-                 end
-        else
-          anchor = element.vertical_indent + hctt / 2.0
-          top = if is_root
-                  b[:top] - pad_parent
-                elsif anchor < b[:top]
-                  (b[:top] + anchor) / 2.0
-                else
-                  top
-                end
-        end
-
-        x = left
-        y = top
-        w = right - left
-        h = bottom - top
+        x, y, w, h = region_rect(element).values_at(:x, :y, :w, :h)
         # An explicit shade color is always honored (consistent with the
         # @color: node-text color); bare '%' falls back to gray.
         color = element.region_color || REGION_DEFAULT_COLOR
@@ -403,23 +363,65 @@ module RSyntaxTree
     # drawing coordinates. Used to size region shades so the whole subtree
     # (labels, enclosures, brackets) sits inside the plane.
     # How far a phrase reaches: the boxes of everything it holds, and the
-    # shade of any region in it, which stands a gap clear of what it shades.
+    # shade of any region in it, as the shade is painted.
     def phrase_reach(element)
       reach = region_subtree_bounds(element.id)
-      pad = @global[:h_gap_between_nodes]
       stack = [element]
       until stack.empty?
         node = stack.pop
         if node.region
-          b = region_subtree_bounds(node.id)
-          reach[:left] = [reach[:left], b[:left] - pad].min
-          reach[:right] = [reach[:right], b[:right] + pad].max
-          reach[:top] = [reach[:top], b[:top] - pad].min
-          reach[:bottom] = [reach[:bottom], b[:bottom] + pad].max
+          r = region_rect(node)
+          reach[:left] = [reach[:left], r[:x]].min
+          reach[:right] = [reach[:right], r[:x] + r[:w]].max
+          reach[:top] = [reach[:top], r[:y]].min
+          reach[:bottom] = [reach[:bottom], r[:y] + r[:h]].max
         end
         node.children.each { |c| stack << @element_list.get_id(c) }
       end
       reach
+    end
+
+    # The rectangle a region shade is painted in: the subtree's boxes with a
+    # gap around them, the edge facing the parent closer in.
+    def region_rect(element)
+      hctt = @global[:height_connector_to_text]
+      pad = @global[:h_gap_between_nodes]  # generous padding for the non-parent-facing edges
+      pad_parent = hctt / 2.0              # tighter margin on the parent-facing edge of the root
+      b = region_subtree_bounds(element.id)
+      left = b[:left] - pad
+      right = b[:right] + pad
+      top = b[:top] - pad
+      bottom = b[:bottom] + pad
+
+      # The edge facing the parent is handled specially so the incoming
+      # connector neither overlaps nor touches the plane. That edge is the
+      # TOP in top-to-bottom layout and the LEFT in left-to-right layout; the
+      # other edges keep the generous padding. For a non-root node the edge
+      # is placed midway between the connector anchor and the content edge
+      # (even gap on both sides); the tree root has no incoming connector, so
+      # it just gets a tighter-but-consistent margin there.
+      is_root = element.parent.zero?
+      if @direction == "ltr"
+        anchor = element.horizontal_indent - hctt
+        left = if is_root
+                 b[:left] - pad_parent
+               elsif anchor < b[:left]
+                 (b[:left] + anchor) / 2.0
+               else
+                 left
+               end
+      else
+        anchor = element.vertical_indent + hctt / 2.0
+        top = if is_root
+                b[:top] - pad_parent
+              elsif anchor < b[:top]
+                (b[:top] + anchor) / 2.0
+              else
+                top
+              end
+      end
+
+      { x: left, y: top, w: right - left, h: bottom - top }
     end
 
     def region_subtree_bounds(id)
@@ -1103,7 +1105,7 @@ module RSyntaxTree
         # does not run in through the daughters to the label.
         path_x = x1
         path_y = @direction == "btt" ? element.vertical_indent - @global[:height_connector_to_text] : y1
-        unless element.children.empty?
+        if !element.children.empty? && element.path.any? { |marker| !marker.start_with?("-") }
           reach = phrase_reach(element)
           hctt = @global[:height_connector_to_text]
           case @direction
