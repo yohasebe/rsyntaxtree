@@ -688,24 +688,31 @@ module RSyntaxTree
       rects
     end
 
-    # What packing has to keep clear of: the subtree's rects, and below each
-    # end of a movement path in it, the column its line runs down on its way
-    # to the rail under the tree. Packing a neighbour into that column put a
-    # word under the line. Laid out before any flip or turn, the line always
-    # leaves towards larger y. Lines between nodes (+-1) are drawn straight
-    # across and need no column.
-    def packing_rects(id)
-      rects = subtree_rects(id)
+    # Below each end of a movement path in the subtree, the column its line
+    # runs down on its way to the rail under the tree: packing a neighbour
+    # into it put a word under the line. Laid out before any flip or turn,
+    # the line always leaves towards larger y. Lines between nodes (+-1) are
+    # drawn straight across and need no column. A tree without a movement
+    # path is not walked for them.
+    def path_columns(id)
+      @has_path_ends = @element_list.get_elements.any? { |e| path_end?(e) } if @has_path_ends.nil?
+      return [] unless @has_path_ends
+
+      columns = []
       stack = [@element_list.get_id(id)]
       until stack.empty?
         node = stack.pop
-        if node.path.any? { |marker| !marker.start_with?("-") }
+        if path_end?(node)
           y0, y1, x0, x1 = effective_rect(node)
-          rects << [y1, Float::INFINITY, x0, x1] if y1 > y0
+          columns << [y1, Float::INFINITY, x0, x1] if y1 > y0
         end
         node.children.each { |c| stack << @element_list.get_id(c) }
       end
-      rects
+      columns
+    end
+
+    def path_end?(node)
+      node.path.any? { |marker| !marker.start_with?("-") }
     end
 
     # [leftmost leaf center, rightmost leaf center] of the subtree rooted
@@ -809,8 +816,15 @@ module RSyntaxTree
       parents = @element_list.get_elements.reject { |e| e.children.empty? }
       parents.sort_by { |p| [-p.level, -p.id] }.each do |parent|
         children = parent.children.map { |c| @element_list.get_id(c) }
+        # A path's column can reach under sisters further along than the
+        # next one, so each sister is packed against the columns of all the
+        # sisters placed before it, as well as against its neighbour.
+        columns = []
         children.each_cons(2) do |left_child, right_child|
-          clearance = contour_clearance(packing_rects(left_child.id), packing_rects(right_child.id))
+          columns.concat(path_columns(left_child.id))
+          right_columns = path_columns(right_child.id)
+          clearance = contour_clearance(subtree_rects(left_child.id) + columns,
+                                        subtree_rects(right_child.id) + right_columns)
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 
           case @tidy_nest

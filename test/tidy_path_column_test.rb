@@ -71,24 +71,39 @@ class TidyPathColumnTest < Minitest::Test
       end
     end
 
+    # The floor bounds how far packing closes a pair; it does not widen a
+    # pair the unpacked layout already set closer.
     define_method "test_tree_#{i}_high_closes_no_pair_far_narrower_than_below" do
       list = laid_out(tree.gsub(/\+>?\d/, ""), tidy: "high")
+      center = ->(node) { node.horizontal_indent + node.content_width / 2.0 }
       spread = lambda do |node|
         kids = node.children.map { |c| list.get_id(c) }
         next nil if kids.size < 2
 
-        centers = kids.map { |k| k.horizontal_indent + k.content_width / 2.0 }
-        centers.max - centers.min
+        kids.map(&center).max - kids.map(&center).min
       end
 
       list.get_elements.each do |parent|
-        own = spread.call(parent)
-        below = parent.children.map { |c| spread.call(list.get_id(c)) }.compact.max
-        next unless own && below
+        parent.children.map { |c| list.get_id(c) }.each_cons(2) do |left, right|
+          below = [spread.call(left), spread.call(right)].compact.max
+          next unless below
 
-        assert_operator own, :>=, below * RSyntaxTree::BaseGraph::TIDY_LEVEL_BALANCE_FREE - 0.5,
-                        "#{parent.raw_content}: #{own.round(1)} against #{below.round(1)} below"
+          distance = center.call(right) - center.call(left)
+          assert_operator distance, :>=, below * RSyntaxTree::BaseGraph::TIDY_LEVEL_BALANCE_FREE - 0.5,
+                          "#{left.raw_content} / #{right.raw_content}: #{distance.round(1)} against #{below.round(1)} below"
+        end
       end
+    end
+  end
+
+  # A column can reach under a sister further along than the next one: a
+  # short sister in between leaves nothing at the depth where it would meet.
+  %w[ttb btt].each do |direction|
+    define_method "test_a_column_past_the_next_sister_is_kept_clear_#{direction}" do
+      list = laid_out("[S [A [a+1]] [i] [C [C WWWWWWWWW]] [z+>1]]", tidy: "high", direction: direction)
+      a = list.get_elements.find { |e| e.raw_content == "a" }
+
+      assert_empty in_the_way(list, a, direction).map(&:raw_content)
     end
   end
 end
