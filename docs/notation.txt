@@ -27,7 +27,11 @@ figure that was meant.
 - A straight apostrophe is typeset as the curly ’ (U+2019); \' keeps it
   straight.
 - A `+` followed by digits at the end of a label is a movement path (+1, +>2).
-  \+ is a plus sign, so C\+\+11 and 2\+2 draw as written.
+  \+ is a plus sign, so C\+\+11 and 2\+2 draw as written. The markers come
+  last, after any coloured stretch: NP\n@gray(note)+>1, not @gray(note+>1).
+- Decorations nest either way round (___*x*___ and *___x___* both draw small
+  italic), but a coloured stretch @color(...) goes outside them all:
+  @red(**x**), never **@red(x)**.
 - A backslash takes the character after it, whatever it is: \q draws q, and
   C:\path draws C:path. A backslash itself is \\.
 - A program building labels from text it did not choose should not copy
@@ -54,6 +58,7 @@ Structure:
 | an invisible joint, to align leaves    | a label of only <>, as in [X [<> [Y y]] [Z z]] |
 | a movement path (dashed)               | [S [NP a+1] [VP [V b] [NP c+1]]] |
 | the same, with an arrowhead            | write +>1 on the end the arrow points at |
+| a path to a phrase                     | +1 on a node with daughters: the line stops at the edge of the phrase and its shade, on the word side |
 | an extra straight connector            | +-1 on two nodes; +->1 for an arrowhead |
 
 Inside a label:
@@ -62,7 +67,7 @@ Inside a label:
 |----------------------------------------|-------------------|
 | italic, bold, both                     | *x*, **x**, ***x*** |
 | subscript, superscript                 | x_i_, x__2__ |
-| small capitals                         | H___EAD___ |
+| smaller type (70%), as for small caps  | H___EAD___ — on lower case it is simply smaller: ___*a<>note*___ |
 | overline, underline, strikethrough     | =x=, -x-, ~x~ |
 | a line break; a blank line             | a\nb (or a\ b); \n\n |
 | columns, aligned down the label        | HEAD\t*verb*\nSPR\t⟨<>⟩ |
@@ -81,6 +86,7 @@ Around a label:
 | a region shade behind the subtree      | %NP, coloured: %@blue:NP |
 | a colour                               | @red:NP, @#3af:NP, @#33aaff:NP (3 or 6 hex digits) |
 | part of a label in colour              | look @red(at) the chickens, @#3af({}->) — within one line, outside other markup; \) for a ')' inside |
+| a note under a category                | [NP\n@gray(___*causer*___) Pat] — small grey italic on the label's second line |
 
 An attribute-value matrix is columns plus an enclosure, and a value can be
 another matrix — nested with #( ... #), never with square brackets, which are
@@ -103,7 +109,7 @@ Options (the command line spells them --like-this):
 | leafstyle  | auto, bar, dashed, nothing — what joins a node to its leaf |
 | direction  | ttb, ltr, btt |
 | mirror     | flip the finished layout, for RTL scripts |
-| tidy       | off, symmetric, low, medium, high — how tightly subtrees pack |
+| tidy       | off, symmetric, low, medium, high — how tightly subtrees pack; the packing modes leave the column under a movement path's end clear, which can widen a figure |
 | hspacing   | how far apart sisters sit, 0.5–3.0 |
 | vheight    | how far apart levels sit, 0.5–5.0 |
 | polyline   | draw each connector as two right angles rather than a slanted line |

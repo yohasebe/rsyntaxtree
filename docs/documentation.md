@@ -78,7 +78,7 @@ explains it. Every sample here is drawn by a test, so each one works.
 
 - `*x*`, `**x**`, `***x***` — italic, bold, both → [Drawing Text](#drawing-text)
 - `x_i_`, `x__2__` — subscript, superscript → [Subscript and Superscript](#subscript-and-superscript)
-- `H___EAD___` — small capitals → [Small Capitals](#small-capitals)
+- `H___EAD___` — smaller type, as for small capitals → [Small Capitals](#small-capitals)
 - `=x=`, `-x-`, `~x~` — overline, underline, strikethrough → [Text Decoration](#text-decoration)
 - `\n` (or a backslash at the line's end) — a line break; twice for a blank line → [Newline](#newline)
 - `\t` — columns, aligned down the label → [Columns](#columns)
@@ -405,7 +405,7 @@ monochrome Noto Emoji, so they come out as outlines rather than in colour.
 
 #### Small Capitals
 
-Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD.
+Attribute names in a feature structure are conventionally set in small caps, and the look can be imitated without a small-caps font. Leave the capital as it is and wrap the rest in `___`: `H___EAD___` draws a full-size H followed by a smaller EAD. `___` sets whatever it holds at 70% of the size; on lower case it is simply smaller type, which suits a note under a category, as in `[NP\n@gray(___*causer*___) Pat]`.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-978d14e0'].layout }}" markdown="1">
 
