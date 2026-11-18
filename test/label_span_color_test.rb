@@ -145,7 +145,10 @@ class LabelSpanColorTest < Minitest::Test
     "[S @red(a]" => "never closed with ')'",
     "[S **@#3af(a)**]" => "inside other markup",
     "[S **@red(a)**]" => "inside other markup",
-    "[S [A @red(x+1] [B y+>1]]" => "never closed with ')'"
+    "[S [A @red(x+1] [B y+>1]]" => "never closed with ')'",
+    "[S [A \\\\@red(x+1] [B y+>1]]" => "never closed with ')'",
+    "[S @red(x\\ny]" => "never closed with ')'",
+    "[S @red(x\\ty]" => "never closed with ')'"
   }.each do |input, hint|
     define_method "test_#{input}_is_told_#{hint}" do
       error = assert_raises(RSTError) { svg(input) }

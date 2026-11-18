@@ -230,6 +230,12 @@ module RSyntaxTree
       @global[:literal_hyphen] ? swap_hyphen_markup(text) : text
     end
 
+    # The opening of a coloured stretch, after an even run of backslashes
+    # (which are literal backslashes, so the '@' is not escaped), and a line
+    # or column break written \n or \t in the same way.
+    SPAN_OPENER = /(?<!\\)((?:\\\\)*)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/
+    UNESCAPED_BREAK = /(?<!\\)(?:\\\\)*\\[nt]/
+
     # One candidate repair per way of getting the notation wrong, tried in
     # order. Each is a whole edit of the label, not a pattern to recognise:
     # the diagnosis below applies one and asks the parser whether the label
@@ -262,14 +268,22 @@ module RSyntaxTree
       # label through and name the wrong mistake.
       [:unclosed_markup,
        ->(s) {
-         next s unless s.match?(/(?<!\\)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/)
+         opener = s.match(SPAN_OPENER)
+         next s unless opener
 
+         # Closed where it has to end: at the next line or column break, or
+         # else before the path markers at the end of the label.
          label, path = Element.split_path(s)
-         "#{label})#{path}"
+         break_at = s.match(UNESCAPED_BREAK, opener.end(0))
+         if break_at && break_at.end(0) <= label.size
+           s.dup.insert(break_at.end(0) - 2, ")")
+         else
+           "#{label})#{path}"
+         end
        },
        "A coloured stretch @color(...) is never closed with ')'; a ')' inside one is written \\)."],
       [:unclosed_markup,
-       ->(s) { s.gsub(/(?<!\\)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/, "") },
+       ->(s) { s.gsub(SPAN_OPENER, '\\1') },
        "A coloured stretch sits inside other markup: put the colour outside, as in @red(**word**)."],
       # A derivation writes the name of each step after a column break, and
       # the combinators it is written with are made of the same characters as
