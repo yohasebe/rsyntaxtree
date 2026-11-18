@@ -71,26 +71,32 @@ class TidyPathColumnTest < Minitest::Test
       end
     end
 
-    # The floor bounds how far packing closes a pair; it does not widen a
-    # pair the unpacked layout already set closer.
+  end
+
+  # The floor bounds how far packing closes a pair; it does not widen a pair
+  # the unpacked layout already set closer, as when packing is rolled back.
+  (TREES.map { |t| t.gsub(/\+>?\d/, "") } +
+   ["[X [X [a] [X [WWWWWWWW]] [a]] [b] [X [X [WWWWWWWW]]]]"]).each_with_index do |tree, i|
     define_method "test_tree_#{i}_high_closes_no_pair_far_narrower_than_below" do
-      list = laid_out(tree.gsub(/\+>?\d/, ""), tidy: "high")
+      packed = laid_out(tree, tidy: "high")
+      unpacked = laid_out(tree, tidy: "off")
       center = ->(node) { node.horizontal_indent + node.content_width / 2.0 }
-      spread = lambda do |node|
+      spread = lambda do |list, node|
         kids = node.children.map { |c| list.get_id(c) }
         next nil if kids.size < 2
 
         kids.map(&center).max - kids.map(&center).min
       end
+      distance = ->(list, left, right) { center.call(list.get_id(right)) - center.call(list.get_id(left)) }
 
-      list.get_elements.each do |parent|
-        parent.children.map { |c| list.get_id(c) }.each_cons(2) do |left, right|
-          below = [spread.call(left), spread.call(right)].compact.max
+      packed.get_elements.each do |parent|
+        parent.children.each_cons(2) do |left, right|
+          below = [spread.call(packed, packed.get_id(left)), spread.call(packed, packed.get_id(right))].compact.max
           next unless below
 
-          distance = center.call(right) - center.call(left)
-          assert_operator distance, :>=, below * RSyntaxTree::BaseGraph::TIDY_LEVEL_BALANCE_FREE - 0.5,
-                          "#{left.raw_content} / #{right.raw_content}: #{distance.round(1)} against #{below.round(1)} below"
+          floor = [below * RSyntaxTree::BaseGraph::TIDY_LEVEL_BALANCE_FREE, distance.call(unpacked, left, right)].min
+          assert_operator distance.call(packed, left, right), :>=, floor - 0.5,
+                          "#{packed.get_id(left).raw_content} / #{packed.get_id(right).raw_content}"
         end
       end
     end
@@ -98,12 +104,17 @@ class TidyPathColumnTest < Minitest::Test
 
   # A column can reach under a sister further along than the next one: a
   # short sister in between leaves nothing at the depth where it would meet.
-  %w[ttb btt].each do |direction|
-    define_method "test_a_column_past_the_next_sister_is_kept_clear_#{direction}" do
-      list = laid_out("[S [A [a+1]] [i] [C [C WWWWWWWWW]] [z+>1]]", tidy: "high", direction: direction)
-      a = list.get_elements.find { |e| e.raw_content == "a" }
+  {
+    "after" => "[S [A [a+1]] [i] [C [C WWWWWWWWW]] [z+>1]]",
+    "before" => "[S [z+>1] [C [C WWWWWWWWW]] [i] [A [a+1]]]"
+  }.each do |side, tree|
+    %w[ttb btt].each do |direction|
+      define_method "test_a_column_and_a_sister_#{side}_it_beyond_the_next_#{direction}" do
+        list = laid_out(tree, tidy: "high", direction: direction)
+        a = list.get_elements.find { |e| e.raw_content == "a" }
 
-      assert_empty in_the_way(list, a, direction).map(&:raw_content)
+        assert_empty in_the_way(list, a, direction).map(&:raw_content)
+      end
     end
   end
 end

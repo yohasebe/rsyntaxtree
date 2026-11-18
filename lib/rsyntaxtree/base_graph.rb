@@ -816,15 +816,13 @@ module RSyntaxTree
       parents = @element_list.get_elements.reject { |e| e.children.empty? }
       parents.sort_by { |p| [-p.level, -p.id] }.each do |parent|
         children = parent.children.map { |c| @element_list.get_id(c) }
-        # A path's column can reach under sisters further along than the
-        # next one, so each sister is packed against the columns of all the
-        # sisters placed before it, as well as against its neighbour.
-        columns = []
+        # A path's column reaches down past sisters that end higher up, so a
+        # sister is packed against everything placed before it — the labels
+        # and columns of every earlier sister, not only of its neighbour.
+        placed = []
         children.each_cons(2) do |left_child, right_child|
-          columns.concat(path_columns(left_child.id))
-          right_columns = path_columns(right_child.id)
-          clearance = contour_clearance(subtree_rects(left_child.id) + columns,
-                                        subtree_rects(right_child.id) + right_columns)
+          placed.concat(subtree_rects(left_child.id), path_columns(left_child.id))
+          clearance = contour_clearance(placed, subtree_rects(right_child.id) + path_columns(right_child.id))
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 
           case @tidy_nest
