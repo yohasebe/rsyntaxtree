@@ -53,6 +53,13 @@ class LabelSpanColorTest < Minitest::Test
     assert_nil colour_of('NP\n@gray(causer)', "NP")
   end
 
+  # An @ before a colour name and '(' opens a stretch wherever it stands;
+  # \@ keeps it a character.
+  def test_an_at_before_a_colour_and_a_parenthesis_opens_a_stretch
+    assert_equal "red", colour_of("bob@red(comment)", "comment")
+    assert_equal ["mail@example(x)"], runs("mail\\@example(x)").map { |r| r[:text] }
+  end
+
   def test_parentheses_and_at_signs_elsewhere_are_text
     assert_equal ["a(b)"], runs('a\(b\)').map { |r| r[:text] }
     assert_equal ["f(x)"], runs('@red(f\(x\))').map { |r| r[:text] }
@@ -131,7 +138,8 @@ class LabelSpanColorTest < Minitest::Test
     "[S **@red(a)**]" => :unclosed_markup,
     "[S @#3af(a]" => :unclosed_markup,
     "[S **@#3af(a)**]" => :unclosed_markup,
-    "[S @wrong(@red(a))]" => :unknown_color
+    "[S @wrong(@red(a))]" => :unknown_color,
+    "[S @red()]" => :empty_markup
   }.each do |input, code|
     define_method "test_#{input}_is_refused_as_#{code}" do
       error = assert_raises(RSTError) { svg(input) }
@@ -146,9 +154,14 @@ class LabelSpanColorTest < Minitest::Test
     "[S **@#3af(a)**]" => "inside other markup",
     "[S **@red(a)**]" => "inside other markup",
     "[S [A @red(x+1] [B y+>1]]" => "never closed with ')'",
+    "[S @red()]" => "is empty",
+    "[S a@red()b]" => "is empty",
+    "[S @red(a\\tb)]" => "within its line or cell",
+    "[S @red(a\\nb)]" => "within its line or cell",
+    "[S @bleu(x)]" => "@blue(word)",
     "[S [A \\\\@red(x+1] [B y+>1]]" => "never closed with ')'",
-    "[S @red(x\\ny]" => "never closed with ')'",
-    "[S @red(x\\ty]" => "never closed with ')'"
+    "[S @red(x\\ny]" => "within its line or cell",
+    "[S @red(x\\ty]" => "within its line or cell"
   }.each do |input, hint|
     define_method "test_#{input}_is_told_#{hint}" do
       error = assert_raises(RSTError) { svg(input) }

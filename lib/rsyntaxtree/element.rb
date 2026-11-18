@@ -234,6 +234,7 @@ module RSyntaxTree
     # (which are literal backslashes, so the '@' is not escaped), and a line
     # or column break written \n or \t in the same way.
     SPAN_OPENER = /(?<!\\)((?:\\\\)*)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/
+    EMPTY_SPAN = /(?<!\\)((?:\\\\)*)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(\)/
     UNESCAPED_BREAK = /(?<!\\)(?:\\\\)*\\[nt]/
 
     # One candidate repair per way of getting the notation wrong, tried in
@@ -266,20 +267,29 @@ module RSyntaxTree
       # A coloured stretch left open, or written inside other markup. Asked
       # before the single characters below, whose repairs would also get the
       # label through and name the wrong mistake.
+      [:empty_markup,
+       # Filled rather than removed: a label of nothing but the stretch would
+       # be left with nothing to parse.
+       ->(s) { s.gsub(EMPTY_SPAN, '\\1x') },
+       "A coloured stretch @color() is empty: put what it colours inside it, or take it out."],
+      # Closed where it has to end: at the next line or column break, or else
+      # before the path markers at the end of the label.
       [:unclosed_markup,
        ->(s) {
          opener = s.match(SPAN_OPENER)
-         next s unless opener
+         break_at = opener && s.match(UNESCAPED_BREAK, opener.end(0))
+         next s unless break_at && break_at.end(0) <= Element.split_path(s).first.size
 
-         # Closed where it has to end: at the next line or column break, or
-         # else before the path markers at the end of the label.
+         s.dup.insert(break_at.end(0) - 2, ")")
+       },
+       "A coloured stretch @color(...) closes within its line or cell: close it before the \\n or \\t, " \
+       "and give the next its own, as in @red(a)\\t@red(b)."],
+      [:unclosed_markup,
+       ->(s) {
+         next s unless s.match?(SPAN_OPENER)
+
          label, path = Element.split_path(s)
-         break_at = s.match(UNESCAPED_BREAK, opener.end(0))
-         if break_at && break_at.end(0) <= label.size
-           s.dup.insert(break_at.end(0) - 2, ")")
-         else
-           "#{label})#{path}"
-         end
+         "#{label})#{path}"
        },
        "A coloured stretch @color(...) is never closed with ')'; a ')' inside one is written \\)."],
       [:unclosed_markup,
@@ -359,7 +369,8 @@ module RSyntaxTree
                          "\n > #{content}",
                          code: :unknown_color,
                          label: content,
-                         hint: "Use a CSS color name or a hex code: @blue:VP, @#3af:VP, @#33aaff:VP.",
+                         hint: "Use a CSS color name or a hex code: @blue:VP, @#3af:VP, @#33aaff:VP, or @blue(word) " \
+                               "for part of a label. Write \\@ for an @ meant as a character.",
                          retryable: true)
     end
 

@@ -169,6 +169,7 @@ class RSTError < StandardError
     bare_hyphen
     empty_brackets
     empty_input
+    empty_markup
     incomplete_path
     internal_error
     invalid_color

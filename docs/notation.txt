@@ -32,6 +32,10 @@ figure that was meant.
 - Decorations nest either way round (___*x*___ and *___x___* both draw small
   italic), but a coloured stretch @color(...) goes outside them all:
   @red(**x**), never **@red(x)**.
+- `@` followed by a colour name or #hex and `(` opens a coloured stretch,
+  wherever it stands: bob@red(note) draws "bob" and a red "note". Write \@ for
+  an @ meant as a character there: mail\@example(x). A stretch holds at least
+  one character and closes within its line and its cell: @red(a)\t@red(b).
 - A backslash takes the character after it, whatever it is: \q draws q, and
   C:\path draws C:path. A backslash itself is \\.
 - A program building labels from text it did not choose should not copy
@@ -58,7 +62,7 @@ Structure:
 | an invisible joint, to align leaves    | a label of only <>, as in [X [<> [Y y]] [Z z]] |
 | a movement path (dashed)               | [S [NP a+1] [VP [V b] [NP c+1]]] |
 | the same, with an arrowhead            | write +>1 on the end the arrow points at |
-| a path to a phrase                     | +1 on a node with daughters: the line stops at the edge of the phrase and its shade, on the word side |
+| a path to a phrase                     | +1 on a node with daughters: the line stops a clearance outside the phrase and its shade, on the word side |
 | an extra straight connector            | +-1 on two nodes; +->1 for an arrowhead |
 
 Inside a label:

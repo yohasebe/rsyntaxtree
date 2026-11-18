@@ -45,6 +45,10 @@ figure that was meant.
 - Decorations nest either way round (___*x*___ and *___x___* both draw small
   italic), but a coloured stretch @color(...) goes outside them all:
   @red(**x**), never **@red(x)**.
+- `@` followed by a colour name or #hex and `(` opens a coloured stretch,
+  wherever it stands: bob@red(note) draws "bob" and a red "note". Write \@ for
+  an @ meant as a character there: mail\@example(x). A stretch holds at least
+  one character and closes within its line and its cell: @red(a)\t@red(b).
 - A backslash takes the character after it, whatever it is: \q draws q, and
   C:\path draws C:path. A backslash itself is \\.
 - A program building labels from text it did not choose should not copy
@@ -71,7 +75,7 @@ Structure:
 | an invisible joint, to align leaves    | a label of only <>, as in [X [<> [Y y]] [Z z]] |
 | a movement path (dashed)               | [S [NP a+1] [VP [V b] [NP c+1]]] |
 | the same, with an arrowhead            | write +>1 on the end the arrow points at |
-| a path to a phrase                     | +1 on a node with daughters: the line stops at the edge of the phrase and its shade, on the word side |
+| a path to a phrase                     | +1 on a node with daughters: the line stops a clearance outside the phrase and its shade, on the word side |
 | an extra straight connector            | +-1 on two nodes; +->1 for an arrowhead |
 
 Inside a label:
@@ -585,7 +589,10 @@ words, decorations, and shapes such as `{}`, `{/}` and `->` with their
 outlines and hatching — is drawn in that colour, and a stretch inside another
 keeps its own. A stretch stays within one line of the label, a `)` inside it
 is written `\)`, and it goes outside other markup: `@red(**word**)`, not
-`**@red(word)**`. Part of a word in a joined script such as Arabic is drawn
+`**@red(word)**`. A stretch holds at least one character, and to colour two
+cells give each its own: `@red(a)\t@red(b)`. Since `@` followed by a colour name
+and `(` opens a stretch wherever it stands, write `\@` for an `@` meant as a
+character there: `mail\@example(x)`. Part of a word in a joined script such as Arabic is drawn
 correctly by browsers, but not in PNG or PDF output; colour whole words there.
 
 |Sample Input|Description|
@@ -871,7 +878,7 @@ Each path is distinguished by a unique ID number. The ID is specified by putting
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
 
-A path to a phrase — a node with daughters — stops at the edge of everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
+A path to a phrase — a node with daughters — stops a clearance outside everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
 
 ```text
 [CP
@@ -1152,6 +1159,9 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 - Column alignment (`\t`)
 - Nested matrix (`#(` … `#)`)
 - Grey line scheme (`color: gray`)
+- Colour of part of a label (`@red(...)`), and smaller type (`___`)
+- Line breaks inside a label: the lines are joined into one
+- Left-to-right direction: the tree is written top to bottom
 - Font styles (`fontstyle`, `corner_label_fontstyle`): the document's font is used
 
 None of these is refused; each is dropped, and the tree is written out

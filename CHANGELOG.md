@@ -7,6 +7,7 @@
 - `@red(...)` and `@#3af(...)` colour part of a label: the words, decorations and shapes inside, outlines and hatching included
 
 ### Changed
+- `@` followed by a colour name and `(` now opens a coloured stretch: write `\@` where an `@` is meant as a character, as in `mail\@example(x)`
 - `tidy: high` no longer closes a pair of branches far narrower than the pairs below it
 - A movement path to a phrase stops at the edge of the phrase and its shade instead of running through them to the label
 

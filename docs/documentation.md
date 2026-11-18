@@ -503,7 +503,10 @@ words, decorations, and shapes such as `{}`, `{/}` and `->` with their
 outlines and hatching — is drawn in that colour, and a stretch inside another
 keeps its own. A stretch stays within one line of the label, a `)` inside it
 is written `\)`, and it goes outside other markup: `@red(**word**)`, not
-`**@red(word)**`. Part of a word in a joined script such as Arabic is drawn
+`**@red(word)**`. A stretch holds at least one character, and to colour two
+cells give each its own: `@red(a)\t@red(b)`. Since `@` followed by a colour name
+and `(` opens a stretch wherever it stands, write `\@` for an `@` meant as a
+character there: `mail\@example(x)`. Part of a word in a joined script such as Arabic is drawn
 correctly by browsers, but not in PNG or PDF output; colour whole words there.
 
 |Sample Input|Description|
@@ -822,7 +825,7 @@ Each path is distinguished by a unique ID number. The ID is specified by putting
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
 
-A path to a phrase — a node with daughters — stops at the edge of everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
+A path to a phrase — a node with daughters — stops a clearance outside everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-c05567af'].layout }}" markdown="1">
 
@@ -1116,6 +1119,9 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 - Column alignment (`\t`)
 - Nested matrix (`#(` … `#)`)
 - Grey line scheme (`color: gray`)
+- Colour of part of a label (`@red(...)`), and smaller type (`___`)
+- Line breaks inside a label: the lines are joined into one
+- Left-to-right direction: the tree is written top to bottom
 - Font styles (`fontstyle`, `corner_label_fontstyle`): the document's font is used
 
 None of these is refused; each is dropped, and the tree is written out
