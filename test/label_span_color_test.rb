@@ -91,16 +91,24 @@ class LabelSpanColorTest < Minitest::Test
     refute segments.find { |s| s["text"] == "look " }.key?("color")
   end
 
-  # Text that only changes colour is one stretch: measured as one, so the
-  # width does not change, and written as one where colour is dropped.
+  # Text that only changes colour is one stretch: set as one, and written as
+  # one where colour is dropped.
   def test_a_change_of_colour_does_not_split_the_text
-    width = ->(t) { svg("[S #{t}]")[/<svg width="([\d.]+)"/, 1].to_f }
-
-    # Room for the parts set apart as well as together: a renderer may drop
-    # the kerning at the change of colour.
-    assert_operator width.call("A@red(V)"), :>=, width.call("AV")
     assert_match(/\[unhappiness\]/, RSyntaxTree::RSGenerator.new(data: "[S un@red(happi)ness]").draw_tikz)
     assert_includes svg("[S un@red(happi)ness]"), ">un<tspan style='fill: red;'>happi</tspan>ness</tspan>"
+  end
+
+  # Room for the parts set apart as well as together: a renderer may drop
+  # the kerning at the change of colour.
+  %w[AV To].each do |word|
+    define_method "test_#{word}_has_room_for_its_parts_set_apart" do
+      gen = RSyntaxTree::RSGenerator.new(data: "[S #{word[0]}@red(#{word[1]})]", format: "svg")
+      params = gen.instance_variable_get(:@params)
+      leaf = gen.send(:parsed_element_list).get_elements.last
+      measure = ->(t) { FontMetrics.get_metrics(t, params[:fontset][:family], params[:fontsize], :normal, :normal).width }
+
+      assert_equal [measure.call(word), measure.call(word[0]) + measure.call(word[1])].max, leaf.text_width
+    end
   end
 
   def test_an_escaped_parenthesis_stays_in_the_stretch
@@ -136,7 +144,8 @@ class LabelSpanColorTest < Minitest::Test
     "[S @#3af(a]" => "never closed with ')'",
     "[S @red(a]" => "never closed with ')'",
     "[S **@#3af(a)**]" => "inside other markup",
-    "[S **@red(a)**]" => "inside other markup"
+    "[S **@red(a)**]" => "inside other markup",
+    "[S [A @red(x+1] [B y+>1]]" => "never closed with ')'"
   }.each do |input, hint|
     define_method "test_#{input}_is_told_#{hint}" do
       error = assert_raises(RSTError) { svg(input) }
@@ -150,5 +159,6 @@ class LabelSpanColorTest < Minitest::Test
     out = svg("[S\\tR\\(1\\) [N x] [V y]]", derivation: "on")
 
     assert_includes out, ">R(1)<"
+    assert_includes svg("[S\\tR\\\\(1) [N x] [V y]]", derivation: "on"), ">R\\\\(1)<"
   end
 end

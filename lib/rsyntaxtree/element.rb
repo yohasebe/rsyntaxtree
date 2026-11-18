@@ -49,8 +49,11 @@ module RSyntaxTree
       # of the rule.
       if global && global[:derivation] && names_a_rule
         at = rule_name_break(content)
-        # Parentheses are escaped for the label's markup, not for the name.
-        name = at && content[(at + 2)..].to_s.strip.gsub(/\\([()])/, '\\1')
+        # Parentheses are escaped for the label's markup, not for the name:
+        # the backslash that escapes one goes, a pair of backslashes stays.
+        name = at && content[(at + 2)..].to_s.strip.gsub(/(\\+)([()])/) do
+          $1.size.odd? ? $1[0..-2] + $2 : $1 + $2
+        end
         if name && !name.empty?
           @rule_name = name
           # Kept whole, because whether this node has daughters — and so
@@ -258,7 +261,12 @@ module RSyntaxTree
       # before the single characters below, whose repairs would also get the
       # label through and name the wrong mistake.
       [:unclosed_markup,
-       ->(s) { s.match?(/(?<!\\)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/) ? s + ")" : s },
+       ->(s) {
+         next s unless s.match?(/(?<!\\)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/)
+
+         label, path = Element.split_path(s)
+         "#{label})#{path}"
+       },
        "A coloured stretch @color(...) is never closed with ')'; a ')' inside one is written \\)."],
       [:unclosed_markup,
        ->(s) { s.gsub(/(?<!\\)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/, "") },
