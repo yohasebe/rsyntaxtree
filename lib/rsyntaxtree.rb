@@ -431,6 +431,19 @@ module RSyntaxTree
                            retryable: false)
       end
 
+      # Mirroring flips the finished layout from side to side, which is what a
+      # tree read right to left needs when it runs down the page. Laid out
+      # left to right, the flip puts each parent on the other side of its
+      # daughters, and the connectors, still drawn from a parent's right edge,
+      # were struck through the labels. Refused until it is drawn properly.
+      if @params[:mirror] == true && @params[:direction] == "ltr"
+        raise RSTError.new(+"Error: a tree drawn left to right cannot be mirrored",
+                           code: :invalid_option, label: "mirror",
+                           hint: "Mirroring is for a tree that runs down or up the page. Use direction " \
+                                 "ttb or btt, or turn mirror off.",
+                           retryable: false)
+      end
+
       # Hiding the default connectors draws them in the background colour
       # rather than skipping them. A derivation's rules are drawn as connectors
       # but they are the figure itself, not a default the drawing adds, so

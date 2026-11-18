@@ -67,18 +67,16 @@ class MirrorTest < Minitest::Test
     end
   end
 
-  # 4. ltr + mirror: no crash, and the root moves to the right edge
-  def test_ltr_mirror_places_root_at_right
+  # 4. ltr + mirror is refused: the connectors would be struck through the
+  # labels. ltr alone still puts the root left of the leaves.
+  def test_ltr_mirror_is_refused
     plain = tspans(build_svg(DATA, direction: "ltr"))
-    mirrored = tspans(build_svg(DATA, direction: "ltr", mirror: "on"))
-
     plain_root = plain.find { |t| t[:text] == "S" }
     plain_leaves = %w[cat sat mat].map { |w| plain.find { |t| t[:text] == w } }
     assert plain_leaves.all? { |leaf| plain_root[:x] < leaf[:x] }, "ltr: root is left of the leaves"
 
-    root = mirrored.find { |t| t[:text] == "S" }
-    leaves = %w[cat sat mat].map { |w| mirrored.find { |t| t[:text] == w } }
-    assert leaves.all?, "fixture words must be present (ltr + mirror)"
-    assert leaves.all? { |leaf| root[:x] > leaf[:x] }, "ltr + mirror: root is right of the leaves"
+    error = assert_raises(RSTError) { build_svg(DATA, direction: "ltr", mirror: "on") }
+    assert_equal :invalid_option, error.code
+    assert_equal "mirror", error.label
   end
 end

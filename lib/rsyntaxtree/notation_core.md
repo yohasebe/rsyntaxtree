@@ -112,7 +112,7 @@ Options (the command line spells them --like-this):
 | linewidth  | every line's weight, 0.5–3.0, as a ratio of the font size |
 | leafstyle  | auto, bar, dashed, nothing — what joins a node to its leaf |
 | direction  | ttb, ltr, btt |
-| mirror     | flip the finished layout, for RTL scripts |
+| mirror     | flip the finished layout, for RTL scripts; not with direction ltr |
 | tidy       | off, symmetric, low, medium, high — how tightly subtrees pack; the packing modes leave the column under a movement path's end clear, which can widen a figure |
 | hspacing   | how far apart sisters sit, 0.5–3.0 |
 | vheight    | how far apart levels sit, 0.5–5.0 |

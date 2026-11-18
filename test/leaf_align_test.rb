@@ -49,12 +49,10 @@ class LeafAlignTest < Minitest::Test
 
   def test_ltr_alignment_levels_leaves
     %w[words subtrees].each do |mode|
-      [false, true].each do |mirror|
-        aligned = document(direction: "ltr", mirror: mirror, leaf_align: mode)
-        levels = leaves(aligned).map { |node| node["level"] }
+      aligned = document(direction: "ltr", leaf_align: mode)
+      levels = leaves(aligned).map { |node| node["level"] }
 
-        assert_equal 1, levels.uniq.size, "mode=#{mode}, mirror=#{mirror}"
-      end
+      assert_equal 1, levels.uniq.size, "mode=#{mode}"
     end
   end
 

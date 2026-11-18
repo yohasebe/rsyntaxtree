@@ -200,7 +200,7 @@ In the packing modes (`low`, `medium`, `high`), nothing is packed into the colum
 
 Trees for right-to-left scripts such as Arabic and Hebrew can be drawn expanding from right to left. The `Mirror (RTL)` option (`mirror: on`, CLI `--mirror`) reflects the entire finished layout horizontally: the structure is unchanged, but the leaf order is reversed so the sentence reads in its natural direction.
 
-`Mirror` composes with `Direction`.
+`Mirror` composes with the top-to-bottom and bottom-to-top directions. A tree drawn left to right cannot be mirrored.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-02bc5fec'].layout }}" markdown="1">
 

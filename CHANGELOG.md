@@ -9,6 +9,7 @@
 ### Changed
 - `@` followed by a colour name and `(` now opens a coloured stretch: write `\@` where an `@` is meant as a character, as in `mail\@example(x)`
 - `tidy: high` no longer closes a pair of branches far narrower than the pairs below it
+- `mirror` with `direction: ltr` is refused with a hint, since its connectors were drawn through the labels
 - A movement path to a phrase stops at the edge of the phrase and its shade instead of running through them to the label
 
 ### Fixed

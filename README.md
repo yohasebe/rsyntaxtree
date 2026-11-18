@@ -179,7 +179,7 @@ Usage:
 | `-v, --vheight` | How far apart levels sit (0.5-5.0) | `2.0` |
 | `--derivation` | Join each node to its daughters with one rule drawn across them: on, off | `off` |
 | `--hyphen` | How a hyphen reads: markup (`-underline-`) or literal | `markup` |
-| `-m, --mirror` | Flip the tree horizontally (RTL convention): on, off | `off` |
+| `-m, --mirror` | Flip the tree horizontally (RTL convention), not with ltr: on, off | `off` |
 | `--shear` | Tilt the drawn figure, in degrees (-45 to 45, positive leans the top right) | `0` |
 | `--shear-plane` | The plane behind a sheared figure: on, off, or a colour | `on` |
 | `--vmargin` | Clearance between a label and its connectors (0.1-1.0, same above and below) | `0.4` |
