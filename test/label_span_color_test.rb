@@ -96,7 +96,9 @@ class LabelSpanColorTest < Minitest::Test
   def test_a_change_of_colour_does_not_split_the_text
     width = ->(t) { svg("[S #{t}]")[/<svg width="([\d.]+)"/, 1].to_f }
 
-    assert_equal width.call("AV"), width.call("A@red(V)")
+    # Room for the parts set apart as well as together: a renderer may drop
+    # the kerning at the change of colour.
+    assert_operator width.call("A@red(V)"), :>=, width.call("AV")
     assert_match(/\[unhappiness\]/, RSyntaxTree::RSGenerator.new(data: "[S un@red(happi)ness]").draw_tikz)
     assert_includes svg("[S un@red(happi)ness]"), ">un<tspan style='fill: red;'>happi</tspan>ness</tspan>"
   end
@@ -128,5 +130,25 @@ class LabelSpanColorTest < Minitest::Test
 
       assert_equal code, error.code
     end
+  end
+
+  {
+    "[S @#3af(a]" => "never closed with ')'",
+    "[S @red(a]" => "never closed with ')'",
+    "[S **@#3af(a)**]" => "inside other markup",
+    "[S **@red(a)**]" => "inside other markup"
+  }.each do |input, hint|
+    define_method "test_#{input}_is_told_#{hint}" do
+      error = assert_raises(RSTError) { svg(input) }
+
+      assert_includes error.hint, hint
+    end
+  end
+
+  # A rule name is drawn as written; the escapes are the label's.
+  def test_a_rule_name_shows_its_parentheses_as_written
+    out = svg("[S\\tR\\(1\\) [N x] [V y]]", derivation: "on")
+
+    assert_includes out, ">R(1)<"
   end
 end

@@ -49,7 +49,8 @@ module RSyntaxTree
       # of the rule.
       if global && global[:derivation] && names_a_rule
         at = rule_name_break(content)
-        name = at && content[(at + 2)..].to_s.strip
+        # Parentheses are escaped for the label's markup, not for the name.
+        name = at && content[(at + 2)..].to_s.strip.gsub(/\\([()])/, '\\1')
         if name && !name.empty?
           @rule_name = name
           # Kept whole, because whether this node has daughters — and so
@@ -253,6 +254,15 @@ module RSyntaxTree
       [:unclosed_matrix,
        ->(s) { s.scan("#(").size > s.scan("#)").size ? s + "#)" : s },
        "A matrix opened with '#(' is never closed with '#)'."],
+      # A coloured stretch left open, or written inside other markup. Asked
+      # before the single characters below, whose repairs would also get the
+      # label through and name the wrong mistake.
+      [:unclosed_markup,
+       ->(s) { s.match?(/(?<!\\)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/) ? s + ")" : s },
+       "A coloured stretch @color(...) is never closed with ')'; a ')' inside one is written \\)."],
+      [:unclosed_markup,
+       ->(s) { s.gsub(/(?<!\\)@(?:#\h{6}|#\h{3}|[a-zA-Z]+)\(/, "") },
+       "A coloured stretch sits inside other markup: put the colour outside, as in @red(**word**)."],
       # A derivation writes the name of each step after a column break, and
       # the combinators it is written with are made of the same characters as
       # the whitespace marker. Read as an ordinary tree such a label is
@@ -273,9 +283,7 @@ module RSyntaxTree
          "=" => "An '=' overline is never closed.",
          "~" => "A '~' strikethrough is never closed.",
          "#" => "A '#' enclosure is not one of #, ## or ###, or a matrix is left open.",
-         "<" => "'<' and '>' mark whitespace: <> is one space, <3> is three.",
-         "(" => "A coloured stretch @color(...) is never closed with ')', or sits inside other markup: " \
-                "put the colour outside, as in @red(**word**). A ')' inside one is written \\)." }
+         "<" => "'<' and '>' mark whitespace: <> is one space, <3> is three." }
         .map { |ch, hint| [:unclosed_markup, ->(s) { s.gsub(/(?<!\\)#{Regexp.escape(ch)}/) { "\\#{ch}" } }, hint] },
       [:stray_triangle,
        ->(s) { s.sub(/\A\^+/, "^") }, "Only one '^' may prefix a label."],
@@ -367,6 +375,11 @@ module RSyntaxTree
       text.gsub('\\[', '[').gsub('\\]', ']').gsub("'", "’").gsub(Markup::KEPT_APOSTROPHE, "'")
     end
 
+    # A run's text as it is measured.
+    def measurable(text)
+      text.gsub("\\\\", 'i').gsub("\\", "").gsub(" ", "x").gsub("%", "X")
+    end
+
     # A run's text as the drawing keeps it.
     def stored(text)
       text.gsub(" ", WHITESPACE_BLOCK).gsub(">", '&#62;').gsub("<", '&#60;')
@@ -445,7 +458,8 @@ module RSyntaxTree
 
             text = typeset(e[:text])
             e[:text] = stored(text)
-            e[:parts]&.each { |part| part[0] = stored(typeset(part[0])) }
+            typed_parts = e[:parts]&.map { |part, _| typeset(part) }
+            e[:parts]&.each_with_index { |part, i| part[0] = stored(typed_parts[i]) }
 
             @contains_phrase = true if text.include?(" ")
             decoration = e[:decoration]
@@ -483,12 +497,16 @@ module RSyntaxTree
                 width += metrics.width
               end
             else
-              text.gsub!("\\\\", 'i')
-              text.gsub!("\\", "")
-              text.gsub!(" ", "x")
-              text.gsub!("%", "X")
+              text = measurable(text)
               metrics = FontMetrics.get_metrics(text, font, fontsize, style, weight)
               width = metrics.width
+              # A renderer may set each colour of a stretch on its own and
+              # drop the kerning between them, so the stretch has room for
+              # its parts set apart as well as together.
+              if typed_parts
+                apart = typed_parts.sum { |t| FontMetrics.get_metrics(measurable(t), font, fontsize, style, weight).width }
+                width = [width, apart].max
+              end
             end
 
             if e[:decoration].include?(:box) || e[:decoration].include?(:circle) || e[:decoration].include?(:bar)
