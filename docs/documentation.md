@@ -1099,6 +1099,7 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 - Column alignment (`\t`)
 - Nested matrix (`#(` … `#)`)
 - Grey line scheme (`color: gray`)
+- Font styles (`fontstyle`, `corner_label_fontstyle`): the document's font is used
 
 None of these is refused; each is dropped, and the tree is written out
 without it. A label that is a matrix arrives as its cells run together on one

@@ -10,6 +10,7 @@
 module RSyntaxTree
   class TikZGenerator
     LATEX_ESCAPE_MAP = {
+      '\\' => '\\textbackslash{}',
       '&' => '\\&',
       '%' => '\\%',
       '$' => '\\$',
@@ -18,8 +19,11 @@ module RSyntaxTree
       '{' => '\\{',
       '}' => '\\}',
       '~' => '\\textasciitilde{}',
-      '^' => '\\textasciicircum{}'
+      '^' => '\\textasciicircum{}',
+      '<' => '\\textless{}',
+      '>' => '\\textgreater{}'
     }.freeze
+    LATEX_SPECIALS = Regexp.union(LATEX_ESCAPE_MAP.keys).freeze
 
     def initialize(element_list, params)
       @element_list = element_list
@@ -306,21 +310,21 @@ module RSyntaxTree
             next
           end
 
-          # Remove RSyntaxTree-specific whitespace block
+          # Remove RSyntaxTree-specific whitespace block, and read the
+          # characters the parser keeps as SVG entities back as themselves.
           text = el[:text].to_s.gsub("￭", " ")
+                          .gsub("&#60;", "<").gsub("&#62;", ">").gsub("&amp;", "&")
           texts << text unless text.strip.empty?
         end
       end
       texts
     end
 
-    # Escape LaTeX special characters
+    # Escape LaTeX special characters, in one pass with a block: a
+    # replacement string would read the backslash in \& as a reference to
+    # the match, and a second pass would escape the first one's backslashes.
     def escape_latex(text)
-      result = text.dup
-      LATEX_ESCAPE_MAP.each do |char, escaped|
-        result.gsub!(char, escaped)
-      end
-      result
+      text.gsub(LATEX_SPECIALS) { |c| LATEX_ESCAPE_MAP[c] }
     end
   end
 end

@@ -38,7 +38,8 @@ class CornerLabelTest < Minitest::Test
     m = FontMetrics.get_metrics(corner[:text], FontFamily.for_pango(corner[:font_style]),
                                 corner[:size] * FONT_SCALING, :normal, :normal)
     top = baseline - m.ink_above
-    { left: x, right: x + m.width, top: top, bottom: top + m.ink_height }
+    { left: x + m.ink_left, right: x + m.ink_left + m.ink_width, top: top, bottom: top + m.ink_height,
+      strip: [m.width, m.ink_left + m.ink_width].max - [0, m.ink_left].min }
   end
 
   %w[ttb ltr btt].each do |direction|
@@ -77,7 +78,7 @@ class CornerLabelTest < Minitest::Test
     box = label_box(svg, corner)
     gap = generator.instance_variable_get(:@global)[:h_gap_between_nodes]
 
-    assert_in_delta plain[2] + (box[:right] - box[:left]) + gap, view_box(svg)[2], 0.01
+    assert_in_delta plain[2] + box[:strip] + gap, view_box(svg)[2], 0.01
     assert_in_delta plain[3], view_box(svg)[3], 0.01
   end
 
@@ -90,6 +91,21 @@ class CornerLabelTest < Minitest::Test
 
     assert_operator box[:top], :>=, vy
     assert_operator box[:bottom], :<=, vy + vh
+  end
+
+  # A glyph whose ink starts left of its origin, large against a small tree
+  # with tight margins, stays on the canvas.
+  %w[bottom-left top-right].each do |position|
+    define_method "test_an_overhanging_glyph_is_not_cut_off_#{position}" do
+      svg, _, corner = drawn(data: "[S a]", fontsize: 6, hspacing: 0.5, corner_label: "ȉj",
+                             corner_label_size: 52, corner_label_fontstyle: "serif",
+                             corner_label_position: position)
+      box = label_box(svg, corner)
+      vx, _, vw, = view_box(svg)
+
+      assert_operator box[:left], :>=, vx
+      assert_operator box[:right], :<=, vx + vw
+    end
   end
 
   def test_the_label_is_written_as_given
@@ -116,6 +132,11 @@ class CornerLabelTest < Minitest::Test
 
     assert_equal plain, generator(corner_label: "", corner_label_color: "").draw_svg
     assert_equal plain, generator(corner_label: nil, corner_label_position: "bottom-right").draw_svg
+  end
+
+  # The settings the drawing reads are the library's own, never a caller's.
+  def test_a_callers_corner_key_is_not_drawn
+    assert_equal generator.draw_svg, generator(corner: "").draw_svg
   end
 
   def test_raster_formats_draw_it
@@ -149,6 +170,12 @@ class CornerLabelTest < Minitest::Test
     end
   end
 
+  def test_tikz_escapes_the_label
+    tikz = generator(corner_label: "A&B\\c%").draw_tikz
+
+    assert_includes tikz, "{A\\&B\\textbackslash{}c\\%};"
+  end
+
   def test_tikz_without_a_label_is_unchanged
     refute_includes generator.draw_tikz, "current bounding box"
   end
@@ -157,9 +184,10 @@ class CornerLabelTest < Minitest::Test
     corner_label_position: "middle",
     corner_label_color: "nocolour",
     corner_label_size: 99,
-    corner_label_fontstyle: "fraktur"
+    corner_label_fontstyle: "fraktur",
+    corner_label: "A\fB"
   }.each do |key, value|
-    define_method "test_rejects_#{key}_#{value}" do
+    define_method "test_rejects_#{key}_#{value.to_s.dump}" do
       error = assert_raises(RSTError) { generator(corner_label: "*", key => value) }
 
       assert_equal :invalid_option, error.code

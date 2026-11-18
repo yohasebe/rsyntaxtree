@@ -373,8 +373,17 @@ module RSyntaxTree
           new_params[key] = value.to_f
         when :corner_label
           # Written as given: it is a mark set beside the tree, not a label
-          # in it, so * and # are themselves rather than markup.
-          new_params[key] = value.to_s unless value.to_s.strip.empty?
+          # in it, so * and # are themselves rather than markup. Only what
+          # XML can carry: a control character would make an SVG no reader
+          # accepts.
+          v = value.to_s
+          unless v.valid_encoding? && !v.match?(/[\x00-\x08\x0B\x0C\x0E-\x1F\uFFFE\uFFFF]/)
+            raise RSTError.new(+"Error: invalid value for option 'corner_label': #{value.inspect}",
+                               code: :invalid_option, label: "corner_label",
+                               hint: "'corner_label' is text without control characters.",
+                               retryable: false)
+          end
+          new_params[key] = v unless v.strip.empty?
         when :corner_label_color
           v = value.to_s.strip
           unless v.empty?
@@ -479,15 +488,17 @@ module RSyntaxTree
       # Everything the corner label needs, with its defaults filled in once
       # for every format: half as large again as the tree's type, in the
       # tree's face, in black.
-      if @params[:corner_label]
-        @params[:corner] = {
-          text: @params[:corner_label],
-          position: @params[:corner_label_position],
-          size: @params[:corner_label_size] || @params[:fontsize] / FONT_SCALING * 1.5,
-          color: @params[:corner_label_color] || "black",
-          font_style: @params[:corner_label_fontstyle] || @params[:fontstyle]
-        }
-      end
+      # Set whether or not there is one, so a caller's own :corner never
+      # reaches the drawing.
+      @params[:corner] = if @params[:corner_label]
+                           {
+                             text: @params[:corner_label],
+                             position: @params[:corner_label_position],
+                             size: @params[:corner_label_size] || @params[:fontsize] / FONT_SCALING * 1.5,
+                             color: @params[:corner_label_color] || "black",
+                             font_style: @params[:corner_label_fontstyle] || @params[:fontstyle]
+                           }
+                         end
     end
 
     # A colour as a label's @color: takes it: a CSS name, or 3 or 6 hex digits.

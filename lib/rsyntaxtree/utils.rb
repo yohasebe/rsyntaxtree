@@ -122,7 +122,10 @@ module FontMetrics
   # actually are: how tall the marks are, and how far the tallest reaches above
   # the baseline. A box or circle drawn around text needs the latter — sized by
   # the rhythm it would stand a head taller than the letters it encloses.
-  Metrics = Struct.new(:width, :height, :ink_height, :ink_above)
+  # ink_left and ink_width place the marks across: where the first one
+  # starts, measured from the text's origin, and how far they run. A glyph can
+  # start left of its origin or run past its advance.
+  Metrics = Struct.new(:width, :height, :ink_height, :ink_above, :ink_left, :ink_width)
 
   # Vertical rhythm is defined deterministically from the font size rather
   # than taken from Pango's font-dependent logical extents. The 1.4 factor
@@ -165,7 +168,7 @@ module FontMetrics
     width, = layout.pixel_size
     ink, = layout.pixel_extents
     baseline = layout.baseline / Pango::SCALE.to_f
-    Metrics.new(width, fontsize * LINE_HEIGHT_FACTOR, ink.height, baseline - ink.y)
+    Metrics.new(width, fontsize * LINE_HEIGHT_FACTOR, ink.height, baseline - ink.y, ink.x, ink.width)
   end
 
   def pango_layout

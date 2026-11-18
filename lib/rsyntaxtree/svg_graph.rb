@@ -269,13 +269,17 @@ module RSyntaxTree
                  else
                    bottom - (m.ink_height - m.ink_above)
                  end
+      # The strip holds both the advance and the ink, whichever reaches
+      # further, so a glyph that overhangs its origin is not cut off.
+      left = [0, m.ink_left].min
+      width = [m.width, m.ink_left + m.ink_width].max - left
       if horizontal == "left"
-        x1 -= m.width + gap
-        x = x1 + gap
+        x1 -= width + gap
+        x = x1 + gap - left
       else
-        x = x1 + x2
+        x = x1 + x2 - left
       end
-      x2 += m.width + gap
+      x2 += width + gap
 
       # Grown downward or upward only when the mark is taller than the tree.
       ink_t = baseline - m.ink_above

@@ -77,6 +77,17 @@ class TikZTest < Minitest::Test
     assert tikz.include?("\\$"), "Should escape dollar sign"
   end
 
+  # The parser keeps &, < and > as SVG entities; the TikZ output writes the
+  # characters themselves, escaped for LaTeX.
+  def test_tikz_writes_ampersand_and_angle_brackets_as_characters
+    tikz = RSyntaxTree::RSGenerator.new(data: "[S [NP A&B] [VP \\<x\\>]]").draw_tikz
+
+    assert_includes tikz, "[A\\&B"
+    assert_includes tikz, "[\\textless{}x\\textgreater{}"
+    refute_includes tikz, "&#"
+    refute_includes tikz, "&amp;"
+  end
+
   def test_tikz_generates_standalone_option
     rsg = RSyntaxTree::RSGenerator.new(@simple_opts)
     tikz = rsg.draw_tikz(standalone: true)
