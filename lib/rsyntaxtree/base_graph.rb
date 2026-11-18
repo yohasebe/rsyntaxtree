@@ -695,8 +695,7 @@ module RSyntaxTree
     # drawn straight across and need no column. A tree without a movement
     # path is not walked for them.
     def path_columns(id)
-      @has_path_ends = @element_list.get_elements.any? { |e| path_end?(e) } if @has_path_ends.nil?
-      return [] unless @has_path_ends
+      return [] unless path_columns?
 
       columns = []
       stack = [@element_list.get_id(id)]
@@ -709,6 +708,11 @@ module RSyntaxTree
         node.children.each { |c| stack << @element_list.get_id(c) }
       end
       columns
+    end
+
+    def path_columns?
+      @has_path_ends = @element_list.get_elements.any? { |e| path_end?(e) } if @has_path_ends.nil?
+      @has_path_ends
     end
 
     def path_end?(node)
@@ -816,11 +820,14 @@ module RSyntaxTree
       parents = @element_list.get_elements.reject { |e| e.children.empty? }
       parents.sort_by { |p| [-p.level, -p.id] }.each do |parent|
         children = parent.children.map { |c| @element_list.get_id(c) }
-        # A path's column reaches down past sisters that end higher up, so a
-        # sister is packed against everything placed before it — the labels
-        # and columns of every earlier sister, not only of its neighbour.
+        # A path's column reaches down past sisters that end higher up, so in
+        # a tree with movement paths a sister is packed against everything
+        # placed before it — the labels and columns of every earlier sister.
+        # Without paths only the neighbour can be in the way, and comparing
+        # with it alone keeps a long row of sisters from growing quadratic.
         placed = []
         children.each_cons(2) do |left_child, right_child|
+          placed = [] unless path_columns?
           placed.concat(subtree_rects(left_child.id), path_columns(left_child.id))
           clearance = contour_clearance(placed, subtree_rects(right_child.id) + path_columns(right_child.id))
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
