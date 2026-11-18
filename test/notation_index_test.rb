@@ -74,6 +74,7 @@ class NotationIndexTest < Minitest::Test
     "brectangle" => { sample: "###NP", shows: [:brectangle] },
     "region" => { sample: "%NP", shows: [:region] },
     "color_spec" => { sample: "@red:NP", shows: [:color] },
+    "colored" => { sample: "@red(", shows: [:color], in_label: "a @red(b)" },
     "path" => { sample: "+>1", shows: [:path], in_label: "t+>1" },
     "tabstop" => { sample: '\t', shows: [:tabstop], in_label: 'HEAD\tnoun' },
     "matrix" => { sample: '#(', shows: [:matrix], in_label: '#(HEAD\tnoun#)' },

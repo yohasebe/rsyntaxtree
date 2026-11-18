@@ -52,6 +52,8 @@ module RSyntaxTree
       @shear_k = (-Math.tan(@shear_deg * Math::PI / 180)).round(3)
       @shear_plane = params[:shear_plane] || "on"
       @corner = params[:corner]
+      # The hatch pattern of each colour a coloured stretch asks for.
+      @span_hatches = {}
       @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
@@ -197,6 +199,10 @@ module RSyntaxTree
             </pattern>
           </defs>
       HDR
+
+      # Only a figure with a hatched shape in a coloured stretch has these, and
+      # every other figure's header is left as it was.
+      header = header.sub("  </defs>", "#{span_hatch_patterns(hatch_cell, hatch_stroke)}\n  </defs>") if @span_hatches.any?
 
       rect = <<~RCT
         <rect x="#{x1}" y="#{y1}" width="#{x2}" height="#{y2}" stroke="none" fill="white" />
@@ -797,6 +803,8 @@ module RSyntaxTree
     # here, so this could no longer live inside the drawing loop.
     def render_run(e, this_x, text_y, element, col)
       out = +""
+      # A coloured stretch paints its marks and the shapes drawn around them.
+      col = e[:color] if e[:color]
       this_y = text_y
         escaped_text = e[:text].gsub('>', '&gt;').gsub('<', '&lt;');
         decorations = []
@@ -821,6 +829,7 @@ module RSyntaxTree
 
         style += "font-weight: bold; fill: #{@col_emph}; " if e[:decoration].include?(:bold) || e[:decoration].include?(:bolditalic)
         style += "font-style: italic; " if e[:decoration].include?(:italic) || e[:decoration].include?(:bolditalic)
+        style += "fill: #{col}; " if e[:color]
         style += "\""
 
         fontstyle = FontFamily.for_svg(@fontstyle)
@@ -833,7 +842,9 @@ module RSyntaxTree
           enc_width = e[:width]
           enc_x = this_x
 
-          if e[:decoration].include?(:hatched)
+          if e[:decoration].include?(:hatched) && e[:color]
+            fill = "url(##{@span_hatches[col] ||= "hatchSpan#{@span_hatches.size}"})"
+          elsif e[:decoration].include?(:hatched)
             case element.type
             when ETYPE_LEAF
               fill = if @color
@@ -976,6 +987,15 @@ module RSyntaxTree
       top = text_y - @global[:single_x_metrics].height * 0.8 - padding
       draw_bracket(this_x, top, e[:width] - lead, e[:matrix_height] + padding * 2, col)
       [out, this_x + advance - lead]
+    end
+
+    def span_hatch_patterns(cell, stroke)
+      @span_hatches.map do |color, id|
+        "<pattern id=\"#{id}\" x=\"10\" y=\"10\" width=\"#{cell}\" height=\"#{cell}\" " \
+          "patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\">" \
+          "<line x1=\"0\" y=\"0\" x2=\"0\" y2=\"#{cell}\" stroke=\"#{color}\" stroke-width=\"#{stroke}\"></line>" \
+          "</pattern>"
+      end.join("\n")
     end
 
     def draw_rectangle(x1, y1, width, height, col, bline = false)

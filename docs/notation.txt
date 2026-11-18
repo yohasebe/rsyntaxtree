@@ -80,6 +80,7 @@ Around a label:
 | a whole label that is one matrix       | [#(CAT\tS#) [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]] |
 | a region shade behind the subtree      | %NP, coloured: %@blue:NP |
 | a colour                               | @red:NP, @#3af:NP, @#33aaff:NP (3 or 6 hex digits) |
+| part of a label in colour              | look @red(at) the chickens, @#3af({}->) — within one line, outside other markup; \) for a ')' inside |
 
 An attribute-value matrix is columns plus an enclosure, and a value can be
 another matrix — nested with #( ... #), never with square brackets, which are

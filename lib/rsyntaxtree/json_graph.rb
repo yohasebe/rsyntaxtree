@@ -242,6 +242,7 @@ module RSyntaxTree
       # cells split on the tab stops, rules kept as rows of their own, a
       # matrix inside a cell recursing.
       segment[:matrix] = { rows: build_matrix_rows(run[:matrix]) } if run[:decoration].include?(:matrix) && run[:matrix]
+      segment[:color] = run[:color] if run[:color]
       segment
     end
 

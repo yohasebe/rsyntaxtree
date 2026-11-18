@@ -498,6 +498,20 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 |`#@red:NP`|Square brackets + red color|
 |`^#@green:NP`|Triangle + brackets + green color|
 
+To colour part of a label, write `@color(...)` around it. Everything inside —
+words, decorations, and shapes such as `{}`, `{/}` and `->` with their
+outlines and hatching — is drawn in that colour, and a stretch inside another
+keeps its own. A stretch stays within one line of the label, a `)` inside it
+is written `\)`, and it goes outside other markup: `@red(**word**)`, not
+`**@red(word)**`.
+
+|Sample Input|Description|
+|------------|-----------|
+|`look @red(at) the chickens`|One word of a leaf in red|
+|`NP\n@gray(causer)`|The second line of a label in grey|
+|`{}->@red({/}<>{/})->`|Two shapes of a chain in red|
+|`@#3af(a @red(b) c)`|A stretch inside another keeps its own colour|
+
 <div class="grid {{ site.data.doc_figure_sizes['doc-02b248ba'].layout }}" markdown="1">
 
 ```text

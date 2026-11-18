@@ -80,6 +80,7 @@ module RSyntaxTree
       @region_color = results[:region_color]
       validate_color!(@color, content)
       validate_color!(@region_color, content)
+      Element.span_colors(@content).each { |c| validate_color!(c, content) }
 
       @contains_phrase = false
       setup
@@ -133,6 +134,18 @@ module RSyntaxTree
     # ignore the backslash, so a label could not contain "+1" at all — every
     # "C++11" and "2+2" was read as one end of a movement path.
     PATH_MARKERS = /(?:\+-?>?<?\d+)+/
+
+    # The colours of the coloured stretches in a label's lines, nested
+    # matrices included.
+    def self.span_colors(lines)
+      lines.flat_map do |line|
+        next [] unless line[:type] == :text
+
+        line[:elements].flat_map do |e|
+          [e[:color], *(e[:matrix] ? span_colors(e[:matrix]) : [])].compact
+        end
+      end
+    end
 
     # A label's text as written. What is drawn keeps &, < and > as the SVG
     # entities the input is read into; the formats that are not SVG want the
@@ -195,8 +208,8 @@ module RSyntaxTree
       # bare '#' or '@' behind that the enclosure repair below would happily
       # blame itself for. Tried first, so a color mistake is named as one.
       [:invalid_color,
-       ->(s) { s.sub(/\A%?@(?:#[0-9a-zA-Z]+|[a-zA-Z]+)?:/, "") },
-       "A color is @name: with a CSS color name, or @#rgb: / @#rrggbb: with 3 or 6 hex digits (e.g. @blue:VP, @#3af:VP)."],
+       ->(s) { s.sub(/\A%?@(?:#[0-9a-zA-Z]+|[a-zA-Z]+)?:/, "").gsub(/(?<!\\)@#[0-9a-zA-Z]*\(/, "\\(") },
+       "A color is @name: with a CSS color name, or @#rgb: / @#rrggbb: with 3 or 6 hex digits (e.g. @blue:VP, @#3af:VP, @red(word))."],
       [:angle_brackets,
        ->(s) { s.gsub(/(?<!\\)<([^<>]*[^<>\d][^<>]*)>/) { "⟨#{$1}⟩" } },
        "'<' and '>' mark whitespace here, not a list. Write the angle bracket characters themselves: ⟨NP⟩, 'hand⟨SUBJ,OBJ⟩'."],
@@ -231,7 +244,9 @@ module RSyntaxTree
          "=" => "An '=' overline is never closed.",
          "~" => "A '~' strikethrough is never closed.",
          "#" => "A '#' enclosure is not one of #, ## or ###, or a matrix is left open.",
-         "<" => "'<' and '>' mark whitespace: <> is one space, <3> is three." }
+         "<" => "'<' and '>' mark whitespace: <> is one space, <3> is three.",
+         "(" => "A coloured stretch @color(...) is never closed with ')', or sits inside other markup: " \
+                "put the colour outside, as in @red(**word**). A ')' inside one is written \\)." }
         .map { |ch, hint| [:unclosed_markup, ->(s) { s.gsub(/(?<!\\)#{Regexp.escape(ch)}/) { "\\#{ch}" } }, hint] },
       [:stray_triangle,
        ->(s) { s.sub(/\A\^+/, "^") }, "Only one '^' may prefix a label."],

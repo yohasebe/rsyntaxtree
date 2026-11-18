@@ -93,6 +93,7 @@ Around a label:
 | a whole label that is one matrix       | [#(CAT\tS#) [#(CAT\tNP#) Kim] [#(CAT\tVP#) sleeps]] |
 | a region shade behind the subtree      | %NP, coloured: %@blue:NP |
 | a colour                               | @red:NP, @#3af:NP, @#33aaff:NP (3 or 6 hex digits) |
+| part of a label in colour              | look @red(at) the chickens, @#3af({}->) — within one line, outside other markup; \) for a ')' inside |
 
 An attribute-value matrix is columns plus an enclosure, and a value can be
 another matrix — nested with #( ... #), never with square brackets, which are
@@ -572,6 +573,20 @@ You can specify a custom color for individual nodes using the `@color:` prefix. 
 |`^@blue:NP`|Triangle connector + blue color|
 |`#@red:NP`|Square brackets + red color|
 |`^#@green:NP`|Triangle + brackets + green color|
+
+To colour part of a label, write `@color(...)` around it. Everything inside —
+words, decorations, and shapes such as `{}`, `{/}` and `->` with their
+outlines and hatching — is drawn in that colour, and a stretch inside another
+keeps its own. A stretch stays within one line of the label, a `)` inside it
+is written `\)`, and it goes outside other markup: `@red(**word**)`, not
+`**@red(word)**`.
+
+|Sample Input|Description|
+|------------|-----------|
+|`look @red(at) the chickens`|One word of a leaf in red|
+|`NP\n@gray(causer)`|The second line of a label in grey|
+|`{}->@red({/}<>{/})->`|Two shapes of a chain in red|
+|`@#3af(a @red(b) c)`|A stretch inside another keeps its own colour|
 
 ```text
 [S

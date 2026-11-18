@@ -39,12 +39,12 @@ class MarkupParser < Parslet::Parser
 
   rule(:path) { (str('+') >> str('-').maybe >> (str('>') | str('<')).maybe >> match('\d').repeat(1)).as(:path) }
   # rule(:escaped) { str('\\') >> match('[#<>{}\\^+*_=~\|\n\-]').as(:chr) }
-  rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]%@]').as(:chr) }
+  rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]%@()]').as(:chr) }
   # A straight apostrophe is set as a curly one; `\'` asks for the straight
   # one itself. It comes through as a placeholder so the substitution, which
   # runs later on the joined text, can tell the two apart.
   rule(:kept_apostrophe) { str("\\'").as(:kept_apostrophe) }
-  rule(:non_escaped) { ((match('[#<>{}\\^+*_=~\|\-]') | str('\\n') | str('\\t')).absent? >> any).as(:chr) }
+  rule(:non_escaped) { ((match('[#<>{}\\^+*_=~\|\-]') | str('\\n') | str('\\t') | span_open).absent? >> any).as(:chr) }
   rule(:text) { (kept_apostrophe | escaped | non_escaped).repeat(1).as(:text) }
 
   # Column separator. Every line of a label is cut at these into cells, and
@@ -89,11 +89,19 @@ class MarkupParser < Parslet::Parser
   # in labels too often to claim.
   rule(:matrix) { str('#(') >> matrix_line.repeat(1).as(:matrix) >> str('#)') }
   rule(:matrix_line) { (rule_line | double_rule_line | matrix_markup.repeat(1).as(:line)) >> (cr | str('#)').present?) }
-  rule(:matrix_markup) { (matrix | tabstop | matrix_text | decoration | shape | bstroke) }
+  rule(:matrix_markup) { (matrix | tabstop | colored | matrix_text | decoration | shape | bstroke) }
   # Text inside a matrix stops at the closing delimiter as well.
   rule(:matrix_text) { (kept_apostrophe | escaped | (str('#)').absent? >> non_escaped)).repeat(1).as(:text) }
 
-  rule(:markup) { (matrix | tabstop | text | decoration | shape | bstroke) }
+  # A coloured stretch of a label: @red(...) or @#c00(...). What is inside
+  # is ordinary markup on one line, drawn in that colour, and a stretch
+  # inside another keeps its own. A ')' inside is written \).
+  rule(:span_open) { str('@') >> (color_hex | color_name).as(:color_value) >> str('(') }
+  rule(:colored) { span_open >> span_markup.repeat(1).as(:colored) >> str(')') }
+  rule(:span_markup) { (colored | span_text | decoration | shape | bstroke) }
+  rule(:span_text) { (kept_apostrophe | escaped | (str(')').absent? >> non_escaped)).repeat(1).as(:text) }
+
+  rule(:markup) { (matrix | tabstop | colored | text | decoration | shape | bstroke) }
 
   # A label that is one whole matrix. The enclosure rules in :lines would
   # eat the '#' of '#(' before the matrix rule could see it, so a matrix
@@ -219,8 +227,13 @@ module Markup
     rule(matrix: subtree(:matrix)) {
       { text: +"", decoration: [:matrix], matrix: matrix }
     }
+    # Every run of a coloured stretch carries the colour, unless a stretch
+    # inside it gave the run one of its own first.
+    rule(color_value: simple(:color), colored: subtree(:runs)) {
+      [runs].flatten.each { |run| run[:color] ||= color.to_s }
+    }
     rule(line: subtree(:line)) {
-      { type: :text, elements: line }
+      { type: :text, elements: [line].flatten }
     }
     rule(extracr: subtree(:extracr)) {
       { type: :text, elements: [{ text: +"　", decoration: [] }] }
