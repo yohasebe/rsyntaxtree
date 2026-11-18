@@ -119,6 +119,20 @@ class LsifGeneratorTest < Minitest::Test
       assert_equal mode, data.dig("meta", "source", "params", "hyphen")
     end
   end
+
+  # A label carries &, < and > as the characters written, in its raw form
+  # and in its segments alike.
+  def test_ampersand_and_angle_brackets_are_characters
+    data = JSON.parse(RSyntaxTree::RSGenerator.new(data: "[&P [DP a\\<b\\>] [& and]]", format: "json").draw_json)
+    labels = data["nodes"].to_h { |n| [n["id"], n["label"]] }
+    texts = labels.values.map { |l| l["lines"].flat_map { |line| line["segments"].map { |s| s["text"] } }.join }
+
+    assert_includes texts, "&P"
+    assert_includes texts, "&"
+    assert_includes texts, "a<b>"
+    assert_includes labels.values.map { |l| l["raw"] }, "&P"
+    refute_match(/&amp;|&#6/, data["nodes"].to_json)
+  end
 end
 
 class LsifDirectionTest < Minitest::Test

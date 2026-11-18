@@ -315,8 +315,7 @@ module RSyntaxTree
 
           # Remove RSyntaxTree-specific whitespace block, and read the
           # characters the parser keeps as SVG entities back as themselves.
-          text = el[:text].to_s.gsub("￭", " ")
-                          .gsub("&#60;", "<").gsub("&#62;", ">").gsub("&amp;", "&")
+          text = Element.plain_text(el[:text].to_s.gsub("￭", " "))
           texts << text unless text.strip.empty?
         end
       end

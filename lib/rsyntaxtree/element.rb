@@ -134,6 +134,13 @@ module RSyntaxTree
     # "C++11" and "2+2" was read as one end of a movement path.
     PATH_MARKERS = /(?:\+-?>?<?\d+)+/
 
+    # A label's text as written. What is drawn keeps &, < and > as the SVG
+    # entities the input is read into; the formats that are not SVG want the
+    # characters back.
+    def self.plain_text(text)
+      text.gsub("&#60;", "<").gsub("&#62;", ">").gsub("&amp;", "&")
+    end
+
     # Splits a label into what is drawn and its trailing path text, the
     # latter empty when there is none. A label that is nothing but markers
     # has no path: there would be nothing to draw them from.

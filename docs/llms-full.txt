@@ -947,8 +947,8 @@ image.
 
 `--corner-label` sets a short string in a corner of the image, beside the
 tree. It is meant for the judgement mark of the sentence the tree is drawn for
-(`*`, `?`, `#`), so the figure of an unacceptable sentence can be told from
-its acceptable counterpart at a glance. The string is written as given: `*`
+(`*`, `?`, `#`, `✓`), so the figure of an unacceptable sentence (`*`) can be
+told from that of an acceptable one (`✓`) at a glance. The string is written as given: `*`
 and `#` are themselves, not markup.
 
 ```bash

@@ -223,7 +223,7 @@ module RSyntaxTree
       end
 
       {
-        raw: element.raw_content,
+        raw: Element.plain_text(element.raw_content.to_s),
         lines: lines
       }
     end
@@ -232,7 +232,7 @@ module RSyntaxTree
       return nil if run[:decoration].include?(:whitespace) && run[:text].strip.empty?
 
       segment = {
-        text: run[:text].gsub(WHITESPACE_BLOCK, " ").gsub('&#62;', '>').gsub('&#60;', '<'),
+        text: Element.plain_text(run[:text].gsub(WHITESPACE_BLOCK, " ")),
         decorations: run[:decoration].map(&:to_s).reject { |d| d == "whitespace" }
       }
       # A feature matrix used to reach this document as an empty segment
