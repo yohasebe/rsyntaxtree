@@ -51,6 +51,7 @@ module RSyntaxTree
       @shear_deg = (params[:shear] || 0).to_f
       @shear_k = (-Math.tan(@shear_deg * Math::PI / 180)).round(3)
       @shear_plane = params[:shear_plane] || "on"
+      @corner = params[:corner]
       @line_styles = "<line style='fill: none; stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; stroke-linejoin:round; stroke-linecap:round;' x1='X1' y1='Y1' x2='X2' y2='Y2' />\n"
       @polyline_styles = "<polyline style='stroke:#{@col_line}; stroke-width:#{@global[:stroke_normal]}; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='CHIX CHIY MIDX1 MIDY1 MIDX2 MIDY2 PARX PARY' />\n"
@@ -145,6 +146,13 @@ module RSyntaxTree
         @height = y2
       end
 
+      corner = ""
+      if @corner
+        corner, x1, y1, x2, y2 = corner_label(x1, y1, x2, y2)
+        @width = x2
+        @height = y2
+      end
+
       extra_lines = @extra_lines.join("\n")
 
       # Rounded like the stroke widths are: the arithmetic leaves float dust
@@ -200,6 +208,8 @@ module RSyntaxTree
       # below tree connectors and labels.
       shades = @region_shades.join
 
+      footer = corner + footer
+
       if @shear_k.zero?
         if @transparent
           header + shades + @tree_data + extra_lines + footer
@@ -235,6 +245,50 @@ module RSyntaxTree
           header + rect + body + footer
         end
       end
+    end
+
+    # A short string set in a corner of the finished image, such as the
+    # judgement mark of the sentence the tree is drawn for. It gets a strip of
+    # its own on its side of the canvas, so it never touches the tree and sits
+    # in the same place in every figure. Its top is level with the tree's
+    # highest ink, or its bottom with the lowest. It is drawn after the shear
+    # and the mirror, because it marks the image rather than the tree.
+    # Returns the text element and the grown canvas.
+    def corner_label(x1, y1, x2, y2)
+      size = @corner[:size] * FONT_SCALING
+      family = FontFamily.for_pango(@corner[:font_style])
+      m = FontMetrics.get_metrics(@corner[:text], family, size, :normal, :normal)
+      gap = @global[:h_gap_between_nodes]
+      inked = @element_list.get_elements.select { |e| e.ink_top && e.ink_bottom }
+      top = inked.map(&:ink_top).min || (y1 + gap)
+      bottom = inked.map(&:ink_bottom).max || (y1 + y2 - gap)
+      vertical, horizontal = @corner[:position].split("-")
+
+      baseline = if vertical == "top"
+                   top + m.ink_above
+                 else
+                   bottom - (m.ink_height - m.ink_above)
+                 end
+      if horizontal == "left"
+        x1 -= m.width + gap
+        x = x1 + gap
+      else
+        x = x1 + x2
+      end
+      x2 += m.width + gap
+
+      # Grown downward or upward only when the mark is taller than the tree.
+      ink_t = baseline - m.ink_above
+      ink_b = ink_t + m.ink_height
+      new_y1 = [y1, ink_t - gap].min
+      y2 = [y1 + y2, ink_b + gap].max - new_y1
+      y1 = new_y1
+
+      text = "<text x='#{x.round(3)}' y='#{baseline.round(3)}' white-space='pre' " \
+             "style='fill: #{@corner[:color]}; stroke-width: 0; font-size: #{size.round(3)}px' " \
+             "font-family=\"#{FontFamily.for_svg(@corner[:font_style])}\">" \
+             "#{CGI.escapeHTML(@corner[:text])}</text>\n"
+      [text, x1.round(3), y1.round(3), x2.round(3), y2.round(3)]
     end
 
     # Collect a background rectangle for every element flagged with '%'.

@@ -341,6 +341,9 @@ module RSyntaxTree
         edges: @edges,
         paths: @paths_data
       }
+      # The mark set in a corner of the image, with its defaults filled in;
+      # absent when there is none.
+      data[:meta][:source][:params][:corner_label] = @params[:corner] if @params[:corner]
       JSON.pretty_generate(data)
     end
   end

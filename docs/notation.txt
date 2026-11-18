@@ -114,6 +114,9 @@ Options (the command line spells them --like-this):
 | shear      | tilt the drawn figure: degrees, −45 to 45, positive leans the top right |
 | shear_plane | the plane behind a sheared figure: on (grey), off, or a colour; never drawn on a transparent background |
 | vmargin    | clearance between a label and its connectors, 0.1–1.0, the same above and below |
+| corner_label | a short string set in a corner of the image beside the tree, written as is (no markup) — a judgement mark such as * or ?? |
+| corner_label_position | top-left, top-right, bottom-left, bottom-right |
+| corner_label_size, corner_label_color, corner_label_fontstyle | 6–52 (1.5 × fontsize unless given), a colour name or hex (black unless given), a font style (fontstyle unless given) |
 
 hspacing and vheight are named for the top-to-bottom layout, and follow the
 tree rather than the page: with direction ltr, sisters stack downwards and

@@ -43,6 +43,9 @@ FORMAT_EXTENSIONS = {
   "tikz" => "tex" # forest code, to be included in a LaTeX document
 }.freeze
 
+# The names a font style may be given by: the tree's, and the corner label's.
+FONT_STYLE_VALUES = ["sans", "serif", "cjk", "mono", "noto-sans", "noto-serif", "noto-sans-mono", "cjk zenhei"].freeze
+
 # The values an option may carry, checked as given — before normalization —
 # so an alias the normalization already accepts keeps passing, and anything
 # else fails loudly instead of being silently read as something else. The
@@ -56,13 +59,15 @@ OPTION_VALUES = {
   # same initials, and claimed an interchange nobody else had implemented.
   format: FORMATS + ["lsif"],
   leafstyle: %w[auto triangle bar dashed nothing],
-  fontstyle: ["sans", "serif", "cjk", "mono", "noto-sans", "noto-serif", "noto-sans-mono", "cjk zenhei"],
+  fontstyle: FONT_STYLE_VALUES,
   color: %w[modern traditional gray grey off none on true false],
   tidy: %w[off symmetric low medium high on compact true false],
   direction: %w[ttb ltr btt],
   hyphen: %w[markup literal],
   derivation: %w[on off true false yes no 0 1 none],
-  leaf_align: %w[off words subtrees]
+  leaf_align: %w[off words subtrees],
+  corner_label_position: %w[top-left top-right bottom-left bottom-right],
+  corner_label_fontstyle: FONT_STYLE_VALUES
 }.freeze
 
 NUMERIC_RANGES = {
@@ -71,7 +76,8 @@ NUMERIC_RANGES = {
   vheight: 0.5..5.0,
   hspacing: 0.5..3.0,
   shear: -45..45,
-  vmargin: 0.1..1.0
+  vmargin: 0.1..1.0,
+  corner_label_size: 6..52
 }.freeze
 
 # Options 2.0 removed, and what to say instead. An unknown key is passed over
@@ -110,7 +116,8 @@ DEFAULT_OPTS = {
   # unequal air — a little more below every label than above it, an
   # unadjusted leftover of measuring from the layout box — with the same
   # clearance on both sides of the ink.
-  vmargin: 0.4
+  vmargin: 0.4,
+  corner_label_position: "top-left"
 }.freeze
 
 # A parse or generation failure. `message` is the human-readable text the
@@ -341,7 +348,7 @@ module RSyntaxTree
                               when "on", "true", "yes", "1" then "on"
                               when "off", "false", "no", "0", "none" then "off"
                               else
-                                unless COLOR_NAMES.include?(v.downcase) || v =~ /\A#(\h{3}|\h{6})\z/
+                                unless color_value?(v)
                                   raise RSTError.new(+"Error: invalid value for option 'shear_plane': #{value.inspect}",
                                                      code: :invalid_option, label: "shear_plane",
                                                      hint: "'shear_plane' is on, off, a colour name, " \
@@ -355,14 +362,30 @@ module RSyntaxTree
           # Fonts are resolved by name through fontconfig (measurement via
           # Pango, rendering via the SVG font-family attribute), so all a
           # style needs is its family fallback chain.
-          style = case value.to_s
-                  when "noto-sans-mono", "mono" then :mono
-                  when "noto-serif", "serif" then :serif
-                  when "cjk zenhei", "cjk" then :cjk
-                  else :sans
-                  end
+          style = font_style(value)
           fontset[:family] = FontFamily.for_pango(style)
           new_params[:fontstyle] = style.to_s
+        when :corner_label_fontstyle
+          new_params[key] = font_style(value).to_s
+        when :corner_label_position
+          new_params[key] = value.to_s
+        when :corner_label_size
+          new_params[key] = value.to_f
+        when :corner_label
+          # Written as given: it is a mark set beside the tree, not a label
+          # in it, so * and # are themselves rather than markup.
+          new_params[key] = value.to_s unless value.to_s.strip.empty?
+        when :corner_label_color
+          v = value.to_s.strip
+          unless v.empty?
+            unless color_value?(v)
+              raise RSTError.new(+"Error: invalid value for option 'corner_label_color': #{value.inspect}",
+                                 code: :invalid_option, label: "corner_label_color",
+                                 hint: "'corner_label_color' is a colour name or a hex colour of 3 or 6 digits.",
+                                 retryable: false)
+            end
+            new_params[key] = v
+          end
         else
           new_params[key] = value
         end
@@ -453,6 +476,33 @@ module RSyntaxTree
       @global[:stroke_bold] = (@params[:fontsize] * (0.05 * @params[:linewidth] + 0.05)).round(3)
       # hyphen: literal swaps the two readings of - when a label is parsed.
       @global[:literal_hyphen] = @params[:hyphen] == "literal"
+      # Everything the corner label needs, with its defaults filled in once
+      # for every format: half as large again as the tree's type, in the
+      # tree's face, in black.
+      if @params[:corner_label]
+        @params[:corner] = {
+          text: @params[:corner_label],
+          position: @params[:corner_label_position],
+          size: @params[:corner_label_size] || @params[:fontsize] / FONT_SCALING * 1.5,
+          color: @params[:corner_label_color] || "black",
+          font_style: @params[:corner_label_fontstyle] || @params[:fontstyle]
+        }
+      end
+    end
+
+    # A colour as a label's @color: takes it: a CSS name, or 3 or 6 hex digits.
+    def color_value?(value)
+      COLOR_NAMES.include?(value.downcase) || value.match?(/\A#(\h{3}|\h{6})\z/)
+    end
+
+    # The style a font style name stands for; anything unrecognised is sans.
+    def font_style(value)
+      case value.to_s
+      when "noto-sans-mono", "mono" then :mono
+      when "noto-serif", "serif" then :serif
+      when "cjk zenhei", "cjk" then :cjk
+      else :sans
+      end
     end
 
     # Two gates, because neither one alone tells the truth.

@@ -35,7 +35,12 @@ CONFIG_VALIDATORS = {
   tidy: ->(v) { OPTION_VALUES[:tidy].include?(v.to_s) ? nil : "must be off, symmetric, low, medium, or high" },
   hspacing: ->(v) { v.is_a?(Numeric) && v >= 0.5 && v <= 3.0 ? nil : "must be in the range of 0.5-3.0" },
   direction: ->(v) { OPTION_VALUES[:direction].include?(v.to_s) ? nil : "must be one of: #{OPTION_VALUES[:direction].join(', ')}" },
-  hyphen: ->(v) { OPTION_VALUES[:hyphen].include?(v.to_s) ? nil : "must be markup or literal" }
+  hyphen: ->(v) { OPTION_VALUES[:hyphen].include?(v.to_s) ? nil : "must be markup or literal" },
+  corner_label: ->(v) { v.is_a?(String) ? nil : "must be a string" },
+  corner_label_position: ->(v) { OPTION_VALUES[:corner_label_position].include?(v.to_s) ? nil : "must be top-left, top-right, bottom-left, or bottom-right" },
+  corner_label_size: ->(v) { v.is_a?(Numeric) && NUMERIC_RANGES[:corner_label_size].cover?(v) ? nil : "must be in the range of 6-52" },
+  corner_label_color: ->(v) { RSyntaxTree::COLOR_NAMES.include?(v.to_s.downcase) || v.to_s =~ /\A#(\h{3}|\h{6})\z/ ? nil : "must be a colour name or a hex colour" },
+  corner_label_fontstyle: ->(v) { OPTION_VALUES[:corner_label_fontstyle].include?(v.to_s) ? nil : "must be sans, serif, cjk, or mono" }
 }.freeze
 
 # Validate configuration and return errors/warnings
@@ -128,6 +133,11 @@ opts = Optimist.options do
   opt :hspacing, "Horizontal spacing factor (counterpart of vheight): 0.5-3.0", default: 1.0, short: :none
   opt :direction, "Tree layout direction: ttb (top-to-bottom), ltr (left-to-right) or btt (bottom-to-top, the root last)", default: "ttb", short: :d
   opt :derivation, "Join each node to its daughters with one rule drawn across them, as a derivation is written, rather than with a line to each: on, off", default: "off", short: :none
+  opt :corner_label, "A short string set in a corner of the image, as written (no markup), such as a judgement mark", type: :string, short: :none
+  opt :corner_label_position, "Where the corner label goes: top-left, top-right, bottom-left, or bottom-right", default: "top-left", short: :none
+  opt :corner_label_size, "Size of the corner label: 6-52 (default: 1.5 times fontsize)", type: :float, short: :none
+  opt :corner_label_color, "Colour of the corner label: a colour name or a hex colour (default: black)", type: :string, short: :none
+  opt :corner_label_fontstyle, "Font style of the corner label: sans, serif, cjk, mono (default: fontstyle)", type: :string, short: :none
   opt :hyphen, "How a hyphen in a label reads: markup (-underline-) or literal (a hyphen; \-underline\- then underlines)", default: "markup", short: :none
   opt :validate, "Validate the input without drawing or writing a file: print a machine-readable diagnosis (JSON) to stdout and report the result in the exit code", short: :none
   opt :notation, "Print the notation reference to stdout and exit", short: :none

@@ -900,6 +900,31 @@ librsvg が描画しないため，絵文字を含む図は Linux か Docker イ
 
 </div>
 
+#### 図の隅の記号
+
+`--corner-label` は，短い文字列を図の隅，木の横に置きます．木が表す文の
+容認性判断の記号（`*`，`?`，`#`）を付けるためのもので，容認されない文の図と
+対照例の図が一目で見分けられます．文字列は書かれたとおりに表示され，`*` や
+`#` が記法として読まれることはありません．
+
+```bash
+rsyntaxtree -f svg --corner-label "*" --corner-label-color red "[S [NP the cat] [VP sat]]"
+```
+
+| オプション | 値 | 既定 |
+|-----------|----|------|
+| `--corner-label` | 文字列 | なし |
+| `--corner-label-position` | `top-left`，`top-right`，`bottom-left`，`bottom-right` | `top-left` |
+| `--corner-label-size` | 6–52 | `fontsize` の1.5倍 |
+| `--corner-label-color` | 色の名前または16進の色 | `black` |
+| `--corner-label-fontstyle` | `sans`，`serif`，`cjk`，`mono` | `fontstyle` と同じ |
+
+図はその側に文字列の幅だけ広がるので，記号が木に重なることはなく，どの図でも
+同じ場所に置かれます．上の隅では木のいちばん上の文字に，下の隅ではいちばん下の
+文字にそろいます．隅は出来上がった画像の隅で，方向・左右反転・シアーで記号が
+動いたり傾いたりすることはありません．TikZ出力では，記号は木の外枠の横に置かれ，
+大きさは文書の文字に対する比率で決まります．
+
 #### 描画せずに入力を検査する
 
 `--validate` は，入力が描画できるかどうかだけを報告します．描画も出力ファイルの

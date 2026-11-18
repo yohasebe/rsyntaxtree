@@ -914,6 +914,33 @@ image.
 
 </div>
 
+#### A Mark in the Corner
+
+`--corner-label` sets a short string in a corner of the image, beside the
+tree. It is meant for the judgement mark of the sentence the tree is drawn for
+(`*`, `?`, `#`), so the figure of an unacceptable sentence can be told from
+its acceptable counterpart at a glance. The string is written as given: `*`
+and `#` are themselves, not markup.
+
+```bash
+rsyntaxtree -f svg --corner-label "*" --corner-label-color red "[S [NP the cat] [VP sat]]"
+```
+
+| Option | Value | Default |
+|--------|-------|---------|
+| `--corner-label` | The string | none |
+| `--corner-label-position` | `top-left`, `top-right`, `bottom-left`, `bottom-right` | `top-left` |
+| `--corner-label-size` | 6–52 | 1.5 × `fontsize` |
+| `--corner-label-color` | A colour name or a hex colour | `black` |
+| `--corner-label-fontstyle` | `sans`, `serif`, `cjk`, `mono` | `fontstyle` |
+
+The canvas grows on that side by the width of the string, so the mark never
+touches the tree and sits in the same place in every figure. At the top it is
+level with the highest text of the tree, at the bottom with the lowest. The
+corner is the corner of the finished image: direction, mirror and shear do not
+move or tilt the mark. In TikZ output the mark is set beside the tree's
+bounding box, scaled against the document's type.
+
 #### Checking Input Without Drawing
 
 `--validate` reports whether the input would draw. Nothing is drawn and no

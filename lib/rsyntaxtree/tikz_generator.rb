@@ -190,6 +190,7 @@ module RSyntaxTree
       label = extract_label(element)
       escaped_label = escape_latex(label)
       head = "#{escaped_label}#{leaf_edge_option(element)}#{region_option(element)}"
+      head += corner_label_option if element_id == 1
 
       children = element.children
       indent_str = "  " * indent
@@ -226,6 +227,28 @@ module RSyntaxTree
         "fill opacity=#{REGION_FILL_OPACITY}, draw=#{color}, " \
         "draw opacity=#{REGION_STROKE_OPACITY}, rounded corners, inner sep=4pt, " \
         "fit to=tree]{};}}"
+    end
+
+    # The corner label, set by the root once the whole tree is drawn, so the
+    # bounding box it stands beside is the tree's. Its size is kept as a
+    # ratio to the tree's type, which in LaTeX is the document's.
+    CORNER_ANCHORS = {
+      "top-left" => ["north east", "north west", "-"],
+      "top-right" => ["north west", "north east", ""],
+      "bottom-left" => ["south east", "south west", "-"],
+      "bottom-right" => ["south west", "south east", ""]
+    }.freeze
+
+    def corner_label_option
+      corner = @params[:corner]
+      return "" unless corner
+
+      anchor, at, sign = CORNER_ANCHORS.fetch(corner[:position])
+      scale = (corner[:size] * FONT_SCALING / @params[:fontsize]).round(3)
+      ", tikz+={\\node[anchor=#{anchor}, inner sep=0pt, scale=#{scale}, " \
+        "text=#{tikz_region_color(corner[:color])}] " \
+        "at ([xshift=#{sign}0.5em]current bounding box.#{at}) " \
+        "{#{escape_latex(corner[:text])}};}"
     end
 
     # Map an RSyntaxTree color (name or #hex) to a TikZ fill color expression.

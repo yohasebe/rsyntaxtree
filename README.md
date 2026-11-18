@@ -165,7 +165,7 @@ Usage:
 |--------|-------------|---------|
 | `-o, --outdir` | Output directory | `./` |
 | `-f, --format` | Output format: png, svg, pdf, json, tikz | `png` |
-| `-l, --leafstyle` | Leaf style: auto, triangle, bar, nothing | `auto` |
+| `-l, --leafstyle` | Leaf style: auto, triangle, bar, dashed, nothing | `auto` |
 | `-n, --fontstyle` | Font style: sans, serif, cjk, mono | `sans` |
 | `-s, --fontsize` | Font size: 6-26 | `16` |
 | `-i, --linewidth` | Line width relative to the font size: 0.5-3.0 (`1` = 5% of the font size) | `1.0` |
@@ -183,6 +183,11 @@ Usage:
 | `--shear` | Tilt the drawn figure, in degrees (-45 to 45, positive leans the top right) | `0` |
 | `--shear-plane` | The plane behind a sheared figure: on, off, or a colour | `on` |
 | `--vmargin` | Clearance between a label and its connectors (0.1-1.0, same above and below) | `0.4` |
+| `--corner-label` | A short string set in a corner of the image, as written (no markup), such as a judgement mark | |
+| `--corner-label-position` | Which corner: top-left, top-right, bottom-left, bottom-right | `top-left` |
+| `--corner-label-size` | Size of the corner label (6-52) | 1.5 × font size |
+| `--corner-label-color` | Colour of the corner label: a colour name or hex | `black` |
+| `--corner-label-fontstyle` | Font style of the corner label: sans, serif, cjk, mono | font style |
 | `-r, --transparent` | Leave the background clear instead of painting it white: on, off | `off` |
 | `--validate` | Check the input without drawing: a JSON diagnosis on stdout, the verdict in the exit code | |
 | `--notation` | Print a short reference for the notation | |
