@@ -620,6 +620,12 @@ module RSyntaxTree
     # the :ordered nest mode only; see tidy_compress.
     TIDY_LEVEL_BALANCE = 1.0
 
+    # The same floor in the :free nest mode, set lower so that the mode keeps
+    # most of its density: a pair may close to this fraction of the widest
+    # pair below it, which still opens the narrowest branches up, the ones
+    # that stood steep beside the flat branches of a level further down.
+    TIDY_LEVEL_BALANCE_FREE = 0.8
+
     # Base multiplier for the minimum clearance between adjacent subtrees.
     # At 1.0 (= raw h_gap_between_nodes) leaf labels sit closer than in the
     # standard layout, which reads as crowded; 2.5 restores comparable air
@@ -678,6 +684,26 @@ module RSyntaxTree
                   rects.map { |r| r[1] }.max + pad,
                   rects.map { |r| r[2] }.min - pad,
                   rects.map { |r| r[3] }.max + pad]
+      end
+      rects
+    end
+
+    # What packing has to keep clear of: the subtree's rects, and below each
+    # end of a movement path in it, the column its line runs down on its way
+    # to the rail under the tree. Packing a neighbour into that column put a
+    # word under the line. Laid out before any flip or turn, the line always
+    # leaves towards larger y. Lines between nodes (+-1) are drawn straight
+    # across and need no column.
+    def packing_rects(id)
+      rects = subtree_rects(id)
+      stack = [@element_list.get_id(id)]
+      until stack.empty?
+        node = stack.pop
+        if node.path.any? { |marker| !marker.start_with?("-") }
+          y0, y1, x0, x1 = effective_rect(node)
+          rects << [y1, Float::INFINITY, x0, x1] if y1 > y0
+        end
+        node.children.each { |c| stack << @element_list.get_id(c) }
       end
       rects
     end
@@ -784,7 +810,7 @@ module RSyntaxTree
       parents.sort_by { |p| [-p.level, -p.id] }.each do |parent|
         children = parent.children.map { |c| @element_list.get_id(c) }
         children.each_cons(2) do |left_child, right_child|
-          clearance = contour_clearance(subtree_rects(left_child.id), subtree_rects(right_child.id))
+          clearance = contour_clearance(packing_rects(left_child.id), packing_rects(right_child.id))
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 
           case @tidy_nest
@@ -809,26 +835,27 @@ module RSyntaxTree
             end
           end
 
-          # Level-balance floor (:ordered only): keep the pair at least a
-          # fraction of the widest child-level spread found inside its own
-          # two subtrees. Nesting can tuck an upper pair far narrower than
-          # the level right below it — an inversion that reads as a
-          # needle-thin top over flat lower branches.
+          # Level-balance floor: keep the pair at least a fraction of the
+          # widest child-level spread found inside its own two subtrees.
+          # Nesting can tuck an upper pair far narrower than the level right
+          # below it — an inversion that reads as a needle-thin top over flat
+          # lower branches.
           #
           # :none does not need it, since the leaf-span guard already
-          # prevents such inversions. :free deliberately goes without: it is
-          # the end of the scale where density outranks even branch angles,
-          # and with the floor in place it compressed no further than
-          # :ordered on all but a handful of trees.
+          # prevents such inversions. :free, the end of the scale where
+          # density comes first, takes a weaker floor: at full strength it
+          # compressed no further than :ordered on all but a handful of
+          # trees, and with none, a bare word beside a phrase stood at a
+          # sharply steeper angle than the levels around it.
           #
           # Compression is a negative delta (the right subtree moves left),
           # so the floor bounds delta from below.
-          if @tidy_nest == :ordered && delta.negative?
+          if %i[ordered free].include?(@tidy_nest) && delta.negative?
             dist = (right_child.horizontal_indent + right_child.content_width / 2.0) -
                    (left_child.horizontal_indent + left_child.content_width / 2.0)
             below = [left_child, right_child].map { |c| child_spread(c) }.compact.max
             if below
-              min_dist = below * TIDY_LEVEL_BALANCE
+              min_dist = below * (@tidy_nest == :free ? TIDY_LEVEL_BALANCE_FREE : TIDY_LEVEL_BALANCE)
               delta = [delta, min_dist - dist].max
             end
           end

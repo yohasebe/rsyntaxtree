@@ -149,7 +149,7 @@ The `Tidy layout` option (`tidy`, CLI `--tidy`) selects the layout mode, on one 
 - **Off** (`off`): the plainest layout. If it looks unbalanced, try one of the tidy modes.
 - **Low** (`low`): adjacent subtrees are pulled toward each other wherever their outlines leave unused space. Every leaf keeps its strict left-to-right position, so word order is preserved across the whole figure.
 - **Medium** (`medium`): compresses further by letting a shallow subtree tuck into the empty space above the deep tail of its neighbor (e.g. a specifier NP moving toward the head). Two leaves never swap their left-right order.
-- **High** (`high`): the densest mode, tucking without limit and allowing branch angles to differ sharply between levels if that buys width. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
+- **High** (`high`): the densest mode, tucking without limit. Branch angles may differ between levels if that buys width, though a pair of branches is not closed far narrower than the pairs below it. Leaf order is guaranteed only among leaves on the same row, so the linear order of the sentence may be broken locally along the horizontal axis of the figure.
 
 One tree at each of the five settings, narrowing at every step. The last two are set side by
 side, where the difference is smallest: `high` pulls *sell* in against the
@@ -194,7 +194,7 @@ High
 
 `high` pays off on deeply lopsided trees; on a well-balanced one it often lands close to `medium`. `off`, `low` and `medium` cover ordinary work.
 
-Connector heights adjust automatically in tidy mode. `H spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `V spacing` (`vheight`) scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
+In the packing modes (`low`, `medium`, `high`), nothing is packed into the column below an end of a movement path, so the path never runs over a label on its way down. Connector heights adjust automatically in tidy mode. `H spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `V spacing` (`vheight`) scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
 
 ### Mirrored Layout for RTL Scripts
 
