@@ -836,18 +836,8 @@ module RSyntaxTree
         decoration = "text-decoration=\"" + decorations.join(" ") + "\""
 
         style = "style=\""
-        if e[:decoration].include?(:small)
-          style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-          this_y = text_y - ((@global[:single_x_metrics].height - @global[:single_x_metrics].height * SUBSCRIPT_CONST) / 4) + @fontsize / 16.0
-        elsif e[:decoration].include?(:superscript)
-          style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-          this_y = text_y - (@global[:single_x_metrics].height / 4) + @fontsize / 32.0
-        elsif e[:decoration].include?(:subscript)
-          style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; "
-          this_y = text_y + @fontsize / 8.0
-        else
-          this_y = text_y
-        end
+        this_y = text_y + Element.baseline_shift(e[:decoration], @global, @fontsize)
+        style += "font-size: #{(SUBSCRIPT_CONST.to_f * 100).to_i}%; " if e[:decoration].intersect?(%i[small superscript subscript])
 
         style += "font-weight: bold; fill: #{@col_emph}; " if e[:decoration].include?(:bold) || e[:decoration].include?(:bolditalic)
         style += "font-style: italic; " if e[:decoration].include?(:italic) || e[:decoration].include?(:bolditalic)

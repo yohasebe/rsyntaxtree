@@ -596,6 +596,21 @@ module RSyntaxTree
               e[:text] = ""
             end
 
+            # How far the run's ink reaches above and below the line's
+            # baseline, where it is drawn: a shape by its outline, text by its
+            # glyphs, both moved with a run set off the baseline.
+            shift = Element.baseline_shift(decoration, @global, @fontsize)
+            if (decoration & %i[box circle bar]).any?
+              e[:ink_up] = e[:enc_above] - shift
+              e[:ink_down] = e[:enc_height] - e[:enc_above] + shift
+            elsif !(decoration & %i[whitespace tabstop]).any? && !text.to_s.empty?
+              ink = FontMetrics.get_metrics(text, font, fontsize, style, weight)
+              if ink.ink_height.positive?
+                e[:ink_up] = ink.ink_above - shift
+                e[:ink_down] = ink.ink_height - ink.ink_above + shift
+              end
+            end
+
             e[:height] = height
 
             # What the label measures is not what its rows advance by. A line
@@ -684,10 +699,34 @@ module RSyntaxTree
     # vmargin would have the rows touch.
     LINE_GAP_FLOOR = 0.25
 
+    #
+    # The rows are set by the font's band, as the connectors are; but where
+    # what is actually written reaches further — a box, a superscript, an
+    # accent, an emoji — the inks are still kept the floor apart.
     def line_advance(above, below)
       rhythm = above[:elements].map { |x| x[:height] }.max
-      gap = [@global[:single_x_metrics].height * @global[:vmargin].to_f, @fontsize * LINE_GAP_FLOOR].max
-      [@global[:descender] * type_scale(above) + gap + @global[:cap_height] * type_scale(below), rhythm].min
+      floor = @fontsize * LINE_GAP_FLOOR
+      gap = [@global[:single_x_metrics].height * @global[:vmargin].to_f, floor].max
+      by_band = @global[:descender] * type_scale(above) + gap + @global[:cap_height] * type_scale(below)
+      by_ink = above[:elements].filter_map { |x| x[:ink_down] }.max.to_f + floor +
+               below[:elements].filter_map { |x| x[:ink_up] }.max.to_f
+      [[by_band, by_ink].max, rhythm].min
+    end
+
+    # How far a run is drawn below its line's baseline (negative: above). A
+    # small, superscript or subscript run is set off the baseline; the
+    # drawing places it by this, and the spacing of rows reckons with it.
+    def self.baseline_shift(decoration, global, fontsize)
+      h = global[:single_x_metrics].height
+      if decoration.include?(:small)
+        -((h - (h * SUBSCRIPT_CONST)) / 4) + (fontsize / 16.0)
+      elsif decoration.include?(:superscript)
+        -(h / 4) + (fontsize / 32.0)
+      elsif decoration.include?(:subscript)
+        fontsize / 8.0
+      else
+        0.0
+      end
     end
 
     # How large the type of a line is against the label's: smaller when every

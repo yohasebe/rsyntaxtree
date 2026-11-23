@@ -68,6 +68,24 @@ class LineSpacingTest < Minitest::Test
     assert_in_delta (g[:descender] + g[:cap_height]) * small + gap, label.content[2][:advance], 0.01
   end
 
+  # What is actually written is kept the floor apart even where it reaches
+  # past the font's band: a box beside text, a superscript, an accent, an
+  # emoji. Unless the usual leading is already all there is.
+  ["[a|漢|\\na|漢|]", "[g\\n__A__]", "[x_g_\\nA]", "[😀\\n😀]", "[g\\nÁ]"].each do |data|
+    define_method "test_#{data}_keeps_its_rows_apart" do
+      gen = generator(data, vmargin: 0.1, fontsize: 16)
+      label = gen.send(:parsed_element_list).get_elements.first
+      above, below = label.content.select { |l| l[:type] == :text }
+      rhythm = above[:elements].map { |x| x[:height] }.max
+      gap = below[:advance] - above[:elements].filter_map { |x| x[:ink_down] }.max -
+            below[:elements].filter_map { |x| x[:ink_up] }.max
+
+      next pass if below[:advance] >= rhythm - 0.01
+
+      assert_operator gap, :>=, fontsize(gen) * RSyntaxTree::Element::LINE_GAP_FLOOR - 0.01
+    end
+  end
+
   # A grid of shapes closes up by its shapes, as it always has.
   def test_a_row_of_shapes_keeps_its_own_spacing
     data = "[|○|||\\n|×||○|]"
