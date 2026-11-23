@@ -112,7 +112,7 @@ explains it. Every sample here is drawn by a test, so each one works.
 - `derivation` — derivation figures → [Derivations](#derivations)
 - `hyphen` — whether a hyphen is markup or a character → [Hyphens](#hyphens)
 - `shear` and `shear_plane` — tilt the finished figure so it lies on a tilted plane → [Shear](#shear)
-- `vmargin` — the clearance between a label and its connectors, the same above as below
+- `vmargin` — the clearance between a label and its connectors, the same above as below. Where it is tighter than the usual leading, the lines of a wrapped label close up to it, never under a quarter of the type
 
 ### Tree Direction
 

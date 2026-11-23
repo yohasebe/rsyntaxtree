@@ -422,6 +422,7 @@ module RSyntaxTree
       total_width = 0
       total_height = 0
       one_bvm_given = nested
+      prev_text = nil
       lines.each do |content|
         content_width = 0
         case content[:type]
@@ -429,6 +430,7 @@ module RSyntaxTree
           height = @global[:single_line_height] / 2
           content[:height] = height
           total_height += height
+          prev_text = nil
         when :text
           row_width = 0
           elements_height = []
@@ -611,6 +613,13 @@ module RSyntaxTree
 
           content[:height] = elements_height.max
           total_height += elements_height.max + content[:top_room].to_f
+          # The rows of a nested matrix keep their rhythm: the matrix is drawn
+          # row by row at it, and is a block of its own inside the label.
+          if !nested && prev_text && text_row?(prev_text) && text_row?(content)
+            content[:advance] = line_advance(prev_text, content)
+            total_height += content[:advance] - prev_text[:elements].map { |x| x[:height] }.max
+          end
+          prev_text = content
           content_width += row_width
         end
         total_width = content_width if total_width < content_width
@@ -666,6 +675,40 @@ module RSyntaxTree
     # through here so that the one holding a feature matrix is given it too: it
     # used to be measured without, and a matrix node came out shorter than the
     # rows drawn in it, which sat its daughters up inside the matrix.
+    # How far one row of text is set below the row before it. A connector
+    # stops vmargin short of a label's ink, and where that clearance is the
+    # smaller of the two, the rows are set the same distance apart, so that a
+    # label wrapped over lines reads as one block with its line and not as
+    # rows hanging loose under a tight joint. Never wider than the usual
+    # rhythm, and never closer than LINE_GAP_FLOOR of the type, where a tiny
+    # vmargin would have the rows touch.
+    LINE_GAP_FLOOR = 0.25
+
+    def line_advance(above, below)
+      rhythm = above[:elements].map { |x| x[:height] }.max
+      gap = [@global[:single_x_metrics].height * @global[:vmargin].to_f, @fontsize * LINE_GAP_FLOOR].max
+      [@global[:descender] * type_scale(above) + gap + @global[:cap_height] * type_scale(below), rhythm].min
+    end
+
+    # How large the type of a line is against the label's: smaller when every
+    # run with ink in it is set small, as a note in ___ is.
+    def type_scale(line)
+      inked = line[:elements].reject { |x| x[:text].to_s.gsub(WHITESPACE_BLOCK, "").strip.empty? }
+      return 1.0 if inked.empty?
+
+      inked.map { |x| (x[:decoration] & %i[small subscript superscript]).empty? ? 1.0 : SUBSCRIPT_CONST }.max
+    end
+
+    # A row of text: no nested matrix, and some run that is not a shape. A
+    # row of nothing but shapes keeps the spacing that closes a grid up.
+    def text_row?(line)
+      return false if line[:top_room] || line[:elements].any? { |x| x[:decoration].include?(:matrix) }
+
+      line[:elements].any? do |x|
+        (x[:decoration] & %i[box circle bar whitespace tabstop]).empty? && !x[:text].to_s.gsub(WHITESPACE_BLOCK, "").strip.empty?
+      end
+    end
+
     def with_first_row_margin(height, already_given)
       already_given ? height : height + @global[:box_vertical_margin]
     end

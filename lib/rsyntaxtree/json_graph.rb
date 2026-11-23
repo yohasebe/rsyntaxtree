@@ -48,7 +48,7 @@ module RSyntaxTree
         when :border, :bborder
           text_y += idx.zero? ? -l[:height] : l[:height]
         when :text
-          text_y += l[:elements].map { |e| e[:height] }.max if idx != 0
+          text_y += (l[:advance] || l[:elements].map { |e| e[:height] }.max) if idx != 0
         end
         @height = text_y if text_y > @height
       end
