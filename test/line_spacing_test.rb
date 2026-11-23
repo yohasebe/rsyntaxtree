@@ -5,6 +5,7 @@ require "minitest/pride"
 
 require_relative "../lib/rsyntaxtree"
 require_relative "../lib/rsyntaxtree/utils"
+require "rsvg2"
 
 # The rows of a wrapped label are set as far apart as a connector stops short
 # of the label (vmargin), where that is closer than the usual rhythm, and no
@@ -69,22 +70,46 @@ class LineSpacingTest < Minitest::Test
   end
 
   # What is actually written is kept the floor apart even where it reaches
-  # past the font's band: a box beside text, a superscript, an accent, an
-  # emoji. Unless the usual leading is already all there is.
-  [["[a|漢|\\na|漢|]"], ["[g\\n__A__]"], ["[x_g_\\nA]"], ["[😀\\n😀]"], ["[g\\nÁ]"],
-   ["[g\\n____Á____]"], ["[g\\n__=x=__]"], ["[a*|g|*\\nA]", { linewidth: 3 }], ["[a--\\na--]"]].each do |data, extra|
-    define_method "test_#{data}_keeps_its_rows_apart" do
-      gen = generator(data, { vmargin: 0.1, fontsize: 16 }.merge(extra || {}))
-      label = gen.send(:parsed_element_list).get_elements.first
-      above, below = label.content.select { |l| l[:type] == :text }
-      rhythm = above[:elements].map { |x| x[:height] }.max
-      gap = below[:advance] - above[:elements].filter_map { |x| x[:ink_down] }.max -
-            below[:elements].filter_map { |x| x[:ink_up] }.max
-
-      next pass if below[:advance] >= rhythm - 0.01
-
-      assert_operator gap, :>=, fontsize(gen) * RSyntaxTree::Element::LINE_GAP_FLOOR - 0.01
+  # past the font's band — a box beside text, a raised superscript, an accent,
+  # an emoji, an overline, a heavy stroke — measured on the drawing itself:
+  # the rows of ink pixels the two lines leave, and the blank rows between.
+  # Where the usual leading is already less than that, the rows stay at it,
+  # no closer than they always were.
+  def ink_row_gap(svg)
+    handle = RSVG::Handle.new_from_data(svg)
+    dim = handle.dimensions
+    surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, dim.width, dim.height)
+    Cairo::Context.new(surface).render_rsvg_handle(handle)
+    stride = surface.stride
+    data = surface.data
+    inked = (0...dim.height).map do |y|
+      (0...dim.width).any? { |x| data.getbyte((y * stride) + (x * 4) + 3) > 96 }
     end
+    first = inked.index(true)
+    last = inked.rindex(true)
+    runs = inked[first..last].chunk(&:itself).map { |on, rows| [on, rows.size] }
+    runs.reject(&:first).map(&:last).max || 0
+  end
+
+  [["[a|漢|\\na|漢|]"], ["[g\\n__A__]"], ["[x_g_\\nA]"], ["[😀\\n😀]"], ["[g\\nÁ]"],
+   ["[g\\n____Á____]"], ["[g\\n__=x=__]"], ["[a*|g|*\\nA]", { linewidth: 3 }], ["[a--\\na--]"],
+   ["[g\\n__=\\\\=__]"], ["[g\\n____|Á|____\\t___x___]"]].each do |data, extra|
+    define_method "test_#{data}_keeps_its_rows_apart" do
+      opts = { vmargin: 0.1, transparent: "on" }.merge(extra || {})
+      gen = generator(data, opts)
+      usual = generator(data, opts.merge(vmargin: 0.4))
+      floor = fontsize(gen) * RSyntaxTree::Element::LINE_GAP_FLOOR
+
+      assert_operator ink_row_gap(gen.draw_svg), :>=, [floor, ink_row_gap(usual.draw_svg)].min - 2
+    end
+  end
+
+  # A bar is a stroke across the line, not a box: rows of them close up.
+  def test_rows_of_bars_close_up
+    tight = generator("[a--\\na--]", vmargin: 0.1).draw_svg[/height="([\d.]+)"/, 1].to_f
+    usual = generator("[a--\\na--]", vmargin: 0.4).draw_svg[/height="([\d.]+)"/, 1].to_f
+
+    assert_operator tight, :<, usual
   end
 
   # A grid of shapes closes up by its shapes, as it always has.

@@ -492,14 +492,16 @@ module RSyntaxTree
             end
 
             text = typeset(e[:text])
+            painted = text.gsub("\\\\", "\\")
             e[:text] = stored(text)
             typed_parts = e[:parts]&.map { |part, _| typeset(part) }
             e[:parts]&.each_with_index { |part, i| part[0] = stored(typed_parts[i]) }
 
             @contains_phrase = true if text.include?(" ")
             decoration = e[:decoration]
-            fontsize = decoration.include?(:small) ? @fontsize * SUBSCRIPT_CONST : @fontsize
-            fontsize = decoration.include?(:subscript) || decoration.include?(:superscript) ? fontsize * SUBSCRIPT_CONST : fontsize
+            # The size the run is drawn at: small, superscript and subscript
+            # each set it at SUBSCRIPT_CONST once, nested or not.
+            fontsize = (decoration & %i[small subscript superscript]).any? ? @fontsize * SUBSCRIPT_CONST : @fontsize
             style    = decoration.include?(:italic) || decoration.include?(:bolditalic) ? :italic : :normal
             weight   = decoration.include?(:bold) || decoration.include?(:bolditalic) ? :bold : :normal
             # Bold/italic are expressed through Pango's style/weight parameters,
@@ -611,11 +613,11 @@ module RSyntaxTree
             elsif (decoration & %i[box circle]).any?
               e[:ink_up] = e[:enc_above] + stroke - shift
               e[:ink_down] = e[:enc_height] - e[:enc_above] + stroke + shift
-            elsif !(decoration & %i[whitespace tabstop]).any? && !text.to_s.empty?
-              # At the size it is drawn at: small, superscript and subscript
-              # each set a run at SUBSCRIPT_CONST once, nested or not.
-              drawn = (decoration & %i[small superscript subscript]).any? ? @fontsize * SUBSCRIPT_CONST : @fontsize
-              ink = FontMetrics.get_metrics(text, font, drawn, style, weight)
+            elsif !(decoration & %i[whitespace tabstop]).any? && !painted.strip.empty?
+              # The glyphs as they are painted, escapes and all, at the size
+              # they are drawn at.
+              drawn = fontsize
+              ink = FontMetrics.get_metrics(painted, font, drawn, style, weight)
               if ink.ink_height.positive?
                 up = ink.ink_above
                 down = ink.ink_height - ink.ink_above
