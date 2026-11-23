@@ -125,7 +125,9 @@ module FontMetrics
   # ink_left and ink_width place the marks across: where the first one
   # starts, measured from the text's origin, and how far they run. A glyph can
   # start left of its origin or run past its advance.
-  Metrics = Struct.new(:width, :height, :ink_height, :ink_above, :ink_left, :ink_width)
+  # ascent is how far the font's line reaches above the baseline, where an
+  # overline is drawn.
+  Metrics = Struct.new(:width, :height, :ink_height, :ink_above, :ink_left, :ink_width, :ascent)
 
   # Vertical rhythm is defined deterministically from the font size rather
   # than taken from Pango's font-dependent logical extents. The 1.4 factor
@@ -168,7 +170,7 @@ module FontMetrics
     width, = layout.pixel_size
     ink, = layout.pixel_extents
     baseline = layout.baseline / Pango::SCALE.to_f
-    Metrics.new(width, fontsize * LINE_HEIGHT_FACTOR, ink.height, baseline - ink.y, ink.x, ink.width)
+    Metrics.new(width, fontsize * LINE_HEIGHT_FACTOR, ink.height, baseline - ink.y, ink.x, ink.width, baseline)
   end
 
   def pango_layout

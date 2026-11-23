@@ -600,14 +600,31 @@ module RSyntaxTree
             # baseline, where it is drawn: a shape by its outline, text by its
             # glyphs, both moved with a run set off the baseline.
             shift = Element.baseline_shift(decoration, @global, @fontsize)
-            if (decoration & %i[box circle bar]).any?
-              e[:ink_up] = e[:enc_above] - shift
-              e[:ink_down] = e[:enc_height] - e[:enc_above] + shift
+            stroke = (decoration.include?(:bstroke) ? @global[:stroke_bold] : @global[:stroke_normal]) / 2.0
+            if decoration.include?(:bar)
+              # A bar is a stroke across the middle of the shape's height,
+              # with its arrowheads reaching a quarter of its length about it.
+              mid = e[:enc_above] - (e[:enc_height] / 2.0)
+              reach = (decoration & %i[arrow_to_l arrow_to_r]).any? ? width / 8.0 : 0.0
+              e[:ink_up] = mid + reach + stroke - shift
+              e[:ink_down] = -mid + reach + stroke + shift
+            elsif (decoration & %i[box circle]).any?
+              e[:ink_up] = e[:enc_above] + stroke - shift
+              e[:ink_down] = e[:enc_height] - e[:enc_above] + stroke + shift
             elsif !(decoration & %i[whitespace tabstop]).any? && !text.to_s.empty?
-              ink = FontMetrics.get_metrics(text, font, fontsize, style, weight)
+              # At the size it is drawn at: small, superscript and subscript
+              # each set a run at SUBSCRIPT_CONST once, nested or not.
+              drawn = (decoration & %i[small superscript subscript]).any? ? @fontsize * SUBSCRIPT_CONST : @fontsize
+              ink = FontMetrics.get_metrics(text, font, drawn, style, weight)
               if ink.ink_height.positive?
-                e[:ink_up] = ink.ink_above - shift
-                e[:ink_down] = ink.ink_height - ink.ink_above + shift
+                up = ink.ink_above
+                down = ink.ink_height - ink.ink_above
+                # An overline is drawn at the top of the font's line, an
+                # underline a little under the baseline.
+                up = [up, ink.ascent].max if decoration.include?(:overline)
+                down = [down, drawn * 0.15].max if decoration.include?(:underline)
+                e[:ink_up] = up - shift
+                e[:ink_down] = down + shift
               end
             end
 

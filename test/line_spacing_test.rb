@@ -71,9 +71,10 @@ class LineSpacingTest < Minitest::Test
   # What is actually written is kept the floor apart even where it reaches
   # past the font's band: a box beside text, a superscript, an accent, an
   # emoji. Unless the usual leading is already all there is.
-  ["[a|漢|\\na|漢|]", "[g\\n__A__]", "[x_g_\\nA]", "[😀\\n😀]", "[g\\nÁ]"].each do |data|
+  [["[a|漢|\\na|漢|]"], ["[g\\n__A__]"], ["[x_g_\\nA]"], ["[😀\\n😀]"], ["[g\\nÁ]"],
+   ["[g\\n____Á____]"], ["[g\\n__=x=__]"], ["[a*|g|*\\nA]", { linewidth: 3 }], ["[a--\\na--]"]].each do |data, extra|
     define_method "test_#{data}_keeps_its_rows_apart" do
-      gen = generator(data, vmargin: 0.1, fontsize: 16)
+      gen = generator(data, { vmargin: 0.1, fontsize: 16 }.merge(extra || {}))
       label = gen.send(:parsed_element_list).get_elements.first
       above, below = label.content.select { |l| l[:type] == :text }
       rhythm = above[:elements].map { |x| x[:height] }.max
