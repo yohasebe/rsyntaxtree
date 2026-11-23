@@ -70,7 +70,7 @@ explains it. Every sample here is drawn by a test, so each one works.
 - `[S [NP the cat] [VP sat]]` — a node and its children → [Basic Usage](#basic-usage)
 - `(S (NP the cat) (VP sat))` — Penn Treebank input, converted on sight → [Penn Treebank Format](#penn-treebank-format)
 - `^cats` — force a triangle over one leaf (a spaced leaf gets one by itself) → [Connectors](#connectors)
-- `<>` as a whole label — an invisible joint, to level the terminals → [Levelling the Terminals](#levelling-the-terminals)
+- `<>` as a whole label — an invisible joint, to level the terminals or to leave a branching point unlabeled → [Levelling the Terminals](#levelling-the-terminals)
 - `+1` on two nodes, `+>1` for an arrowhead — a movement path → [Paths](#draw-paths-between-nodes)
 - `+-1`, `+->1` — an extra straight connector → [Extra Connectors](#draw-extra-connectors-between-nodes)
 
@@ -317,7 +317,7 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 |------------|--------|
 |`X<>Y`      |X&nbsp;Y|
 
-A label that is *only* `<>` is a special case with its own use: see [Levelling the Terminals](#levelling-the-terminals) below.
+A label that is *only* `<>` is a special case with its own use: see [Levelling the Terminals](#levelling-the-terminals) below. With two or more branches, such a node is a branching point without a label: `[VP [V think] [<> [PP …] [CP …]]]`. The gallery examples [091](https://yohasebe.github.io/rsyntaxtree/examples#example-091) and [092](https://yohasebe.github.io/rsyntaxtree/examples#example-092) use it for unlabeled syntactic objects.
 
 #### Levelling the Terminals
 

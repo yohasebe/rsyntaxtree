@@ -60,6 +60,7 @@ Structure:
 | a node with children                   | [S [NP the cat] [VP sat]] |
 | a phrase under one leaf (triangle)     | [NP a toy] — one word, forced: [NP ^cats] |
 | an invisible joint, to align leaves    | a label of only <>, as in [X [<> [Y y]] [Z z]] |
+| a branching point with no label        | the same, with two or more branches: [VP [V v] [<> [DP d] [CP c]]] |
 | a movement path (dashed)               | [S [NP a+1] [VP [V b] [NP c+1]]] |
 | the same, with an arrowhead            | write +>1 on the end the arrow points at |
 | a path to a phrase                     | +1 on a node with daughters: the line stops a clearance outside the phrase and its shade, on the word side |

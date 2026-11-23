@@ -73,6 +73,7 @@ Structure:
 | a node with children                   | [S [NP the cat] [VP sat]] |
 | a phrase under one leaf (triangle)     | [NP a toy] — one word, forced: [NP ^cats] |
 | an invisible joint, to align leaves    | a label of only <>, as in [X [<> [Y y]] [Z z]] |
+| a branching point with no label        | the same, with two or more branches: [VP [V v] [<> [DP d] [CP c]]] |
 | a movement path (dashed)               | [S [NP a+1] [VP [V b] [NP c+1]]] |
 | the same, with an arrowhead            | write +>1 on the end the arrow points at |
 | a path to a phrase                     | +1 on a node with daughters: the line stops a clearance outside the phrase and its shade, on the word side |
@@ -204,7 +205,7 @@ explains it. Every sample here is drawn by a test, so each one works.
 - `[S [NP the cat] [VP sat]]` — a node and its children → [Basic Usage](#basic-usage)
 - `(S (NP the cat) (VP sat))` — Penn Treebank input, converted on sight → [Penn Treebank Format](#penn-treebank-format)
 - `^cats` — force a triangle over one leaf (a spaced leaf gets one by itself) → [Connectors](#connectors)
-- `<>` as a whole label — an invisible joint, to level the terminals → [Levelling the Terminals](#levelling-the-terminals)
+- `<>` as a whole label — an invisible joint, to level the terminals or to leave a branching point unlabeled → [Levelling the Terminals](#levelling-the-terminals)
 - `+1` on two nodes, `+>1` for an arrowhead — a movement path → [Paths](#draw-paths-between-nodes)
 - `+-1`, `+->1` — an extra straight connector → [Extra Connectors](#draw-extra-connectors-between-nodes)
 
@@ -413,7 +414,7 @@ You can apply font styles (italic/bold/bold-italic), text decoration (overline/u
 |------------|--------|
 |`X<>Y`      |X&nbsp;Y|
 
-A label that is *only* `<>` is a special case with its own use: see [Levelling the Terminals](#levelling-the-terminals) below.
+A label that is *only* `<>` is a special case with its own use: see [Levelling the Terminals](#levelling-the-terminals) below. With two or more branches, such a node is a branching point without a label: `[VP [V think] [<> [PP …] [CP …]]]`. The gallery examples [091](https://yohasebe.github.io/rsyntaxtree/examples#example-091) and [092](https://yohasebe.github.io/rsyntaxtree/examples#example-092) use it for unlabeled syntactic objects.
 
 #### Levelling the Terminals
 
@@ -1198,7 +1199,7 @@ line, so check the `forest` code against the figure before publishing it.
 
 # Examples
 
-RSyntaxTree examples: 85 trees, every one verified to draw.
+RSyntaxTree examples: 87 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -3893,4 +3894,52 @@ Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low vheigh
       [PP [P with] [^DP the hat]]]]
   [T' [T will]
     [VP [V give] [DP [D the] [NP [N book]]]]]]
+```
+
+## 091 — An unlabeled small clause in a copular sentence
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif tidy=low vheight=1.2
+Source: Chomsky 2013: 43-44
+
+```
+[TP
+  [DP *lightning*+>1]
+  [T'
+    [T *is*]
+    [VP
+      [V *be*]
+      [%<>
+        [DP ~*lightning*~+1]
+        [^DP *the cause of the fire*]]]]]
+```
+
+## 092 — An unlabeled intermediate landing site of wh-movement
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif tidy=medium vheight=1.2
+Source: Chomsky 2013: 44-45
+
+```
+[CP
+  [^PP *in which Texas city*+>2]
+  [C'
+    [C *did*]
+    [TP
+      [DP *they*]
+      [T'
+        [T ∅]
+        [VP
+          [V *think*]
+          [<>
+            [^PP ~*in which Texas city*~+>1+2]
+            [CP
+              [C ∅]
+              [TP
+                [DP *JFK*]
+                [T'
+                  [T *was*]
+                  [VP
+                    [V *assassinated*]
+                    [^PP ~*in which Texas city*~+1]]]]]]]]]]]
 ```

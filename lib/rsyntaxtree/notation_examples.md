@@ -1,4 +1,4 @@
-RSyntaxTree examples: 85 trees, every one verified to draw.
+RSyntaxTree examples: 87 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -2693,4 +2693,52 @@ Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low vheigh
       [PP [P with] [^DP the hat]]]]
   [T' [T will]
     [VP [V give] [DP [D the] [NP [N book]]]]]]
+```
+
+## 091 — An unlabeled small clause in a copular sentence
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif tidy=low vheight=1.2
+Source: Chomsky 2013: 43-44
+
+```
+[TP
+  [DP *lightning*+>1]
+  [T'
+    [T *is*]
+    [VP
+      [V *be*]
+      [%<>
+        [DP ~*lightning*~+1]
+        [^DP *the cause of the fire*]]]]]
+```
+
+## 092 — An unlabeled intermediate landing site of wh-movement
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif tidy=medium vheight=1.2
+Source: Chomsky 2013: 44-45
+
+```
+[CP
+  [^PP *in which Texas city*+>2]
+  [C'
+    [C *did*]
+    [TP
+      [DP *they*]
+      [T'
+        [T ∅]
+        [VP
+          [V *think*]
+          [<>
+            [^PP ~*in which Texas city*~+>1+2]
+            [CP
+              [C ∅]
+              [TP
+                [DP *JFK*]
+                [T'
+                  [T *was*]
+                  [VP
+                    [V *assassinated*]
+                    [^PP ~*in which Texas city*~+1]]]]]]]]]]]
 ```
