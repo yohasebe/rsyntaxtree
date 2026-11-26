@@ -818,10 +818,17 @@ module RSyntaxTree
       by_id = elements.to_h { |e| [e.id, e] }
       regions = elements.select(&:region)
       links = link_connection_pairs
-      # Every label by the row it starts on, so a move asks only about what
-      # stands beside it.
-      rows = elements.group_by { |e| e.vertical_indent.round(3) }
-      tallest = elements.map { |e| e.content_height }.max.to_f
+      # Every label under each row it reaches into, so a move asks only about
+      # what stands beside it, however tall a label elsewhere may be.
+      tops = elements.map { |e| e.vertical_indent.round(3) }.uniq.sort
+      rows = Hash.new { |h, k| h[k] = [] }
+      elements.each do |e|
+        i = tops.bsearch_index { |t| t >= e.vertical_indent.round(3) }
+        while i < tops.size && (tops[i] == e.vertical_indent.round(3) || tops[i] < e.vertical_indent + e.content_height)
+          rows[tops[i]] << e
+          i += 1
+        end
+      end
       parents = elements.select { |e| e.children.size.odd? && e.children.size > 1 }
       parents.sort_by(&:level).each do |parent|
         mid = by_id[parent.children[parent.children.size / 2]]
@@ -838,7 +845,7 @@ module RSyntaxTree
         next if regions.any? { |r| !around[r.id] }
 
         moved = subtree_elements(mid, by_id)
-        next unless room_to_shift?(moved, rows, tallest, delta) && words_keep_order?(moved, leaves, delta) &&
+        next unless room_to_shift?(moved, tops, rows, delta) && words_keep_order?(moved, leaves, delta) &&
                     links_keep_room?(moved, links, delta)
 
         moved.each { |e| e.horizontal_indent += delta }
@@ -857,16 +864,18 @@ module RSyntaxTree
 
     # Whether +moved+ can go +delta+ sideways without coming closer to any
     # other label on its rows than the gap between nodes, or than it is now.
-    def room_to_shift?(moved, rows, tallest, delta)
+    def room_to_shift?(moved, tops, rows, delta)
       ids = moved.to_h { |e| [e.id, true] }
       gap = @global[:h_gap_between_nodes]
-      tops = rows.keys.sort
       moved.all? do |m|
         top, bottom, left, right = effective_rect(m)
-        i = tops.bsearch_index { |t| t >= top - tallest - 0.01 } || tops.size
+        # The row the label starts in, which holds whatever reaches down
+        # across its top, and every row that starts beside it.
+        i = (tops.bsearch_index { |t| t > top + 0.01 } || tops.size) - 1
+        i = 0 if i.negative?
         clear = true
         while clear && i < tops.size && tops[i] < bottom - 0.01
-          clear = rows[tops[i]].all? do |e|
+          clear = rows[tops[i]].uniq.all? do |e|
             next true if ids[e.id]
 
             o_top, o_bottom, o_left, o_right = effective_rect(e)
@@ -891,9 +900,10 @@ module RSyntaxTree
       links.all? do |a, b|
         next true if ids[a.id] == ids[b.id]
 
-        # Left to right the pairs are not spread, and a link may run across
-        # rows: one that the move would stretch or shorten stays as it is.
-        next false if @direction == "ltr"
+        # A link across rows is drawn between the labels' centres, and left
+        # to right the pairs are not spread at all: one that the move would
+        # stretch or shorten stays as it is.
+        next false if @direction == "ltr" || (a.vertical_indent - b.vertical_indent).abs > 0.01
 
         left, right = [a, b].sort_by(&:horizontal_indent)
         before = right.horizontal_indent - (left.horizontal_indent + left.content_width)

@@ -146,11 +146,17 @@ class ConnectorVerticalTest < Minitest::Test
         svg.scan(/<rect x='([-\d.e]+)' y='[-\d.e]+' width='([\d.e]+)'[^>]*fill-opacity/).map { |x, w| [x.to_f, x.to_f + w.to_f] }
       end
     end
-    with = [gap.call({}), tips.call, shades.call]
+    # A link between two rows keeps its length top to bottom too.
+    across = lambda do
+      svg = RSyntaxTree::RSGenerator.new(data: "[M+-<1 [WW] [WW+->1] [i]]", hspacing: 3, vheight: 0.5,
+                                         vmargin: 0.1875, format: "svg").draw_svg
+      svg.scan(/<polygon points='([-\d.]+),([-\d.]+) /).map { |x, y| [x.to_f, y.to_f] }
+    end
+    with = [gap.call({}), tips.call, shades.call, across.call]
     RSyntaxTree::BaseGraph.alias_method :hang_middle_children, :align_middle_children
     RSyntaxTree::BaseGraph.define_method(:align_middle_children) { nil }
     without = begin
-      [gap.call({}), tips.call, shades.call]
+      [gap.call({}), tips.call, shades.call, across.call]
     ensure
       RSyntaxTree::BaseGraph.alias_method :align_middle_children, :hang_middle_children
     end
@@ -165,6 +171,9 @@ class ConnectorVerticalTest < Minitest::Test
         !nested && [a_right, b_right].min - [a_left, b_left].max > 0.01
       end
     end
+    reach = ->(points) { Math.hypot(points[0][0] - points[1][0], points[0][1] - points[1][1]) }
+    assert_equal 2, with[3].size
+    assert_in_delta reach.call(without[3]), reach.call(with[3]), 1e-6, "a link between rows changed length"
     with[2].zip(without[2], shaded) do |moved, kept, (data, _)|
       refute_empty moved
       refute_operator crossing.call(moved), :>, crossing.call(kept), "#{data}: sibling shades came to overlap"
