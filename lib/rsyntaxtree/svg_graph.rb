@@ -94,8 +94,9 @@ module RSyntaxTree
         y1 = top
       end
 
-      if @region_bounds
-        rb = @region_bounds
+      # A link's text can reach past everything else, on any side: a wide
+      # one centred on a short link stands out to the left of the tree.
+      [@region_bounds, @label_bounds].compact.each do |rb|
         m = @global[:h_gap_between_nodes]
         left = [x1, rb[:min_x] - m].min
         top = [y1, rb[:min_y] - m].min
@@ -482,7 +483,7 @@ module RSyntaxTree
     # the dash pattern runs round each turn instead of restarting at it, and an
     # arrowhead is the end of the stroke rather than a marker on whichever line
     # happens to finish last.
-    def generate_path(points, col, dashed: false, radius: 0, start_arrow: false, end_arrow: false)
+    def generate_path(points, col, dashed: false, radius: 0, start_arrow: false, end_arrow: false, dash_offset: nil)
       # An arrowhead is drawn back along the run it ends, so the corner before
       # it has to leave that run its full length. Without this the shorter of
       # the two end runs — which is only as long as the path's bulge — lost half
@@ -494,6 +495,7 @@ module RSyntaxTree
       radius = [radius, 0].max
 
       dasharray = dashed ? "#{dash_array} " : ""
+      dasharray += "stroke-dashoffset='#{dash_offset.round(3)}' " if dashed && dash_offset
       markers = +""
       markers << "marker-start='url(#arrowStart)' " if start_arrow
       markers << "marker-end='url(#arrow)' " if end_arrow
@@ -549,20 +551,31 @@ module RSyntaxTree
     # the way twice and there are at most as many moves as rails. Distances
     # are compared with a little slack: a rail moved exactly one spacing past
     # another can measure a hair under it, and would be moved again forever.
-    def clear_of_rails(at, span, spacing, sign)
+    # +band+ is how far a text set across this rail reaches on either side of
+    # it: two rails stand far enough apart for both their texts to fit.
+    def clear_of_rails(at, span, spacing, sign, band = 0)
       @rails ||= []
       lo, hi = span
-      close = spacing - RAIL_SLACK
+      apart = ->(r) { [spacing, r[:band] + band + (spacing / 2.0)].max }
       @rails.size.times do
         blocking = @rails.find do |r|
+          close = apart.call(r) - RAIL_SLACK
           r[:lo] < hi + close && lo < r[:hi] + close && (r[:at] - at).abs < close
         end
         break unless blocking
 
-        at = blocking[:at] + (sign * spacing)
+        at = blocking[:at] + (sign * apart.call(blocking))
       end
-      @rails << { lo: lo, hi: hi, at: at }
+      @rails << { lo: lo, hi: hi, at: at, band: band }
       at
+    end
+
+    # How much room a link's text takes: its width and height, and the margin
+    # kept round it.
+    def link_label_extent(label)
+      size = @fontsize * LINK_LABEL_SIZE
+      m = FontMetrics.get_metrics(Element.plain_text(label), @fontset[:family], size, :normal, :normal)
+      [m.width, size, size * LINK_LABEL_PAD]
     end
 
     # Where the movement links have been, as a box. The canvas learns of a
@@ -638,6 +651,10 @@ module RSyntaxTree
                 end
         new_x = [new_x, s_x + arrow_run].max if source_arrow
         new_x = [new_x, t_x + arrow_run].max if target_arrow_drawn
+        # A text set across the rail reaches half its width either side, so
+        # the rail stands that much farther out, and the next rail beyond it.
+        reach = label ? (link_label_extent(label).then { |w, _, pad| (w / 2.0) + pad }) : 0
+        new_x += reach
 
         new_s_y = s_y + s_offset
         new_t_y = t_y + t_offset
@@ -647,7 +664,7 @@ module RSyntaxTree
         @link_drawings << { points: [[s_x, new_s_y], [new_x, new_s_y], [new_x, new_t_y], [t_x, new_t_y]],
                             dashed: dashed, radius: corner_radius, label: label,
                             start_arrow: target_arrow == :double, end_arrow: target_arrow != :none }
-        @width = new_x if new_x > @width
+        @width = new_x + reach if new_x + reach > @width
       else
         # TTB: route BELOW the tree (U shape), on the side the words are on;
         # BTT turns the tree over, words at the top, and the path with it.
@@ -664,7 +681,12 @@ module RSyntaxTree
 
         new_s_x = s_x + s_offset
         new_t_x = t_x + t_offset
-        new_y = clear_of_rails(new_y, [new_s_x, new_t_x].minmax, spacing, sign)
+        # A text set across the rail reaches half its height either side of
+        # it: the rail keeps that much more from the words, and from the
+        # rails beside it.
+        band = label ? (link_label_extent(label).then { |_, h, pad| (h / 2.0) + pad }) : 0
+        new_y += sign * band
+        new_y = clear_of_rails(new_y, [new_s_x, new_t_x].minmax, spacing, sign, band)
 
         note_path_extent([[new_s_x, s_y], [new_s_x, new_y],
                           [new_t_x, new_y], [new_t_x, t_y]])
@@ -688,10 +710,12 @@ module RSyntaxTree
         spot = link[:label] && link_label_spot(link, placed)
         if spot && spot[:across]
           before, after = split_at_gap(link[:points], spot[:gap])
+          # The dashes carry on after the gap where they would have been.
+          phase = (before + [after.first]).each_cons(2).sum { |(ax, ay), (bx, by)| Math.hypot(bx - ax, by - ay) }
           @extra_lines << generate_path(before, @col_path, dashed: link[:dashed], radius: link[:radius],
                                                            start_arrow: link[:start_arrow])
           @extra_lines << generate_path(after, @col_path, dashed: link[:dashed], radius: link[:radius],
-                                                          end_arrow: link[:end_arrow])
+                                                          end_arrow: link[:end_arrow], dash_offset: phase)
         else
           @extra_lines << generate_path(link[:points], @col_path, dashed: link[:dashed], radius: link[:radius],
                                                                   start_arrow: link[:start_arrow],
@@ -703,8 +727,11 @@ module RSyntaxTree
         @extra_lines << link_label_svg(link[:label], spot)
         x0, y0, x1, y1 = spot[:box]
         note_path_extent([[x0, y0], [x1, y1]])
-        @width = x1 if x1 > @width
-        @height = y1 if y1 > @height
+        b = (@label_bounds ||= { min_x: x0, min_y: y0, max_x: x1, max_y: y1 })
+        b[:min_x] = [b[:min_x], x0].min
+        b[:min_y] = [b[:min_y], y0].min
+        b[:max_x] = [b[:max_x], x1].max
+        b[:max_y] = [b[:max_y], y1].max
       end
     end
 
@@ -718,10 +745,8 @@ module RSyntaxTree
     # and, when it sits across the rail, the stretch of rail to leave out.
     def link_label_spot(link, placed)
       size = @fontsize * LINK_LABEL_SIZE
-      m = FontMetrics.get_metrics(link[:label], @fontset[:family], size, :normal, :normal)
-      w = m.width
-      h = size
-      pad = size * LINK_LABEL_PAD
+      m = FontMetrics.get_metrics(Element.plain_text(link[:label]), @fontset[:family], size, :normal, :normal)
+      w, h, pad = link_label_extent(link[:label])
       (a, b) = link[:points][1], link[:points][2]
       level = a[1] == b[1] # the rail runs across the figure
       along = level ? w : h
@@ -738,8 +763,14 @@ module RSyntaxTree
       tries = []
       room = ((hi - lo) / 2.0) - (along / 2.0) - pad - reach
       tries << [0, room] if room >= 0
-      tries << [outward * offset, ((hi - lo) / 2.0) - (along / 2.0)]
-      tries << [-outward * offset, ((hi - lo) / 2.0) - (along / 2.0)]
+      # Beside the rail, outside it and then inside, and farther out step by
+      # step where other rails stand close by.
+      beside = ((hi - lo) / 2.0) - (along / 2.0)
+      step_out = across + (pad * 2)
+      (0..4).each do |far|
+        tries << [outward * (offset + (far * step_out)), beside]
+        tries << [-outward * (offset + (far * step_out)), beside] if far.zero?
+      end
 
       first = nil
       tries.each do |shift, slack|
@@ -798,7 +829,8 @@ module RSyntaxTree
       m = spot[:metrics]
       baseline = spot[:cy] + m.ink_above - (m.ink_height / 2.0)
       escaped = text.gsub("<", "&lt;").gsub(">", "&gt;")
-      "<text x='#{spot[:cx].round(3)}' y='#{baseline.round(3)}' text-anchor='middle' " \
+      "<text x='#{spot[:cx].round(3)}' y='#{baseline.round(3)}' text-anchor='middle' white-space='pre' " \
+        "xml:space='preserve' font-family=\"#{FontFamily.for_svg(@fontstyle)}\" " \
         "style='fill: #{@col_path}; stroke-width: 0; font-size: #{spot[:size].round(3)}px'>#{escaped}</text>\n"
     end
 

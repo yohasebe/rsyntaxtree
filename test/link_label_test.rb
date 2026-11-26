@@ -21,7 +21,7 @@ class LinkLabelTest < Minitest::Test
 
   # The link text: its position, size and content.
   def text(doc)
-    m = doc.match(%r{<text x='([-\d.]+)' y='([-\d.]+)' text-anchor='middle' style='[^']*font-size: ([\d.]+)px'>([^<]*)</text>})
+    m = doc.match(%r{<text x='([-\d.]+)' y='([-\d.]+)' text-anchor='middle'[^>]*font-size: ([\d.]+)px'>([^<]*)</text>})
     m && { x: m[1].to_f, y: m[2].to_f, size: m[3].to_f, content: m[4] }
   end
 
@@ -116,5 +116,50 @@ class LinkLabelTest < Minitest::Test
 
     assert_includes doc, "\"a\""
     assert_nil text(doc)
+  end
+
+  # A text wider than the tree is not cut off at either edge.
+  def test_a_wide_text_stays_inside_the_canvas
+    gen = RSyntaxTree::RSGenerator.new(data: "[S [A a+1\"WWWWWWWWWWWWWWWWWWWW\"] [B b+1]]", format: "svg")
+    doc = gen.draw_svg
+    left, _, width, = doc[/viewBox="([^"]+)"/, 1].split(/[ ,]+/).map(&:to_f)
+    t = text(doc)
+    family = gen.instance_variable_get(:@params)[:fontset][:family]
+    half = FontMetrics.get_metrics("WWWWWWWWWWWWWWWWWWWW", family, t[:size], :normal, :normal).width / 2.0
+
+    assert_operator t[:x] - half, :>, left
+    assert_operator t[:x] + half, :<, left + width
+  end
+
+  # The text is drawn in the face it was measured in, and measured as it
+  # reads: an ampersand is one character.
+  def test_the_text_is_set_in_the_label_face
+    doc = svg("[S [A a+1\"&\"] [M mid] [B b+1]]", fontstyle: "mono")
+
+    assert_match(/<text [^>]*font-family="[^"]*Mono[^"]*"[^>]*>&amp;</, doc)
+  end
+
+  def test_a_backslash_n_inside_the_text_is_kept
+    links = JSON.parse(RSyntaxTree::RSGenerator.new(data: "[S [A a+1\"x\\\\name\"] [B b+1]]", format: "json").draw_json)["links"]
+
+    assert_equal ["x\\name"], links.map { |l| l["label"] }
+  end
+
+  def test_the_dashes_carry_on_past_the_text
+    doc = svg("[S [A a+1\"*\"] [M middlemiddlemiddle] [B b+1]]")
+
+    assert_match(/stroke-dashoffset='[\d.]+'/, doc)
+  end
+
+  def test_an_unclosed_text_is_named
+    e = begin
+      svg("[S [A a+1\"bad] [B b+1]]")
+      nil
+    rescue RSTError => err
+      err
+    end
+
+    assert_equal :incomplete_marker, e.code
+    assert_includes e.hint, "closing double quote"
   end
 end

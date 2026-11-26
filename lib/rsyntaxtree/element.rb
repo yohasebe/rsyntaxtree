@@ -65,7 +65,7 @@ module RSyntaxTree
       # The markers are read from the label itself, after a rule name has gone,
       # so a name that ends in what looks like one is drawn as written.
       _body, path_text = Element.split_path(content)
-      markers = path_text.gsub("\\n", "").scan(/\+(=|-?[<>]?)(\d+)(?:"((?:\\.|[^"\\])*)")?/)
+      markers = path_text.sub(/\\n\z/, "").scan(/\+(=|-?[<>]?)(\d+)(?:"((?:\\.|[^"\\])*)")?/)
       @path = markers.map { |kind, number, _| kind + number }
       @route, @path = @path.partition { |marker| marker.start_with?("=") }
       # The text a link carries, by its number; the kind of marker it was
@@ -334,7 +334,10 @@ module RSyntaxTree
        ->(s) { s.sub(/\A\^+/, "^") }, "Only one '^' may prefix a label."],
       [:incomplete_marker,
        ->(s) { s.sub(/(?<!\\)\+(?:=|>?<?)\z/, "") },
-       "A marker needs a number: write +1 for a link, +>1 for its arrowhead, or +=1 for a highlighted path."]
+       "A marker needs a number: write +1 for a link, +>1 for its arrowhead, or +=1 for a highlighted path."],
+      [:incomplete_marker,
+       ->(s) { s.match?(/(?<!\\)\+-?[<>]?\d+"[^"]*\z/) ? "#{s}\"" : s },
+       "A link's text needs a closing double quote: +1\"*\"."]
     ].freeze
 
     # Turn a Markup.parse failure into structured error attributes: a code
