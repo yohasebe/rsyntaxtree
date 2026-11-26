@@ -231,7 +231,7 @@ Settings: color=none fontstyle=noto-serif tidy=low
 ]
 ```
 
-## 010 — vP-shell with movement paths
+## 010 — vP-shell with movement links
 
 Category: Generative Grammar
 Settings: fontstyle=noto-serif leafstyle=nothing tidy=low
@@ -2066,7 +2066,7 @@ Source: Halliday 2014: 612-614
 ]
 ```
 
-## 063 — vP-shell with movement paths (left-to-right)
+## 063 — vP-shell with movement links (left-to-right)
 
 Category: Generative Grammar
 Settings: direction=ltr fontstyle=noto-serif leafstyle=nothing tidy=low
@@ -2586,7 +2586,7 @@ VAL\t#(SPR\t⟨<>⟩#)#)#)
   VAL\t#(SPR\t⟨<>*NP*<>⟩#)#)#) [barks]]]
 ```
 
-## 085 — A tree on a tilted plane, with a movement path
+## 085 — A tree on a tilted plane, with a movement link
 
 Category: General
 Settings: fontstyle=noto-serif shear=20 vmargin=0.4

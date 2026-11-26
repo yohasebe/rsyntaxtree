@@ -693,7 +693,7 @@ module RSyntaxTree
     end
 
     # Generate, and throw the result away. Parsing alone leaves out the
-    # checks that only happen once the tree is laid out — a movement path
+    # checks that only happen once the tree is laid out — a movement link
     # with one end, a line with three — so validation that stopped at the
     # parser passed input the drawing then rejected, which is the failure
     # this validation exists to prevent.

@@ -214,8 +214,7 @@ module RSyntaxTree
     def leaf_edge_option(element)
       return "" unless @params[:leafstyle] == "dashed"
 
-      element = @element_list.get_id(element.children.first) while element.inserted_joint
-      element.type == ETYPE_LEAF ? ", edge+=dashed" : ""
+      leads_to_word?(element) ? ", edge+=dashed" : ""
     end
 
     # The edge up from a node on the highlighted path is drawn heavier, by the
@@ -223,9 +222,17 @@ module RSyntaxTree
     # weight alone marks the path, as it does in the monochrome schemes.
     def path_edge_option(element)
       return "" unless @element_list.path_edges.include?(element.id)
+      return "" if @params[:leafstyle] == "nothing" && leads_to_word?(element)
 
       width = format("%.3f", 0.05 * @params[:linewidth] * SVGGraph::ROUTE_WEIGHT).sub(/0+\z/, "")
       ", edge+={line width=#{width}em}"
+    end
+
+    # Whether the edge up from +element+ is one that runs down to a word:
+    # the word's own, or one through the joints leaf alignment put above it.
+    def leads_to_word?(element)
+      element = @element_list.get_id(element.children.first) while element.inserted_joint
+      element.type == ETYPE_LEAF
     end
 
     # forest node option that paints a semi-transparent plane behind the whole

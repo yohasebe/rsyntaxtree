@@ -341,5 +341,8 @@ class SvgDirectionTest < Minitest::Test
     assert_includes links, %w[a b forward movement]
     assert_includes links, %w[c d forward line]
     assert_includes links, %w[e f none line]
+
+    plain = JSON.parse(RSyntaxTree::RSGenerator.new(data: "[S [A a+1] [B b+1]]", format: "json").draw_json)["links"]
+    assert_equal [%w[none movement]], plain.map { |l| [l["direction"], l["type"]] }
   end
 end

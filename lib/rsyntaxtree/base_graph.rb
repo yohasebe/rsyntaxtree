@@ -596,7 +596,7 @@ module RSyntaxTree
 
     # Flip the laid-out tree horizontally (RTL linguistics convention: the
     # first word sits at the right edge). Connectors, triangles, polylines,
-    # movement paths, and region shades all derive from element coordinates,
+    # movement links, and region shades all derive from element coordinates,
     # so flipping every element here keeps them consistent. Works for both
     # directions: ttb yields a right-to-left vertical tree; ltr puts the
     # root at the right edge of the horizontal tree.
@@ -696,7 +696,7 @@ module RSyntaxTree
       rects
     end
 
-    # Below each end of a movement path in the subtree, the column its line
+    # Below each end of a movement link in the subtree, the column its line
     # runs down on its way to the rail under the tree: packing a neighbour
     # into it put a word under the line. Laid out before any flip or turn,
     # the line always leaves towards larger y. Lines between nodes (+-1) are
@@ -960,7 +960,7 @@ module RSyntaxTree
       parents.sort_by { |p| [-p.level, -p.id] }.each do |parent|
         children = parent.children.map { |c| @element_list.get_id(c) }
         # A path's column reaches down past sisters that end higher up, so in
-        # a tree with movement paths a sister is packed against everything
+        # a tree with movement links a sister is packed against everything
         # placed before it — the labels and columns of every earlier sister.
         # Without paths only the neighbour can be in the way, and comparing
         # with it alone keeps a long row of sisters from growing quadratic.
@@ -1263,6 +1263,7 @@ module RSyntaxTree
     end
 
     def parse_list
+      @element_list.check_link_ends
       # A highlighted path is checked before anything is laid out. A
       # derivation draws rules rather than edges, so there is no path to draw.
       if @element_list.path_edges.any? && @derivation
@@ -1362,7 +1363,7 @@ module RSyntaxTree
       max_x = @rule_name_edge if @rule_name_edge.to_f > max_x
       width = max_x + @global[:h_gap_between_nodes]
       height = max_y
-      # A movement path routes outside the tree — below it top-to-bottom,
+      # A movement link routes outside the tree — below it top-to-bottom,
       # beyond it to the right left-to-right — and grows @height or @width as
       # it goes. The height has always been read back here; the width was
       # computed from the elements alone and then overwrote what the path had

@@ -103,7 +103,6 @@ module RSyntaxTree
       path_pool_source = {}
       path_flags = []
       line_pool = {}
-      line_flags = []
 
       elist = @element_list.get_elements
 
@@ -118,7 +117,6 @@ module RSyntaxTree
             else
               line_pool[tr] = [{ id: element.id, arrow: arrow }]
             end
-            line_flags << tr
           elsif /\A(?:>|<)(\d+)\z/ =~ tr
             tr = $1
             if path_pool_target[tr]
@@ -149,7 +147,7 @@ module RSyntaxTree
           end
         elsif (other_ids = path_pool_other[k])
           other_ids.each do |other_id|
-            @links_data << { from: source_id, to: other_id, direction: "forward", type: "movement" }
+            @links_data << { from: source_id, to: other_id, direction: "none", type: "movement" }
           end
         end
       end

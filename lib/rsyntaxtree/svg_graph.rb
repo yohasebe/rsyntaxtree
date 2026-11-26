@@ -85,7 +85,7 @@ module RSyntaxTree
       # the deepest leaf) keep a margin instead of touching the image edge. A
       # margin is added around the region extents before unioning with the tree
       # bounds. x2/y2 are the viewBox width/height, so right = x1 + x2.
-      # Bottom to top, a movement path runs above the words, past the top of
+      # Bottom to top, a movement link runs above the words, past the top of
       # the tree; the canvas grows upward to hold it.
       if @direction == "btt" && @path_bounds
         top = [y1, @path_bounds[:min_y] - @global[:height_connector_to_text]].min
@@ -565,7 +565,7 @@ module RSyntaxTree
       at
     end
 
-    # Where the movement paths have been, as a box. The canvas learns of a
+    # Where the movement links have been, as a box. The canvas learns of a
     # rail through @width and @height, which only say how far right and down
     # anything got; the plane behind a sheared figure has to enclose the rail
     # on every side, so the corners themselves are kept.
@@ -1066,7 +1066,6 @@ module RSyntaxTree
       path_flags = []
 
       line_pool = {}
-      line_flags = []
 
       elist = @element_list.get_elements
 
@@ -1097,7 +1096,7 @@ module RSyntaxTree
           # between these plus a small margin. Anchoring a full h_gap
           # outside the box left links too short in wide gaps and pushed
           # them into the boxes in narrow ones. Only the line pool uses
-          # x0/x2; movement paths read x1, which is unchanged.
+          # x0/x2; movement links read x1, which is unchanged.
           x0 = element.horizontal_indent
           x1 = element.horizontal_indent + element.content_width / 2.0
           x2 = element.horizontal_indent + element.content_width
@@ -1105,7 +1104,7 @@ module RSyntaxTree
           y1 = element.vertical_indent + element.content_height + @global[:height_connector_to_text]
           lgeom = nil
         end
-        # A movement path leaves a label on the side the words are on: below
+        # A movement link leaves a label on the side the words are on: below
         # it top to bottom, above it bottom to top. A path to a phrase stops
         # at the edge of everything the phrase holds instead, its shade
         # included, so that it reads as reaching the phrase as a whole and
@@ -1139,7 +1138,6 @@ module RSyntaxTree
             else
               line_pool[tr] = [{ x: { left: x0, center: x1, right: x2 }, y: { top: y0, center: y0 + (y1 - y0) / 2, bottom: y1 }, arrow: arrow, geom: lgeom }]
             end
-            line_flags << tr
           elsif /\A(?:>|<)(\d+)\z/ =~ tr
             tr = $1
             if path_pool_target[tr]
@@ -1159,18 +1157,7 @@ module RSyntaxTree
             path_pool_source[tr] = [path_x, path_y, across]
             path_flags << tr
           end
-          raise RSTError.new(+"Error: input text contains a link having more than two ends:\n > #{tr}", code: :link_multiple_ends, hint: "A link or line takes exactly two ends; check the numbers.", retryable: true) if path_flags.tally.any? { |_k, v| v > 2 } || line_flags.tally.any? { |_k, v| v > 2 }
         end
-      end
-
-      path_flags.tally.each do |k, v|
-        raise RSTError.new(+"Error: input text contains a link having only one end:\n > #{k}", code: :link_single_end, hint: "A link takes two ends: one '+N' on each of two nodes.", retryable: true) if v == 1
-      end
-
-      # A line-type connection is subject to the same rule as a link: it takes
-      # two ends. Without this the drawing walked off a nil pool below.
-      line_flags.tally.each do |k, v|
-        raise RSTError.new(+"Error: input text contains a line having only one end:\n > #{k}", code: :link_single_end, hint: "A line connection takes two ends: '+-N' on each of two nodes.", retryable: true) if v == 1
       end
 
       path_pool_source.each do |k, v|
@@ -1690,6 +1677,9 @@ module RSyntaxTree
     def route_stroke(svg)
       i = svg.rindex(/<(?:line|polyline|polygon) /)
       head = svg[0...i]
+      # A connector the figure hides stays hidden.
+      return svg if svg[i..][/stroke:\s*([^;]+);/, 1].to_s.strip == "none"
+
       tail = svg[i..].sub(/stroke-width:\s*[\d.]+/, "stroke-width:#{(@global[:stroke_normal] * ROUTE_WEIGHT).round(3)}")
       tail = tail.sub(/stroke:\s*[^;]+;/, "stroke:#{@col_emph};") if @col_emph
       head + tail

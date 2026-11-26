@@ -115,4 +115,44 @@ class PathHighlightTest < Minitest::Test
     assert_includes svg, "#CC79A7"
     assert_includes svg, "#D55E00"
   end
+
+  # A rule name is drawn as written, whatever it ends in; the markers are
+  # read from the label it belongs to.
+  def test_a_rule_name_is_not_read_for_markers
+    svg = RSyntaxTree::RSGenerator.new(data: "[S\\tR+=1 [A a]]", format: "svg", derivation: "on").draw_svg
+
+    assert_includes svg, "R+=1"
+    assert_equal :invalid_option, error("[S+=1\\tR [A+=1\\tQ a]]", derivation: "on").code
+  end
+
+  def test_a_line_break_after_the_marker_keeps_it
+    assert_equal 4, path_edges("[S [A a+=1\\n] [B b+=1\\n]]").size
+  end
+
+  def test_hidden_connectors_stay_hidden_on_the_path
+    svg = RSyntaxTree::RSGenerator.new(data: "[S [A a+=1] [B b+=1]]", format: "svg", hide_default_connectors: "on").draw_svg
+
+    assert(svg.scan(/<line style='([^']*)'/).flatten.all? { |l| l.include?("stroke:none;") })
+  end
+
+  def test_tikz_leaves_out_word_edges_the_figure_leaves_out
+    tikz = RSyntaxTree::RSGenerator.new(data: "[S [A a+=1] [B b+=1]]", format: "tikz", leafstyle: "nothing").draw_tikz
+
+    assert_equal 2, tikz.scan("edge+={line width=").size
+  end
+
+  # Every output refuses a link with the wrong number of ends.
+  def test_json_refuses_what_svg_refuses
+    ["[S [A a+-1] [B b]]", "[S [A a+1] [B b]]", "[S [A a+1] [B b+1] [C c+1]]"].each do |data|
+      codes = %w[svg json].map do |format|
+        RSyntaxTree::RSGenerator.new(data: data, format: format).send("draw_#{format}")
+        nil
+      rescue RSTError => e
+        e.code
+      end
+
+      refute_nil codes.first, data
+      assert_equal codes.first, codes.last, data
+    end
+  end
 end

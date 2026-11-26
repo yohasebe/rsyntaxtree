@@ -21,7 +21,7 @@ module RSyntaxTree
     # The edges on the highlighted path, each named by the child it joins to
     # its parent: every step up from the path's two ends to the node where
     # they meet. A path has one number and exactly two ends; anything else is
-    # refused, as a movement path with the wrong number of ends is.
+    # refused, as a movement link with the wrong number of ends is.
     def path_edges
       @path_edges ||= begin
         ends = @elements.reject { |e| e.route.to_a.empty? }
@@ -49,6 +49,38 @@ module RSyntaxTree
           a.take_while { |id| id != meet } + b.take_while { |id| id != meet }
         end
       end
+    end
+
+    # Every link and every line connection takes exactly two ends. Checked
+    # once, before anything is drawn, so each output refuses the same input.
+    def check_link_ends
+      links = Hash.new(0)
+      lines = Hash.new(0)
+      @elements.each do |e|
+        e.path.each do |marker|
+          if (line = marker[/\A-[<>]?(\d+)\z/, 1])
+            lines[line] += 1
+          else
+            links[marker[/\d+/]] += 1
+          end
+        end
+      end
+      over = links.find { |_k, v| v > 2 } || lines.find { |_k, v| v > 2 }
+      if over
+        raise RSTError.new(+"Error: input text contains a link having more than two ends:\n > #{over.first}",
+                           code: :link_multiple_ends, hint: "A link or line takes exactly two ends; check the numbers.",
+                           retryable: true)
+      end
+      if (one = links.find { |_k, v| v == 1 })
+        raise RSTError.new(+"Error: input text contains a link having only one end:\n > #{one.first}",
+                           code: :link_single_end, hint: "A link takes two ends: one '+N' on each of two nodes.",
+                           retryable: true)
+      end
+      return unless (one = lines.find { |_k, v| v == 1 })
+
+      raise RSTError.new(+"Error: input text contains a line having only one end:\n > #{one.first}",
+                         code: :link_single_end, hint: "A line connection takes two ends: '+-N' on each of two nodes.",
+                         retryable: true)
     end
 
     def set_hierarchy

@@ -33,10 +33,6 @@ module RSyntaxTree
       @vertical_indent = 0     # Drawing offset
       content = content.strip
 
-      _body, path_text = Element.split_path(content)
-      @path = path_text.delete_prefix("^").delete_suffix("^").sub(/\A\+/, "").split("+")
-      @route, @path = @path.partition { |marker| marker.start_with?("=") }
-
       @fontset = fontset
       @fontsize = fontsize
       # In a derivation the label may carry the name of the rule that produced
@@ -65,6 +61,12 @@ module RSyntaxTree
           content = content[0...at]
         end
       end
+
+      # The markers are read from the label itself, after a rule name has gone,
+      # so a name that ends in what looks like one is drawn as written.
+      _body, path_text = Element.split_path(content)
+      @path = path_text.gsub("\\n", "").delete_prefix("^").delete_suffix("^").sub(/\A\+/, "").split("+")
+      @route, @path = @path.partition { |marker| marker.start_with?("=") }
 
       @raw_content = Element.split_path(content).first
 
@@ -122,7 +124,7 @@ module RSyntaxTree
     # Swapping the two before parsing leaves the grammar untouched.
     # Two uses of the hyphen are structure rather than markup, and are left
     # alone: a line of nothing but hyphens is the horizontal rule, and the dash
-    # in a path suffix (+-1, +->2) is what makes that path dashed. Swapping
+    # in an extra connector's suffix (+-1, +->2) is what makes it one. Swapping
     # those turned a rule into the text "---" without a word of complaint.
     # Split a label into lines with the trailing path markers detached, so
     # hyphen handling can spare the two places a run of hyphens means
@@ -138,7 +140,7 @@ module RSyntaxTree
     # when the backslashes before it are even in number: `x\+1` is a plus
     # sign and a digit, `x\\+1` a backslash and a marker. Detection used to
     # ignore the backslash, so a label could not contain "+1" at all — every
-    # "C++11" and "2+2" was read as one end of a movement path.
+    # "C++11" and "2+2" was read as one end of a movement link.
     PATH_MARKERS = /(?:\+(?:=|-?>?<?)\d+)+/
 
     # The colours of the coloured stretches in a label's lines, nested
@@ -195,7 +197,9 @@ module RSyntaxTree
       i = 0
       while (i = text.index("+", i))
         tail = text[i..]
-        if i.positive? && tail.match?(/\A#{PATH_MARKERS}\^?\z/) &&
+        # A line break may follow the markers, as the grammar allows; it
+        # stays with them, so the label reads back in its own order.
+        if i.positive? && tail.match?(/\A#{PATH_MARKERS}\^?(?:\\n)*\z/) &&
            text[0...i][/\\*\z/].length.even?
           i -= 1 if i > 1 && text[i - 1] == "^"
           return [text[0...i], text[i..]]
