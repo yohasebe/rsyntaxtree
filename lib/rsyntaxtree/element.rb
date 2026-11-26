@@ -13,7 +13,7 @@ require_relative "color_names"
 
 module RSyntaxTree
   class Element
-    attr_accessor :ink_top, :ink_bottom, :rule_name, :label_with_rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color, :inserted_joint
+    attr_accessor :ink_top, :ink_bottom, :rule_name, :label_with_rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color, :inserted_joint, :route
 
     # names_a_rule says the content is a mother's label rather than a leaf's
     # text. Only a mother has a step under it for a name to sit beside, and a
@@ -35,6 +35,7 @@ module RSyntaxTree
 
       _body, path_text = Element.split_path(content)
       @path = path_text.delete_prefix("^").delete_suffix("^").sub(/\A\+/, "").split("+")
+      @route, @path = @path.partition { |marker| marker.start_with?("=") }
 
       @fontset = fontset
       @fontsize = fontsize
@@ -138,7 +139,7 @@ module RSyntaxTree
     # sign and a digit, `x\\+1` a backslash and a marker. Detection used to
     # ignore the backslash, so a label could not contain "+1" at all — every
     # "C++11" and "2+2" was read as one end of a movement path.
-    PATH_MARKERS = /(?:\+-?>?<?\d+)+/
+    PATH_MARKERS = /(?:\+(?:=|-?>?<?)\d+)+/
 
     # The colours of the coloured stretches in a label's lines, nested
     # matrices included.

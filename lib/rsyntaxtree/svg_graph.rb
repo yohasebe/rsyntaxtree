@@ -1588,13 +1588,13 @@ module RSyntaxTree
           points = [[x1, y1], [x2, y2]]
         end
       end
-      emit_connector(points, dash_from)
+      emit_connector(points, dash_from, on_route: route_edges.include?(child.id))
     end
 
     # +points+ run from the child to the parent. A dashed line is laid the
     # other way, from the parent down, so that its dash carries on into the
     # piece below it.
-    def emit_connector(points, dash_from)
+    def emit_connector(points, dash_from, on_route: false)
       dash = ""
       if dash_from
         points = points.reverse
@@ -1611,6 +1611,7 @@ module RSyntaxTree
                                       .sub(/MIDX2/, mx2.to_s).sub(/MIDY2/, my2.to_s)
                                       .sub(/PARX/, parx.to_s).sub(/PARY/, pary.to_s).sub(" />", "#{dash} />")
       end
+      @tree_data = route_stroke(@tree_data) if on_route
       points.each_cons(2).sum { |(ax, ay), (bx, by)| Math.hypot(bx - ax, by - ay) }
     end
 
@@ -1675,7 +1676,42 @@ module RSyntaxTree
       polygon_data = polygon_data.sub(/X2/, x2.to_s)
       polygon_data = polygon_data.sub(/Y2/, y2.to_s)
       polygon_data = polygon_data.sub(/X3/, x3.to_s)
-      @tree_data  += polygon_data.sub(/Y3/, y3.to_s)
+      polygon_data = polygon_data.sub(/Y3/, y3.to_s)
+      polygon_data = route_stroke(polygon_data) if route_edges.include?(child.id)
+      @tree_data += polygon_data
     end
+
+    # The connectors on the highlighted path, each named by the child it
+    # joins to its parent: every step up from the two ends of the path to the
+    # node where they meet. Empty unless exactly two labels end the path.
+    def route_edges
+      @route_edges ||= begin
+        ends = @element_list.get_elements.reject { |e| e.route.to_a.empty? }
+        if ends.size == 2
+          a, b = ends.map do |e|
+            chain = [e]
+            while (up = @element_list.get_id(chain.last.parent))
+              chain << up
+            end
+            chain.map(&:id)
+          end
+          meet = a.find { |id| b.include?(id) }
+          (a.take_while { |id| id != meet } + b.take_while { |id| id != meet })
+        else
+          []
+        end
+      end
+    end
+
+    # The last element written to +svg+, drawn as part of the path: heavier,
+    # and in the path's colour.
+    def route_stroke(svg)
+      i = svg.rindex(/<(?:line|polyline|polygon) /)
+      head = svg[0...i]
+      tail = svg[i..].sub(/stroke-width:\s*[\d.]+/, "stroke-width:#{(@global[:stroke_normal] * ROUTE_WEIGHT).round(3)}")
+      tail = tail.sub(/stroke:\s*[^;]+;/, "stroke:#{@col_route};") if @col_route
+      head + tail
+    end
+    ROUTE_WEIGHT = 2.4
   end
 end
