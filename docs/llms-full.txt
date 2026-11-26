@@ -164,7 +164,7 @@ Type your text in the editor area using labeled bracket notation and click the D
 
 Every branch or leaf of the syntax tree must belong to a node. To create a node, place the label text right next to the start bracket. Any number of branches may follow, separated by a whitespace. (Node labels containing whitespaces can be created using the `<>` symbol. For example, `Modal<>Aux` will be rendered as `Modal Aux`).
 
-The `Connector shape` option (`leafstyle`, CLI `--leafstyle`) chooses what is drawn between a node and its leaves; the four settings are described under [Connectors](#connectors). Whichever is chosen, the connectors can be made transparent with the `Hide connectors` option.
+The `Connector shape` option (`leafstyle`, CLI `--leafstyle`) chooses what is drawn between a node and its leaves; the four settings are described under [Connectors](#connectors). Whichever is chosen, the lines can be made transparent with the `Hide connectors` option; a triangle stays.
 
 The newline character `\n` can be used within the text of both node labels and leaves (a backslash followed by a space or a line break works too).
 

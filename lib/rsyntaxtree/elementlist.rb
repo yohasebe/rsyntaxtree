@@ -65,9 +65,9 @@ module RSyntaxTree
           end
         end
       end
-      # Two markers on one node are one end, joined to nothing.
-      links = links.transform_values { |ids| ids.size > 2 ? ids.size : ids.uniq.size }
-      lines = lines.transform_values { |ids| ids.size > 2 ? ids.size : ids.uniq.size }
+      # Markers on one node are one end, however many there are.
+      links = links.transform_values { |ids| ids.uniq.size == 1 ? 1 : ids.size }
+      lines = lines.transform_values { |ids| ids.uniq.size == 1 ? 1 : ids.size }
       over = links.find { |_k, v| v > 2 } || lines.find { |_k, v| v > 2 }
       if over
         raise RSTError.new(+"Error: input text contains a link having more than two ends:\n > #{over.first}",
@@ -170,6 +170,8 @@ module RSyntaxTree
 
     # Add invisible `<>` joints to put every leaf at the deepest leaf level.
     def align_leaves(mode, fontset, fontsize, global)
+      # The joints put in below change which edges a path runs along.
+      @path_edges = nil
       leaves = @elements.select { |e| e.type == ETYPE_LEAF && e.children.empty? }
       return if leaves.size < 2
 

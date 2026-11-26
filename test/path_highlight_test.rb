@@ -176,4 +176,22 @@ class PathHighlightTest < Minitest::Test
 
     assert_includes raw, "a\\^"
   end
+
+  # Leaf alignment puts joints in the tree and numbers it anew; the path runs
+  # along the edges as they then are, through the joints.
+  def test_the_path_follows_leaf_alignment
+    %w[words subtrees].each do |mode|
+      assert_equal [%w[B C], %w[C b]].sort, path_edges("[S [A a] [B+=1 [C b+=1]]]", leaf_align: mode).sort, mode
+
+      through = path_edges("[S [A a+=1] [B [C b+=1]]]", leaf_align: mode)
+      assert_includes through, %w[S B], mode
+      assert_includes through, %w[C b], mode
+      assert_operator through.size, :>, 5, "#{mode}: the path runs through the joints"
+    end
+  end
+
+  def test_any_number_of_markers_on_one_node_is_one_end
+    assert_equal :link_single_end, error("[S a+1+1+1]").code
+    assert_equal :link_single_end, error("[S a+-1+-1+-1]").code
+  end
 end
