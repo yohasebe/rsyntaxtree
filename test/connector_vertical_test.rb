@@ -129,13 +129,45 @@ class ConnectorVerticalTest < Minitest::Test
       x = found.find { |n| n.dig("label", "raw").include?("x") }["position"]
       x["x"] - m["x"] - m["content_width"]
     end
-    spread = gap.call({})
+    # Left to right, the arrowheads are sized from the gap as drawn.
+    tips = lambda do
+      svg = RSyntaxTree::RSGenerator.new(data: "[R [x] [##M+-<1 [LL m] [D x]] [##i+->1]]",
+                                         direction: "ltr", tidy: "low", hspacing: 2, format: "svg").draw_svg
+      svg.scan(/<polygon points='([-\d.]+),([-\d.]+) /).map { |x, y| [x.to_f, y.to_f] }
+    end
+    # Shades of sibling subtrees that only touched stay apart.
+    shaded = [["[R [%M [%label [%label a]]] [%W b] [%M [%M [%J c]]]]", 0.5],
+              ["[R [%W [%M [%label [%PP a]]]] [%i [%M b]] [%D [%J [%M [%D c]]]]]", 0.75],
+              ["[R [%Wide [%x [%mm a]]] [%J b] [%W [%Wide [%x c]]]]", 0.5],
+              ["[R [%PP [%i [%Wide a]]] [%mm b] [%x [%PP [%i c]]]]", 0.75]]
+    shades = lambda do
+      shaded.map do |data, hspacing|
+        svg = RSyntaxTree::RSGenerator.new(data: data, tidy: "off", hspacing: hspacing, format: "svg").draw_svg
+        svg.scan(/<rect x='([-\d.e]+)' y='[-\d.e]+' width='([\d.e]+)'[^>]*fill-opacity/).map { |x, w| [x.to_f, x.to_f + w.to_f] }
+      end
+    end
+    with = [gap.call({}), tips.call, shades.call]
     RSyntaxTree::BaseGraph.alias_method :hang_middle_children, :align_middle_children
     RSyntaxTree::BaseGraph.define_method(:align_middle_children) { nil }
-    begin
-      assert_in_delta gap.call({}), spread, 1e-6, "the linked pair lost the room spread for its arrowheads"
+    without = begin
+      [gap.call({}), tips.call, shades.call]
     ensure
       RSyntaxTree::BaseGraph.alias_method :align_middle_children, :hang_middle_children
+    end
+    assert_in_delta without[0], with[0], 1e-6, "the linked pair lost the room spread for its arrowheads"
+    refute_empty with[1]
+    span = ->(points) { points.map(&:last).max - points.map(&:last).min }
+    assert_in_delta span.call(without[1]), span.call(with[1]), 1e-6, "a link drawn left to right changed length"
+    # Shades that neither hold the other must not share any width.
+    crossing = lambda do |rects|
+      rects.combination(2).count do |(a_left, a_right), (b_left, b_right)|
+        nested = (a_left <= b_left && b_right <= a_right) || (b_left <= a_left && a_right <= b_right)
+        !nested && [a_right, b_right].min - [a_left, b_left].max > 0.01
+      end
+    end
+    with[2].zip(without[2], shaded) do |moved, kept, (data, _)|
+      refute_empty moved
+      refute_operator crossing.call(moved), :>, crossing.call(kept), "#{data}: sibling shades came to overlap"
     end
   end
 end
