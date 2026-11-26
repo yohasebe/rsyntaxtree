@@ -123,7 +123,7 @@ class StructuredErrorTest < Minitest::Test
   # validation too, or "this input is fine" is a promise it cannot keep.
   def test_path_with_one_end_is_rejected_by_validation_as_well_as_drawing
     e = failure("[A [B x+-2] [C y]]")
-    assert_equal :path_single_end, e.code
+    assert_equal :link_single_end, e.code
     assert e.retryable
 
     drawn = assert_raises(RSTError) do

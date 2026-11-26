@@ -104,7 +104,7 @@ class PathHighlightTest < Minitest::Test
   def test_an_unfinished_marker_is_named
     e = error("[S [NP a+=] [VP b]]")
 
-    assert_equal :incomplete_path, e.code
+    assert_equal :incomplete_marker, e.code
     assert_includes e.hint, "+=1"
   end
 

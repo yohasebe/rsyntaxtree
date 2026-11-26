@@ -21,7 +21,7 @@ module RSyntaxTree
       @width = 0
       @nodes = []
       @edges = []
-      @paths_data = []
+      @links_data = []
       @params = params
       @fontsize = params[:fontsize]
       @color = params[:color]
@@ -141,20 +141,20 @@ module RSyntaxTree
         end
       end
 
-      # Resolve movement paths
+      # Resolve movement links
       path_pool_source.each do |k, source_id|
         if (target_ids = path_pool_target[k])
           target_ids.each do |target_id|
-            @paths_data << { from: source_id, to: target_id, direction: "forward", type: "movement" }
+            @links_data << { from: source_id, to: target_id, direction: "forward", type: "movement" }
           end
         elsif (other_ids = path_pool_other[k])
           other_ids.each do |other_id|
-            @paths_data << { from: source_id, to: other_id, direction: "forward", type: "movement" }
+            @links_data << { from: source_id, to: other_id, direction: "forward", type: "movement" }
           end
         end
       end
 
-      # Resolve bidirectional paths
+      # Resolve bidirectional links
       remaining = path_flags.tally.select { |k, v| v >= 2 && !path_pool_source.key?(k) }.keys
       remaining.each do |k|
         targets = path_pool_target[k]
@@ -162,7 +162,7 @@ module RSyntaxTree
 
         first = targets[0]
         targets[1..].each do |target_id|
-          @paths_data << { from: first, to: target_id, direction: "bidirectional", type: "movement" }
+          @links_data << { from: first, to: target_id, direction: "bidirectional", type: "movement" }
         end
       end
 
@@ -172,16 +172,17 @@ module RSyntaxTree
 
         a = v[0]
         b = v[1]
+        # The arrowhead is drawn at the end that carries the '>' or '<', so
+        # that end is where the line goes to.
+        a, b = b, a if a[:arrow] && !b[:arrow]
         direction = if a[:arrow] && b[:arrow]
                       "bidirectional"
-                    elsif a[:arrow]
-                      "forward"
                     elsif b[:arrow]
                       "forward"
                     else
-                      "forward"
+                      "none"
                     end
-        @paths_data << { from: a[:id], to: b[:id], direction: direction, type: "movement" }
+        @links_data << { from: a[:id], to: b[:id], direction: direction, type: "line" }
       end
     end
 
@@ -301,7 +302,7 @@ module RSyntaxTree
         # format of the same initials.
         format: {
           name: "rsyntaxtree-json",
-          version: "0.4.0",
+          version: "0.5.0",
           generator: "rsyntaxtree #{RSyntaxTree::VERSION}",
           level: "rendered"
         },
@@ -353,7 +354,7 @@ module RSyntaxTree
         },
         nodes: @nodes,
         edges: @edges,
-        paths: @paths_data
+        links: @links_data
       }
       # The mark set in a corner of the image, with its defaults filled in;
       # absent when there is none.

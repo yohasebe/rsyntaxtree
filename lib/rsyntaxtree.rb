@@ -152,13 +152,14 @@ class RSTError < StandardError
   # should be readable at a glance and visible in a diff. A test keeps it
   # honest by finding the codes the library actually raises and comparing.
   #
-  # The list grows and does not churn: a code once published is not renamed
-  # or removed, so a consumer keyed by code — a translation table, a tally of
-  # what kinds of mistake a writer makes — only ever has entries to add.
+  # A code is renamed or removed only with a table in the CHANGELOG that
+  # maps each old code to its new one, so a consumer keyed by code — a
+  # translation table, a tally of what kinds of mistake a writer makes —
+  # knows exactly what to change.
   #
   # Eight are named by the repair table, which diagnoses a label by rewriting
   # it and asking the parser whether the rewrite reads: angle_brackets,
-  # bare_hyphen, incomplete_path, invalid_color, rule_name_without_derivation,
+  # bare_hyphen, incomplete_marker, invalid_color, rule_name_without_derivation,
   # stray_triangle, unclosed_markup, unclosed_matrix. invalid_markup is where
   # a label lands whose mistake no single rewrite fits, which in practice
   # means more than one. unknown_color and label_split are mistakes inside a
@@ -169,16 +170,16 @@ class RSTError < StandardError
     empty_brackets
     empty_input
     empty_markup
-    incomplete_path
+    incomplete_marker
     internal_error
     invalid_color
     invalid_markup
     invalid_option
     label_split
+    link_multiple_ends
+    link_single_end
     path_ends
-    path_multiple_ends
     path_numbers
-    path_single_end
     result_too_big
     rule_name_without_derivation
     stray_triangle

@@ -34,11 +34,11 @@ class LsifGeneratorTest < Minitest::Test
       assert data.key?("geometry"), "Missing 'geometry' key"
       assert data.key?("nodes"), "Missing 'nodes' key"
       assert data.key?("edges"), "Missing 'edges' key"
-      assert data.key?("paths"), "Missing 'paths' key"
+      assert data.key?("links"), "Missing 'links' key"
 
       # Verify format section
       assert_equal "rsyntaxtree-json", data["format"]["name"]
-      assert_equal "0.4.0", data["format"]["version"]
+      assert_equal "0.5.0", data["format"]["version"]
       assert_equal "rendered", data["format"]["level"]
       assert data["format"]["generator"].start_with?("rsyntaxtree")
 
@@ -99,11 +99,12 @@ class LsifGeneratorTest < Minitest::Test
           assert %w[line triangle none rule].include?(edge["connector"]), "Invalid connector type: #{edge["connector"]}"
       end
 
-      # Verify paths reference valid node IDs
-      data["paths"].each do |path|
-        assert node_ids.include?(path["from"]), "Path 'from' ID #{path["from"]} not found"
-        assert node_ids.include?(path["to"]), "Path 'to' ID #{path["to"]} not found"
-        assert %w[forward backward bidirectional].include?(path["direction"]), "Invalid direction"
+      # Verify links reference valid node IDs
+      data["links"].each do |link|
+        assert node_ids.include?(link["from"]), "Link 'from' ID #{link["from"]} not found"
+        assert node_ids.include?(link["to"]), "Link 'to' ID #{link["to"]} not found"
+        assert %w[forward backward bidirectional none].include?(link["direction"]), "Invalid direction"
+        assert %w[movement line].include?(link["type"]), "Invalid type"
       end
     end
   end
@@ -327,5 +328,18 @@ class SvgDirectionTest < Minitest::Test
     nested = rows[3]["cells"][1][0]["matrix"]
     refute_nil nested, "a matrix in a cell must recurse"
     assert_equal %w[NUM sg], nested["rows"][0]["cells"].map(&texts)
+  end
+
+  # A line between two nodes is recorded as a line, running to the end that
+  # carries the arrowhead; a dashed link is a movement.
+  def test_links_say_what_they_are
+    data = JSON.parse(RSyntaxTree::RSGenerator.new(data: "[S [A a+1] [B b+>1] [C c+-2] [D d+->2] [E e+-3] [F f+-3]]",
+                                                   format: "json").draw_json)
+    label = data["nodes"].to_h { |n| [n["id"], n.dig("label", "raw")] }
+    links = data["links"].map { |l| [label[l["from"]], label[l["to"]], l["direction"], l["type"]] }
+
+    assert_includes links, %w[a b forward movement]
+    assert_includes links, %w[c d forward line]
+    assert_includes links, %w[e f none line]
   end
 end

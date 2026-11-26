@@ -320,9 +320,9 @@ module RSyntaxTree
         .map { |ch, hint| [:unclosed_markup, ->(s) { s.gsub(/(?<!\\)#{Regexp.escape(ch)}/) { "\\#{ch}" } }, hint] },
       [:stray_triangle,
        ->(s) { s.sub(/\A\^+/, "^") }, "Only one '^' may prefix a label."],
-      [:incomplete_path,
+      [:incomplete_marker,
        ->(s) { s.sub(/(?<!\\)\+(?:=|>?<?)\z/, "") },
-       "A path marker needs a number: write +1, +>1 for the arrowhead, or +=1 for a highlighted path."]
+       "A marker needs a number: write +1 for a link, +>1 for its arrowhead, or +=1 for a highlighted path."]
     ].freeze
 
     # Turn a Markup.parse failure into structured error attributes: a code

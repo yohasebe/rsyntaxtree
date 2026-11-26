@@ -64,7 +64,7 @@ class DiagnoseTest < Minitest::Test
 
   def test_a_path_error_still_arrives_once_the_labels_read
     result = diagnose("[S [NP w+1] [VP a]]")
-    assert_equal %w[path_single_end], codes(result)
+    assert_equal %w[link_single_end], codes(result)
   end
 
   # The error class the label-by-label design would have missed: a rule
