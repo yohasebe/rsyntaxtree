@@ -189,6 +189,26 @@ class PathRailTest < Minitest::Test
     end
   end
 
+  # The same left to right at the default clearance, with the shared label
+  # boxed so that the edge it is drawn with can be read off the figure.
+  def test_crowded_ends_stay_inside_the_drawn_label_ltr
+    data = CROWDED.sub("[i+", "[##i+")
+    svg = RSyntaxTree::RSGenerator.new(data: data, direction: "ltr").draw_svg
+    box = svg[/<polygon style='stroke:[^']*'\s*points='([^']+)'/, 1].scan(/-?\d+(?:\.\d+)?/).map(&:to_f)
+    xs = box.each_slice(2).map(&:first)
+    ys = box.each_slice(2).map(&:last)
+    centre = [(xs.min + xs.max) / 2.0, (ys.min + ys.max) / 2.0]
+    ends = strokes(svg).map do |segments|
+      [segments.first.first, segments.last.last].min_by { |x, y| Math.hypot(x - centre[0], y - centre[1]) }
+    end
+
+    assert_equal 10, ends.size
+    ends.each do |_x, y|
+      assert_operator y, :>=, ys.min, "inside the box"
+      assert_operator y, :<=, ys.max, "inside the box"
+    end
+  end
+
   # Above the words, the rail is past the top of the tree, and the canvas
   # grows to hold it.
   def test_the_canvas_holds_a_rail_above_the_tree
