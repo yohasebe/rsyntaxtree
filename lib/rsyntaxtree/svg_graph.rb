@@ -709,6 +709,10 @@ module RSyntaxTree
       this_y = 0
       prev_line_height = nil
       first_baseline = nil
+      # Every line as it is painted: the baseline of a line of text, the
+      # middle and weight of a rule.
+      painted_rows = []
+      painted_rules = []
       bc = { x: text_x - enclosure_room, y: top, width: element.content_width, height: nil }
       element.content.each_with_index do |l, idx|
         case l[:type]
@@ -729,6 +733,7 @@ module RSyntaxTree
             stroke_width = @global[:stroke_bold]
           end
           @extra_lines << "<line style=\"stroke:#{col}; fill:none; stroke-linecap:round; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
+          painted_rules << [y1, stroke_width]
         else
           if @direction == "ltr" && element.type == ETYPE_LEAF
             # LTR leaves: left-align text at the node's left edge. A leaf
@@ -750,6 +755,7 @@ module RSyntaxTree
           text_y += (l[:advance] || prev_line_height) if idx != 0 && prev_line_height
           text_y += l[:top_room].to_f
           first_baseline ||= text_y
+          painted_rows << [text_y, l]
           prev_line_height = l[:elements].map { |e| e[:height] }.max
 
           l[:elements].each do |e|
@@ -797,27 +803,31 @@ module RSyntaxTree
         element.ink_top = bc[:y]
         element.ink_bottom = bc[:y] + bc[:height]
       elsif first_baseline
-        # The label's own ink, not the font's whole band: measured from the
-        # first and last lines of text as drawn. What the connectors then
-        # keep clear of is the union of these across a row (see row_ink), so
-        # the ends stay level within a row while a row of capitals pays no
-        # tax for descenders nobody wrote.
-        text_lines = element.content.select { |l| l[:type] == :text }
-        first_text = text_lines.first[:elements].map { |e| e[:text].to_s }.join.gsub(WHITESPACE_BLOCK, " ")
-        last_text = text_lines.last[:elements].map { |e| e[:text].to_s }.join.gsub(WHITESPACE_BLOCK, " ")
-        f_m = FontMetrics.get_metrics(first_text.strip.empty? ? "X" : first_text,
-                                      @fontset[:family], @fontsize.to_f, :normal, :normal)
-        l_m = FontMetrics.get_metrics(last_text.strip.empty? ? "X" : last_text,
-                                      @fontset[:family], @fontsize.to_f, :normal, :normal)
-        element.ink_top = first_baseline - f_m.ink_above
-        element.ink_bottom = text_y + (l_m.ink_height - l_m.ink_above)
-        # A box, circle or bar drawn in a line reaches past the letters it
-        # holds, and the connector has to clear the outline, not the letter.
-        shapes = ->(line) { line[:elements].select { |e| e[:decoration].intersect?(%i[box circle bar]) } }
-        up = shapes.call(text_lines.first).filter_map { |e| e[:ink_up] }.max
-        down = shapes.call(text_lines.last).filter_map { |e| e[:ink_down] }.max
-        element.ink_top = [element.ink_top, first_baseline - up].min if up
-        element.ink_bottom = [element.ink_bottom, text_y + down].max if down
+        # The label's own ink, not the font's whole band: each run as it is
+        # painted — its glyphs at the size and on the baseline they are drawn
+        # at, the outline of a box, circle or bar — and each rule by its
+        # stroke. What the connectors then keep clear of is the union of these
+        # across a row (see row_ink), so the ends stay level within a row
+        # while a row of capitals pays no tax for descenders nobody wrote.
+        tops = []
+        bottoms = []
+        painted_rows.each do |baseline, line|
+          ups = line[:elements].filter_map { |e| e[:ink_up] }
+          downs = line[:elements].filter_map { |e| e[:ink_down] }
+          if ups.empty?
+            band = FontMetrics.get_metrics("X", @fontset[:family], @fontsize.to_f, :normal, :normal)
+            ups = [band.ink_above]
+            downs = [band.ink_height - band.ink_above]
+          end
+          tops << baseline - ups.max
+          bottoms << baseline + downs.max
+        end
+        painted_rules.each do |y, width|
+          tops << y - (width / 2.0)
+          bottoms << y + (width / 2.0)
+        end
+        element.ink_top = tops.min
+        element.ink_bottom = bottoms.max
       end
       # The block form, so the label goes in as it is. As a replacement
       # string it was read for backreferences, and `\+` — the last matched

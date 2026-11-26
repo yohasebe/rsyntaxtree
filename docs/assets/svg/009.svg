@@ -58,9 +58,9 @@
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='436.8' y='521.92'><tspan x='437.3' y='521.92' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">α</tspan>
 <tspan x='457.3' y='525.92' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">3</tspan>
 </text>
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='38.3' y1='154.92258780036966' x2='182.8' y2='77.15999999999998' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='140.8' y1='154.92258780036966' x2='182.8' y2='77.15999999999998' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='327.3' y1='154.92258780036966' x2='182.8' y2='77.15999999999998' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='38.3' y1='154.92258780036966' x2='182.8' y2='76.15999999999998' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='140.8' y1='154.92258780036966' x2='182.8' y2='76.15999999999998' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='327.3' y1='154.92258780036966' x2='182.8' y2='76.15999999999998' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='38.300000000000004' y1='268.59519408502774' x2='38.3' y2='196.84258780036967' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='140.8' y1='268.59519408502774' x2='140.8' y2='196.84258780036967' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='237.8' y1='268.59519408502774' x2='327.3' y2='196.84258780036967' />
@@ -69,5 +69,5 @@
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='312.3' y1='381.44' x2='312.3' y2='312.5151940850277' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='380.3' y1='381.44' x2='416.8' y2='312.5151940850277' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='453.3' y1='381.44' x2='416.8' y2='312.5151940850277' />
-<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='453.3' y1='488.96' x2='453.3' y2='423.35999999999996' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='453.3' y1='494.96' x2='453.3' y2='423.35999999999996' />
 </svg>
