@@ -31,7 +31,7 @@ class LinkLabelTest < Minitest::Test
   end
 
   def test_the_text_is_set_smaller_than_a_label
-    doc = svg(LONG)
+    doc = svg(LONG.sub("\"*\"", "\"1\""))
     label_size = doc[/font-size: ([\d.]+)px/, 1].to_f
 
     assert_equal "*", text(svg(LONG))[:content]
@@ -224,5 +224,28 @@ class LinkLabelTest < Minitest::Test
     end
 
     refute crossed
+  end
+
+  # A mark whose ink stands lower than a small x is set larger, until it
+  # stands as high; a digit or a word keeps the usual size.
+  def test_a_small_mark_is_set_larger
+    sizes = %w[* 1 island].to_h do |t|
+      [t, text(svg("[S [A a+>1\"#{t}\"] [M middlemiddle] [B b+1]]"))[:size]]
+    end
+
+    assert_operator sizes["*"], :>, sizes["1"]
+    assert_equal sizes["1"], sizes["island"]
+  end
+
+  def test_a_quote_inside_a_text_is_named
+    e = begin
+      svg("[S [A a+>1\"x\"y\"] [B b+1]]")
+      nil
+    rescue RSTError => err
+      err
+    end
+
+    assert_equal :link_label, e.code
+    assert_includes e.hint, "double quote"
   end
 end

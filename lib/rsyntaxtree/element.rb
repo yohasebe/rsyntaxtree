@@ -335,6 +335,9 @@ module RSyntaxTree
       [:incomplete_marker,
        ->(s) { s.sub(/(?<!\\)\+(?:=|>?<?)\z/, "") },
        "A marker needs a number: write +1 for a link, +>1 for its arrowhead, or +=1 for a highlighted path."],
+      [:link_label,
+       ->(s) { s.sub(/((?<!\\)(?:\\\\)*\+-?[<>]?\d+")(.*")(\z)/) { $1 + $2.delete('"') + '"' } },
+       "A link's text cannot hold a double quote: write it without one."],
       [:incomplete_marker,
        ->(s) { s.match?(/(?<!\\)(?:\\\\)*\+-?[<>]?\d+"[^"]*\z/) ? "#{s}\"" : s },
        "A link's text needs a closing double quote: +1\"*\"."]

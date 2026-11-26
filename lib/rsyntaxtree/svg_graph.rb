@@ -570,13 +570,22 @@ module RSyntaxTree
       at
     end
 
-    # How much room a link's text takes: its width and height, and the margin
-    # kept round it.
+    # How much room a link's text takes: its width and height, the margin
+    # kept round it, the size it is set at and its metrics. A text whose ink
+    # stands lower than a small x — an asterisk, drawn small and high in most
+    # faces — is set larger until it stands as high, so that a judgement mark
+    # on a link reads as the same mark as one beside the tree.
     def link_label_extent(label)
+      text = Element.plain_text(label)
       size = @fontsize * LINK_LABEL_SIZE
-      m = FontMetrics.get_metrics(Element.plain_text(label), @fontset[:family], size, :normal, :normal)
-      [m.width, size, size * LINK_LABEL_PAD]
+      # Compared large, where whole units of ink are fine enough to tell.
+      ink = FontMetrics.get_metrics(text, @fontset[:family], 100.0, :normal, :normal).ink_height.to_f
+      x = FontMetrics.get_metrics("x", @fontset[:family], 100.0, :normal, :normal).ink_height.to_f
+      size *= [x / ink, LINK_LABEL_GROWTH].min if ink.positive? && ink < x
+      m = FontMetrics.get_metrics(text, @fontset[:family], size, :normal, :normal)
+      [m.width, size, size * LINK_LABEL_PAD, size, m]
     end
+    LINK_LABEL_GROWTH = 1.5
 
     # Where the movement links have been, as a box. The canvas learns of a
     # rail through @width and @height, which only say how far right and down
@@ -792,9 +801,7 @@ module RSyntaxTree
     # Where a link's text goes: its centre, the box it takes with its margin,
     # and, when it sits across the rail, the stretch of rail to leave out.
     def link_label_spot(link, placed)
-      size = @fontsize * LINK_LABEL_SIZE
-      m = FontMetrics.get_metrics(Element.plain_text(link[:label]), @fontset[:family], size, :normal, :normal)
-      w, h, pad = link_label_extent(link[:label])
+      w, h, pad, size, m = link_label_extent(link[:label])
       (a, b) = link[:points][1], link[:points][2]
       level = a[1] == b[1] # the rail runs across the figure
       along = level ? w : h
@@ -869,7 +876,13 @@ module RSyntaxTree
           ax > x0 && ax < x1 && [ay, by].max > y0 && [ay, by].min < y1
         end
       end
-      return false if (@link_drawings - [link]).any? { |other| other[:points].each_cons(2).any? { |p, q| hits.call(p, q) } }
+      # Another link keeps a margin from the text, so that a broken rail
+      # does not seem to end at the other link's upright.
+      margin = (y1 - y0) * 0.25
+      wide = [x0 - margin, y0 - margin, x1 + margin, y1 + margin]
+      return false if (@link_drawings - [link]).any? do |other|
+        other[:points].each_cons(2).any? { |p, q| segment_meets_box?(p, q, wide) }
+      end
       # The link's own uprights too; its rail is broken under the text or
       # runs beside it.
       return false if link[:points].each_cons(2).each_with_index.any? { |(p, q), i| i != 1 && hits.call(p, q) }
