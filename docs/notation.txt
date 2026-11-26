@@ -26,7 +26,8 @@ figure that was meant.
   space as `<>`: 'a<>toy', not 'a toy'.
 - A straight apostrophe is typeset as the curly ’ (U+2019); \' keeps it
   straight.
-- A `+` followed by digits at the end of a label is a movement path (+1, +>2).
+- A `+` followed by digits at the end of a label is a link (+1, +>2), and
+  `+=` followed by digits a highlighted path (+=1).
   \+ is a plus sign, so C\+\+11 and 2\+2 draw as written. The markers come
   last, after any coloured stretch: NP\n@gray(note)+>1, not @gray(note+>1).
 - Decorations nest either way round (___*x*___ and *___x___* both draw small
@@ -61,10 +62,11 @@ Structure:
 | a phrase under one leaf (triangle)     | [NP a toy] — one word, forced: [NP ^cats] |
 | an invisible joint, to align leaves    | a label of only <>, as in [X [<> [Y y]] [Z z]] |
 | a branching point with no label        | the same, with two or more branches: [VP [V v] [<> [DP d] [CP c]]] |
-| a movement path (dashed)               | [S [NP a+1] [VP [V b] [NP c+1]]] |
+| a link, as for movement (dashed)       | [S [NP a+1] [VP [V b] [NP c+1]]] |
 | the same, with an arrowhead            | write +>1 on the end the arrow points at |
-| a path to a phrase                     | +1 on a node with daughters: the line stops a clearance outside the phrase and its shade, on the word side |
+| a link to a phrase                     | +1 on a node with daughters: the line stops a clearance outside the phrase and its shade, on the word side |
 | an extra straight connector            | +-1 on two nodes; +->1 for an arrowhead |
+| a path through the tree, drawn heavier | +=1 on two nodes, one path per tree: the edges up to where they meet and down again |
 
 Inside a label:
 
@@ -114,7 +116,7 @@ Options (the command line spells them --like-this):
 | leafstyle  | auto, bar, dashed, nothing — what joins a node to its leaf |
 | direction  | ttb, ltr, btt |
 | mirror     | flip the finished layout, for RTL scripts; not with direction ltr |
-| tidy       | off, symmetric, low, medium, high — how tightly subtrees pack; the packing modes leave the column under a movement path's end clear, which can widen a figure |
+| tidy       | off, symmetric, low, medium, high — how tightly subtrees pack; the packing modes leave the column under a link's end clear, which can widen a figure |
 | hspacing   | how far apart sisters sit, 0.5–3.0 |
 | vheight    | how far apart levels sit, 0.5–5.0 |
 | polyline   | draw each connector as two right angles rather than a slanted line |

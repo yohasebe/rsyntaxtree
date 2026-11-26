@@ -1,0 +1,142 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <svg width="1017.3749999999998" height="1565.984" viewBox="-16.8, 0, 1017.3749999999998, 1565.984" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
+    </marker>
+    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.4" markerHeight="16.8" orient="auto">
+      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
+    </marker>
+    <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
+    </pattern>
+    <pattern id="hatchForNode" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="#0072B2" stroke-width="4.0"></line>
+    </pattern>
+    <pattern id="hatchForLeaf" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y="0" x2="0" y2="10.0" stroke="#009E73" stroke-width="4.0"></line>
+    </pattern>
+  </defs>
+<rect x="-16.8" y="0" width="1017.3749999999998" height="1565.984" stroke="none" fill="white" />
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='136.192578125' y='67.19999999999999'><tspan x='136.192578125' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">C’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='41.3' y='183.43360410253322'><tspan x='41.3' y='183.43360410253322' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">N’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='16.799999999999997' y='299.32882114892004'><tspan x='17.299999999999997' y='299.32882114892004' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">what</tspan>
+<tspan x='93.3' y='303.32882114892004' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">1</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='233.08515624999995' y='183.43360410253322'><tspan x='233.08515624999995' y='183.43360410253322' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">C’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='147.8' y='299.32882114892004'><tspan x='147.8' y='299.32882114892004' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">C</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='120.30000000000001' y='414.26585503144895'><tspan x='120.80000000000001' y='414.26585503144895' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">INFL</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='129.8' y='526.6299014659431'><tspan x='129.8' y='526.6299014659431' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">will</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='292.37031249999995' y='299.32882114892004'><tspan x='292.37031249999995' y='299.32882114892004' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">INFL’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='237.3' y='414.26585503144895'><tspan x='237.3' y='414.26585503144895' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">N’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='230.3' y='526.6299014659431'><tspan x='230.3' y='526.6299014659431' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">you</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='375.44062499999995' y='414.26585503144895'><tspan x='375.44062499999995' y='414.26585503144895' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">INFL’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='326.3' y='526.6299014659431'><tspan x='326.8' y='526.6299014659431' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">INFL</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='357.8' y='634.1499014659431'><tspan x='357.8' y='634.1499014659431' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">t</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='448.08124999999995' y='526.6299014659431'><tspan x='448.08124999999995' y='526.6299014659431' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">V’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='452.08124999999995' y='634.1499014659431'><tspan x='452.08124999999995' y='634.1499014659431' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">V’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='353.8' y='751.2641913177431'><tspan x='353.8' y='751.2641913177431' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">V</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='308.3' y='867.0916210274899'><tspan x='308.8' y='867.0916210274899' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">wonder</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='551.3624999999998' y='751.2641913177431'><tspan x='551.3624999999998' y='751.2641913177431' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">C’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='463.2999999999999' y='867.0916210274899'><tspan x='463.7999999999999' y='867.0916210274899' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">P’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='428.79999999999995' y='981.4709666593909'><tspan x='428.79999999999995' y='981.4709666593909' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">where</tspan>
+<tspan x='519.8' y='985.4709666593909' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">2</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='643.9249999999998' y='867.0916210274899'><tspan x='643.9249999999998' y='867.0916210274899' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">C’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='574.7999999999998' y='981.4709666593909'><tspan x='574.7999999999998' y='981.4709666593909' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">C</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='687.0499999999998' y='981.4709666593909'><tspan x='687.0499999999998' y='981.4709666593909' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">INFL’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='637.9249999999998' y='1095.8503122912916'><tspan x='637.9249999999998' y='1095.8503122912916' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">N’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='640.4249999999998' y='1207.9901108878198'><tspan x='640.9249999999998' y='1207.9901108878198' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">he</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='764.1749999999998' y='1095.8503122912916'><tspan x='764.1749999999998' y='1095.8503122912916' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">INFL’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='717.4249999999998' y='1207.9901108878198'><tspan x='717.9249999999998' y='1207.9901108878198' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">INFL</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='726.9249999999998' y='1315.5101108878198'><tspan x='726.9249999999998' y='1315.5101108878198' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">will</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='834.4249999999998' y='1207.9901108878198'><tspan x='834.4249999999998' y='1207.9901108878198' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">V’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='838.4249999999998' y='1315.5101108878198'><tspan x='838.4249999999998' y='1315.5101108878198' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">V’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='763.1749999999998' y='1430.4639999999997'><tspan x='763.1749999999998' y='1430.4639999999997' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">V</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='749.6749999999998' y='1537.9839999999997'><tspan x='750.1749999999998' y='1537.9839999999997' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">put</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='833.4249999999998' y='1430.4639999999997'><tspan x='833.4249999999998' y='1430.4639999999997' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">N’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='840.9249999999998' y='1537.9839999999997'><tspan x='841.4249999999998' y='1537.9839999999997' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">t</tspan>
+<tspan x='853.4249999999998' y='1541.9839999999997' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">1</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='915.1749999999998' y='1430.4639999999997'><tspan x='915.6749999999998' y='1430.4639999999997' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">P’’</tspan>
+</text>
+<text white-space='pre' alignment-baseline='text-top' style='fill: #009E73; stroke-width: 0; font-size: 32px;' x='920.1749999999998' y='1537.9839999999997'><tspan x='920.6749999999998' y='1537.9839999999997' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">t</tspan>
+<tspan x='932.6749999999998' y='1541.9839999999997' style="font-size: 70%; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">2</tspan>
+</text>
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='61.3' y1='150.47360410253322' x2='154.192578125' y2='76.15999999999998' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='247.08515624999998' y1='150.47360410253322' x2='154.192578125' y2='76.15999999999998' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='61.3' y1='265.36882114892006' x2='61.3' y2='192.39360410253323' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='157.8' y1='265.36882114892006' x2='247.08515624999998' y2='192.39360410253323' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='336.37031249999995' y1='265.36882114892006' x2='247.08515624999998' y2='192.39360410253323' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='157.8' y1='381.30585503144897' x2='157.8' y2='308.28882114892' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='157.8' y1='492.66990146594316' x2='157.8' y2='423.22585503144893' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='257.3' y1='381.30585503144897' x2='336.37031249999995' y2='308.28882114892' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='415.44062499999995' y1='381.30585503144897' x2='336.37031249999995' y2='308.28882114892' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='257.3' y1='492.66990146594316' x2='257.3' y2='423.22585503144893' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='363.8' y1='492.66990146594316' x2='415.44062499999995' y2='423.22585503144893' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='467.08124999999995' y1='492.66990146594316' x2='415.44062499999995' y2='423.22585503144893' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='363.8' y1='601.1899014659431' x2='363.8' y2='535.5899014659432' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='467.08124999999995' y1='601.1899014659431' x2='467.08124999999995' y2='535.5899014659432' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='364.8' y1='718.3041913177431' x2='467.08124999999995' y2='643.1099014659432' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='569.3624999999998' y1='718.3041913177431' x2='467.08124999999995' y2='643.1099014659432' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='364.8' y1='833.1316210274898' x2='364.8' y2='760.2241913177431' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='480.7999999999999' y1='833.1316210274898' x2='569.3624999999998' y2='760.2241913177431' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='657.9249999999998' y1='833.1316210274898' x2='569.3624999999998' y2='760.2241913177431' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='480.7999999999999' y1='947.5109666593909' x2='480.7999999999999' y2='876.0516210274899' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='584.7999999999998' y1='947.5109666593909' x2='657.9249999999998' y2='876.0516210274899' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='731.0499999999998' y1='947.5109666593909' x2='657.9249999999998' y2='876.0516210274899' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='657.9249999999998' y1='1062.8903122912916' x2='731.0499999999998' y2='990.430966659391' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='804.1749999999998' y1='1062.8903122912916' x2='731.0499999999998' y2='990.430966659391' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='657.9249999999998' y1='1174.0301108878198' x2='657.9249999999998' y2='1104.8103122912917' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='754.9249999999998' y1='1174.0301108878198' x2='804.1749999999998' y2='1104.8103122912917' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='853.4249999999998' y1='1174.0301108878198' x2='804.1749999999998' y2='1104.8103122912917' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='754.9249999999998' y1='1281.5501108878198' x2='754.9249999999998' y2='1216.9501108878198' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='853.4249999999998' y1='1281.5501108878198' x2='853.4249999999998' y2='1216.9501108878198' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='774.1749999999998' y1='1397.5039999999997' x2='853.4249999999998' y2='1324.4701108878198' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='853.4249999999998' y1='1397.5039999999997' x2='853.4249999999998' y2='1324.4701108878198' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='932.6749999999998' y1='1397.5039999999997' x2='853.4249999999998' y2='1324.4701108878198' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='774.1749999999998' y1='1507.0239999999997' x2='774.1749999999998' y2='1439.4239999999998' />
+<line style='fill: none; stroke:#D55E00; stroke-width:3.84; stroke-linejoin:round; stroke-linecap:round;' x1='853.4249999999998' y1='1507.0239999999997' x2='853.4249999999998' y2='1439.4239999999998' />
+<line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='932.6749999999998' y1='1507.0239999999997' x2='932.6749999999998' y2='1439.4239999999998' />
+</svg>

@@ -31,7 +31,7 @@ RSyntaxTree can generate `PNG` and `SVG`, SVG can be used with third party vecto
 
 The options `Font`, `Size`, `V spacing`, and `Color` need no explanation. By changing the values of these options, you can change the appearance of the resulting image.
 
-`Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and movement paths in grey.
+`Color` offers `Modern` and `Traditional`, which colour node and leaf labels, `None`, which draws everything in black, and `Gray lines`, which keeps the labels black but draws the connectors and links in grey.
 
 `Line width` sets the thickness of every line in the figure — connectors, brackets, enclosures — as a ratio of the font size. `1` is 5% of it (the weight of an ordinary text rule), each 0.5 step adds another 2.5%, and the scale runs from `0.5` (a hairline) to `3.0` (15%, the heaviest). Because the lines follow the font size, text and lines keep the same balance at any font size.
 
@@ -71,7 +71,8 @@ explains it. Every sample here is drawn by a test, so each one works.
 - `(S (NP the cat) (VP sat))` — Penn Treebank input, converted on sight → [Penn Treebank Format](#penn-treebank-format)
 - `^cats` — force a triangle over one leaf (a spaced leaf gets one by itself) → [Connectors](#connectors)
 - `<>` as a whole label — an invisible joint, to level the terminals or to leave a branching point unlabeled → [Levelling the Terminals](#levelling-the-terminals)
-- `+1` on two nodes, `+>1` for an arrowhead — a movement path → [Paths](#draw-paths-between-nodes)
+- `+1` on two nodes, `+>1` for an arrowhead — a link between them, as for movement → [Links](#draw-links-between-nodes)
+- `+=1` on two nodes — the path through the tree between them, drawn heavier → [Paths](#highlight-a-path-through-the-tree)
 - `+-1`, `+->1` — an extra straight connector → [Extra Connectors](#draw-extra-connectors-between-nodes)
 
 **Inside a label**
@@ -122,7 +123,7 @@ The `Direction` option controls the orientation of the tree layout:
 - **Left to Right** (`ltr`): Root node at the left, leaves expand to the right. Useful for classification trees, taxonomies, and other hierarchical structures where horizontal layout is preferred.
 - **Bottom to Top** (`btt`): Leaves at the top, root at the bottom. This is how a derivation is written, with the words first and the result last: see [Derivations](#derivations).
 
-In left-to-right mode, connectors, triangles, movement paths, and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
+In left-to-right mode, connectors, triangles, links, highlighted paths and line-type connections are all adapted to the horizontal orientation. The `V spacing` option controls the horizontal depth between tree levels in LTR mode.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-8671daca'].layout }}" markdown="1">
 
@@ -194,7 +195,7 @@ High
 
 `high` pays off on deeply lopsided trees; on a well-balanced one it often lands close to `medium`. `off`, `low` and `medium` cover ordinary work.
 
-In the packing modes (`low`, `medium`, `high`), nothing is packed into the column below an end of a movement path, so the path never runs over a label on its way down. Connector heights adjust automatically in tidy mode. `H spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `V spacing` (`vheight`) scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
+In the packing modes (`low`, `medium`, `high`), nothing is packed into the column below an end of a link, so the link never runs over a label on its way down. Connector heights adjust automatically in tidy mode. `H spacing` (`hspacing`, default 1.0, range 0.5–3.0) and `V spacing` (`vheight`) scale the horizontal and vertical gaps, and both apply in every layout mode, tidy or not.
 
 ### Mirrored Layout for RTL Scripts
 
@@ -624,7 +625,7 @@ The backslash character `\` must be used to print certain characters used in the
 
 **Note:** A straight ASCII apostrophe (`'`) in a label is automatically rendered as a typographic (curly) apostrophe `’`, which suits X-bar primes such as `T'`. This also applies to apostrophes in ordinary words (e.g. *John's*). Write `\'` for an apostrophe that is to stay straight.
 
-**Note:** A `+` followed by digits at the end of a label is a movement path (`+1`). Written `\+`, it is a plus sign: `C\+\+11` draws *C++11*.
+**Note:** A `+` followed by digits at the end of a label is a link (`+1`), and `+=` followed by digits a highlighted path (`+=1`). Written `\+`, it is a plus sign: `C\+\+11` draws *C++11*.
 
 ### Feature Structures
 
@@ -813,19 +814,19 @@ PNG, SVG or PDF.
 
 </div>
 
-### Draw Paths between Nodes
+### Draw Links between Nodes
 
-You can draw any number of paths of three different types:
+You can draw any number of links of three different types:
 
 - Non-directional (rendered as dashed line `- - -`)
 - Directional (rendered as solid line `----▶`)
 - Bidirectional (rendered as solid line `◀----▶`)
 
-Each path is distinguished by a unique ID number. The ID is specified by putting a plus sign and a number (e.g. `+7`) at the end of the node text. If a greater-than `>` or less-than `<` symbol is placed between the plus sign and the number (e.g. `+>7` or `+<7`), an arrowhead will appear at the end of the path. Note that it makes no difference whether `+>` or `+<` is used. The arrow is always directed to the element with one of these ID symbols.
+Each link is distinguished by a unique ID number. The ID is specified by putting a plus sign and a number (e.g. `+7`) at the end of the node text. If a greater-than `>` or less-than `<` symbol is placed between the plus sign and the number (e.g. `+>7` or `+<7`), an arrowhead will appear at the end of the link. Note that it makes no difference whether `+>` or `+<` is used. The arrow is always directed to the element with one of these ID symbols.
 
-A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the path is rendered. The same ID number cannot appear in more than two places.
+A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the link is rendered. The same ID number cannot appear in more than two places.
 
-A path to a phrase — a node with daughters — stops a clearance outside everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
+A link to a phrase — a node with daughters — stops a clearance outside everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-c05567af'].layout }}" markdown="1">
 
@@ -845,13 +846,41 @@ A path to a phrase — a node with daughters — stops a clearance outside every
 ]
 ```
 
-{% include doc_figure.html name="doc-c05567af" alt="A path with an arrowhead, drawn from a trace to the word that moved" %}
+{% include doc_figure.html name="doc-c05567af" alt="A link with an arrowhead, drawn from a trace to the word that moved" %}
+
+</div>
+
+### Highlight a Path through the Tree
+
+The path through the tree between two nodes — every edge up from one of them to the node where the two meet, and down again to the other — can be drawn heavier, in the colour bold text takes: vermillion in `Modern`, red in `Traditional`, and black in `Gray lines` and `None`, where the weight alone marks it. Put `+=` and a number at the end of the two labels the path joins (`+=1`). Written on a word, the path runs down to the word; written on a node, it stops at the node.
+
+One path can be highlighted in a tree, and it takes exactly two ends. A label can carry a link and a path together (`t+1+=1`). A derivation draws rules rather than edges, and refuses a path.
+
+<div class="grid {{ site.data.doc_figure_sizes['doc-1d4c689f'].layout }}" markdown="1">
+
+```text
+[CP
+  [NP What+>1+=1]
+  [C'
+    [C does]
+    [IP
+      [NP John]
+      [VP
+        [V like]
+        [NP t+1+=1]
+      ]
+    ]
+  ]
+]
+```
+
+{% include doc_figure.html name="doc-1d4c689f" alt="The path from a trace up to the word that moved, drawn heavier beside the link between them" %}
 
 </div>
 
 ### Draw Extra Connectors between Nodes
 
-You can also add extra connector between nodes in the same fasion as you draw paths between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s). You may enable the `Hide connectors` option when drawing extra connectors.
+You can also add extra connector between nodes in the same fashion as you draw links between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s). You may enable the `Hide connectors` option when drawing extra connectors.
 
 - Non-directional (rendered as solid line `-----`)
 - Directional (rendered as solid line `--▶--`)
@@ -1003,18 +1032,18 @@ Every error of a kind is reported together, not just the first one found:
 an input with three bad labels lists all three, one entry each, so one
 round of fixes covers them. The stages are ordered — an empty
 input is refused before anything else, then options, then the bracket
-structure, then the labels, then whole-tree checks such as a movement
-path with one end — and a mistake stops the later stages, with a
+structure, then the labels, then whole-tree checks such as a
+link with one end — and a mistake stops the later stages, with a
 `note` saying that fixing what is listed may reveal more. A missing bracket
 shifts every token after it, so reporting past it would blame labels that are
 only artifacts of the real mistake.
 
 The `code` is the part meant for a program. Every code the library can
-report is listed in `RSTError::CODES`, and the list only grows: a code once
-published is not renamed or removed, so a program keyed by code — one that
-translates the diagnosis, or tallies what kinds of mistake a writer makes —
-only ever has entries to add. The whole set matters to the second kind: a
-code nobody triggered is not a code that cannot occur.
+report is listed in `RSTError::CODES`. A code is renamed or removed only with
+a table in the CHANGELOG mapping each old code to its new one, so a program
+keyed by code — one that translates the diagnosis, or tallies what kinds of
+mistake a writer makes — knows exactly what to change. The whole set matters
+to the second kind: a code nobody triggered is not a code that cannot occur.
 
 The rest of an answer is not a contract: the wording of a message or a hint
 may change between releases, a field may be absent where it does not apply
@@ -1115,7 +1144,7 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 - Triangle connectors (`^`)
 - Text decoration (bold, italic)
 - Subscript/superscript (`_x_`, `__x__`)
-- Path drawing (`+1`, `+>1`)
+- Links (`+1`, `+>1`); a highlighted path (`+=1`) is drawn heavier but not coloured
 - Column alignment (`\t`)
 - Nested matrix (`#(` … `#)`)
 - Grey line scheme (`color: gray`)

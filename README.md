@@ -59,12 +59,13 @@ Shade the whole subtree a node governs with a semi-transparent plane — useful 
 [TP [DP everyone] [%@lightblue:T' [T will] [VP praise it]]]
 ```
 
-### Path Drawing
+### Links and Paths
 
-Connect nodes with lines or arrows:
+Connect nodes with lines or arrows, and draw the path through the tree between two nodes heavier:
 
 ```text
 [S [NP+1 text] [VP [V+>1 connects]]]
+[S [NP+=1 text] [VP [V+=1 highlights]]]
 ```
 
 ### Multiple Output Formats

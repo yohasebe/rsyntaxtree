@@ -1,4 +1,4 @@
-RSyntaxTree examples: 87 trees, every one verified to draw.
+RSyntaxTree examples: 88 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -2741,4 +2741,37 @@ Source: Chomsky 2013: 44-45
                   [VP
                     [V *assassinated*]
                     [^PP ~*in which Texas city*~+1]]]]]]]]]]]
+```
+
+## 093 — A wh-island, *What will you wonder where he will put?: the path of what crosses two IPs in one step
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif tidy=medium
+Source: Chomsky 1973
+
+```
+[C''
+  [N'' *what*_1_+=1]
+  [C'
+    [C [INFL *will*]]
+    [INFL''
+      [N'' *you*]
+      [INFL'
+        [INFL *t*]
+        [V''
+          [V'
+            [V *wonder*]
+            [C''
+              [P'' *where*_2_]
+              [C'
+                [C]
+                [INFL''
+                  [N'' *he*]
+                  [INFL'
+                    [INFL *will*]
+                    [V''
+                      [V'
+                        [V *put*]
+                        [N'' *t*_1_+=1]
+                        [P'' *t*_2_]]]]]]]]]]]]]
 ```
