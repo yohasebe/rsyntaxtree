@@ -867,6 +867,8 @@ module RSyntaxTree
     def room_to_shift?(moved, tops, rows, delta)
       ids = moved.to_h { |e| [e.id, true] }
       gap = @global[:h_gap_between_nodes]
+      # What stays put on each row, worked out once for this move.
+      staying = Hash.new { |h, t| h[t] = rows[t].uniq.reject { |e| ids[e.id] }.map { |e| effective_rect(e) } }
       moved.all? do |m|
         top, bottom, left, right = effective_rect(m)
         # The row the label starts in, which holds whatever reaches down
@@ -875,10 +877,7 @@ module RSyntaxTree
         i = 0 if i.negative?
         clear = true
         while clear && i < tops.size && tops[i] < bottom - 0.01
-          clear = rows[tops[i]].uniq.all? do |e|
-            next true if ids[e.id]
-
-            o_top, o_bottom, o_left, o_right = effective_rect(e)
+          clear = staying[tops[i]].all? do |o_top, o_bottom, o_left, o_right|
             next true unless o_top < bottom - 0.01 && top < o_bottom - 0.01
 
             before = delta.positive? ? o_left - right : left - o_right
