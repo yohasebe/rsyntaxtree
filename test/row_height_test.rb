@@ -9,57 +9,60 @@ require_relative "../lib/rsyntaxtree"
 # line from a short node down to its children must start at that node's own
 # label, not at the depth the tall neighbour set for the row.
 class RowHeightTest < Minitest::Test
-  # The y at which the connector leaving +parent_label+ downward begins,
-  # read off the drawing: the highest point of the vertical stroke standing
-  # at the parent's own x.
-  def connector_top_under(data, parent_label, **opts)
-    svg = RSyntaxTree::RSGenerator.new(data: data, format: "svg", **opts).draw_svg
-    j = JSON.parse(RSyntaxTree::RSGenerator.new(data: data, format: "json", **opts).draw_json)
-    node = j["nodes"].find { |n| n.dig("label", "raw") == parent_label }
+  # Where +text+ is set in the drawing: the baseline of the line holding it.
+  def baseline(svg, text)
+    svg[/<tspan[^>]*y=['"]([\d.]+)['"][^>]*>#{Regexp.escape(text)}</, 1].to_f
+  end
+
+  # The y at which the connector leaving the label set in +text+ downward
+  # begins, read off the drawing: the highest point of a stroke standing at
+  # the label's x below its baseline, so the edge arriving from above is not
+  # mistaken for the one leaving below.
+  def connector_top_under(svg, json, parent_label, text)
+    node = json["nodes"].find { |n| n.dig("label", "raw") == parent_label }
     pos = node["position"]
-    cx = pos["x"] + pos["content_width"] / 2.0
-    # Below the label, so the edge arriving from above is not mistaken for
-    # the one leaving below.
-    floor = pos["y"] + pos["content_height"] / 2.0
+    cx = pos["x"] + (pos["content_width"] / 2.0)
+    floor = baseline(svg, text)
 
     points = svg.scan(/<polyline[^>]*?points=['"]([^'"]*)['"][^>]*>/).flatten.flat_map do |coords|
       coords.scan(/-?\d+(?:\.\d+)?/).map(&:to_f).each_slice(2).to_a
     end
     lines = svg.scan(/<line[^>]*?x1=['"]([\d.]+)['"][^>]*?y1=['"]([\d.]+)['"][^>]*?x2=['"]([\d.]+)['"][^>]*?y2=['"]([\d.]+)['"]/)
                .flat_map { |x1, y1, x2, y2| [[x1.to_f, y1.to_f], [x2.to_f, y2.to_f]] }
-    ys = (points + lines).select { |x, y| (x - cx).abs < 1.0 && y > floor }.map { |_x, y| y }
-    ys.min
+    (points + lines).select { |x, y| (x - cx).abs < 1.0 && y > floor }.map { |_x, y| y }.min
   end
 
-  def box_bottom(data, label, **opts)
-    j = JSON.parse(RSyntaxTree::RSGenerator.new(data: data, format: "json", **opts).draw_json)
-    n = j["nodes"].find { |x| x.dig("label", "raw") == label }
-    n["position"]["y"] + n["position"]["content_height"]
+  def draw(data, **opts)
+    [RSyntaxTree::RSGenerator.new(data: data, format: "svg", **opts).draw_svg,
+     JSON.parse(RSyntaxTree::RSGenerator.new(data: data, format: "json", **opts).draw_json)]
   end
 
   # A two-line label and a one-line label share a row; each has a child. The
-  # one-line node's downward connector starts near its own bottom, well above
-  # where the two-line node's bottom would put it.
+  # one-line node's downward connector starts just under its own text, above
+  # the two-line node's last line.
   def test_a_short_node_connects_from_its_own_bottom_not_the_rows
     data = "[S [TALL\\nX [A a]] [SH [B b]]]"
-    tall_label = "TALL\\nX"
-    short_top = connector_top_under(data, "SH", vmargin: 0.4)
-    short_bottom = box_bottom(data, "SH", vmargin: 0.4)
-    tall_bottom = box_bottom(data, tall_label, vmargin: 0.4)
+    [{}, { vmargin: 0.4 }].each do |opts|
+      svg, json = draw(data, **opts)
+      short_top = connector_top_under(svg, json, "SH", "SH")
 
-    assert short_top < tall_bottom - 20,
-           "the short node's connector starts at the tall neighbour's depth (#{short_top} vs tall #{tall_bottom})"
-    assert_in_delta short_bottom, short_top, 20,
-           "the short node's connector should start near its own bottom (#{short_bottom}), got #{short_top}"
+      assert_operator short_top, :<, baseline(svg, "X"),
+                      "#{opts}: the short node's connector starts at the tall neighbour's depth"
+      assert_operator short_top - baseline(svg, "SH"), :<, 20,
+                      "#{opts}: the short node's connector should start just under its own text"
+    end
   end
 
   # Same, with a feature matrix as the tall label and polyline connectors —
   # the shape ruby-spacy draws morphology in.
   def test_a_plain_node_beside_a_matrix_keeps_its_branch
     data = "[S [MAT [#(a\\tb\\nc\\td#) x]] [PLAIN [C c]]]"
-    plain_top = connector_top_under(data, "PLAIN", polyline: "on", vmargin: 0.4)
-    plain_bottom = box_bottom(data, "PLAIN", polyline: "on", vmargin: 0.4)
-    assert_in_delta plain_bottom, plain_top, 20,
-           "PLAIN's branch should descend from its own bottom (#{plain_bottom}), got #{plain_top}"
+    [{}, { vmargin: 0.4 }].each do |opts|
+      svg, json = draw(data, polyline: "on", **opts)
+      plain_top = connector_top_under(svg, json, "PLAIN", "PLAIN")
+
+      assert_operator plain_top - baseline(svg, "PLAIN"), :<, 20,
+                      "#{opts}: PLAIN's branch should descend from just under its own text"
+    end
   end
 end

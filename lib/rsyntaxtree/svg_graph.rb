@@ -811,6 +811,13 @@ module RSyntaxTree
                                       @fontset[:family], @fontsize.to_f, :normal, :normal)
         element.ink_top = first_baseline - f_m.ink_above
         element.ink_bottom = text_y + (l_m.ink_height - l_m.ink_above)
+        # A box, circle or bar drawn in a line reaches past the letters it
+        # holds, and the connector has to clear the outline, not the letter.
+        shapes = ->(line) { line[:elements].select { |e| e[:decoration].intersect?(%i[box circle bar]) } }
+        up = shapes.call(text_lines.first).filter_map { |e| e[:ink_up] }.max
+        down = shapes.call(text_lines.last).filter_map { |e| e[:ink_down] }.max
+        element.ink_top = [element.ink_top, first_baseline - up].min if up
+        element.ink_bottom = [element.ink_bottom, text_y + down].max if down
       end
       # The block form, so the label goes in as it is. As a replacement
       # string it was read for backreferences, and `\+` — the last matched
