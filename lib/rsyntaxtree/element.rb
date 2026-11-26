@@ -336,7 +336,13 @@ module RSyntaxTree
        ->(s) { s.sub(/(?<!\\)\+(?:=|>?<?)\z/, "") },
        "A marker needs a number: write +1 for a link, +>1 for its arrowhead, or +=1 for a highlighted path."],
       [:link_label,
-       ->(s) { s.sub(/((?<!\\)(?:\\\\)*\+-?[<>]?\d+")(.*")(\z)/) { $1 + $2.delete('"') + '"' } },
+       # Only where the label has one marker with a text: with more, which of
+       # them the quote belongs to cannot be told.
+       lambda { |s|
+         next s unless s.scan(/(?<!\\)\+-?[<>]?\d*"/).size == 1
+
+         s.sub(/((?<!\\)(?:\\\\)*\+-?[<>]?\d+")(.*")(\z)/) { $1 + $2.delete('"') + '"' }
+       },
        "A link's text cannot hold a double quote: write it without one."],
       [:incomplete_marker,
        ->(s) { s.match?(/(?<!\\)(?:\\\\)*\+-?[<>]?\d+"[^"]*\z/) ? "#{s}\"" : s },
