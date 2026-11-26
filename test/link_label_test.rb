@@ -162,4 +162,31 @@ class LinkLabelTest < Minitest::Test
     assert_equal :incomplete_marker, e.code
     assert_includes e.hint, "closing double quote"
   end
+
+  # However many links crowd one short rail, no line runs through a text.
+  def test_no_line_runs_through_a_text
+    data = "[S [A a+1\"AAAAAAAA\"+2\"BBBBBBBB\"+3\"CCCCCCCC\"+4\"DDDDDDDD\"+5\"EEEEEEEE\"] [B b+1+2+3+4+5]]"
+    [{}, { direction: "btt" }, { direction: "ltr" }].each do |opts|
+      gen = RSyntaxTree::RSGenerator.new(data: data, format: "svg", **opts)
+      doc = gen.draw_svg
+      family = gen.instance_variable_get(:@params)[:fontset][:family]
+      segments = link_paths(doc).flat_map do |d|
+        d.scan(/-?\d+(?:\.\d+)?/).map(&:to_f).each_slice(2).each_cons(2).to_a
+      end
+      texts = doc.scan(%r{<text x='([-\d.]+)' y='([-\d.]+)' text-anchor='middle'[^>]*font-size: ([\d.]+)px'>([^<]*)</text>})
+
+      assert_equal 5, texts.size, opts.inspect
+      texts.each do |x, y, size, content|
+        half = FontMetrics.get_metrics(content, family, size.to_f, :normal, :normal).width / 2.0
+        x0 = x.to_f - half
+        x1 = x.to_f + half
+        y0 = y.to_f - (size.to_f * 0.7)
+        y1 = y.to_f
+        crossed = segments.any? do |(ax, ay), (bx, by)|
+          [ax, bx].max > x0 && [ax, bx].min < x1 && [ay, by].max > y0 && [ay, by].min < y1
+        end
+        refute crossed, "#{opts}: a line runs through #{content}"
+      end
+    end
+  end
 end

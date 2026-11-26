@@ -710,10 +710,13 @@ module RSyntaxTree
         spot = link[:label] && link_label_spot(link, placed)
         if spot && spot[:across]
           before, after = split_at_gap(link[:points], spot[:gap])
-          # The dashes carry on after the gap where they would have been.
-          phase = (before + [after.first]).each_cons(2).sum { |(ax, ay), (bx, by)| Math.hypot(bx - ax, by - ay) }
-          @extra_lines << generate_path(before, @col_path, dashed: link[:dashed], radius: link[:radius],
-                                                           start_arrow: link[:start_arrow])
+          # The dashes carry on after the gap where they would have been:
+          # the length of the run as drawn, corners rounded, and the gap.
+          first_run = generate_path(before, @col_path, dashed: link[:dashed], radius: link[:radius],
+                                                       start_arrow: link[:start_arrow])
+          phase = drawn_length(first_run[/d='([^']*)'/, 1]) + Math.hypot(after.first[0] - before.last[0],
+                                                                         after.first[1] - before.last[1])
+          @extra_lines << first_run
           @extra_lines << generate_path(after, @col_path, dashed: link[:dashed], radius: link[:radius],
                                                           end_arrow: link[:end_arrow], dash_offset: phase)
         else
@@ -732,6 +735,33 @@ module RSyntaxTree
         b[:min_y] = [b[:min_y], y0].min
         b[:max_x] = [b[:max_x], x1].max
         b[:max_y] = [b[:max_y], y1].max
+      end
+    end
+
+    # The length of a path as SVG draws it, from its M, L and Q commands.
+    def drawn_length(d)
+      at = nil
+      d.scan(/([MLQ])([^MLQ]*)/).sum do |cmd, args|
+        nums = args.scan(/-?\d+(?:\.\d+)?/).map(&:to_f).each_slice(2).to_a
+        case cmd
+        when "M"
+          at = nums.last
+          0
+        when "L"
+          length = Math.hypot(nums.last[0] - at[0], nums.last[1] - at[1])
+          at = nums.last
+          length
+        else
+          control, finish = nums
+          start = at
+          at = finish
+          point = lambda do |t|
+            [(((1 - t)**2) * start[0]) + (2 * (1 - t) * t * control[0]) + ((t**2) * finish[0]),
+             (((1 - t)**2) * start[1]) + (2 * (1 - t) * t * control[1]) + ((t**2) * finish[1])]
+          end
+          (0..31).map { |i| point.call(i / 32.0) }.zip((1..32).map { |i| point.call(i / 32.0) })
+                 .sum { |(ax, ay), (bx, by)| Math.hypot(bx - ax, by - ay) }
+        end
       end
     end
 
@@ -760,31 +790,40 @@ module RSyntaxTree
       outward = @direction == "btt" ? -1 : 1
       offset = (across / 2.0) + pad + @global[:stroke_normal]
 
-      tries = []
-      room = ((hi - lo) / 2.0) - (along / 2.0) - pad - reach
-      tries << [0, room] if room >= 0
-      # Beside the rail, outside it and then inside, and farther out step by
-      # step where other rails stand close by.
+      # Candidates, in the order they are tried: across the rail where it
+      # is long enough; beside it, outside and then inside; level with it,
+      # beyond every link on either side, where links crowd a short rail;
+      # and farther out, step by step. Along the rail each tries the middle
+      # first and then either side of it.
+      along_steps = lambda do |slack|
+        steps = slack.positive? ? (slack / [along / 2.0, 1].max).floor : 0
+        [0, *(1..steps).flat_map { |i| [i, -i] }].map { |i| i * along / 2.0 }
+      end
       beside = ((hi - lo) / 2.0) - (along / 2.0)
+      room = beside - pad - reach
+      points = @link_drawings.flat_map { |d| d[:points] }
+      ends = level ? points.map(&:first) : points.map(&:last)
+      clear_by = (along / 2.0) + (pad * 2) + @global[:stroke_normal]
       step_out = across + (pad * 2)
-      (0..4).each do |far|
-        tries << [outward * (offset + (far * step_out)), beside]
-        tries << [-outward * (offset + (far * step_out)), beside] if far.zero?
+
+      candidates = []
+      along_steps.call(room).each { |o| candidates << [0, o, true] } if room >= 0
+      [outward, -outward].each { |dir| along_steps.call(beside).each { |o| candidates << [dir * offset, o, false] } }
+      [ends.max + clear_by, ends.min - clear_by].each { |at| candidates << [0, at - middle, false] }
+      (1..4).each do |far|
+        along_steps.call(beside).each { |o| candidates << [outward * (offset + (far * step_out)), o, false] }
       end
 
       first = nil
-      tries.each do |shift, slack|
-        steps = slack.positive? ? (slack / [along / 2.0, 1].max).floor : 0
-        [0, *(1..steps).flat_map { |i| [i, -i] }].each do |i|
-          c_along = middle + (i * along / 2.0)
-          c_across = line + shift
-          cx, cy = level ? [c_along, c_across] : [c_across, c_along]
-          box = [cx - (w / 2.0) - pad, cy - (h / 2.0) - pad, cx + (w / 2.0) + pad, cy + (h / 2.0) + pad]
-          spot = { cx: cx, cy: cy, box: box, size: size, metrics: m, across: shift.zero?,
-                   gap: [c_along - (along / 2.0) - pad, c_along + (along / 2.0) + pad] }
-          first ||= spot
-          return spot if label_spot_clear?(box, link, placed)
-        end
+      candidates.each do |shift, o, on_rail|
+        c_along = middle + o
+        c_across = line + shift
+        cx, cy = level ? [c_along, c_across] : [c_across, c_along]
+        box = [cx - (w / 2.0) - pad, cy - (h / 2.0) - pad, cx + (w / 2.0) + pad, cy + (h / 2.0) + pad]
+        spot = { cx: cx, cy: cy, box: box, size: size, metrics: m, across: on_rail,
+                 gap: [c_along - (along / 2.0) - pad, c_along + (along / 2.0) + pad] }
+        first ||= spot
+        return spot if label_spot_clear?(box, link, placed)
       end
       first
     end
@@ -803,6 +842,9 @@ module RSyntaxTree
         end
       end
       return false if (@link_drawings - [link]).any? { |other| other[:points].each_cons(2).any? { |p, q| hits.call(p, q) } }
+      # The link's own uprights too; its rail is broken under the text or
+      # runs beside it.
+      return false if link[:points].each_cons(2).each_with_index.any? { |(p, q), i| i != 1 && hits.call(p, q) }
       return false if placed.any? { |px0, py0, px1, py1| px0 < x1 && x0 < px1 && py0 < y1 && y0 < py1 }
 
       @element_list.get_elements.none? do |e|
