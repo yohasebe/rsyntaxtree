@@ -706,6 +706,7 @@ module RSyntaxTree
     # so that each knows what the others are in its way.
     def emit_links
       placed = []
+      @tree_segments = tree_segments
       @link_drawings.each do |link|
         spot = link[:label] && link_label_spot(link, placed)
         if spot && spot[:across]
@@ -736,6 +737,19 @@ module RSyntaxTree
         b[:max_x] = [b[:max_x], x1].max
         b[:max_y] = [b[:max_y], y1].max
       end
+    end
+
+    # The lines the tree is drawn with, as segments: connectors, polylines
+    # and the sides of triangles, read back from what has been written.
+    def tree_segments
+      lines = @tree_data.scan(/<line[^>]*?x1='([-\d.]+)' y1='([-\d.]+)' x2='([-\d.]+)' y2='([-\d.]+)'/)
+                        .map { |x1, y1, x2, y2| [[x1.to_f, y1.to_f], [x2.to_f, y2.to_f]] }
+      shapes = @tree_data.scan(/<poly(line|gon)[^>]*?points='([^']*)'/).flat_map do |kind, coords|
+        pts = coords.scan(/-?\d+(?:\.\d+)?/).map(&:to_f).each_slice(2).to_a
+        pts << pts.first if kind == "gon"
+        pts.each_cons(2).to_a
+      end
+      lines + shapes
     end
 
     # The length of a path as SVG draws it, from its M, L and Q commands.
@@ -809,13 +823,23 @@ module RSyntaxTree
       candidates = []
       along_steps.call(room).each { |o| candidates << [0, o, true] } if room >= 0
       [outward, -outward].each { |dir| along_steps.call(beside).each { |o| candidates << [dir * offset, o, false] } }
-      [ends.max + clear_by, ends.min - clear_by].each { |at| candidates << [0, at - middle, false] }
+      # Just past the rail's own ends first, nearer one first; past every
+      # link only after that, so that the text stays with its own rail.
+      [hi + clear_by, lo - clear_by, ends.max + clear_by, ends.min - clear_by].uniq.each do |at|
+        candidates << [0, at - middle, false]
+      end
       (1..4).each do |far|
         along_steps.call(beside).each { |o| candidates << [outward * (offset + (far * step_out)), o, false] }
       end
+      # Last, past everything drawn so far on the outer side, which nothing
+      # can stand in the way of.
+      across_ends = (level ? points.map(&:last) : points.map(&:first)) +
+                    placed.flat_map { |x0, y0, x1, y1| level ? [y0, y1] : [x0, x1] }
+      edge = outward.positive? ? across_ends.max : across_ends.min
+      candidates << [edge + (outward * ((across / 2.0) + (pad * 2))) - line, 0, false, true]
 
       first = nil
-      candidates.each do |shift, o, on_rail|
+      candidates.each do |shift, o, on_rail, last|
         c_along = middle + o
         c_across = line + shift
         cx, cy = level ? [c_along, c_across] : [c_across, c_along]
@@ -823,7 +847,7 @@ module RSyntaxTree
         spot = { cx: cx, cy: cy, box: box, size: size, metrics: m, across: on_rail,
                  gap: [c_along - (along / 2.0) - pad, c_along + (along / 2.0) + pad] }
         first ||= spot
-        return spot if label_spot_clear?(box, link, placed)
+        return spot if last || label_spot_clear?(box, link, placed)
       end
       first
     end
@@ -846,6 +870,7 @@ module RSyntaxTree
       # runs beside it.
       return false if link[:points].each_cons(2).each_with_index.any? { |(p, q), i| i != 1 && hits.call(p, q) }
       return false if placed.any? { |px0, py0, px1, py1| px0 < x1 && x0 < px1 && py0 < y1 && y0 < py1 }
+      return false if @tree_segments.any? { |p, q| segment_meets_box?(p, q, box) }
 
       @element_list.get_elements.none? do |e|
         next false if e.empty_label?
@@ -857,6 +882,16 @@ module RSyntaxTree
 
     # The link's points as two runs, broken on the rail across +gap+ (the two
     # ends of the stretch left out, along the rail).
+    def segment_meets_box?((ax, ay), (bx, by), (x0, y0, x1, y1))
+      steps = ([(bx - ax).abs, (by - ay).abs].max / 2.0).ceil.clamp(1, 400)
+      (0..steps).any? do |i|
+        t = i.to_f / steps
+        px = ax + ((bx - ax) * t)
+        py = ay + ((by - ay) * t)
+        px > x0 && px < x1 && py > y0 && py < y1
+      end
+    end
+
     def split_at_gap(points, gap)
       a, b = points[1], points[2]
       level = a[1] == b[1]

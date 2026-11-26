@@ -189,4 +189,23 @@ class LinkLabelTest < Minitest::Test
       end
     end
   end
+
+  # A text stays with its own link: beside the link's own ends before any
+  # farther place, and clear of the tree's own lines.
+  def test_a_text_stays_with_its_own_link_and_off_the_tree
+    doc = svg("[S [A a+1\"subject\"+2\"object\"] [B b+1+2] [M middlemiddle] [C c+3\"*\"] [D d+3]]")
+    texts = doc.scan(%r{<text x='([-\d.]+)' y='[-\d.]+' text-anchor='middle'[^>]*>([^<]*)</text>}).to_h { |x, t| [t, x.to_f] }
+    middle = doc[/<tspan x='([-\d.]+)'[^>]*>middlemiddle</, 1].to_f
+
+    assert_operator texts["subject"], :<, middle
+    assert_operator texts["object"], :<, middle
+
+    tall = svg("[S [A a+1\"long-distance<>movement\"] [B b+1] [C [D [E e]]]]", vheight: 3)
+    x = tall[/<text x='([-\d.]+)' y='[-\d.]+' text-anchor='middle'/, 1].to_f
+    edge = tall.scan(/<line[^>]*?x1='([-\d.]+)' y1='[-\d.]+' x2='([-\d.]+)'/).map { |a, b| [a.to_f, b.to_f] }
+                .select { |a, b| (a - b).abs < 0.01 }.map(&:first).max
+    half = FontMetrics.get_metrics("long-distance movement", "sans-serif", 27.2, :normal, :normal).width / 2.0
+
+    refute_operator (x - edge).abs, :<, half, "the text runs over the tree's rightmost line"
+  end
 end
