@@ -37,7 +37,9 @@ class MarkupParser < Parslet::Parser
   # text/line color, so '%@yellow:@blue:VP' = yellow plane + blue label.
   rule(:region) { str('%') >> color_spec.maybe.as(:region_color) }
 
-  rule(:path) { (str('+') >> (str('=') | (str('-').maybe >> (str('>') | str('<')).maybe)) >> match('\d').repeat(1)).as(:path) }
+  # A link may carry a short text in double quotes after its number: +>1"*".
+  rule(:path_text) { str('"') >> ((str('\\') >> any) | match('[^"\\\\]')).repeat >> str('"') }
+  rule(:path) { (str('+') >> (str('=') | (str('-').maybe >> (str('>') | str('<')).maybe)) >> match('\d').repeat(1) >> path_text.maybe).as(:path) }
   # rule(:escaped) { str('\\') >> match('[#<>{}\\^+*_=~\|\n\-]').as(:chr) }
   rule(:escaped) { str('\\') >> match('[#<>{}\\\\^+*_=~\\|\\n\\-\\[\\]%@()]').as(:chr) }
   # A straight apostrophe is set as a curly one; `\'` asks for the straight

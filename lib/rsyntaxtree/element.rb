@@ -13,7 +13,7 @@ require_relative "color_names"
 
 module RSyntaxTree
   class Element
-    attr_accessor :ink_top, :ink_bottom, :rule_name, :label_with_rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color, :inserted_joint, :route
+    attr_accessor :ink_top, :ink_bottom, :rule_name, :label_with_rule_name, :id, :parent, :type, :level, :width, :height, :content, :content_width, :text_width, :content_height, :horizontal_indent, :vertical_indent, :triangle, :enclosure, :children, :font, :fontsize, :contains_phrase, :path, :color, :raw_content, :region, :region_color, :inserted_joint, :route, :link_labels
 
     # names_a_rule says the content is a mother's label rather than a leaf's
     # text. Only a mother has a step under it for a name to sit beside, and a
@@ -65,8 +65,16 @@ module RSyntaxTree
       # The markers are read from the label itself, after a rule name has gone,
       # so a name that ends in what looks like one is drawn as written.
       _body, path_text = Element.split_path(content)
-      @path = path_text.gsub("\\n", "").delete_prefix("^").delete_suffix("^").sub(/\A\+/, "").split("+")
+      markers = path_text.gsub("\\n", "").scan(/\+(=|-?[<>]?)(\d+)(?:"((?:\\.|[^"\\])*)")?/)
+      @path = markers.map { |kind, number, _| kind + number }
       @route, @path = @path.partition { |marker| marker.start_with?("=") }
+      # The text a link carries, by its number; the kind of marker it was
+      # written on goes with it, for the check that only a link carries one.
+      @link_labels = markers.filter_map do |kind, number, text|
+        next if text.nil? || text.empty?
+
+        [kind, number, text.gsub(/\\(.)/, '\1').gsub(WHITESPACE_BLOCK, " ")]
+      end
 
       @raw_content = Element.split_path(content).first
 
@@ -141,7 +149,7 @@ module RSyntaxTree
     # sign and a digit, `x\\+1` a backslash and a marker. Detection used to
     # ignore the backslash, so a label could not contain "+1" at all — every
     # "C++11" and "2+2" was read as one end of a movement link.
-    PATH_MARKERS = /(?:\+(?:=|-?>?<?)\d+)+/
+    PATH_MARKERS = /(?:\+(?:=|-?>?<?)\d+(?:"(?:\\.|[^"\\])*")?)+/
 
     # The colours of the coloured stretches in a label's lines, nested
     # matrices included.

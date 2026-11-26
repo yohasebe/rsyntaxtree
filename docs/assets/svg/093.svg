@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="1044.8749999999998" height="1610.784" viewBox="-16.8, 0, 1044.8749999999998, 1610.784" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="1044.8749999999998" height="1632.544" viewBox="-16.8, 0, 1044.8749999999998, 1632.544" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="#CC79A7"/>
@@ -27,7 +27,7 @@
       <line x1="0" y="0" x2="0" y2="10.0" stroke="#009E73" stroke-width="4.0"></line>
     </pattern>
   </defs>
-<rect x="-16.8" y="0" width="1044.8749999999998" height="1610.784" stroke="none" fill="white" />
+<rect x="-16.8" y="0" width="1044.8749999999998" height="1632.544" stroke="none" fill="white" />
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='149.94257812499995' y='67.19999999999999'><tspan x='149.94257812499995' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">C’’</tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: #0072B2; stroke-width: 0; font-size: 32px;' x='41.3' y='184.54977647717214'><tspan x='41.3' y='184.54977647717214' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">N’’</tspan>
@@ -139,4 +139,7 @@
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='801.6749999999998' y1='1507.0239999999997' x2='801.6749999999998' y2='1439.4239999999998' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='880.9249999999998' y1='1507.0239999999997' x2='880.9249999999998' y2='1439.4239999999998' />
 <line style='fill: none; stroke:black; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='960.1749999999998' y1='1507.0239999999997' x2='960.1749999999998' y2='1439.4239999999998' />
-<path d='M880.925,1565.984 L880.925,1577.184 Q880.925,1588.384 869.725,1588.384 L72.5,1588.384 Q61.3,1588.384 61.3,1577.184 L61.3,328.3' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt; stroke-linejoin:round;' marker-end='url(#arrow)' /></svg>
+<path d='M880.925,1565.984 L880.925,1577.184 Q880.925,1588.384 869.725,1588.384 L486.272,1588.384' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;' />
+<path d='M455.952,1588.384 L72.5,1588.384 Q61.3,1588.384 61.3,1577.184 L61.3,328.3' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt; stroke-linejoin:round;' marker-end='url(#arrow)' />
+<text x='471.112' y='1603.884' text-anchor='middle' style='fill: #CC79A7; stroke-width: 0; font-size: 27.2px'>*</text>
+</svg>

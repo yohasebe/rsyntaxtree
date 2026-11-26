@@ -176,6 +176,7 @@ class RSTError < StandardError
     invalid_markup
     invalid_option
     label_split
+    link_label
     link_multiple_ends
     link_single_end
     path_ends
@@ -807,6 +808,7 @@ module RSyntaxTree
       # made, so every format refuses the same input. A derivation draws rules
       # rather than edges, so there is no path to draw.
       list.check_link_ends
+      list.link_labels
       if list.path_edges.any? && @params[:derivation] == true
         raise RSTError.new(+"Error: a highlighted path cannot be drawn in a derivation",
                            code: :invalid_option, label: "derivation",

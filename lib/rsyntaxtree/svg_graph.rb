@@ -609,7 +609,7 @@ module RSyntaxTree
       end
     end
 
-    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none, s_offset: 0, t_offset: 0)
+    def draw_a_path(s_x, s_y, t_x, t_y, target_arrow = :none, s_offset: 0, t_offset: 0, label: nil)
       spacing = rail_spacing
       min_bulge = @global[:height_connector_to_text]
       # An end that carries an arrowhead needs a run long enough for the head
@@ -644,11 +644,9 @@ module RSyntaxTree
 
         note_path_extent([[s_x, new_s_y], [new_x, new_s_y],
                           [new_x, new_t_y], [t_x, new_t_y]])
-        @extra_lines << generate_path([[s_x, new_s_y], [new_x, new_s_y],
-                                       [new_x, new_t_y], [t_x, new_t_y]],
-                                      @col_path, dashed: dashed, radius: corner_radius,
-                                      start_arrow: target_arrow == :double,
-                                      end_arrow: target_arrow != :none)
+        @link_drawings << { points: [[s_x, new_s_y], [new_x, new_s_y], [new_x, new_t_y], [t_x, new_t_y]],
+                            dashed: dashed, radius: corner_radius, label: label,
+                            start_arrow: target_arrow == :double, end_arrow: target_arrow != :none }
         @width = new_x if new_x > @width
       else
         # TTB: route BELOW the tree (U shape), on the side the words are on;
@@ -670,13 +668,138 @@ module RSyntaxTree
 
         note_path_extent([[new_s_x, s_y], [new_s_x, new_y],
                           [new_t_x, new_y], [new_t_x, t_y]])
-        @extra_lines << generate_path([[new_s_x, s_y], [new_s_x, new_y],
-                                       [new_t_x, new_y], [new_t_x, t_y]],
-                                      @col_path, dashed: dashed, radius: corner_radius,
-                                      start_arrow: target_arrow == :double,
-                                      end_arrow: target_arrow != :none)
+        @link_drawings << { points: [[new_s_x, s_y], [new_s_x, new_y], [new_t_x, new_y], [new_t_x, t_y]],
+                            dashed: dashed, radius: corner_radius, label: label,
+                            start_arrow: target_arrow == :double, end_arrow: target_arrow != :none }
         @height = new_y if new_y > @height
       end
+    end
+
+    # Writes out the links, each with the text it carries. A text sits on the
+    # link's rail (the run outside the tree): across the rail, the rail
+    # broken under it, where the rail is long enough to keep a run on either
+    # side; beside the rail otherwise, outside it first and then inside. Along
+    # the rail it goes as near the middle as it can without touching another
+    # link, another text or a label. Placed only once every link is drawn,
+    # so that each knows what the others are in its way.
+    def emit_links
+      placed = []
+      @link_drawings.each do |link|
+        spot = link[:label] && link_label_spot(link, placed)
+        if spot && spot[:across]
+          before, after = split_at_gap(link[:points], spot[:gap])
+          @extra_lines << generate_path(before, @col_path, dashed: link[:dashed], radius: link[:radius],
+                                                           start_arrow: link[:start_arrow])
+          @extra_lines << generate_path(after, @col_path, dashed: link[:dashed], radius: link[:radius],
+                                                          end_arrow: link[:end_arrow])
+        else
+          @extra_lines << generate_path(link[:points], @col_path, dashed: link[:dashed], radius: link[:radius],
+                                                                  start_arrow: link[:start_arrow],
+                                                                  end_arrow: link[:end_arrow])
+        end
+        next unless spot
+
+        placed << spot[:box]
+        @extra_lines << link_label_svg(link[:label], spot)
+        x0, y0, x1, y1 = spot[:box]
+        note_path_extent([[x0, y0], [x1, y1]])
+        @width = x1 if x1 > @width
+        @height = y1 if y1 > @height
+      end
+    end
+
+    LINK_LABEL_PAD = 0.3
+    # Smaller than a label, as a note on a line is, but not so small that a
+    # judgement mark — an asterisk, drawn small and high in most faces — goes
+    # to a dot.
+    LINK_LABEL_SIZE = 0.85
+
+    # Where a link's text goes: its centre, the box it takes with its margin,
+    # and, when it sits across the rail, the stretch of rail to leave out.
+    def link_label_spot(link, placed)
+      size = @fontsize * LINK_LABEL_SIZE
+      m = FontMetrics.get_metrics(link[:label], @fontset[:family], size, :normal, :normal)
+      w = m.width
+      h = size
+      pad = size * LINK_LABEL_PAD
+      (a, b) = link[:points][1], link[:points][2]
+      level = a[1] == b[1] # the rail runs across the figure
+      along = level ? w : h
+      across = level ? h : w
+      lo, hi = level ? [a[0], b[0]].minmax : [a[1], b[1]].minmax
+      line = level ? a[1] : a[0]
+      middle = (lo + hi) / 2.0
+      reach = link[:radius] * 2
+      # Away from the tree: below it top to bottom, above it bottom to top,
+      # right of it left to right.
+      outward = @direction == "btt" ? -1 : 1
+      offset = (across / 2.0) + pad + @global[:stroke_normal]
+
+      tries = []
+      room = ((hi - lo) / 2.0) - (along / 2.0) - pad - reach
+      tries << [0, room] if room >= 0
+      tries << [outward * offset, ((hi - lo) / 2.0) - (along / 2.0)]
+      tries << [-outward * offset, ((hi - lo) / 2.0) - (along / 2.0)]
+
+      first = nil
+      tries.each do |shift, slack|
+        steps = slack.positive? ? (slack / [along / 2.0, 1].max).floor : 0
+        [0, *(1..steps).flat_map { |i| [i, -i] }].each do |i|
+          c_along = middle + (i * along / 2.0)
+          c_across = line + shift
+          cx, cy = level ? [c_along, c_across] : [c_across, c_along]
+          box = [cx - (w / 2.0) - pad, cy - (h / 2.0) - pad, cx + (w / 2.0) + pad, cy + (h / 2.0) + pad]
+          spot = { cx: cx, cy: cy, box: box, size: size, metrics: m, across: shift.zero?,
+                   gap: [c_along - (along / 2.0) - pad, c_along + (along / 2.0) + pad] }
+          first ||= spot
+          return spot if label_spot_clear?(box, link, placed)
+        end
+      end
+      first
+    end
+
+    # Whether a text's box is clear of every other link, every text already
+    # placed and every label in the tree.
+    def label_spot_clear?(box, link, placed)
+      x0, y0, x1, y1 = box
+      inside = ->(px, py) { px > x0 && px < x1 && py > y0 && py < y1 }
+      hits = lambda do |(ax, ay), (bx, by)|
+        next true if inside.call(ax, ay) || inside.call(bx, by)
+        if ay == by
+          ay > y0 && ay < y1 && [ax, bx].max > x0 && [ax, bx].min < x1
+        else
+          ax > x0 && ax < x1 && [ay, by].max > y0 && [ay, by].min < y1
+        end
+      end
+      return false if (@link_drawings - [link]).any? { |other| other[:points].each_cons(2).any? { |p, q| hits.call(p, q) } }
+      return false if placed.any? { |px0, py0, px1, py1| px0 < x1 && x0 < px1 && py0 < y1 && y0 < py1 }
+
+      @element_list.get_elements.none? do |e|
+        next false if e.empty_label?
+
+        e.horizontal_indent < x1 && x0 < e.horizontal_indent + e.content_width &&
+          e.vertical_indent < y1 && y0 < e.vertical_indent + e.content_height
+      end
+    end
+
+    # The link's points as two runs, broken on the rail across +gap+ (the two
+    # ends of the stretch left out, along the rail).
+    def split_at_gap(points, gap)
+      a, b = points[1], points[2]
+      level = a[1] == b[1]
+      from = level ? a[0] : a[1]
+      to = level ? b[0] : b[1]
+      near, far = from <= to ? gap : gap.reverse
+      at = ->(v) { level ? [v, a[1]] : [a[0], v] }
+      [[points[0], a, at.call(near)], [at.call(far), b, points[3]]]
+    end
+
+    def link_label_svg(text, spot)
+      m = spot[:metrics]
+      baseline = spot[:cy] + m.ink_above - (m.ink_height / 2.0)
+      escaped = text.gsub("<", "&lt;").gsub(">", "&gt;")
+      "<text x='#{spot[:cx].round(3)}' y='#{baseline.round(3)}' text-anchor='middle' " \
+        "style='fill: #{@col_path}; stroke-width: 0; font-size: #{spot[:size].round(3)}px'>#{escaped}</text>\n"
     end
 
     def draw_element(element)
@@ -1164,11 +1287,11 @@ module RSyntaxTree
         path_flags.delete(k)
         if (targets = path_pool_target[k])
           targets.each do |t|
-            paths << { x1: v[0], y1: v[1], x2: t[0], y2: t[1], across1: v[2], across2: t[2], arrow: :single }
+            paths << { x1: v[0], y1: v[1], x2: t[0], y2: t[1], across1: v[2], across2: t[2], arrow: :single, number: k }
           end
         elsif (others = path_pool_other[k])
           others.each do |t|
-            paths << { x1: v[0], y1: v[1], x2: t[0], y2: t[1], across1: v[2], across2: t[2], arrow: :none }
+            paths << { x1: v[0], y1: v[1], x2: t[0], y2: t[1], across1: v[2], across2: t[2], arrow: :none, number: k }
           end
         end
       end
@@ -1181,7 +1304,7 @@ module RSyntaxTree
         next if fst.nil?
 
         targets.each do |t|
-          paths << { x1: fst[0], y1: fst[1], x2: t[0], y2: t[1], across1: fst[2], across2: t[2], arrow: :double }
+          paths << { x1: fst[0], y1: fst[1], x2: t[0], y2: t[1], across1: fst[2], across2: t[2], arrow: :double, number: k }
         end
       end
 
@@ -1190,9 +1313,13 @@ module RSyntaxTree
       # ones drawn before it, in the order written.
       paths = paths.each_with_index.sort_by { |t, i| [(t[:x1] - t[:x2]).abs, i] }.map(&:first) unless @direction == "ltr"
       spread_shared_ends(paths)
+      @link_drawings = []
+      labels = @element_list.link_labels
       paths.each do |t|
-        draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow], s_offset: t[:s_offset], t_offset: t[:t_offset])
+        draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow], s_offset: t[:s_offset], t_offset: t[:t_offset],
+                    label: labels[t[:number]])
       end
+      emit_links
 
       line_pool.each do |_k, v|
         a = v[0]

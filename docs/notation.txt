@@ -64,6 +64,7 @@ Structure:
 | a branching point with no label        | the same, with two or more branches: [VP [V v] [<> [DP d] [CP c]]] |
 | a link, as for movement (dashed)       | [S [NP a+1] [VP [V b] [NP c+1]]] |
 | the same, with an arrowhead            | write +>1 on the end the arrow points at |
+| a text on a link                       | in double quotes after the number, on one end: +>1"*" |
 | a link to a phrase                     | +1 on a node with daughters: the line stops a clearance outside the phrase and its shade, on the word side |
 | an extra straight connector            | +-1 on two nodes; +->1 for an arrowhead |
 | a path through the tree, drawn heavier | +=1 on two nodes, one path per tree: the edges up to where they meet and down again |

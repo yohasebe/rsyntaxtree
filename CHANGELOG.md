@@ -4,6 +4,7 @@
 
 ### Added
 - `+=1` on two labels highlights the path through the tree between them, drawn heavier in the scheme's emphasis colour
+- A link can carry a short text, such as a judgement mark, in double quotes after its number: `+>1"*"`
 - Gallery: unlabeled branching points (091, 092), subjacency (093), and c-command shown by a highlighted path (094)
 
 ### Changed

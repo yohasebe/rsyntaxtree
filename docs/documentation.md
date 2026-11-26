@@ -826,6 +826,8 @@ Each link is distinguished by a unique ID number. The ID is specified by putting
 
 A node can have any number of IDs. The same ID must appear in the text of the *two* nodes between which the link is rendered. The same ID number cannot appear in more than two places.
 
+A link can carry a short text, such as a judgement mark or the number of a step, written in double quotes after its number on one of its two ends: `+>1"*"`. The text is set a little smaller than a label, in the link's colour. Where the run of the link outside the tree is long enough, the text sits across it and the line is broken under it; otherwise it sits beside the run, outside it if there is room. Write a space as `<>`; a double quote cannot be part of the text. Only a link carries a text.
+
 A link to a phrase — a node with daughters — stops a clearance outside everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-c05567af'].layout }}" markdown="1">
@@ -1144,7 +1146,7 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 - Triangle connectors (`^`)
 - Text decoration (bold, italic)
 - Subscript/superscript (`_x_`, `__x__`)
-- Links (`+1`, `+>1`); a highlighted path (`+=1`) is drawn heavier but not coloured
+- Links (`+1`, `+>1`) and their texts; a highlighted path (`+=1`) is drawn heavier but not coloured
 - Column alignment (`\t`)
 - Nested matrix (`#(` … `#)`)
 - Grey line scheme (`color: gray`)

@@ -86,6 +86,30 @@ module RSyntaxTree
                          retryable: true)
     end
 
+    # The text a link carries, by the link's number. Only a link (+N, +>N)
+    # carries text, and only on one of its two ends.
+    def link_labels
+      @link_labels ||= begin
+        found = {}
+        @elements.each do |e|
+          e.link_labels.to_a.each do |kind, number, text|
+            if kind.start_with?("=", "-")
+              raise RSTError.new(+"Error: input text gives a text to a marker that is not a link:\n > +#{kind}#{number}",
+                                 code: :link_label, hint: "Only a link carries a text: write it after +N or +>N.",
+                                 retryable: true)
+            end
+            if found.key?(number)
+              raise RSTError.new(+"Error: input text gives a text to both ends of a link:\n > +#{number}",
+                                 code: :link_label, hint: "Write the text on one end of the link only.",
+                                 retryable: true)
+            end
+            found[number] = text
+          end
+        end
+        found
+      end
+    end
+
     def set_hierarchy
       @elements.each do |e|
         get_id(e.parent).add_child(e.id) unless e.parent.zero?

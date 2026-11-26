@@ -2751,7 +2751,7 @@ Source: Chomsky 1973
 
 ```
 [C''
-  [N'' *what*_1_+>1]
+  [N'' *what*_1_+>1"*"]
   [C'
     [C [INFL *will*]]
     [**INFL''**

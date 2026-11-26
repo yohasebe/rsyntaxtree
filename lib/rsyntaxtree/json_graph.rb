@@ -97,6 +97,12 @@ module RSyntaxTree
       end
     end
 
+    # The text a link carries, as written.
+    def link_label(number)
+      text = @element_list.link_labels[number]
+      text && Element.plain_text(text)
+    end
+
     def draw_paths
       path_pool_target = {}
       path_pool_other = {}
@@ -143,11 +149,11 @@ module RSyntaxTree
       path_pool_source.each do |k, source_id|
         if (target_ids = path_pool_target[k])
           target_ids.each do |target_id|
-            @links_data << { from: source_id, to: target_id, direction: "forward", type: "movement" }
+            @links_data << { from: source_id, to: target_id, direction: "forward", type: "movement", label: link_label(k) }.compact
           end
         elsif (other_ids = path_pool_other[k])
           other_ids.each do |other_id|
-            @links_data << { from: source_id, to: other_id, direction: "none", type: "movement" }
+            @links_data << { from: source_id, to: other_id, direction: "none", type: "movement", label: link_label(k) }.compact
           end
         end
       end
@@ -160,7 +166,7 @@ module RSyntaxTree
 
         first = targets[0]
         targets[1..].each do |target_id|
-          @links_data << { from: first, to: target_id, direction: "bidirectional", type: "movement" }
+          @links_data << { from: first, to: target_id, direction: "bidirectional", type: "movement", label: link_label(k) }.compact
         end
       end
 
