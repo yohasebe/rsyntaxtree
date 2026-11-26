@@ -375,6 +375,10 @@
   height: 570
   layout: grid-stack
 '093':
-  width: 663
-  height: 1020
+  width: 676
+  height: 1043
   layout: grid-stack
+'094':
+  width: 489
+  height: 559
+  layout: grid-wide

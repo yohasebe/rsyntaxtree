@@ -14,7 +14,7 @@ layout: default
 
 ### Added
 - `+=1` on two labels highlights the path through the tree between them, drawn heavier in the scheme's emphasis colour
-- Gallery: unlabeled branching points (091, 092) and a highlighted path (093)
+- Gallery: unlabeled branching points (091, 092), subjacency (093), and c-command shown by a highlighted path (094)
 
 ### Changed
 - The dashed lines between nodes are called links, and JSON lists them under `links` (schema 0.5.0) instead of `paths`

@@ -1,4 +1,4 @@
-RSyntaxTree examples: 88 trees, every one verified to draw.
+RSyntaxTree examples: 89 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -2743,7 +2743,7 @@ Source: Chomsky 2013: 44-45
                     [^PP ~*in which Texas city*~+1]]]]]]]]]]]
 ```
 
-## 093 — A highlighted path in a wh-island
+## 093 — Subjacency: one step of movement crossing two IPs
 
 Category: Generative Grammar
 Settings: fontstyle=noto-serif tidy=medium
@@ -2751,10 +2751,10 @@ Source: Chomsky 1973
 
 ```
 [C''
-  [N'' *what*_1_+=1]
+  [N'' *what*_1_+>1]
   [C'
     [C [INFL *will*]]
-    [INFL''
+    [**INFL''**
       [N'' *you*]
       [INFL'
         [INFL *t*]
@@ -2765,13 +2765,33 @@ Source: Chomsky 1973
               [P'' *where*_2_]
               [C'
                 [C]
-                [INFL''
+                [**INFL''**
                   [N'' *he*]
                   [INFL'
                     [INFL *will*]
                     [V''
                       [V'
                         [V *put*]
-                        [N'' *t*_1_+=1]
+                        [N'' *t*_1_+1]
                         [P'' *t*_2_]]]]]]]]]]]]]
+```
+
+## 094 — C-command: the path from an antecedent to its anaphor
+
+Category: Generative Grammar
+Settings: fontstyle=noto-serif tidy=medium
+Source: Reinhart 1999: 86
+
+```
+[S
+  [NP *Lucie*]
+  [VP
+    [V *thought*]
+    [S'
+      [C *that*]
+      [S
+        [NP+=1 *Lili*]
+        [VP
+          [V *hurt*]
+          [NP+=1 *herself*]]]]]]
 ```
