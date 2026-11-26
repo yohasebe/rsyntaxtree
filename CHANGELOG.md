@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.9.0] - 2026-11-26
+
+### Added
+- `+=1` on two labels highlights the path through the tree between them, drawn heavier in the scheme's emphasis colour
+- Gallery: unlabeled branching points (091, 092) and a highlighted path (093)
+
+### Changed
+- The dashed lines between nodes are called links, and JSON lists them under `links` (schema 0.5.0) instead of `paths`
+- `vheight` defaults to 1.0 and `vmargin` to 0.2, so levels sit closer; set `vheight: 2.0` and `vmargin: 0.4` for the previous spacing
+- The lines of a wrapped label close up to `vmargin` where it is tighter than the usual leading, never under a quarter of the type
+- A middle child of three or five hangs straight below its parent where there is room
+- JSON records a line connection (`+-1`) as a line, and a link without an arrowhead with no direction
+
+### Fixed
+- A connector to a single child no longer leans by half a unit in the default layout
+- Connectors keep the same clearance from boxes, circles, bars and rules in a label as from letters
+- JSON and TikZ refuse a link with the wrong number of ends, as SVG does
+- Two markers with one number on one node are refused as one end
+- A derivation's rule name is drawn as written even when it ends in what looks like a marker
+
+### Migration
+- Error code `path_single_end` → `link_single_end`
+- Error code `path_multiple_ends` → `link_multiple_ends`
+- Error code `incomplete_path` → `incomplete_marker`
+- JSON `paths` → `links`
+
 ## [2.8.0] - 2026-11-18
 
 ### Added
