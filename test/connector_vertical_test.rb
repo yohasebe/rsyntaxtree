@@ -78,4 +78,23 @@ class ConnectorVerticalTest < Minitest::Test
       end
     end
   end
+
+  # Three children whose outer labels differ in width: the middle one hangs
+  # straight below the parent, in every layout and direction.
+  def test_a_middle_child_hangs_straight
+    trees = ["[S [A [B u] [C v] [D w]] [E x]]", "[S [x] [D x] [x]]", "[S [W wide] [M m] [i x]]",
+             "[S [A [Bee b] [C c] [D d] [Eee e] [F f]]]"]
+    trees.each do |tree|
+      %w[off low medium high symmetric].each do |tidy|
+        %w[ttb btt].each do |direction|
+          svg = RSyntaxTree::RSGenerator.new(data: tree, tidy: tidy, direction: direction, format: "svg").draw_svg
+          slanted = svg.scan(/<line\b[^>]*x1='([\d.]+)' y1='([\d.]+)' x2='([\d.]+)' y2='([\d.]+)'/).filter_map do |x1, y1, x2, y2|
+            dx = (x1.to_f - x2.to_f).abs
+            dx if dx.positive? && dx < 3 && (y1.to_f - y2.to_f).abs > 20
+          end
+          assert_empty slanted, "#{tree}, tidy #{tidy}, #{direction}: off vertical by #{slanted.uniq.inspect}"
+        end
+      end
+    end
+  end
 end

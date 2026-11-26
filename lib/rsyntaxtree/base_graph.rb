@@ -795,6 +795,27 @@ module RSyntaxTree
       centers.max - centers.min
     end
 
+    # A parent stands over the middle of its outer children, and with three
+    # or five of them the middle one is meant to hang straight below it. It
+    # does so only when the outer labels are equally wide: the middle child
+    # sits a quarter of their difference off, and the edge to it leans by
+    # that much — a unit or two, which reads as a mistake rather than as a
+    # choice. The middle subtree is moved under its parent, top down, where
+    # it can go without touching a neighbour; the parent stays where it is,
+    # so nothing above it changes.
+    def align_middle_children
+      parents = @element_list.get_elements.select { |e| e.children.size.odd? && e.children.size > 1 }
+      parents.sort_by(&:level).each do |parent|
+        mid = @element_list.get_id(parent.children[parent.children.size / 2])
+        delta = (parent.horizontal_indent + (parent.content_width / 2.0)) -
+                (mid.horizontal_indent + (mid.content_width / 2.0))
+        next if delta.abs < 0.001 || delta.abs > @global[:h_gap_between_nodes] / 2.0
+
+        shift_subtree(mid.id, delta)
+        shift_subtree(mid.id, -delta) if layout_overlaps?
+      end
+    end
+
     def shift_subtree(id, delta)
       node = @element_list.get_id(id)
       node.horizontal_indent += delta
@@ -1192,6 +1213,8 @@ module RSyntaxTree
         spread_linked_pairs
         restore_layout(snapshot) if layout_overlaps?
       end
+
+      align_middle_children if @element_list.elements.size > 1
 
       # Phase 2: swap axes and restore content dimensions for LTR
       finalize_ltr if @direction == "ltr"

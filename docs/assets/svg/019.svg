@@ -46,7 +46,7 @@
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='355.15000000000003' y='756.8810386246641'><tspan x='355.65000000000003' y='756.8810386246641' style="" text-decoration="" font-family="'Noto Sans Mono', 'Noto Sans JP', 'Noto Sans Mono CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', monospace"><tspan style='fill:none;'>￭</tspan>v<tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='582.75' y='541.8410386246642'><tspan x='583.25' y='541.8410386246642' style="" text-decoration="" font-family="'Noto Sans Mono', 'Noto Sans JP', 'Noto Sans Mono CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', monospace"><tspan style='fill:none;'>￭</tspan>&#60;<tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='587.5' y='541.8410386246642'><tspan x='588.0' y='541.8410386246642' style="" text-decoration="" font-family="'Noto Sans Mono', 'Noto Sans JP', 'Noto Sans Mono CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', monospace"><tspan style='fill:none;'>￭</tspan>&#60;<tspan style='fill:none;'>￭</tspan></tspan>
 </text>
 <text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='740.8499999999999' y='541.8410386246642'><tspan x='741.3499999999999' y='541.8410386246642' style="" text-decoration="" font-family="'Noto Sans Mono', 'Noto Sans JP', 'Noto Sans Mono CJK JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', 'Noto Sans Thai', 'Noto Sans Khmer', 'Noto Sans Math', monospace">&#60;less-than&#62;</tspan>
 </text>
@@ -109,7 +109,7 @@
 <polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='380.65000000000003 482.48103862466417 380.65000000000003 469.70416550652385 613.0 469.70416550652385 613.0 456.9272923883835' />
 <polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='608.25 482.48103862466417 608.25 469.70416550652385 613.0 469.70416550652385 613.0 456.9272923883835' />
+                            points='613.0 482.48103862466417 613.0 469.70416550652385 613.0 469.70416550652385 613.0 456.9272923883835' />
 <polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='845.3499999999999 482.48103862466417 845.3499999999999 469.70416550652385 613.0 469.70416550652385 613.0 456.9272923883835' />
 <polyline style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
@@ -174,7 +174,7 @@
                             points='331.40000000000003,706.481038624664 429.90000000000003,706.481038624664 429.90000000000003,779.2810386246641 331.40000000000003,779.2810386246641' />
 
 <polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='559.0,491.44103862466415 657.5,491.44103862466415 657.5,564.2410386246642 559.0,564.2410386246642' />
+                            points='563.75,491.44103862466415 662.25,491.44103862466415 662.25,564.2410386246642 563.75,564.2410386246642' />
 
 <polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='717.0999999999999,491.44103862466415 973.5999999999999,491.44103862466415 973.5999999999999,564.2410386246642 717.0999999999999,564.2410386246642' />
