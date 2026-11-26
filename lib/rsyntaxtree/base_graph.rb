@@ -800,20 +800,83 @@ module RSyntaxTree
     # does so only when the outer labels are equally wide: the middle child
     # sits a quarter of their difference off, and the edge to it leans by
     # that much — a unit or two, which reads as a mistake rather than as a
-    # choice. The middle subtree is moved under its parent, top down, where
-    # it can go without touching a neighbour; the parent stays where it is,
-    # so nothing above it changes.
+    # choice. The middle subtree is moved under its parent, top down; the
+    # parent stays where it is, so nothing above it changes. A move is made
+    # only where it takes nothing from anything else: no label on the rows
+    # the subtree spans comes closer than the gap between nodes, or than it
+    # already was; no word changes places with its neighbour; and a pair
+    # joined by a line keeps the room spread for its arrowheads.
     def align_middle_children
-      parents = @element_list.get_elements.select { |e| e.children.size.odd? && e.children.size > 1 }
+      elements = @element_list.get_elements
+      leaves = elements.select { |e| e.children.empty? }
+      links = link_connection_pairs
+      parents = elements.select { |e| e.children.size.odd? && e.children.size > 1 }
       parents.sort_by(&:level).each do |parent|
-        mid = @element_list.get_id(parent.children[parent.children.size / 2])
+        kids = parent.children.map { |c| @element_list.get_id(c) }
+        mid = kids[kids.size / 2]
         delta = (parent.horizontal_indent + (parent.content_width / 2.0)) -
                 (mid.horizontal_indent + (mid.content_width / 2.0))
         next if delta.abs < 0.001 || delta.abs > @global[:h_gap_between_nodes] / 2.0
 
+        moved = subtree_elements(mid)
+        next unless room_to_shift?(moved, elements, delta) && words_keep_order?(moved, leaves, delta) &&
+                    links_keep_room?(moved, links, delta)
+
         shift_subtree(mid.id, delta)
-        shift_subtree(mid.id, -delta) if layout_overlaps?
       end
+    end
+
+    def subtree_elements(node)
+      [node] + node.children.flat_map { |c| subtree_elements(@element_list.get_id(c)) }
+    end
+
+    # Whether +moved+ can go +delta+ sideways without coming closer to any
+    # other label on its rows than the gap between nodes, or than it is now.
+    def room_to_shift?(moved, elements, delta)
+      ids = moved.to_h { |e| [e.id, true] }
+      others = elements.reject { |e| ids[e.id] }.map { |e| effective_rect(e) }
+      gap = @global[:h_gap_between_nodes]
+      moved.all? do |m|
+        top, bottom, left, right = effective_rect(m)
+        others.all? do |o_top, o_bottom, o_left, o_right|
+          next true unless o_top < bottom - 0.01 && top < o_bottom - 0.01
+
+          before = delta.positive? ? o_left - right : left - o_right
+          next true if before.negative? # on the far side
+
+          before - delta.abs >= [before, gap].min - 0.01
+        end
+      end
+    end
+
+    # Whether a pair joined by a line across the edge of +moved+ keeps the
+    # room spread_linked_pairs gives its arrowheads.
+    def links_keep_room?(moved, links, delta)
+      ids = moved.to_h { |e| [e.id, true] }
+      required = @global[:h_gap_between_nodes] * LINK_ARROW_CLEARANCE
+      links.all? do |a, b|
+        next true if ids[a.id] == ids[b.id]
+
+        left, right = [a, b].sort_by(&:horizontal_indent)
+        before = right.horizontal_indent - (left.horizontal_indent + left.content_width)
+        after = before + (ids[right.id] ? delta : -delta)
+        after >= [before, required].min - 0.01
+      end
+    end
+
+    # Whether the words under +moved+ stay between the words beside them.
+    def words_keep_order?(moved, leaves, delta)
+      ids = moved.to_h { |e| [e.id, true] }
+      inside = leaves.each_index.select { |i| ids[leaves[i].id] }
+      return true if inside.empty?
+
+      centre = ->(e) { e.horizontal_indent + (e.content_width / 2.0) }
+      before = inside.first.positive? ? leaves[inside.first - 1] : nil
+      after = leaves[inside.last + 1]
+      first = centre.call(leaves[inside.first])
+      last = centre.call(leaves[inside.last])
+      (before.nil? || centre.call(before) > first || centre.call(before) <= first + delta) &&
+        (after.nil? || centre.call(after) < last || centre.call(after) >= last + delta)
     end
 
     def shift_subtree(id, delta)

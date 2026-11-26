@@ -79,22 +79,63 @@ class ConnectorVerticalTest < Minitest::Test
     end
   end
 
-  # Three children whose outer labels differ in width: the middle one hangs
-  # straight below the parent, in every layout and direction.
+  # Three or five children whose outer labels differ in width: the middle
+  # one hangs straight below the parent, in every layout and direction. Each
+  # parent with an odd number of children is checked against its own middle
+  # child, so a lean of any size is caught and nothing else is mistaken for
+  # one.
   def test_a_middle_child_hangs_straight
-    trees = ["[S [A [B u] [C v] [D w]] [E x]]", "[S [x] [D x] [x]]", "[S [W wide] [M m] [i x]]",
+    require "json"
+    trees = ["[S [A [B u] [C v] [D w]] [E x]]", "[S [x] [D x] [x]]", "[S [Wa w] [M m] [Ia i]]",
              "[S [A [Bee b] [C c] [D d] [Eee e] [F f]]]"]
     trees.each do |tree|
       %w[off low medium high symmetric].each do |tidy|
         %w[ttb btt].each do |direction|
-          svg = RSyntaxTree::RSGenerator.new(data: tree, tidy: tidy, direction: direction, format: "svg").draw_svg
-          slanted = svg.scan(/<line\b[^>]*x1='([\d.]+)' y1='([\d.]+)' x2='([\d.]+)' y2='([\d.]+)'/).filter_map do |x1, y1, x2, y2|
-            dx = (x1.to_f - x2.to_f).abs
-            dx if dx.positive? && dx < 3 && (y1.to_f - y2.to_f).abs > 20
+          nodes = JSON.parse(RSyntaxTree::RSGenerator.new(data: tree, tidy: tidy, direction: direction,
+                                                          format: "json").draw_json)["nodes"]
+          by_id = nodes.to_h { |n| [n["id"], n] }
+          centre = ->(n) { n["position"]["x"] + (n["position"]["content_width"] / 2.0) }
+          parents = nodes.select { |n| n["children"].to_a.size.odd? && n["children"].size > 1 }
+
+          refute_empty parents, tree
+          parents.each do |parent|
+            mid = by_id[parent["children"][parent["children"].size / 2]]
+            assert_in_delta centre.call(parent), centre.call(mid), 1e-6,
+                            "#{tree}, tidy #{tidy}, #{direction}: #{parent.dig("label", "raw")} over its middle child"
           end
-          assert_empty slanted, "#{tree}, tidy #{tidy}, #{direction}: off vertical by #{slanted.uniq.inspect}"
         end
       end
+    end
+  end
+
+  # Moving a middle child under its parent takes nothing from anything else:
+  # the words keep their order, and a pair joined by a line keeps the room
+  # spread for its arrowheads.
+  def test_hanging_a_middle_child_disturbs_nothing_else
+    require "json"
+    centre = ->(n) { n["position"]["x"] + (n["position"]["content_width"] / 2.0) }
+    nodes = JSON.parse(RSyntaxTree::RSGenerator.new(
+      data: "[R [x] [M [D [a] [w] [x] [x]] [i] [i [a] [Wide [text] [text] [j]]]] [l]]",
+      tidy: "medium", hspacing: 0.5, format: "json"
+    ).draw_json)["nodes"]
+    words = nodes.select { |n| n["children"].to_a.empty? }
+
+    assert_equal words.map { |n| n.dig("label", "raw") }, words.sort_by { |n| centre.call(n) }.map { |n| n.dig("label", "raw") }
+
+    linked = "[S [##i] [##M+-<1] [##x+->1]]"
+    gap = lambda do |opts|
+      found = JSON.parse(RSyntaxTree::RSGenerator.new(data: linked, format: "json", **opts).draw_json)["nodes"]
+      m = found.find { |n| n.dig("label", "raw").include?("M") }["position"]
+      x = found.find { |n| n.dig("label", "raw").include?("x") }["position"]
+      x["x"] - m["x"] - m["content_width"]
+    end
+    spread = gap.call({})
+    RSyntaxTree::BaseGraph.alias_method :hang_middle_children, :align_middle_children
+    RSyntaxTree::BaseGraph.define_method(:align_middle_children) { nil }
+    begin
+      assert_in_delta gap.call({}), spread, 1e-6, "the linked pair lost the room spread for its arrowheads"
+    ensure
+      RSyntaxTree::BaseGraph.alias_method :align_middle_children, :hang_middle_children
     end
   end
 end

@@ -802,7 +802,7 @@ module RSyntaxTree
       if drawn_shape
         element.ink_top = bc[:y]
         element.ink_bottom = bc[:y] + bc[:height]
-      elsif first_baseline
+      elsif painted_rows.any? || painted_rules.any?
         # The label's own ink, not the font's whole band: each run as it is
         # painted — its glyphs at the size and on the baseline they are drawn
         # at, the outline of a box, circle or bar — and each rule by its
