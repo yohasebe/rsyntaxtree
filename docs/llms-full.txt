@@ -1563,7 +1563,7 @@ Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low
 ## 014 — Cognitive Grammar sample
 
 Category: Cognitive Grammar
-Settings: color=none fontstyle=noto-serif
+Settings: color=none fontstyle=noto-serif vheight=1.5
 
 ```
 [##*{👧}**--**|s|*\
@@ -1972,7 +1972,7 @@ Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=high
 ## 025 — Network of non-prototypical sentence constructions
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on vheight=3.0
 Source: Goldberg 2006: 177
 
 ```
@@ -2143,7 +2143,7 @@ Settings: fontstyle=noto-serif tidy=low
 ## 029 — Animal ontology
 
 Category: Formal Concept Analysis
-Settings: color=none fontstyle=noto-sans-mono tidy=low
+Settings: color=none fontstyle=noto-sans-mono tidy=low vheight=2.0
 
 ```
 [##Human,<>Bonobo,<>Lion,<>Eagle,<>Sparrow,<>Ostrich\
@@ -2194,7 +2194,7 @@ Settings: color=none fontstyle=noto-sans-mono tidy=low
 ## 030 — Construction network
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif
+Settings: color=none fontstyle=noto-serif vheight=3.0
 Source: Goldberg 1995: 109
 
 ```
@@ -2238,7 +2238,7 @@ Settings: color=none fontstyle=noto-sans-mono tidy=low
 ## 034 — Taxonomic Hierarchy of clauses
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif
+Settings: color=none fontstyle=noto-serif vheight=2.5
 Source: Croft and Cruse 2004: 264
 
 ```
@@ -2290,7 +2290,7 @@ Source: Goldberg 1995: 109
 ## 036 — Schema network
 
 Category: Cognitive Grammar
-Settings: fontstyle=noto-serif hide_default_connectors=on tidy=symmetric
+Settings: fontstyle=noto-serif hide_default_connectors=on tidy=symmetric vheight=2.0
 
 ```
 [##Schema+->0+->1
@@ -2426,7 +2426,7 @@ Source: Miller et al. 1978
 ## 042 — Merge
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=0.5
 
 ```
 [γ
@@ -2474,7 +2474,7 @@ Settings: fontstyle=noto-sans tidy=low
 ## 045 — Prototypical organization of English nominals
 
 Category: Cognitive Grammar
-Settings: fontstyle=noto-serif
+Settings: fontstyle=noto-serif vheight=2.0
 Source: Langacker 1991: 147
 
 ```
@@ -2798,7 +2798,7 @@ Source: Halliday 2014: 612-614
 ## 052 — Major clause constructions of English
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif polyline=on
+Settings: color=none fontstyle=noto-serif polyline=on vheight=3.0
 Source: Hoffmann 2022: 220
 
 ```
@@ -3763,7 +3763,7 @@ Settings: color=none fontstyle=noto-serif leafstyle=nothing
 ## 084 — Typed feature structures with structure sharing
 
 Category: Formal Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=nothing
+Settings: color=none fontstyle=noto-serif leafstyle=nothing vheight=2.0
 
 ```
 [#(*phrase*\
