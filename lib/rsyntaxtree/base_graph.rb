@@ -801,22 +801,27 @@ module RSyntaxTree
     # sits a quarter of their difference off, and the edge to it leans by
     # that much — a unit or two, which reads as a mistake rather than as a
     # choice. The middle subtree is moved under its parent, top down; the
-    # parent stays where it is, so nothing above it changes. A move is made
-    # only where it takes nothing from anything else: no label on the rows
-    # the subtree spans comes closer than the gap between nodes, or than it
-    # already was; no word changes places with its neighbour; and a pair
-    # joined by a line keeps the room spread for its arrowheads.
+    # parent stays where it is, so nothing above it changes.
+    #
+    # A move is made only where it takes nothing from anything else: no label
+    # on the rows the subtree spans comes closer than the gap between nodes,
+    # or than it already was; no word changes places with its neighbour; a
+    # pair joined by a line keeps its room. Where a shaded region is in play
+    # — in the subtree or beside it — nothing moves: a shade's edge is decided
+    # when it is drawn, and a guess at it here is a guess. A derivation draws
+    # rules, not edges, and has nothing to straighten.
     def align_middle_children
+      return if @derivation
+
       elements = @element_list.get_elements
       leaves = elements.select { |e| e.children.empty? }
       by_id = elements.to_h { |e| [e.id, e] }
+      regions = elements.select(&:region)
       links = link_connection_pairs
-      # Everything that takes room, by the row it starts on, so a move asks
-      # only about what stands beside it: every label, and every shaded
-      # region by the extent of its subtree and the padding drawn round it.
-      rows = (elements.map { |e| [e, :label] } + elements.select(&:region).map { |e| [e, :region] })
-             .group_by { |e, _| e.vertical_indent.round(3) }
-      tallest = rows.values.flatten(1).map { |e, kind| room_rect(e, kind) }.map { |t, b, _, _| b - t }.max.to_f
+      # Every label by the row it starts on, so a move asks only about what
+      # stands beside it.
+      rows = elements.group_by { |e| e.vertical_indent.round(3) }
+      tallest = elements.map { |e| e.content_height }.max.to_f
       parents = elements.select { |e| e.children.size.odd? && e.children.size > 1 }
       parents.sort_by(&:level).each do |parent|
         mid = by_id[parent.children[parent.children.size / 2]]
@@ -824,16 +829,23 @@ module RSyntaxTree
                 (mid.horizontal_indent + (mid.content_width / 2.0))
         next if delta.abs < 0.001 || delta.abs > @global[:h_gap_between_nodes] / 2.0
 
+        around = {}
+        up = parent
+        while up
+          around[up.id] = true
+          up = by_id[up.parent]
+        end
+        next if regions.any? { |r| !around[r.id] }
+
         moved = subtree_elements(mid, by_id)
-        next unless room_to_shift?(mid, moved, rows, tallest, delta, by_id) && words_keep_order?(moved, leaves, delta) &&
+        next unless room_to_shift?(moved, rows, tallest, delta) && words_keep_order?(moved, leaves, delta) &&
                     links_keep_room?(moved, links, delta)
 
         moved.each { |e| e.horizontal_indent += delta }
       end
     end
 
-    def subtree_elements(node, by_id = nil)
-      by_id ||= @element_list.get_elements.to_h { |e| [e.id, e] }
+    def subtree_elements(node, by_id)
       found = []
       pending = [node]
       while (e = pending.pop)
@@ -843,29 +855,21 @@ module RSyntaxTree
       found
     end
 
-    # Whether the subtree of +mid+, the elements in +moved+, can go +delta+
-    # sideways without coming closer to anything else on its rows — a label,
-    # or the shade of a region — than the gap between nodes, or than it is
-    # now. The shades of the regions +mid+ lies in are not beside it.
-    def room_to_shift?(mid, moved, rows, tallest, delta, by_id)
+    # Whether +moved+ can go +delta+ sideways without coming closer to any
+    # other label on its rows than the gap between nodes, or than it is now.
+    def room_to_shift?(moved, rows, tallest, delta)
       ids = moved.to_h { |e| [e.id, true] }
-      around = {}
-      up = by_id[mid.parent]
-      while up
-        around[up.id] = true
-        up = by_id[up.parent]
-      end
       gap = @global[:h_gap_between_nodes]
       tops = rows.keys.sort
-      movers = moved.map { |e| room_rect(e, :label) } + moved.select(&:region).map { |e| room_rect(e, :region) }
-      movers.all? do |top, bottom, left, right|
+      moved.all? do |m|
+        top, bottom, left, right = effective_rect(m)
         i = tops.bsearch_index { |t| t >= top - tallest - 0.01 } || tops.size
         clear = true
         while clear && i < tops.size && tops[i] < bottom - 0.01
-          clear = rows[tops[i]].all? do |e, kind|
-            next true if ids[e.id] || (kind == :region && around[e.id])
+          clear = rows[tops[i]].all? do |e|
+            next true if ids[e.id]
 
-            o_top, o_bottom, o_left, o_right = room_rect(e, kind)
+            o_top, o_bottom, o_left, o_right = effective_rect(e)
             next true unless o_top < bottom - 0.01 && top < o_bottom - 0.01
 
             before = delta.positive? ? o_left - right : left - o_right
@@ -879,19 +883,6 @@ module RSyntaxTree
       end
     end
 
-    # The room an element takes, as top, bottom, left, right: its label, or
-    # the shade drawn round its subtree.
-    def room_rect(element, kind)
-      return effective_rect(element) if kind == :label
-
-      pad = @global[:h_gap_between_nodes]
-      inside = subtree_elements(element)
-      [element.vertical_indent - pad,
-       inside.map { |e| e.vertical_indent + e.content_height }.max + pad,
-       inside.map(&:horizontal_indent).min - pad,
-       inside.map { |e| e.horizontal_indent + e.content_width }.max + pad]
-    end
-
     # Whether a pair joined by a line across the edge of +moved+ keeps the
     # room spread_linked_pairs gives its arrowheads.
     def links_keep_room?(moved, links, delta)
@@ -900,13 +891,14 @@ module RSyntaxTree
       links.all? do |a, b|
         next true if ids[a.id] == ids[b.id]
 
+        # Left to right the pairs are not spread, and a link may run across
+        # rows: one that the move would stretch or shorten stays as it is.
+        next false if @direction == "ltr"
+
         left, right = [a, b].sort_by(&:horizontal_indent)
         before = right.horizontal_indent - (left.horizontal_indent + left.content_width)
         after = before + (ids[right.id] ? delta : -delta)
-        # Left to right the pairs are not spread, and the arrowheads are
-        # sized from the gap as it is drawn: none may close.
-        floor = @direction == "ltr" ? before : [before, required].min
-        after >= floor - 0.01
+        after >= [before, required].min - 0.01
       end
     end
 
