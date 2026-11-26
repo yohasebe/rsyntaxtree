@@ -321,8 +321,8 @@ module RSyntaxTree
       [:stray_triangle,
        ->(s) { s.sub(/\A\^+/, "^") }, "Only one '^' may prefix a label."],
       [:incomplete_path,
-       ->(s) { s.sub(/(?<!\\)\+>?<?\z/, "") },
-       "A path marker needs a number: write +1, or +>1 for the arrowhead."]
+       ->(s) { s.sub(/(?<!\\)\+(?:=|>?<?)\z/, "") },
+       "A path marker needs a number: write +1, +>1 for the arrowhead, or +=1 for a highlighted path."]
     ].freeze
 
     # Turn a Markup.parse failure into structured error attributes: a code

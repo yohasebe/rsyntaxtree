@@ -59,8 +59,14 @@ module RSyntaxTree
     def line_to_parent(parent, child, dash_from: nil)
       edge = { from: parent.id, to: child.id, type: "dominance", connector: "line" }
       edge[:dashed] = true if dash_from
-      @edges << edge
+      @edges << on_path(edge)
       0
+    end
+
+    # An edge on the highlighted path says so.
+    def on_path(edge)
+      edge[:on_path] = true if @element_list.path_edges.include?(edge[:to])
+      edge
     end
 
     # A triangle spans from the parent to its child, through any joints leaf
@@ -87,7 +93,7 @@ module RSyntaxTree
 
     def chain_edges(parent, joints, child, connector)
       ([parent] + joints).zip(joints + [child]).each do |from, to|
-        @edges << { from: from.id, to: to.id, type: "dominance", connector: connector }
+        @edges << on_path({ from: from.id, to: to.id, type: "dominance", connector: connector })
       end
     end
 

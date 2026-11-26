@@ -175,7 +175,9 @@ class RSTError < StandardError
     invalid_markup
     invalid_option
     label_split
+    path_ends
     path_multiple_ends
+    path_numbers
     path_single_end
     result_too_big
     rule_name_without_derivation

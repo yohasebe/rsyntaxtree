@@ -193,7 +193,7 @@ module RSyntaxTree
 
       label = extract_label(element)
       escaped_label = escape_latex(label)
-      head = "#{escaped_label}#{leaf_edge_option(element)}#{region_option(element)}"
+      head = "#{escaped_label}#{leaf_edge_option(element)}#{path_edge_option(element)}#{region_option(element)}"
       head += corner_label_option if element_id == 1
 
       children = element.children
@@ -216,6 +216,16 @@ module RSyntaxTree
 
       element = @element_list.get_id(element.children.first) while element.inserted_joint
       element.type == ETYPE_LEAF ? ", edge+=dashed" : ""
+    end
+
+    # The edge up from a node on the highlighted path is drawn heavier, by the
+    # same factor as in the SVG. The figure here is drawn in black, so the
+    # weight alone marks the path, as it does in the monochrome schemes.
+    def path_edge_option(element)
+      return "" unless @element_list.path_edges.include?(element.id)
+
+      width = format("%.3f", 0.05 * @params[:linewidth] * SVGGraph::ROUTE_WEIGHT).sub(/0+\z/, "")
+      ", edge+={line width=#{width}em}"
     end
 
     # forest node option that paints a semi-transparent plane behind the whole

@@ -1263,6 +1263,14 @@ module RSyntaxTree
     end
 
     def parse_list
+      # A highlighted path is checked before anything is laid out. A
+      # derivation draws rules rather than edges, so there is no path to draw.
+      if @element_list.path_edges.any? && @derivation
+        raise RSTError.new(+"Error: a highlighted path cannot be drawn in a derivation",
+                           code: :invalid_option, label: "derivation",
+                           hint: "Remove the '+=N' markers, or turn derivation off.", retryable: false)
+      end
+
       # Phase 1: swap content dimensions for LTR layout calculation
       prepare_ltr if @direction == "ltr"
 

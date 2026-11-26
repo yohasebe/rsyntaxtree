@@ -18,6 +18,39 @@ module RSyntaxTree
       @iterator = -1 # Iterator index (used for get_first / get_next)
     end
 
+    # The edges on the highlighted path, each named by the child it joins to
+    # its parent: every step up from the path's two ends to the node where
+    # they meet. A path has one number and exactly two ends; anything else is
+    # refused, as a movement path with the wrong number of ends is.
+    def path_edges
+      @path_edges ||= begin
+        ends = @elements.reject { |e| e.route.to_a.empty? }
+        if ends.empty?
+          []
+        else
+          numbers = ends.flat_map(&:route).uniq
+          if numbers.size > 1
+            raise RSTError.new(+"Error: input text contains more than one highlighted path:\n > #{numbers.map { |n| "+#{n}" }.join(" ")}",
+                               code: :path_numbers, hint: "Only one path can be highlighted; give both of its ends the same '+=N'.",
+                               retryable: true)
+          end
+          if ends.size != 2 || ends.any? { |e| e.route.size > 1 }
+            raise RSTError.new(+"Error: input text contains a highlighted path without exactly two ends:\n > +#{numbers.first}",
+                               code: :path_ends, hint: "A highlighted path takes two ends: '+=N' on each of two nodes.",
+                               retryable: true)
+          end
+
+          a, b = ends.map do |e|
+            chain = [e.id]
+            chain << get_id(chain.last).parent until get_id(chain.last).parent.zero?
+            chain
+          end
+          meet = a.find { |id| b.include?(id) }
+          a.take_while { |id| id != meet } + b.take_while { |id| id != meet }
+        end
+      end
+    end
+
     def set_hierarchy
       @elements.each do |e|
         get_id(e.parent).add_child(e.id) unless e.parent.zero?

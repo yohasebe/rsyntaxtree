@@ -1681,26 +1681,8 @@ module RSyntaxTree
       @tree_data += polygon_data
     end
 
-    # The connectors on the highlighted path, each named by the child it
-    # joins to its parent: every step up from the two ends of the path to the
-    # node where they meet. Empty unless exactly two labels end the path.
     def route_edges
-      @route_edges ||= begin
-        ends = @element_list.get_elements.reject { |e| e.route.to_a.empty? }
-        if ends.size == 2
-          a, b = ends.map do |e|
-            chain = [e]
-            while (up = @element_list.get_id(chain.last.parent))
-              chain << up
-            end
-            chain.map(&:id)
-          end
-          meet = a.find { |id| b.include?(id) }
-          (a.take_while { |id| id != meet } + b.take_while { |id| id != meet })
-        else
-          []
-        end
-      end
+      @element_list.path_edges
     end
 
     # The last element written to +svg+, drawn as part of the path: heavier,
@@ -1709,7 +1691,7 @@ module RSyntaxTree
       i = svg.rindex(/<(?:line|polyline|polygon) /)
       head = svg[0...i]
       tail = svg[i..].sub(/stroke-width:\s*[\d.]+/, "stroke-width:#{(@global[:stroke_normal] * ROUTE_WEIGHT).round(3)}")
-      tail = tail.sub(/stroke:\s*[^;]+;/, "stroke:#{@col_route};") if @col_route
+      tail = tail.sub(/stroke:\s*[^;]+;/, "stroke:#{@col_emph};") if @col_emph
       head + tail
     end
     ROUTE_WEIGHT = 2.4
