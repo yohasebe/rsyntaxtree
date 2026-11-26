@@ -63,4 +63,19 @@ class ConnectorVerticalTest < Minitest::Test
     slanted = dxs.reject { |dx| dx < 0.001 }
     assert_empty slanted, "straight connectors off vertical by #{slanted.map { |d| d.round(2) }.uniq.inspect}"
   end
+
+  # Plain labels in the default layout: a preterminal over its one word.
+  def test_an_only_child_hangs_straight_in_every_layout
+    tree = "[S [NP [D The] [N cat]] [VP [V sat] [PP [P on] [NP [D the] [N mat]]]]]"
+    %w[off low medium high symmetric].each do |tidy|
+      %w[sans serif].each do |font|
+        svg = RSyntaxTree::RSGenerator.new(data: tree, tidy: tidy, fontstyle: font, format: "svg").draw_svg
+        slanted = svg.scan(/<line\b[^>]*x1='([\d.]+)' y1='[\d.]+' x2='([\d.]+)'/).filter_map do |a, b|
+          dx = (a.to_f - b.to_f).abs
+          dx if dx.positive? && dx < 2
+        end
+        assert_empty slanted, "tidy #{tidy}, #{font}: connectors off vertical by #{slanted.uniq.inspect}"
+      end
+    end
+  end
 end

@@ -568,6 +568,14 @@ module RSyntaxTree
         next if k.zero?
 
         parent = @element_list.get_id(k)
+        # An only child sits straight below its parent: its centre is taken
+        # whole, or a box of odd width leaves the line between them half a
+        # unit off vertical.
+        if v.size == 1
+          parent.horizontal_indent = v.first.horizontal_indent + ((v.first.content_width - parent.content_width) / 2.0)
+          next
+        end
+
         child_positions = v.map { |child| child.horizontal_indent + child.content_width / 2 }
         parent.horizontal_indent = child_positions.min + (child_positions.max - child_positions.min - parent.content_width) / 2
       end
@@ -884,7 +892,7 @@ module RSyntaxTree
           max_shift = delta.abs if delta.abs > max_shift
         end
         centers = children.map { |c| c.horizontal_indent + c.content_width / 2.0 }
-        parent.horizontal_indent = centers.min + (centers.max - centers.min - parent.content_width) / 2
+        parent.horizontal_indent = centers.min + ((centers.max - centers.min - parent.content_width) / (children.size == 1 ? 2.0 : 2))
       end
       max_shift
     end
