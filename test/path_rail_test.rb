@@ -162,7 +162,7 @@ class PathRailTest < Minitest::Test
 
   %w[ttb btt ltr].each do |direction|
     define_method "test_crowded_ends_stay_on_their_label_#{direction}" do
-      options = { data: CROWDED, direction: direction }
+      options = { data: CROWDED, direction: direction, vmargin: 0.4 }
       svg = RSyntaxTree::RSGenerator.new(options).draw_svg
       nodes = JSON.parse(RSyntaxTree::RSGenerator.new(options.merge(format: "json")).draw_json)["nodes"]
       shared = nodes.find { |n| n["label"]["raw"] == "i" }["position"]

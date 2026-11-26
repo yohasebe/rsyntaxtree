@@ -550,9 +550,9 @@ quietly drawing it straight.
 A tilted figure is usually worth a tighter `V spacing` than an upright one:
 the lean spreads the tree sideways, and the levels can afford to sit closer.
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-dc3d68b0'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-82d8c08e'].layout }}" markdown="1">
 
-<!-- figure: shear=20 vheight=1.0 -->
+<!-- figure: shear=20 vheight=0.5 -->
 ```text
 [S
   [NP the cat]
@@ -563,7 +563,7 @@ the lean spreads the tree sideways, and the levels can afford to sit closer.
 ]
 ```
 
-{% include doc_figure.html name="doc-dc3d68b0" alt="A tree leaning on the plane it is drawn on" %}
+{% include doc_figure.html name="doc-82d8c08e" alt="A tree leaning on the plane it is drawn on" %}
 
 </div>
 

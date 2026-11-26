@@ -542,9 +542,9 @@ TikZ では使えません。
 傾けた図では `縦間隔` を直立時より詰めるとうまくいきます。傾きが木を横に広げるので、
 段はより近くに置けるからです。
 
-<div class="grid {{ site.data.doc_figure_sizes['doc-dc3d68b0'].layout }}" markdown="1">
+<div class="grid {{ site.data.doc_figure_sizes['doc-82d8c08e'].layout }}" markdown="1">
 
-<!-- figure: shear=20 vheight=1.0 -->
+<!-- figure: shear=20 vheight=0.5 -->
 ```text
 [S
   [NP the cat]
@@ -555,7 +555,7 @@ TikZ では使えません。
 ]
 ```
 
-{% include doc_figure.html name="doc-dc3d68b0" alt="描かれている平面ごと傾いた木" %}
+{% include doc_figure.html name="doc-82d8c08e" alt="描かれている平面ごと傾いた木" %}
 
 </div>
 

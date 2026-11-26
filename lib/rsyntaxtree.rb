@@ -98,7 +98,7 @@ DEFAULT_OPTS = {
   fontstyle: "sans",
   fontsize: 16,
   linewidth: 1,
-  vheight: 2.0,
+  vheight: 1.0,
   color: "modern",
   transparent: "off",
   polyline: "off",
@@ -112,11 +112,10 @@ DEFAULT_OPTS = {
   derivation: "off",
   shear: 0,
   shear_plane: "on",
-  # 0.4 keeps the level pitch the historical drawing had, and replaces its
-  # unequal air — a little more below every label than above it, an
-  # unadjusted leftover of measuring from the layout box — with the same
-  # clearance on both sides of the ink.
-  vmargin: 0.4,
+  # A level is about three and a half times the type, label to label: the
+  # connectors run close to the ink and the tree reads as one figure rather
+  # than as labels spread over a page.
+  vmargin: 0.2,
   corner_label_position: "top-left"
 }.freeze
 

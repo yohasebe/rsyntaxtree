@@ -37,7 +37,7 @@ Settings: fontstyle=noto-sans tidy=low
 ## 001 — Basic binary tree
 
 Category: General
-Settings: fontstyle=noto-serif tidy=low vheight=1.0
+Settings: fontstyle=noto-serif tidy=low
 
 ```
 [A
@@ -55,7 +55,7 @@ Settings: fontstyle=noto-serif tidy=low vheight=1.0
 ## 002 — Minimalistic syntree
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif tidy=medium vheight=1.5
+Settings: color=none fontstyle=noto-serif tidy=medium
 Source: Chomsky 1995: 50
 
 ```
@@ -83,7 +83,7 @@ Source: Chomsky 1995: 50
 ## 003 — Minimalistic syntree
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-serif tidy=low
 Source: Chomsky 1995: 62
 
 ```
@@ -105,7 +105,7 @@ Source: Chomsky 1995: 62
 ## 004 — Minimalistic syntree
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-serif tidy=low
 Source: Chomsky 1995: 180
 
 ```
@@ -127,7 +127,7 @@ Source: Chomsky 1995: 180
 ## 005 — Minimalistic syntree
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low
 Source: Chomsky 1995: 355
 
 ```
@@ -146,7 +146,7 @@ Source: Chomsky 1995: 355
 ## 006 — Minimalistic syntree
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low
 Source: Chomsky 1995: 369
 
 ```
@@ -190,7 +190,7 @@ Settings: color=none fontstyle=noto-serif leafstyle=bar tidy=low
 ## 008 — vP-shell (Japanese)
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif hspacing=1.5 tidy=medium vheight=1.2
+Settings: color=none fontstyle=noto-serif hspacing=1.5 tidy=medium
 
 ```
 [𝑣P
@@ -234,7 +234,7 @@ Settings: color=none fontstyle=noto-serif tidy=low
 ## 010 — vP-shell with movement paths
 
 Category: Generative Grammar
-Settings: fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.2
+Settings: fontstyle=noto-serif leafstyle=nothing tidy=low
 Source: Radford 2004
 
 ```
@@ -314,7 +314,7 @@ Source: Steedman 2000
 ## 013 — HPSG sample
 
 Category: Head-Driven Phrase Structure Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low
 
 ```
 [#*phrase*\
@@ -362,7 +362,7 @@ Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low v
 ## 014 — Cognitive Grammar sample
 
 Category: Cognitive Grammar
-Settings: color=none fontstyle=noto-serif vheight=1.0
+Settings: color=none fontstyle=noto-serif
 
 ```
 [##*{👧}**--**|s|*\
@@ -431,7 +431,7 @@ Settings: fontstyle=noto-sans tidy=symmetric
 ## 016 — Tic-tac-toe
 
 Category: Miscellaneous
-Settings: color=none fontstyle=noto-sans leafstyle=bar tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-sans leafstyle=bar tidy=low
 
 ```
 [
@@ -509,7 +509,7 @@ Settings: color=none fontstyle=noto-sans leafstyle=bar tidy=low vheight=1.5
 ## 017 — Basic polyline sample
 
 Category: General
-Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.0
+Settings: fontstyle=noto-serif polyline=on tidy=low
 
 ```
 [A
@@ -527,7 +527,7 @@ Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.0
 ## 018 — Tree with text labels in bold
 
 Category: Generative Grammar
-Settings: fontstyle=noto-serif tidy=low vheight=1.0
+Settings: fontstyle=noto-serif tidy=low
 Source: Langacker 1969: 175
 
 ```
@@ -552,7 +552,7 @@ Source: Langacker 1969: 175
 ## 019 — Programming language parser
 
 Category: Computer Science
-Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=low
 Source: Stuart 2014
 
 ```
@@ -643,7 +643,7 @@ Settings: fontstyle=noto-sans leafstyle=bar tidy=low
 ## 021 — Types of meaning
 
 Category: Pragmatics
-Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=low
 Source: Zufferey, Moeschler, and Reboul 2014
 
 ```
@@ -682,7 +682,7 @@ Source: Zufferey, Moeschler, and Reboul 2014
 ## 022 — Arithmetic parser
 
 Category: Computer Science
-Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=low vheight=1.0
+Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=low
 
 ```
 [\<expression\>
@@ -735,7 +735,7 @@ Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=low
 ## 023 — Tournament
 
 Category: Miscellaneous
-Settings: color=none fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vheight=1.0
+Settings: color=none fontstyle=noto-sans leafstyle=bar polyline=on tidy=low
 
 ```
 [{**D**}
@@ -753,7 +753,7 @@ Settings: color=none fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vhei
 ## 024 — X-bar model
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=high vheight=1.5
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=high
 
 ```
 [XP
@@ -771,7 +771,7 @@ Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=high vheight=1.
 ## 025 — Network of non-prototypical sentence constructions
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on vheight=3.0
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on
 Source: Goldberg 2006: 177
 
 ```
@@ -854,7 +854,7 @@ Source: Goldberg 2006: 177
 ## 026 — Types of reference
 
 Category: Functional Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=high vheight=1.5
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=high
 Source: Halliday and Hasan 1976: 33
 
 ```
@@ -877,7 +877,7 @@ Source: Halliday and Hasan 1976: 33
 ## 027 — Types of rejoinder
 
 Category: Functional Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=low vheight=3.0
+Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=low
 Source: Halliday and Hasan 1976: 207
 
 ```
@@ -927,7 +927,7 @@ Source: Halliday and Hasan 1976: 207
 ## 028 — Basic tree with triangles
 
 Category: General
-Settings: fontstyle=noto-serif tidy=low vheight=1.0
+Settings: fontstyle=noto-serif tidy=low
 
 ```
 [NP
@@ -993,7 +993,7 @@ Settings: color=none fontstyle=noto-sans-mono tidy=low
 ## 030 — Construction network
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif vheight=3.0
+Settings: color=none fontstyle=noto-serif
 Source: Goldberg 1995: 109
 
 ```
@@ -1022,7 +1022,7 @@ Source: Goldberg 1995: 109
 ## 031 — Lambda calculus
 
 Category: Formal Semantics
-Settings: color=none fontstyle=noto-sans-mono tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-sans-mono tidy=low
 
 ```
 [chase(mouse)(cat)
@@ -1037,7 +1037,7 @@ Settings: color=none fontstyle=noto-sans-mono tidy=low vheight=1.5
 ## 034 — Taxonomic Hierarchy of clauses
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif vheight=2.5
+Settings: color=none fontstyle=noto-serif
 Source: Croft and Cruse 2004: 264
 
 ```
@@ -1059,7 +1059,7 @@ Source: Croft and Cruse 2004: 264
 ## 035 — Construction network
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif hide_default_connectors=on tidy=symmetric vheight=3.0
+Settings: color=none fontstyle=noto-serif hide_default_connectors=on tidy=symmetric
 Source: Goldberg 1995: 109
 
 ```
@@ -1101,7 +1101,7 @@ Settings: fontstyle=noto-serif hide_default_connectors=on tidy=symmetric
 ## 037 — Action chain
 
 Category: Cognitive Grammar
-Settings: fontstyle=noto-serif hide_default_connectors=on tidy=symmetric vheight=1.0
+Settings: fontstyle=noto-serif hide_default_connectors=on tidy=symmetric
 
 ```
 [###John<>opened<>the<>door<>with<>the<>key\
@@ -1141,7 +1141,7 @@ Source: Jurafsky and Martin 2018
 ## 040 — Sound feature geometry
 
 Category: Phonology
-Settings: color=none fontstyle=noto-sans-mono polyline=on tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-sans-mono polyline=on tidy=low
 Source: Halle 1992
 
 ```
@@ -1197,7 +1197,7 @@ Source: Halle 1992
 ## 041 — Cognitive science linkages
 
 Category: Miscellaneous
-Settings: color=gray fontstyle=noto-serif hide_default_connectors=on hspacing=0.75 tidy=symmetric vheight=1.5
+Settings: color=gray fontstyle=noto-serif hide_default_connectors=on hspacing=0.75 tidy=symmetric
 Source: Miller et al. 1978
 
 ```
@@ -1225,7 +1225,7 @@ Source: Miller et al. 1978
 ## 042 — Merge
 
 Category: Generative Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.0
+Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=low
 
 ```
 [γ
@@ -1314,7 +1314,7 @@ Source: Langacker 1991: 147
 ## 048 — Conjunctive adjuncts [elaboration]
 
 Category: Functional Grammar
-Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.5
+Settings: fontstyle=noto-serif polyline=on tidy=low
 Source: Halliday 2014: 612-614
 
 ```
@@ -1378,7 +1378,7 @@ Source: Halliday 2014: 612-614
 ## 049 — Conjunctive adjuncts [extension]
 
 Category: Functional Grammar
-Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.5
+Settings: fontstyle=noto-serif polyline=on tidy=low
 Source: Halliday 2014: 612-614
 
 ```
@@ -1420,7 +1420,7 @@ Source: Halliday 2014: 612-614
 ## 050 — Conjunctive adjuncts [enhancement (1)]
 
 Category: Functional Grammar
-Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.5
+Settings: fontstyle=noto-serif polyline=on tidy=low
 Source: Halliday 2014: 612-614
 
 ```
@@ -1509,7 +1509,7 @@ Source: Halliday 2014: 612-614
 ## 051 — Conjunctive adjuncts [enhancement (2)]
 
 Category: Functional Grammar
-Settings: fontstyle=noto-serif polyline=on tidy=low vheight=1.5
+Settings: fontstyle=noto-serif polyline=on tidy=low
 Source: Halliday 2014: 612-614
 
 ```
@@ -1597,7 +1597,7 @@ Source: Halliday 2014: 612-614
 ## 052 — Major clause constructions of English
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif polyline=on vheight=3.0
+Settings: color=none fontstyle=noto-serif polyline=on
 Source: Hoffmann 2022: 220
 
 ```
@@ -1666,7 +1666,7 @@ Settings: fontstyle=noto-serif tidy=low
 ## 054 — Per-node coloring (named colors)
 
 Category: Miscellaneous
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 
 ```
 [S
@@ -1681,7 +1681,7 @@ Settings: fontstyle=noto-sans tidy=low vheight=1.2
 ## 055 — Per-leaf coloring (hex colors)
 
 Category: Miscellaneous
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 
 ```
 [S
@@ -1716,7 +1716,7 @@ Settings: fontstyle=noto-sans tidy=low
 ## 057 — Subscript and superscript
 
 Category: Miscellaneous
-Settings: fontstyle=noto-serif tidy=low vheight=1.5
+Settings: fontstyle=noto-serif tidy=low
 
 ```
 [TP
@@ -1743,7 +1743,7 @@ Settings: fontstyle=noto-serif tidy=low vheight=1.5
 ## 058 — Types of meaning (left-to-right)
 
 Category: Pragmatics
-Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on tidy=low vheight=1.5
+Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on tidy=low
 Source: Zufferey, Moeschler, and Reboul 2014
 
 ```
@@ -1782,7 +1782,7 @@ Source: Zufferey, Moeschler, and Reboul 2014
 ## 059 — Major clause constructions of English (left-to-right)
 
 Category: Construction Grammar
-Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on tidy=low vheight=1.5
+Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on tidy=low
 Source: Hoffmann 2022: 220
 
 ```
@@ -1828,7 +1828,7 @@ Source: Hoffmann 2022: 220
 ## 060 — Conjunctive adjuncts: elaboration (left-to-right)
 
 Category: Functional Grammar
-Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vheight=1.0
+Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low
 Source: Halliday 2014: 612-614
 
 ```
@@ -1892,7 +1892,7 @@ Source: Halliday 2014: 612-614
 ## 061 — Conjunctive adjuncts: enhancement 1 (left-to-right)
 
 Category: Functional Grammar
-Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vheight=1.0
+Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low
 Source: Halliday 2014: 612-614
 
 ```
@@ -1981,7 +1981,7 @@ Source: Halliday 2014: 612-614
 ## 062 — Conjunctive adjuncts: enhancement 2 (left-to-right)
 
 Category: Functional Grammar
-Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low vheight=1.0
+Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low
 Source: Halliday 2014: 612-614
 
 ```
@@ -2069,7 +2069,7 @@ Source: Halliday 2014: 612-614
 ## 063 — vP-shell with movement paths (left-to-right)
 
 Category: Generative Grammar
-Settings: direction=ltr fontstyle=noto-serif leafstyle=nothing tidy=low vheight=1.5
+Settings: direction=ltr fontstyle=noto-serif leafstyle=nothing tidy=low
 Source: Radford 2004
 
 ```
@@ -2147,7 +2147,7 @@ Settings: color=none fontstyle=noto-serif
 ## 066 — Parallel example — English (Latin script)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2172,7 +2172,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 067 — Parallel example — Arabic (right-to-left tree via the mirror option)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans mirror=on tidy=low vheight=1.2
+Settings: fontstyle=noto-sans mirror=on tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2194,7 +2194,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 068 — Parallel example — Hindi (Devanagari: reordering and conjuncts)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2222,7 +2222,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 069 — Parallel example — Thai (stacked marks, no word spacing)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2250,7 +2250,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 070 — Parallel example — Japanese (kanji and kana)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2284,7 +2284,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 071 — Parallel example — Korean (Hangul)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2312,7 +2312,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 072 — Parallel example — Russian (Cyrillic)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2334,7 +2334,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 073 — Parallel example — Turkish (Latin with diacritics)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2356,7 +2356,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 074 — Parallel example — Chinese (logographic han characters)
 
 Category: Multilingual
-Settings: fontstyle=noto-sans tidy=low vheight=1.2
+Settings: fontstyle=noto-sans tidy=low
 Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the dependencies
 
 ```
@@ -2390,7 +2390,7 @@ Source: UD-PUD w01071036 (Zeman et al. 2017); constituency derived from the depe
 ## 075 — Morphological derivation of <i>internationalization</i>
 
 Category: Morphology
-Settings: fontstyle=noto-serif tidy=high vheight=1.2
+Settings: fontstyle=noto-serif tidy=high
 
 ```
 [N
@@ -2411,7 +2411,7 @@ Settings: fontstyle=noto-serif tidy=high vheight=1.2
 ## 076 — Nested feature structure
 
 Category: Head-Driven Phrase Structure Grammar
-Settings: color=none fontstyle=noto-serif hyphen=literal leafstyle=bar linewidth=0.5 tidy=low vheight=1.0
+Settings: color=none fontstyle=noto-serif hyphen=literal leafstyle=bar linewidth=0.5 tidy=low
 Source: cf. Sag, Wasow and Bender 2003
 
 ```
@@ -2430,7 +2430,7 @@ Source: cf. Sag, Wasow and Bender 2003
 ## 077 — Annotated c-structure
 
 Category: Lexical-Functional Grammar
-Settings: color=none fontstyle=noto-serif tidy=low vheight=1.5
+Settings: color=none fontstyle=noto-serif tidy=low
 Source: Bresnan 2001
 
 ```
@@ -2460,7 +2460,7 @@ Source: Bresnan 2001
 ## 078 — F-structure
 
 Category: Lexical-Functional Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low vheight=1.0
+Settings: color=none fontstyle=noto-serif leafstyle=bar linewidth=0.5 tidy=low
 Source: Bresnan 2001
 
 ```
@@ -2476,7 +2476,7 @@ Source: Bresnan 2001
 ## 079 — Discourse representation structure
 
 Category: Formal Semantics
-Settings: color=none fontstyle=noto-serif leafstyle=bar tidy=low vheight=1.0
+Settings: color=none fontstyle=noto-serif leafstyle=bar tidy=low
 Source: Kamp and Reyle 1993
 
 ```
@@ -2491,7 +2491,7 @@ own(x,<>y)
 ## 080 — Terminals levelled by hand with pass-through joints
 
 Category: General
-Settings: fontstyle=noto-serif tidy=low vheight=1.0
+Settings: fontstyle=noto-serif tidy=low
 
 ```
 [S
@@ -2525,7 +2525,7 @@ Source: Steedman 2000
 ## 082 — Indo-European language family
 
 Category: Historical Linguistics
-Settings: direction=ltr fontstyle=noto-serif hspacing=0.5 polyline=on vheight=5.0
+Settings: direction=ltr fontstyle=noto-serif hspacing=0.5 polyline=on
 
 ```
 [Proto\-Indo\-European
@@ -2589,7 +2589,7 @@ VAL\t#(SPR\t⟨<>⟩#)#)#)
 ## 085 — A tree on a tilted plane, with a movement path
 
 Category: General
-Settings: fontstyle=noto-serif shear=20 vheight=1.0
+Settings: fontstyle=noto-serif shear=20 vmargin=0.4
 
 ```
 [CP
@@ -2622,7 +2622,7 @@ Settings: fontstyle=noto-serif shear=20 vheight=1.0
 ## 086 — Feature structures on a tilted plane
 
 Category: General
-Settings: color=none fontstyle=noto-serif leafstyle=nothing shear=20 vheight=1.5
+Settings: color=none fontstyle=noto-serif leafstyle=nothing shear=20 vmargin=0.4
 
 ```
 [#(*phrase*\
@@ -2643,7 +2643,7 @@ SYN\t#(HEAD\t|1|#)#)
 ## 087 — Terminals levelled automatically: whole subtrees drop
 
 Category: General
-Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low vheight=1.0
+Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low
 
 ```
 [S
@@ -2656,7 +2656,7 @@ Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low vheight=
 ## 088 — Wh-movement with the terminals levelled
 
 Category: Generative Grammar
-Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low vheight=1.0
+Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low
 
 ```
 [CP
@@ -2671,7 +2671,7 @@ Settings: fontstyle=noto-serif leaf_align=subtrees polyline=on tidy=low vheight=
 ## 089 — A Japanese sentence with its words on one row
 
 Category: Multilingual
-Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low vheight=1.0
+Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low
 
 ```
 [S
@@ -2684,7 +2684,7 @@ Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low vheigh
 ## 090 — A summarised phrase deep in the tree, with the terminals levelled
 
 Category: General
-Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low vheight=1.0
+Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low
 
 ```
 [TP
@@ -2698,7 +2698,7 @@ Settings: fontstyle=noto-serif leaf_align=words leafstyle=dashed tidy=low vheigh
 ## 091 — An unlabeled small clause in a copular sentence
 
 Category: Generative Grammar
-Settings: fontstyle=noto-serif tidy=low vheight=1.2
+Settings: fontstyle=noto-serif tidy=low
 Source: Chomsky 2013: 43-44
 
 ```
@@ -2716,7 +2716,7 @@ Source: Chomsky 2013: 43-44
 ## 092 — An unlabeled intermediate landing site of wh-movement
 
 Category: Generative Grammar
-Settings: fontstyle=noto-serif tidy=medium vheight=1.2
+Settings: fontstyle=noto-serif tidy=medium
 Source: Chomsky 2013: 44-45
 
 ```

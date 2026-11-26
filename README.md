@@ -176,13 +176,13 @@ Usage:
 | `-d, --direction` | Tree layout direction: ttb, ltr, btt | `ttb` |
 | `--tidy` | Layout scale: off, symmetric, low, medium, high | `off` |
 | `--hspacing` | How far apart sisters sit, all layout modes (0.5-3.0) | `1.0` |
-| `-v, --vheight` | How far apart levels sit (0.5-5.0) | `2.0` |
+| `-v, --vheight` | How far apart levels sit (0.5-5.0) | `1.0` |
 | `--derivation` | Join each node to its daughters with one rule drawn across them: on, off | `off` |
 | `--hyphen` | How a hyphen reads: markup (`-underline-`) or literal | `markup` |
 | `-m, --mirror` | Flip the tree horizontally (RTL convention), not with ltr: on, off | `off` |
 | `--shear` | Tilt the drawn figure, in degrees (-45 to 45, positive leans the top right) | `0` |
 | `--shear-plane` | The plane behind a sheared figure: on, off, or a colour | `on` |
-| `--vmargin` | Clearance between a label and its connectors (0.1-1.0, same above and below); the lines of a wrapped label close up to it when it is tighter | `0.4` |
+| `--vmargin` | Clearance between a label and its connectors (0.1-1.0, same above and below); the lines of a wrapped label close up to it when it is tighter | `0.2` |
 | `--corner-label` | A short string set in a corner of the image, as written (no markup), such as a judgement mark | |
 | `--corner-label-position` | Which corner: top-left, top-right, bottom-left, bottom-right | `top-left` |
 | `--corner-label-size` | Size of the corner label (6-52) | 1.5 × font size |

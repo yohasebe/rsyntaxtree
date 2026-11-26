@@ -40,8 +40,8 @@ class VmarginTest < Minitest::Test
 
   def test_the_default_is_the_symmetric_geometry_at_its_own_value
     assert_equal svg("[S [NP a] [VP [V b] [NP c]]]"),
-                 svg("[S [NP a] [VP [V b] [NP c]]]", vmargin: "0.4"),
-                 "unset must mean vmargin 0.4, nothing else"
+                 svg("[S [NP a] [VP [V b] [NP c]]]", vmargin: "0.2"),
+                 "unset must mean vmargin 0.2, nothing else"
     band_gaps(svg("[S [NP a]]")).each do |above, below|
       assert_in_delta above, below, 0.6, "the default draws unequal air"
     end
@@ -113,7 +113,7 @@ class VmarginTest < Minitest::Test
     e = assert_raises(RSTError) { svg("[S a]", vmargin: "0.0") }
     assert_equal :invalid_option, e.code
     assert_equal svg("[S [NP a]]"), svg("[S [NP a]]", vmargin: ""),
-                 "an empty string is an option not given (and so the default 0.4)"
+                 "an empty string is an option not given (and so the default 0.2)"
   end
 
   def test_json_records_the_value_and_the_default
@@ -121,6 +121,6 @@ class VmarginTest < Minitest::Test
     with = JSON.parse(RSGenerator.new(data: "[S a]", format: "json", vmargin: "0.35").draw_json)
     without = JSON.parse(RSGenerator.new(data: "[S a]", format: "json").draw_json)
     assert_equal 0.35, with.dig("meta", "source", "params", "vmargin")
-    assert_equal 0.4, without.dig("meta", "source", "params", "vmargin")
+    assert_equal 0.2, without.dig("meta", "source", "params", "vmargin")
   end
 end

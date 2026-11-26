@@ -4,151 +4,151 @@
 # the next, plus the grid class that decides how much of the row it gets.
 '000':
   width: 621
-  height: 574
+  height: 396
   layout: grid-stack
 '001':
   width: 262
-  height: 322
+  height: 288
   layout: ''
 '002':
   width: 411
-  height: 669
+  height: 507
   layout: ''
 '003':
   width: 452
-  height: 648
+  height: 491
   layout: grid-wide
 '004':
   width: 520
-  height: 618
+  height: 468
   layout: grid-wide
 '005':
   width: 346
-  height: 457
+  height: 354
   layout: ''
 '006':
   width: 402
-  height: 554
+  height: 423
   layout: ''
 '007':
   width: 535
-  height: 606
+  height: 420
   layout: grid-wide
 '008':
   width: 428
-  height: 713
+  height: 585
   layout: ''
 '009':
   width: 413
-  height: 621
+  height: 419
   layout: ''
 '010':
   width: 702
-  height: 779
+  height: 641
   layout: grid-stack
 '011':
   width: 528
-  height: 284
+  height: 247
   layout: grid-wide
 '012':
   width: 675
-  height: 462
+  height: 392
   layout: grid-stack
 '013':
   width: 766
-  height: 848
+  height: 713
   layout: grid-stack
 '014':
   width: 712
-  height: 475
+  height: 452
   layout: grid-stack
 '015':
   width: 668
-  height: 394
+  height: 272
   layout: grid-stack
 '016':
   width: 662
-  height: 610
+  height: 526
   layout: grid-stack
 '017':
   width: 416
-  height: 376
+  height: 333
   layout: ''
 '018':
   width: 648
-  height: 498
+  height: 435
   layout: grid-stack
 '019':
   width: 940
-  height: 606
+  height: 451
   layout: grid-stack
 '020':
   width: 566
-  height: 559
+  height: 378
   layout: grid-wide
 '021':
   width: 940
-  height: 444
+  height: 347
   layout: grid-stack
 '022':
   width: 712
-  height: 734
+  height: 638
   layout: grid-stack
 '023':
   width: 441
-  height: 369
+  height: 326
   layout: ''
 '024':
   width: 416
-  height: 497
+  height: 384
   layout: ''
 '025':
   width: 940
-  height: 369
+  height: 299
   layout: grid-stack
 '026':
   width: 528
-  height: 354
+  height: 288
   layout: grid-wide
 '027':
   width: 940
-  height: 407
+  height: 263
   layout: grid-stack
 '028':
   width: 330
-  height: 406
+  height: 359
   layout: ''
 '029':
   width: 940
-  height: 605
+  height: 480
   layout: grid-stack
 '030':
   width: 940
-  height: 594
+  height: 350
   layout: grid-stack
 '031':
   width: 512
-  height: 291
+  height: 230
   layout: grid-wide
 '032':
   width: 467
-  height: 477
+  height: 371
   layout: grid-wide
 '033':
   width: 665
-  height: 418
+  height: 368
   layout: grid-stack
 '034':
   width: 940
-  height: 385
+  height: 239
   layout: grid-stack
 '035':
   width: 940
-  height: 481
+  height: 327
   layout: grid-stack
 '036':
   width: 420
-  height: 201
+  height: 154
   layout: ''
 '037':
   width: 503
@@ -156,7 +156,7 @@
   layout: grid-wide
 '038':
   width: 746
-  height: 486
+  height: 329
   layout: grid-stack
 '039':
   width: 105
@@ -164,19 +164,19 @@
   layout: ''
 '040':
   width: 896
-  height: 582
+  height: 486
   layout: grid-stack
 '041':
   width: 716
-  height: 436
+  height: 333
   layout: grid-stack
 '042':
   width: 212
-  height: 346
+  height: 309
   layout: ''
 '043':
   width: 689
-  height: 408
+  height: 281
   layout: grid-stack
 '044':
   width: 178
@@ -184,11 +184,11 @@
   layout: ''
 '045':
   width: 927
-  height: 917
+  height: 712
   layout: grid-stack
 '046':
   width: 940
-  height: 25
+  height: 22
   layout: grid-stack
 '047':
   width: 126
@@ -196,151 +196,151 @@
   layout: ''
 '048':
   width: 940
-  height: 280
+  height: 221
   layout: grid-stack
 '049':
   width: 873
-  height: 512
+  height: 404
   layout: grid-stack
 '050':
   width: 940
-  height: 247
+  height: 193
   layout: grid-stack
 '051':
   width: 940
-  height: 326
+  height: 261
   layout: grid-stack
 '052':
   width: 940
-  height: 196
+  height: 123
   layout: grid-stack
 '053':
   width: 360
-  height: 650
+  height: 439
   layout: ''
 '054':
   width: 358
-  height: 418
+  height: 350
   layout: ''
 '055':
   width: 293
-  height: 447
+  height: 374
   layout: ''
 '056':
   width: 590
-  height: 552
+  height: 373
   layout: grid-wide
 '057':
   width: 587
-  height: 805
+  height: 603
   layout: grid-wide
 '058':
   width: 940
-  height: 490
+  height: 450
   layout: grid-stack
 '059':
   width: 940
-  height: 393
+  height: 353
   layout: grid-stack
 '060':
   width: 940
-  height: 961
+  height: 849
   layout: grid-stack
 '061':
   width: 940
-  height: 1186
+  height: 1035
   layout: grid-stack
 '062':
   width: 940
-  height: 1038
+  height: 914
   layout: grid-stack
 '063':
-  width: 917
-  height: 507
+  width: 844
+  height: 446
   layout: grid-stack
 '064':
   width: 492
-  height: 594
+  height: 404
   layout: grid-wide
 '065':
   width: 401
-  height: 476
+  height: 331
   layout: ''
 '066':
   width: 567
-  height: 553
+  height: 455
   layout: grid-wide
 '067':
   width: 467
-  height: 486
+  height: 403
   layout: grid-wide
 '068':
   width: 539
-  height: 562
+  height: 463
   layout: grid-wide
 '069':
   width: 609
-  height: 634
+  height: 520
   layout: grid-stack
 '070':
   width: 660
-  height: 525
+  height: 433
   layout: grid-stack
 '071':
   width: 569
-  height: 649
+  height: 532
   layout: grid-wide
 '072':
   width: 550
-  height: 558
+  height: 460
   layout: grid-wide
 '073':
   width: 519
-  height: 569
+  height: 469
   layout: grid-wide
 '074':
   width: 662
-  height: 709
+  height: 580
   layout: grid-stack
 '075':
   width: 392
-  height: 625
+  height: 515
   layout: ''
 '076':
   width: 644
-  height: 487
+  height: 484
   layout: grid-stack
 '077':
   width: 541
-  height: 460
+  height: 365
   layout: grid-wide
 '078':
   width: 453
-  height: 336
+  height: 333
   layout: grid-wide
 '079':
   width: 258
-  height: 245
+  height: 239
   layout: ''
 '080':
   width: 433
-  height: 569
+  height: 498
   layout: ''
 '081':
   width: 740
-  height: 383
+  height: 327
   layout: grid-stack
 '082':
-  width: 940
-  height: 1077
+  width: 778
+  height: 1166
   layout: grid-stack
 '083':
   width: 442
-  height: 586
+  height: 462
   layout: ''
 '084':
   width: 835
-  height: 725
+  height: 676
   layout: grid-stack
 '085':
   width: 887
@@ -348,29 +348,29 @@
   layout: grid-stack
 '086':
   width: 940
-  height: 516
+  height: 506
   layout: grid-stack
 '087':
   width: 433
-  height: 569
+  height: 498
   layout: ''
 '088':
   width: 494
-  height: 700
+  height: 618
   layout: grid-wide
 '089':
   width: 454
-  height: 560
+  height: 490
   layout: grid-wide
 '090':
   width: 616
-  height: 594
+  height: 518
   layout: grid-stack
 '091':
   width: 616
-  height: 568
+  height: 473
   layout: grid-stack
 '092':
   width: 940
-  height: 697
+  height: 570
   layout: grid-stack

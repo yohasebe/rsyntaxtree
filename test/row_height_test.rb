@@ -43,9 +43,9 @@ class RowHeightTest < Minitest::Test
   def test_a_short_node_connects_from_its_own_bottom_not_the_rows
     data = "[S [TALL\\nX [A a]] [SH [B b]]]"
     tall_label = "TALL\\nX"
-    short_top = connector_top_under(data, "SH")
-    short_bottom = box_bottom(data, "SH")
-    tall_bottom = box_bottom(data, tall_label)
+    short_top = connector_top_under(data, "SH", vmargin: 0.4)
+    short_bottom = box_bottom(data, "SH", vmargin: 0.4)
+    tall_bottom = box_bottom(data, tall_label, vmargin: 0.4)
 
     assert short_top < tall_bottom - 20,
            "the short node's connector starts at the tall neighbour's depth (#{short_top} vs tall #{tall_bottom})"
@@ -57,8 +57,8 @@ class RowHeightTest < Minitest::Test
   # the shape ruby-spacy draws morphology in.
   def test_a_plain_node_beside_a_matrix_keeps_its_branch
     data = "[S [MAT [#(a\\tb\\nc\\td#) x]] [PLAIN [C c]]]"
-    plain_top = connector_top_under(data, "PLAIN", polyline: "on")
-    plain_bottom = box_bottom(data, "PLAIN", polyline: "on")
+    plain_top = connector_top_under(data, "PLAIN", polyline: "on", vmargin: 0.4)
+    plain_bottom = box_bottom(data, "PLAIN", polyline: "on", vmargin: 0.4)
     assert_in_delta plain_bottom, plain_top, 20,
            "PLAIN's branch should descend from its own bottom (#{plain_bottom}), got #{plain_top}"
   end
