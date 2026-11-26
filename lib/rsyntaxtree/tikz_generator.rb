@@ -222,7 +222,6 @@ module RSyntaxTree
     # weight alone marks the path, as it does in the monochrome schemes.
     def path_edge_option(element)
       return "" unless @element_list.path_edges.include?(element.id)
-      return "" if @params[:leafstyle] == "nothing" && leads_to_word?(element)
 
       width = format("%.3f", 0.05 * @params[:linewidth] * SVGGraph::ROUTE_WEIGHT).sub(/0+\z/, "")
       ", edge+={line width=#{width}em}"

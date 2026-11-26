@@ -1152,6 +1152,7 @@ RSyntaxTree can generate TikZ/forest code for LaTeX documents using the `-f tikz
 - Line breaks inside a label: the lines are joined into one
 - Left-to-right direction: the tree is written top to bottom
 - Font styles (`fontstyle`, `corner_label_fontstyle`): the document's font is used
+- Hidden connectors (`hide_default_connectors`) and `leafstyle` `nothing`: every edge is drawn, and one on a highlighted path is drawn heavier
 
 None of these is refused; each is dropped, and the tree is written out
 without it. A label that is a matrix arrives as its cells run together on one

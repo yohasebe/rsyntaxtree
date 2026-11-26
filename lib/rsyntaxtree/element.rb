@@ -197,11 +197,11 @@ module RSyntaxTree
       i = 0
       while (i = text.index("+", i))
         tail = text[i..]
-        # A line break may follow the markers, as the grammar allows; it
+        # A line break may follow the markers, as the grammar allows one; it
         # stays with them, so the label reads back in its own order.
-        if i.positive? && tail.match?(/\A#{PATH_MARKERS}\^?(?:\\n)*\z/) &&
+        if i.positive? && tail.match?(/\A#{PATH_MARKERS}\^?(?:\\n)?\z/) &&
            text[0...i][/\\*\z/].length.even?
-          i -= 1 if i > 1 && text[i - 1] == "^"
+          i -= 1 if i > 1 && text[i - 1] == "^" && text[0...(i - 1)][/\\*\z/].length.even?
           return [text[0...i], text[i..]]
         end
         i += 1

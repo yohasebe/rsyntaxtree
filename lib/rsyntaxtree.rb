@@ -803,6 +803,15 @@ module RSyntaxTree
       sp = StringParser.new(@params[:data].gsub('&', '&amp;'), @params[:fontset], @params[:fontsize], @global)
       sp.parse
       list = sp.get_elementlist
+      # Links and a highlighted path are checked here, before any output is
+      # made, so every format refuses the same input. A derivation draws rules
+      # rather than edges, so there is no path to draw.
+      list.check_link_ends
+      if list.path_edges.any? && @params[:derivation] == true
+        raise RSTError.new(+"Error: a highlighted path cannot be drawn in a derivation",
+                           code: :invalid_option, label: "derivation",
+                           hint: "Remove the '+=N' markers, or turn derivation off.", retryable: false)
+      end
       if @params[:leaf_align] != "off" && @params[:derivation] != true
         list.align_leaves(@params[:leaf_align], @params[:fontset], @params[:fontsize], @global)
       end

@@ -54,17 +54,20 @@ module RSyntaxTree
     # Every link and every line connection takes exactly two ends. Checked
     # once, before anything is drawn, so each output refuses the same input.
     def check_link_ends
-      links = Hash.new(0)
-      lines = Hash.new(0)
+      links = Hash.new { |h, k| h[k] = [] }
+      lines = Hash.new { |h, k| h[k] = [] }
       @elements.each do |e|
         e.path.each do |marker|
           if (line = marker[/\A-[<>]?(\d+)\z/, 1])
-            lines[line] += 1
+            lines[line] << e.id
           else
-            links[marker[/\d+/]] += 1
+            links[marker[/\d+/]] << e.id
           end
         end
       end
+      # Two markers on one node are one end, joined to nothing.
+      links = links.transform_values { |ids| ids.size > 2 ? ids.size : ids.uniq.size }
+      lines = lines.transform_values { |ids| ids.size > 2 ? ids.size : ids.uniq.size }
       over = links.find { |_k, v| v > 2 } || lines.find { |_k, v| v > 2 }
       if over
         raise RSTError.new(+"Error: input text contains a link having more than two ends:\n > #{over.first}",

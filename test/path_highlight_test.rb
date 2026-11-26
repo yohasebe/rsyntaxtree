@@ -135,10 +135,14 @@ class PathHighlightTest < Minitest::Test
     assert(svg.scan(/<line style='([^']*)'/).flatten.all? { |l| l.include?("stroke:none;") })
   end
 
-  def test_tikz_leaves_out_word_edges_the_figure_leaves_out
-    tikz = RSyntaxTree::RSGenerator.new(data: "[S [A a+=1] [B b+=1]]", format: "tikz", leafstyle: "nothing").draw_tikz
+  # TikZ draws every edge, whatever hides one in the SVG, and every one on
+  # the path heavier.
+  def test_tikz_draws_every_edge_on_the_path_heavier
+    [{ leafstyle: "nothing" }, { hide_default_connectors: "on" }].each do |opts|
+      tikz = RSyntaxTree::RSGenerator.new(data: "[S [A a+=1] [B b+=1]]", format: "tikz", **opts).draw_tikz
 
-    assert_equal 2, tikz.scan("edge+={line width=").size
+      assert_equal 4, tikz.scan("edge+={line width=").size, opts.inspect
+    end
   end
 
   # Every output refuses a link with the wrong number of ends.
@@ -154,5 +158,22 @@ class PathHighlightTest < Minitest::Test
       refute_nil codes.first, data
       assert_equal codes.first, codes.last, data
     end
+  end
+
+  # Two markers on one node are one end, joined to nothing, in every format.
+  def test_two_markers_on_one_node_are_one_end
+    ["[S [A a+1+1] [B b]]", "[S [A a+-1+-1] [B b]]"].each do |data|
+      %w[svg json tikz].each do |format|
+        assert_raises(RSTError, "#{data} #{format}") do
+          RSyntaxTree::RSGenerator.new(data: data, format: format).send("draw_#{format}")
+        end
+      end
+    end
+  end
+
+  def test_an_escaped_caret_stays_in_the_label
+    raw = json("[S [A a\\^+=1] [B b+=1]]")["nodes"].map { |n| n.dig("label", "raw") }
+
+    assert_includes raw, "a\\^"
   end
 end
