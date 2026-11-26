@@ -208,4 +208,21 @@ class LinkLabelTest < Minitest::Test
 
     refute_operator (x - edge).abs, :<, half, "the text runs over the tree's rightmost line"
   end
+
+  # A straight connector between two nodes (+-N) stays off the text too.
+  def test_a_straight_connector_stays_off_the_text
+    gen = RSyntaxTree::RSGenerator.new(data: "[TP [DP Pat+1\"agreement\"+-2] [T will+1] [vP [VP [V win+-2]]]]", format: "svg")
+    doc = gen.draw_svg
+    family = gen.instance_variable_get(:@params)[:fontset][:family]
+    t = text(doc)
+    half = FontMetrics.get_metrics(t[:content], family, t[:size], :normal, :normal).width / 2.0
+    x1, y1, x2, y2 = doc[/<line x1='[^>]*stroke: #CC79A7/].scan(/[xy][12]='([-\d.]+)'/).flatten.map(&:to_f)
+    crossed = (0..200).any? do |i|
+      px = x1 + ((x2 - x1) * i / 200.0)
+      py = y1 + ((y2 - y1) * i / 200.0)
+      px > t[:x] - half && px < t[:x] + half && py > t[:y] - (t[:size] * 0.7) && py < t[:y]
+    end
+
+    refute crossed
+  end
 end

@@ -742,14 +742,18 @@ module RSyntaxTree
     # The lines the tree is drawn with, as segments: connectors, polylines
     # and the sides of triangles, read back from what has been written.
     def tree_segments
-      lines = @tree_data.scan(/<line[^>]*?x1='([-\d.]+)' y1='([-\d.]+)' x2='([-\d.]+)' y2='([-\d.]+)'/)
+      drawn = @tree_data + @extra_lines.join
+      lines = drawn.scan(/<line[^>]*?x1='([-\d.]+)' y1='([-\d.]+)' x2='([-\d.]+)' y2='([-\d.]+)'/)
                         .map { |x1, y1, x2, y2| [[x1.to_f, y1.to_f], [x2.to_f, y2.to_f]] }
-      shapes = @tree_data.scan(/<poly(line|gon)[^>]*?points='([^']*)'/).flat_map do |kind, coords|
+      runs = drawn.scan(/<path d='(M[^']*)'/).flatten.reject { |d| d.include?("Q") }.flat_map do |d|
+        d.scan(/-?\d+(?:\.\d+)?/).map(&:to_f).each_slice(2).each_cons(2).to_a
+      end
+      shapes = drawn.scan(/<poly(line|gon)[^>]*?points='([^']*)'/).flat_map do |kind, coords|
         pts = coords.scan(/-?\d+(?:\.\d+)?/).map(&:to_f).each_slice(2).to_a
         pts << pts.first if kind == "gon"
         pts.each_cons(2).to_a
       end
-      lines + shapes
+      lines + runs + shapes
     end
 
     # The length of a path as SVG draws it, from its M, L and Q commands.
@@ -1428,8 +1432,6 @@ module RSyntaxTree
         draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow], s_offset: t[:s_offset], t_offset: t[:t_offset],
                     label: labels[t[:number]])
       end
-      emit_links
-
       line_pool.each do |_k, v|
         a = v[0]
         b = v[1]
@@ -1482,6 +1484,9 @@ module RSyntaxTree
           end
         end
       end
+      # The texts are placed once every other line is down, the straight
+      # connectors included, so that each keeps clear of all of them.
+      emit_links
       paths.size + line_pool.keys.size
     end
 
