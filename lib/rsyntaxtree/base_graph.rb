@@ -1324,9 +1324,9 @@ module RSyntaxTree
       node.children.each { |c| shift_subtree(c, delta) }
     end
 
-    # One compression pass. For each internal node (deepest first), adjacent
-    # child subtrees are pulled together until (a) their contours clear each
-    # other by tidy_gap and (b) — unless tidy_nest is on — the leftmost leaf
+    # One compression pass. For each internal node (deepest first), each
+    # child subtree is pulled towards the ones before it until (a) its contour
+    # and its branch clear theirs by tidy_gap and (b) — unless tidy_nest is on — the leftmost leaf
     # of the right subtree stays right of the rightmost leaf of the left
     # subtree; (b) keeps the global leaf order intact even where the two
     # subtrees never share a y band (contours alone cannot see that case).
@@ -1339,11 +1339,10 @@ module RSyntaxTree
     # band) pushes the right subtree back out — the dynamic connector height
     # couples y to the horizontal spread, so passes must run in both
     # directions to reach a fixpoint. Moving the right subtree only ever
-    # drives the gap to its left neighbor toward the constraints and grows
-    # the gap to its right neighbor, so a single left-to-right sweep per
-    # parent cannot create new collisions; non-adjacent subtrees stay
-    # separated transitively. The parent is then re-centered over its
-    # children (node_centering rule).
+    # drives its gaps to the subtrees before it toward the constraints and
+    # grows the gaps to those after it, so a single left-to-right sweep per
+    # parent cannot create new collisions. The parent is then re-centered
+    # over its children (node_centering rule).
     #
     # Returns the largest absolute shift applied (for convergence testing).
     def tidy_compress
