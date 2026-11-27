@@ -185,6 +185,30 @@ class TidyTest < Minitest::Test
     end
   end
 
+  # Empty nodes place boxed labels from different branches on staggered rows.
+  BOXED = "[##Root\\\n---\\\n*a<>long<>example<>sentence<>here* " \
+          "[##Left\\\n---\\\n*another<>long<>example* [<> [##Deep\\\n---\\\n*one<>more*]]] " \
+          "[<> [##Middle\\\n---\\\n*a<>short<>one*]] " \
+          "[##Right\\\n---\\\n*yet<>another<>example*]]"
+
+  def test_tidy_keeps_drawn_boxes_apart
+    %w[medium high].product(%w[ttb btt], [1.0, 2.0, 3.0]).each do |tidy, direction, vheight|
+      svg = generator(BOXED, tidy: tidy, direction: direction, vheight: vheight, fontstyle: "serif").draw_svg
+      boxes = svg.scan(/points='([^']*)'/).filter_map do |(points)|
+        xy = points.split.map { |p| p.split(",").map(&:to_f) }
+        next unless xy.size == 4 && xy.all? { |p| p.size == 2 }
+
+        xs, ys = xy.transpose
+        [xs.min, xs.max, ys.min, ys.max]
+      end
+      assert_equal 5, boxes.size, "#{tidy}/#{direction}/#{vheight}: one box per boxed label"
+      boxes.combination(2) do |a, b|
+        apart = a[1] <= b[0] || b[1] <= a[0] || a[3] <= b[2] || b[3] <= a[2]
+        assert apart, "#{tidy}/#{direction}/#{vheight}: boxes #{a.map(&:round)} and #{b.map(&:round)} overlap"
+      end
+    end
+  end
+
   # Left to right, the tree turns but the options do not: hspacing is what
   # separates sisters, which now stand one above another, so it is the height
   # that answers to it. The layout replaces the sister gap with one of its own

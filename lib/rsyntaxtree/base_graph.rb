@@ -651,13 +651,13 @@ module RSyntaxTree
     # of SVGGraph#element_visual_box: enclosures (#/##/###) paint brackets or
     # a rectangle outside the label, so the contour must reserve that space.
     # Triangles need no widening (their base spans exactly the child's
-    # content width). Vertically the full content box is kept — a
-    # conservative superset of the glyph box, which is what the horizontal
-    # contour comparison needs.
+    # content width). Vertically it is the rows the label takes (see
+    # layout_vertical_span) — a conservative superset of the glyph box, which
+    # is what the horizontal contour comparison needs.
     def effective_rect(node)
       x0 = node.horizontal_indent
       x1 = node.horizontal_indent + node.content_width
-      if [:brackets, :rectangle, :brectangle].include?(node.enclosure)
+      if node.enclosed?
         ext = @global[:h_gap_between_nodes] / 2 + @global[:stroke_bold]
         x0 -= ext
         x1 += ext
@@ -667,7 +667,44 @@ module RSyntaxTree
       # labels, so without this the neighbour is pulled up against the name and
       # two steps read as one long rule.
       x1 = [x1, subtree_right(node.id) + rule_name_room(node)].max if @derivation
-      [node.vertical_indent, node.vertical_indent + node.content_height, x0, x1]
+      [*layout_vertical_span(node), x0, x1]
+    end
+
+    # The top and bottom of what is painted of a label set at +top+, whose box
+    # starts at +box_top+ and is +box_height+ tall. An enclosure paints the box,
+    # its stroke straddling the edge. A plain label paints only its glyphs,
+    # which keep inside the leading the box carries above the cap top and below
+    # the baseline.
+    def painted_span(node, top, box_top, box_height)
+      box_bottom = box_top + box_height
+      if node.enclosed?
+        sw = @global[:stroke_bold]
+        [box_top - sw, box_bottom + sw]
+      else
+        hctt = @global[:height_connector_to_text]
+        [top + (hctt * 3 / 2), box_bottom - (hctt * 3 / 4)]
+      end
+    end
+
+    # The rows +node+ takes in the layout: its content box, stretched to cover
+    # an enclosure, whose box is drawn lower than the content box and can end
+    # below it. A plain label's glyphs keep inside the content box. Bottom to
+    # top, the layout runs top to bottom and is turned over afterwards, so the
+    # enclosure is turned over within the node. Left to right, the layout's
+    # vertical runs along the line of text, and a label is drawn as long as it
+    # was laid out.
+    def layout_vertical_span(node)
+      top = node.vertical_indent
+      bottom = top + node.content_height
+      return [top, bottom] if @direction == "ltr" || !node.enclosed?
+
+      _, box_top, box_height = node.line_positions(0.0)
+      up, down = painted_span(node, 0.0, box_top, box_height)
+      if @direction == "btt"
+        [[top, bottom - down].min, [bottom, bottom - up].max]
+      else
+        [[top, top + up].min, [bottom, top + down].max]
+      end
     end
 
     # Right edge of the subtree rooted at +id+, from wherever the layout has
@@ -1195,10 +1232,17 @@ module RSyntaxTree
       end
     end
 
-    # Pairwise intersection over the effective (decoration-aware) rects.
+    # Pairwise intersection over the effective (decoration-aware) rects. A
+    # node and its own daughter are left out: a word pulled up under its
+    # node is set against it by the vertical placement, which the passes this
+    # guards do not change, and a boxed node's box reaches past its content
+    # box onto such a word.
     def layout_overlaps?
-      rects = @element_list.get_elements.map { |e| effective_rect(e) }
-      rects.combination(2).any? do |a, b|
+      elements = @element_list.get_elements
+      rects = elements.map { |e| effective_rect(e) }
+      elements.zip(rects).combination(2).any? do |(e, a), (f, b)|
+        next false if e.parent == f.id || f.parent == e.id
+
         a[2] < b[3] - 0.01 && b[2] < a[3] - 0.01 && a[0] < b[1] - 0.01 && b[0] < a[1] - 0.01
       end
     end

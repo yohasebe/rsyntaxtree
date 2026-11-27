@@ -325,28 +325,17 @@ module RSyntaxTree
     # connector gap) widened to include any enclosure bracket/rectangle that is
     # painted beyond the content width.
     def element_visual_box(el)
-      hctt = @global[:height_connector_to_text]
-      box_top = el.vertical_indent + hctt * 3 / 4 # bc[:y]: line-height / enclosure box top
-      box_bottom = box_top + el.content_height
+      box_top = el.vertical_indent + (@global[:height_connector_to_text] * 3 / 4)
       left = el.horizontal_indent
       right = el.horizontal_indent + el.content_width
-      if [:brackets, :rectangle, :brectangle].include?(el.enclosure)
+      if el.enclosed?
         # The room the enclosure needs is already part of content_width; only
         # the stroke straddling the edge reaches beyond it.
         ext = @global[:stroke_bold]
         left -= ext
         right += ext
-        sw = @global[:stroke_bold]
-        top = box_top - sw
-        bottom = box_bottom + sw
-      else
-        # No enclosure box is painted, so hug the actual glyphs rather than the
-        # taller line-height box: the line box carries ~hctt*3/4 of leading both
-        # above the cap top and below the baseline, which would otherwise leave
-        # too much empty space above and below a plain label.
-        top = el.vertical_indent + hctt * 3 / 2
-        bottom = box_bottom - hctt * 3 / 4
       end
+      top, bottom = painted_span(el, el.vertical_indent, box_top, el.content_height)
       { left: left, top: top, right: right, bottom: bottom }
     end
 
@@ -946,22 +935,17 @@ module RSyntaxTree
       new_text = +""
       this_x = 0
       this_y = 0
-      prev_line_height = nil
-      first_baseline = nil
       # Every line as it is painted: the baseline of a line of text, the
       # middle and weight of a rule.
       painted_rows = []
       painted_rules = []
-      bc = { x: text_x - enclosure_room, y: top, width: element.content_width, height: nil }
+      positions, box_top, box_height = element.line_positions(top)
+      bc = { x: text_x - enclosure_room, y: box_top, width: element.content_width, height: box_height }
       element.content.each_with_index do |l, idx|
+        text_y = positions[idx]
         case l[:type]
         when :border, :bborder
           x1 = text_x
-          if idx.zero?
-            text_y -= l[:height]
-          else
-            text_y += l[:height]
-          end
           y1 = text_y - @global[:single_line_height] / 8
           x2 = text_x + element.text_width
           y2 = y1
@@ -988,14 +972,7 @@ module RSyntaxTree
             end
             this_x = txt_pos - (ewidth / 2)
           end
-          # Advance by the height of the line just drawn, not of this one: a
-          # row holding a nested matrix is as tall as the matrix, and the row
-          # after it has to clear all of it.
-          text_y += (l[:advance] || prev_line_height) if idx != 0 && prev_line_height
-          text_y += l[:top_room].to_f
-          first_baseline ||= text_y
           painted_rows << [text_y, l]
-          prev_line_height = l[:elements].map { |e| e[:height] }.max
 
           l[:elements].each do |e|
             if e[:decoration].include?(:matrix)
@@ -1011,12 +988,6 @@ module RSyntaxTree
         @height = text_y if text_y > @height
       end
 
-      bc[:y] = bc[:y] + @global[:height_connector_to_text] * 3 / 4
-      # text_y is the baseline of the last line. A line holding a nested matrix
-      # reaches further down than a line of text, so the label has to be given
-      # the rest of it.
-      overhang = prev_line_height.to_f - @global[:single_x_metrics].height
-      bc[:height] = text_y - bc[:y] + @global[:height_connector_to_text] + [overhang, 0].max
       case element.enclosure
       when :brackets
         draw_bracket(bc[:x], bc[:y], bc[:width], bc[:height], col)

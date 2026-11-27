@@ -404,6 +404,7 @@ module RSyntaxTree
       @text_width = layout[:width]
       @content_width = layout[:width] + label_enclosure_room * 2
       @content_height = layout[:height]
+      measure_line_steps
     end
 
     # Room on each side of a label for its own bracket or rectangle. It is part
@@ -413,9 +414,52 @@ module RSyntaxTree
     # keeps the same room, so the outermost pair of brackets in a feature
     # structure stands as far from its contents as every pair within.
     def label_enclosure_room
-      return 0 unless [:brackets, :rectangle, :brectangle].include?(@enclosure)
+      return 0 unless enclosed?
 
       @global[:width_half_x] * MATRIX_BRACKET_ROOM
+    end
+
+    def enclosed?
+      %i[brackets rectangle brectangle].include?(@enclosure)
+    end
+
+    # How far down each line of the label moves the pen from where the line
+    # before it left it, worked out once when the label is measured. Two moves
+    # a line, taken one after the other as the drawing always took them, so the
+    # positions come out the same to the last digit wherever they are wanted.
+    def measure_line_steps
+      prev_line_height = nil
+      @line_steps = @content.each_with_index.map do |line, idx|
+        if %i[border bborder].include?(line[:type])
+          [idx.zero? ? -line[:height] : line[:height], 0.0]
+        else
+          # Advance by the height of the line just set, not of this one: a row
+          # holding a nested matrix is as tall as the matrix, and the row after
+          # it has to clear all of it.
+          advance = idx != 0 && prev_line_height ? (line[:advance] || prev_line_height) : 0.0
+          prev_line_height = line[:elements].map { |e| e[:height] }.max
+          [advance, line[:top_room].to_f]
+        end
+      end
+      # A line holding a nested matrix reaches further down than a line of
+      # text, so the box is given the rest of it.
+      @line_overhang = [prev_line_height.to_f - @global[:single_x_metrics].height, 0].max
+    end
+
+    # Where each line of a label at +top+ is set — the baseline of a line of
+    # text, the point a rule is drawn from — and the top and height of the box
+    # drawn around the lines. The drawing sets the label by this and the layout
+    # keeps its neighbours clear of it, so the two cannot disagree about where a
+    # label ends.
+    def line_positions(top)
+      hctt = @global[:height_connector_to_text]
+      text_y = top + @global[:single_line_height] - hctt
+      positions = @line_steps.map do |advance, room|
+        text_y += advance
+        text_y += room
+      end
+      box_top = top + (hctt * 3 / 4)
+      [positions, box_top, text_y - box_top + hctt + @line_overhang]
     end
 
     # Measures a list of label lines, filling in the width and height of every
