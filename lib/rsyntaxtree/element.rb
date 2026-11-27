@@ -444,12 +444,14 @@ module RSyntaxTree
       # A line holding a nested matrix reaches further down than a line of
       # text, so the box is given the rest of it.
       @line_overhang = [prev_line_height.to_f - @global[:single_x_metrics].height, 0].max
-      @box_offset = line_positions(0.0).drop(1)
     end
 
-    # The top of the box drawn around the label, below the top of the node,
-    # and its height.
-    attr_reader :box_offset
+    # A label drawn as a shape — an enclosure, or a label that is one matrix —
+    # meets the connectors at the shape's edges rather than at its glyphs.
+    def drawn_shape?
+      @enclosure != :none ||
+        @content.any? { |line| line[:type] == :text && line[:elements].any? { |e| e[:decoration].include?(:matrix) } }
+    end
 
     # Where each line of a label at +top+ is set — the baseline of a line of
     # text, the point a rule is drawn from — and the top and height of the box

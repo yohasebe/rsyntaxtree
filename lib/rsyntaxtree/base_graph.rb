@@ -214,6 +214,7 @@ module RSyntaxTree
         # Drops depend on the current horizontal layout, which changes
         # between tidy passes — recompute them for each full pass.
         @level_connector_heights = nil
+        @drawn_frame = nil
         target.vertical_indent = 0
       else
         parent = @element_list.get_id(target.parent)
@@ -686,9 +687,9 @@ module RSyntaxTree
       end
     end
 
-    # The rows +node+ takes in the layout: what is painted of it, its box or
-    # its glyphs, and not the leading the content box carries above and below
-    # them. The branches are packed as well (see branch_to), and they run
+    # The rows +node+ takes in the layout: what the drawing will paint of it,
+    # its box or its ink, and not the leading the content box carries above and
+    # below them. The branches are packed as well (see branch_to), and they run
     # through that leading; with the label taken as its whole content box, a
     # branch turning in it was set against its own sister. Left to right, the
     # layout's vertical runs along the line of text, and a label is drawn as
@@ -696,18 +697,85 @@ module RSyntaxTree
     def layout_vertical_span(node)
       return [node.vertical_indent, node.vertical_indent + node.content_height] if @direction == "ltr"
 
-      layout_painted_span(node)
+      frame = drawn_frame
+      frame[:spans][node.id] ||= begin
+        ghost = frame[:ghosts][node.id]
+        span = if node.enclosed?
+                 [ghost.ink_top - @global[:stroke_bold], ghost.ink_bottom + @global[:stroke_bold]]
+               elsif ghost.ink_top
+                 [ghost.ink_top, ghost.ink_bottom]
+               else
+                 [ghost.vertical_indent, ghost.vertical_indent + ghost.content_height]
+               end
+        span.map { |y| to_layout_y(y) }.sort
+      end
     end
 
-    # painted_span of +node+ in the layout's terms, before the drawing sets
-    # the label: bottom to top, turned over within the node, as the layout is
-    # turned over after it runs.
-    def layout_painted_span(node)
-      up, down = painted_span(node, 0.0, *node.box_offset)
-      top = node.vertical_indent
-      return [top + node.content_height - down, top + node.content_height - up] if @direction == "btt"
+    # An element as the drawing will have it: where it stands once the layout
+    # is turned over, the height of its box, and its ink.
+    Ghost = Struct.new(:vertical_indent, :content_height, :ink_top, :ink_bottom, :enclosure, :empty) do
+      def empty_label?
+        empty
+      end
+    end
 
-      [top + up, top + down]
+    # Every element as a Ghost, and the rows of ink they make, worked out from
+    # the layout as it stands. The connectors are drawn from these, so asking
+    # the drawing's own questions of them (connector_edges, rail_edge_y,
+    # triangle_edges) tells the layout where each branch will run. Kept until
+    # the heights change.
+    def drawn_frame
+      @drawn_frame ||= begin
+        elements = @element_list.get_elements
+        flip = (elements.map { |e| e.vertical_indent + e.content_height }.max if @direction == "btt")
+        ghosts = elements.to_h do |e|
+          top = flip ? flip - (e.vertical_indent + e.content_height) : e.vertical_indent
+          ink = label_ink(e, top)
+          [e.id, Ghost.new(top, e.line_positions(top)[2], ink&.first, ink&.last, e.enclosure, e.empty_label?)]
+        end
+        { ghosts: ghosts, rows: row_ink(ghosts.values), flip: flip, spans: {}, branches: {} }
+      end
+    end
+
+    # A height in the drawing, as the layout has it before turning over.
+    def to_layout_y(y)
+      flip = drawn_frame[:flip]
+      flip ? flip - y : y
+    end
+
+    # Where the ink of +element+ reaches, set with its top at +top+, or nil for
+    # a label with nothing painted. A drawn shape hands over its own edges.
+    # Otherwise it is the label's own ink, not the font's whole band: each run
+    # as it is painted — its glyphs at the size and on the baseline they are
+    # drawn at, the outline of a box, circle or bar — and each rule by its
+    # stroke. What the connectors then keep clear of is the union of these
+    # across a row (see row_ink), so the ends stay level within a row while a
+    # row of capitals pays no tax for descenders nobody wrote.
+    def label_ink(element, top)
+      positions, box_top, box_height = element.line_positions(top)
+      return [box_top, box_top + box_height] if element.drawn_shape?
+
+      tops = []
+      bottoms = []
+      element.content.each_with_index do |line, idx|
+        if %i[border bborder].include?(line[:type])
+          y = positions[idx] - (@global[:single_line_height] / 8)
+          width = line[:type] == :border ? @global[:stroke_normal] : @global[:stroke_bold]
+          tops << y - (width / 2.0)
+          bottoms << y + (width / 2.0)
+        else
+          ups = line[:elements].filter_map { |e| e[:ink_up] }
+          downs = line[:elements].filter_map { |e| e[:ink_down] }
+          if ups.empty?
+            band = FontMetrics.get_metrics("X", @fontset[:family], @fontsize.to_f, :normal, :normal)
+            ups = [band.ink_above]
+            downs = [band.ink_height - band.ink_above]
+          end
+          tops << positions[idx] - ups.max
+          bottoms << positions[idx] + downs.max
+        end
+      end
+      tops.empty? ? nil : [tops.min, bottoms.max]
     end
 
     # Right edge of the subtree rooted at +id+, from wherever the layout has
@@ -761,32 +829,65 @@ module RSyntaxTree
     def branch_to(node, child)
       return [] if @derivation || @direction == "ltr" || node.inserted_joint
 
-      joints, target = past_inserted_joints(child)
-      case connector_for(node, target, node.children.size == 1)
+      kind, *pieces = branch_heights(node, child)
+      case kind
       when :triangle
+        target, base, apex = pieces
         [target.horizontal_indent, target.horizontal_indent + target.content_width].map do |x|
-          slant(node_center(node), layout_vertical_span(node)[1], x, layout_vertical_span(target)[0])
+          slant(node_center(node), apex, x, base)
         end
       when :line
-        return [] if @col_line == "none"
-
-        [node, *joints, target].each_cons(2).flat_map { |upper, lower| line_rects(upper, lower) }
+        pieces.flat_map { |upper, lower, heights| line_rects(upper, lower, *heights) }
       else
         []
       end
     end
 
-    def line_rects(upper, lower)
+    # What the branch from +node+ to +child+ is and the heights it is drawn
+    # at, which change only with the heights of the layout: a triangle to the
+    # words past any joints, with its base and apex; or a line through each
+    # joint, with the ends and rail of each piece.
+    def branch_heights(node, child)
+      drawn_frame[:branches][[node.id, child.id]] ||= begin
+        joints, target = past_inserted_joints(child)
+        case connector_for(node, target, node.children.size == 1)
+        when :triangle
+          base, apex = drawn_heights(:triangle, node, target)
+          base > apex ? [:triangle, target, base, apex] : [:none]
+        when :line
+          if @col_line == "none"
+            [:none]
+          else
+            [:line, *[node, *joints, target].each_cons(2).map { |upper, lower| [upper, lower, drawn_heights(:line, upper, lower)] }]
+          end
+        else
+          [:none]
+        end
+      end
+    end
+
+    def line_rects(upper, lower, y0, y1, rail)
       x0 = node_center(upper)
       x1 = node_center(lower)
-      y0 = layout_vertical_span(upper)[1]
-      y1 = layout_vertical_span(lower)[0]
       return [] if y1 <= y0
       return [slant(x0, y0, x1, y1)] unless @polyline
 
-      rail = (y0 + y1) / 2.0
-      half = @global[:height_connector_to_text] / 4.0
+      half = @global[:stroke_normal] / 2.0
       [slant(x0, y0, x0, rail), [rail - half, rail + half, *[x0, x1].minmax], slant(x1, rail, x1, y1)]
+    end
+
+    # The heights a branch from +upper+ down to +lower+ is drawn at, in the
+    # layout's terms: the ends of a line and the height of its rail, or the
+    # base and the apex of a triangle, asked of the drawing's own geometry.
+    def drawn_heights(kind, upper, lower)
+      frame = drawn_frame
+      lower_ghost, upper_ghost = frame[:ghosts].values_at(lower.id, upper.id)
+      return triangle_edges(lower_ghost, upper_ghost, frame[:rows]).map { |y| to_layout_y(y) } if kind == :triangle
+
+      lower_y, upper_y = connector_edges(lower_ghost, upper_ghost, frame[:rows])
+      rail_edge = rail_edge_y(lower_ghost, upper_ghost, frame[:rows]) || lower_y
+      ends = [to_layout_y(upper_y), to_layout_y(lower_y)]
+      [*ends, to_layout_y(upper_y + ((rail_edge - upper_y) / 2)).clamp(*ends.minmax)]
     end
 
     def node_center(node)
@@ -807,6 +908,162 @@ module RSyntaxTree
       top, bottom, _, _, x_top, x_bottom = rect
       x = x_top + ((x_bottom - x_top) * (y.clamp(top, bottom) - top) / (bottom - top))
       [x, x]
+    end
+
+    # Where a connector meets each box in a vertical layout: the underside of
+    # whichever sits higher and the top of whichever sits lower. Turned over,
+    # the parent is the lower of the two, and keeping the top-to-bottom edges
+    # sent the line back up through both labels. An empty label has no text to
+    # clear, so the line runs to its middle.
+    # The ink extents of a row: the union, across every plain label standing
+    # at one height, of where its type actually reaches. An endpoint measured
+    # from the label's own ink alone gives every label equal air but leaves
+    # the ends of a row's connectors ragged — a line reaches lower over `on`
+    # than over `the`; measured from the whole font's band the ends are level
+    # but a row of capitals pays for descenders nobody wrote. The row's own
+    # union keeps the ends level and charges only for what the row contains.
+    def row_ink(elements = nil)
+      return @row_ink ||= row_ink(@element_list.get_elements) if elements.nil?
+
+      elements.each_with_object({}) do |e, rows|
+        next unless e.ink_top && e.ink_bottom
+        next if e.enclosure != :none
+
+        row = (rows[e.vertical_indent.round(1)] ||= { top: e.ink_top, bottom: e.ink_bottom })
+        row[:top] = [row[:top], e.ink_top].min
+        row[:bottom] = [row[:bottom], e.ink_bottom].max
+      end
+    end
+
+    # Where a connector clears an element on the vmargin geometry: the row's
+    # ink for a plain label, the drawn edge for an enclosed one.
+    def ink_over(element, rows = row_ink)
+      row = element.enclosure == :none && rows[element.vertical_indent.round(1)]
+      row ? row[:top] : element.ink_top
+    end
+
+    # The lower endpoint clears the element's own ink, not the row's. A row
+    # keeps its labels top-aligned, so a tall one — a feature matrix, a
+    # two-line label — reaches far below its neighbours; taking the row's
+    # union here dragged every short label's downward connector down to that
+    # depth, opening a gap under the label with no line in it and flattening
+    # the branch of a polyline. The upper endpoint still takes the row (see
+    # ink_over): the edges arriving at a row of leaves are what must line up,
+    # which was the point of the band, and that is unchanged.
+    def ink_under(element)
+      element.ink_bottom
+    end
+
+    # Where a polyline's rail sits: halfway between the parent's end and the
+    # row its children stand in, so every child of one node turns off the same
+    # rail. A plain child's own end is not the measure: a joint's line runs to
+    # its middle, so as to pass straight through it, and a label's lower edge
+    # is its own ink, which differs from letter to letter. An enclosed child is
+    # met at the box drawn round it, as ink_over meets it, so nil sends it to
+    # its own end.
+    def rail_edge_y(child, parent, rows = row_ink)
+      m = @global[:single_x_metrics].height * @global[:vmargin]
+      row = child.enclosure == :none && rows[child.vertical_indent.round(1)]
+      return nil unless m && row
+
+      child.vertical_indent <= parent.vertical_indent ? row[:bottom] + m : row[:top] - m
+    end
+
+    def rail_edge_x(child)
+      child.horizontal_indent - @global[:height_connector_to_text]
+    end
+
+    def connector_edges(child, parent, rows = row_ink)
+      hctt = @global[:height_connector_to_text]
+      child_above = child.vertical_indent <= parent.vertical_indent
+
+      # Each endpoint decides for itself. A line through a chain of invisible
+      # joints keeps one real label at most, and when the pair had to agree
+      # on a geometry, the segments beside a joint fell back to the box
+      # measure while their neighbours took the ink one — a row of leaves
+      # under example 080's joints ended thirteen units apart.
+      #
+      # An element whose ink went unrecorded falls back to the measure the
+      # boxes gave. Nothing reaches that now — every drawn label records its
+      # ink — and it is kept as the answer for a label that somehow has none
+      # rather than as a second geometry anyone can ask for.
+      m = @global[:single_x_metrics].height * @global[:vmargin]
+
+      child_y = if child.empty_label?
+                  child.vertical_indent + child.content_height / 2.0
+                elsif child_above
+                  if m && child.ink_bottom
+                    ink_under(child) + m
+                  else
+                    child.vertical_indent + child.content_height + hctt
+                  end
+                elsif m && child.ink_top
+                  ink_over(child, rows) - m
+                else
+                  child.vertical_indent + hctt / 2
+                end
+
+      parent_y = if parent.empty_label?
+                   parent.vertical_indent + parent.content_height / 2.0
+                 elsif child_above
+                   if m && parent.ink_top
+                     ink_over(parent, rows) - m
+                   else
+                     parent.vertical_indent + hctt / 2
+                   end
+                 elsif m && parent.ink_bottom
+                   ink_under(parent) + m
+                 else
+                   parent.vertical_indent + parent.content_height + hctt
+                 end
+
+      # A tight pitch can put the two endpoints past each other — the gap
+      # between the inks smaller than the clearance on both sides — and a
+      # crossed pair draws the stroke back up through a label. Both then
+      # settle at the middle of the gap, which is the one point that is
+      # clear of the ink on either side whenever the gap exists at all.
+      if m
+        upper_pt, lower_pt = child_above ? [child_y, parent_y] : [parent_y, child_y]
+        if upper_pt > lower_pt
+          mid = (upper_pt + lower_pt) / 2.0
+          child_y = mid
+          parent_y = mid
+        end
+      end
+
+      [child_y, parent_y]
+    end
+
+    # The heights of a triangle's base and apex, top to bottom or turned over.
+    # The triangle spans the child's text and points at the parent. Which
+    # way it points is the question the connectors ask as `child_above`,
+    # and the answer is not always the same: bottom-to-top turns the
+    # finished layout over, so the child sits above the parent there and
+    # the base and the apex trade sides.
+    def triangle_edges(child, parent, rows = row_ink)
+      child_above = child.vertical_indent <= parent.vertical_indent
+      m = child.ink_top && parent.ink_bottom ? @global[:single_x_metrics].height * @global[:vmargin] : nil
+      if child_above
+        y1 = m ? ink_under(child) + m : child.vertical_indent + child.content_height + @global[:height_connector_to_text]
+        y3 = m ? ink_over(parent, rows) - m : parent.vertical_indent + @global[:height_connector_to_text] / 2
+        # The apex must stay clear of the base, or the figure folds through
+        # itself; where there is no room for both clearances they meet in
+        # the middle of what room there is.
+        if m && y3 < y1
+          mid = (y1 + y3) / 2.0
+          y1 = mid
+          y3 = mid
+        end
+      else
+        y1 = m ? ink_over(child, rows) - m : child.vertical_indent + @global[:height_connector_to_text] / 2
+        y3 = m ? ink_under(parent) + m : parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
+        if m && y3 > y1
+          mid = (y1 + y3) / 2.0
+          y1 = mid
+          y3 = mid
+        end
+      end
+      [y1, y3]
     end
 
     # Below each end of a movement link in the subtree, the column its line

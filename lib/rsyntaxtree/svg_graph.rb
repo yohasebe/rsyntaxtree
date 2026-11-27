@@ -935,10 +935,6 @@ module RSyntaxTree
       new_text = +""
       this_x = 0
       this_y = 0
-      # Every line as it is painted: the baseline of a line of text, the
-      # middle and weight of a rule.
-      painted_rows = []
-      painted_rules = []
       positions, box_top, box_height = element.line_positions(top)
       bc = { x: text_x - enclosure_room, y: box_top, width: element.content_width, height: box_height }
       element.content.each_with_index do |l, idx|
@@ -956,7 +952,6 @@ module RSyntaxTree
             stroke_width = @global[:stroke_bold]
           end
           @extra_lines << "<line style=\"stroke:#{col}; fill:none; stroke-linecap:round; stroke-width:#{stroke_width}; \" x1=\"#{x1}\" y1=\"#{y1}\" x2=\"#{x2}\" y2=\"#{y2}\"></line>"
-          painted_rules << [y1, stroke_width]
         else
           if @direction == "ltr" && element.type == ETYPE_LEAF
             # LTR leaves: left-align text at the node's left edge. A leaf
@@ -972,7 +967,6 @@ module RSyntaxTree
             end
             this_x = txt_pos - (ewidth / 2)
           end
-          painted_rows << [text_y, l]
 
           l[:elements].each do |e|
             if e[:decoration].include?(:matrix)
@@ -1004,41 +998,8 @@ module RSyntaxTree
       # over its own edges; a plain label hands over the font's band around
       # its first and last baselines, so the connectors of one level start
       # level with each other whatever letters happen to hang below.
-      drawn_shape = element.enclosure != :none ||
-                    element.content.any? do |line|
-                      line[:type] == :text &&
-                        line[:elements].any? { |e| e[:decoration].include?(:matrix) }
-                    end
-      if drawn_shape
-        element.ink_top = bc[:y]
-        element.ink_bottom = bc[:y] + bc[:height]
-      elsif painted_rows.any? || painted_rules.any?
-        # The label's own ink, not the font's whole band: each run as it is
-        # painted — its glyphs at the size and on the baseline they are drawn
-        # at, the outline of a box, circle or bar — and each rule by its
-        # stroke. What the connectors then keep clear of is the union of these
-        # across a row (see row_ink), so the ends stay level within a row
-        # while a row of capitals pays no tax for descenders nobody wrote.
-        tops = []
-        bottoms = []
-        painted_rows.each do |baseline, line|
-          ups = line[:elements].filter_map { |e| e[:ink_up] }
-          downs = line[:elements].filter_map { |e| e[:ink_down] }
-          if ups.empty?
-            band = FontMetrics.get_metrics("X", @fontset[:family], @fontsize.to_f, :normal, :normal)
-            ups = [band.ink_above]
-            downs = [band.ink_height - band.ink_above]
-          end
-          tops << baseline - ups.max
-          bottoms << baseline + downs.max
-        end
-        painted_rules.each do |y, width|
-          tops << y - (width / 2.0)
-          bottoms << y + (width / 2.0)
-        end
-        element.ink_top = tops.min
-        element.ink_bottom = bottoms.max
-      end
+      ink = label_ink(element, top)
+      element.ink_top, element.ink_bottom = ink if ink
       # The block form, so the label goes in as it is. As a replacement
       # string it was read for backreferences, and `\+` — the last matched
       # group, of which there is none — took a backslash and a plus sign out
@@ -1658,128 +1619,6 @@ module RSyntaxTree
                                 .sub(/CONTENT/) { CGI.escapeHTML(name) }
     end
 
-    # Where a connector meets each box in a vertical layout: the underside of
-    # whichever sits higher and the top of whichever sits lower. Turned over,
-    # the parent is the lower of the two, and keeping the top-to-bottom edges
-    # sent the line back up through both labels. An empty label has no text to
-    # clear, so the line runs to its middle.
-    # The ink extents of a row: the union, across every plain label standing
-    # at one height, of where its type actually reaches. An endpoint measured
-    # from the label's own ink alone gives every label equal air but leaves
-    # the ends of a row's connectors ragged — a line reaches lower over `on`
-    # than over `the`; measured from the whole font's band the ends are level
-    # but a row of capitals pays for descenders nobody wrote. The row's own
-    # union keeps the ends level and charges only for what the row contains.
-    def row_ink
-      @row_ink ||= @element_list.get_elements.each_with_object({}) do |e, rows|
-        next unless e.ink_top && e.ink_bottom
-        next if e.enclosure != :none
-
-        row = (rows[e.vertical_indent.round(1)] ||= { top: e.ink_top, bottom: e.ink_bottom })
-        row[:top] = [row[:top], e.ink_top].min
-        row[:bottom] = [row[:bottom], e.ink_bottom].max
-      end
-    end
-
-    # Where a connector clears an element on the vmargin geometry: the row's
-    # ink for a plain label, the drawn edge for an enclosed one.
-    def ink_over(element)
-      row = element.enclosure == :none && row_ink[element.vertical_indent.round(1)]
-      row ? row[:top] : element.ink_top
-    end
-
-    # The lower endpoint clears the element's own ink, not the row's. A row
-    # keeps its labels top-aligned, so a tall one — a feature matrix, a
-    # two-line label — reaches far below its neighbours; taking the row's
-    # union here dragged every short label's downward connector down to that
-    # depth, opening a gap under the label with no line in it and flattening
-    # the branch of a polyline. The upper endpoint still takes the row (see
-    # ink_over): the edges arriving at a row of leaves are what must line up,
-    # which was the point of the band, and that is unchanged.
-    def ink_under(element)
-      element.ink_bottom
-    end
-
-    # Where a polyline's rail sits: halfway between the parent's end and the
-    # row its children stand in, so every child of one node turns off the same
-    # rail. A plain child's own end is not the measure: a joint's line runs to
-    # its middle, so as to pass straight through it, and a label's lower edge
-    # is its own ink, which differs from letter to letter. An enclosed child is
-    # met at the box drawn round it, as ink_over meets it, so nil sends it to
-    # its own end.
-    def rail_edge_y(child, parent)
-      m = @global[:single_x_metrics].height * @global[:vmargin]
-      row = child.enclosure == :none && row_ink[child.vertical_indent.round(1)]
-      return nil unless m && row
-
-      child.vertical_indent <= parent.vertical_indent ? row[:bottom] + m : row[:top] - m
-    end
-
-    def rail_edge_x(child)
-      child.horizontal_indent - @global[:height_connector_to_text]
-    end
-
-    def connector_edges(child, parent)
-      hctt = @global[:height_connector_to_text]
-      child_above = child.vertical_indent <= parent.vertical_indent
-
-      # Each endpoint decides for itself. A line through a chain of invisible
-      # joints keeps one real label at most, and when the pair had to agree
-      # on a geometry, the segments beside a joint fell back to the box
-      # measure while their neighbours took the ink one — a row of leaves
-      # under example 080's joints ended thirteen units apart.
-      #
-      # An element whose ink went unrecorded falls back to the measure the
-      # boxes gave. Nothing reaches that now — every drawn label records its
-      # ink — and it is kept as the answer for a label that somehow has none
-      # rather than as a second geometry anyone can ask for.
-      m = @global[:single_x_metrics].height * @global[:vmargin]
-
-      child_y = if child.empty_label?
-                  child.vertical_indent + child.content_height / 2.0
-                elsif child_above
-                  if m && child.ink_bottom
-                    ink_under(child) + m
-                  else
-                    child.vertical_indent + child.content_height + hctt
-                  end
-                elsif m && child.ink_top
-                  ink_over(child) - m
-                else
-                  child.vertical_indent + hctt / 2
-                end
-
-      parent_y = if parent.empty_label?
-                   parent.vertical_indent + parent.content_height / 2.0
-                 elsif child_above
-                   if m && parent.ink_top
-                     ink_over(parent) - m
-                   else
-                     parent.vertical_indent + hctt / 2
-                   end
-                 elsif m && parent.ink_bottom
-                   ink_under(parent) + m
-                 else
-                   parent.vertical_indent + parent.content_height + hctt
-                 end
-
-      # A tight pitch can put the two endpoints past each other — the gap
-      # between the inks smaller than the clearance on both sides — and a
-      # crossed pair draws the stroke back up through a label. Both then
-      # settle at the middle of the gap, which is the one point that is
-      # clear of the ink on either side whenever the gap exists at all.
-      if m
-        upper_pt, lower_pt = child_above ? [child_y, parent_y] : [parent_y, child_y]
-        if upper_pt > lower_pt
-          mid = (upper_pt + lower_pt) / 2.0
-          child_y = mid
-          parent_y = mid
-        end
-      end
-
-      [child_y, parent_y]
-    end
-
     # Dashed from +dash_from+ on, when given: a line through the joints leaf
     # alignment inserted is drawn one piece at a time, and each piece picks up
     # the dash where the one above it left off, so the run reads as one line.
@@ -1874,40 +1713,11 @@ module RSyntaxTree
         x3 = parent.horizontal_indent + parent.content_width + @global[:height_connector_to_text]
         y3 = parent_y_center
       else
-        # The triangle spans the child's text and points at the parent. Which
-        # way it points is the question the connectors ask as `child_above`,
-        # and the answer is not always the same: bottom-to-top turns the
-        # finished layout over, so the child sits above the parent there and
-        # the base and the apex trade sides. Drawn as though the child were
-        # always below, a bottom-to-top triangle came out inside out — its
-        # base struck through the leaf and its apex through the node — for as
-        # long as the option has existed. No gallery figure carries one: the
-        # bottom-to-top examples are derivations, which draw rules instead.
+        # The triangle spans the child's text and points at the parent.
         x1 = child.horizontal_indent
         x2 = child.horizontal_indent + child.content_width
         x3 = parent.horizontal_indent + parent.content_width / 2.0
-        child_above = child.vertical_indent <= parent.vertical_indent
-        m = child.ink_top && parent.ink_bottom ? @global[:single_x_metrics].height * @global[:vmargin] : nil
-        if child_above
-          y1 = m ? ink_under(child) + m : child.vertical_indent + child.content_height + @global[:height_connector_to_text]
-          y3 = m ? ink_over(parent) - m : parent.vertical_indent + @global[:height_connector_to_text] / 2
-          # The apex must stay clear of the base, or the figure folds through
-          # itself; where there is no room for both clearances they meet in
-          # the middle of what room there is.
-          if m && y3 < y1
-            mid = (y1 + y3) / 2.0
-            y1 = mid
-            y3 = mid
-          end
-        else
-          y1 = m ? ink_over(child) - m : child.vertical_indent + @global[:height_connector_to_text] / 2
-          y3 = m ? ink_under(parent) + m : parent.vertical_indent + parent.content_height + @global[:height_connector_to_text]
-          if m && y3 > y1
-            mid = (y1 + y3) / 2.0
-            y1 = mid
-            y3 = mid
-          end
-        end
+        y1, y3 = triangle_edges(child, parent)
         y2 = y1
       end
 
