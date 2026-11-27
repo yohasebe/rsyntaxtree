@@ -721,7 +721,7 @@ module RSyntaxTree
     # bounding rect so that neighboring subtrees keep clear of the plane.
     def subtree_rects(id)
       node = @element_list.get_id(id)
-      rects = [effective_rect(node)]
+      rects = [effective_rect(node)].concat(branch_rects(node))
       node.children.each { |c| rects.concat(subtree_rects(c)) }
       if node.region
         pad = @global[:h_gap_between_nodes]
@@ -731,6 +731,58 @@ module RSyntaxTree
                   rects.map { |r| r[3] }.max + pad]
       end
       rects
+    end
+
+    # The branches from +node+ down to its daughters, as rects to pack by.
+    # Packed by the labels alone, a neighbour's label could be set where a
+    # branch runs: a word set lower than the rest of its row (leaf alignment
+    # does this) left room beside a tall label, and the branch down to the
+    # word went through it. Each branch is taken from the bottom of the
+    # node's box to the top of the daughter's, the most it can reach: where
+    # its ends stop short of the ink is settled when it is drawn. A polyline
+    # turns somewhere in that drop, so the whole of it is kept; a straight
+    # line, and each side of a triangle, is kept a slice at a time, a line
+    # high, so a slant does not claim the corner it never reaches. Lines
+    # pass through the joints leaf alignment inserts, and a triangle reaches
+    # past them to the words.
+    def branch_rects(node)
+      return [] if @derivation || @col_line == "none" || node.inserted_joint
+
+      node.children.flat_map do |id|
+        child = @element_list.get_id(id)
+        joints, target = past_inserted_joints(child)
+        case connector_for(node, target, node.children.size == 1)
+        when :triangle
+          [target.horizontal_indent, target.horizontal_indent + target.content_width].flat_map do |x|
+            slant_rects(node, [x, target.vertical_indent])
+          end
+        when :line
+          [node, *joints, target].each_cons(2).flat_map { |upper, lower| line_rects(upper, lower) }
+        else
+          []
+        end
+      end
+    end
+
+    def line_rects(upper, lower)
+      lower_top = [lower.horizontal_indent + (lower.content_width / 2.0), lower.vertical_indent]
+      return slant_rects(upper, lower_top) unless @polyline
+
+      xs = [upper.horizontal_indent + (upper.content_width / 2.0), lower_top[0]]
+      [[upper.vertical_indent + upper.content_height, lower_top[1], xs.min, xs.max]]
+    end
+
+    def slant_rects(upper, (x1, y1))
+      x0 = upper.horizontal_indent + (upper.content_width / 2.0)
+      y0 = upper.vertical_indent + upper.content_height
+      return [] if y1 <= y0
+
+      steps = ((y1 - y0) / @global[:single_line_height]).ceil
+      (0...steps).map do |i|
+        xa = x0 + ((x1 - x0) * i / steps)
+        xb = x0 + ((x1 - x0) * (i + 1) / steps)
+        [y0 + ((y1 - y0) * i / steps), y0 + ((y1 - y0) * (i + 1) / steps), [xa, xb].min, [xa, xb].max]
+      end
     end
 
     # Below each end of a movement link in the subtree, the column its line
