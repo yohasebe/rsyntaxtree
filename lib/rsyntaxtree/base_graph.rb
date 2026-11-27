@@ -1351,29 +1351,22 @@ module RSyntaxTree
       parents = @element_list.get_elements.reject { |e| e.children.empty? }
       parents.sort_by { |p| [-p.level, -p.id] }.each do |parent|
         children = parent.children.map { |c| @element_list.get_id(c) }
-        # A path's column reaches down past sisters that end higher up, so in
-        # a tree with movement links a sister is packed against everything
-        # placed before it — the labels and columns of every earlier sister.
-        # Without paths only the neighbour's labels can be in the way, and
-        # comparing with it alone keeps a long row of sisters from growing
-        # quadratic. The branch from the parent to each daughter is set
-        # against the other side: every daughter before it against the branch
-        # to the one being placed, which passes over them on its way, and
-        # every branch to them against its subtree. Two branches from the
-        # parent are not set against each other, as they meet where they
-        # leave it.
+        # A daughter is packed against everything placed before it, not only
+        # its neighbour: a path's column reaches down past sisters that end
+        # higher up, and a branch or a deep label in its subtree can reach
+        # past a short sister to one further on. The branch from the parent
+        # to each daughter is set against the other side too: every daughter
+        # before it against the branch to the one being placed, which passes
+        # over them on its way, and every branch to them against its subtree.
+        # Two branches from the parent are not set against each other, as
+        # they meet where they leave it.
         placed = []
-        all_placed = []
         placed_branches = []
         children.each_cons(2) do |left_child, right_child|
-          placed = [] unless path_columns?
-          left = subtree_rects(left_child.id) + path_columns(left_child.id)
-          placed.concat(left)
-          all_placed.concat(left)
+          placed.concat(subtree_rects(left_child.id), path_columns(left_child.id))
           placed_branches.concat(branch_to(parent, left_child))
           right = subtree_rects(right_child.id) + path_columns(right_child.id)
-          clearance = [contour_clearance(placed, right),
-                       contour_clearance(all_placed, branch_to(parent, right_child)),
+          clearance = [contour_clearance(placed, right + branch_to(parent, right_child)),
                        contour_clearance(placed_branches, right)].compact.min
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 

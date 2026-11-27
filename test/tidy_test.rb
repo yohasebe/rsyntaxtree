@@ -211,35 +211,40 @@ class TidyTest < Minitest::Test
 
   # Branches are packed with the labels, those from a node to its daughters
   # among them, and a triangle is packed whether or not the lines are drawn.
+  # Each tree is given with the boxes and the rules it draws.
   CROSSINGS = {
     "a branch from the shared node" =>
       ["[S [A [N a] [L a<>long<>word]] [B a [##WWWWWWWWW\\nWWWWWWWWW\\nWWWWWWWWW\\nWWWWWWWWW q]]]",
-       { direction: "btt", leaf_align: "words", hspacing: 1, vheight: 0.5 }],
+       { direction: "btt", leaf_align: "words", hspacing: 1, vheight: 0.5 }, 1, 0],
     "a triangle with the lines hidden" =>
       ["[S [A [B [C [D d]]]] [R [##WWWWW\\nWWWWW\\nWWWWW q]] [^L a<>long<>word]]",
-       { leaf_align: "words", hspacing: 0.5, hide_default_connectors: "on" }],
+       { leaf_align: "words", hspacing: 0.5, hide_default_connectors: "on" }, 1, 0],
     "a polyline turned over" =>
       ["[S a [##WWW\\nWWW q] [F [A a] [B b] [C c]]]",
-       { direction: "btt", polyline: "on", hspacing: 0.75, vheight: 2.0, vmargin: 0.1 }],
+       { direction: "btt", polyline: "on", hspacing: 0.75, vheight: 2.0, vmargin: 0.1 }, 1, 0],
     "a polyline from an empty node" =>
       ["[S a [##WWW\\nWWW q] [<> [A a] [B b] [C c]]]",
-       { polyline: "on", hspacing: 0.5, vheight: 2.0, vmargin: 0.5 }],
+       { polyline: "on", hspacing: 0.5, vheight: 2.0, vmargin: 0.5 }, 1, 0],
     "a rule opening a label" =>
       ["[S [A a] [B [---\\nWWWW q] a]]",
-       { direction: "btt", leaf_align: "words", hspacing: 1, vheight: 0.5, vmargin: 0.1 }],
+       { direction: "btt", leaf_align: "words", hspacing: 1, vheight: 0.5, vmargin: 0.1 }, 0, 1],
     "a branch past a sister" =>
       ["[S [---\\nN x] [F a b] [##WW\\nWW\\nWW\\nWW q] a]",
-       { direction: "btt", polyline: "on", leaf_align: "words", hspacing: 0.75, vheight: 1, vmargin: 0.1 }]
+       { direction: "btt", polyline: "on", leaf_align: "words", hspacing: 0.75, vheight: 1, vmargin: 0.1 }, 1, 1],
+    "a triangle reaching past a short sister" =>
+      ["[S [A [##WW\\nWW q]] a [B [F one two three] [X x]]]",
+       { polyline: "on", hspacing: 0.5, vheight: 1, vmargin: 1 }, 1, 0]
   }.freeze
 
   def test_tidy_keeps_branches_out_of_boxes
-    CROSSINGS.each do |what, (data, extra)|
+    CROSSINGS.each do |what, (data, extra, box_count, rule_count)|
       %w[low medium high].each do |tidy|
         svg = generator(data, extra.merge(tidy: tidy)).draw_svg
         # What is drawn and seen: the box of a boxed label and the rule in a
         # label, and every stroke of a line or a triangle that is not hidden.
         # A rule is taken as the box its stroke paints.
         boxes = []
+        rules = []
         segments = []
         svg.scan(/<polygon style='([^']*)'\s*points='([^']*)'/) do |style, points|
           corners = points.scan(/-?[\d.]+/).map(&:to_f).each_slice(2).to_a
@@ -261,13 +266,13 @@ class TidyTest < Minitest::Test
         svg.scan(/<line style="[^"]*stroke-width:([\d.]+)[^"]*" x1="([^"]*)" y1="([^"]*)" x2="([^"]*)"/) do |width, x1, y1, x2|
           # crosses? keeps a unit in from each side.
           half = (width.to_f / 2) + 1
-          boxes << [x1.to_f - 1, x2.to_f + 1, y1.to_f - half, y1.to_f + half]
+          rules << [x1.to_f - 1, x2.to_f + 1, y1.to_f - half, y1.to_f + half]
         end
-        refute_empty boxes, "#{what}/#{tidy}: the boxed label or the rule"
+        assert_equal [box_count, rule_count], [boxes.size, rules.size], "#{what}/#{tidy}: the boxes and the rules"
         refute_empty segments, "#{what}/#{tidy}: branches drawn"
 
         segments.each do |a, b|
-          boxes.each { |box| refute crosses?(a, b, box), "#{what}/#{tidy}: a branch runs through a box" }
+          (boxes + rules).each { |box| refute crosses?(a, b, box), "#{what}/#{tidy}: a branch runs through a box" }
         end
       end
     end
