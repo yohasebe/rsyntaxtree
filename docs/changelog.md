@@ -10,6 +10,13 @@ layout: default
 [Example Gallery](https://yohasebe.github.io/rsyntaxtree/examples) |
 [Web App](https://yohasebe.com/rsyntaxtree)
 
+## [2.9.1] - 2026-11-27
+
+### Changed
+- An arrowhead on a straight connector (`+->1`) sits at the end of the line, pointing at its node, instead of halfway along it
+- A straight connector with an arrowhead between nodes in different rows runs between the centres of the two labels and stops short of each, so that its head does not land on a branch
+- Gallery: figures set so their labels read larger; the top-down versions of four systemic networks (048, 050, 051, 052) are removed in favour of their left-to-right versions
+
 ## [2.9.0] - 2026-11-26
 
 ### Added
