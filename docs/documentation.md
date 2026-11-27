@@ -828,6 +828,40 @@ A node can have any number of IDs. The same ID must appear in the text of the *t
 
 A link can carry a short text, such as a judgement mark or the number of a step, written in double quotes after its number on one of its two ends: `+>1"*"`. The text is set a little smaller than a label, in the link's colour; a mark that stands lower than a small x, such as an asterisk, is set larger until it stands as high, by half as much again at most. Where the run of the link outside the tree is long enough, the text sits across it and the line is broken under it; otherwise it sits beside the run, outside it if there is room. Write a space as `<>`; a double quote cannot be part of the text. Only a link carries a text.
 
+<div class="grid {{ site.data.doc_figure_sizes['doc-2ec683e2'].layout }}" markdown="1">
+
+```text
+[CP
+  [NP What+>2"2"]
+  [C'
+    [C do]
+    [IP
+      [NP you]
+      [VP
+        [V think]
+        [CP
+          [NP t+2+>1"1"]
+          [C'
+            [C that]
+            [IP
+              [NP John]
+              [VP
+                [V bought]
+                [NP t+1]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]
+  ]
+]
+```
+
+{% include doc_figure.html name="doc-2ec683e2" alt="Each step of a movement through intermediate positions numbered on its link" %}
+
+</div>
+
 A link to a phrase — a node with daughters — stops a clearance outside everything the phrase holds, its region shade included, on the side the words are on. It reaches the phrase as a whole rather than running in through its daughters to the label.
 
 <div class="grid {{ site.data.doc_figure_sizes['doc-c05567af'].layout }}" markdown="1">
