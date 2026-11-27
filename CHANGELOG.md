@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.10.0] - 2026-11-27
+
+### Added
+- `OPTION_KEYS` lists every option `RSGenerator` reads (not `data`, nor the options 2.0 removed), for a caller that wants a misspelt option refused
+
+### Fixed
+- A Symbol value for `direction` or `leafstyle` (`:ltr`, `:dashed`) draws what the string does
+- `tidy` no longer packs a boxed label under the edge of its neighbour's box
+- `tidy` no longer sets a branch through a neighbouring label, as it did beside a tall label with `leaf_align: "words"`
+
 ## [2.9.1] - 2026-11-27
 
 ### Changed
