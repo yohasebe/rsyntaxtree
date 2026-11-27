@@ -119,6 +119,19 @@ DEFAULT_OPTS = {
   corner_label_position: "top-left"
 }.freeze
 
+# Every option RSGenerator reads, other than :data, the input itself. Unknown
+# keys are passed over in silence (see OPTION_VALUES), so a caller that wants
+# a misspelt option refused can check its keys against this. The tables above
+# do not add up to it: an option with no default and no fixed set of values,
+# corner_label among them, is in none of them. Options 2.0 removed are not
+# here; RSGenerator refuses them itself, naming what replaced them.
+OPTION_KEYS = %i[
+  format leafstyle fontstyle fontsize linewidth vheight hspacing vmargin
+  color transparent polyline hide_default_connectors leaf_align mirror tidy
+  direction hyphen derivation shear shear_plane
+  corner_label corner_label_position corner_label_size corner_label_color corner_label_fontstyle
+].freeze
+
 # A parse or generation failure. `message` is the human-readable text the
 # CLI and the web UI display and must stay stable; the structured attributes
 # ride alongside for machine callers (`--validate`, an MCP server, a repair

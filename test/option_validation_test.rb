@@ -149,4 +149,66 @@ class OptionValidationTest < Minitest::Test
                    "the CLI should take #{option} from the library, not a copy")
     end
   end
+
+  # A value for each option that draws a different figure from the default,
+  # with whatever else the option needs in order to show: the corner label's
+  # settings need a corner label, the plane needs a shear. format is left out
+  # here, as it picks what a caller draws rather than what is in the drawing.
+  OPTION_SAMPLES = {
+    leafstyle: [{ leafstyle: "nothing" }],
+    fontstyle: [{ fontstyle: "serif" }],
+    fontsize: [{ fontsize: 20 }],
+    linewidth: [{ linewidth: 2.0 }],
+    vheight: [{ vheight: 2.0 }],
+    hspacing: [{ hspacing: 2.0 }],
+    vmargin: [{ vmargin: 0.5 }],
+    color: [{ color: "off" }],
+    transparent: [{ transparent: "on" }],
+    polyline: [{ polyline: "on" }],
+    hide_default_connectors: [{ hide_default_connectors: "on" }],
+    leaf_align: [{ leaf_align: "words" }],
+    mirror: [{ mirror: "on" }],
+    tidy: [{ tidy: "symmetric" }],
+    direction: [{ direction: "ltr" }],
+    hyphen: [{ hyphen: "literal" }],
+    derivation: [{ derivation: "on" }],
+    shear: [{ shear: 10 }],
+    shear_plane: [{ shear_plane: "off" }, { shear: 10 }],
+    corner_label: [{ corner_label: "*" }],
+    corner_label_position: [{ corner_label_position: "bottom-right" }, { corner_label: "*" }],
+    corner_label_size: [{ corner_label_size: 40 }, { corner_label: "*" }],
+    corner_label_color: [{ corner_label_color: "red" }, { corner_label: "*" }],
+    corner_label_fontstyle: [{ corner_label_fontstyle: "mono" }, { corner_label: "*" }]
+  }.freeze
+
+  SAMPLE_TREE = "[S [NP [D the] [N -cat-]] [VP [V sat] [PP [P on] [NP mats]]]]"
+
+  def svg_of(opts)
+    RSyntaxTree::RSGenerator.new({ data: SAMPLE_TREE }.merge(opts)).draw_svg
+  end
+
+  # OPTION_KEYS is what a caller checks its keys against, so each one listed
+  # has to be one the generator acts on: set to another value, it draws
+  # another figure.
+  def test_every_listed_option_changes_the_figure
+    assert_equal OPTION_KEYS - [:format], OPTION_SAMPLES.keys, "every listed option needs a sample here"
+    OPTION_SAMPLES.each do |key, (setting, needs)|
+      needs ||= {}
+      refute_equal svg_of(needs), svg_of(needs.merge(setting)), "#{key} should change the figure"
+    end
+  end
+
+  # And no option the generator acts on is missing from it. What the library
+  # reads is read off the library itself: every key it looks up in the
+  # parameters is a listed option, the input, or one the generator works out
+  # from them (the font set from fontstyle, the corner mark from the corner
+  # label's settings).
+  def test_every_option_read_is_listed
+    source = Dir[File.join(__dir__, "..", "lib", "**", "*.rb")].map { |f| File.read(f) }.join
+    read = source.scan(/params\[:([a-z_]+)\]/).flatten.map(&:to_sym).uniq
+    assert_empty read - OPTION_KEYS - %i[data fontset corner]
+    assert_empty (DEFAULT_OPTS.keys | OPTION_VALUES.keys | NUMERIC_RANGES.keys) - OPTION_KEYS
+    assert_empty REMOVED_OPTIONS.keys & OPTION_KEYS
+    refute_includes OPTION_KEYS, :data
+  end
 end
