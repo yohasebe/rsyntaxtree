@@ -686,24 +686,28 @@ module RSyntaxTree
       end
     end
 
-    # The rows +node+ takes in the layout: its content box, stretched to cover
-    # an enclosure, whose box is drawn lower than the content box and can end
-    # below it. A plain label's glyphs keep inside the content box. Bottom to
-    # top, the layout runs top to bottom and is turned over afterwards, so the
-    # enclosure is turned over within the node. Left to right, the layout's
-    # vertical runs along the line of text, and a label is drawn as long as it
-    # was laid out.
+    # The rows +node+ takes in the layout: what is painted of it, its box or
+    # its glyphs, and not the leading the content box carries above and below
+    # them. The branches are packed as well (see branch_to), and they run
+    # through that leading; with the label taken as its whole content box, a
+    # branch turning in it was set against its own sister. Left to right, the
+    # layout's vertical runs along the line of text, and a label is drawn as
+    # long as it was laid out.
     def layout_vertical_span(node)
-      top = node.vertical_indent
-      bottom = top + node.content_height
-      return [top, bottom] if @direction == "ltr" || !node.enclosed?
+      return [node.vertical_indent, node.vertical_indent + node.content_height] if @direction == "ltr"
 
+      layout_painted_span(node)
+    end
+
+    # painted_span of +node+ in the layout's terms, before the drawing sets
+    # the label: bottom to top, turned over within the node, as the layout is
+    # turned over after it runs.
+    def layout_painted_span(node)
       up, down = painted_span(node, 0.0, *node.box_offset)
-      if @direction == "btt"
-        [[top, bottom - down].min, [bottom, bottom - up].max]
-      else
-        [[top, top + up].min, [bottom, top + down].max]
-      end
+      top = node.vertical_indent
+      return [top + node.content_height - down, top + node.content_height - up] if @direction == "btt"
+
+      [top + up, top + down]
     end
 
     # Right edge of the subtree rooted at +id+, from wherever the layout has
@@ -795,14 +799,14 @@ module RSyntaxTree
       [y0, y1, *[x0, x1].minmax, x0, x1]
     end
 
-    # Where +rect+ reaches across, over the heights y0 to y1 inside it: all of
-    # it, or for a slant the part of the line between those heights.
-    def reach(rect, y0, y1)
+    # Where +rect+ reaches across at height +y+ within it: all of it, or for a
+    # slant the one point of the line there.
+    def reach(rect, y)
       return [rect[2], rect[3]] unless rect[4]
 
       top, bottom, _, _, x_top, x_bottom = rect
-      at = ->(y) { x_top + ((x_bottom - x_top) * (y - top) / (bottom - top)) }
-      [at.call([y0, top].max), at.call([y1, bottom].min)].minmax
+      x = x_top + ((x_bottom - x_top) * (y.clamp(top, bottom) - top) / (bottom - top))
+      [x, x]
     end
 
     # Below each end of a movement link in the subtree, the column its line
@@ -878,8 +882,8 @@ module RSyntaxTree
     # Minimum horizontal clearance between two sets of rects over the y
     # intervals where both sets have coverage; nil when they never co-occur
     # in y. Exact: within an elementary y interval the covering rects are
-    # constant, and a slant is straight, so comparing the max right edge
-    # against the min left edge gives the worst point of that interval.
+    # constant and a slant straight, so the gap between the two sides is
+    # narrowest at one end of the interval or the other.
     def contour_clearance(left_rects, right_rects)
       return nil if left_rects.empty? || right_rects.empty?
 
@@ -890,7 +894,7 @@ module RSyntaxTree
         right = right_rects.select { |r| r[0] < y1 && r[1] > y0 }
         next if left.empty? || right.empty?
 
-        gap = right.map { |r| reach(r, y0, y1)[0] }.min - left.map { |r| reach(r, y0, y1)[1] }.max
+        gap = [y0, y1].map { |y| right.map { |r| reach(r, y)[0] }.min - left.map { |r| reach(r, y)[1] }.max }.min
         clearance = gap if gap < clearance
       end
       clearance.infinite? ? nil : clearance

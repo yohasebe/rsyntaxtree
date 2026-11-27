@@ -217,7 +217,10 @@ class TidyTest < Minitest::Test
        { direction: "btt", leaf_align: "words", hspacing: 1, vheight: 0.5 }],
     "a triangle with the lines hidden" =>
       ["[S [A [B [C [D d]]]] [R [##WWWWW\\nWWWWW\\nWWWWW q]] [^L a<>long<>word]]",
-       { leaf_align: "words", hspacing: 0.5, hide_default_connectors: "on" }]
+       { leaf_align: "words", hspacing: 0.5, hide_default_connectors: "on" }],
+    "a polyline turned over" =>
+      ["[S a [##WWW\\nWWW q] [F [A a] [B b] [C c]]]",
+       { direction: "btt", polyline: "on", hspacing: 0.75, vheight: 2.0, vmargin: 0.1 }]
   }.freeze
 
   def test_tidy_keeps_branches_out_of_boxes
@@ -239,6 +242,11 @@ class TidyTest < Minitest::Test
         end
         svg.scan(/<line style='([^']*)' x1='([^']*)' y1='([^']*)' x2='([^']*)' y2='([^']*)'/) do |style, *xy|
           segments << xy.map(&:to_f).each_slice(2).to_a unless style.match?(/stroke:\s*none/)
+        end
+        svg.scan(/<polyline style='([^']*)'\s*points='([^']*)'/) do |style, points|
+          next if style.match?(/stroke:\s*none/)
+
+          segments.concat(points.scan(/-?[\d.]+/).map(&:to_f).each_slice(2).each_cons(2).to_a)
         end
         assert_equal 1, boxes.size, "#{what}/#{tidy}: the boxed label"
         refute_empty segments, "#{what}/#{tidy}: branches drawn"
