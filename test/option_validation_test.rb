@@ -198,6 +198,18 @@ class OptionValidationTest < Minitest::Test
     end
   end
 
+  # A value from a fixed set may come as a Symbol, and is the same choice as
+  # the string: validation reads both alike, and so must the drawing.
+  def test_a_symbol_value_draws_what_the_string_does
+    OPTION_VALUES.each do |key, values|
+      needs = key.to_s.start_with?("corner_label_") ? { corner_label: "*" } : {}
+      values.each do |value|
+        assert_equal svg_of(needs.merge(key => value)), svg_of(needs.merge(key => value.to_sym)),
+                     "#{key}: :#{value} should draw what \"#{value}\" does"
+      end
+    end
+  end
+
   # And no option the generator acts on is missing from it. What the library
   # reads is read off the library itself: every key it looks up in the
   # parameters is a listed option, the input, or one the generator works out
