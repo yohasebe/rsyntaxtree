@@ -1654,7 +1654,7 @@ module RSyntaxTree
           chi_y, par_y = connector_edges(child, parent)
 
           mid_x1 = chi_x
-          mid_y1 = par_y + ((rail_edge_y(child, parent) || chi_y) - par_y) / 2
+          mid_y1 = rail_y(child, parent, chi_y, par_y)
 
           mid_x2 = par_x
           mid_y2 = mid_y1

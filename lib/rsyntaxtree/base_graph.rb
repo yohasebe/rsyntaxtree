@@ -833,9 +833,10 @@ module RSyntaxTree
       case kind
       when :triangle
         target, base, apex = pieces
-        [target.horizontal_indent, target.horizontal_indent + target.content_width].map do |x|
-          slant(node_center(node), apex, x, base)
-        end
+        left = target.horizontal_indent
+        right = left + target.content_width
+        [stroke(node_center(node), apex, left, base), stroke(node_center(node), apex, right, base),
+         stroke(left, base, right, base)]
       when :line
         pieces.flat_map { |upper, lower, heights| line_rects(upper, lower, *heights) }
       else
@@ -852,8 +853,7 @@ module RSyntaxTree
         joints, target = past_inserted_joints(child)
         case connector_for(node, target, node.children.size == 1)
         when :triangle
-          base, apex = drawn_heights(:triangle, node, target)
-          base > apex ? [:triangle, target, base, apex] : [:none]
+          [:triangle, target, *drawn_heights(:triangle, node, target)]
         when :line
           if @col_line == "none"
             [:none]
@@ -869,11 +869,20 @@ module RSyntaxTree
     def line_rects(upper, lower, y0, y1, rail)
       x0 = node_center(upper)
       x1 = node_center(lower)
-      return [] if y1 <= y0
-      return [slant(x0, y0, x1, y1)] unless @polyline
+      return [stroke(x0, y0, x1, y1)] unless @polyline
 
-      half = @global[:stroke_normal] / 2.0
-      [slant(x0, y0, x0, rail), [rail - half, rail + half, *[x0, x1].minmax], slant(x1, rail, x1, y1)]
+      [stroke(x0, y0, x0, rail), stroke(x0, rail, x1, rail), stroke(x1, rail, x1, y1)]
+    end
+
+    # A stroke from (x0, y0) to (x1, y1) as a rect to pack by: a slant, or a
+    # level stroke as deep as the line is wide.
+    def stroke(x0, y0, x1, y1)
+      if (y1 - y0).abs < 0.01
+        half = @global[:stroke_normal] / 2.0
+        return [y0 - half, y0 + half, *[x0, x1].minmax]
+      end
+
+      y0 < y1 ? slant(x0, y0, x1, y1) : slant(x1, y1, x0, y0)
     end
 
     # The heights a branch from +upper+ down to +lower+ is drawn at, in the
@@ -885,9 +894,13 @@ module RSyntaxTree
       return triangle_edges(lower_ghost, upper_ghost, frame[:rows]).map { |y| to_layout_y(y) } if kind == :triangle
 
       lower_y, upper_y = connector_edges(lower_ghost, upper_ghost, frame[:rows])
-      rail_edge = rail_edge_y(lower_ghost, upper_ghost, frame[:rows]) || lower_y
-      ends = [to_layout_y(upper_y), to_layout_y(lower_y)]
-      [*ends, to_layout_y(upper_y + ((rail_edge - upper_y) / 2)).clamp(*ends.minmax)]
+      [upper_y, lower_y, rail_y(lower_ghost, upper_ghost, lower_y, upper_y, frame[:rows])].map { |y| to_layout_y(y) }
+    end
+
+    # The height of a polyline's rail, between the parent's end at +par_y+ and
+    # the child's at +chi_y+ (see rail_edge_y).
+    def rail_y(child, parent, chi_y, par_y, rows = row_ink)
+      par_y + (((rail_edge_y(child, parent, rows) || chi_y) - par_y) / 2)
     end
 
     def node_center(node)
@@ -1144,6 +1157,13 @@ module RSyntaxTree
     def contour_clearance(left_rects, right_rects)
       return nil if left_rects.empty? || right_rects.empty?
 
+      # Only what reaches the heights of the other side can come close.
+      top = [left_rects.map(&:first).min, right_rects.map(&:first).min].max
+      bottom = [left_rects.map { |r| r[1] }.max, right_rects.map { |r| r[1] }.max].min
+      left_rects = left_rects.select { |r| r[0] < bottom && r[1] > top }
+      right_rects = right_rects.select { |r| r[0] < bottom && r[1] > top }
+      return nil if left_rects.empty? || right_rects.empty?
+
       boundaries = (left_rects + right_rects).flat_map { |r| [r[0], r[1]] }.uniq.sort
       clearance = Float::INFINITY
       boundaries.each_cons(2) do |y0, y1|
@@ -1334,24 +1354,26 @@ module RSyntaxTree
         # A path's column reaches down past sisters that end higher up, so in
         # a tree with movement links a sister is packed against everything
         # placed before it — the labels and columns of every earlier sister.
-        # Without paths only the neighbour can be in the way, and comparing
-        # with it alone keeps a long row of sisters from growing quadratic.
-        # The branch from the parent to each daughter is set against the
-        # other side: the daughters before it against the branch to the one
-        # being placed, and their branches against its subtree. Two branches
-        # from the parent are not set against each other, as they meet where
-        # they leave it.
+        # Without paths only the neighbour's labels can be in the way, and
+        # comparing with it alone keeps a long row of sisters from growing
+        # quadratic. The branch from the parent to each daughter is set
+        # against the other side: every daughter before it against the branch
+        # to the one being placed, which passes over them on its way, and
+        # every branch to them against its subtree. Two branches from the
+        # parent are not set against each other, as they meet where they
+        # leave it.
         placed = []
+        all_placed = []
         placed_branches = []
         children.each_cons(2) do |left_child, right_child|
-          unless path_columns?
-            placed = []
-            placed_branches = []
-          end
-          placed.concat(subtree_rects(left_child.id), path_columns(left_child.id))
+          placed = [] unless path_columns?
+          left = subtree_rects(left_child.id) + path_columns(left_child.id)
+          placed.concat(left)
+          all_placed.concat(left)
           placed_branches.concat(branch_to(parent, left_child))
           right = subtree_rects(right_child.id) + path_columns(right_child.id)
-          clearance = [contour_clearance(placed, right + branch_to(parent, right_child)),
+          clearance = [contour_clearance(placed, right),
+                       contour_clearance(all_placed, branch_to(parent, right_child)),
                        contour_clearance(placed_branches, right)].compact.min
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 
@@ -1572,6 +1594,7 @@ module RSyntaxTree
     end
 
     def restore_layout(snapshot)
+      @drawn_frame = nil
       @element_list.get_elements.zip(snapshot) do |e, (h, v, ht)|
         e.horizontal_indent = h
         e.vertical_indent = v

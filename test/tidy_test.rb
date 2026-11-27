@@ -226,16 +226,19 @@ class TidyTest < Minitest::Test
        { polyline: "on", hspacing: 0.5, vheight: 2.0, vmargin: 0.5 }],
     "a rule opening a label" =>
       ["[S [A a] [B [---\\nWWWW q] a]]",
-       { direction: "btt", leaf_align: "words", hspacing: 1, vheight: 0.5, vmargin: 0.1 }]
+       { direction: "btt", leaf_align: "words", hspacing: 1, vheight: 0.5, vmargin: 0.1 }],
+    "a branch past a sister" =>
+      ["[S [---\\nN x] [F a b] [##WW\\nWW\\nWW\\nWW q] a]",
+       { direction: "btt", polyline: "on", leaf_align: "words", hspacing: 0.75, vheight: 1, vmargin: 0.1 }]
   }.freeze
 
   def test_tidy_keeps_branches_out_of_boxes
     CROSSINGS.each do |what, (data, extra)|
       %w[low medium high].each do |tidy|
         svg = generator(data, extra.merge(tidy: tidy)).draw_svg
-        # What is drawn and seen: the box of the boxed label or the rule in
-        # the label, and every stroke of a line or a triangle that is not
-        # hidden. A rule is taken as a box a stroke deep.
+        # What is drawn and seen: the box of a boxed label and the rule in a
+        # label, and every stroke of a line or a triangle that is not hidden.
+        # A rule is taken as the box its stroke paints.
         boxes = []
         segments = []
         svg.scan(/<polygon style='([^']*)'\s*points='([^']*)'/) do |style, points|
@@ -255,14 +258,16 @@ class TidyTest < Minitest::Test
 
           segments.concat(points.scan(/-?[\d.]+/).map(&:to_f).each_slice(2).each_cons(2).to_a)
         end
-        svg.scan(/<line style="[^"]*" x1="([^"]*)" y1="([^"]*)" x2="([^"]*)" y2="([^"]*)"/) do |x1, y1, x2, _|
-          boxes << [x1.to_f, x2.to_f, y1.to_f - 2, y1.to_f + 2]
+        svg.scan(/<line style="[^"]*stroke-width:([\d.]+)[^"]*" x1="([^"]*)" y1="([^"]*)" x2="([^"]*)"/) do |width, x1, y1, x2|
+          # crosses? keeps a unit in from each side.
+          half = (width.to_f / 2) + 1
+          boxes << [x1.to_f - 1, x2.to_f + 1, y1.to_f - half, y1.to_f + half]
         end
-        assert_equal 1, boxes.size, "#{what}/#{tidy}: the boxed label or the rule"
+        refute_empty boxes, "#{what}/#{tidy}: the boxed label or the rule"
         refute_empty segments, "#{what}/#{tidy}: branches drawn"
 
         segments.each do |a, b|
-          refute crosses?(a, b, boxes.first), "#{what}/#{tidy}: a branch runs through the box"
+          boxes.each { |box| refute crosses?(a, b, box), "#{what}/#{tidy}: a branch runs through a box" }
         end
       end
     end
