@@ -1,4 +1,4 @@
-RSyntaxTree examples: 89 trees, every one verified to draw.
+RSyntaxTree examples: 85 trees, every one verified to draw.
 
 Each is the input behind a figure in the gallery at https://yohasebe.github.io/rsyntaxtree/examples.
 The settings line names the options the gallery records for that figure;
@@ -552,7 +552,7 @@ Source: Langacker 1969: 175
 ## 019 — Programming language parser
 
 Category: Computer Science
-Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=low
+Settings: color=none fontstyle=noto-sans-mono leafstyle=bar polyline=on tidy=medium
 Source: Stuart 2014
 
 ```
@@ -771,7 +771,7 @@ Settings: color=none fontstyle=noto-serif leafstyle=nothing tidy=high
 ## 025 — Network of non-prototypical sentence constructions
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on vheight=3.0
+Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on
 Source: Goldberg 2006: 177
 
 ```
@@ -877,12 +877,13 @@ Source: Halliday and Hasan 1976: 33
 ## 027 — Types of rejoinder
 
 Category: Functional Grammar
-Settings: color=none fontstyle=noto-serif leafstyle=bar polyline=on tidy=low
+Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on tidy=low
 Source: Halliday and Hasan 1976: 207
 
 ```
 [REJOINDER\
- (any<>cohesive<>sequel<>by<>different<>speaker)
+ (any<>cohesive<>sequel\
+ by<>different<>speaker)
   [(following<>a<>question)\
     RESPONSE
     [(answering)\
@@ -903,7 +904,8 @@ Source: Halliday and Hasan 1976: 207
       ]
     ]
   ]
-  [(not<>following<>a<>question)\
+  [(not<>following\
+   a<>question)\
    \[other<>rejoinders\]
     [(following<>a<>statement)
       [ASSENT]
@@ -942,7 +944,7 @@ Settings: fontstyle=noto-serif tidy=low
 ## 029 — Animal ontology
 
 Category: Formal Concept Analysis
-Settings: color=none fontstyle=noto-sans-mono tidy=low vheight=2.0
+Settings: color=none fontstyle=noto-sans-mono tidy=medium vheight=2.0
 
 ```
 [##Human,<>Bonobo,<>Lion,<>Eagle,<>Sparrow,<>Ostrich\
@@ -993,7 +995,7 @@ Settings: color=none fontstyle=noto-sans-mono tidy=low vheight=2.0
 ## 030 — Construction network
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif vheight=3.0
+Settings: color=none fontstyle=noto-serif vheight=2.0
 Source: Goldberg 1995: 109
 
 ```
@@ -1059,7 +1061,7 @@ Source: Croft and Cruse 2004: 264
 ## 035 — Construction network
 
 Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif hide_default_connectors=on tidy=symmetric
+Settings: color=none fontstyle=noto-serif hide_default_connectors=on tidy=medium vheight=1.2
 Source: Goldberg 1995: 109
 
 ```
@@ -1070,9 +1072,11 @@ Source: Goldberg 1995: 109
    ---\
    *She<>kissed<>him<>unconsicous*+-1+-4
     [<>
-      [##Intransitive<>Resultative\
-      ---\
-      *The<>jello<>went<>from<>liquid<>to<>solid*+-1+-3]
+      [<>
+        [##Intransitive<>Resultative\
+        ---\
+        *The<>jello<>went<>from<>liquid<>to<>solid*+-1+-3]
+      ]
     ]
   ]
   [<>
@@ -1311,70 +1315,6 @@ Source: Langacker 1991: 147
 ]
 ```
 
-## 048 — Conjunctive adjuncts [elaboration]
-
-Category: Functional Grammar
-Settings: fontstyle=noto-serif polyline=on tidy=low
-Source: Halliday 2014: 612-614
-
-```
-[conjunctive<>adjuncts
-  [elaboration
-    [apposition
-      [expository
-        in<>other<>words\
-        that<>is<>(to<>say)\
-        I<>mean<>(to<>say)\
-        to<>put<>it<>another<>way
-      ]
-      [exemplifying
-        for<>example\
-        for<>insntance\
-        thus\
-        to<>illustrate
-      ]
-    ]
-    [clarification
-      [corrective
-        or<>rather\
-        at<>least\
-        to<>be<>more<>precise
-      ]
-      [distractive
-        by<>the<>way\
-        incidentally
-      ]
-      [dismissive
-        in<>any<>case\
-        anyway\
-        leaving<>that<>aside
-      ]
-      [particularizing
-        in<>particular\
-        more<>especially
-      ]
-      [resumptive
-        as<>I<>wasy<>saying\
-        to<>resume\
-        to<>get<>back<>to<>the<>point
-      ]
-      [summative
-        in<>short\
-        to<>sum<>up\
-        in<>conclusion\
-        briefly
-      ]
-      [verifactive
-        actually\
-        as<>a<>matter<>of<>fact\
-        in<>fact\
-        indeed
-      ]
-    ]
-  ]
-]
-```
-
 ## 049 — Conjunctive adjuncts [extension]
 
 Category: Functional Grammar
@@ -1413,234 +1353,6 @@ Source: Halliday 2014: 612-614
         alternatively
       ]
     ]
-  ]
-]
-```
-
-## 050 — Conjunctive adjuncts [enhancement (1)]
-
-Category: Functional Grammar
-Settings: fontstyle=noto-serif polyline=on tidy=low
-Source: Halliday 2014: 612-614
-
-```
-[conjunctive<>adjuncts
-  [enhancement<>(1)
-    [temporal
-      [simple
-        [following
-          then\
-          next\
-          afterwords\
-          first<>...<>then
-        ]
-        [simultaneous
-          just<>then\
-          at<>the<>same<>time
-        ]
-        [preceding
-          before<>that\
-          hitherto\
-          previously
-        ]
-        [conclusive
-          in<>the<>end\
-          finally
-        ]
-      ]
-      [complex
-        [immediate
-          at<>once\
-          thereupon\
-          straightaway
-        ]
-        [interrupted
-          soon\
-          after<>a<>while
-        ]
-        [repetitive
-          next<>time\
-          on<>another<>occasion
-        ]
-        [specific
-          next<>day\
-          an<>hour<>later\
-          that<>morning
-        ]
-        [durative
-          meanwhile\
-          all<>that<>time
-        ]
-        [terminal
-          until<>then\
-          up<>to<>that<>point
-        ]
-        [punctiliar
-          at<>this<>point
-        ]
-      ]
-      [simple<>internal
-        [following
-          next\
-          secondly\
-          my<>next<>pooint<>is\
-          first<>...<>next
-        ]
-        [simultaneous
-          at<>this<>point\
-          here\
-          now
-        ]
-        [preceding
-          hitherto\
-          up<>to<>now
-        ]
-        [conclusive
-          lastly\
-          last<>of<>all\
-          finally
-        ]
-      ]
-    ]
-  ]
-]
-```
-
-## 051 — Conjunctive adjuncts [enhancement (2)]
-
-Category: Functional Grammar
-Settings: fontstyle=noto-serif polyline=on tidy=low
-Source: Halliday 2014: 612-614
-
-```
-[conjunctive<>adjuncts
-  [enhancement<>(2)
-    [manner
-      [comparison
-        [positive
-          likewise\
-          similarly
-        ]
-        [negative
-          in<>a<>different<>way
-        ]
-      ]
-      [means
-        thus\
-        thereby\
-        by<>such<>means
-      ]
-    ]
-    [causal\-conditional
-      [general
-        so\
-        then\
-        therefore\
-        consequently\
-        hense\
-        because<>of<>that\
-        for
-      ]
-      [specific
-        [result
-          in<>consequence\
-          as<>a<>result
-        ]
-        [reason
-          on<>account<>of<>this\
-          for<>that<>reason
-        ]
-        [purpose
-          for<>that<>purpose\
-          with<>this<>in<>view
-        ]
-        [conditional:\
-         positive
-          then\
-          in<>that<>case\
-          in<>that<>event\
-          under<>the<>circumstances
-        ]
-        [conditional:\
-         negative
-          otherwise\
-          if<>not
-        ]
-        [concessive
-          yet\
-          still\
-          though\
-          despite<>this\
-          however\
-          even<>so\
-          all<>the<>same\
-          nevertheless
-        ]
-      ]
-    ]
-    [matter
-      [positive
-        here\
-        there\
-        as<>to<>that\
-        in<>that<>respect
-      ]
-      [negative
-        in<>other<>respects\
-        elsewhere
-      ]
-    ]
-  ]
-]
-```
-
-## 052 — Major clause constructions of English
-
-Category: Construction Grammar
-Settings: color=none fontstyle=noto-serif polyline=on vheight=3.0
-Source: Hoffmann 2022: 220
-
-```
-[ Major<>clause<>construction
-  [Declarative<>clause<>cxn\
-   ---\
-   *He<>was<>tired.*\
-   *He<>made<>mistakes.*
-  ]
-  [Interrogative<>cxn\
-   [Yes/No interrogative<>cxn\
-    ---\
-    *Was<>he<>tired?*\
-    *Did<>he<>make<>mistakes?*
-   ]
-   [WH\-interrogative<>cxn
-    [WH\-subject<>interrogative<>cxn\
-     ---\
-     *Who<>was<>tired?*
-    ]
-    [WH\-nonsubject<>interrogative<>cxn\
-     ---\
-     *What<>was<>he?*\
-     *What<>did<>he<>make?*
-    ]
-   ]
-  ]
-  [WH\-exclamative<>cxn\
-   ---\
-   *How<>tired<>he<>was!*\
-   *What<>mistakes<>he<>made!*
-  ]
-  Imperative<>cxn
-  [Relative<>clause<>cxn\
-   [WH\-subject<>relative<>clause<>cxn\
-    ---\
-    The<>emails,<>which<>arrived<>overnight<>...
-   ]
-   [WH\-nonsubject<>relative<>clause<>cxn\
-    ---\
-    A<>pilot<>shouldn't<>be<>tired,<>which<>Ben<>was.\
-    The<>mistalkes<>that<>he<>made<>...
-   ]
   ]
 ]
 ```
@@ -1779,14 +1491,15 @@ Source: Zufferey, Moeschler, and Reboul 2014
 ]
 ```
 
-## 059 — Major clause constructions of English (left-to-right)
+## 059 — Major clause constructions of English
 
 Category: Construction Grammar
 Settings: color=none direction=ltr fontstyle=noto-serif leafstyle=bar polyline=on tidy=low
 Source: Hoffmann 2022: 220
 
 ```
-[Major<>clause<>construction
+[Major<>clause\
+ construction
   [Declarative<>clause<>cxn
     [*He<>was<>tired.*\
      *He<>made<>mistakes.*]
@@ -1799,10 +1512,12 @@ Source: Hoffmann 2022: 220
       ]
     ]
     [WH\-interrogative<>cxn
-      [WH\-subject<>interrogative<>cxn
+      [WH\-subject\
+       interrogative<>cxn
         [*Who<>was<>tired?*]
       ]
-      [WH\-nonsubject<>interrogative<>cxn
+      [WH\-nonsubject\
+       interrogative<>cxn
         [*What<>was<>he?*\
          *What<>did<>he<>make?*]
       ]
@@ -1814,10 +1529,12 @@ Source: Hoffmann 2022: 220
   ]
   [Imperative<>cxn]
   [Relative<>clause<>cxn
-    [WH\-subject<>relative<>clause<>cxn
+    [WH\-subject<>relative\
+     clause<>cxn
       [*The<>emails,<>which<>arrived<>overnight<>...*]
     ]
-    [WH\-nonsubject<>relative<>clause<>cxn
+    [WH\-nonsubject\
+     relative<>clause<>cxn
       [*A<>pilot<>shouldn't<>be<>tired,<>which<>Ben<>was.*\
        *The<>mistakes<>that<>he<>made<>...*]
     ]
@@ -1825,7 +1542,7 @@ Source: Hoffmann 2022: 220
 ]
 ```
 
-## 060 — Conjunctive adjuncts: elaboration (left-to-right)
+## 060 — Conjunctive adjuncts [elaboration]
 
 Category: Functional Grammar
 Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low
@@ -1889,7 +1606,7 @@ Source: Halliday 2014: 612-614
 ]
 ```
 
-## 061 — Conjunctive adjuncts: enhancement 1 (left-to-right)
+## 061 — Conjunctive adjuncts [enhancement (1)]
 
 Category: Functional Grammar
 Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low
@@ -1978,7 +1695,7 @@ Source: Halliday 2014: 612-614
 ]
 ```
 
-## 062 — Conjunctive adjuncts: enhancement 2 (left-to-right)
+## 062 — Conjunctive adjuncts [enhancement (2)]
 
 Category: Functional Grammar
 Settings: direction=ltr fontstyle=noto-sans leafstyle=bar polyline=on tidy=low
@@ -2716,7 +2433,7 @@ Source: Chomsky 2013: 43-44
 ## 092 — An unlabeled intermediate landing site of wh-movement
 
 Category: Generative Grammar
-Settings: fontstyle=noto-serif tidy=medium
+Settings: fontstyle=noto-serif tidy=high
 Source: Chomsky 2013: 44-45
 
 ```

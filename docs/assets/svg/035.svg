@@ -1,21 +1,12 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-  <svg width="1971.8999999999999" height="686.5600000000001" viewBox="-16.8, 0, 1971.8999999999999, 686.5600000000001" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg width="1626.3999999999996" height="874.272" viewBox="-16.8, 0, 1626.3999999999996, 874.272" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10" fill="black"/>
     </marker>
     <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10" fill="black"/>
-    </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
-    </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
-      <path d="M 10 0 L 0 5 L 10 10 z" fill="black"/>
-    </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.4" markerHeight="16.8" orient="auto">
-      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="black"/>
     </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
@@ -27,54 +18,57 @@
       <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
   </defs>
-<rect x="-16.8" y="0" width="1971.8999999999999" height="686.5600000000001" stroke="none" fill="white" />
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='694.75' y='67.19999999999999'><tspan x='868.75' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Caused-Motion</tspan>
-<tspan x='694.75' y='156.79999999999998' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Pat<tspan style='fill:none;'>￭</tspan>sneezed<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>napkin<tspan style='fill:none;'>￭</tspan>off<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>table</tspan>
+<rect x="-16.8" y="0" width="1626.3999999999996" height="874.272" stroke="none" fill="white" />
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='522.0' y='67.19999999999999'><tspan x='696.0' y='67.19999999999999' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Caused-Motion</tspan>
+<tspan x='522.0' y='156.79999999999998' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Pat<tspan style='fill:none;'>￭</tspan>sneezed<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>napkin<tspan style='fill:none;'>￭</tspan>off<tspan style='fill:none;'>￭</tspan>the<tspan style='fill:none;'>￭</tspan>table</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='98.54999999999995' y='264.32000000000005'><tspan x='232.04999999999995' y='264.32000000000005' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Resultative</tspan>
-<tspan x='99.04999999999995' y='353.9200000000001' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">She<tspan style='fill:none;'>￭</tspan>kissed<tspan style='fill:none;'>￭</tspan>him<tspan style='fill:none;'>￭</tspan>unconsicous</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='98.54999999999995' y='317.632'><tspan x='232.04999999999995' y='317.632' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Resultative</tspan>
+<tspan x='99.04999999999995' y='407.232' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">She<tspan style='fill:none;'>￭</tspan>kissed<tspan style='fill:none;'>￭</tspan>him<tspan style='fill:none;'>￭</tspan>unconsicous</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='308.04999999999995' y='461.44000000000005'><tspan x='308.04999999999995' y='461.44000000000005' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='308.05' y='523.712'><tspan x='308.05' y='523.712' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='43.049999999999955' y='568.96'><tspan x='135.04999999999995' y='568.96' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Intransitive<tspan style='fill:none;'>￭</tspan>Resultative</tspan>
-<tspan x='43.049999999999955' y='658.56' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">The<tspan style='fill:none;'>￭</tspan>jello<tspan style='fill:none;'>￭</tspan>went<tspan style='fill:none;'>￭</tspan>from<tspan style='fill:none;'>￭</tspan>liquid<tspan style='fill:none;'>￭</tspan>to<tspan style='fill:none;'>￭</tspan>solid</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='308.05' y='640.192'><tspan x='308.05' y='640.192' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='973.75' y='264.32000000000005'><tspan x='973.75' y='264.32000000000005' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif"><tspan style='fill:none;'>￭</tspan></tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='43.05000000000001' y='756.672'><tspan x='135.05' y='756.672' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Intransitive<tspan style='fill:none;'>￭</tspan>Resultative</tspan>
+<tspan x='43.05000000000001' y='846.2719999999999' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">The<tspan style='fill:none;'>￭</tspan>jello<tspan style='fill:none;'>￭</tspan>went<tspan style='fill:none;'>￭</tspan>from<tspan style='fill:none;'>￭</tspan>liquid<tspan style='fill:none;'>￭</tspan>to<tspan style='fill:none;'>￭</tspan>solid</tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='830.75' y='371.84000000000003'><tspan x='830.75' y='371.84000000000003' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Intransitive<tspan style='fill:none;'>￭</tspan>Motion</tspan>
-<tspan x='836.75' y='461.44000000000005' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">The<tspan style='fill:none;'>￭</tspan>boy<tspan style='fill:none;'>￭</tspan>ran<tspan style='fill:none;'>￭</tspan>home</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='794.25' y='317.632'><tspan x='794.25' y='317.632' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif"><tspan style='fill:none;'>￭</tspan></tspan>
 </text>
-<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='1416.45' y='264.32000000000005'><tspan x='1582.45' y='264.32000000000005' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Transfer</tspan>
-<tspan x='1416.45' y='353.9200000000001' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Sally<tspan style='fill:none;'>￭</tspan>threw<tspan style='fill:none;'>￭</tspan>a<tspan style='fill:none;'>￭</tspan>football<tspan style='fill:none;'>￭</tspan>to<tspan style='fill:none;'>￭</tspan>him</tspan>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='651.25' y='434.11199999999997'><tspan x='651.25' y='434.11199999999997' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Intransitive<tspan style='fill:none;'>￭</tspan>Motion</tspan>
+<tspan x='657.25' y='523.712' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">The<tspan style='fill:none;'>￭</tspan>boy<tspan style='fill:none;'>￭</tspan>ran<tspan style='fill:none;'>￭</tspan>home</tspan>
 </text>
-<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='204.96' x2='981.75' y2='188.16' />
-<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='981.75' y1='233.52000000000004' x2='981.75' y2='188.16' />
-<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='1647.45' y1='204.96' x2='981.75' y2='188.16' />
-<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='430.64000000000004' x2='316.04999999999995' y2='385.28000000000003' />
-<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.04999999999995' y1='509.6000000000001' x2='316.04999999999995' y2='430.64000000000004' />
-<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='981.75' y1='312.4800000000001' x2='981.75' y2='233.52000000000004' />
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="694.75" y1="100.79999999999998" x2="1268.75" y2="100.79999999999998"></line>
+<text white-space='pre' alignment-baseline='text-top' style='fill: black; stroke-width: 0; font-size: 32px;' x='1070.9499999999998' y='317.632'><tspan x='1236.9499999999998' y='317.632' style="" text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Transfer</tspan>
+<tspan x='1070.9499999999998' y='407.232' style="font-style: italic; " text-decoration="" font-family="'Noto Serif', 'Noto Serif JP', 'Noto Serif CJK JP', 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Noto Serif Hebrew', 'Noto Serif Devanagari', 'Noto Serif Thai', 'Noto Serif Khmer', 'DejaVu Serif', 'Noto Sans Math', serif">Sally<tspan style='fill:none;'>￭</tspan>threw<tspan style='fill:none;'>￭</tspan>a<tspan style='fill:none;'>￭</tspan>football<tspan style='fill:none;'>￭</tspan>to<tspan style='fill:none;'>￭</tspan>him</tspan>
+</text>
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.05' y1='258.272' x2='809.0' y2='188.16' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='802.25' y1='286.832' x2='809.0' y2='188.16' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='1301.9499999999998' y1='258.272' x2='809.0' y2='188.16' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.05' y1='492.912' x2='316.05' y2='438.59200000000004' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.05' y1='609.392' x2='316.05' y2='492.912' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='316.05' y1='697.3119999999999' x2='316.05' y2='609.392' />
+<line style='fill: none; stroke:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;' x1='802.25' y1='374.752' x2='802.25' y2='286.832' />
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="522.0" y1="100.79999999999998" x2="1096.0" y2="100.79999999999998"></line>
 <polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='668.5,16.799999999999997 1295.0,16.799999999999997 1295.0,179.2 668.5,179.2' />
+                            points='495.75,16.799999999999997 1122.25,16.799999999999997 1122.25,179.2 495.75,179.2' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="98.54999999999995" y1="297.9200000000001" x2="533.55" y2="297.9200000000001"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="98.54999999999995" y1="351.232" x2="533.55" y2="351.232"></line>
 <polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='72.29999999999995,213.92000000000002 559.8,213.92000000000002 559.8,376.32000000000005 72.29999999999995,376.32000000000005' />
+                            points='72.29999999999995,267.23199999999997 559.8,267.23199999999997 559.8,429.63200000000006 72.29999999999995,429.63200000000006' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="43.049999999999955" y1="602.56" x2="589.05" y2="602.56"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="43.05000000000001" y1="790.2719999999999" x2="589.05" y2="790.2719999999999"></line>
 <polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='16.799999999999955,518.5600000000001 615.3,518.5600000000001 615.3,680.9599999999999 16.799999999999955,680.9599999999999' />
+                            points='16.80000000000001,706.2719999999999 615.3,706.2719999999999 615.3,868.6719999999999 16.80000000000001,868.6719999999999' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="830.75" y1="405.44000000000005" x2="1132.75" y2="405.44000000000005"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="651.25" y1="467.712" x2="953.25" y2="467.712"></line>
 <polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='804.5,321.44000000000005 1159.0,321.44000000000005 1159.0,483.84000000000003 804.5,483.84000000000003' />
+                            points='625.0,383.712 979.5,383.712 979.5,546.112 625.0,546.112' />
 
-<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1416.45" y1="297.9200000000001" x2="1878.45" y2="297.9200000000001"></line>
+<line style="stroke:black; fill:none; stroke-linecap:round; stroke-width:1.6; " x1="1070.9499999999998" y1="351.232" x2="1532.9499999999998" y2="351.232"></line>
 <polygon style='stroke:black; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
-                            points='1390.2,213.92000000000002 1904.7,213.92000000000002 1904.7,376.32000000000005 1390.2,376.32000000000005' />
+                            points='1044.6999999999998,267.23199999999997 1559.1999999999998,267.23199999999997 1559.1999999999998,429.63200000000006 1044.6999999999998,429.63200000000006' />
 
-<line x1='981.75' y1='315.84000000000003' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='316.04999999999995' y1='208.32' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='1647.45' y1='208.32' x2='981.75' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='316.04999999999995' y1='512.96' x2='316.04999999999995' y2='381.9200000000001' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='316.04999999999995' y1='512.96' x2='981.75' y2='489.44000000000005' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;'  /></svg>
+<line x1='802.25' y1='378.11199999999997' x2='809.0' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;' />
+<line x1='316.05' y1='261.632' x2='809.0' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;' />
+<line x1='1301.9499999999998' y1='261.632' x2='809.0' y2='184.8' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;' />
+<line x1='316.05' y1='700.672' x2='316.05' y2='435.232' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;' />
+<line x1='316.05' y1='700.672' x2='802.25' y2='551.712' style='fill: none; stroke: black; stroke-width:1.6; stroke-linecap:round;' /></svg>
