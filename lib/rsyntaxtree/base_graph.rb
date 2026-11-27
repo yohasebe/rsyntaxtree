@@ -1037,12 +1037,14 @@ module RSyntaxTree
     # --- Line-type connections: room for the arrow ---
 
     # The clearance a horizontally linked pair of boxes needs, in units of
-    # h_gap_between_nodes. SvgGraph#bothways_arrows draws the two heads at a
-    # span of 3 gaps whenever the link is long enough, shrinking only when it
-    # is not (span = link length × 0.8 then). The full span therefore wants a
-    # link of 3 / 0.8 gaps, and the link itself stops a 0.25-gap margin short
-    # of each box. Layout side of the same contract: spread the pair so the
-    # full-size arrow fits, and let the clamp cover what cannot be spread.
+    # h_gap_between_nodes. SvgGraph#generate_connectors draws an arrowhead one gap
+    # long at each end that points to a node, shrinking it only on a connector
+    # too short to carry it. The pair is spread to 3 / 0.8 gaps plus the 0.25-gap
+    # margin the connector stops short of each box, which leaves a bidirectional
+    # connector a shaft longer than its two heads; an end with a head stops
+    # farther off only with what is left over after that. Layout side of the
+    # same contract: spread the pair so full-size heads fit, and let the clamp
+    # cover what cannot be spread.
     LINK_ARROW_CLEARANCE = 3.0 / 0.8 + 0.25 * 2
 
     # Pairs of elements joined by a line-type connection (path entries of the

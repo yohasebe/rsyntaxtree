@@ -162,7 +162,6 @@ module RSyntaxTree
       # (13.600000000000001) in an attribute of every figure, and the SVG is a
       # deliverable people open in editors.
       as2 = (@global[:h_gap_between_nodes] * 1.0).round(3)
-      as4 = (as2 * 3).round(3)
       # The hatch density follows the type size the way the enclosure it
       # fills does: the cell is 10/32 of the font size, the line 4/32 —
       # the ratios the absolute 10 and 4 had at the default size.
@@ -179,15 +178,6 @@ module RSyntaxTree
             </marker>
             <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
               <path d="M 10 0 L 0 5 L 10 10" fill="#{@col_extra}"/>
-            </marker>
-            <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#{@col_extra}"/>
-            </marker>
-            <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="#{as2}" markerHeight="#{as2}" orient="auto">
-              <path d="M 10 0 L 0 5 L 10 10 z" fill="#{@col_extra}"/>
-            </marker>
-            <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="#{as4}" markerHeight="#{as2}" orient="auto">
-              <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#{@col_extra}"/>
             </marker>
             <pattern id="hatchBlack" x="10" y="10" width="#{hatch_cell}" height="#{hatch_cell}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
               <line x1="0" y="0" x2="0" y2="#{hatch_cell}" stroke="black" stroke-width="#{hatch_stroke}"></line>
@@ -1351,7 +1341,11 @@ module RSyntaxTree
           x2 = element.horizontal_indent + element.content_width
           y0 = element.vertical_indent + @global[:height_connector_to_text] / 2
           y1 = element.vertical_indent + element.content_height + @global[:height_connector_to_text]
-          lgeom = nil
+          # Up and down, the box is the label's ink (its drawn edge when
+          # enclosed), which draw_element has measured by now.
+          top = element.ink_top || element.vertical_indent
+          bottom = element.ink_bottom || (element.vertical_indent + element.content_height)
+          lgeom = { left: x0, right: x2, top: top, bottom: bottom, cx: x1, cy: (top + bottom) / 2.0 }
         end
         # A movement link leaves a label on the side the words are on: below
         # it top to bottom, above it bottom to top. A path to a phrase stops
@@ -1445,7 +1439,17 @@ module RSyntaxTree
         draw_a_path(t[:x1], t[:y1], t[:x2], t[:y2], t[:arrow], s_offset: t[:s_offset], t_offset: t[:t_offset],
                     label: labels[t[:number]])
       end
-      line_pool.each do |_k, v|
+      draw_straight_connectors(line_pool)
+      # The texts are placed once every other line is down, the straight
+      # connectors included, so that each keeps clear of all of them.
+      emit_links
+      paths.size + line_pool.keys.size
+    end
+
+    # The connectors written with +-: straight lines between the pairs
+    # gathered in +line_pool+.
+    def draw_straight_connectors(line_pool)
+      line_pool.each_value do |v|
         a = v[0]
         b = v[1]
 
@@ -1453,123 +1457,147 @@ module RSyntaxTree
         # scales with the inter-node gap and is clamped so an endpoint can
         # never cross the facing edge.
         margin = @global[:h_gap_between_nodes] * 0.25
+        # Across rows the clearance follows the type rather than the spacing
+        # across the page: it is the room a label keeps above and below it.
+        # Within a row an end carrying an arrowhead keeps that room too, so
+        # that the point does not touch the label, as far as the gap allows
+        # once full-size heads and a shaft as long as one of them are in.
+        cross_margin = @global[:height_connector_to_text] / 2.0
         inset = ->(gap) { [[margin, gap / 2 - 1].min, 0].max }
+        ends = lambda do |gap, first, second|
+          plain = inset.call(gap)
+          heads = [first, second].count(&:itself)
+          return [plain, plain] if heads.zero?
+
+          spare = gap - ((heads + 1) * @global[:h_gap_between_nodes]) - ((2 - heads) * plain)
+          room = (spare / heads).clamp(plain, [cross_margin, plain].max)
+          [first ? room : plain, second ? room : plain]
+        end
 
         if @direction == "ltr"
           # LTR: use x-position to determine depth relationship,
           # y-position for sibling relationship
           ga = a[:geom]
           gb = b[:geom]
-          if ga[:left] > gb[:right]
+          if (ga[:left] > gb[:right] || ga[:right] < gb[:left]) && (a[:arrow] || b[:arrow])
+            connect_boxes(ga, gb, cross_margin, a[:arrow], b[:arrow])
+          elsif ga[:left] > gb[:right]
             m = inset.call(ga[:left] - gb[:right])
-            generate_connectors(ga[:left] - m, ga[:cy], gb[:right] + m, gb[:cy], @col_extra, false, a[:arrow], b[:arrow])
+            generate_connectors(ga[:left] - m, ga[:cy], gb[:right] + m, gb[:cy], @col_extra)
           elsif ga[:right] < gb[:left]
             m = inset.call(gb[:left] - ga[:right])
-            generate_connectors(gb[:left] - m, gb[:cy], ga[:right] + m, ga[:cy], @col_extra, false, b[:arrow], a[:arrow])
+            generate_connectors(gb[:left] - m, gb[:cy], ga[:right] + m, ga[:cy], @col_extra)
           elsif ga[:cy] < gb[:cy]
-            m = inset.call(gb[:top] - ga[:bottom])
-            generate_connectors(ga[:cx], ga[:bottom] + m, ga[:cx], gb[:top] - m, @col_extra, false, a[:arrow], b[:arrow])
+            gap = gb[:top] - ga[:bottom]
+            near, far = ends.call(gap, a[:arrow], b[:arrow])
+            generate_connectors(ga[:cx], ga[:bottom] + near, ga[:cx], gb[:top] - far,
+                                @col_extra, false, a[:arrow], b[:arrow])
           else
-            m = inset.call(ga[:top] - gb[:bottom])
-            generate_connectors(gb[:cx], gb[:bottom] + m, gb[:cx], ga[:top] - m, @col_extra, false, b[:arrow], a[:arrow])
+            gap = ga[:top] - gb[:bottom]
+            near, far = ends.call(gap, b[:arrow], a[:arrow])
+            generate_connectors(gb[:cx], gb[:bottom] + near, gb[:cx], ga[:top] - far,
+                                @col_extra, false, b[:arrow], a[:arrow])
           end
         else
           # TTB: use y-position to determine depth relationship
-          if a[:y][:top] > b[:y][:bottom]
-            generate_connectors(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], @col_extra, false, a[:arrow], b[:arrow])
+          if (a[:y][:top] > b[:y][:bottom] || a[:y][:bottom] < b[:y][:top]) && (a[:arrow] || b[:arrow])
+            connect_boxes(a[:geom], b[:geom], cross_margin, a[:arrow], b[:arrow])
+          elsif a[:y][:top] > b[:y][:bottom]
+            generate_connectors(a[:x][:center], a[:y][:top], b[:x][:center], b[:y][:bottom], @col_extra)
           elsif a[:y][:bottom] < b[:y][:top]
-            generate_connectors(b[:x][:center], b[:y][:top], a[:x][:center], a[:y][:bottom], @col_extra, false, b[:arrow], a[:arrow])
+            generate_connectors(b[:x][:center], b[:y][:top], a[:x][:center], a[:y][:bottom], @col_extra)
           elsif a[:x][:center] < b[:x][:center]
-            m = inset.call(b[:x][:left] - a[:x][:right])
+            gap = b[:x][:left] - a[:x][:right]
+            near, far = ends.call(gap, a[:arrow], b[:arrow])
+            from = a[:x][:right] + near
+            to = b[:x][:left] - far
             if a[:y][:top] == b[:y][:top]
               upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
-              generate_connectors(a[:x][:right] + m, upper_y, b[:x][:left] - m, upper_y, @col_extra, false, a[:arrow], b[:arrow])
+              generate_connectors(from, upper_y, to, upper_y, @col_extra, false, a[:arrow], b[:arrow])
             else
-              generate_connectors(a[:x][:right] + m, a[:y][:center], b[:x][:left] - m, b[:y][:center], @col_extra, false, a[:arrow], b[:arrow])
+              generate_connectors(from, a[:y][:center], to, b[:y][:center], @col_extra, false, a[:arrow], b[:arrow])
             end
-          elsif a[:y][:top] == b[:y][:top]
-            upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
-            m = inset.call(a[:x][:left] - b[:x][:right])
-            generate_connectors(b[:x][:right] + m, upper_y, a[:x][:left] - m, upper_y, @col_extra, false, b[:arrow], a[:arrow])
           else
-            m = inset.call(a[:x][:left] - b[:x][:right])
-            generate_connectors(b[:x][:right] + m, b[:y][:center], a[:x][:left] - m, a[:y][:center], @col_extra, false, b[:arrow], a[:arrow])
+            gap = a[:x][:left] - b[:x][:right]
+            near, far = ends.call(gap, b[:arrow], a[:arrow])
+            from = b[:x][:right] + near
+            to = a[:x][:left] - far
+            if a[:y][:top] == b[:y][:top]
+              upper_y = a[:y][:center] < b[:y][:center] ? a[:y][:center] : b[:y][:center]
+              generate_connectors(from, upper_y, to, upper_y, @col_extra, false, b[:arrow], a[:arrow])
+            else
+              generate_connectors(from, b[:y][:center], to, a[:y][:center], @col_extra, false, b[:arrow], a[:arrow])
+            end
           end
         end
       end
-      # The texts are placed once every other line is down, the straight
-      # connectors included, so that each keeps clear of all of them.
-      emit_links
-      paths.size + line_pool.keys.size
     end
 
+    # A pair in different rows (columns, left to right) joined by a connector
+    # with an arrowhead is joined along the line between the centres of the two
+    # labels, stopped +margin+ short of each box: anchored where the branches
+    # leave the labels, as a plain connector is, the head would sit on a branch.
+    def connect_boxes(from, to, margin, from_arrow, to_arrow)
+      dx = to[:cx] - from[:cx]
+      dy = to[:cy] - from[:cy]
+      len = Math.hypot(dx, dy)
+      return if len.zero?
+
+      ux = dx / len
+      uy = dy / len
+      leave = lambda do |box|
+        across = ux.zero? ? Float::INFINITY : (box[:right] - box[:left]) / 2.0 / ux.abs
+        down = uy.zero? ? Float::INFINITY : (box[:bottom] - box[:top]) / 2.0 / uy.abs
+        [across, down].min
+      end
+      out = leave.call(from)
+      back = leave.call(to)
+      # Rows set close together leave little between the boxes; the margin
+      # gives way there, so that at least half of what is open is drawn.
+      open = len - out - back
+      return unless open.positive?
+
+      margin = [margin, open / 4.0].min
+      out += margin
+      back += margin
+
+      generate_connectors(from[:cx] + (ux * out), from[:cy] + (uy * out), to[:cx] - (ux * back), to[:cy] - (uy * back),
+                          @col_extra, false, from_arrow, to_arrow)
+    end
+
+    # A straight connector, with an arrowhead at whichever end points to a node
+    # marked with > or <. The head is as long as the inter-node gap, the size a
+    # link's head has, and shorter only where the connector is too short to
+    # carry it; the line stops at the head's base so that no stroke shows past
+    # the point.
     def generate_connectors(x1, y1, x2, y2, col, dashed = false, s_arrow = false, t_arrow = false, bline = false)
-      string = if s_arrow && t_arrow
-                 "" # bothways arrowheads are drawn as chevrons below
-               elsif s_arrow
-                 "marker-mid='url(#arrowForward)' "
-               elsif t_arrow
-                 "marker-mid='url(#arrowBackward)' "
-               else
-                 ""
-               end
       dasharray = dashed ? dash_array : ""
       swidth = bline ? @global[:stroke_bold] : @global[:stroke_normal]
-
-      if s_arrow && t_arrow
-        @extra_lines << "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray}/>"
-        @extra_lines << bothways_arrows(x1, y1, x2, y2, col, swidth)
-      elsif s_arrow || t_arrow
-        x_mid = if x2 > x1
-                  x1 + (x2 - x1) / 2
-                else
-                  x1 - (x1 - x2) / 2
-                end
-        y_mid = if y2 > y1
-                  y1 + (y2 - y1) / 2
-                else
-                  y1 - (y1 - y2) / 2
-                end
-        @extra_lines << "<path d='M#{x1},#{y1} L#{x_mid},#{y_mid} L#{x2}, #{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray} #{string}/>"
-      else
-        @extra_lines << "<line x1='#{x1}' y1='#{y1}' x2='#{x2}' y2='#{y2}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:round;' #{dasharray} #{string}/>"
-      end
-    end
-
-    # Two arrowheads back to back at the midpoint of a link, drawn as filled
-    # triangles sized to the link itself. The arrowBothways marker this
-    # replaces was one fixed size — three inter-node gaps wide — so on a
-    # short link between narrow-spaced boxes it spilled over both of them.
-    def bothways_arrows(x1, y1, x2, y2, col, swidth)
       len = Math.hypot(x2 - x1, y2 - y1)
-      return "" if len.zero?
+      return if len.zero?
 
       ux = (x2 - x1) / len
       uy = (y2 - y1) / len
-      mx = (x1 + x2) / 2
-      my = (y1 + y2) / 2
+      heads = [s_arrow, t_arrow].count(&:itself)
+      head = heads.zero? ? 0 : [@global[:h_gap_between_nodes], len / (heads + 1)].min
+      sx = s_arrow ? x1 + (ux * head) : x1
+      sy = s_arrow ? y1 + (uy * head) : y1
+      tx = t_arrow ? x2 - (ux * head) : x2
+      ty = t_arrow ? y2 - (uy * head) : y2
+      cap = heads.zero? ? "round" : "butt"
+      @extra_lines << "<line x1='#{sx}' y1='#{sy}' x2='#{tx}' y2='#{ty}' style='fill: none; stroke: #{col}; stroke-width:#{swidth}; stroke-linecap:#{cap};' #{dasharray}/>"
+      @extra_lines << connector_head(x1, y1, -ux, -uy, head, col) if s_arrow
+      @extra_lines << connector_head(x2, y2, ux, uy, head, col) if t_arrow
+    end
 
-      # Same proportions the marker had — three inter-node gaps end to end,
-      # one deep, two heads with a shaft's worth of daylight between them —
-      # so a link long enough to hold it looks as it always did. What is new
-      # is that a shorter link gets the same shape at a smaller size instead
-      # of the one fixed size spilling over the boxes on either side.
-      span = [@global[:h_gap_between_nodes] * 3, len * 0.8].min
-      head = span / 3.0
+    # A filled arrowhead with its point at (+x+, +y+), pointing along (+ux+, +uy+):
+    # +head+ long and as wide, the proportions of a link's head.
+    def connector_head(x, y, ux, uy, head, col)
+      bx = x - (ux * head)
+      by = y - (uy * head)
       half = head / 2.0
-
-      arrow = lambda do |dir|
-        tip_x = mx + ux * (span / 2.0) * dir
-        tip_y = my + uy * (span / 2.0) * dir
-        base_x = mx + ux * half * dir
-        base_y = my + uy * half * dir
-        "<polygon points='#{tip_x},#{tip_y} " \
-          "#{base_x - uy * half},#{base_y + ux * half} " \
-          "#{base_x + uy * half},#{base_y - ux * half}' " \
-          "style='fill:#{col}; stroke:none;' />"
-      end
-
-      arrow.call(1) + "\n" + arrow.call(-1)
+      "<polygon points='#{x},#{y} #{bx - (uy * half)},#{by + (ux * half)} #{bx + (uy * half)},#{by - (ux * half)}' " \
+        "style='fill:#{col}; stroke:none;' />"
     end
 
     def generate_line(x1, y1, x2, y2, col, dashed = false, arrow = false, bline = false)

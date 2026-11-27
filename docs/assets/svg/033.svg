@@ -8,15 +8,6 @@
     <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
-    </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
-      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
-    </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.4" markerHeight="16.8" orient="auto">
-      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
-    </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
@@ -79,6 +70,8 @@
 <polyline style='stroke:#009E73; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='777.9,446.88 786.3,446.88 786.3,560.68 777.9,560.68' />
 
-<line x1='388.6' y1='226.24' x2='358.14375' y2='95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<path d='M163.55,160.72 L361.51874999999995,160.72 L559.4875, 160.72' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<path d='M657.55,333.76 L523.075,322.0 L388.6, 310.24' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowForward)' /></svg>
+<line x1='388.6' y1='226.24' x2='358.14375' y2='95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
+<line x1='163.55' y1='160.72' x2='535.6875' y2='160.72' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='552.4875,160.72 535.6875,169.12 535.6875,152.32' style='fill:#CC79A7; stroke:none;' />
+<line x1='409.95265190515414' y1='279.05417146127616' x2='605.6683702371146' y2='359.84375706906286' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='621.1973480948458,366.2539713161918 602.4632631135502,367.60824599792846 608.873477360679,352.07926814019726' style='fill:#CC79A7; stroke:none;' /></svg>

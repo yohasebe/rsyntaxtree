@@ -8,15 +8,6 @@
     <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
-    </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="16.8" markerHeight="16.8" orient="auto">
-      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
-    </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="50.4" markerHeight="16.8" orient="auto">
-      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
-    </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
@@ -45,10 +36,11 @@
 <polygon style='stroke:#009E73; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='287.70000000000005,169.12 487.20000000000005,169.12 487.20000000000005,241.92 287.70000000000005,241.92' />
 
-<line x1='116.55' y1='163.51999999999998' x2='252.00000000000003' y2='95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
-<polygon points='206.7748918303711,118.01121735067586 195.55789149323175,133.0770363936823 187.99203639368233,118.07710850676824' style='fill:#CC79A7; stroke:none;' />
-<polygon points='161.7751081696289,140.70878264932412 180.55796360631768,140.64289149323173 172.99210850676826,125.64296360631766' style='fill:#CC79A7; stroke:none;' />
-<line x1='387.45000000000005' y1='163.51999999999998' x2='252.00000000000003' y2='95.19999999999999' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
-<polygon points='297.2251081696289,118.01121735067586 316.0079636063177,118.07710850676824 308.4421085067683,133.0770363936823' style='fill:#CC79A7; stroke:none;' />
-<polygon points='342.2248918303711,140.70878264932412 331.00789149323174,125.64296360631766 323.4420363936824,140.64289149323173' style='fill:#CC79A7; stroke:none;' />
-<path d='M220.5,205.51999999999998 L252.00000000000003,205.51999999999998 L283.50000000000006, 205.51999999999998' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' /></svg>
+<line x1='201.02506885437919' y1='110.52374685936479' x2='167.52493114562083' y2='148.19625314063518' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='212.18888783586934,97.9694987437459 207.30219291218862,116.10565635010987 194.74794479656975,104.94183736861972' style='fill:#CC79A7; stroke:none;' />
+<polygon points='156.36111216413067,160.75050125625407 161.2478070878114,142.61434364989012 173.80205520343026,153.77816263138024' style='fill:#CC79A7; stroke:none;' />
+<line x1='302.9749311456208' y1='110.52374685936479' x2='336.47506885437923' y2='148.19625314063518' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='291.8111121641307,97.9694987437459 309.25205520343025,104.94183736861972 296.6978070878114,116.10565635010987' style='fill:#CC79A7; stroke:none;' />
+<polygon points='347.63888783586935,160.75050125625407 330.1979447965698,153.77816263138024 342.75219291218866,142.61434364989012' style='fill:#CC79A7; stroke:none;' />
+<line x1='220.5' y1='205.51999999999998' x2='259.70000000000005' y2='205.51999999999998' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='276.50000000000006,205.51999999999998 259.70000000000005,213.92 259.70000000000005,197.11999999999998' style='fill:#CC79A7; stroke:none;' /></svg>

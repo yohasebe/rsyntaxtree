@@ -8,15 +8,6 @@
     <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="15.2" markerHeight="15.2" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="15.2" markerHeight="15.2" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
-    </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="15.2" markerHeight="15.2" orient="auto">
-      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
-    </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="45.6" markerHeight="15.2" orient="auto">
-      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
-    </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
@@ -297,15 +288,21 @@
                     width='45.5' height='41.6'
                     fill='none' />
 
-<path d='M333.65000000000003,171.9911829664381 L405.4125000000001,171.9911829664381 L477.1750000000001, 171.9911829664381' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M121.2,285.3170985203898 L157.325,285.3170985203898 L193.45, 285.3170985203898' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M246.55,285.3170985203898 L280.725,285.3170985203898 L314.90000000000003, 285.3170985203898' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<line x1='335.70000000000005' y1='395.024' x2='392.70000000000005' y2='395.024' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
+<line x1='356.25' y1='171.9911829664381' x2='477.1750000000001' y2='171.9911829664381' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='341.05,171.9911829664381 356.25,164.3911829664381 356.25,179.59118296643808' style='fill:#CC79A7; stroke:none;' />
+<line x1='143.79999999999998' y1='285.3170985203898' x2='193.45' y2='285.3170985203898' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='128.6,285.3170985203898 143.79999999999998,277.71709852038975 143.79999999999998,292.9170985203898' style='fill:#CC79A7; stroke:none;' />
+<line x1='246.55' y1='285.3170985203898' x2='292.30000000000007' y2='285.3170985203898' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='307.50000000000006,285.3170985203898 292.30000000000007,292.9170985203898 292.30000000000007,277.71709852038975' style='fill:#CC79A7; stroke:none;' />
+<line x1='356.6' y1='395.024' x2='371.80000000000007' y2='395.024' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='341.40000000000003,395.024 356.6,387.424 356.6,402.624' style='fill:#CC79A7; stroke:none;' />
 <polygon points='387.00000000000006,395.024 371.80000000000007,402.624 371.80000000000007,387.424' style='fill:#CC79A7; stroke:none;' />
-<polygon points='341.40000000000003,395.024 356.6,402.624 356.6,387.424' style='fill:#CC79A7; stroke:none;' />
-<path d='M530.2750000000001,171.9911829664381 L600.0875000000002,171.9911829664381 L669.9000000000003, 171.9911829664381' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<path d='M690.6000000000001,285.3170985203898 L725.7500000000002,285.3170985203898 L760.9000000000003, 285.3170985203898' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<path d='M814.0000000000002,285.3170985203898 L849.1500000000002,285.3170985203898 L884.3000000000002, 285.3170985203898' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowBackward)' />
-<line x1='905.1000000000001' y1='395.024' x2='962.1000000000004' y2='395.024' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
-<polygon points='956.4000000000002,395.024 941.2000000000003,402.624 941.2000000000003,387.424' style='fill:#CC79A7; stroke:none;' />
-<polygon points='910.8000000000003,395.024 926.0000000000002,402.624 926.0000000000002,387.424' style='fill:#CC79A7; stroke:none;' /></svg>
+<line x1='530.2750000000001' y1='171.9911829664381' x2='647.3000000000002' y2='171.9911829664381' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='662.5000000000002,171.9911829664381 647.3000000000002,179.59118296643808 647.3000000000002,164.3911829664381' style='fill:#CC79A7; stroke:none;' />
+<line x1='713.2000000000003' y1='285.3170985203898' x2='760.9000000000003' y2='285.3170985203898' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='698.0000000000002,285.3170985203898 713.2000000000003,277.71709852038975 713.2000000000003,292.9170985203898' style='fill:#CC79A7; stroke:none;' />
+<line x1='814.0000000000002' y1='285.3170985203898' x2='861.7' y2='285.3170985203898' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='876.9000000000001,285.3170985203898 861.7,292.9170985203898 861.7,277.71709852038975' style='fill:#CC79A7; stroke:none;' />
+<line x1='926.0000000000002' y1='395.024' x2='941.2000000000003' y2='395.024' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='910.8000000000003,395.024 926.0000000000002,387.42400000000004 926.0000000000002,402.62399999999997' style='fill:#CC79A7; stroke:none;' />
+<polygon points='956.4000000000002,395.024 941.2000000000003,402.62399999999997 941.2000000000003,387.42400000000004' style='fill:#CC79A7; stroke:none;' /></svg>

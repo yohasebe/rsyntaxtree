@@ -8,15 +8,6 @@
     <marker id="arrowStart" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="15.2" markerHeight="15.2" orient="auto">
       <path d="M 10 0 L 0 5 L 10 10" fill="#CC79A7"/>
     </marker>
-    <marker id="arrowBackward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="15.2" markerHeight="15.2" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#CC79A7"/>
-    </marker>
-    <marker id="arrowForward" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="15.2" markerHeight="15.2" orient="auto">
-      <path d="M 10 0 L 0 5 L 10 10 z" fill="#CC79A7"/>
-    </marker>
-    <marker id="arrowBothways" markerUnits="userSpaceOnUse" viewBox="0 0 30 10" refX="15" refY="5" markerWidth="45.6" markerHeight="15.2" orient="auto">
-      <path d="M 0 5 L 10 0 L 10 5 L 20 5 L 20 0 L 30 5 L 20 10 L 20 5 L 10 5 L 10 10 z" fill="#CC79A7"/>
-    </marker>
     <pattern id="hatchBlack" x="10" y="10" width="10.0" height="10.0" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <line x1="0" y="0" x2="0" y2="10.0" stroke="black" stroke-width="4.0"></line>
     </pattern>
@@ -74,19 +65,20 @@
 <polygon style='stroke:#009E73; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round;'
                             points='471.20000000000005,213.92000000000002 575.7,213.92000000000002 575.7,286.72 471.20000000000005,286.72' />
 
-<line x1='43.7' y1='208.32' x2='283.32500000000005' y2='184.8' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  />
-<line x1='189.05' y1='208.32' x2='283.32500000000005' y2='184.8' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
-<polygon points='258.30943799420993,191.04095484885903 245.40116104845032,202.0942976143563 241.72179761435632,187.3463389515497' style='fill:#CC79A7; stroke:none;' />
-<polygon points='214.06556200579013,202.07904515114097 230.65320238564374,205.7736610484503 226.97383895154974,191.0257023856437' style='fill:#CC79A7; stroke:none;' />
-<path d='M76.0,250.32000000000002 L104.5,250.32000000000002 L133.0, 250.32000000000002' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;'  marker-mid='url(#arrowForward)' />
-<line x1='245.10000000000002' y1='295.12' x2='298.3' y2='420.56000000000006' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
-<polygon points='280.60212997599405,378.8302854170807 267.67061485297114,367.80413846435823 281.66413846435825,361.86938514702894' style='fill:#CC79A7; stroke:none;' />
-<polygon points='262.79787002400604,336.8497145829194 261.73586153564185,353.8106148529711 275.72938514702895,347.87586153564183' style='fill:#CC79A7; stroke:none;' />
-<line x1='410.40000000000003' y1='250.32000000000002' x2='467.40000000000003' y2='250.32000000000002' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
+<line x1='43.7' y1='208.32' x2='283.32500000000005' y2='184.8' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
+<line x1='237.5712713068182' y1='193.66666666666666' x2='234.80372869318185' y2='199.45333333333335' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='240.33881392045458,187.88 240.46460464015155,195.05043797348483 234.67793797348486,192.28289535984848' style='fill:#CC79A7; stroke:none;' />
+<polygon points='232.03618607954547,205.24 231.9103953598485,198.06956202651517 237.6970620265152,200.83710464015152' style='fill:#CC79A7; stroke:none;' />
+<line x1='98.60000000000001' y1='250.32000000000002' x2='133.0' y2='250.32000000000002' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='83.4,250.32000000000002 98.60000000000001,242.72000000000003 98.60000000000001,257.92' style='fill:#CC79A7; stroke:none;' />
+<line x1='254.09303151856923' y1='309.40539196687115' x2='289.3069684814308' y2='406.2746080331289' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='248.9,295.12 261.2357275020048,306.80887620758654 246.95033553513366,312.00190772615576' style='fill:#CC79A7; stroke:none;' />
+<polygon points='294.5,420.56000000000006 282.1642724979952,408.8711237924135 296.4496644648663,403.6780922738443' style='fill:#CC79A7; stroke:none;' />
+<line x1='431.3' y1='250.32000000000002' x2='446.50000000000006' y2='250.32000000000002' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='416.1,250.32000000000002 431.3,242.72000000000003 431.3,257.92' style='fill:#CC79A7; stroke:none;' />
 <polygon points='461.70000000000005,250.32000000000002 446.50000000000006,257.92 446.50000000000006,242.72000000000003' style='fill:#CC79A7; stroke:none;' />
-<polygon points='416.1,250.32000000000002 431.3,257.92 431.3,242.72000000000003' style='fill:#CC79A7; stroke:none;' />
-<line x1='354.35' y1='315.84000000000003' x2='354.35' y2='292.32000000000005' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round;' />
-<polygon points='354.35,294.672 357.48600000000005,300.944 351.214,300.944' style='fill:#CC79A7; stroke:none;' />
-<polygon points='354.35,313.48800000000006 357.48600000000005,307.21600000000007 351.214,307.21600000000007' style='fill:#CC79A7; stroke:none;' />
+<line x1='354.35' y1='301.1866666666667' x2='354.35' y2='306.97333333333336' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt;' />
+<polygon points='354.35,295.40000000000003 357.24333333333334,301.1866666666667 351.4566666666667,301.1866666666667' style='fill:#CC79A7; stroke:none;' />
+<polygon points='354.35,312.76000000000005 351.4566666666667,306.97333333333336 357.24333333333334,306.97333333333336' style='fill:#CC79A7; stroke:none;' />
 <path d='M43.7,292.32 L43.7,430.72 Q43.7,441.92 54.9,441.92 L168.35,441.92 Q179.55,441.92 179.55,430.72 L179.55,381.92' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:butt; stroke-linejoin:round;' marker-end='url(#arrow)' />
 <path d='M198.55,381.92 L198.55,473.76 Q198.55,484.96 209.75,484.96 L343.15,484.96 Q354.35,484.96 354.35,473.76 L354.35,462.56' style='fill: none; stroke: #CC79A7; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;' stroke-dasharray='8.0 8.0' /></svg>

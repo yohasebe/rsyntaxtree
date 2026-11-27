@@ -916,11 +916,11 @@ One path can be highlighted in a tree, and it takes exactly two ends. A label ca
 
 ### Draw Extra Connectors between Nodes
 
-You can also add extra connector between nodes in the same fashion as you draw links between nodes. Extra connectors are drawn as straigt lines (not as `polyline`s). You may enable the `Hide connectors` option when drawing extra connectors.
+You can also add extra connector between nodes in the same fashion as you draw links between nodes. Extra connectors are drawn as straight lines (not as `polyline`s). A connector between nodes in the same row runs from the side of one label to the side of the other. Between nodes in different rows, a connector without an arrowhead meets each label where its branches do, as an edge of the tree would; one with an arrowhead runs along the line between the centres of the two labels and stops just short of each. You may enable the `Hide connectors` option when drawing extra connectors.
 
 - Non-directional (rendered as solid line `-----`)
-- Directional (rendered as solid line `--▶--`)
-- Bidirectional (rendered as solid line `-◀-▶-`)
+- Directional (rendered as solid line `-----▶`)
+- Bidirectional (rendered as solid line `◀-----▶`)
 
 Each additional connectors is distinguished by an ID number. The ID is specified by putting a a number after a sequence of a plus and a minus symbols (e.g. `+-8`) at the end of the node text. If a greater-than `>` or less-than `<` symbol is placed between the minus sign and the number (e.g. `+->8`), an arrowhead will appear at the end of the connector. Note that it makes no difference whether `+->` or `+-<` is used. The arrow is always directed to the element with one of these ID symbols.
 

@@ -663,25 +663,31 @@ end
     boxes = rects + polys
     bottom_y = boxes.map { |b| b[3] }.max
     bottom = boxes.select { |b| (b[3] - bottom_y).abs < 2 }.sort_by(&:first)
-    links = doc.css("line").select { |l| l["style"].to_s =~ /#CC79A7|purple/ }
-    bottom_links = links.select { |l| (l["y1"].to_f - bottom_y).abs < 40 }
-    assert_operator bottom_links.size, :>=, 2, "the bottom row should carry links"
+    # A connector is its line and the arrowheads at its ends; what it covers is
+    # the extent of all of that within a gap.
+    ink = doc.css("line").select { |l| l["style"].to_s =~ /#CC79A7|purple/ }
+             .select { |l| (l["y1"].to_f - bottom_y).abs < 40 }
+             .map { |l| [l["x1"].to_f, l["x2"].to_f].minmax }
+    ink += doc.css("polygon").select { |p| p["points"].split.size == 3 && p["style"].to_s.include?("fill:#CC79A7") }
+              .map { |p| p["points"].split.map { |pt| pt.split(",").map(&:to_f) } }
+              .select { |pts| pts.all? { |_, y| (y - bottom_y).abs < 40 } }
+              .map { |pts| pts.map(&:first).minmax }
+    covered = bottom.each_cons(2).filter_map do |left, right|
+      inside = ink.select { |lo, hi| lo >= left[1] - 0.001 && hi <= right[0] + 0.001 }
+      [left, right, inside.map(&:first).min, inside.map(&:last).max] unless inside.empty?
+    end
+    assert_operator covered.size, :>=, 2, "the bottom row should carry links"
 
-    bottom_links.each do |link|
-      left = bottom.select { |b| b[1] <= link["x1"].to_f + 0.001 }.max_by { |b| b[1] }
-      right = bottom.select { |b| b[0] >= link["x2"].to_f - 0.001 }.min_by { |b| b[0] }
-      refute_nil left, "link starts inside a box"
-      refute_nil right, "link ends inside a box"
+    covered.each do |left, right, from, to|
       gap = right[0] - left[1]
-      assert_operator link["x2"].to_f - link["x1"].to_f, :>=, gap * 0.5,
+      assert_operator to - from, :>=, gap * 0.5,
                       "link covers too little of the gap between #{left.inspect} and #{right.inspect}"
     end
   end
 
   def test_bothways_arrowheads_stay_between_the_boxes
-    # The bothways arrow is drawn at the midpoint of the link. The fixed-size
-    # marker it used to be was wider than a narrow gap, spilling over both
-    # boxes; the arrowheads are now sized to the link itself.
+    # A bothways connector has a head at each end, sized to the connector
+    # itself, so that on a narrow gap neither head reaches into a box.
     boxes, link, doc = link_geometry("[S [NP [A [##1+->1] [##2+-<1]]] [VP x]]", tidy: "high")
     refute_nil link, "no link drawn"
 
@@ -772,15 +778,15 @@ end
       assert_operator g, :>=, h_gap * 4.2, "linked pair too close for a full-size arrow"
     end
 
+    # Each head on the bottom row points along it, so its width across the page
+    # is its length: one inter-node gap at full size.
     heads = doc.css("polygon").select { |p| p["points"].split.size == 3 && p["style"].to_s.include?("fill:#CC79A7") }
+               .map { |p| p["points"].split.map { |pt| pt.split(",").map(&:to_f) } }
+               .select { |pts| pts.all? { |_, y| (y - bottom_y).abs < 40 } }
     refute_empty heads
-    spans = heads.map do |h|
-      xs = h["points"].split.map { |pt| pt.split(",").first.to_f }
-      [xs.min, xs.max]
-    end.sort_by(&:first)
-    spans.each_slice(2) do |left_head, right_head|
-      assert_operator right_head[1] - left_head[0], :>=, h_gap * 3 * 0.9,
-                      "bothways arrow smaller than full size"
+    heads.each do |pts|
+      xs = pts.map(&:first)
+      assert_operator xs.max - xs.min, :>=, h_gap * 0.9, "arrowhead smaller than full size"
     end
   end
 
@@ -907,5 +913,46 @@ end
 
     assert_includes tikz, "CASE"
     assert_includes tikz, "nom"
+  end
+
+  def connector_parts(data)
+    doc = Nokogiri::XML(RSyntaxTree::RSGenerator.new(@base_opts.merge(data: data)).draw_svg)
+    boxes = doc.css("polygon").select { |p| p["points"].split.size == 4 }.map do |p|
+      pts = p["points"].split.map { |pt| pt.split(",").map(&:to_f) }
+      xs, ys = pts.transpose
+      { left: xs.min, right: xs.max, top: ys.min, bottom: ys.max, cx: (xs.min + xs.max) / 2, cy: (ys.min + ys.max) / 2 }
+    end
+    line = doc.css("line").find { |l| l["style"].to_s.include?("#CC79A7") }
+    heads = doc.css("polygon")
+               .select { |p| p["points"].split.size == 3 && p["style"].to_s.include?("fill:#CC79A7") }
+               .map { |p| p["points"].split.map { |pt| pt.split(",").map(&:to_f) } }
+    [boxes, line, heads]
+  end
+
+  def test_a_connector_arrowhead_points_at_the_end
+    boxes, line, heads = connector_parts("[S [##A+-1] [##B+->1]]")
+    left, right = boxes.sort_by { |b| b[:left] }
+    assert_equal 1, heads.size
+    tip = heads.first.max_by(&:first)
+    base = heads.first.min_by(&:first)[0]
+    assert_operator tip[0], :<=, right[:left], "the head reaches into the box it points to"
+    assert_operator right[:left] - tip[0], :<, (right[:left] - left[:right]) / 4.0, "the head stops short of the end"
+    assert_in_delta base, line["x2"].to_f, 0.01, "the line runs on past the head's base"
+  end
+
+  def test_a_connector_across_rows_runs_between_the_label_centres
+    boxes, line, heads = connector_parts("[S [##A+->1 [X x]] [Y [##B+-1]]]")
+    upper, lower = boxes.sort_by { |b| b[:top] }
+    assert_equal 1, heads.size
+    tip = heads.first.min_by { |_, y| y }
+    tail = [[line["x1"].to_f, line["y1"].to_f], [line["x2"].to_f, line["y2"].to_f]].max_by { |_, y| y }
+    dx = lower[:cx] - upper[:cx]
+    dy = lower[:cy] - upper[:cy]
+    [tip, tail].each do |x, y|
+      off_line = ((x - upper[:cx]) * dy - (y - upper[:cy]) * dx).abs / Math.hypot(dx, dy)
+      assert_operator off_line, :<, 0.01, "an end strays from the line between the centres"
+    end
+    assert(tip[0] > upper[:right] || tip[1] > upper[:bottom], "the head reaches into the upper box")
+    assert(tail[0] < lower[:left] || tail[1] < lower[:top], "the line reaches into the lower box")
   end
 end
