@@ -417,10 +417,10 @@ module RSyntaxTree
             new_params[key] = v
           end
         when *OPTION_VALUES.keys
-          # A value from a fixed set is checked above in its written form, so
-          # :ltr passes as "ltr" does, and the drawing compares strings. Kept
-          # as given, a Symbol drew another figure with nothing said: :ltr
-          # top to bottom, :dashed as triangles.
+          # A value from a fixed set that no branch above reads is checked in its
+          # written form, so :ltr passes as "ltr" does, and the drawing compares
+          # strings. Kept as given, a Symbol drew another figure with nothing
+          # said: :ltr top to bottom.
           new_params[key] = value.to_s
         else
           new_params[key] = value

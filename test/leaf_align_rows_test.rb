@@ -72,6 +72,11 @@ class LeafAlignRowsTest < Minitest::Test
         [xs.min, xs.max, ys.min, ys.max]
       end
       assert_equal 7, boxes.size, "#{tidy}: one pair of brackets per matrix"
+      # The branch down to the preposition, the one matrix of a single row,
+      # ends above it.
+      adp = boxes.min_by { |_, _, top, bottom| bottom - top }
+      assert(branches.any? { |(x, y), *| x.between?(adp[0], adp[1]) && y <= adp[2] },
+             "#{tidy}: the branch to the preposition")
 
       branches.each do |branch|
         branch.each_cons(2) do |(ax, ay), (bx, by)|

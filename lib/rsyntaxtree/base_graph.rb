@@ -698,8 +698,7 @@ module RSyntaxTree
       bottom = top + node.content_height
       return [top, bottom] if @direction == "ltr" || !node.enclosed?
 
-      _, box_top, box_height = node.line_positions(0.0)
-      up, down = painted_span(node, 0.0, box_top, box_height)
+      up, down = painted_span(node, 0.0, *node.box_offset)
       if @direction == "btt"
         [[top, bottom - down].min, [bottom, bottom - up].max]
       else
@@ -737,30 +736,39 @@ module RSyntaxTree
     # Packed by the labels alone, a neighbour's label could be set where a
     # branch runs: a word set lower than the rest of its row (leaf alignment
     # does this) left room beside a tall label, and the branch down to the
-    # word went through it. Each branch is taken from the bottom of the
-    # node's box to the top of the daughter's, the most it can reach: where
-    # its ends stop short of the ink is settled when it is drawn. A polyline
-    # turns somewhere in that drop, so the whole of it is kept; a straight
-    # line, and each side of a triangle, is kept a slice at a time, a line
-    # high, so a slant does not claim the corner it never reaches. Lines
-    # pass through the joints leaf alignment inserts, and a triangle reaches
-    # past them to the words.
+    # word went through it. A branch belongs with the node it leaves, so a
+    # subtree carries the branches inside it; tidy_compress sets the branches
+    # from a node to two of its daughters against the other daughter's subtree.
     def branch_rects(node)
-      return [] if @derivation || @col_line == "none" || node.inserted_joint
+      node.children.flat_map { |id| branch_to(node, @element_list.get_id(id)) }
+    end
 
-      node.children.flat_map do |id|
-        child = @element_list.get_id(id)
-        joints, target = past_inserted_joints(child)
-        case connector_for(node, target, node.children.size == 1)
-        when :triangle
-          [target.horizontal_indent, target.horizontal_indent + target.content_width].flat_map do |x|
-            slant_rects(node, [x, target.vertical_indent])
-          end
-        when :line
-          [node, *joints, target].each_cons(2).flat_map { |upper, lower| line_rects(upper, lower) }
-        else
-          []
+    # The branch from +node+ down to +child+, taken from the bottom of the
+    # node's box to the top of the daughter's, the most it can reach: where its
+    # ends stop short of the ink is settled when it is drawn. A polyline turns
+    # somewhere in that drop, so the whole of it is kept; a straight line, and
+    # each side of a triangle, is kept a slice at a time, none wider or taller
+    # than the gap between nodes, so a slant does not claim the corner it
+    # never reaches. Lines pass through the
+    # joints leaf alignment inserts, and a triangle reaches past them to the
+    # words. Hidden connectors take no room, though a triangle is still drawn.
+    # Left to right, a branch joins the sides of the labels at heights the
+    # drawing settles, which this does not follow, and none is kept.
+    def branch_to(node, child)
+      return [] if @derivation || @direction == "ltr" || node.inserted_joint
+
+      joints, target = past_inserted_joints(child)
+      case connector_for(node, target, node.children.size == 1)
+      when :triangle
+        [target.horizontal_indent, target.horizontal_indent + target.content_width].flat_map do |x|
+          slant_rects(node, [x, target.vertical_indent])
         end
+      when :line
+        return [] if @col_line == "none"
+
+        [node, *joints, target].each_cons(2).flat_map { |upper, lower| line_rects(upper, lower) }
+      else
+        []
       end
     end
 
@@ -776,8 +784,9 @@ module RSyntaxTree
       x0 = upper.horizontal_indent + (upper.content_width / 2.0)
       y0 = upper.vertical_indent + upper.content_height
       return [] if y1 <= y0
+      return [[y0, y1, x0, x0]] if (x1 - x0).abs < 0.01
 
-      steps = ((y1 - y0) / @global[:single_line_height]).ceil
+      steps = ([(x1 - x0).abs, y1 - y0].max / @global[:h_gap_between_nodes]).ceil
       (0...steps).map do |i|
         xa = x0 + ((x1 - x0) * i / steps)
         xb = x0 + ((x1 - x0) * (i + 1) / steps)
@@ -1053,11 +1062,24 @@ module RSyntaxTree
         # placed before it — the labels and columns of every earlier sister.
         # Without paths only the neighbour can be in the way, and comparing
         # with it alone keeps a long row of sisters from growing quadratic.
+        # The branch from the parent to each daughter is set against the
+        # other side: the daughters before it against the branch to the one
+        # being placed, and their branches against its subtree. Two branches
+        # from the parent are not set against each other, as they meet where
+        # they leave it.
         placed = []
+        placed_branches = []
         children.each_cons(2) do |left_child, right_child|
-          placed = [] unless path_columns?
+          unless path_columns?
+            placed = []
+            placed_branches = []
+          end
           placed.concat(subtree_rects(left_child.id), path_columns(left_child.id))
-          clearance = contour_clearance(placed, subtree_rects(right_child.id) + path_columns(right_child.id))
+          placed_branches.concat(branch_to(parent, left_child))
+          right = subtree_rects(right_child.id) + path_columns(right_child.id)
+          clearance = [contour_clearance(placed, right),
+                       contour_clearance(placed, branch_to(parent, right_child)),
+                       contour_clearance(placed_branches, right)].compact.min
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 
           case @tidy_nest
@@ -1284,19 +1306,22 @@ module RSyntaxTree
       end
     end
 
-    # Pairwise intersection over the effective (decoration-aware) rects. A
-    # node and its own daughter are left out: a word pulled up under its
-    # node is set against it by the vertical placement, which the passes this
-    # guards do not change, and a boxed node's box reaches past its content
-    # box onto such a word.
+    # Pairwise intersection over the effective (decoration-aware) rects. A word
+    # pulled up against its node is left out with it: the vertical placement
+    # sets the two edge to edge, the passes this guards do not move them apart,
+    # and a boxed node's box reaches past its content box onto the word.
     def layout_overlaps?
       elements = @element_list.get_elements
       rects = elements.map { |e| effective_rect(e) }
       elements.zip(rects).combination(2).any? do |(e, a), (f, b)|
-        next false if e.parent == f.id || f.parent == e.id
+        next false if pulled_up_against?(e, f) || pulled_up_against?(f, e)
 
         a[2] < b[3] - 0.01 && b[2] < a[3] - 0.01 && a[0] < b[1] - 0.01 && b[0] < a[1] - 0.01
       end
+    end
+
+    def pulled_up_against?(node, child)
+      child.parent == node.id && (child.vertical_indent - node.vertical_indent - node.content_height).abs < 0.01
     end
 
     # LTR layout: two-phase coordinate transformation.

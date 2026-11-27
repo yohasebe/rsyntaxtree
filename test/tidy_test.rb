@@ -209,6 +209,48 @@ class TidyTest < Minitest::Test
     end
   end
 
+  # Branches are packed with the labels, those from a node to its daughters
+  # among them, and a triangle is packed whether or not the lines are drawn.
+  CROSSINGS = {
+    "a branch from the shared node" =>
+      ["[S [A [N a] [L a<>long<>word]] [B a [##WWWWWWWWW\\nWWWWWWWWW\\nWWWWWWWWW\\nWWWWWWWWW q]]]",
+       { direction: "btt", leaf_align: "words", hspacing: 1, vheight: 0.5 }],
+    "a triangle with the lines hidden" =>
+      ["[S [A [B [C [D d]]]] [R [##WWWWW\\nWWWWW\\nWWWWW q]] [^L a<>long<>word]]",
+       { leaf_align: "words", hspacing: 0.5, hide_default_connectors: "on" }]
+  }.freeze
+
+  def test_tidy_keeps_branches_out_of_boxes
+    CROSSINGS.each do |what, (data, extra)|
+      %w[low medium high].each do |tidy|
+        svg = generator(data, extra.merge(tidy: tidy)).draw_svg
+        shapes = svg.scan(/<polygon[^>]*points='([^']*)'/).map do |(points)|
+          points.scan(/-?[\d.]+/).map(&:to_f).each_slice(2).to_a
+        end
+        boxes = shapes.select { |s| s.size == 4 }.map do |s|
+          xs, ys = s.transpose
+          [xs.min, xs.max, ys.min, ys.max]
+        end
+        segments = svg.scan(/<line style='([^']*)' x1='([^']*)' y1='([^']*)' x2='([^']*)' y2='([^']*)'/)
+                      .reject { |style, *| style.include?("stroke:none") }
+                      .map { |_, *xy| xy.map(&:to_f).each_slice(2).to_a }
+        shapes.select { |s| s.size == 3 }.each { |s| segments.concat(s.zip(s.rotate)) }
+        assert_equal 1, boxes.size, "#{what}/#{tidy}: the boxed label"
+        refute_empty segments, "#{what}/#{tidy}: branches drawn"
+
+        left, right, top, bottom = boxes.first
+        segments.each do |(ax, ay), (bx, by)|
+          crossing = (0..100).any? do |i|
+            x = ax + ((bx - ax) * i / 100.0)
+            y = ay + ((by - ay) * i / 100.0)
+            x > left + 1 && x < right - 1 && y > top + 1 && y < bottom - 1
+          end
+          refute crossing, "#{what}/#{tidy}: a branch runs through the box"
+        end
+      end
+    end
+  end
+
   # Left to right, the tree turns but the options do not: hspacing is what
   # separates sisters, which now stand one above another, so it is the height
   # that answers to it. The layout replaces the sister gap with one of its own

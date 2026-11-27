@@ -191,7 +191,7 @@ class OptionValidationTest < Minitest::Test
   # has to be one the generator acts on: set to another value, it draws
   # another figure.
   def test_every_listed_option_changes_the_figure
-    assert_equal OPTION_KEYS - [:format], OPTION_SAMPLES.keys, "every listed option needs a sample here"
+    assert_equal (OPTION_KEYS - [:format]).sort, OPTION_SAMPLES.keys.sort, "every listed option needs a sample here"
     OPTION_SAMPLES.each do |key, (setting, needs)|
       needs ||= {}
       refute_equal svg_of(needs), svg_of(needs.merge(setting)), "#{key} should change the figure"
