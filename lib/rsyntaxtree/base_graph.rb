@@ -743,25 +743,25 @@ module RSyntaxTree
       node.children.flat_map { |id| branch_to(node, @element_list.get_id(id)) }
     end
 
-    # The branch from +node+ down to +child+, taken from the bottom of the
-    # node's box to the top of the daughter's, the most it can reach: where its
-    # ends stop short of the ink is settled when it is drawn. A polyline turns
-    # somewhere in that drop, so the whole of it is kept; a straight line, and
-    # each side of a triangle, is kept a slice at a time, none wider or taller
-    # than the gap between nodes, so a slant does not claim the corner it
-    # never reaches. Lines pass through the
-    # joints leaf alignment inserts, and a triangle reaches past them to the
-    # words. Hidden connectors take no room, though a triangle is still drawn.
-    # Left to right, a branch joins the sides of the labels at heights the
-    # drawing settles, which this does not follow, and none is kept.
+    # The branch from +node+ down to +child+, as the drawing sets it: from the
+    # lower edge of what is painted of the node to the upper edge of what is
+    # painted of the daughter, a polyline turning halfway between them. A
+    # straight line, and each side of a triangle, is kept as the slant it is,
+    # which contour_clearance follows a height at a time; a polyline as its two
+    # uprights and the rail across, the rail as thick as the stroke and the
+    # leeway its height has. Lines pass through the joints leaf alignment
+    # inserts, and a triangle reaches past them to the words. Hidden connectors
+    # take no room, though a triangle is still drawn. Left to right, a branch
+    # joins the sides of the labels at heights the drawing settles, which this
+    # does not follow, and none is kept.
     def branch_to(node, child)
       return [] if @derivation || @direction == "ltr" || node.inserted_joint
 
       joints, target = past_inserted_joints(child)
       case connector_for(node, target, node.children.size == 1)
       when :triangle
-        [target.horizontal_indent, target.horizontal_indent + target.content_width].flat_map do |x|
-          slant_rects(node, [x, target.vertical_indent])
+        [target.horizontal_indent, target.horizontal_indent + target.content_width].map do |x|
+          slant(node_center(node), layout_vertical_span(node)[1], x, layout_vertical_span(target)[0])
         end
       when :line
         return [] if @col_line == "none"
@@ -773,25 +773,36 @@ module RSyntaxTree
     end
 
     def line_rects(upper, lower)
-      lower_top = [lower.horizontal_indent + (lower.content_width / 2.0), lower.vertical_indent]
-      return slant_rects(upper, lower_top) unless @polyline
+      x0 = node_center(upper)
+      x1 = node_center(lower)
+      y0 = layout_vertical_span(upper)[1]
+      y1 = layout_vertical_span(lower)[0]
+      return [] if y1 <= y0
+      return [slant(x0, y0, x1, y1)] unless @polyline
 
-      xs = [upper.horizontal_indent + (upper.content_width / 2.0), lower_top[0]]
-      [[upper.vertical_indent + upper.content_height, lower_top[1], xs.min, xs.max]]
+      rail = (y0 + y1) / 2.0
+      half = @global[:height_connector_to_text] / 4.0
+      [slant(x0, y0, x0, rail), [rail - half, rail + half, *[x0, x1].minmax], slant(x1, rail, x1, y1)]
     end
 
-    def slant_rects(upper, (x1, y1))
-      x0 = upper.horizontal_indent + (upper.content_width / 2.0)
-      y0 = upper.vertical_indent + upper.content_height
-      return [] if y1 <= y0
-      return [[y0, y1, x0, x0]] if (x1 - x0).abs < 0.01
+    def node_center(node)
+      node.horizontal_indent + (node.content_width / 2.0)
+    end
 
-      steps = ([(x1 - x0).abs, y1 - y0].max / @global[:h_gap_between_nodes]).ceil
-      (0...steps).map do |i|
-        xa = x0 + ((x1 - x0) * i / steps)
-        xb = x0 + ((x1 - x0) * (i + 1) / steps)
-        [y0 + ((y1 - y0) * i / steps), y0 + ((y1 - y0) * (i + 1) / steps), [xa, xb].min, [xa, xb].max]
-      end
+    # A line from (x0, y0) down to (x1, y1), as a rect that also says where the
+    # line is along it: the x at its top and at its bottom.
+    def slant(x0, y0, x1, y1)
+      [y0, y1, *[x0, x1].minmax, x0, x1]
+    end
+
+    # Where +rect+ reaches across, over the heights y0 to y1 inside it: all of
+    # it, or for a slant the part of the line between those heights.
+    def reach(rect, y0, y1)
+      return [rect[2], rect[3]] unless rect[4]
+
+      top, bottom, _, _, x_top, x_bottom = rect
+      at = ->(y) { x_top + ((x_bottom - x_top) * (y - top) / (bottom - top)) }
+      [at.call([y0, top].max), at.call([y1, bottom].min)].minmax
     end
 
     # Below each end of a movement link in the subtree, the column its line
@@ -867,9 +878,11 @@ module RSyntaxTree
     # Minimum horizontal clearance between two sets of rects over the y
     # intervals where both sets have coverage; nil when they never co-occur
     # in y. Exact: within an elementary y interval the covering rects are
-    # constant, so comparing the max right edge against the min left edge
-    # gives the worst point of that interval.
+    # constant, and a slant is straight, so comparing the max right edge
+    # against the min left edge gives the worst point of that interval.
     def contour_clearance(left_rects, right_rects)
+      return nil if left_rects.empty? || right_rects.empty?
+
       boundaries = (left_rects + right_rects).flat_map { |r| [r[0], r[1]] }.uniq.sort
       clearance = Float::INFINITY
       boundaries.each_cons(2) do |y0, y1|
@@ -877,7 +890,7 @@ module RSyntaxTree
         right = right_rects.select { |r| r[0] < y1 && r[1] > y0 }
         next if left.empty? || right.empty?
 
-        gap = right.map { |r| r[2] }.min - left.map { |r| r[3] }.max
+        gap = right.map { |r| reach(r, y0, y1)[0] }.min - left.map { |r| reach(r, y0, y1)[1] }.max
         clearance = gap if gap < clearance
       end
       clearance.infinite? ? nil : clearance
@@ -1077,8 +1090,7 @@ module RSyntaxTree
           placed.concat(subtree_rects(left_child.id), path_columns(left_child.id))
           placed_branches.concat(branch_to(parent, left_child))
           right = subtree_rects(right_child.id) + path_columns(right_child.id)
-          clearance = [contour_clearance(placed, right),
-                       contour_clearance(placed, branch_to(parent, right_child)),
+          clearance = [contour_clearance(placed, right + branch_to(parent, right_child)),
                        contour_clearance(placed_branches, right)].compact.min
           delta = clearance.nil? ? 0.0 : tidy_gap - clearance
 

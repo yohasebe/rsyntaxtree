@@ -224,29 +224,60 @@ class TidyTest < Minitest::Test
     CROSSINGS.each do |what, (data, extra)|
       %w[low medium high].each do |tidy|
         svg = generator(data, extra.merge(tidy: tidy)).draw_svg
-        shapes = svg.scan(/<polygon[^>]*points='([^']*)'/).map do |(points)|
-          points.scan(/-?[\d.]+/).map(&:to_f).each_slice(2).to_a
+        # What is drawn and seen: the box of the boxed label, and every stroke
+        # of a line or a triangle that is not hidden.
+        boxes = []
+        segments = []
+        svg.scan(/<polygon style='([^']*)'\s*points='([^']*)'/) do |style, points|
+          corners = points.scan(/-?[\d.]+/).map(&:to_f).each_slice(2).to_a
+          if corners.size == 4
+            xs, ys = corners.transpose
+            boxes << [xs.min, xs.max, ys.min, ys.max]
+          elsif !style.match?(/stroke:\s*none/)
+            segments.concat(corners.zip(corners.rotate))
+          end
         end
-        boxes = shapes.select { |s| s.size == 4 }.map do |s|
-          xs, ys = s.transpose
-          [xs.min, xs.max, ys.min, ys.max]
+        svg.scan(/<line style='([^']*)' x1='([^']*)' y1='([^']*)' x2='([^']*)' y2='([^']*)'/) do |style, *xy|
+          segments << xy.map(&:to_f).each_slice(2).to_a unless style.match?(/stroke:\s*none/)
         end
-        segments = svg.scan(/<line style='([^']*)' x1='([^']*)' y1='([^']*)' x2='([^']*)' y2='([^']*)'/)
-                      .reject { |style, *| style.include?("stroke:none") }
-                      .map { |_, *xy| xy.map(&:to_f).each_slice(2).to_a }
-        shapes.select { |s| s.size == 3 }.each { |s| segments.concat(s.zip(s.rotate)) }
         assert_equal 1, boxes.size, "#{what}/#{tidy}: the boxed label"
         refute_empty segments, "#{what}/#{tidy}: branches drawn"
 
-        left, right, top, bottom = boxes.first
-        segments.each do |(ax, ay), (bx, by)|
-          crossing = (0..100).any? do |i|
-            x = ax + ((bx - ax) * i / 100.0)
-            y = ay + ((by - ay) * i / 100.0)
-            x > left + 1 && x < right - 1 && y > top + 1 && y < bottom - 1
-          end
-          refute crossing, "#{what}/#{tidy}: a branch runs through the box"
+        segments.each do |a, b|
+          refute crosses?(a, b, boxes.first), "#{what}/#{tidy}: a branch runs through the box"
         end
+      end
+    end
+  end
+
+  # Whether the segment from +a+ to +b+ passes through the inside of +box+,
+  # kept a unit in from each side: the stretch of the segment within the box's
+  # width and the stretch within its height have to overlap.
+  def crosses?((ax, ay), (bx, by), (left, right, top, bottom))
+    from = 0.0
+    to = 1.0
+    [[ax, bx, left + 1, right - 1], [ay, by, top + 1, bottom - 1]].each do |p, q, low, high|
+      if (q - p).abs < 1e-9
+        return false unless p > low && p < high
+      else
+        ends = [(low - p) / (q - p), (high - p) / (q - p)].sort
+        from = [from, ends[0]].max
+        to = [to, ends[1]].min
+      end
+    end
+    from < to
+  end
+
+  # A row of boxed sisters gives tidy nothing to tuck, so it draws them no
+  # wider than the plain layout, whichever way the tree grows and whatever
+  # the branches are drawn as.
+  def test_tidy_draws_a_row_of_boxes_no_wider_than_off
+    width = ->(opts) { generator("[S [##N x] [##N y] [##N z]]", opts).draw_svg[/width="([\d.]+)"/, 1].to_f }
+    %w[ttb btt].product(%w[on off]).each do |direction, polyline|
+      off = width.call(direction: direction, polyline: polyline, tidy: "off")
+      %w[low medium high].each do |tidy|
+        assert_operator width.call(direction: direction, polyline: polyline, tidy: tidy), :<=, off + 0.01,
+                        "#{direction}/polyline #{polyline}/#{tidy}"
       end
     end
   end
